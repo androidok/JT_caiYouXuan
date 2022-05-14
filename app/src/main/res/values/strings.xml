@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="app_name">商城买家版</string>
+    <string name="agreement_user_xieyi">《用户协议》</string>
+    <string name="agreement_secret_xieyi">《隐私协议》</string>
+    <string name="secret_xieyi_url">https://www.kb167.com/yinsi/zhcl-yinsi.html</string>
+    <string name="user_xieyi_url">https://www.kb167.com/yinsi/zhcl-user.html</string>
+    <string name="protocal_notice1">我已阅读并同意《隐私协议》</string>
+    <string name="protocal_notice2">和《用户协议》</string>
+
+
+    <string name="tip_drag">长按编辑,拖拽排序</string>
+    <string name="my_cahnnel">我的频道</string>
+    <string name="other_channel">其他频道</string>
+    <string name="edit">编辑</string>
+    <string name="finish">完成</string>
+
+</resources>

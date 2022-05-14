@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/top_ll"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="15dp"
+            android:text="商城 MALL"
+            android:textSize="20dp"></TextView>
+
+        <ImageView
+            android:id="@+id/switch_mode_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="15dp"
+            android:padding="5dp"
+            android:src="@mipmap/scan_sel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        >
+    </LinearLayout>
+
+
+    <include
+        layout="@layout/homepage_top_search"
+        app:layout_constraintTop_toBottomOf="@+id/top_ll" />
+
+    <fragment
+        android:id="@+id/home_commodity_child_fragment_fg"
+        class="com.juntai.wisdom.project.home.commodityfragment.CommodityFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></fragment>
+</LinearLayout>

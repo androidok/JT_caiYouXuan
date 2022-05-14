@@ -1,0 +1,115 @@
+apply plugin: 'com.android.application'
+//华为推送 必填
+apply plugin: 'com.huawei.agconnect'
+//// 依赖插件脚本
+//apply from: 'tinker-support.gradle'
+//mob sdk
+def currentModule = rootProject.ext.currentModule
+apply from: 'mob_share.gradle'
+def isDebug = rootProject.ext.isDebug
+def configs = rootProject.ext.android
+android {
+    compileSdkVersion configs.compileSdkVersion
+    defaultConfig {
+        applicationId "com.juntai.wisdom.project.mall"
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+        versionCode configs.versionCode
+        versionName configs.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi-v7a"//,"x86"//,"armeabi"////,"arm64-v8a","x86_64"
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "智慧巡检-" + variant.versionCode + "-" + variant.versionName + ".apk"
+        }
+    }
+    signingConfigs {
+        release {
+            //设置release的签名信息
+            //D8:8A:32:E8:3B:5A:37:B8:FF:BD:EC:39:8B:55:45:F4:5E:31:9F:20
+            //c204528aaa01367971e36f2b06a2dc25
+            storeFile file('juntaikey.jks')
+            storePassword "bugaosuni5156"
+            keyAlias "juntaikey"
+            keyPassword "bugaosuni5156"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            //是否优化zip
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+//            shrinkResources false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+//        resourcePrefix "shop_"   //前缀的名字
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    //过期api
+    lintOptions {
+        abortOnError false
+    }
+    dexOptions {//解决编译内存不足问题
+        javaMaxHeapSize "4096M"
+    }
+    packagingOptions {//解决so文件重复问题，使用第一个
+        pickFirst "**/libsqlite.so"
+    }
+
+}
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    //noinspection GradleCompatible
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(':IM_Module')
+//    implementation project(':chatModule')
+    implementation 'com.oginotihiro:cropview:1.0.0'
+    implementation 'com.github.promeg:tinypinyin:2.0.3' // TinyPinyin核心包，约80KB
+
+
+    implementation project(':module_Base')
+    implementation project(':banner')
+    implementation project(':module_Video')
+    implementation project(':module_Map')
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '28.0.0'
+            }
+        }
+//        'com.googlecode.mp4parser:isoparser:1.0.6'
+//        if (requested.group == 'com.googlecode.mp4parser') {
+//            if (!requested.name.startsWith("multidex")) {
+//                details.useVersion '1.0.6'
+//            }
+//        }
+    }
+}

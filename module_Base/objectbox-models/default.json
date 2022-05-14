@@ -1,0 +1,361 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:5894271772037730855",
+      "lastPropertyId": "10:2858516787498186591",
+      "name": "CommodityPropertyBean",
+      "properties": [
+        {
+          "id": "1:2144926224335434580",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6451616188777384009",
+          "name": "commodityId",
+          "type": 5
+        },
+        {
+          "id": "3:1602865972716278516",
+          "name": "shopId",
+          "type": 5
+        },
+        {
+          "id": "4:7275653588629360093",
+          "name": "commodityName",
+          "type": 9
+        },
+        {
+          "id": "5:3890252327424495767",
+          "name": "sku",
+          "type": 9
+        },
+        {
+          "id": "6:152572698974821281",
+          "name": "stock",
+          "type": 5
+        },
+        {
+          "id": "7:24578100160755141",
+          "name": "sales",
+          "type": 5
+        },
+        {
+          "id": "8:1587922827992099854",
+          "name": "unique",
+          "type": 9
+        },
+        {
+          "id": "9:1664714087356681185",
+          "name": "price",
+          "type": 8
+        },
+        {
+          "id": "10:2858516787498186591",
+          "name": "image",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:1487096809554944132",
+      "lastPropertyId": "55:7548247960212265585",
+      "name": "MessageBodyBean",
+      "properties": [
+        {
+          "id": "1:6733225904354270003",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8636033974033586994",
+          "name": "fromUserId",
+          "type": 5
+        },
+        {
+          "id": "3:4099803284079034743",
+          "name": "fromAccount",
+          "type": 9
+        },
+        {
+          "id": "4:6734112699270564106",
+          "name": "atUserId",
+          "type": 9
+        },
+        {
+          "id": "5:6191294789491327604",
+          "name": "owner",
+          "type": 9
+        },
+        {
+          "id": "6:552667961861258264",
+          "name": "fromNickname",
+          "type": 9
+        },
+        {
+          "id": "7:6441100971296727565",
+          "name": "hwPushIntentUrl",
+          "type": 9
+        },
+        {
+          "id": "8:6964301475504164050",
+          "name": "fromHead",
+          "type": 9
+        },
+        {
+          "id": "9:7177784753684988944",
+          "name": "toUserId",
+          "type": 5
+        },
+        {
+          "id": "10:675721046083338043",
+          "name": "adapterPosition",
+          "type": 5
+        },
+        {
+          "id": "11:6662690149989264530",
+          "name": "toAccount",
+          "type": 9
+        },
+        {
+          "id": "12:4568587244670535514",
+          "name": "toNickname",
+          "type": 9
+        },
+        {
+          "id": "13:4835034991242596654",
+          "name": "toHead",
+          "type": 9
+        },
+        {
+          "id": "14:2291669432799961552",
+          "name": "content",
+          "type": 9
+        },
+        {
+          "id": "15:1837430344986377460",
+          "name": "canDelete",
+          "type": 1
+        },
+        {
+          "id": "16:1944989790642831241",
+          "name": "isDraft",
+          "type": 1
+        },
+        {
+          "id": "17:2389496586538674792",
+          "name": "otherUserId",
+          "type": 5
+        },
+        {
+          "id": "18:8208888290929039016",
+          "name": "unreadCount",
+          "type": 5
+        },
+        {
+          "id": "19:6989892446430780549",
+          "name": "otherAccount",
+          "type": 9
+        },
+        {
+          "id": "20:3856882846801844807",
+          "name": "otherNickname",
+          "type": 9
+        },
+        {
+          "id": "21:7240858408387476328",
+          "name": "collectionCreateTime",
+          "type": 9
+        },
+        {
+          "id": "22:7918387959831198676",
+          "name": "otherHead",
+          "type": 9
+        },
+        {
+          "id": "23:2378763534609859962",
+          "name": "createTime",
+          "type": 9
+        },
+        {
+          "id": "24:3162032253859265363",
+          "name": "faceTimeType",
+          "type": 5
+        },
+        {
+          "id": "25:1442397459969176930",
+          "name": "msgType",
+          "type": 5
+        },
+        {
+          "id": "26:610485857548312544",
+          "name": "chatType",
+          "type": 5
+        },
+        {
+          "id": "27:1376658892794876815",
+          "name": "groupId",
+          "type": 5
+        },
+        {
+          "id": "28:3542923701100238209",
+          "name": "groupUserNickname",
+          "type": 9
+        },
+        {
+          "id": "29:5165345513028124978",
+          "name": "groupName",
+          "type": 9
+        },
+        {
+          "id": "30:2643388617512673534",
+          "name": "isGroupCreater",
+          "type": 5
+        },
+        {
+          "id": "31:7114123914372339210",
+          "name": "readBurn",
+          "type": 5
+        },
+        {
+          "id": "32:8540733012596658169",
+          "name": "isRead",
+          "type": 1
+        },
+        {
+          "id": "33:2058214629525041529",
+          "name": "isCollected",
+          "type": 1
+        },
+        {
+          "id": "34:7740530772355775981",
+          "name": "isSelected",
+          "type": 1
+        },
+        {
+          "id": "35:275802723274516887",
+          "name": "duration",
+          "type": 9
+        },
+        {
+          "id": "36:5754069216801685061",
+          "name": "fileSize",
+          "type": 9
+        },
+        {
+          "id": "37:3837163065030110614",
+          "name": "fileName",
+          "type": 9
+        },
+        {
+          "id": "38:6758276410386613639",
+          "name": "localCatchPath",
+          "type": 9
+        },
+        {
+          "id": "39:8341607540605796747",
+          "name": "uploadProgress",
+          "type": 5
+        },
+        {
+          "id": "40:3804590290257305473",
+          "name": "event",
+          "type": 9
+        },
+        {
+          "id": "41:438772254125838289",
+          "name": "sdp",
+          "type": 9
+        },
+        {
+          "id": "42:3474829439100901526",
+          "name": "sdpMLineIndex",
+          "type": 5
+        },
+        {
+          "id": "43:3215509583487206474",
+          "name": "sdpMid",
+          "type": 9
+        },
+        {
+          "id": "44:3272215107800809700",
+          "name": "rotation",
+          "type": 9
+        },
+        {
+          "id": "45:9108495461996609503",
+          "name": "videoCover",
+          "type": 9
+        },
+        {
+          "id": "46:2135218208818497936",
+          "name": "shareTitle",
+          "type": 9
+        },
+        {
+          "id": "47:5989555704829736572",
+          "name": "shareContent",
+          "type": 9
+        },
+        {
+          "id": "48:3341548615863307921",
+          "name": "shareUrl",
+          "type": 9
+        },
+        {
+          "id": "49:3515358520171966756",
+          "name": "sharePic",
+          "type": 9
+        },
+        {
+          "id": "50:1772391133577138238",
+          "name": "shareAppName",
+          "type": 9
+        },
+        {
+          "id": "51:3946917063228809488",
+          "name": "quoteMsg",
+          "type": 9
+        },
+        {
+          "id": "52:8162471309325997655",
+          "name": "addrName",
+          "type": 9
+        },
+        {
+          "id": "53:3335609230766604770",
+          "name": "addrDes",
+          "type": 9
+        },
+        {
+          "id": "54:7200512772639657116",
+          "name": "lat",
+          "type": 9
+        },
+        {
+          "id": "55:7548247960212265585",
+          "name": "lng",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:1487096809554944132",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

@@ -1,0 +1,49 @@
+apply plugin: 'com.android.library'
+def configs = rootProject.ext.android
+android {
+    compileSdkVersion configs.compileSdkVersion
+    defaultConfig {
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+        versionCode configs.versionCode
+        versionName configs.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    //过期api
+    lintOptions {
+        abortOnError false
+    }
+    dexOptions {//解决编译内存不足问题
+        javaMaxHeapSize "4096M"
+    }
+    packagingOptions {//解决so文件重复问题，使用第一个
+        pickFirst "**/libsqlite.so"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':module_Base')
+    implementation project(':banner')
+    /**
+     * 文件下载
+     */
+    implementation 'org.wlf:FileDownloader:0.3.2'
+    implementation project(':EmojiLib')
+    implementation project((':oscvpush'))
+    implementation project(path: ':rtc-chat')
+    implementation 'com.oginotihiro:cropview:1.0.0'
+    implementation 'com.rabtman.wsmanager:wsmanager:1.0.2'
+    //发送语音相关
+    implementation project(':chatAudioFile')
+    implementation project(':module_Video')
+    implementation project(':module_Map')
+}

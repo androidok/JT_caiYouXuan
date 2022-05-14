@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">@color/orange</color>-->
+    <!--<color name="colorPrimaryDark">@color/orange</color>-->
+    <!--<color name="colorAccent">#D81B60</color>-->
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="gray_light">#AAf2f2f2</color>
+    <color name="gray_lighter">#ECECEC</color>
+    <color name="divider">#999</color>
+    <color name="background2">#22cccccc</color>
+    <color name="gray">#AAAAAA</color>
+    <color name="gray_ripple">#eeeeee</color>
+    <color name="colorAccent">#00c750</color>
+    <color name="colorAccentPress">#aa00c750</color>
+    <color name="colorTheme">#58A4DB</color>
+    <color name="colorThemeDark">#2851CF</color>
+    <color name="red">#ffff4444</color>
+    <color name="red_pre">#ccff4444</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="orange">#ff8800</color>
+    <color name="gray_toast_bt">#888888</color>
+    <color name="text_gray">#707070</color>
+    <color name="text_title">#555555</color>
+
+    <color name="popupwindow_bg_color">#55cccccc</color>
+    <color name="gray0">#464646</color>
+    <color name="gray1">#7e7e7e</color>
+    <color name="gray2">#969696</color>
+    <color name="gray3">#c8969696</color>
+    <color name="gray4">#F5F5F5</color>
+    <color name="gray5">#EBEBEB</color>
+    <color name="gray6">#FBFBFB</color>
+    <color name="gray7">#999999</color>
+    <color name="gray8">#D9D9D9</color>
+    <color name="gray9">#DBDFE0</color>
+
+    <color name="red0">#ff0000</color>
+    <color name="red1">#D84E43</color>
+    <color name="red2">#F08B88</color>
+    <color name="red3">#FFFAF5</color>
+    <color name="red4">#823026</color>
+    <color name="red5">#FA6F5F</color>
+    <color name="red6">#D54A47</color>
+    <color name="red7">#E64340</color>
+    <color name="red8">#FF3E3E</color>
+
+    <color name="green0">#45C01A</color>
+    <color name="green1">#45C01A</color>
+    <color name="green2">#A3DEA3</color>
+    <color name="green3">#1AAD19</color>
+
+    <color name="blue0">#576B95</color>
+
+    <color name="black0">#000000</color>
+    <color name="black1">#99000000</color>
+
+    <color name="yellow0">#FFC51B</color>
+    <color name="yellow1">#E5A134</color>
+    <!--    半透明白色背景-->
+</resources>

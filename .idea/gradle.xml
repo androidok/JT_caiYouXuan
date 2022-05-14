@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/EmojiLib" />
+            <option value="$PROJECT_DIR$/IM_Module" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/banner" />
+            <option value="$PROJECT_DIR$/chatAudioFile" />
+            <option value="$PROJECT_DIR$/indexlib" />
+            <option value="$PROJECT_DIR$/jjdxm-ijkplayer" />
+            <option value="$PROJECT_DIR$/module_Base" />
+            <option value="$PROJECT_DIR$/module_Map" />
+            <option value="$PROJECT_DIR$/module_Video" />
+            <option value="$PROJECT_DIR$/oscvpush" />
+            <option value="$PROJECT_DIR$/rtc-chat" />
+            <option value="$PROJECT_DIR$/zXingLiteLib" />
+            <option value="$PROJECT_DIR$/zhihu_matisse" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
