@@ -8,6 +8,8 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppActivity;
 import com.juntai.wisdom.project.beans.order.OrderDetailBean;
@@ -31,7 +33,9 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
 
         helper.setText(R.id.order_shop_name_tv, item.getShopName());
         helper.addOnClickListener(R.id.order_shop_name_tv);
+        helper.addOnClickListener(R.id.shop_bottom_cl);
         helper.setGone(R.id.order_paytype_tv, item.getPayType() == 4);
+        helper.setGone(R.id.order_status_tv,false);
         helper.setText(R.id.order_status_tv, getOrderStatus(item.getState()));
         helper.setGone(R.id.final_payment_tv, item.getPayType() != 4);
         helper.setText(R.id.final_payment_tv, 0 == item.getState() ? String.format("需付款:%s", item.getPayPrice()) : String.format("实付款:%s", item.getPayPrice()));
@@ -45,9 +49,7 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
         orderCommodityAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                mContext.startActivity(new Intent(mContext, OrderDetailActivity.class)
-                        .putExtra(BaseActivity.BASE_ID,item.getId())
-                        .putExtra(BaseActivity.BASE_ID2,item.getState()));
+             helper.getView(R.id.shop_bottom_cl).performClick();
             }
         });
     }
@@ -65,13 +67,15 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
                 helper.setText(R.id.order_right_tv, HomePageContract.ORDER_PAY);
                 break;
             case 1:
-                helper.setGone(R.id.order_left_tv,false);
+                helper.setGone(R.id.order_left_tv,true);
                 helper.setGone(R.id.order_right_tv,true);
+                helper.setText(R.id.order_left_tv, HomePageContract.ORDER_REFUND);
                 helper.setText(R.id.order_right_tv, HomePageContract.ORDER_SEND);
                 break;
             case 2:
-                helper.setGone(R.id.order_left_tv,false);
+                helper.setGone(R.id.order_left_tv,true);
                 helper.setGone(R.id.order_right_tv,true);
+                helper.setText(R.id.order_left_tv, HomePageContract.ORDER_REFUND);
                 helper.setText(R.id.order_right_tv, HomePageContract.ORDER_RECEIVE);
                 break;
             case 3:

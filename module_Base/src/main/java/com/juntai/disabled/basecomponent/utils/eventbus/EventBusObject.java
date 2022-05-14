@@ -39,6 +39,14 @@ public class EventBusObject {
      * 当获取到定位信息
      */
     public final static  String ON_LOCATION_RECEIVED = "onLocationReceived";
+    /**
+     * 刷新订单列表
+     */
+    public final static  String REFRESH_ORDER_LIST = "REFRESH_ORDER_LIST";
+//    /**
+//     * 进入订单详情
+//     */
+//    public final static  String START_TO_ORDER_INFO = "START_TO_ORDER_INFO";
 
 
 

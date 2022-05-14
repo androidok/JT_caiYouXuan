@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewFragment;
@@ -66,15 +67,6 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
     protected void initView() {
         super.initView();
 
-        baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                OrderDetailBean orderDetailBean = (OrderDetailBean) adapter.getItem(position);
-                // : 2022/5/12 跳转到订单详情
-                getBaseAppActivity().startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
-
-            }
-        });
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -84,6 +76,10 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
 
                 switch (view.getId()) {
 
+                    case R.id.shop_bottom_cl:
+                        // : 2022/5/12 跳转到订单详情
+                        getBaseAppActivity().startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
+                        break;
                     case R.id.order_shop_name_tv:
                         getBaseAppActivity().startToShop(orderDetailBean.getShopId());
                         break;
@@ -151,6 +147,19 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
         });
     }
 
+
+    @Override
+    public void onEvent(EventBusObject eventBusObject) {
+        super.onEvent(eventBusObject);
+
+        switch (eventBusObject.getEventKey()) {
+            case EventBusObject.REFRESH_ORDER_LIST:
+                getRvAdapterData();
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {

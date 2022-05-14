@@ -171,6 +171,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         super.onResume();
         if (ChatUserInfoManager.isLogin()) {
             mLoginOut.setVisibility(View.VISIBLE);
+            mPresenter.getOrderStatusAmount(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.ORDER_STATUS_AMOUNT);
 //            mPresenter.getUserData(MyCenterContract.USER_DATA_TAG);
             //            mPresenter.getUnReadCount(MyCenterContract.GET_UNREAD_COUNT);
         } else {
@@ -179,10 +180,6 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     }
 
 
-    @Override
-    protected void lazyLoad() {
-        mPresenter.getOrderStatusAmount(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.ORDER_STATUS_AMOUNT);
-    }
 
     @Override
     protected void lazyloadGone() {

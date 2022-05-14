@@ -29,7 +29,6 @@ public class OrderBaseInfoAdapter extends BaseQuickAdapter<TextKeyValueBean, Bas
         TextView  valueTv = helper.getView(R.id.item_myinfo_value);
         valueTv.setText(item.getValue());
         valueTv.setGravity(Gravity.RIGHT|Gravity.CENTER_VERTICAL);
-        valueTv.setText(item.getValue());
 
     }
 
