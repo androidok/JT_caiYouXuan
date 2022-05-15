@@ -3,6 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.juntai.wisdom.project">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -14,6 +30,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
+        <activity android:name=".order.refund.RefundRequestActivity"></activity>
+        <activity android:name=".order.refund.RefundActivity"></activity>
         <activity
             android:name=".order.orderDetail.OrderDetailActivity"
             android:exported="false" />
@@ -37,7 +55,6 @@
             android:launchMode="singleTask" />
         <activity android:name=".mine.address.AddressListActivity" />
         <activity android:name=".mine.address.AddOrEditAddressActivity" />
-
         <activity
             android:name=".entrance.SplashActivity"
             android:theme="@style/AppTheme.Splash">
@@ -47,7 +64,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".home.map.weather.WeatherActivity" /> <!-- 适配华为（huawei）刘海屏 -->
         <activity android:name=".home.map.weather.SelectLocationForWeatherActivity" /> <!-- 适配小米（xiaomi）刘海屏 -->
         <activity
@@ -86,6 +102,7 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="z6hHCFoqFUYW9rT67MmaFcIUOY7fhPxw" />
+
         <provider
             android:name=".utils.MyFileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -98,21 +115,5 @@
                 tools:replace="android:name,android:resource" />
         </provider>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission
-        android:name="android.permission.READ_LOGS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-
-    <uses-permission android:name="android.permission.VIBRATE" />
 
 </manifest>

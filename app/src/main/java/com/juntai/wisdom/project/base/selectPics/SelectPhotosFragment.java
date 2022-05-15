@@ -75,7 +75,7 @@ public class SelectPhotosFragment<T> extends BaseAppFragment implements View.OnC
     private List<String> icons = new ArrayList<>();
     private ShowSelectedPicsAdapter selectedPicsAdapter;
     private Context mContext;
-    private int mSpanCount = 1;//一行的个数，默认4
+    private int mSpanCount = 4;//一行的个数，默认4
     private int widthParama = 0;//
     private int mMaxCount = 9;//最大个数，默认9个
     private int horSpace = 15;//图片之间的横向间距 默认10

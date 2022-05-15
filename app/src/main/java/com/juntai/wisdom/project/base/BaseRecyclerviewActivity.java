@@ -61,7 +61,6 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
 
         }
 
-
     }
 
     @Override

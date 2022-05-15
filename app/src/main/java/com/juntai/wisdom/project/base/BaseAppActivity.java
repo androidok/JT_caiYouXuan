@@ -14,31 +14,30 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
-import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
-import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
+import com.juntai.disabled.bdmap.utils.NagivationUtils;
+import com.juntai.wisdom.project.AppHttpPathMall;
+import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.base.selectPics.BaseSelectPicsActivity;
+import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailBean;
 import com.juntai.wisdom.project.beans.order.OrderListBean;
 import com.juntai.wisdom.project.entrance.LoginActivity;
 import com.juntai.wisdom.project.home.commodityfragment.commodity_detail.CommodityDetailActivity;
-import com.juntai.wisdom.project.order.confirmOrder.ConfirmOrderActivity;
-import com.juntai.wisdom.project.order.allOrder.AllOrderActivity;
-import com.juntai.wisdom.project.order.orderDetail.OrderDetailActivity;
-import com.juntai.wisdom.project.order.orderPay.OrderPayActivity;
 import com.juntai.wisdom.project.home.shop.ShopActivity;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
-import com.juntai.disabled.bdmap.utils.NagivationUtils;
-import com.juntai.wisdom.project.R;
-import com.juntai.wisdom.project.base.selectPics.BaseSelectPicsActivity;
 import com.juntai.wisdom.project.mine.address.AddOrEditAddressActivity;
 import com.juntai.wisdom.project.mine.address.AddressListActivity;
+import com.juntai.wisdom.project.order.allOrder.AllOrderActivity;
+import com.juntai.wisdom.project.order.confirmOrder.ConfirmOrderActivity;
+import com.juntai.wisdom.project.order.orderDetail.OrderDetailActivity;
+import com.juntai.wisdom.project.order.orderPay.OrderPayActivity;
+import com.juntai.wisdom.project.order.refund.RefundRequestActivity;
 import com.juntai.wisdom.project.utils.StringTools;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -396,6 +395,15 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
         startActivity(new Intent(mContext, OrderDetailActivity.class)
                 .putExtra(BASE_ID,orderId)
                 .putExtra(BASE_ID2,orderStatus));
+    }
+    /**
+     *跳入 申请退款界面
+     */
+    public void startToOrderRefundRequestActivity(OrderDetailBean orderDetailBean) {
+        startActivity(new Intent(mContext, RefundRequestActivity.class)
+                .putExtra(BASE_PARCELABLE,orderDetailBean)
+        );
+
     }
 
 }

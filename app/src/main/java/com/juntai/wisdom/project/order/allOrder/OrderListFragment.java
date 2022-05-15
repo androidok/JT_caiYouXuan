@@ -98,8 +98,8 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
 
                                 break;
                             case HomePageContract.ORDER_REFUND:
-                                // TODO: 2022/5/12 申请退款
-                                ToastUtils.toast(mContext, "申请退款");
+                                // : 2022/5/12 申请退款
+                                getBaseAppActivity().startToOrderRefundRequestActivity(orderDetailBean);
                                 break;
                             default:
                                 break;

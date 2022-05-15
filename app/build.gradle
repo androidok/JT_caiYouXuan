@@ -74,6 +74,9 @@ android {
     packagingOptions {//解决so文件重复问题，使用第一个
         pickFirst "**/libsqlite.so"
     }
+    viewBinding {
+        enabled true
+    }
 
 }
 dependencies {
@@ -81,6 +84,10 @@ dependencies {
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'android.arch.lifecycle:livedata:1.1.1'
+    implementation 'android.arch.lifecycle:viewmodel:1.1.1'
     testImplementation 'junit:junit:4.12'
     //noinspection GradleCompatible
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
@@ -98,7 +97,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
             mOrderDetailTopFl.addView(getAddrView());
         } else if (2 == orderStatus || 3 == orderStatus) {
         } else {
-            // TODO: 2022/5/14 退货订单详情 需要展示不同的界面
+            // TODO: 2022/5/14 退货订单详情 需要展示不同的界面 退款
 
         }
 
@@ -253,8 +252,8 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                         break;
 
                     case HomePageContract.ORDER_REFUND:
-                        // TODO: 2022/5/14 申请退款
-                        ToastUtils.toast(mContext, "申请退款");
+                        // : 2022/5/14 申请退款
+                      startToOrderRefundRequestActivity(orderDetailBean);
 
                         break;
                     case HomePageContract.ORDER_REBUY:
