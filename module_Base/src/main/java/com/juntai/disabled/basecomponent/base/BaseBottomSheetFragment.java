@@ -1,22 +1,20 @@
 package com.juntai.disabled.basecomponent.base;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.R;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 /**
  * @Author: tobato
@@ -25,12 +23,11 @@ import com.juntai.disabled.basecomponent.R;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/5 14:57
  */
-public class BaseBottomSheetFragment extends BottomSheetDialogFragment {
-    /**
-     * 顶部向下偏移量
-     */
-    private int topOffset = 0;
-    private BottomSheetBehavior<FrameLayout> behavior;
+public abstract  class BaseBottomSheetFragment extends BottomSheetDialogFragment {
+    protected RecyclerView mRecyclerview;
+    protected SmartRefreshLayout mSmartrefreshlayout;
+    protected BaseQuickAdapter baseQuickAdapter;
+    protected LinearLayoutManager linearLayoutManager;
 
     @NonNull
     @Override
@@ -44,9 +41,43 @@ public class BaseBottomSheetFragment extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        if (getBottomSheetDialogLayout() == 0) {
+            View view = inflater.inflate(R.layout.base_bottomsheet_layout,null);
+            initView(view);
+            return view;
+        }
+        return inflater.inflate(getBottomSheetDialogLayout(),null);
 
     }
+    public void initView(View view) {
+        mRecyclerview = (RecyclerView) view.findViewById(R.id.recyclerview);
+        mSmartrefreshlayout = (SmartRefreshLayout) view.findViewById(R.id.smartrefreshlayout);
+        mSmartrefreshlayout.setEnableRefresh(false);
+        mSmartrefreshlayout.setEnableLoadMore(false);
+        baseQuickAdapter = getBaseQuickAdapter();
+        linearLayoutManager = getBaseAdapterManager() == null ? new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false) : getBaseAdapterManager();
+        if (baseQuickAdapter != null) {
+            initRecyclerview(mRecyclerview, baseQuickAdapter, LinearLayoutManager.VERTICAL);
+        }
+
+    }
+
+
+    /**
+     * 初始化recyclerview LinearLayoutManager
+     */
+    public void initRecyclerview(RecyclerView recyclerView, BaseQuickAdapter baseQuickAdapter, @RecyclerView.Orientation int orientation) {
+        LinearLayoutManager managere = new LinearLayoutManager(getContext(), orientation, false);
+        //        baseQuickAdapter.setEmptyView(getAdapterEmptyView("一条信息也没有",0));
+        recyclerView.setLayoutManager(managere);
+        recyclerView.setAdapter(baseQuickAdapter);
+    }
+    protected abstract LinearLayoutManager getBaseAdapterManager();
+
+    protected abstract BaseQuickAdapter getBaseQuickAdapter();
+
+
+    protected abstract int getBottomSheetDialogLayout();
 
     @Override
     public void onStart() {
@@ -66,34 +97,4 @@ public class BaseBottomSheetFragment extends BottomSheetDialogFragment {
 //        }
     }
 
-    /**
-     * 获取屏幕高度
-     *
-     * @return height
-     */
-    private int getHeight() {
-        int height = 1920;
-        if (getContext() != null) {
-            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-            Point point = new Point();
-            if (wm != null) {
-                // 使用Point已经减去了状态栏高度
-                wm.getDefaultDisplay().getSize(point);
-                height = point.y - getTopOffset();
-            }
-        }
-        return height;
-    }
-
-    public int getTopOffset() {
-        return topOffset;
-    }
-
-    public void setTopOffset(int topOffset) {
-        this.topOffset = topOffset;
-    }
-
-    public BottomSheetBehavior<FrameLayout> getBehavior() {
-        return behavior;
-    }
 }

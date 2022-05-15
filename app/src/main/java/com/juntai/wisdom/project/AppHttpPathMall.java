@@ -27,9 +27,6 @@ public class AppHttpPathMall {
      */
     public static final String REGIST = BASE + "/member/register";
 
-    public static final String ADD_FRIEND_BY_UUID = BASE + "/member/getUserInfoByUuid";
-    public static final String JOIN_GROUP_BY_UUID = BASE + "/group/selectGroupByUuid";
-
 
     /**
      * /**
@@ -83,103 +80,6 @@ public class AppHttpPathMall {
      * 修改账户
      */
     public static final String MODIFY_USER_ACCOUNT = BASE + "/member/updateUserAccountNumber";
-    /**
-     * 获取用户二维码名片
-     */
-    public static final String GET_QRCODE = BASE + "/member/getAccountQrCode";
-
-
-
-
-
-    /*====================================================    消息   ==============================================================*/
-
-    /**
-     * 发送消息
-     */
-    public static final String SEND_MSG = BASE + "/msg/sendMassage";
-    /**
-     * 群聊消息
-     */
-    public static final String SEND_GROUP_MSG = BASE + "/msg/sendGroupMassage";
-
-    /**
-     * 查询未读消息详情
-     */
-    public static final String GET_UNREAD_PRIVATE_MSG = BASE + "/msg/selectMsgInfo";
-    /**
-     * 查询未读消息详情  群消息
-     */
-    public static final String GET_UNREAD_GROUP_MSG = BASE + "/msg/selectGroupMsgInfo";
-    /**
-     * 发起视频通话
-     */
-    public static final String REQUEST_VIDEO_CALL = BASE + "/msg/sendVideoCall";
-    /**
-     * 接受视频通话
-     */
-    public static final String ACCESS_VIDEO_CALL = BASE + "/msg/acceptCall";
-    /**
-     * 结束视频通话
-     */
-    public static final String REJECT_VIDEO_CALL = BASE + "/msg/refuseCall";
-
-
-
-
-
-    /*====================================================    群聊   ==============================================================*/
-    /**
-     * 创建群聊
-     */
-    public static final String CREAT_GROUP = BASE + "/group/createGroup";
-
-    /**
-     * 群聊列表
-     */
-    public static final String GET_GROUP_LIST = BASE + "/group/selectGroupListByUserId";
-    /**
-     * 修改群名称
-     */
-    public static final String MODIFY_GROUP_NAME = BASE + "/group/updateGroupInfo";
-    /**
-     * 获取群聊详情
-     */
-    public static final String GET_GROUP_INFO = BASE + "/group/selectGroupByGroupId";
-    /**
-     * 加入群聊
-     */
-    public static final String JOIN_GROUP = BASE + "/groupUser/joinGroup";
-    /**
-     * 修改群里的昵称
-     */
-    public static final String MODIFY_NICKNAME_OF_GROUP = BASE + "/groupUser/updateGroupNickname";
-    /**
-     * 退出群聊
-     */
-    public static final String QUIT_GROUP = BASE + "/groupUser/outGroup";
-    /**
-     * 群主退出
-     */
-    public static final String OWNER_QUIT_GROUP = BASE + "/groupUser/leaderOutGroup";
-    public static final String GROUP_PEOPLES = BASE + "/groupUser/selectGroupUserByGroupId";
-
-    /**
-     * 置顶群聊
-     */
-    public static final String TOP_GROUP_CHAT = BASE + "/groupUser/topGroupChat";
-
-
-
-
-
-
-
-
-
-
-
-    /*====================================================    商城部分   ==============================================================*/
 
 
 
@@ -354,6 +254,11 @@ public class AppHttpPathMall {
      * 订单状态数量
      */
     public static final String ORDER_STATUS_AMOUNT = BASE + "/buyers/getOrderFormStateNum";
+
+    /**
+     * 退货原因
+     */
+    public static final String GET_REFUND_REASON = BASE + "/buyers/getSalesReturnCause";
 
 
 }

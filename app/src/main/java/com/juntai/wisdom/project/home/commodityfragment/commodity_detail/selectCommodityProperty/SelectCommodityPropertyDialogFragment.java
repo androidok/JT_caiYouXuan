@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseBottomSheetFragment;
 import com.juntai.disabled.basecomponent.base.view.NumberButton;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
@@ -69,7 +70,7 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
         return view;
     }
 
-    private void initView(View view) {
+    public void initView(View view) {
         mCommodityPicIv = (ImageView) view.findViewById(R.id.commodity_pic_iv);
         mAllPriceTv = (TextView) view.findViewById(R.id.all_price_tv);
         mCloseDialogIv = (ImageView) view.findViewById(R.id.close_dialog_iv);
@@ -122,6 +123,22 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
             }
 
         });
+    }
+
+
+    @Override
+    protected LinearLayoutManager getBaseAdapterManager() {
+        return null;
+    }
+
+    @Override
+    protected BaseQuickAdapter getBaseQuickAdapter() {
+        return null;
+    }
+
+    @Override
+    protected int getBottomSheetDialogLayout() {
+        return 0;
     }
 
     /**

@@ -126,6 +126,21 @@ public class SelectAddressDialogFragment extends BaseBottomSheetFragment impleme
 
     }
 
+    @Override
+    protected LinearLayoutManager getBaseAdapterManager() {
+        return null;
+    }
+
+    @Override
+    protected BaseQuickAdapter getBaseQuickAdapter() {
+        return null;
+    }
+
+    @Override
+    protected int getBottomSheetDialogLayout() {
+        return 0;
+    }
+
     private void comfirmAddr() {
         //没有下级城镇了
         List<CitysBean.DistrictsBean> citys = mSelectedAdapter.getData();

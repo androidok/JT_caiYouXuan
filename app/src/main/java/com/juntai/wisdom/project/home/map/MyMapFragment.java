@@ -42,7 +42,6 @@ import com.juntai.disabled.bdmap.utils.clusterutil.clustering.Cluster;
 import com.juntai.disabled.bdmap.utils.clusterutil.clustering.ClusterManager;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
-import com.juntai.disabled.basecomponent.bean.stream.StreamCameraBean;
 import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.beans.AroundShopBean;
 import com.juntai.wisdom.project.home.HomePageContract;
@@ -95,7 +94,6 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
     private int clickItemType = 2;//2单个marker点击，1聚合列表点击
     private MapStatus lastPosition;
     int nowMarkerId ;//当前markerid
-    StreamCameraBean.DataBean currentStreamCamera;
     private BottomSheetDialog mapBottomDialog;
     private ClusterClickAdapter clusterClickAdapter;
     private ImageView mSwitchModeIv;

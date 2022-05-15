@@ -21,12 +21,12 @@ import com.juntai.wisdom.project.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailDataBean;
 import com.juntai.wisdom.project.beans.order.OrderListBean;
 import com.juntai.wisdom.project.beans.order.OrderStatusAmountBean;
+import com.juntai.wisdom.project.beans.order.RefundReasonBean;
 import com.juntai.wisdom.project.beans.shop.ShopCommodityListBean;
 import com.juntai.wisdom.project.beans.shop.ShopDetailBean;
 
 import java.util.List;
 
-import io.objectbox.annotation.Id;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -255,6 +255,9 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.ORDER_STATUS_AMOUNT)
     Observable<OrderStatusAmountBean> getOrderStatusAmount(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.GET_REFUND_REASON)
+    Observable<RefundReasonBean> getRefundReasons(@Body RequestBody requestBody);
 
 
     @POST(AppHttpPathMall.ORDER_PAY_PUB_WEIXIN)

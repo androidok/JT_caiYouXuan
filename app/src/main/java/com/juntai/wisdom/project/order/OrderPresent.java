@@ -8,6 +8,7 @@ import com.juntai.wisdom.project.base.BaseAppMallPresent;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.OrderDetailDataBean;
 import com.juntai.wisdom.project.beans.order.OrderListBean;
+import com.juntai.wisdom.project.beans.order.RefundReasonBean;
 import com.juntai.wisdom.project.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
@@ -120,6 +121,27 @@ public class OrderPresent extends BaseAppMallPresent {
                 .subscribe(new BaseObserver<OrderDetailDataBean>(getView()) {
                     @Override
                     public void onSuccess(OrderDetailDataBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getRefundReasons(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getRefundReasons(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<RefundReasonBean>(getView()) {
+                    @Override
+                    public void onSuccess(RefundReasonBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

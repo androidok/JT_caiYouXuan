@@ -7,7 +7,6 @@ import android.media.MediaMetadataRetriever;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -22,7 +21,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.juntai.disabled.basecomponent.R;
-import com.juntai.disabled.basecomponent.bean.FileBaseInfoBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 
 import java.io.File;
@@ -525,47 +523,6 @@ public class ImageLoadUtil {
     }
 
 
-    /**
-     * 获取视频文件的基本信息
-     *
-     * @param filePath
-     */
-    public static FileBaseInfoBean getVideoFileBaseInfo(String filePath) {
-        String rotation = null;
-        String videoDuration = null;
-        MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-        mediaMetadataRetriever.setDataSource(filePath);
-        rotation = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
-        videoDuration = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        String width = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
-        String height = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
-        mediaMetadataRetriever.release();
-        if ("0".equals(rotation)) {
-            if (Integer.parseInt(width)*2<Integer.parseInt(height)) {
-                rotation = "90";
-            }
-        }
-        return new FileBaseInfoBean(rotation, videoDuration);
-
-    }
-
-
-    public static void getExifOrientation(Context mContext, String filepath, OnImageLoadSuccess onImageLoadSuccess) {
-        //获取图片真正的宽高
-        Glide.with(mContext)
-                .asBitmap()//强制Glide返回一个Bitmap对象
-                .load(filepath)
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
-                        int width = bitmap.getWidth();
-                        int height = bitmap.getHeight();
-                        if (onImageLoadSuccess != null) {
-                            onImageLoadSuccess.loadSuccess(width, height);
-                        }
-                    }
-                });
-    }
 
     public interface OnImageLoadSuccess {
 
