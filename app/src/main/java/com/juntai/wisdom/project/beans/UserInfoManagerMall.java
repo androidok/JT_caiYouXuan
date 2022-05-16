@@ -87,6 +87,10 @@ public class UserInfoManagerMall {
     public static String getAccount() {
         return getUser() != null && getUser().getData() != null ? getUser().getData().getAccount() : "";
     }
+
+    public  static  boolean canUsePubAccount(){
+        return (getUser() != null && getUser().getData() != null) && getUser().getData().getPaymentType() == 1;
+    }
     /**
      * 获取用户信息
      *

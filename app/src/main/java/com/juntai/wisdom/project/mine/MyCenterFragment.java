@@ -11,18 +11,16 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.util.ChatUserInfoManager;
-import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
+import com.juntai.disabled.basecomponent.utils.DialogUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.AppHttpPathMall;
+import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.beans.PicTextBean;
-import com.juntai.disabled.basecomponent.utils.DialogUtil;
-import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.OrderStatusAmountBean;
 import com.juntai.wisdom.project.home.commodityfragment.commodity_detail.PicTextAdapter;
-import com.juntai.wisdom.project.mine.address.AddressListActivity;
 import com.juntai.wisdom.project.mine.collect.CollectCommoditiesActivity;
 import com.juntai.wisdom.project.mine.collect.CollectShopesActivity;
 import com.juntai.wisdom.project.mine.setting.MyInformationActivity;
@@ -180,7 +178,6 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     }
 
 
-
     @Override
     protected void lazyloadGone() {
 
@@ -205,6 +202,9 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        // : 2022/5/16 调用退出登录的接口
+                        mPresenter.logout(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.LOGOUT);
+
                     }
                 }).show();
                 break;
@@ -252,6 +252,10 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                         orderMenuAdapter.notifyDataSetChanged();
                     }
                 }
+                break;
+            case AppHttpPathMall.LOGOUT:
+                getBaseAppActivity().reLogin(UserInfoManagerMall.getPhoneNumber());
+
                 break;
             default:
                 break;

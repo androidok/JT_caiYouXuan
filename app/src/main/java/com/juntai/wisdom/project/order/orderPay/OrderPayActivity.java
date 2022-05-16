@@ -7,16 +7,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewActivity;
 import com.juntai.wisdom.project.beans.PicTextBean;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailBean;
 import com.juntai.wisdom.project.beans.order.OrderListBean;
 import com.juntai.wisdom.project.home.HomePageContract;
@@ -24,7 +25,6 @@ import com.juntai.wisdom.project.order.OrderPresent;
 import com.juntai.wisdom.project.utils.CalendarUtil;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,6 +35,10 @@ import java.util.TimerTask;
  * @date 2022/5/11 14:11
  */
 public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> implements HomePageContract.IHomePageView, View.OnClickListener {
+
+
+    private List<OrderDetailBean> orderDetailBeans;
+    private double  payPrice;
 
     /**
      * 支付剩余时间
@@ -48,7 +52,6 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
      * 确认支付
      */
     private TextView mPayTv;
-    private OrderListBean orderListBean;
     //     0 代表直接购买的时候
 //     *  1 代表购物车结算的时候
 //     *  2. 在待支付订单进入
@@ -153,7 +156,17 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
 
         mPayTv = (TextView) findViewById(R.id.pay_tv);
         mPayTv.setOnClickListener(this);
-        orderListBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
+        BaseResult baseResult = getIntent().getParcelableExtra(BASE_PARCELABLE);
+        if (baseResult instanceof ConfirmOrderBean) {
+            ConfirmOrderBean confirmOrderBean = (ConfirmOrderBean) baseResult;
+            orderDetailBeans = confirmOrderBean.getData();
+            payPrice = confirmOrderBean.getTotalPrice();
+        }else {
+            OrderListBean orderListBean = (OrderListBean) baseResult;
+            orderDetailBeans = orderListBean.getData().getList();
+            payPrice = orderListBean.getTotalPrice();
+
+        }
         enterType = getIntent().getIntExtra(BASE_STRING, 0);
         // : 2022/5/13 剩余时间 倒计时
         if (2 != enterType) {
@@ -161,9 +174,8 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
             minute = 15;
         } else {
             //计算出还剩多少分钟再倒计时
-            List<OrderDetailBean> detailBeans = orderListBean.getData();
-            if (detailBeans != null && !detailBeans.isEmpty()) {
-                OrderDetailBean detailBean = detailBeans.get(0);
+            if (orderDetailBeans != null && !orderDetailBeans.isEmpty()) {
+                OrderDetailBean detailBean = orderDetailBeans.get(0);
                 String endTime = detailBean.getExpireTime();
                 if (!TextUtils.isEmpty(endTime)) {
                     long currentStamp = CalendarUtil.getStringTimestamp(CalendarUtil.getCurrentTime());
@@ -178,7 +190,7 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
                 }
             }
         }
-        mOrderTotalPriceTv.setText(String.format("¥ %s", orderListBean.getTotalPrice()));
+        mOrderTotalPriceTv.setText(String.format("¥ %s", payPrice));
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -227,7 +239,9 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
         List<PicTextBean> arrays = new ArrayList<>();
         arrays.add(new PicTextBean(R.mipmap.zhifubao_icon, PicTextBean.PAY_TYPE_ZHIFUBAO, false));
         arrays.add(new PicTextBean(R.mipmap.weixin_icon, PicTextBean.PAY_TYPE_WEIXIN, true));
-        arrays.add(new PicTextBean(R.mipmap.bank_icon, PicTextBean.PAY_TYPE_PUB_ACCOUNT + UserInfoManagerMall.getSchoolName(), false));
+        if (UserInfoManagerMall.canUsePubAccount()) {
+            arrays.add(new PicTextBean(R.mipmap.bank_icon, PicTextBean.PAY_TYPE_PUB_ACCOUNT + UserInfoManagerMall.getSchoolName(), false));
+        }
         baseQuickAdapter.setNewData(arrays);
     }
 
@@ -276,8 +290,7 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
                     case 2:
                         // : 2022/5/11 公户支付
                         List<Integer> ids = new ArrayList<>();
-                        List<OrderDetailBean> datas = orderListBean.getData();
-                        for (OrderDetailBean orderDetailBean : datas) {
+                        for (OrderDetailBean orderDetailBean : orderDetailBeans) {
                             ids.add(orderDetailBean.getId());
                         }
                         mPresenter.payByPubAccount(ids, AppHttpPathMall.ORDER_PAY_PUB_ACCOUNT);

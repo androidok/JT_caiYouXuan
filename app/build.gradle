@@ -31,7 +31,7 @@ android {
         release {
             //设置release的签名信息
             //D8:8A:32:E8:3B:5A:37:B8:FF:BD:EC:39:8B:55:45:F4:5E:31:9F:20
-            //c204528aaa01367971e36f2b06a2dc25
+            //ofafc6dcbd1e89aa638a022b8f02d90d
             storeFile file('juntaikey.jks')
             storePassword "bugaosuni5156"
             keyAlias "juntaikey"
@@ -96,7 +96,6 @@ dependencies {
 //    implementation project(':chatModule')
     implementation 'com.oginotihiro:cropview:1.0.0'
     implementation 'com.github.promeg:tinypinyin:2.0.3' // TinyPinyin核心包，约80KB
-
 
     implementation project(':module_Base')
     implementation project(':banner')

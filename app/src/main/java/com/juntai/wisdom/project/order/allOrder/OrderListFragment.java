@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewFragment;
@@ -111,28 +112,53 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                             case HomePageContract.ORDER_PAY:
                                 // : 2022/5/12 立即付款
                                 OrderListBean orderListBean = new OrderListBean();
+                                OrderListBean.DataBean dataBean = new OrderListBean.DataBean();
                                 List<OrderDetailBean> orderDetailBeans = new ArrayList<>();
                                 orderDetailBeans.add(orderDetailBean);
-                                orderListBean.setData(orderDetailBeans);
+                                dataBean.setList(orderDetailBeans);
                                 orderListBean.setTotalPrice(orderDetailBean.getPayPrice());
+                                orderListBean.setData(dataBean);
                                 getBaseAppActivity().startToOrderPayActivity(orderListBean, 2);
 
                                 break;
                             case HomePageContract.ORDER_SEND:
-                                //TODO : 2022/5/12 提醒发货
-                                ToastUtils.toast(mContext, "已提醒");
+                                // : 2022/5/12 提醒发货
+                                mPresenter.noticeSend(getBaseAppActivity().getBaseBuilder().add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.NOTICE_SEND);
+
                                 break;
                             case HomePageContract.ORDER_RECEIVE:
-                                // TODO: 2022/5/12 确认收货
+                                // : 2022/5/12 确认收货
+                                getBaseActivity().showAlertDialog("确定收到货物了吗?", "确定", "取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        mPresenter.confirmReceived(getBaseAppActivity().getBaseBuilder()
+                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.CONFIRM_RECEIVED);
+                                    }
+                                });
                                 break;
                             case HomePageContract.ORDER_EVALUATE:
-                                // TODO: 2022/5/12 立即评价
+                                // : 2022/5/12 立即评价
+                                getBaseAppActivity().startToEvaluateActivity(orderDetailBean);
                                 break;
+                            case HomePageContract.ORDER_REFUND_AGREE:
+                                // : 2022/5/12 商家已同意
                             case HomePageContract.ORDER_PROGRESS:
-                                // TODO: 2022/5/12 查看进度
+                                // : 2022/5/12 查看进度
+                            case HomePageContract.ORDER_REFUND_UNAGREE:
+                                // : 2022/5/12 商家不同意
+                                getBaseAppActivity().startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
+
                                 break;
                             case HomePageContract.ORDER_DELETE:
-                                // TODO: 2022/5/12 删除订单
+                                // : 2022/5/12 删除订单
+                                getBaseActivity().showAlertDialog("确定删除该订单?", "确定", "取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        mPresenter.deleteCancelOrder(getBaseAppActivity().getBaseBuilder()
+                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.DELETE_CANCEL_ORDER);
+                                    }
+                                });
+
                                 break;
                             default:
                                 break;
@@ -154,6 +180,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
 
         switch (eventBusObject.getEventKey()) {
             case EventBusObject.REFRESH_ORDER_LIST:
+                page = 1;
                 getRvAdapterData();
                 break;
             default:
@@ -170,6 +197,8 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
     protected void getRvAdapterData() {
         // : 2022/5/12 获取订单列表
         mPresenter.getOrderList(getBaseAppActivity().getBaseBuilder()
+                .add("page", String.valueOf(page))
+                .add("limit", String.valueOf(limit))
                 .add("type", String.valueOf(labelId)).build(), AppHttpPathMall.ORDER_LIST
         );
 
@@ -188,14 +217,30 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
             case AppHttpPathMall.ORDER_LIST:
                 OrderListBean orderListBean = (OrderListBean) o;
                 if (orderListBean != null) {
-                    List<OrderDetailBean> orderDetailBeans = orderListBean.getData();
-                    baseQuickAdapter.setNewData(orderDetailBeans);
+                    OrderListBean.DataBean dataBean = orderListBean.getData();
+                    if (dataBean != null) {
+                        List<OrderDetailBean> arrays = dataBean.getList();
+                        setData(arrays,dataBean.getTotalCount());
+                    }
                 }
 
 
                 break;
             case AppHttpPathMall.CANCEL_ORDER:
-                getRvAdapterData();
+                ToastUtils.toast(mContext, "已取消订单");
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, ""));
+                break;
+            case AppHttpPathMall.NOTICE_SEND:
+                ToastUtils.toast(mContext, "已通知卖家尽快发货");
+                break;
+            case AppHttpPathMall.CONFIRM_RECEIVED:
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, ""));
+
+                break;
+            case AppHttpPathMall.DELETE_CANCEL_ORDER:
+                ToastUtils.toast(mContext, "已删除订单");
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, ""));
+
                 break;
             default:
                 break;

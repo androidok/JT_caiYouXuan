@@ -6,6 +6,7 @@ import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.AppNetModuleMall;
 import com.juntai.wisdom.project.base.BaseAppMallPresent;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailDataBean;
 import com.juntai.wisdom.project.beans.order.OrderListBean;
 import com.juntai.wisdom.project.beans.order.RefundReasonBean;
@@ -30,9 +31,9 @@ public class OrderPresent extends BaseAppMallPresent {
         AppNetModuleMall.createrRetrofit()
                 .commitOrder(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<OrderListBean>(getView()) {
+                .subscribe(new BaseObserver<ConfirmOrderBean>(getView()) {
                     @Override
-                    public void onSuccess(OrderListBean o) {
+                    public void onSuccess(ConfirmOrderBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -51,6 +52,90 @@ public class OrderPresent extends BaseAppMallPresent {
     public void cancelOrder(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .cancelOrder(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void noticeSend(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .noticeSend(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void deleteCancelOrder(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .deleteCancelOrder(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void requestRefund(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .requestRefund(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void confirmReceived(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .confirmReceived(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override

@@ -1,8 +1,6 @@
 package com.juntai.wisdom.project.mine.collect;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -33,7 +31,10 @@ public class CollectCommoditiesActivity extends BaseSearchAndListActivity<MyCent
         // : 2022/5/10 搜索所有收藏的商品
       mPresenter.getCommodityCollectList(getBaseBuilder().add("key",s).build(), AppHttpPathMall.COMMODITY_COLLECT_LIST);
     }
-
+    @Override
+    protected boolean enableRefresh() {
+        return true;
+    }
     @Override
     public void initData() {
         super.initData();

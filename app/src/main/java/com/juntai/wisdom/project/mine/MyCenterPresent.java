@@ -3,13 +3,13 @@ package com.juntai.wisdom.project.mine;
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.AppNetModuleMall;
+import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppPresent;
 import com.juntai.wisdom.project.beans.CollectDataBean;
 import com.juntai.wisdom.project.beans.PicTextBean;
-import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.beans.order.OrderStatusAmountBean;
 
 import java.util.ArrayList;
@@ -72,6 +72,7 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
                     }
                 });
     }
+
     public void getShopCollectList(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .getShopCollectList(requestBody)
@@ -93,6 +94,29 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
                     }
                 });
     }
+
+    public void logout(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .logout(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
     public void getCommodityCollectList(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .getCommodityCollectList(requestBody)

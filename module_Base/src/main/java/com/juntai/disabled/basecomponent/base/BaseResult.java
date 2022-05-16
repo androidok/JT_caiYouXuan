@@ -1,9 +1,12 @@
 package com.juntai.disabled.basecomponent.base;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseResult  {
+public class BaseResult implements Parcelable {
 
 
     public int code;
@@ -68,7 +71,7 @@ public class BaseResult  {
         this.errorData = errorData;
     }
 
-    public static class ErrorDataBean {
+    public static class ErrorDataBean implements Parcelable {
         /**
          * errorMsg : 昵称必须是2-10位字符
          */
@@ -82,5 +85,60 @@ public class BaseResult  {
         public void setErrorMsg(String errorMsg) {
             this.errorMsg = errorMsg;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.errorMsg);
+        }
+
+        public ErrorDataBean() {
+        }
+
+        protected ErrorDataBean(Parcel in) {
+            this.errorMsg = in.readString();
+        }
+
+        public static final Creator<ErrorDataBean> CREATOR = new Creator<ErrorDataBean>() {
+            @Override
+            public ErrorDataBean createFromParcel(Parcel source) {
+                return new ErrorDataBean(source);
+            }
+
+            @Override
+            public ErrorDataBean[] newArray(int size) {
+                return new ErrorDataBean[size];
+            }
+        };
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.code);
+        dest.writeString(this.msg);
+        dest.writeString(this.message);
+        dest.writeStringList(this.filePaths);
+        dest.writeParcelable(this.errorData, flags);
+    }
+
+    public BaseResult() {
+    }
+
+    protected BaseResult(Parcel in) {
+        this.code = in.readInt();
+        this.msg = in.readString();
+        this.message = in.readString();
+        this.filePaths = in.createStringArrayList();
+        this.errorData = in.readParcelable(ErrorDataBean.class.getClassLoader());
+    }
+
 }

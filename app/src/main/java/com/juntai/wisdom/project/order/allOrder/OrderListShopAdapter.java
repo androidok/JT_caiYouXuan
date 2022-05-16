@@ -1,20 +1,14 @@
 package com.juntai.wisdom.project.order.allOrder;
 
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.disabled.basecomponent.base.BaseActivity;
-import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
-import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.R;
-import com.juntai.wisdom.project.base.BaseAppActivity;
 import com.juntai.wisdom.project.beans.order.OrderDetailBean;
 import com.juntai.wisdom.project.home.HomePageContract;
-import com.juntai.wisdom.project.order.orderDetail.OrderDetailActivity;
 
 /**
  * @Author: tobato
@@ -59,6 +53,7 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
         helper.addOnClickListener(R.id.order_right_tv);
         helper.setGone(R.id.order_left_tv,false);
         helper.setGone(R.id.order_right_tv,false);
+        helper.setBackgroundRes(R.id.order_right_tv,R.drawable.app_bt_bg_accent);
         switch (item.getState()) {
             case 0:
                 helper.setGone(R.id.order_left_tv,true);
@@ -92,6 +87,17 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
                 helper.setGone(R.id.order_left_tv,false);
                 helper.setGone(R.id.order_right_tv,true);
                 helper.setText(R.id.order_right_tv, HomePageContract.ORDER_DELETE);
+                break;
+            case 7:
+                helper.setGone(R.id.order_left_tv,false);
+                helper.setGone(R.id.order_right_tv,true);
+                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_REFUND_AGREE);
+                break;
+            case 8:
+                helper.setGone(R.id.order_left_tv,false);
+                helper.setGone(R.id.order_right_tv,true);
+                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_REFUND_UNAGREE);
+                helper.setBackgroundRes(R.id.order_right_tv,R.drawable.app_bt_bg_red);
                 break;
             default:
                 break;

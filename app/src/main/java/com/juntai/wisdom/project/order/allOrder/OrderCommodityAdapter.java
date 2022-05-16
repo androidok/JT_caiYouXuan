@@ -4,7 +4,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.wisdom.project.R;
-import com.juntai.wisdom.project.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailBean;
 
 /**

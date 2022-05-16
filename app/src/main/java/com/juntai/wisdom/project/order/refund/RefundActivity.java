@@ -21,6 +21,8 @@ import com.juntai.wisdom.project.order.OrderPresent;
 
 import java.util.List;
 
+import okhttp3.FormBody;
+
 /**
  * @Author: tobato
  * @Description: 作用描述  我要退款
@@ -48,6 +50,7 @@ public class RefundActivity extends BaseAppActivity<OrderPresent> implements Hom
     private OrderDetailBean orderDetailBean;
 
     private int reasonId = 0;
+    private int receivedStatus;
 
     @Override
     public int getLayoutView() {
@@ -57,6 +60,7 @@ public class RefundActivity extends BaseAppActivity<OrderPresent> implements Hom
     @Override
     public void initView() {
         orderDetailBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
+        receivedStatus = getIntent().getIntExtra(BASE_ID, 0);
         setTitleName("我要退款");
         mItemMyinfoName = (TextView) findViewById(R.id.item_myinfo_name);
         mItemMyinfoName.setText("退款原因");
@@ -90,18 +94,44 @@ public class RefundActivity extends BaseAppActivity<OrderPresent> implements Hom
             case MainContract.UPLOAD_IMAGES:
                 //发送图片
                 List<String> picPaths = (List<String>) o;
-                // TODO: 2022/5/15 调用提交申请的接口
+                if (picPaths != null && picPaths.size() > 0) {
+                    FormBody.Builder builder = getBaseBuilder()
+                            .add("orderId", String.valueOf(orderDetailBean.getId()))
+                            .add("cargoStatus", String.valueOf(receivedStatus))
+                            .add("causeId", String.valueOf(reasonId))
+                            .add("remark", getTextViewValue(mRefundReasonEt));
 
 
+                    for (int i = 0; i < picPaths.size(); i++) {
+                        String picPath = picPaths.get(i);
+                        if (0 == i) {
+                            builder.add("pictureOne", picPath);
+                        } else if (1 == i) {
+                            builder.add("pictureTwo", picPath);
+                        } else if (2 == i) {
+                            builder.add("pictureThree", picPath);
+                        }
+                    }
+                    // : 2022/5/15 调用提交申请的接口
+                    mPresenter.requestRefund(builder.build(), AppHttpPathMall.REQUEST_REFUND
+                    );
+                }
+
+
+                break;
+
+            case AppHttpPathMall.REQUEST_REFUND:
+                ToastUtils.toast(mContext, "已提交申请");
+                startToOrderDetailActivity(orderDetailBean.getId(),4);
                 break;
             case AppHttpPathMall.GET_REFUND_REASON:
 
                 RefundReasonBean refundReasonBean = (RefundReasonBean) o;
                 if (refundReasonBean != null) {
                     List<RefundReasonBean.DataDTO> dataDTOS = refundReasonBean.getData();
-                    if (reasonId>0) {
+                    if (reasonId > 0) {
                         for (RefundReasonBean.DataDTO dataDTO : dataDTOS) {
-                            if (reasonId==dataDTO.getId()) {
+                            if (reasonId == dataDTO.getId()) {
                                 dataDTO.setSelect(true);
                             }
                         }
@@ -139,8 +169,8 @@ public class RefundActivity extends BaseAppActivity<OrderPresent> implements Hom
 
                 break;
             case R.id.commit_refund_tv:
-                if (reasonId==0) {
-                     ToastUtils.toast(mContext,"请选择退款原因");
+                if (reasonId == 0) {
+                    ToastUtils.toast(mContext, "请选择退款原因");
                     return;
                 }
                 if (TextUtils.isEmpty(getTextViewValue(mRefundReasonEt))) {
@@ -152,10 +182,17 @@ public class RefundActivity extends BaseAppActivity<OrderPresent> implements Hom
                 //首先上传图片
                 //将图片上传
                 List<String> icons = selectPhotosFragment.getPhotosPath();
-                if (icons.size()>0) {
+                if (icons.size() > 0) {
                     mPresenter.uploadFile(icons, MainContract.UPLOAD_IMAGES);
-                }else {
-                    // TODO: 2022/5/15 调用提交申请的接口
+                } else {
+                    // : 2022/5/15 调用提交申请的接口
+                    mPresenter.requestRefund(getBaseBuilder()
+                            .add("orderId", String.valueOf(orderDetailBean.getId()))
+                            .add("cargoStatus", String.valueOf(receivedStatus))
+                            .add("causeId", String.valueOf(reasonId))
+                            .add("remark", getTextViewValue(mRefundReasonEt)).build(), AppHttpPathMall.REQUEST_REFUND
+                    );
+
                 }
                 break;
         }

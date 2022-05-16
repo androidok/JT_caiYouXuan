@@ -3,9 +3,9 @@ package com.juntai.wisdom.project.beans.order;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 
+import java.util.List;
 
 /**
  * @Author: tobato
@@ -14,36 +14,39 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/11 15:25
  */
-public class OrderDetailBean implements Parcelable {
+public class OrderDetailBean extends BaseResult implements Parcelable {
+
+
     /**
-     * id : 305
-     * orderFormNumber : b40170d7c1b840a189883e97e0045a51
-     * userId : 101
-     * name : 顾启杭
-     * phone : 18669505929
-     * address : 山东省临沂市河东区九曲街道阳光水岸
+     * id : 366
+     * orderFormNumber : 1829061657879947
+     * userId : 99
+     * name : 王景
+     * phone : 18763312667
+     * address : 甘肃省　金昌市　永昌县　焦家庄镇　5555
      * shopId : 1
      * shopName : 测试小店
-     * totalPrices : 30.0
-     * transportCharges : 2.0
+     * totalPrices : 123.0
+     * transportCharges : 10.0
      * sumPackingCharges : 0.0
-     * payPrice : 32.0
-     * payPostage : 2.0
+     * payPrice : 133.0
+     * payPostage : 10.0
      * payPackingCharges : 0.0
-     * payType : 1
-     * establishTime : 2022-05-04 14:57:34
-     * paymentTime : 2022-05-05 15:40:10
-     * shipmentsTime : 2022-05-05 15:40:13
-     * confirmTime : 2022-05-05 10:51:14
-     * refundTime : 2022-05-05 14:29:02
-     * cancelTime : 2022-05-05 10:44:59
-     * expireTime : null
-     * remark : 订单备注
-     * state : 7
-     * logisticsName : 顺丰
-     * logisticsNumber : 123456
-     * logisticsLink : http://www.baidu.com
-     * commodityList : [{"id":15,"orderFormNumber":"b40170d7c1b840a189883e97e0045a51","commodityId":5,"commodityName":"短裤","prices":20,"commodityNum":2,"cartInfo":"L,红色","unique":"0b03454b9d0246d99e8ffceaa5fcd103"},{"id":16,"orderFormNumber":"b40170d7c1b840a189883e97e0045a51","commodityId":5,"commodityName":"短裤","prices":10,"commodityNum":1,"cartInfo":"M,黑色","unique":"be028e5ef938464bb6a6f2e975f12f83"}]
+     * payType : 4
+     * establishTime : 2022-05-16 11:56:47
+     * paymentTime : 2022-05-16 11:56:49
+     * shipmentsTime : null
+     * confirmTime : null
+     * refundTime : 2022-05-16 11:57:05
+     * cancelTime : null
+     * expireTime : 2022-05-16 12:11:47
+     * remark : null
+     * state : 4
+     * logisticsName : null
+     * logisticsNumber : null
+     * logisticsLink : null
+     * commodityList : [{"id":87,"orderFormNumber":"1829061657879947","commodityId":15,"commodityName":"运动鞋","coverImg":"https://www.juntaikeji.com:21900/2022-05-13/1652406679479.png","prices":123,"commodityNum":1,"cartInfo":"红色;m","unique":"184fb43ae77d437f9c63d310b96b1aed"}]
+     * returnOrderFormInfo : {"id":7,"userId":99,"orderId":366,"salesFormNumber":"7825945911249092","orderFormNumber":null,"payType":4,"cargoStatus":1,"causeId":1,"causeName":"快递一直未到","returnPrice":123,"remark":"ty","logisticsName":null,"logisticsNumber":null,"pictureOne":"https://www.juntaikeji.com:21900/2022-05-16/1652673424400.png","pictureTwo":null,"pictureThree":null,"refundTime":"2022-05-16 11:57:05","merchantAgreeStatus":2,"merchantConfirmTime":null,"merchantRefuseReason":null,"ultimatelyStatus":null,"ultimatelyTime":null}
      */
 
     private int id;
@@ -70,12 +73,13 @@ public class OrderDetailBean implements Parcelable {
     private String expireTime;
     private String remark;
     /**
-     * 订单状态(0：待付款）（1：待发货）（2：待收货）（3：待评价）（4：退款中）（5：完成）（6:订单取消）（7：退款完成）
+     * 4是等待商家处理  7是商家同意退款 8是商家不同意退款
      */
     private int state;
     private String logisticsName;
     private String logisticsNumber;
     private String logisticsLink;
+    private ReturnOrderFormInfoBean returnOrderFormInfo;
     private List<CommodityListBean> commodityList;
 
     public int getId() {
@@ -214,21 +218,6 @@ public class OrderDetailBean implements Parcelable {
         this.paymentTime = paymentTime;
     }
 
-    public String getShipmentsTime() {
-        return shipmentsTime;
-    }
-
-    public void setShipmentsTime(String shipmentsTime) {
-        this.shipmentsTime = shipmentsTime;
-    }
-
-    public String getConfirmTime() {
-        return confirmTime;
-    }
-
-    public void setConfirmTime(String confirmTime) {
-        this.confirmTime = confirmTime;
-    }
 
     public String getRefundTime() {
         return refundTime;
@@ -238,29 +227,70 @@ public class OrderDetailBean implements Parcelable {
         this.refundTime = refundTime;
     }
 
+    public String getShipmentsTime() {
+        return shipmentsTime == null ? "" : shipmentsTime;
+    }
+
+    public void setShipmentsTime(String shipmentsTime) {
+        this.shipmentsTime = shipmentsTime == null ? "" : shipmentsTime;
+    }
+
+    public String getConfirmTime() {
+        return confirmTime == null ? "" : confirmTime;
+    }
+
+    public void setConfirmTime(String confirmTime) {
+        this.confirmTime = confirmTime == null ? "" : confirmTime;
+    }
+
     public String getCancelTime() {
-        return cancelTime;
+        return cancelTime == null ? "" : cancelTime;
     }
 
     public void setCancelTime(String cancelTime) {
-        this.cancelTime = cancelTime;
-    }
-
-    public String getExpireTime() {
-        return expireTime == null ? "" : expireTime;
-    }
-
-    public void setExpireTime(String expireTime) {
-        this.expireTime = expireTime == null ? "" : expireTime;
+        this.cancelTime = cancelTime == null ? "" : cancelTime;
     }
 
     public String getRemark() {
-        return remark;
+        return remark == null ? "" : remark;
     }
 
     public void setRemark(String remark) {
-        this.remark = remark;
+        this.remark = remark == null ? "" : remark;
     }
+
+    public String getLogisticsName() {
+        return logisticsName == null ? "" : logisticsName;
+    }
+
+    public void setLogisticsName(String logisticsName) {
+        this.logisticsName = logisticsName == null ? "" : logisticsName;
+    }
+
+    public String getLogisticsNumber() {
+        return logisticsNumber == null ? "" : logisticsNumber;
+    }
+
+    public void setLogisticsNumber(String logisticsNumber) {
+        this.logisticsNumber = logisticsNumber == null ? "" : logisticsNumber;
+    }
+
+    public String getLogisticsLink() {
+        return logisticsLink == null ? "" : logisticsLink;
+    }
+
+    public void setLogisticsLink(String logisticsLink) {
+        this.logisticsLink = logisticsLink == null ? "" : logisticsLink;
+    }
+
+    public String getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(String expireTime) {
+        this.expireTime = expireTime;
+    }
+
 
     public int getState() {
         return state;
@@ -270,28 +300,14 @@ public class OrderDetailBean implements Parcelable {
         this.state = state;
     }
 
-    public String getLogisticsName() {
-        return logisticsName;
+
+
+    public ReturnOrderFormInfoBean getReturnOrderFormInfo() {
+        return returnOrderFormInfo;
     }
 
-    public void setLogisticsName(String logisticsName) {
-        this.logisticsName = logisticsName;
-    }
-
-    public String getLogisticsNumber() {
-        return logisticsNumber;
-    }
-
-    public void setLogisticsNumber(String logisticsNumber) {
-        this.logisticsNumber = logisticsNumber;
-    }
-
-    public String getLogisticsLink() {
-        return logisticsLink;
-    }
-
-    public void setLogisticsLink(String logisticsLink) {
-        this.logisticsLink = logisticsLink;
+    public void setReturnOrderFormInfo(ReturnOrderFormInfoBean returnOrderFormInfo) {
+        this.returnOrderFormInfo = returnOrderFormInfo;
     }
 
     public List<CommodityListBean> getCommodityList() {
@@ -302,24 +318,322 @@ public class OrderDetailBean implements Parcelable {
         this.commodityList = commodityList;
     }
 
+    public static class ReturnOrderFormInfoBean implements Parcelable {
+        /**
+         * id : 7
+         * userId : 99
+         * orderId : 366
+         * salesFormNumber : 7825945911249092
+         * orderFormNumber : null
+         * payType : 4
+         * cargoStatus : 1
+         * causeId : 1
+         * causeName : 快递一直未到
+         * returnPrice : 123.0
+         * remark : ty
+         * logisticsName : null
+         * logisticsNumber : null
+         * pictureOne : https://www.juntaikeji.com:21900/2022-05-16/1652673424400.png
+         * pictureTwo : null
+         * pictureThree : null
+         * refundTime : 2022-05-16 11:57:05
+         * merchantAgreeStatus : 2
+         * merchantConfirmTime : null
+         * merchantRefuseReason : null
+         * ultimatelyStatus : null
+         * ultimatelyTime : null
+         */
+
+        private int id;
+        private int userId;
+        private int orderId;
+        private String salesFormNumber;
+        private String orderFormNumber;
+        private int payType;
+        private int cargoStatus;
+        private int causeId;
+        private String causeName;
+        private double returnPrice;
+        private String remark;
+        private String logisticsName;
+        private String logisticsNumber;
+        private String pictureOne;
+        private String pictureTwo;
+        private String pictureThree;
+        private String refundTime;
+        private int merchantAgreeStatus;
+        private String merchantConfirmTime;
+        private String merchantRefuseReason;
+        private int ultimatelyStatus;
+        private String ultimatelyTime;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public int getOrderId() {
+            return orderId;
+        }
+
+        public void setOrderId(int orderId) {
+            this.orderId = orderId;
+        }
+
+        public String getOrderFormNumber() {
+            return orderFormNumber == null ? "" : orderFormNumber;
+        }
+
+        public void setOrderFormNumber(String orderFormNumber) {
+            this.orderFormNumber = orderFormNumber == null ? "" : orderFormNumber;
+        }
+
+        public int getPayType() {
+            return payType;
+        }
+
+        public void setPayType(int payType) {
+            this.payType = payType;
+        }
+
+        public int getCargoStatus() {
+            return cargoStatus;
+        }
+
+        public void setCargoStatus(int cargoStatus) {
+            this.cargoStatus = cargoStatus;
+        }
+
+        public int getCauseId() {
+            return causeId;
+        }
+
+        public void setCauseId(int causeId) {
+            this.causeId = causeId;
+        }
+
+        public String getCauseName() {
+            return causeName == null ? "" : causeName;
+        }
+
+        public void setCauseName(String causeName) {
+            this.causeName = causeName == null ? "" : causeName;
+        }
+
+        public double getReturnPrice() {
+            return returnPrice;
+        }
+
+        public void setReturnPrice(double returnPrice) {
+            this.returnPrice = returnPrice;
+        }
+
+        public String getRemark() {
+            return remark == null ? "" : remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark == null ? "" : remark;
+        }
+
+        public String getLogisticsName() {
+            return logisticsName == null ? "" : logisticsName;
+        }
+
+        public void setLogisticsName(String logisticsName) {
+            this.logisticsName = logisticsName == null ? "" : logisticsName;
+        }
+
+        public String getLogisticsNumber() {
+            return logisticsNumber == null ? "" : logisticsNumber;
+        }
+
+        public void setLogisticsNumber(String logisticsNumber) {
+            this.logisticsNumber = logisticsNumber == null ? "" : logisticsNumber;
+        }
+
+        public String getPictureOne() {
+            return pictureOne == null ? "" : pictureOne;
+        }
+
+        public void setPictureOne(String pictureOne) {
+            this.pictureOne = pictureOne == null ? "" : pictureOne;
+        }
+
+        public String getPictureTwo() {
+            return pictureTwo == null ? "" : pictureTwo;
+        }
+
+        public void setPictureTwo(String pictureTwo) {
+            this.pictureTwo = pictureTwo == null ? "" : pictureTwo;
+        }
+
+        public String getPictureThree() {
+            return pictureThree == null ? "" : pictureThree;
+        }
+
+        public void setPictureThree(String pictureThree) {
+            this.pictureThree = pictureThree == null ? "" : pictureThree;
+        }
+
+        public String getRefundTime() {
+            return refundTime == null ? "" : refundTime;
+        }
+
+        public void setRefundTime(String refundTime) {
+            this.refundTime = refundTime == null ? "" : refundTime;
+        }
+
+        public int getMerchantAgreeStatus() {
+            return merchantAgreeStatus;
+        }
+
+        public void setMerchantAgreeStatus(int merchantAgreeStatus) {
+            this.merchantAgreeStatus = merchantAgreeStatus;
+        }
+
+        public String getMerchantConfirmTime() {
+            return merchantConfirmTime == null ? "" : merchantConfirmTime;
+        }
+
+        public void setMerchantConfirmTime(String merchantConfirmTime) {
+            this.merchantConfirmTime = merchantConfirmTime == null ? "" : merchantConfirmTime;
+        }
+
+        public String getMerchantRefuseReason() {
+            return merchantRefuseReason == null ? "" : merchantRefuseReason;
+        }
+
+        public void setMerchantRefuseReason(String merchantRefuseReason) {
+            this.merchantRefuseReason = merchantRefuseReason == null ? "" : merchantRefuseReason;
+        }
+
+        public int getUltimatelyStatus() {
+            return ultimatelyStatus;
+        }
+
+        public void setUltimatelyStatus(int ultimatelyStatus) {
+            this.ultimatelyStatus = ultimatelyStatus;
+        }
+
+        public String getUltimatelyTime() {
+            return ultimatelyTime == null ? "" : ultimatelyTime;
+        }
+
+        public void setUltimatelyTime(String ultimatelyTime) {
+            this.ultimatelyTime = ultimatelyTime == null ? "" : ultimatelyTime;
+        }
+
+        public String getSalesFormNumber() {
+            return salesFormNumber;
+        }
+
+        public void setSalesFormNumber(String salesFormNumber) {
+            this.salesFormNumber = salesFormNumber;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(this.id);
+            dest.writeInt(this.userId);
+            dest.writeInt(this.orderId);
+            dest.writeString(this.salesFormNumber);
+            dest.writeString(this.orderFormNumber);
+            dest.writeInt(this.payType);
+            dest.writeInt(this.cargoStatus);
+            dest.writeInt(this.causeId);
+            dest.writeString(this.causeName);
+            dest.writeDouble(this.returnPrice);
+            dest.writeString(this.remark);
+            dest.writeString(this.logisticsName);
+            dest.writeString(this.logisticsNumber);
+            dest.writeString(this.pictureOne);
+            dest.writeString(this.pictureTwo);
+            dest.writeString(this.pictureThree);
+            dest.writeString(this.refundTime);
+            dest.writeInt(this.merchantAgreeStatus);
+            dest.writeString(this.merchantConfirmTime);
+            dest.writeString(this.merchantRefuseReason);
+            dest.writeInt(this.ultimatelyStatus);
+            dest.writeString(this.ultimatelyTime);
+        }
+
+        public ReturnOrderFormInfoBean() {
+        }
+
+        protected ReturnOrderFormInfoBean(Parcel in) {
+            this.id = in.readInt();
+            this.userId = in.readInt();
+            this.orderId = in.readInt();
+            this.salesFormNumber = in.readString();
+            this.orderFormNumber = in.readString();
+            this.payType = in.readInt();
+            this.cargoStatus = in.readInt();
+            this.causeId = in.readInt();
+            this.causeName = in.readString();
+            this.returnPrice = in.readDouble();
+            this.remark = in.readString();
+            this.logisticsName = in.readString();
+            this.logisticsNumber = in.readString();
+            this.pictureOne = in.readString();
+            this.pictureTwo = in.readString();
+            this.pictureThree = in.readString();
+            this.refundTime = in.readString();
+            this.merchantAgreeStatus = in.readInt();
+            this.merchantConfirmTime = in.readString();
+            this.merchantRefuseReason = in.readString();
+            this.ultimatelyStatus = in.readInt();
+            this.ultimatelyTime = in.readString();
+        }
+
+        public static final Parcelable.Creator<ReturnOrderFormInfoBean> CREATOR = new Parcelable.Creator<ReturnOrderFormInfoBean>() {
+            @Override
+            public ReturnOrderFormInfoBean createFromParcel(Parcel source) {
+                return new ReturnOrderFormInfoBean(source);
+            }
+
+            @Override
+            public ReturnOrderFormInfoBean[] newArray(int size) {
+                return new ReturnOrderFormInfoBean[size];
+            }
+        };
+    }
+
     public static class CommodityListBean implements Parcelable {
         /**
-         * id : 15
-         * orderFormNumber : b40170d7c1b840a189883e97e0045a51
-         * commodityId : 5
-         * commodityName : 短裤
-         * prices : 20.0
-         * commodityNum : 2
-         * cartInfo : L,红色
-         * unique : 0b03454b9d0246d99e8ffceaa5fcd103
+         * id : 87
+         * orderFormNumber : 1829061657879947
+         * commodityId : 15
+         * commodityName : 运动鞋
+         * coverImg : https://www.juntaikeji.com:21900/2022-05-13/1652406679479.png
+         * prices : 123.0
+         * commodityNum : 1
+         * cartInfo : 红色;m
+         * unique : 184fb43ae77d437f9c63d310b96b1aed
          */
 
         private int id;
         private String orderFormNumber;
         private int commodityId;
         private String commodityName;
+        private String coverImg;
         private double prices;
-        private String coverImg;//商品图片
         private int commodityNum;
         private String cartInfo;
         private String unique;
@@ -330,14 +644,6 @@ public class OrderDetailBean implements Parcelable {
 
         public void setId(int id) {
             this.id = id;
-        }
-
-        public String getCoverImg() {
-            return coverImg == null ? "" : coverImg;
-        }
-
-        public void setCoverImg(String coverImg) {
-            this.coverImg = coverImg == null ? "" : coverImg;
         }
 
         public String getOrderFormNumber() {
@@ -362,6 +668,14 @@ public class OrderDetailBean implements Parcelable {
 
         public void setCommodityName(String commodityName) {
             this.commodityName = commodityName;
+        }
+
+        public String getCoverImg() {
+            return coverImg;
+        }
+
+        public void setCoverImg(String coverImg) {
+            this.coverImg = coverImg;
         }
 
         public double getPrices() {
@@ -407,8 +721,8 @@ public class OrderDetailBean implements Parcelable {
             dest.writeString(this.orderFormNumber);
             dest.writeInt(this.commodityId);
             dest.writeString(this.commodityName);
-            dest.writeDouble(this.prices);
             dest.writeString(this.coverImg);
+            dest.writeDouble(this.prices);
             dest.writeInt(this.commodityNum);
             dest.writeString(this.cartInfo);
             dest.writeString(this.unique);
@@ -422,14 +736,14 @@ public class OrderDetailBean implements Parcelable {
             this.orderFormNumber = in.readString();
             this.commodityId = in.readInt();
             this.commodityName = in.readString();
-            this.prices = in.readDouble();
             this.coverImg = in.readString();
+            this.prices = in.readDouble();
             this.commodityNum = in.readInt();
             this.cartInfo = in.readString();
             this.unique = in.readString();
         }
 
-        public static final Creator<CommodityListBean> CREATOR = new Creator<CommodityListBean>() {
+        public static final Parcelable.Creator<CommodityListBean> CREATOR = new Parcelable.Creator<CommodityListBean>() {
             @Override
             public CommodityListBean createFromParcel(Parcel source) {
                 return new CommodityListBean(source);
@@ -440,9 +754,6 @@ public class OrderDetailBean implements Parcelable {
                 return new CommodityListBean[size];
             }
         };
-    }
-
-    public OrderDetailBean() {
     }
 
     @Override
@@ -479,7 +790,11 @@ public class OrderDetailBean implements Parcelable {
         dest.writeString(this.logisticsName);
         dest.writeString(this.logisticsNumber);
         dest.writeString(this.logisticsLink);
-        dest.writeList(this.commodityList);
+        dest.writeParcelable(this.returnOrderFormInfo, flags);
+        dest.writeTypedList(this.commodityList);
+    }
+
+    public OrderDetailBean() {
     }
 
     protected OrderDetailBean(Parcel in) {
@@ -510,11 +825,11 @@ public class OrderDetailBean implements Parcelable {
         this.logisticsName = in.readString();
         this.logisticsNumber = in.readString();
         this.logisticsLink = in.readString();
-        this.commodityList = new ArrayList<CommodityListBean>();
-        in.readList(this.commodityList, CommodityListBean.class.getClassLoader());
+        this.returnOrderFormInfo = in.readParcelable(ReturnOrderFormInfoBean.class.getClassLoader());
+        this.commodityList = in.createTypedArrayList(CommodityListBean.CREATOR);
     }
 
-    public static final Creator<OrderDetailBean> CREATOR = new Creator<OrderDetailBean>() {
+    public static final Parcelable.Creator<OrderDetailBean> CREATOR = new Parcelable.Creator<OrderDetailBean>() {
         @Override
         public OrderDetailBean createFromParcel(Parcel source) {
             return new OrderDetailBean(source);

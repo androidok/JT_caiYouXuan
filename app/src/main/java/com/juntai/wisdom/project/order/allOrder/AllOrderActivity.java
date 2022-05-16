@@ -2,15 +2,13 @@ package com.juntai.wisdom.project.order.allOrder;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
 
-import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.MainActivity;
 import com.juntai.wisdom.project.R;
-import com.juntai.wisdom.project.base.BaseSearchAndListActivity;
 import com.juntai.wisdom.project.base.BaseTabViewPageActivity;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.order.OrderPresent;
@@ -25,11 +23,19 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
     private int enterType;
     private int tabPosition;
 
+
+
     @Override
     protected OrderPresent createPresenter() {
         return new OrderPresent();
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        enterType = intent.getIntExtra(BASE_ID, 0);
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, ""));
+
+    }
 
     @Override
     public void initView() {

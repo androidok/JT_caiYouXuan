@@ -13,15 +13,12 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppActivity;
+import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
-import com.juntai.wisdom.project.beans.order.OrderDetailBean;
-import com.juntai.wisdom.project.beans.order.OrderListBean;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.order.OrderPresent;
 import com.juntai.wisdom.project.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
-
-import java.util.ArrayList;
 
 /**
  * @aouther tobato
@@ -135,7 +132,7 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
         switch (tag) {
             case AppHttpPathMall.COMMIT_ORDER:
                 // : 2022/5/11 跳转到选择支付方式的界面
-                OrderListBean orderListBean = (OrderListBean) o;
+                ConfirmOrderBean orderListBean = (ConfirmOrderBean) o;
                 if (orderListBean != null) {
                     orderListBean.setTotalPrice(dataBean.getTotalPrice());
                     orderListBean.setTotalCommodityNum(dataBean.getTotalCommodityNum());

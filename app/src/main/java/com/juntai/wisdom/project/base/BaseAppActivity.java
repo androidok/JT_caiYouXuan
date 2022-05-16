@@ -12,6 +12,7 @@ import android.text.TextUtils;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
@@ -25,7 +26,6 @@ import com.juntai.wisdom.project.base.selectPics.BaseSelectPicsActivity;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailBean;
-import com.juntai.wisdom.project.beans.order.OrderListBean;
 import com.juntai.wisdom.project.entrance.LoginActivity;
 import com.juntai.wisdom.project.home.commodityfragment.commodity_detail.CommodityDetailActivity;
 import com.juntai.wisdom.project.home.shop.ShopActivity;
@@ -33,8 +33,10 @@ import com.juntai.wisdom.project.mine.address.AddOrEditAddressActivity;
 import com.juntai.wisdom.project.mine.address.AddressListActivity;
 import com.juntai.wisdom.project.order.allOrder.AllOrderActivity;
 import com.juntai.wisdom.project.order.confirmOrder.ConfirmOrderActivity;
+import com.juntai.wisdom.project.order.evaluate.EvaluateActivity;
 import com.juntai.wisdom.project.order.orderDetail.OrderDetailActivity;
 import com.juntai.wisdom.project.order.orderPay.OrderPayActivity;
+import com.juntai.wisdom.project.order.refund.RefundActivity;
 import com.juntai.wisdom.project.order.refund.RefundRequestActivity;
 import com.juntai.wisdom.project.utils.StringTools;
 
@@ -347,7 +349,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      *  1 代表购物车结算的时候
      *  2. 在待支付订单进入
      */
-    public   void  startToOrderPayActivity(OrderListBean orderListBean, int enterType){
+    public   void  startToOrderPayActivity(BaseResult orderListBean, int enterType){
         startActivity(new Intent(mContext, OrderPayActivity.class)
                 .putExtra(BASE_STRING,enterType)
                 .putExtra(BASE_PARCELABLE,orderListBean));
@@ -404,6 +406,24 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
                 .putExtra(BASE_PARCELABLE,orderDetailBean)
         );
 
+    }
+    /**
+     *跳入 评价
+     */
+    public void startToEvaluateActivity(OrderDetailBean orderDetailBean) {
+        startActivity(new Intent(mContext, EvaluateActivity.class)
+                .putExtra(BASE_PARCELABLE,orderDetailBean)
+        );
+
+    }
+    /**
+     *跳入 评价
+     * receivedStatus 是否收到货物  1未收到 2 收到
+     */
+    public void startToRefundActivity(OrderDetailBean orderDetailBean,int receivedStatus) {
+        startActivity(new Intent(mContext,RefundActivity.class)
+                .putExtra(BASE_ID,receivedStatus)
+                .putExtra(BASE_PARCELABLE,orderDetailBean));
     }
 
 }

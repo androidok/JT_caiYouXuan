@@ -226,6 +226,18 @@ public class AppHttpPathMall {
      */
     public static final String CANCEL_ORDER = BASE + "/buyers/cancelOrderForm";
     /**
+     * 提醒发货
+     */
+    public static final String NOTICE_SEND = BASE + "/buyers/remindDelivery";
+    /**
+     * 删除已取消订单
+     */
+    public static final String DELETE_CANCEL_ORDER = BASE + "/buyers/deleteOrder";
+    /**
+     * 确认收货
+     */
+    public static final String CONFIRM_RECEIVED = BASE + "/buyers/confirmOrderForm";
+    /**
      * 订单状态
      */
     public static final String ORDER_STATUS = BASE + "/buyers/getOrderFormStateNum";
@@ -259,6 +271,11 @@ public class AppHttpPathMall {
      * 退货原因
      */
     public static final String GET_REFUND_REASON = BASE + "/buyers/getSalesReturnCause";
+
+    /**
+     * 申请退款
+     */
+    public static final String REQUEST_REFUND = BASE + "/buyers/addSalesReturn";
 
 
 }

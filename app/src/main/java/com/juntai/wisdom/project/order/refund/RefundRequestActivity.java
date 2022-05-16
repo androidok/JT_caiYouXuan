@@ -1,6 +1,5 @@
 package com.juntai.wisdom.project.order.refund;
 
-import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -87,10 +86,12 @@ public class RefundRequestActivity extends BaseRecyclerviewActivity<OrderPresent
                 break;
             case R.id.refund_cl:
                 // : 2022/5/15 退款
-                startActivity(new Intent(mContext,RefundActivity.class).putExtra(BASE_PARCELABLE,orderDetailBean));
+                startToRefundActivity(orderDetailBean,1);
                 break;
             case R.id.refund_goods_cl:
-                // TODO: 2022/5/15 退货退款
+                // : 2022/5/15 退货退款
+                startToRefundActivity(orderDetailBean,1);
+
                 break;
         }
     }

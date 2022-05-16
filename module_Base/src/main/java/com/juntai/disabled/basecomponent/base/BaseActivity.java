@@ -328,6 +328,16 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         getTitleRightTv().setCompoundDrawables(drawable, null, null, null);//只放左边
     }
     /**
+     * 设置图标
+     *
+     * @param drawableId
+     */
+    public void setTextViewDrawable(TextView textView,boolean isLeft, int drawableId) {
+        Drawable drawable = getResources().getDrawable(drawableId);
+        drawable.setBounds(0, 0, DisplayUtil.dp2px(mContext, 20), DisplayUtil.dp2px(mContext, 20));//第一个 0 是距左边距离，第二个 0 是距上边距离，40 分别是长宽
+            textView.setCompoundDrawables(isLeft?drawable:null, null, !isLeft?drawable:null, null);//只放左边
+    }
+    /**
      * 展示加载动画
      */
     public void showLoadingDialog(Context context,boolean canCancel) {

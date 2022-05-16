@@ -45,6 +45,8 @@ public interface HomePageContract {
     String  ORDER_PROGRESS = "查看进度";
     String  ORDER_DELETE = "删除订单";
     String  ORDER_REBUY = "再来一单";
+    String  ORDER_REFUND_AGREE = "商家已同意";
+    String  ORDER_REFUND_UNAGREE = "商家不同意";
 
 
 

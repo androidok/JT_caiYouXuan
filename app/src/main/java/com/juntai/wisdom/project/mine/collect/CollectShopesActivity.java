@@ -1,13 +1,9 @@
 package com.juntai.wisdom.project.mine.collect;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.AppCompatImageHelper;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseSearchAndListActivity;
@@ -29,6 +25,11 @@ public class CollectShopesActivity extends BaseSearchAndListActivity<MyCenterPre
     protected void startSearch(String s) {
         // : 2022/5/10 查找所有收藏的店铺
         mPresenter.getShopCollectList(getBaseBuilder().add("key", s).build(), AppHttpPathMall.SHOP_COLLECT_LIST);
+    }
+
+    @Override
+    protected boolean enableRefresh() {
+        return true;
     }
 
     @Override

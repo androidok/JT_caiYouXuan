@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
-import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppActivity;
@@ -59,6 +57,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
     private TextView mReceiverNameTv;
     private TextView mReceiverAddrTv;
     private TextView mReceiverPhoneTv;
+    private TextView mCustomTv;
 
     @Override
     protected OrderPresent createPresenter() {
@@ -83,6 +82,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
         mFinalPaymentTv = (TextView) findViewById(R.id.final_payment_tv);
         mOrderDetailInfoRv = (RecyclerView) findViewById(R.id.order_detail_info_rv);
         mOrderLeftTv = (TextView) findViewById(R.id.order_left_tv);
+        mCustomTv = (TextView) findViewById(R.id.custom_tv);
         mOrderLeftTv.setOnClickListener(this);
         mOrderRightTv = (TextView) findViewById(R.id.order_right_tv);
         mOrderRightTv.setOnClickListener(this);
@@ -95,12 +95,46 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
             mOrderDetailTopFl.setVisibility(View.VISIBLE);
             //显示收货地址
             mOrderDetailTopFl.addView(getAddrView());
-        } else if (2 == orderStatus || 3 == orderStatus) {
-        } else {
-            // TODO: 2022/5/14 退货订单详情 需要展示不同的界面 退款
+        } else if (4 == orderStatus || 7 == orderStatus || 8 == orderStatus) {
+            mOrderDetailTopFl.setVisibility(View.VISIBLE);
+            //显示处理情况
+            mOrderDetailTopFl.addView(getProgressView());
 
         }
 
+    }
+
+    /**
+     * 退款进度
+     *            //4是等待商家处理  7是商家同意退款 8是商家不同意退款
+     * @return
+     */
+    private View getProgressView() {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.refund_progress_layout, null);
+        TextView contentTv =view.findViewById(R.id.progress_content_tv);
+
+        if (orderStatus == 8) {
+            view.findViewById(R.id.recommit_ll).setVisibility(View.VISIBLE);
+            setTextViewDrawable(contentTv,true,R.mipmap.mall_unagree_icon);
+            contentTv.setText("商家不同意");
+        } else {
+            view.findViewById(R.id.recommit_ll).setVisibility(View.GONE);
+            setTextViewDrawable(contentTv,true,R.mipmap.mall_agree_icon);
+
+            if (4==orderStatus) {
+                contentTv.setText("等待商家处理");
+            }else {
+                contentTv.setText("商家已同意");
+            }
+        }
+        view.findViewById(R.id.recommit_ll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // : 2022/5/15 重新提交退货申请
+                startToOrderRefundRequestActivity(orderDetailBean);
+            }
+        });
+        return view;
     }
 
     /**
@@ -123,81 +157,6 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
 
     }
 
-
-    @Override
-    public void onSuccess(String tag, Object o) {
-        switch (tag) {
-            case AppHttpPathMall.ORDER_DETAIL:
-                OrderDetailDataBean orderDetailDataBean = (OrderDetailDataBean) o;
-                if (orderDetailDataBean != null) {
-                    orderDetailBean = orderDetailDataBean.getData();
-                    if (orderDetailBean != null) {
-                        mOrderCommodityAdapter.setNewData(orderDetailBean.getCommodityList());
-                        mOrderShopNameTv.setText(orderDetailBean.getShopName());
-                        mFinalPaymentTv.setText(0 == orderStatus ? String.format("需付款:%s", orderDetailBean.getPayPrice()) : String.format("实付款:%s", orderDetailBean.getPayPrice()));
-                        List<TextKeyValueBean> arrays = new ArrayList<>();
-                        switch (orderStatus) {
-                            case 0:
-                                initAddrData();
-                                mOrderLeftTv.setText(HomePageContract.ORDER_CANCEL);
-                                mOrderRightTv.setText(HomePageContract.ORDER_PAY);
-                                arrays.add(new TextKeyValueBean("订单编号:", orderDetailBean.getOrderFormNumber()));
-                                arrays.add(new TextKeyValueBean("下单时间:", orderDetailBean.getEstablishTime()));
-                                break;
-                            case 1:
-                                initAddrData();
-                                mOrderLeftTv.setText(HomePageContract.ORDER_REFUND);
-                                mOrderRightTv.setText(HomePageContract.ORDER_SEND);
-                                arrays.add(new TextKeyValueBean("订单编号:", orderDetailBean.getOrderFormNumber()));
-                                arrays.add(new TextKeyValueBean("下单时间:", orderDetailBean.getEstablishTime()));
-                                arrays.add(new TextKeyValueBean("支付方式:", getPayTypeName(orderDetailBean.getPayType())));
-                                arrays.add(new TextKeyValueBean("付款时间:", orderDetailBean.getPaymentTime()));
-                                break;
-                            case 2:
-                                mOrderLeftTv.setText(HomePageContract.ORDER_REFUND);
-                                mOrderRightTv.setText(HomePageContract.ORDER_RECEIVE);
-                                arrays.add(new TextKeyValueBean("订单编号:", orderDetailBean.getOrderFormNumber()));
-                                arrays.add(new TextKeyValueBean("下单时间:", orderDetailBean.getEstablishTime()));
-                                arrays.add(new TextKeyValueBean("支付方式:", getPayTypeName(orderDetailBean.getPayType())));
-                                arrays.add(new TextKeyValueBean("付款时间:", orderDetailBean.getPaymentTime()));
-                                arrays.add(new TextKeyValueBean("发货时间:", orderDetailBean.getShipmentsTime()));
-                                arrays.add(new TextKeyValueBean("物流公司:", orderDetailBean.getLogisticsName()));
-                                arrays.add(new TextKeyValueBean("快递单号:", orderDetailBean.getLogisticsNumber()));
-                                break;
-                            case 3:
-//                                mOrderLeftTv.setText(HomePageContract.ORDER_REBUY);
-                                mOrderLeftTv.setVisibility(View.GONE);
-                                mOrderRightTv.setText(HomePageContract.ORDER_EVALUATE);
-                                arrays.add(new TextKeyValueBean("收货信息:", String.format("%s\u3000%s\u3000%s", orderDetailBean.getName(),
-                                        orderDetailBean.getPhone(), orderDetailBean.getAddress())));
-                                arrays.add(new TextKeyValueBean("订单编号:", orderDetailBean.getOrderFormNumber()));
-                                arrays.add(new TextKeyValueBean("下单时间:", orderDetailBean.getEstablishTime()));
-                                arrays.add(new TextKeyValueBean("支付方式:", getPayTypeName(orderDetailBean.getPayType())));
-                                arrays.add(new TextKeyValueBean("付款时间:", orderDetailBean.getPaymentTime()));
-                                arrays.add(new TextKeyValueBean("发货时间:", orderDetailBean.getShipmentsTime()));
-                                arrays.add(new TextKeyValueBean("物流公司:", orderDetailBean.getLogisticsName()));
-                                arrays.add(new TextKeyValueBean("快递单号:", orderDetailBean.getLogisticsNumber()));
-                                arrays.add(new TextKeyValueBean("成交时间:", orderDetailBean.getConfirmTime()));
-                                break;
-                            default:
-                                break;
-                        }
-                        mOrderBaseInfoAdapter.setNewData(arrays);
-
-                    }
-
-                }
-
-                break;
-            case AppHttpPathMall.CANCEL_ORDER:
-                finish();
-                // : 2022/5/14 通知订单刷新列表
-                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, ""));
-                break;
-            default:
-                break;
-        }
-    }
 
     private void initAddrData() {
 
@@ -253,7 +212,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
 
                     case HomePageContract.ORDER_REFUND:
                         // : 2022/5/14 申请退款
-                      startToOrderRefundRequestActivity(orderDetailBean);
+                        startToOrderRefundRequestActivity(orderDetailBean);
 
                         break;
                     case HomePageContract.ORDER_REBUY:
@@ -269,28 +228,137 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                     case HomePageContract.ORDER_PAY:
                         // : 2022/5/14 立即付款
                         OrderListBean orderListBean = new OrderListBean();
+                        OrderListBean.DataBean dataBean = new OrderListBean.DataBean();
                         List<OrderDetailBean> orderDetailBeans = new ArrayList<>();
                         orderDetailBeans.add(orderDetailBean);
-                        orderListBean.setData(orderDetailBeans);
+                        dataBean.setList(orderDetailBeans);
                         orderListBean.setTotalPrice(orderDetailBean.getPayPrice());
+                        orderListBean.setData(dataBean);
                         startToOrderPayActivity(orderListBean, 2);
                         break;
 
                     case HomePageContract.ORDER_SEND:
-                        // TODO: 2022/5/14 提箱发货
-                        ToastUtils.toast(mContext, "已提醒");
+                        // : 2022/5/14 提醒发货
+                        mPresenter.noticeSend(getBaseBuilder().add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.NOTICE_SEND);
                         break;
                     case HomePageContract.ORDER_RECEIVE:
-                        // TODO: 2022/5/14 确认收货
-                        ToastUtils.toast(mContext, "确认收货");
+                        // : 2022/5/12 确认收货
+                        showAlertDialog("确定收到货物了吗?", "确定", "取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mPresenter.confirmReceived(getBaseBuilder()
+                                        .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.CONFIRM_RECEIVED);
+                            }
+                        });
                         break;
                     case HomePageContract.ORDER_EVALUATE:
-                        // TODO: 2022/5/14 立即评价
-                        ToastUtils.toast(mContext, "立即评价");
+                        // : 2022/5/14 立即评价
+                        startToEvaluateActivity(orderDetailBean);
                         break;
                     default:
                         break;
                 }
+                break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startToAllOrderActivity(1, 0);
+    }
+
+
+    @Override
+    public void onSuccess(String tag, Object o) {
+        switch (tag) {
+            case AppHttpPathMall.ORDER_DETAIL:
+                OrderDetailDataBean orderDetailDataBean = (OrderDetailDataBean) o;
+                if (orderDetailDataBean != null) {
+                    orderDetailBean = orderDetailDataBean.getData();
+                    if (orderDetailBean != null) {
+                        mOrderCommodityAdapter.setNewData(orderDetailBean.getCommodityList());
+                        mOrderShopNameTv.setText(orderDetailBean.getShopName());
+                        mFinalPaymentTv.setText(0 == orderStatus ? String.format("需付款:%s", orderDetailBean.getPayPrice()) : String.format("实付款:%s", orderDetailBean.getPayPrice()));
+                        List<TextKeyValueBean> arrays = new ArrayList<>();
+                        mCustomTv.setVisibility(View.GONE);
+                        switch (orderStatus) {
+                            case 0:
+                                initAddrData();
+                                mOrderLeftTv.setText(HomePageContract.ORDER_CANCEL);
+                                mOrderRightTv.setText(HomePageContract.ORDER_PAY);
+                                arrays.add(new TextKeyValueBean("订单编号:", orderDetailBean.getOrderFormNumber()));
+                                arrays.add(new TextKeyValueBean("下单时间:", orderDetailBean.getEstablishTime()));
+                                break;
+                            case 1:
+                                initAddrData();
+                                mOrderLeftTv.setText(HomePageContract.ORDER_REFUND);
+                                mOrderRightTv.setText(HomePageContract.ORDER_SEND);
+                                arrays.add(new TextKeyValueBean("订单编号:", orderDetailBean.getOrderFormNumber()));
+                                arrays.add(new TextKeyValueBean("下单时间:", orderDetailBean.getEstablishTime()));
+                                arrays.add(new TextKeyValueBean("支付方式:", getPayTypeName(orderDetailBean.getPayType())));
+                                arrays.add(new TextKeyValueBean("付款时间:", orderDetailBean.getPaymentTime()));
+                                break;
+                            case 2:
+                                mOrderLeftTv.setText(HomePageContract.ORDER_REFUND);
+                                mOrderRightTv.setText(HomePageContract.ORDER_RECEIVE);
+                                arrays.add(new TextKeyValueBean("订单编号:", orderDetailBean.getOrderFormNumber()));
+                                arrays.add(new TextKeyValueBean("下单时间:", orderDetailBean.getEstablishTime()));
+                                arrays.add(new TextKeyValueBean("支付方式:", getPayTypeName(orderDetailBean.getPayType())));
+                                arrays.add(new TextKeyValueBean("付款时间:", orderDetailBean.getPaymentTime()));
+                                arrays.add(new TextKeyValueBean("发货时间:", orderDetailBean.getShipmentsTime()));
+                                arrays.add(new TextKeyValueBean("物流公司:", orderDetailBean.getLogisticsName()));
+                                arrays.add(new TextKeyValueBean("快递单号:", orderDetailBean.getLogisticsNumber()));
+                                break;
+                            case 3:
+//                                mOrderLeftTv.setText(HomePageContract.ORDER_REBUY);
+                                mOrderLeftTv.setVisibility(View.GONE);
+                                mOrderRightTv.setText(HomePageContract.ORDER_EVALUATE);
+                                arrays.add(new TextKeyValueBean("收货信息:", String.format("%s\u3000%s\u3000%s", orderDetailBean.getName(),
+                                        orderDetailBean.getPhone(), orderDetailBean.getAddress())));
+                                arrays.add(new TextKeyValueBean("订单编号:", orderDetailBean.getOrderFormNumber()));
+                                arrays.add(new TextKeyValueBean("下单时间:", orderDetailBean.getEstablishTime()));
+                                arrays.add(new TextKeyValueBean("支付方式:", getPayTypeName(orderDetailBean.getPayType())));
+                                arrays.add(new TextKeyValueBean("付款时间:", orderDetailBean.getPaymentTime()));
+                                arrays.add(new TextKeyValueBean("发货时间:", orderDetailBean.getShipmentsTime()));
+                                arrays.add(new TextKeyValueBean("物流公司:", orderDetailBean.getLogisticsName()));
+                                arrays.add(new TextKeyValueBean("快递单号:", orderDetailBean.getLogisticsNumber()));
+                                arrays.add(new TextKeyValueBean("成交时间:", orderDetailBean.getConfirmTime()));
+                                break;
+                            case 4:
+                            case 7:
+                            case 8:
+                                mOrderLeftTv.setVisibility(View.GONE);
+                                mOrderRightTv.setVisibility(View.GONE);
+                                mCustomTv.setVisibility(View.VISIBLE);
+                                // : 2022/5/15 这些字段现在没有
+                                OrderDetailBean.ReturnOrderFormInfoBean returnOrderFormInfoBean = orderDetailBean.getReturnOrderFormInfo();
+                                if (returnOrderFormInfoBean != null) {
+                                    arrays.add(new TextKeyValueBean("退款原因:", returnOrderFormInfoBean.getCauseName()));
+                                    arrays.add(new TextKeyValueBean("退款金额:", String.valueOf(returnOrderFormInfoBean.getReturnPrice())));
+                                    arrays.add(new TextKeyValueBean("申请时间:", returnOrderFormInfoBean.getRefundTime()));
+                                    arrays.add(new TextKeyValueBean("退款编号:", returnOrderFormInfoBean.getSalesFormNumber()));
+                                }
+
+                                break;
+                            default:
+                                break;
+                        }
+                        mOrderBaseInfoAdapter.setNewData(arrays);
+
+                    }
+
+                }
+
+                break;
+            case AppHttpPathMall.NOTICE_SEND:
+                ToastUtils.toast(mContext, "已通知卖家尽快发货");
+                break;
+            case AppHttpPathMall.CANCEL_ORDER:
+            case AppHttpPathMall.CONFIRM_RECEIVED:
+                onBackPressed();
+                break;
+            default:
                 break;
         }
     }

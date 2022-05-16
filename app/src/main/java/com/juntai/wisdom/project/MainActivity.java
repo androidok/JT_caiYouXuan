@@ -10,6 +10,7 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.LinearLayout;
 import com.baidu.location.BDLocation;
+import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
@@ -173,7 +174,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         MyApp.app.isFinish = true;
-                        finish();
+                        ActivityManagerTool.getInstance().finishApp();
                     }
                 })
                 .setNegativeButton("挂起", new DialogInterface.OnClickListener() {

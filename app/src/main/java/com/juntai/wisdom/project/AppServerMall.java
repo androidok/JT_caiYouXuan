@@ -17,6 +17,7 @@ import com.juntai.wisdom.project.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.beans.IdNameBean;
 import com.juntai.wisdom.project.beans.UserBeanMall;
+import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailDataBean;
 import com.juntai.wisdom.project.beans.order.OrderListBean;
@@ -123,6 +124,7 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.COMMODITY_COLLECT)
     Observable<BaseResult> collectCommodity(@Body RequestBody requestBody);
+
 
 
     @POST(AppHttpPathMall.SHOP_COLLECT_LIST)
@@ -239,10 +241,21 @@ public interface AppServerMall {
     Observable<CreatOrderBean> creatOrderBuy(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.COMMIT_ORDER)
-    Observable<OrderListBean> commitOrder(@Body RequestBody requestBody);
+    Observable<ConfirmOrderBean> commitOrder(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.CANCEL_ORDER)
     Observable<BaseResult> cancelOrder(@Body RequestBody requestBody);
+    @POST(AppHttpPathMall.NOTICE_SEND)
+    Observable<BaseResult> noticeSend(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.DELETE_CANCEL_ORDER)
+    Observable<BaseResult> deleteCancelOrder(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.REQUEST_REFUND)
+    Observable<BaseResult> requestRefund(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.CONFIRM_RECEIVED)
+    Observable<BaseResult> confirmReceived(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.ORDER_STATUS)
     Observable<BaseResult> getOrderStatus(@Body RequestBody requestBody);

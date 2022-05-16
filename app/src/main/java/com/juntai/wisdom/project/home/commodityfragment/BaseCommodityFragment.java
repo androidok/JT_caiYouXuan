@@ -9,14 +9,14 @@ import android.widget.ImageView;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.AppHttpPathMall;
+import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.base.customview.CustomViewPager;
-import com.juntai.wisdom.project.home.shop.ShopActivity;
 import com.juntai.wisdom.project.beans.IdNameBean;
-import com.juntai.wisdom.project.R;
-import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.shop.ShopDetailBean;
+import com.juntai.wisdom.project.home.HomePageContract;
+import com.juntai.wisdom.project.home.shop.ShopActivity;
 import com.juntai.wisdom.project.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
@@ -84,6 +84,10 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
 
     }
 
+    @Override
+    protected void initData() {
+
+    }
 
     protected abstract int getType();
 
@@ -132,17 +136,7 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
         return arrays;
     }
 
-    @Override
-    protected void initData() {
-        if (2 == getType()) {
-            mPresenter.getShopDetail(getBaseAppActivity().getBaseBuilderWithoutParama().add("shopId", String.valueOf(((ShopActivity) getActivity()).shopId)
-                    ).add("userId", String.valueOf(UserInfoManagerMall.getUserId())).build()
-                    , AppHttpPathMall.SHOP_DETAIL);
-        } else {
-            mPresenter.getCommodityLaBels(AppHttpPathMall.COMMODIFY_LABELS);
 
-        }
-    }
 
     @Override
     public void onDestroy() {
@@ -157,6 +151,14 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
 
     @Override
     protected void lazyLoad() {
+        if (2 == getType()) {
+            mPresenter.getShopDetail(getBaseAppActivity().getBaseBuilderWithoutParama().add("shopId", String.valueOf(((ShopActivity) getActivity()).shopId)
+                    ).add("userId", String.valueOf(UserInfoManagerMall.getUserId())).build()
+                    , AppHttpPathMall.SHOP_DETAIL);
+        } else {
+            mPresenter.getCommodityLaBels(AppHttpPathMall.COMMODIFY_LABELS);
+
+        }
     }
 
     @Override
