@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.MessageQueue;
+import android.support.v4.content.ContextCompat;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -116,9 +117,11 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements
     private ClusterManager.OnClusterInfoWindowClickListener<T> mInfoWindowClickListener;
     private ClusterManager.OnClusterItemClickListener<T> mItemClickListener;
     private ClusterManager.OnClusterItemInfoWindowClickListener<T> mItemInfoWindowClickListener;
+    private Context mContext;
 
     public DefaultClusterRenderer(Context context, BaiduMap map, ClusterManager<T> clusterManager) {
         mMap = map;
+        this.mContext = context;
         mDensity = context.getResources().getDisplayMetrics().density;
         mIconGenerator = new IconGenerator(context);
         mIconGenerator.setContentView(makeSquareTextView(context));
@@ -155,9 +158,11 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements
     private LayerDrawable makeClusterBackground() {
         mColoredCircleBackground = new ShapeDrawable(new OvalShape());
         ShapeDrawable outline = new ShapeDrawable(new OvalShape());
-        outline.getPaint().setColor(0x80ffffff); // Transparent white.
+        outline.getPaint().setColor(ContextCompat.getColor(mContext,R.color.colorAccent)); // Transparent white.
         LayerDrawable background = new LayerDrawable(new Drawable[]{outline, mColoredCircleBackground});
-        int strokeWidth = (int) (mDensity * 3);
+        // TODO: 2022/5/17 能影响聚合背景的大小
+
+        int strokeWidth = (int) (mDensity * 1);
         background.setLayerInset(1, strokeWidth, strokeWidth, strokeWidth, strokeWidth);
         return background;
     }
@@ -169,7 +174,8 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         squareTextView.setLayoutParams(layoutParams);
         squareTextView.setId(R.id.text);
-        int twelveDpi = (int) (12 * mDensity);
+        // TODO: 2022/5/17 能影响聚合背景的大小
+        int twelveDpi = (int) (6 * mDensity);
         squareTextView.setPadding(twelveDpi, twelveDpi, twelveDpi, twelveDpi);
         return squareTextView;
     }
@@ -186,7 +192,7 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements
 
     protected String getClusterText(int bucket) {
 //        if (bucket < BUCKETS[0]) {
-            return String.valueOf(bucket);
+        return String.valueOf(bucket);
 //        }
 //        return String.valueOf(bucket) + "+";
     }
@@ -198,7 +204,7 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements
     protected int getBucket(Cluster<T> cluster) {
         int size = cluster.getSize();
 //        if (size <= BUCKETS[0]) {
-            return size;
+        return size;
 //        }
 //        for (int i = 0; i < BUCKETS.length - 1; i++) {
 //            if (size < BUCKETS[i + 1]) {
@@ -433,7 +439,7 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements
 
     @Override
     public void setOnClusterInfoWindowClickListener(ClusterManager
-                                                                .OnClusterInfoWindowClickListener<T> listener) {
+                                                            .OnClusterInfoWindowClickListener<T> listener) {
         mInfoWindowClickListener = listener;
     }
 
@@ -444,7 +450,7 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements
 
     @Override
     public void setOnClusterItemInfoWindowClickListener(ClusterManager
-                                                                    .OnClusterItemInfoWindowClickListener<T> listener) {
+                                                                .OnClusterItemInfoWindowClickListener<T> listener) {
         mItemInfoWindowClickListener = listener;
     }
 
@@ -626,7 +632,7 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements
                 lock.lock();
                 return !(mCreateMarkerTasks.isEmpty() && mOnScreenCreateMarkerTasks.isEmpty()
                         && mOnScreenRemoveMarkerTasks.isEmpty() && mRemoveMarkerTasks.isEmpty()
-                                && mAnimationTasks.isEmpty());
+                        && mAnimationTasks.isEmpty());
             } finally {
                 lock.unlock();
             }
@@ -703,7 +709,7 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements
         int bucket = getBucket(cluster);
         BitmapDescriptor descriptor = mIcons.get(bucket);
         if (descriptor == null) {
-            mColoredCircleBackground.getPaint().setColor(getColor(bucket));
+            mColoredCircleBackground.getPaint().setColor(ContextCompat.getColor(mContext,R.color.colorAccent));
             descriptor = BitmapDescriptorFactory.fromBitmap(mIconGenerator.makeIcon(getClusterText(bucket)));
             mIcons.put(bucket, descriptor);
         }

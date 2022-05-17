@@ -31,7 +31,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
 
     private TabLayout mainTablayout;
     private String[] title = new String[]{"首页","直播","消息", "购物车","个人中心"};
-    private int[] tabDrawables = new int[]{R.drawable.home_index,R.drawable.home_index,R.drawable.home_index,R.drawable.home_index,R.drawable.home_msg};
+    private int[] tabDrawables = new int[]{R.drawable.home_index,R.drawable.live_index,R.drawable.notice_index,R.drawable.cart_index,R.drawable.mine_index};
     private SparseArray<Fragment> mFragments = new SparseArray<>();
     //
 

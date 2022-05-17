@@ -26,7 +26,7 @@
             android:layout_height="30dp"
             android:layout_marginRight="15dp"
             android:padding="5dp"
-            android:src="@mipmap/scan_sel"
+            android:src="@mipmap/map_module_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

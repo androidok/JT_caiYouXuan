@@ -36,7 +36,7 @@
                     android:layout_height="30dp"
                     android:layout_marginRight="15dp"
                     android:padding="5dp"
-                    android:src="@mipmap/scan_sel"
+                    android:src="@mipmap/un_map_moudle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -85,7 +85,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/zoom_plus" />
+                android:src="@mipmap/zoom_plus" />
 
             <ImageView
                 android:id="@+id/zoomminus"
@@ -95,7 +95,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/zoom_minus" />
+                android:src="@mipmap/zoom_minus" />
         </LinearLayout>
 
         <Button

@@ -98,6 +98,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
     private ClusterClickAdapter clusterClickAdapter;
     private ImageView mSwitchModeIv;
     private BDLocation bdLocation;
+    private TabLayout mTabTv;
 
 
     public void setBdLocation(BDLocation bdLocation) {
@@ -224,7 +225,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
     }
 
     private void initTab() {
-        TabLayout mTabTv = (TabLayout) getView(R.id.mall_tablayout);
+        mTabTv = (TabLayout) getView(R.id.mall_tablayout);
         if (Hawk.contains(HawkProperty.LOCAL_LABEL)) {
             List<IdNameBean.DataBean> dataBeans = Hawk.get(HawkProperty.LOCAL_LABEL);
             for (IdNameBean.DataBean dataBean : dataBeans) {
@@ -238,7 +239,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
         mTabTv.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                clearMapPoints();
+
                 // : 2022/5/10 查询店铺分布
                 getAroudShopes(tab.getPosition());
 
@@ -256,6 +257,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
     }
 
     private void getAroudShopes(int position) {
+        clearMapPoints();
         List<IdNameBean.DataBean> dataBeans = Hawk.get(HawkProperty.LOCAL_LABEL);
         if (dataBeans == null) {
             return;
@@ -416,6 +418,11 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
                                     .putExtra("city", city)
                                     .putExtra("area", area == null ? "" : area));
                         }
+                        break;
+
+                    case HomePageContract.SHOP:
+                        getAroudShopes(mTabTv.getSelectedTabPosition());
+
                         break;
                     default:
                         break;
