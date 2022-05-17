@@ -6,9 +6,13 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.beans.order.OrderDetailBean;
 import com.juntai.wisdom.project.home.HomePageContract;
+
+import java.util.List;
 
 /**
  * @Author: tobato
@@ -39,11 +43,25 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
         LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         recyclerView.setAdapter(orderCommodityAdapter);
         recyclerView.setLayoutManager(manager);
-        orderCommodityAdapter.setNewData(item.getCommodityList());
+        List<OrderDetailBean.CommodityListBean> arrays = item.getCommodityList();
+        if (!arrays.isEmpty()) {
+            for (OrderDetailBean.CommodityListBean array : arrays) {
+                array.setOrderStatus(item.getState());
+            }
+        }
+        orderCommodityAdapter.setNewData(arrays);
         orderCommodityAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
              helper.getView(R.id.shop_bottom_cl).performClick();
+            }
+        });
+        orderCommodityAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                OrderDetailBean.CommodityListBean commodityListBean = (OrderDetailBean.CommodityListBean) adapter.getItem(position);
+                // : 2022/5/16 立即评价
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.EVALUATE, commodityListBean));
             }
         });
     }
@@ -75,8 +93,7 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
                 break;
             case 3:
                 helper.setGone(R.id.order_left_tv,false);
-                helper.setGone(R.id.order_right_tv,true);
-                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_EVALUATE);
+                helper.setGone(R.id.order_right_tv,false);
                 break;
             case 4:
                 helper.setGone(R.id.order_left_tv,false);

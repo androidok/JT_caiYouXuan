@@ -1,17 +1,17 @@
 package com.juntai.wisdom.project.home.commodityfragment.commodity_detail.evaluation;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.disabled.basecomponent.base.BaseFragment;
-import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
-import com.juntai.wisdom.project.base.selectPics.SelectPhotosFragment;
-import com.juntai.wisdom.project.beans.CommodityEvaluationBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.video.img.DisPlayPicsActivity;
+import com.juntai.disabled.video.player.DisplayVideoActivity;
 import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.beans.CommodityEvaluationBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +24,14 @@ import java.util.List;
  * @UpdateDate: 2022/5/3 16:30
  */
 public class EvaluationAdapter extends BaseQuickAdapter<CommodityEvaluationBean.DataBean, BaseViewHolder> {
-    private FragmentManager fragmentManager;
 
-    public EvaluationAdapter(int layoutResId, FragmentManager fragmentManager) {
+    public EvaluationAdapter(int layoutResId) {
         super(layoutResId);
-        this.fragmentManager = fragmentManager;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, CommodityEvaluationBean.DataBean item) {
-        ImageLoadUtil.loadHeadPic(mContext, UrlFormatUtil.getImageThumUrl(item.getHeadPortrait()), helper.getView(R.id.evaluator_iv), true);
+        ImageLoadUtil.loadHeadPic(mContext, item.getHeadPortrait(), helper.getView(R.id.evaluator_iv), true);
         helper.setText(R.id.evaluator_name_tv, item.getNickname());
         helper.setText(R.id.evaluate_time_tv, item.getCreateTime());
         helper.setText(R.id.evaluate_content_tv, item.getEvaluate());
@@ -52,16 +50,35 @@ public class EvaluationAdapter extends BaseQuickAdapter<CommodityEvaluationBean.
                 picVideos.add(imageUrls);
             }
         }
-        SelectPhotosFragment selectPhotosFragment = SelectPhotosFragment.newInstance()
-                .setSpanCount(3)
-                .setMaxCount(picVideos.size()).setPhotoDelateable(false);
-        selectPhotosFragment.setAdapterData(picVideos);
-        replaceFragment(selectPhotosFragment);
+
+        RecyclerView picVideoRv = helper.getView(R.id.evaluate_pic_video_rv);
+        GridLayoutManager manager = new GridLayoutManager(mContext, 4);
+        EvaluatePicVideoAdapter picVideoAdapter = new EvaluatePicVideoAdapter(R.layout.show_selected_pic_video_item);
+        picVideoRv.setAdapter(picVideoAdapter);
+        picVideoRv.setLayoutManager(manager);
+        picVideoAdapter.setNewData(picVideos);
+
+        picVideoAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                List<String> arrays = adapter.getData();
+                ArrayList<String> pics = new ArrayList<>();
+                for (String array : arrays) {
+                    if (!array.endsWith(".mp4")) {
+                        pics.add(array);
+                    }
+                }
+                String str = (String) adapter.getItem(position);
+                if (str.endsWith(".mp4")) {
+                    DisplayVideoActivity.startDisplayVideo(mContext,str);
+                }else {
+                    DisPlayPicsActivity.startDisplayPics(mContext,pics,0);
+                }
+
+
+            }
+        });
+
     }
 
-    public void replaceFragment(BaseFragment fragment) {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.evaluate_pic_video_fl, fragment);
-        transaction.commit();
-    }
 }

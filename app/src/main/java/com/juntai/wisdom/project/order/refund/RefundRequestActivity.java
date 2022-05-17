@@ -90,7 +90,7 @@ public class RefundRequestActivity extends BaseRecyclerviewActivity<OrderPresent
                 break;
             case R.id.refund_goods_cl:
                 // : 2022/5/15 退货退款
-                startToRefundActivity(orderDetailBean,1);
+                startToRefundActivity(orderDetailBean,2);
 
                 break;
         }

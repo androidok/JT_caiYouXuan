@@ -136,10 +136,6 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                                     }
                                 });
                                 break;
-                            case HomePageContract.ORDER_EVALUATE:
-                                // : 2022/5/12 立即评价
-                                getBaseAppActivity().startToEvaluateActivity(orderDetailBean);
-                                break;
                             case HomePageContract.ORDER_REFUND_AGREE:
                                 // : 2022/5/12 商家已同意
                             case HomePageContract.ORDER_PROGRESS:

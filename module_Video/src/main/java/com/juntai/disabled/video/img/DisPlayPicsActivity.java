@@ -1,5 +1,7 @@
 package com.juntai.disabled.video.img;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,15 +21,21 @@ import java.util.List;
  * Created by Ma
  * on 2019/5/22
  */
-public class PicDisplayActivity extends BaseDownLoadActivity {
+public class DisPlayPicsActivity extends BaseDownLoadActivity {
     MyViewPagerAdapter myViewPagerAdapter;
     ViewPager viewPager;
     List<View> viewList = new ArrayList<>();
     private ArrayList<String> paths;
     private String diaplayPath;
+   public static String   PICS = "pics";
+    public static String  PIC_POSITION = "picPositon";
 
-    public static String IMAGEPATHS = "imagePaths";
-    public static String IMAGEITEM = "imageitem";
+    public static  void  startDisplayPics(Context mContext, ArrayList<String> pics, int picPosition){
+        mContext.startActivity(new Intent(mContext, DisPlayPicsActivity.class)
+                .putExtra(PICS, pics)
+                .putExtra(PIC_POSITION, picPosition));
+    }
+
 
     @Override
     public int getLayoutView() {
@@ -44,15 +52,15 @@ public class PicDisplayActivity extends BaseDownLoadActivity {
 
     @Override
     public void initData() {
-        paths = getIntent().getStringArrayListExtra(IMAGEPATHS);
+        paths = getIntent().getStringArrayListExtra(PICS);
         if (paths == null) {
-            ToastUtils.toast(mContext, "请传入需要展示图片的路径");
+            ToastUtils.toast(mContext,"请传入需要展示图片的路径");
             finish();
             return;
         }
-        int item = getIntent().getIntExtra(IMAGEITEM, 0);
-        if (item >= paths.size()) {
-            ToastUtils.toast(mContext, "图片的索引越界");
+        int item = getIntent().getIntExtra(PIC_POSITION, 0);
+        if (item>=paths.size()) {
+            ToastUtils.toast(mContext,"图片的索引越界");
             finish();
             return;
         }
@@ -67,7 +75,7 @@ public class PicDisplayActivity extends BaseDownLoadActivity {
             photoView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    initBottomDialog(Arrays.asList("保存图片"), diaplayPath);
+                    initBottomDialog(Arrays.asList("保存图片"),diaplayPath);
                     return false;
                 }
             });
@@ -84,9 +92,7 @@ public class PicDisplayActivity extends BaseDownLoadActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-                if (paths.size()>1) {
-                    setTitleName("第 " + (i + 1) + " 张");
-                }
+                setTitleName("第 " + (i + 1) + " 张");
                 diaplayPath = paths.get(i);
             }
 
@@ -104,8 +110,9 @@ public class PicDisplayActivity extends BaseDownLoadActivity {
 
     @Override
     protected String getDownloadTitleRightName() {
-        return "保存图片";
+        return null;
     }
+
 
     @Override
     protected String getDownLoadPath() {
@@ -119,7 +126,7 @@ public class PicDisplayActivity extends BaseDownLoadActivity {
 
     @Override
     protected boolean canCancelLoadingDialog() {
-        return true;
+        return false;
     }
 
     @Override

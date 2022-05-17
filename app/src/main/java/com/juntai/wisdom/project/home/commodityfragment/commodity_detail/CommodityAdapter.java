@@ -36,9 +36,8 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public CommodityAdapter(List<MultipleItem> data, FragmentManager fragmentManager) {
+    public CommodityAdapter(List<MultipleItem> data) {
         super(data);
-        this.fragmentManager = fragmentManager;
         addItemType(MultipleItem.ITEM_COMMODITY_BASE_INFO, R.layout.shop_commodity_detail);
         addItemType(MultipleItem.ITEM_COMMODITY_EVALUTA, R.layout.shop_commodity_evaluta_item);
     }
@@ -90,9 +89,9 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
                 RecyclerView evaluationRv = helper.getView(R.id.evaluation_rv);
                 LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
                 evaluationRv.setLayoutManager(manager);
-                EvaluationAdapter evaluationAdapter = new EvaluationAdapter(R.layout.shop_commodity_evaluta_child_item, fragmentManager);
+                EvaluationAdapter evaluationAdapter = new EvaluationAdapter(R.layout.shop_commodity_evaluta_child_item);
                 evaluationRv.setAdapter(evaluationAdapter);
-                if (arrays.size() > 3) {
+                if (arrays.size() > 2) {
                     // TODO: 2022/5/4 暂定只显示2行评价
                     arrays = arrays.subList(0, 2);
                 }

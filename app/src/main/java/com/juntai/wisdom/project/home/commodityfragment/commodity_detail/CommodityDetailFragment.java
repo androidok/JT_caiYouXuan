@@ -90,7 +90,7 @@ public class CommodityDetailFragment extends BaseRecyclerviewFragment<CommodityP
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new CommodityAdapter(null, getFragmentManager());
+        return new CommodityAdapter(null);
     }
 
     @Override

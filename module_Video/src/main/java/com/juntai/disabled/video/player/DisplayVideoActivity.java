@@ -1,7 +1,10 @@
 package com.juntai.disabled.video.player;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
+import android.text.TextUtils;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -17,9 +20,10 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.juntai.disabled.basecomponent.base.BaseDownLoadActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
-import com.juntai.disabled.basecomponent.base.BaseDownLoadActivity;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.video.R;
 
 /**
@@ -27,7 +31,7 @@ import com.juntai.disabled.video.R;
  * @date 2019/4/1
  * <p>
  * 视频播放
- * Intent intent = new Intent(mContext, PlayerActivity.class);
+ * Intent intent = new Intent(mContext, DisplayVideoActivity.class);
  * String ss = "http://kb167.cn:43212/zhcg/u/appInferFace/appDownloadVideo.shtml?token="
  * +App.getUserToken()+"&account="
  * +App.getAccount()+"&id=1628";
@@ -36,10 +40,17 @@ import com.juntai.disabled.video.R;
  * startActivity(intent);
  */
 
-public class PlayerActivity extends BaseDownLoadActivity {
+public class DisplayVideoActivity extends BaseDownLoadActivity {
     private String playPath;
     private PlayerView playerview;
     SimpleExoPlayer player;
+    public static String VIDEO_PATH = "VIDEO_PATH";
+
+
+    public static void startDisplayVideo(Context mContext, String videoPath) {
+        mContext.startActivity(new Intent(mContext, DisplayVideoActivity.class)
+                .putExtra(VIDEO_PATH, videoPath));
+    }
 
     @Override
     public int getLayoutView() {
@@ -50,7 +61,11 @@ public class PlayerActivity extends BaseDownLoadActivity {
     public void initView() {
         setTitleName("视频");
         //下载视频到本地播放
-        playPath = getIntent().getStringExtra("playPath");
+        playPath = getIntent().getStringExtra(VIDEO_PATH);
+        if (TextUtils.isEmpty(playPath)) {
+            ToastUtils.toast(mContext, "视频文件路径错误");
+            finish();
+        }
         playerview = findViewById(R.id.playerview);
     }
 
@@ -73,7 +88,7 @@ public class PlayerActivity extends BaseDownLoadActivity {
         TrackSelector trackSelector =
                 new DefaultTrackSelector(videoTrackSelectionFactory);
         //2.创建播放器
-        player =ExoPlayerFactory.newSimpleInstance(mContext, trackSelector);
+        player = ExoPlayerFactory.newSimpleInstance(mContext, trackSelector);
 
         // 将播放器附加到view
         playerview.setPlayer(player);
@@ -108,6 +123,7 @@ public class PlayerActivity extends BaseDownLoadActivity {
             player.release();
         }
     }
+
 
     @Override
     protected String getDownloadTitleRightName() {

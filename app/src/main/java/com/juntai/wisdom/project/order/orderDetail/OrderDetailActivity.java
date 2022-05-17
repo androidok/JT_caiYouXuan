@@ -8,8 +8,11 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppActivity;
@@ -101,6 +104,14 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
             mOrderDetailTopFl.addView(getProgressView());
 
         }
+        mOrderCommodityAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                OrderDetailBean.CommodityListBean commodityListBean = (OrderDetailBean.CommodityListBean) adapter.getItem(position);
+                // : 2022/5/16 立即评价
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.EVALUATE, commodityListBean));
+            }
+        });
 
     }
 
@@ -251,10 +262,6 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                             }
                         });
                         break;
-                    case HomePageContract.ORDER_EVALUATE:
-                        // : 2022/5/14 立即评价
-                        startToEvaluateActivity(orderDetailBean);
-                        break;
                     default:
                         break;
                 }
@@ -277,7 +284,13 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                 if (orderDetailDataBean != null) {
                     orderDetailBean = orderDetailDataBean.getData();
                     if (orderDetailBean != null) {
-                        mOrderCommodityAdapter.setNewData(orderDetailBean.getCommodityList());
+                        List<OrderDetailBean.CommodityListBean> list = orderDetailBean.getCommodityList();
+                        if (list != null) {
+                            for (OrderDetailBean.CommodityListBean commodityListBean : list) {
+                                commodityListBean.setOrderStatus(orderDetailBean.getState());
+                            }
+                        }
+                        mOrderCommodityAdapter.setNewData(list);
                         mOrderShopNameTv.setText(orderDetailBean.getShopName());
                         mFinalPaymentTv.setText(0 == orderStatus ? String.format("需付款:%s", orderDetailBean.getPayPrice()) : String.format("实付款:%s", orderDetailBean.getPayPrice()));
                         List<TextKeyValueBean> arrays = new ArrayList<>();
@@ -313,7 +326,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                             case 3:
 //                                mOrderLeftTv.setText(HomePageContract.ORDER_REBUY);
                                 mOrderLeftTv.setVisibility(View.GONE);
-                                mOrderRightTv.setText(HomePageContract.ORDER_EVALUATE);
+                                mOrderRightTv.setVisibility(View.GONE);
                                 arrays.add(new TextKeyValueBean("收货信息:", String.format("%s\u3000%s\u3000%s", orderDetailBean.getName(),
                                         orderDetailBean.getPhone(), orderDetailBean.getAddress())));
                                 arrays.add(new TextKeyValueBean("订单编号:", orderDetailBean.getOrderFormNumber()));

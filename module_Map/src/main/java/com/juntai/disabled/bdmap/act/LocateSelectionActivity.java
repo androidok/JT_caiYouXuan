@@ -260,6 +260,7 @@ public class LocateSelectionActivity extends BaseRequestLocationActivity impleme
         return null;
     }
 
+
     @Override
     protected String getDownloadTitleRightName() {
         return null;

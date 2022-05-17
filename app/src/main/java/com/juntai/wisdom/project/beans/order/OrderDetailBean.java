@@ -631,12 +631,49 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         private int id;
         private String orderFormNumber;
         private int commodityId;
+        private int orderId;
+        private int shopId;
         private String commodityName;
         private String coverImg;
+        private String shopName;
         private double prices;
         private int commodityNum;
         private String cartInfo;
         private String unique;
+
+        public String getShopName() {
+            return shopName == null ? "" : shopName;
+        }
+
+        public int getOrderId() {
+            return orderId;
+        }
+
+        public void setOrderId(int orderId) {
+            this.orderId = orderId;
+        }
+
+        public int getShopId() {
+            return shopId;
+        }
+
+        public void setShopId(int shopId) {
+            this.shopId = shopId;
+        }
+
+        public void setShopName(String shopName) {
+            this.shopName = shopName == null ? "" : shopName;
+        }
+
+        private int orderStatus;
+
+        public int getOrderStatus() {
+            return orderStatus;
+        }
+
+        public void setOrderStatus(int orderStatus) {
+            this.orderStatus = orderStatus;
+        }
 
         public int getId() {
             return id;
@@ -710,6 +747,9 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
             this.unique = unique;
         }
 
+        public CommodityListBean() {
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -720,30 +760,35 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
             dest.writeInt(this.id);
             dest.writeString(this.orderFormNumber);
             dest.writeInt(this.commodityId);
+            dest.writeInt(this.orderId);
+            dest.writeInt(this.shopId);
             dest.writeString(this.commodityName);
             dest.writeString(this.coverImg);
+            dest.writeString(this.shopName);
             dest.writeDouble(this.prices);
             dest.writeInt(this.commodityNum);
             dest.writeString(this.cartInfo);
             dest.writeString(this.unique);
-        }
-
-        public CommodityListBean() {
+            dest.writeInt(this.orderStatus);
         }
 
         protected CommodityListBean(Parcel in) {
             this.id = in.readInt();
             this.orderFormNumber = in.readString();
             this.commodityId = in.readInt();
+            this.orderId = in.readInt();
+            this.shopId = in.readInt();
             this.commodityName = in.readString();
             this.coverImg = in.readString();
+            this.shopName = in.readString();
             this.prices = in.readDouble();
             this.commodityNum = in.readInt();
             this.cartInfo = in.readString();
             this.unique = in.readString();
+            this.orderStatus = in.readInt();
         }
 
-        public static final Parcelable.Creator<CommodityListBean> CREATOR = new Parcelable.Creator<CommodityListBean>() {
+        public static final Creator<CommodityListBean> CREATOR = new Creator<CommodityListBean>() {
             @Override
             public CommodityListBean createFromParcel(Parcel source) {
                 return new CommodityListBean(source);

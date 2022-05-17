@@ -19,6 +19,7 @@ import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
@@ -40,6 +41,7 @@ import com.juntai.wisdom.project.order.refund.RefundActivity;
 import com.juntai.wisdom.project.order.refund.RefundRequestActivity;
 import com.juntai.wisdom.project.utils.StringTools;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -52,7 +54,6 @@ import okhttp3.FormBody;
 public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> {
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +64,10 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     /**
      * 重新登录
      */
-    public void reLogin(String  regPhone) {
+    public void reLogin(String regPhone) {
         UserInfoManagerMall.clearUserData();//清理数据
         ActivityManagerTool.getInstance().finishApp();
-        startActivity(new Intent(this, LoginActivity.class).putExtra(BASE_STRING,regPhone
+        startActivity(new Intent(this, LoginActivity.class).putExtra(BASE_STRING, regPhone
         ));
     }
 
@@ -142,8 +143,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     }
 
 
-
-
     @Override
     protected boolean canCancelLoadingDialog() {
         return true;
@@ -212,6 +211,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
                 .add("userId", String.valueOf(UserInfoManagerMall.getUserId()));
         return builder;
     }
+
     /**
      * 获取builder
      *
@@ -254,7 +254,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      *
      * @return
      */
-    public String getListToString(List<String> arrays) {
+    public String listToString(List<String> arrays) {
         if (arrays == null || arrays.size() == 0) {
             return "";
         }
@@ -329,45 +329,51 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
 
     /**
      * 跳转到商品详情
+     *
      * @param commodityId
      */
-    public   void  startToCommodityDetail(int commodityId){
+    public void startToCommodityDetail(int commodityId) {
         startActivityForResult(new Intent(mContext, CommodityDetailActivity.class)
-                .putExtra(BASE_ID, commodityId),BASE_REQUEST_RESULT);
+                .putExtra(BASE_ID, commodityId), BASE_REQUEST_RESULT);
     }
+
     /**
      * 跳转到店铺首页
+     *
      * @param shopId
      */
-    public   void  startToShop(int shopId){
-        startActivityForResult(new Intent(mContext, ShopActivity.class).putExtra(BASE_ID,shopId),BASE_REQUEST_RESULT);
+    public void startToShop(int shopId) {
+        startActivityForResult(new Intent(mContext, ShopActivity.class).putExtra(BASE_ID, shopId), BASE_REQUEST_RESULT);
 
     }
+
     /**
      * 跳转到支付界面
      * enterType 0 代表直接购买的时候
-     *  1 代表购物车结算的时候
-     *  2. 在待支付订单进入
+     * 1 代表购物车结算的时候
+     * 2. 在待支付订单进入
      */
-    public   void  startToOrderPayActivity(BaseResult orderListBean, int enterType){
+    public void startToOrderPayActivity(BaseResult orderListBean, int enterType) {
         startActivity(new Intent(mContext, OrderPayActivity.class)
-                .putExtra(BASE_STRING,enterType)
-                .putExtra(BASE_PARCELABLE,orderListBean));
+                .putExtra(BASE_STRING, enterType)
+                .putExtra(BASE_PARCELABLE, orderListBean));
 
     }
+
     /**
      * 跳转到确认订单
      */
-    public   void  startToConfirmOrder( CreatOrderBean.DataBean dataBean){
-        startActivity(new Intent(mContext, ConfirmOrderActivity.class).putExtra(BASE_PARCELABLE,dataBean));
+    public void startToConfirmOrder(CreatOrderBean.DataBean dataBean) {
+        startActivity(new Intent(mContext, ConfirmOrderActivity.class).putExtra(BASE_PARCELABLE, dataBean));
 
     }
+
     /**
      * 跳转到地址列表
      * type  1是选择地址  0是地址管理
      */
-    public   void  startToAddressListActivity(int type){
-        startActivityForResult(new Intent(mContext, AddressListActivity.class).putExtra(BASE_ID,type),BASE_REQUEST_RESULT);
+    public void startToAddressListActivity(int type) {
+        startActivityForResult(new Intent(mContext, AddressListActivity.class).putExtra(BASE_ID, type), BASE_REQUEST_RESULT);
 
 
     }
@@ -378,52 +384,77 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     public void startToAddAddress(AddressListBean.DataBean dataBean) {
         startActivityForResult(new Intent(mContext, AddOrEditAddressActivity.class).putExtra(BASE_PARCELABLE, dataBean), BASE_REQUEST_RESULT);
     }
+
     /**
      * 所有订单
      * enterType  0代表支付成功之后  1代表个人中心进入
      */
-    public void startToAllOrderActivity(int enterType,int tabPosition) {
+    public void startToAllOrderActivity(int enterType, int tabPosition) {
         startActivity(new Intent(mContext, AllOrderActivity.class)
-                .putExtra(BASE_ID2,tabPosition)
-                .putExtra(BASE_ID,enterType));
+                .putExtra(BASE_ID2, tabPosition)
+                .putExtra(BASE_ID, enterType));
     }
 
     /**
-     *
      * @param orderId
      * @param orderStatus
      */
-    public void startToOrderDetailActivity(int orderId,int orderStatus) {
+    public void startToOrderDetailActivity(int orderId, int orderStatus) {
         startActivity(new Intent(mContext, OrderDetailActivity.class)
-                .putExtra(BASE_ID,orderId)
-                .putExtra(BASE_ID2,orderStatus));
+                .putExtra(BASE_ID, orderId)
+                .putExtra(BASE_ID2, orderStatus));
     }
+
     /**
-     *跳入 申请退款界面
+     * 跳入 申请退款界面
      */
     public void startToOrderRefundRequestActivity(OrderDetailBean orderDetailBean) {
         startActivity(new Intent(mContext, RefundRequestActivity.class)
-                .putExtra(BASE_PARCELABLE,orderDetailBean)
+                .putExtra(BASE_PARCELABLE, orderDetailBean)
         );
 
     }
+
+    @Override
+    public void onEvent(EventBusObject eventBusObject) {
+        super.onEvent(eventBusObject);
+        switch (eventBusObject.getEventKey()) {
+            case EventBusObject.EVALUATE:
+                if (this instanceof AllOrderActivity) {
+                    OrderDetailBean.CommodityListBean commodityBean = (OrderDetailBean.CommodityListBean) eventBusObject.getEventObj();
+                    startToEvaluateActivity(commodityBean);
+                }
+
+
+                break;
+            default:
+                break;
+        }
+    }
+
     /**
-     *跳入 评价
+     * 跳入 评价
      */
-    public void startToEvaluateActivity(OrderDetailBean orderDetailBean) {
+    public void startToEvaluateActivity(OrderDetailBean.CommodityListBean commodityBean) {
+        OrderDetailBean orderDetailBean = new OrderDetailBean();
+        List<OrderDetailBean.CommodityListBean> listBeans = new ArrayList<>();
+        listBeans.add(commodityBean);
+        orderDetailBean.setShopName(commodityBean.getShopName());
+        orderDetailBean.setCommodityList(listBeans);
         startActivity(new Intent(mContext, EvaluateActivity.class)
-                .putExtra(BASE_PARCELABLE,orderDetailBean)
+                .putExtra(BASE_PARCELABLE, orderDetailBean)
         );
 
     }
+
     /**
-     *跳入 评价
+     * 跳入 评价
      * receivedStatus 是否收到货物  1未收到 2 收到
      */
-    public void startToRefundActivity(OrderDetailBean orderDetailBean,int receivedStatus) {
-        startActivity(new Intent(mContext,RefundActivity.class)
-                .putExtra(BASE_ID,receivedStatus)
-                .putExtra(BASE_PARCELABLE,orderDetailBean));
+    public void startToRefundActivity(OrderDetailBean orderDetailBean, int receivedStatus) {
+        startActivity(new Intent(mContext, RefundActivity.class)
+                .putExtra(BASE_ID, receivedStatus)
+                .putExtra(BASE_PARCELABLE, orderDetailBean));
     }
 
 }

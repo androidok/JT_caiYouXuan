@@ -13,6 +13,7 @@ public interface MainContract {
     String DELETE_NEWS_DRAFTS = "delete_news_drafts";
     String UPLOAD_HISTORY = "upload_history";
      String UPLOAD_IMAGES = "uploadPictures";
+     String UPLOAD_VIDEO = "UPLOAD_VIDEO";
      String UPLOAD_MAP_SHOT = "uploadmapshot";
      //发送语音
      String UPLOAD_AUDIO_FILE = "audiofile";

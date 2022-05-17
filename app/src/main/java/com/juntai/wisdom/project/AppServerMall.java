@@ -116,15 +116,12 @@ public interface AppServerMall {
     Observable<ShopCommodityListBean> getShopCommodityList(@Body RequestBody requestBody);
 
 
-
     @POST(AppHttpPathMall.SHOP_COLLECT)
     Observable<BaseResult> collectShop(@Body RequestBody requestBody);
 
 
-
     @POST(AppHttpPathMall.COMMODITY_COLLECT)
     Observable<BaseResult> collectCommodity(@Body RequestBody requestBody);
-
 
 
     @POST(AppHttpPathMall.SHOP_COLLECT_LIST)
@@ -245,6 +242,7 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.CANCEL_ORDER)
     Observable<BaseResult> cancelOrder(@Body RequestBody requestBody);
+
     @POST(AppHttpPathMall.NOTICE_SEND)
     Observable<BaseResult> noticeSend(@Body RequestBody requestBody);
 
@@ -253,6 +251,9 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.REQUEST_REFUND)
     Observable<BaseResult> requestRefund(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.START_EVALUATE)
+    Observable<BaseResult> startEvaluate(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.CONFIRM_RECEIVED)
     Observable<BaseResult> confirmReceived(@Body RequestBody requestBody);

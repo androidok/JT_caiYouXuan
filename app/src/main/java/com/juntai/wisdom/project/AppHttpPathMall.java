@@ -277,5 +277,10 @@ public class AppHttpPathMall {
      */
     public static final String REQUEST_REFUND = BASE + "/buyers/addSalesReturn";
 
+    /**
+     * 发布评价
+     */
+    public static final String START_EVALUATE = BASE + "/buyers/addCommodityEvaluate";
+
 
 }

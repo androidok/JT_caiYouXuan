@@ -1,14 +1,18 @@
 package com.juntai.wisdom.project.order.evaluate;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.MainContract;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
-import com.juntai.wisdom.project.base.BaseRecyclerviewActivity;
+import com.juntai.wisdom.project.base.selectPics.BaseSelectPicsAndVedioActivity;
 import com.juntai.wisdom.project.base.selectPics.SelectPhotosFragment;
 import com.juntai.wisdom.project.beans.order.OrderDetailBean;
 import com.juntai.wisdom.project.home.HomePageContract;
@@ -17,6 +21,8 @@ import com.juntai.wisdom.project.order.refund.RefundCommodityAdapter;
 
 import java.util.List;
 
+import okhttp3.FormBody;
+
 /**
  * @Author: tobato
  * @Description: 作用描述  开始评价
@@ -24,9 +30,8 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/15 17:16
  */
-public class EvaluateActivity extends BaseRecyclerviewActivity<OrderPresent> implements HomePageContract.IHomePageView, SelectPhotosFragment.OnPhotoItemClick {
-    private OrderDetailBean orderDetailBean;
-    private SelectPhotosFragment selectPhotosFragment;
+public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresent> implements HomePageContract.IHomePageView {
+    private FormBody.Builder builder;
 
     /**
      * 店铺名称
@@ -34,6 +39,13 @@ public class EvaluateActivity extends BaseRecyclerviewActivity<OrderPresent> imp
     private TextView mEvaluateShopNameTv;
     private RatingBar mCommodityEvaluateRatingBar;
     private RatingBar mShopEvaluateRatingBar;
+    OrderDetailBean orderDetailBean;
+
+    OrderDetailBean.CommodityListBean commodityBean;
+    /**
+     * 从多个角度评价宝贝，帮助更多更想买的人吧
+     */
+    private EditText mEvaluateContentEt;
 
     @Override
     public int getLayoutView() {
@@ -45,32 +57,58 @@ public class EvaluateActivity extends BaseRecyclerviewActivity<OrderPresent> imp
         return null;
     }
 
+    @Override
+    protected void recordVedio() {
+        mPresenter.recordVideo(this);
+    }
+
+    @Override
+    protected SelectPhotosFragment getFragment() {
+        return SelectPhotosFragment.newInstance().setMaxCount(3);
+    }
+
     public void initView() {
         super.initView();
         setTitleName("发表评价");
         orderDetailBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
+        commodityBean = orderDetailBean.getCommodityList().get(0);
         getTitleRightTv().setText("发布");
         getTitleRightTv().setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
-
-
-
-
-                // TODO: 2022/5/15 提交评价
+                if (TextUtils.isEmpty(getTextViewValue(mEvaluateContentEt))) {
+                    ToastUtils.toast(mContext, "请输入评价的内容");
+                    return;
+                }
+                builder = getBaseBuilder()
+                        .add("orderId", String.valueOf(commodityBean.getOrderId()))
+                        .add("shopId", String.valueOf(commodityBean.getShopId()))
+                        .add("commodityId", String.valueOf(commodityBean.getCommodityId()))
+                        .add("sku", commodityBean.getCartInfo())
+                        .add("shopScore", String.valueOf(mShopEvaluateRatingBar.getRating()))
+                        .add("commodityScore", String.valueOf(mCommodityEvaluateRatingBar.getRating()))
+                        .add("evaluate", getTextViewValue(mEvaluateContentEt));
                 //首先上传图片
                 //将图片上传
                 List<String> icons = selectPhotosFragment.getPhotosPath();
                 if (icons.size() > 0) {
                     mPresenter.uploadFile(icons, MainContract.UPLOAD_IMAGES);
                 } else {
-//                    mPresenter.requestRefund(getBaseBuilder()
-//                            .add("orderId", String.valueOf(orderDetailBean.getId()))
-//                            .add("orderFormNumber", orderDetailBean.getOrderFormNumber())
-//                            .add("cargoStatus", String.valueOf(receivedStatus))
-//                            .add("causeId", String.valueOf(reasonId))
-//                            .add("remark", getTextViewValue(mRefundReasonEt)).build(), AppHttpPathMall.REQUEST_REFUND
-//                    );
+                    //没有选择图片
+                    if (TextUtils.isEmpty(videoPath)) {
+                        //没有选择视频
+                        // : 2022/5/17 提交评价
+                        mPresenter.startEvaluate(builder.build(), AppHttpPathMall.START_EVALUATE
+                        );
+                    } else {
+                        // : 2022/5/17 上传视频
+                        mPresenter.uploadFile(MainContract.UPLOAD_VIDEO,videoPath);
+
+
+                    }
+
 
                 }
             }
@@ -79,8 +117,7 @@ public class EvaluateActivity extends BaseRecyclerviewActivity<OrderPresent> imp
         mEvaluateShopNameTv.setText(orderDetailBean.getShopName());
         mCommodityEvaluateRatingBar = (RatingBar) findViewById(R.id.commodity_evaluate_ratingBar);
         mShopEvaluateRatingBar = (RatingBar) findViewById(R.id.shop_evaluate_ratingBar);
-        selectPhotosFragment = (SelectPhotosFragment) getSupportFragmentManager().findFragmentById(R.id.select_pic_fg);
-        selectPhotosFragment.setMaxCount(3).setPhotoDelateable(true);
+        mEvaluateContentEt = (EditText) findViewById(R.id.evaluate_content_et);
     }
 
     @Override
@@ -109,7 +146,7 @@ public class EvaluateActivity extends BaseRecyclerviewActivity<OrderPresent> imp
 
     @Override
     protected OrderPresent createPresenter() {
-        return null;
+        return new OrderPresent();
     }
 
     @Override
@@ -127,34 +164,32 @@ public class EvaluateActivity extends BaseRecyclerviewActivity<OrderPresent> imp
         super.onSuccess(tag, o);
 
         switch (tag) {
+            case MainContract.UPLOAD_VIDEO:
+                List<String> videoPaths = (List<String>) o;
+                if (videoPaths != null && videoPaths.size() > 0) {
+                    builder.add("videoUrl", videoPaths.get(0));
+                    mPresenter.startEvaluate(builder.build(), AppHttpPathMall.START_EVALUATE);
+                }
+
+                break;
             case MainContract.UPLOAD_IMAGES:
                 //发送图片
                 List<String> picPaths = (List<String>) o;
-                if (picPaths != null && picPaths.size() > 0) {
-//                    FormBody.Builder builder = getBaseBuilder()
-//                            .add("orderId", String.valueOf(orderDetailBean.getId()))
-//                            .add("orderFormNumber", orderDetailBean.getOrderFormNumber())
-//                            .add("cargoStatus", String.valueOf(receivedStatus))
-//                            .add("causeId", String.valueOf(reasonId))
-//                            .add("remark", getTextViewValue(mRefundReasonEt));
-//
-
-//                    for (int i = 0; i < picPaths.size(); i++) {
-//                        String picPath = picPaths.get(i);
-//                        if (0 == i) {
-//                            builder.add("pictureOne", picPath);
-//                        } else if (1 == i) {
-//                            builder.add("pictureTwo", picPath);
-//                        } else if (2 == i) {
-//                            builder.add("pictureThree", picPath);
-//                        }
-//                    }
-                    // : todo 调用评价的接口
-//                    mPresenter.requestRefund(builder.build(), AppHttpPathMall.REQUEST_REFUND
-//                    );
+                builder.add("imgUrl", listToString(picPaths));
+                if (TextUtils.isEmpty(videoPath)) {
+                    if (picPaths != null && picPaths.size() > 0) {
+                        // 调用评价的接口
+                        mPresenter.startEvaluate(builder.build(), AppHttpPathMall.START_EVALUATE);
+                    }
+                } else {
+                    // : 2022/5/17 上传视频
+                    mPresenter.uploadFile(MainContract.UPLOAD_VIDEO,videoPath);
                 }
 
 
+                break;
+            case AppHttpPathMall.START_EVALUATE:
+                startToAllOrderActivity(1, 0);
                 break;
             default:
                 break;

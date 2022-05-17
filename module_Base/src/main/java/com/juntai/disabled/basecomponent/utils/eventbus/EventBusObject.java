@@ -43,6 +43,8 @@ public class EventBusObject {
      * 刷新订单列表
      */
     public final static  String REFRESH_ORDER_LIST = "REFRESH_ORDER_LIST";
+
+    public final static  String EVALUATE = "评价";
 //    /**
 //     * 进入订单详情
 //     */

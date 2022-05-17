@@ -30,14 +30,21 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".order.refund.RefundRequestActivity"></activity>
-        <activity android:name=".order.refund.RefundActivity"></activity>
-        <activity android:name=".order.evaluate.EvaluateActivity"></activity>
+        <activity
+            android:name=".order.refund.RefundRequestActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".order.refund.RefundActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".order.evaluate.EvaluateActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".order.orderDetail.OrderDetailActivity"
             android:exported="false" />
-        <activity android:name=".order.allOrder.AllOrderActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".order.allOrder.AllOrderActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".order.orderPay.PaySuccessActivity" />
         <activity android:name=".order.orderPay.OrderPayActivity" />
         <activity

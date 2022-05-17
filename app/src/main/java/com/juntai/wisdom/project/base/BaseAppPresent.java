@@ -2,7 +2,6 @@ package com.juntai.wisdom.project.base;
 
 import com.example.chat.bean.ChatUserBean;
 import com.example.chat.bean.UploadFileBean;
-import com.example.chat.util.ChatUserInfoManager;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
@@ -156,8 +155,7 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
     public void uploadFile(String tag, String... filePaths) {
         if (filePaths.length > 0) {
             MultipartBody.Builder builder = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("account", ChatUserInfoManager.getUserUUID());
+                    .setType(MultipartBody.FORM);
             for (String filePath : filePaths) {
                 try {
                     builder.addFormDataPart("file", URLEncoder.encode(filePath, "utf-8"), RequestBody.create(MediaType.parse("file"), new File(filePath)));

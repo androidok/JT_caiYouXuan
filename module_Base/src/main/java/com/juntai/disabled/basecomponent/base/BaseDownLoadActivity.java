@@ -71,6 +71,7 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
         this.fileDownLoadCallBack = fileDownLoadCallBack;
     }
 
+
     /**
      * 获取标题栏右侧的内容  图片的时候可以传空
      *

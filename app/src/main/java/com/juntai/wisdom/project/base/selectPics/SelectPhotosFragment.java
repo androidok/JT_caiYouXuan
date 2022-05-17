@@ -130,10 +130,10 @@ public class SelectPhotosFragment<T> extends BaseAppFragment implements View.OnC
     }
 
     /**
-     * @param  ，
+     * @param ，
      * @return
      */
-    public SelectPhotosFragment setAdapterData(List<String> arrays) {
+    private SelectPhotosFragment setAdapterData(List<String> arrays) {
         this.arrays = arrays;
         return this;
     }
@@ -229,7 +229,7 @@ public class SelectPhotosFragment<T> extends BaseAppFragment implements View.OnC
      * @param arrays
      */
     public void setIcons(List<String> arrays) {
-        icons.clear();
+        this.icons = arrays;
         if (selectedPicsAdapter != null) {
             selectedPicsAdapter.setNewData(icons);
             if (arrays != null && arrays.size() > 0) {
@@ -451,7 +451,11 @@ public class SelectPhotosFragment<T> extends BaseAppFragment implements View.OnC
         } else {
             mSelectPhotosTitleTv.setVisibility(View.GONE);
         }
-        initContentAndIcons();
+        if (icons.size() > 0) {
+            selectedPicsAdapter.setNewData(icons);
+        } else {
+            initContentAndIcons();
+        }
 
     }
 

@@ -41,7 +41,6 @@ public interface HomePageContract {
     String  ORDER_REFUND = "申请退款";
     String  ORDER_SEND = "提醒发货";
     String  ORDER_RECEIVE = "确认收货";
-    String  ORDER_EVALUATE = "立即评价";
     String  ORDER_PROGRESS = "查看进度";
     String  ORDER_DELETE = "删除订单";
     String  ORDER_REBUY = "再来一单";
