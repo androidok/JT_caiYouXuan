@@ -1,7 +1,7 @@
 package com.juntai.wisdom.project.beans;
 
 import com.example.chat.bean.ContactBean;
-import com.juntai.wisdom.project.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.HashMap;

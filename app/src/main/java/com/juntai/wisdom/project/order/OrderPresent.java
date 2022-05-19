@@ -17,7 +17,7 @@ import com.juntai.wisdom.project.beans.order.OrderListBean;
 import com.juntai.wisdom.project.beans.order.OrderPayWxBean;
 import com.juntai.wisdom.project.beans.order.OrderPayZfbBean;
 import com.juntai.wisdom.project.beans.order.RefundReasonBean;
-import com.juntai.wisdom.project.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
 import com.mabeijianxi.smallvideorecord2.model.MediaRecorderConfig;
 import com.orhanobut.hawk.Hawk;

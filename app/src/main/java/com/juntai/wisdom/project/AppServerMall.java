@@ -263,6 +263,7 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.ORDER_STATUS)
     Observable<BaseResult> getOrderStatus(@Body RequestBody requestBody);
 
+
     @POST(AppHttpPathMall.ORDER_LIST)
     Observable<OrderListBean> getOrderList(@Body RequestBody requestBody);
 
@@ -285,5 +286,17 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.ORDER_PAY_PUB_ACCOUNT)
     Observable<BaseResult> payByPubAccount(@Query("account") String account, @Query("token") String token, @Query("typeEnd") String typeEnd, @Query("orderId") List<Integer> ids);
 
+
+
+
+
+
+        /*====================================================    消息   ==============================================================*/
+
+    @POST(AppHttpPathMall.SEND_MSG)
+    Observable<BaseResult> sendMessage(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.UNREAD_CONTACT_MSG)
+    Observable<BaseResult> getContactUnreadMsg(@Body RequestBody requestBody);
 
 }

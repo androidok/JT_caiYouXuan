@@ -139,6 +139,7 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
                 setMaxWidth(mContext, (TextView) helper.getView(R.id.receiver_quote_content_tv),115);
                 helper.setGone(R.id.sender_quote_content_tv, false);
                 helper.setGone(R.id.receiver_quote_content_tv, false);
+                initSelectedViewStatus(helper, messageBodyBean);
                 if (ChatUserInfoManager.getUserId() == fromUserId) {
                     //我发送的消息
                     initNickName(helper, messageBodyBean, 0);
@@ -155,6 +156,7 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
             case MultipleItem.ITEM_SEND_AUDIO:
                 helper.addOnClickListener(R.id.audio_bg_rl);
                 helper.addOnLongClickListener(R.id.audio_bg_rl);
+                initSelectedViewStatus(helper, messageBodyBean);
 
                 if (ChatUserInfoManager.getUserId() == messageBodyBean.getFromUserId()) {
                     //发送
@@ -184,6 +186,7 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
                 break;
 
             case MultipleItem.ITEM_CHAT_PIC_VIDEO:
+                initSelectedViewStatus(helper, messageBodyBean);
                 ImageView sendIv = helper.getView(R.id.sender_pic_video_iv);
                 ImageView receiveIv = helper.getView(R.id.receiver_pic_video_iv);
                 helper.addOnClickListener(R.id.sender_pic_video_iv);
@@ -329,7 +332,24 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
 
     }
 
-
+    /**
+     * 选择控件的状态
+     *
+     * @param helper
+     * @param messageBodyBean
+     */
+    private void initSelectedViewStatus(BaseViewHolder helper, MessageBodyBean messageBodyBean) {
+        if (isEdit) {
+            helper.setGone(R.id.select_status_iv, true);
+            if (messageBodyBean.isSelected()) {
+                helper.setImageResource(R.id.select_status_iv, R.mipmap.select_icon);
+            } else {
+                helper.setImageResource(R.id.select_status_iv, R.mipmap.unselect_icon);
+            }
+        } else {
+            helper.setGone(R.id.select_status_iv, false);
+        }
+    }
     //获取屏幕宽度
     private int getWidth(Context context) {
         WindowManager wm = (WindowManager) context

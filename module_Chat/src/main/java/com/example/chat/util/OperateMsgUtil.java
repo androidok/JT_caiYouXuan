@@ -3,10 +3,9 @@ package com.example.chat.util;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.example.chat.bean.ContactBean;
-import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 
 import java.util.List;
 
@@ -115,14 +114,14 @@ public class OperateMsgUtil {
      * @param msgType      msgType":"消息类型（ 0：text；1：image；2：video；3：语音；4：直播）,
      * @return
      */
-    public static MessageBodyBean getPrivateMsg(ContactBean contactBean,int msgType, int toUserId, String toUserAccout, String toNickName, String toHead, String content) {
+    public static MessageBodyBean getPrivateMsg(int msgType, int toUserId, String toUserAccout, String toNickName, String toHead, String content) {
         MessageBodyBean messageBody = new MessageBodyBean();
         messageBody.setContent(content);
         messageBody.setCreateTime(String.valueOf(System.currentTimeMillis()));
-        messageBody.setFromAccount(contactBean.getAccount());
-        messageBody.setFromNickname(contactBean.getNickname());
-        messageBody.setFromHead(contactBean.getHeadPortrait());
-        messageBody.setFromUserId(contactBean.getUserId());
+        messageBody.setFromAccount(ChatUserInfoManager.getUser().getAccount());
+        messageBody.setFromNickname(ChatUserInfoManager.getUser().getNickname());
+        messageBody.setFromHead(ChatUserInfoManager.getUser().getHeadPortrait());
+        messageBody.setFromUserId(ChatUserInfoManager.getUserId());
         messageBody.setRead(true);
         messageBody.setToAccount(toUserAccout);
         messageBody.setToNickname(toNickName);
@@ -133,11 +132,13 @@ public class OperateMsgUtil {
     }
 
 
-    public static MultipartBody.Builder getMsgBuilder(ContactBean contactBean,MessageBodyBean messageBodyBean) {
+    public static MultipartBody.Builder getMsgBuilder(MessageBodyBean messageBodyBean) {
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("token", contactBean.getToken())
-                .addFormDataPart("userId", String.valueOf(contactBean.getUserId()))
+                .addFormDataPart("token",ChatUserInfoManager.getUserToken())
+                .addFormDataPart("account",ChatUserInfoManager.getAccount())
+                .addFormDataPart("typeEnd","app_buy")
+                .addFormDataPart("userId", String.valueOf(ChatUserInfoManager.getUserId()))
                 .addFormDataPart("type", "1")
                 .addFormDataPart("fromUserId", String.valueOf(messageBodyBean.getFromUserId()))
                 .addFormDataPart("fromAccount", messageBodyBean.getFromAccount())
@@ -151,10 +152,10 @@ public class OperateMsgUtil {
                 .addFormDataPart("content", messageBodyBean.getContent())
                 .addFormDataPart("duration", messageBodyBean.getDuration())
                 .addFormDataPart("videoCover", messageBodyBean.getVideoCover())
-                .addFormDataPart("hwPushIntentUrl", OperateMsgUtil.getHuaWeiPushIntentStr(messageBodyBean))
-                .addFormDataPart("xiaomiPushIntentUrl", OperateMsgUtil.getXiaomiPushIntentStr(messageBodyBean))
+//                .addFormDataPart("hwPushIntentUrl", OperateMsgUtil.getHuaWeiPushIntentStr(messageBodyBean))
+//                .addFormDataPart("xiaomiPushIntentUrl", OperateMsgUtil.getXiaomiPushIntentStr(messageBodyBean))
                 .addFormDataPart("msgType", String.valueOf(messageBodyBean.getMsgType()));
-        if (messageBodyBean.getFromUserId() == contactBean.getUserId()) {
+        if (messageBodyBean.getFromUserId() == ChatUserInfoManager.getUserId()) {
             //我发送的信息
             //收藏的时候需要上传
             builder.addFormDataPart("localCatchPath", String.valueOf(messageBodyBean.getLocalCatchPath()));

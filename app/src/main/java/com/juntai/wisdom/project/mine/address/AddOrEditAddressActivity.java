@@ -21,7 +21,7 @@ import com.juntai.wisdom.project.base.BaseAppActivity;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.beans.CitysBean;
 import com.juntai.wisdom.project.mine.address.selectAddress.SelectAddressDialogFragment;
-import com.juntai.wisdom.project.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;

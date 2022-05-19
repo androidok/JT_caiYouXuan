@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.utils;
+package com.juntai.disabled.basecomponent.utils;
 
 
 /**
@@ -17,11 +17,6 @@ public class HawkProperty {
     public static String ALL_PROVINCE_KEY = "ALL_PROVINCE_KEY";
     public static String DEFAULT_ADDR = "DEFAULT_ADDR";
 
-    /**
-     * 好友请求
-     */
-    public static String FRIEND_APPLY = "friendApply";
-    public static String UNREAD = "unreadCount";
     /**
      * 所有联系人
      */

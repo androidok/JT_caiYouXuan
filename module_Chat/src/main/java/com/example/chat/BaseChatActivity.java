@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.example.chat.base.BaseChatAppActivity;
+import com.example.chat.chatmodule.ChatPresent;
 import com.negier.emojifragment.fragment.EmojiFragment;
 
 /**

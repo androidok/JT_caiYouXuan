@@ -15,7 +15,13 @@ public class MyMenuBean implements Serializable {
     private String tag;
     Class<?> cls;
 
-    public MyMenuBean(){}
+    public MyMenuBean() {
+    }
+
+    public MyMenuBean(String name, int imageId) {
+        this.name = name;
+        this.imageId = imageId;
+    }
 
     public MyMenuBean(String name, int number, int imageId, String tag, Class<?> cls) {
         this.name = name;

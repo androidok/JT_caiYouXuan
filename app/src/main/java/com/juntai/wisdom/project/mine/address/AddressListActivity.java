@@ -16,7 +16,7 @@ import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.wisdom.project.base.BaseRecyclerviewActivity;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.order.confirmOrder.ConfirmOrderActivity;
-import com.juntai.wisdom.project.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;

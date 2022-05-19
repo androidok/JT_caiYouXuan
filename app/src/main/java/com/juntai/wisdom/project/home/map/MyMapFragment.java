@@ -49,7 +49,7 @@ import com.juntai.wisdom.project.home.HomePagePresent;
 import com.juntai.wisdom.project.home.map.weather.WeatherActivity;
 import com.juntai.wisdom.project.beans.IdNameBean;
 import com.juntai.wisdom.project.beans.PicTextBean;
-import com.juntai.wisdom.project.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.wisdom.project.utils.ImageUtil;
 import com.juntai.wisdom.project.utils.StringTools;
 import com.orhanobut.hawk.Hawk;

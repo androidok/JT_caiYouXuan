@@ -15,7 +15,7 @@ import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppPresent;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
-import com.juntai.wisdom.project.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;

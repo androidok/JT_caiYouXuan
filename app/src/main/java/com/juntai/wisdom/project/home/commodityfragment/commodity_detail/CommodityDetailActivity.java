@@ -28,6 +28,8 @@ import com.juntai.wisdom.project.utils.ObjectBoxMallUtil;
 
 import java.util.List;
 
+import okhttp3.FormBody;
+
 /**
  * @aouther tobato
  * @description 描述  商品详情
@@ -98,7 +100,12 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                     case HomePageContract.CUSTOMER:
                         // : 2022/5/3 联系店铺客服
                         // : 2022/5/19 获取客服人员的信息
-                        mPresenter.getUserInfo(getBaseBuilder().build(),AppHttpPathMall.GET_USER_INFO);
+                        FormBody.Builder builder = new FormBody.Builder()
+                                .add("account", UserInfoManagerMall.getPhoneNumber())
+                                .add("token", UserInfoManagerMall.getUserToken())
+                                .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
+                                .add("userId", String.valueOf(dataBean.getUserId()));
+                        mPresenter.getUserInfo(builder.build(),AppHttpPathMall.GET_USER_INFO);
 
                         break;
                     case HomePageContract.COLLECT:

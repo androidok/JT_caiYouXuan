@@ -284,4 +284,18 @@ public class AppHttpPathMall {
 
 
 
+
+
+        /*====================================================    消息   ==============================================================*/
+
+
+    /**
+     * 发送消息
+     */
+    public static final String SEND_MSG = BASE + "/msg/sendMassage";
+    /**
+     * 未读消息详情
+     * */
+    public static final String UNREAD_CONTACT_MSG = BASE + "/msg/selectMsgInfo";
+
 }

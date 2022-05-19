@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.chat.util.ChatUserInfoManager;
 import com.juntai.disabled.basecomponent.utils.DialogUtil;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.AppHttpPathMall;
@@ -25,7 +25,6 @@ import com.juntai.wisdom.project.home.commodityfragment.commodity_detail.PicText
 import com.juntai.wisdom.project.mine.collect.CollectCommoditiesActivity;
 import com.juntai.wisdom.project.mine.collect.CollectShopesActivity;
 import com.juntai.wisdom.project.mine.setting.MyInformationActivity;
-import com.juntai.wisdom.project.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.List;
@@ -170,7 +169,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     @Override
     public void onResume() {
         super.onResume();
-        if (ChatUserInfoManager.isLogin()) {
+        if (UserInfoManagerMall.isLogin()) {
             mLoginOut.setVisibility(View.VISIBLE);
             mPresenter.getOrderStatusAmount(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.ORDER_STATUS_AMOUNT);
             mPresenter.getUserInfo(getBaseAppActivity().getBaseBuilder().build(),AppHttpPathMall.GET_USER_INFO);
@@ -193,7 +192,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
     @Override
     public void onClick(View v) {
-        if (!ChatUserInfoManager.isLogin()) {
+        if (!UserInfoManagerMall.isLogin()) {
 //            MyChatApp.goLogin();
             return;
         }

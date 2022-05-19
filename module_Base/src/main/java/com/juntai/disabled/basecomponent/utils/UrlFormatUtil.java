@@ -20,7 +20,7 @@ public class UrlFormatUtil {
      * @return
      */
     public static String getImageThumUrl(String path) {
-        return path+"_-400.jpg";
+        return path;
     }
     /**
      * 缩略图路径

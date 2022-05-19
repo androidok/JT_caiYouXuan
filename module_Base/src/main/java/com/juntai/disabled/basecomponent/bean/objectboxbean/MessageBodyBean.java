@@ -37,7 +37,7 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
     /**
      * 此条消息的拥有者   主要用于解决切换账号后  数据紊乱的问题  存储用户的account就可以
      */
-    private String   owner;
+    private int owner;
     private String fromNickname;
     /**
      * 华为推送需要的intenturi
@@ -52,13 +52,15 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
     private String toAccount;
     private String toNickname;
     private String toHead;
+    //是否被选中
+    private boolean isSelected;
     /**
      * 未读数
      */
     private int unreadCount;
     private String content;
     //可被删除  主要用于离线的最后一条消息
-    private  boolean  canDelete;
+    private boolean canDelete;
     private int type;
     /**
      * 0：text；1：image；2：video；3：语音；4：直播）
@@ -70,11 +72,23 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
     //图片 视频 文件 本地缓存路径
     private String localCatchPath;
     //上传进度
-    private  int  uploadProgress;
+    private int uploadProgress;
     //图片 视频的旋转角度
     private String rotation;//
     private String videoCover;//
 
+    public MessageBodyBean(String content, int msgType) {
+        this.content = content;
+        this.msgType = msgType;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public long getId() {
         return id;
@@ -148,12 +162,12 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
         this.atUserId = atUserId == null ? "" : atUserId;
     }
 
-    public String getOwner() {
-        return owner == null ? "" : owner;
+    public int getOwner() {
+        return owner;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner == null ? "" : owner;
+    public void setOwner(int owner) {
+        this.owner = owner;
     }
 
     public String getFromNickname() {
@@ -306,7 +320,7 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
         dest.writeInt(this.fromUserId);
         dest.writeString(this.fromAccount);
         dest.writeString(this.atUserId);
-        dest.writeString(this.owner);
+        dest.writeInt(this.owner);
         dest.writeString(this.fromNickname);
         dest.writeString(this.hwPushIntentUrl);
         dest.writeString(this.fromHead);
@@ -318,6 +332,7 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
         dest.writeString(this.toAccount);
         dest.writeString(this.toNickname);
         dest.writeString(this.toHead);
+        dest.writeByte(this.isSelected ? (byte) 1 : (byte) 0);
         dest.writeInt(this.unreadCount);
         dest.writeString(this.content);
         dest.writeByte(this.canDelete ? (byte) 1 : (byte) 0);
@@ -336,7 +351,7 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
         this.fromUserId = in.readInt();
         this.fromAccount = in.readString();
         this.atUserId = in.readString();
-        this.owner = in.readString();
+        this.owner = in.readInt();
         this.fromNickname = in.readString();
         this.hwPushIntentUrl = in.readString();
         this.fromHead = in.readString();
@@ -348,6 +363,7 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
         this.toAccount = in.readString();
         this.toNickname = in.readString();
         this.toHead = in.readString();
+        this.isSelected = in.readByte() != 0;
         this.unreadCount = in.readInt();
         this.content = in.readString();
         this.canDelete = in.readByte() != 0;

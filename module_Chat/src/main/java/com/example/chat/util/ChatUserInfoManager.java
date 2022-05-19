@@ -2,6 +2,7 @@ package com.example.chat.util;
 
 import com.example.chat.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
 /**
@@ -18,36 +19,15 @@ public class ChatUserInfoManager {
 
 
     /**
-     * 退出登录清理缓存配置
-     */
-    public static void clearUserData() {
-//        Hawk.delete(HawkPropertyChat.SP_KEY_USER);
-//        Hawk.delete(HawkPropertyChat.SP_KEY_TOKEN);
-//        Hawk.delete(HawkPropertyChat.SP_KEY_UNREAD_COUNT);
-        //ws退出连接
-//        MyWsManager.getInstance().disconnect();
-//        AliPushManager.getInstance().unbindAccount(ChatUserInfoManager.getUserUUID());
-
-    }
-
-    /**
      * 获取用户信息
      *
      * @return
      */
     public static ContactBean getUser() {
-        ContactBean userBean = Hawk.get(HawkPropertyChat.SP_KEY_USER);
+        ContactBean userBean = Hawk.get(HawkProperty.SP_KEY_USER);
         return userBean;
     }
 
-    /**
-     * 判定用户是否登录
-     *
-     * @return
-     */
-    public static boolean isLogin() {
-        return Hawk.contains(HawkPropertyChat.SP_KEY_USER) && Hawk.contains(HawkPropertyChat.SP_KEY_TOKEN);
-    }
 
 
 
@@ -65,25 +45,14 @@ public class ChatUserInfoManager {
     public static String getHeadPic() {
         return getUser() != null && getUser() != null ? getUser().getHeadPortrait() : "";
     }
-
-    /**
-     * 获取账户
-     *
-     * @return
-     */
-    public static String getUserNickName() {
-        return getUser() != null && getUser() != null ? getUser().getNickname() : "";
-    }
-
     /**
      * 获取usertoken
      *
      * @return
      */
     public static String getUserToken() {
-        return Hawk.get(HawkPropertyChat.SP_KEY_TOKEN);
+        return Hawk.get(HawkProperty.SP_KEY_TOKEN);
     }
-
     /**
      * 获取getUserId
      *
@@ -93,16 +62,16 @@ public class ChatUserInfoManager {
         return getUser().getUserId();
     }
 
-
-
-
-
     /**
-     * 可以@所有人
+     * 获取用户信息
      *
-     * @param groupDetailInfoBean
      * @return
      */
+    public static String getAccount() {
+        return getUser() != null && getUser() != null ? getUser().getAccount() : "";
+    }
+
+
 
 
 

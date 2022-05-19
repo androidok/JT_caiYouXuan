@@ -22,7 +22,7 @@ import com.juntai.wisdom.project.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.beans.UserBeanMall;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.mine.modifyPwd.BackPwdActivity;
-import com.juntai.wisdom.project.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
 import java.lang.ref.WeakReference;

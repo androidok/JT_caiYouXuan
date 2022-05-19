@@ -2,8 +2,10 @@ package com.juntai.wisdom.project.utils;
 
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean_;
-import com.juntai.wisdom.project.beans.CommodityDetailBean;
+import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.ObjectBox;
+import com.juntai.wisdom.project.beans.CommodityDetailBean;
+import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,5 +63,19 @@ public class ObjectBoxMallUtil {
         return null;
     }
 
+
+    /**
+     * 添加消息
+     * @param messageBodyBean
+     */
+    public static void addMessage(MessageBodyBean...  messageBodyBean) {
+        if (messageBodyBean.length>0) {
+            for (MessageBodyBean bodyBean : messageBodyBean) {
+                bodyBean.setOwner(UserInfoManagerMall.getUserId());
+                ObjectBox.get().boxFor(MessageBodyBean.class).put(bodyBean);
+            }
+        }
+
+    }
 
 }

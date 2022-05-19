@@ -8,7 +8,7 @@ import com.juntai.wisdom.project.AppNetModuleMall;
 import com.juntai.wisdom.project.base.BaseAppMallPresent;
 import com.juntai.wisdom.project.beans.CitysBean;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
-import com.juntai.wisdom.project.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.List;

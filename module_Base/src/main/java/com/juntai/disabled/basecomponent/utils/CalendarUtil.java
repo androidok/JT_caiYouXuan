@@ -31,7 +31,28 @@ public class CalendarUtil {
         re_StrTime = sdf.format(new Date(lcc_time * 1000L));
         return re_StrTime;
     }
+    /**
+     * 获取两个时间段的分钟差
+     *
+     * @param startDate 年月日时分秒
+     * @param endDate
+     * @return
+     */
 
+    public static int getGapMinutes(String startDate, String endDate) {
+        long start = 0;
+        long end = 0;
+        try {
+            start = sdf.parse(startDate).getTime();
+            end = sdf.parse(endDate).getTime();
+
+        } catch (Exception e) {
+        }
+//        CLog.e("开始结束时间1", (end - start) + "");
+        int minutes = (int) ((end - start) / (1000 * 60));
+        return minutes;
+
+    }
     /**
      * 获取下次提醒的时间,day天后
      */
