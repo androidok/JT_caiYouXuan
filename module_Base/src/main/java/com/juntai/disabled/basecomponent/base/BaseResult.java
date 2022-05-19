@@ -116,6 +116,9 @@ public class BaseResult implements Parcelable {
         };
     }
 
+    public BaseResult() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -130,9 +133,6 @@ public class BaseResult implements Parcelable {
         dest.writeParcelable(this.errorData, flags);
     }
 
-    public BaseResult() {
-    }
-
     protected BaseResult(Parcel in) {
         this.code = in.readInt();
         this.msg = in.readString();
@@ -141,4 +141,15 @@ public class BaseResult implements Parcelable {
         this.errorData = in.readParcelable(ErrorDataBean.class.getClassLoader());
     }
 
+    public static final Creator<BaseResult> CREATOR = new Creator<BaseResult>() {
+        @Override
+        public BaseResult createFromParcel(Parcel source) {
+            return new BaseResult(source);
+        }
+
+        @Override
+        public BaseResult[] newArray(int size) {
+            return new BaseResult[size];
+        }
+    };
 }

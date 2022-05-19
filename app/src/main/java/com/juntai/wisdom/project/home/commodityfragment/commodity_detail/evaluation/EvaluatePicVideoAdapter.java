@@ -3,6 +3,7 @@ package com.juntai.wisdom.project.home.commodityfragment.commodity_detail.evalua
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.juntai.wisdom.project.R;
 
 /**
@@ -23,7 +24,7 @@ public class EvaluatePicVideoAdapter extends BaseQuickAdapter<String, BaseViewHo
             ImageLoadUtil.loadRoundCornerImg(mContext,item, helper.getView(R.id.select_pic_icon_iv), R.mipmap.empty_pic,1);
             helper.setGone(R.id.item_video_tag, true);
         } else {
-            ImageLoadUtil.loadRoundCornerImg(mContext, item, helper.getView(R.id.select_pic_icon_iv), R.mipmap.empty_pic,2);
+            ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(item), helper.getView(R.id.select_pic_icon_iv), R.mipmap.empty_pic);
             helper.setGone(R.id.item_video_tag, false);
         }
     }

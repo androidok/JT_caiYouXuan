@@ -109,9 +109,9 @@ public class ImageLoadUtil {
     public static void loadImageCache(Context context, String url, ImageView view) {
         try {
             int urlInt = Integer.parseInt(url);
-            Glide.with(context).load(urlInt).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE).error(R.drawable.nopicture).into(view);
+            Glide.with(context).load(urlInt).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE).error(R.drawable.empty_pic).into(view);
         } catch (NumberFormatException ex) {
-            Glide.with(context).load(url).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE).error(R.drawable.nopicture).into(view);
+            Glide.with(context).load(url).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE).error(R.drawable.empty_pic).into(view);
         }
     }
 
@@ -122,7 +122,7 @@ public class ImageLoadUtil {
      * @param view
      */
     public static void loadImageCache(Context context, int url, ImageView view) {
-        Glide.with(context).load(url).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE).error(R.drawable.nopicture).into(view);
+        Glide.with(context).load(url).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE).error(R.drawable.empty_pic).into(view);
     }
 
     /**
@@ -163,7 +163,7 @@ public class ImageLoadUtil {
      */
     public static void loadImage(Context context, String url, ImageView view) {
         Glide.with(context).load(url).skipMemoryCache(false)
-                .apply(new RequestOptions().error(R.drawable.nopicture).placeholder(R.drawable.nopicture))
+                .apply(new RequestOptions().error(R.drawable.empty_pic).placeholder(R.drawable.empty_pic))
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(view);
     }
 
@@ -197,42 +197,10 @@ public class ImageLoadUtil {
      * @param view
      */
     public static void loadSquareImage(Context context, String url, ImageView view) {
-        loadHeadPic(context,url,view,false);
+        loadHeadPic(context,url,view,R.mipmap.default_user_head_icon,false);
     }
-    /**
-     * 加载头像
-     * isCircle 是否是圆形头像
-     */
-    public static void loadHeadPic(Context mContext, String headUrl,ImageView imageView, boolean isCircle) {
-        String content = null;
-        if (TextUtils.isEmpty(headUrl)) {
-            return;
-        }
-        if (headUrl.contains("/")) {
-            content = headUrl.substring(headUrl.lastIndexOf("/") + 1, headUrl.length());
-        }
-        if (!FileCacheUtils.isFileExists(FileCacheUtils.getAppImagePath(true) + content)) {
-            //本地没有缓存
-            if (isCircle) {
-                ImageLoadUtil.loadCirImgWithCrash(mContext, headUrl, imageView, R.mipmap.default_user_head_icon);
-            } else {
-                Glide.with(mContext).load(headUrl).apply(new RequestOptions()
-                        .error(R.drawable.nopicture).placeholder(R.drawable.nopicture)
-                        .transform(new RoundedCorners(15)).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)).into(imageView);
-            }
-
-            ImageLoadUtil.setGlideDownloadFileToLocal(null, mContext, headUrl, true);
-
-        } else {
-            if (isCircle) {
-                ImageLoadUtil.loadCirImgWithCrash(mContext, FileCacheUtils.getAppImagePath(true) + content, imageView, R.mipmap.default_user_head_icon);
-            } else {
-                Glide.with(mContext).load(FileCacheUtils.getAppImagePath(true) + content).apply(new RequestOptions()
-                        .error(R.drawable.nopicture).placeholder(R.drawable.nopicture)
-                        .transform(new RoundedCorners(15)).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)).into(imageView);
-            }
-
-        }
+    public static void loadSquareImage(Context context, String url, ImageView view,int defaultRes) {
+        loadHeadPic(context,url,view,defaultRes,false);
     }
     /**
      * 加载圆角方形图片
@@ -243,22 +211,81 @@ public class ImageLoadUtil {
      */
     public static void loadSquareImage(Context context, int res, ImageView view) {
         Glide.with(context).load(res).apply(new RequestOptions()
-                .error(R.drawable.nopicture).placeholder(R.drawable.nopicture)
+                .error(R.drawable.empty_pic).placeholder(R.drawable.empty_pic)
                 .transform(new RoundedCorners(15)).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)).into(view);
 
     }
     /**
-     * 加载圆角方形图片
-     *
-     * @param context
-     * @param url
-     * @param view
+     * 加载头像
+     * isCircle 是否是圆形头像
      */
-    public static void loadSquareImage(Context context, String url, int defaultPic, ImageView view) {
-        Glide.with(context).load(url).apply(new RequestOptions().error(defaultPic).placeholder(defaultPic)
-                .transform(new RoundedCorners(15)).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)).into(view);
+    public static void loadHeadPic(Context mContext, String headUrl,ImageView imageView, int defaultRes,boolean isCircle) {
+        String content = null;
+        if (TextUtils.isEmpty(headUrl)) {
+            return;
+        }
+        if (headUrl.contains("/")) {
+            content = headUrl.substring(headUrl.lastIndexOf("/") + 1, headUrl.length());
+        }
+        if (!FileCacheUtils.isFileExists(FileCacheUtils.getAppImagePath(true) + content)) {
+            //本地没有缓存
+            if (isCircle) {
+                ImageLoadUtil.loadCirImgWithCrash(mContext, headUrl, imageView,defaultRes);
+            } else {
+                Glide.with(mContext).load(headUrl).apply(new RequestOptions()
+                        .error(R.drawable.empty_pic).placeholder(R.drawable.empty_pic)
+                        .transform(new RoundedCorners(15)).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)).into(imageView);
+            }
 
+            ImageLoadUtil.setGlideDownloadFileToLocal(null, mContext, headUrl, true);
+
+        } else {
+            if (isCircle) {
+                ImageLoadUtil.loadCirImgWithCrash(mContext, FileCacheUtils.getAppImagePath(true) + content, imageView,defaultRes);
+            } else {
+                Glide.with(mContext).load(FileCacheUtils.getAppImagePath(true) + content).apply(new RequestOptions()
+                        .error(R.drawable.empty_pic).placeholder(R.drawable.empty_pic)
+                        .transform(new RoundedCorners(15)).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)).into(imageView);
+            }
+
+        }
     }
+    /**
+     * 加载头像
+     * isCircle 是否是圆形头像
+     */
+    public static void loadHeadPic(Context mContext, String headUrl,ImageView imageView,boolean isCircle) {
+        String content = null;
+        if (TextUtils.isEmpty(headUrl)) {
+            return;
+        }
+        if (headUrl.contains("/")) {
+            content = headUrl.substring(headUrl.lastIndexOf("/") + 1, headUrl.length());
+        }
+        if (!FileCacheUtils.isFileExists(FileCacheUtils.getAppImagePath(true) + content)) {
+            //本地没有缓存
+            if (isCircle) {
+                ImageLoadUtil.loadCirImgWithCrash(mContext, headUrl, imageView,R.mipmap.default_user_head_icon);
+            } else {
+                Glide.with(mContext).load(headUrl).apply(new RequestOptions()
+                        .error(R.drawable.empty_pic).placeholder(R.drawable.empty_pic)
+                        .transform(new RoundedCorners(15)).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)).into(imageView);
+            }
+
+            ImageLoadUtil.setGlideDownloadFileToLocal(null, mContext, headUrl, true);
+
+        } else {
+            if (isCircle) {
+                ImageLoadUtil.loadCirImgWithCrash(mContext, FileCacheUtils.getAppImagePath(true) + content, imageView,R.mipmap.default_user_head_icon);
+            } else {
+                Glide.with(mContext).load(FileCacheUtils.getAppImagePath(true) + content).apply(new RequestOptions()
+                        .error(R.drawable.empty_pic).placeholder(R.drawable.empty_pic)
+                        .transform(new RoundedCorners(15)).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)).into(imageView);
+            }
+
+        }
+    }
+
 
     /**
      * 加载圆形图片,无缓存
@@ -366,7 +393,7 @@ public class ImageLoadUtil {
                     .skipMemoryCache(true);//不做内存缓存
         } else {
             coverRequestOptions = new RequestOptions()
-                    .error(R.drawable.nopicture)
+                    .error(R.drawable.empty_pic)
                     .placeholder(placeholder)
                     .override(300, 200)
                     .centerCrop()
@@ -417,7 +444,7 @@ public class ImageLoadUtil {
     }
 
     public static void loadImageForList(Context context, String url, ImageView view, int type, int width, int height, int corners) {
-        loadImageForList(context, url, view, type, width, height, corners, R.drawable.nopicture, R.drawable.nopicture);
+        loadImageForList(context, url, view, type, width, height, corners, R.drawable.empty_pic, R.drawable.empty_pic);
     }
 
     public static void loadImageForList(Context context, String url, ImageView view, int type, int width, int height) {
@@ -464,7 +491,7 @@ public class ImageLoadUtil {
         RequestOptions requestOptions = RequestOptions.frameOf(1*1000*1000)
                 .set(FRAME_OPTION, MediaMetadataRetriever.OPTION_CLOSEST)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                .error(R.drawable.nopicture)//R.drawable.nopicture
+                .error(R.drawable.empty_pic)//R.drawable.nopicture
                 .skipMemoryCache(true);//内存缓存
         Glide.with(context).load(uri).apply(requestOptions)
                 .listener(new RequestListener<Drawable>() {
@@ -490,7 +517,7 @@ public class ImageLoadUtil {
         RequestOptions requestOptions = RequestOptions.frameOf(frameTimeMicros)
                 .set(FRAME_OPTION, MediaMetadataRetriever.OPTION_CLOSEST)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                .error(R.drawable.nopicture)//R.drawable.nopicture
+                .error(R.drawable.empty_pic)//R.drawable.nopicture
                 .skipMemoryCache(true);//内存缓存
         Glide.with(context).load(uri)
                 .transform(new CenterCrop(), roundedCorners)

@@ -101,6 +101,11 @@ dependencies {
     implementation project(':banner')
     implementation project(':module_Video')
     implementation project(':module_Map')
+    //支付宝支付
+    api 'com.alipay.sdk:alipaysdk-android:+@aar'
+    //微信支付
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
 }
 
 configurations.all {

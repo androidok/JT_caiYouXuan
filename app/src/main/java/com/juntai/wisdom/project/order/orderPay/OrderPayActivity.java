@@ -20,6 +20,7 @@ import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailBean;
 import com.juntai.wisdom.project.beans.order.OrderListBean;
+import com.juntai.wisdom.project.beans.order.OrderPayWxBean;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.order.OrderPresent;
 import com.juntai.wisdom.project.utils.CalendarUtil;
@@ -38,7 +39,7 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
 
 
     private List<OrderDetailBean> orderDetailBeans;
-    private double  payPrice;
+    private double payPrice;
 
     /**
      * 支付剩余时间
@@ -161,7 +162,7 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
             ConfirmOrderBean confirmOrderBean = (ConfirmOrderBean) baseResult;
             orderDetailBeans = confirmOrderBean.getData();
             payPrice = confirmOrderBean.getTotalPrice();
-        }else {
+        } else {
             OrderListBean orderListBean = (OrderListBean) baseResult;
             orderDetailBeans = orderListBean.getData().getList();
             payPrice = orderListBean.getTotalPrice();
@@ -267,6 +268,14 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
                 startActivity(new Intent(mContext, PaySuccessActivity.class));
                 finish();
                 break;
+
+            case AppHttpPathMall.ORDER_PAY_PUB_WEIXIN:
+                OrderPayWxBean wxBean = (OrderPayWxBean) o;
+                if (wxBean != null) {
+                    List<OrderPayWxBean.DataBean> wxDataBeans = wxBean.getData();
+                }
+
+                break;
             default:
                 break;
         }
@@ -279,20 +288,26 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
             default:
                 break;
             case R.id.pay_tv:
-
+                List<Integer> ids = new ArrayList<>();
+                for (OrderDetailBean orderDetailBean : orderDetailBeans) {
+                    ids.add(orderDetailBean.getId());
+                }
                 switch (payType) {
+
                     case 0:
                         // TODO: 2022/5/11 支付宝支付
+                        mPresenter.payByWeixin(ids, AppHttpPathMall.ORDER_PAY_ZHIFUBAO);
+
                         break;
                     case 1:
-                        // TODO: 2022/5/11 微信支付
+                        // : 2022/5/11 微信支付
+                        mPresenter.payByWeixin(ids, AppHttpPathMall.ORDER_PAY_PUB_WEIXIN);
+
+
                         break;
                     case 2:
                         // : 2022/5/11 公户支付
-                        List<Integer> ids = new ArrayList<>();
-                        for (OrderDetailBean orderDetailBean : orderDetailBeans) {
-                            ids.add(orderDetailBean.getId());
-                        }
+
                         mPresenter.payByPubAccount(ids, AppHttpPathMall.ORDER_PAY_PUB_ACCOUNT);
                         break;
                     default:

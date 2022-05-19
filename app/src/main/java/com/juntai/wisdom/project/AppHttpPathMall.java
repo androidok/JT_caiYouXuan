@@ -283,4 +283,5 @@ public class AppHttpPathMall {
     public static final String START_EVALUATE = BASE + "/buyers/addCommodityEvaluate";
 
 
+
 }

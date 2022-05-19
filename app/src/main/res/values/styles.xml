@@ -19,7 +19,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
-<!--        <item name="android:windowBackground">@mipmap/ic_launcher</item>-->
+        <item name="android:windowBackground">@mipmap/splash_bg</item>
     </style>
     <!--购物车checkbox-->
     <style name="checkbox_style" parent="@android:style/Widget.CompoundButton.CheckBox">

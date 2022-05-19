@@ -21,6 +21,8 @@ import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailDataBean;
 import com.juntai.wisdom.project.beans.order.OrderListBean;
+import com.juntai.wisdom.project.beans.order.OrderPayWxBean;
+import com.juntai.wisdom.project.beans.order.OrderPayZfbBean;
 import com.juntai.wisdom.project.beans.order.OrderStatusAmountBean;
 import com.juntai.wisdom.project.beans.order.RefundReasonBean;
 import com.juntai.wisdom.project.beans.shop.ShopCommodityListBean;
@@ -255,6 +257,7 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.START_EVALUATE)
     Observable<BaseResult> startEvaluate(@Body RequestBody requestBody);
 
+
     @POST(AppHttpPathMall.CONFIRM_RECEIVED)
     Observable<BaseResult> confirmReceived(@Body RequestBody requestBody);
 
@@ -275,10 +278,10 @@ public interface AppServerMall {
 
 
     @POST(AppHttpPathMall.ORDER_PAY_PUB_WEIXIN)
-    Observable<BaseResult> payByWeixin(@Query("account") String account, @Query("token") String token, @Query("typeEnd") String typeEnd, @Query("orderId") List<Integer> ids);
+    Observable<OrderPayWxBean> payByWeixin(@Query("account") String account, @Query("token") String token, @Query("typeEnd") String typeEnd, @Query("orderId") List<Integer> ids);
 
     @POST(AppHttpPathMall.ORDER_PAY_ZHIFUBAO)
-    Observable<BaseResult> payByZhifubao(@Query("account") String account, @Query("token") String token, @Query("typeEnd") String typeEnd, @Query("orderId") List<Integer> ids);
+    Observable<OrderPayZfbBean> payByZhifubao(@Query("account") String account, @Query("token") String token, @Query("typeEnd") String typeEnd, @Query("orderId") List<Integer> ids);
 
     @POST(AppHttpPathMall.ORDER_PAY_PUB_ACCOUNT)
     Observable<BaseResult> payByPubAccount(@Query("account") String account, @Query("token") String token, @Query("typeEnd") String typeEnd, @Query("orderId") List<Integer> ids);

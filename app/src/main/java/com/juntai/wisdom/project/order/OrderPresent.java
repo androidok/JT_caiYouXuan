@@ -14,6 +14,8 @@ import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailDataBean;
 import com.juntai.wisdom.project.beans.order.OrderListBean;
+import com.juntai.wisdom.project.beans.order.OrderPayWxBean;
+import com.juntai.wisdom.project.beans.order.OrderPayZfbBean;
 import com.juntai.wisdom.project.beans.order.RefundReasonBean;
 import com.juntai.wisdom.project.utils.HawkProperty;
 import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
@@ -69,6 +71,7 @@ public class OrderPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void commitOrder(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .commitOrder(requestBody)
@@ -112,6 +115,7 @@ public class OrderPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void noticeSend(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .noticeSend(requestBody)
@@ -133,6 +137,7 @@ public class OrderPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void deleteCancelOrder(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .deleteCancelOrder(requestBody)
@@ -154,6 +159,7 @@ public class OrderPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void requestRefund(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .requestRefund(requestBody)
@@ -175,6 +181,7 @@ public class OrderPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void startEvaluate(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .startEvaluate(requestBody)
@@ -196,6 +203,8 @@ public class OrderPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
+
     public void confirmReceived(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .confirmReceived(requestBody)
@@ -283,6 +292,7 @@ public class OrderPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void getRefundReasons(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .getRefundReasons(requestBody)
@@ -308,11 +318,11 @@ public class OrderPresent extends BaseAppMallPresent {
 
     public void payByWeixin(List<Integer> ids, String tag) {
         AppNetModuleMall.createrRetrofit()
-                .payByWeixin(UserInfoManagerMall.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManagerMall.DEVICE_TYPE,ids)
+                .payByWeixin(UserInfoManagerMall.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManagerMall.DEVICE_TYPE, ids)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                .subscribe(new BaseObserver<OrderPayWxBean>(getView()) {
                     @Override
-                    public void onSuccess(BaseResult o) {
+                    public void onSuccess(OrderPayWxBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -330,12 +340,12 @@ public class OrderPresent extends BaseAppMallPresent {
 
     public void payByZhifubao(List<Integer> ids, String tag) {
         AppNetModuleMall.createrRetrofit()
-                .payByZhifubao(UserInfoManagerMall.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManagerMall.DEVICE_TYPE,ids)
+                .payByZhifubao(UserInfoManagerMall.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManagerMall.DEVICE_TYPE, ids)
 
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                .subscribe(new BaseObserver<OrderPayZfbBean>(getView()) {
                     @Override
-                    public void onSuccess(BaseResult o) {
+                    public void onSuccess(OrderPayZfbBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -353,7 +363,7 @@ public class OrderPresent extends BaseAppMallPresent {
 
     public void payByPubAccount(List<Integer> ids, String tag) {
         AppNetModuleMall.createrRetrofit()
-                .payByPubAccount(UserInfoManagerMall.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManagerMall.DEVICE_TYPE,ids)
+                .payByPubAccount(UserInfoManagerMall.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManagerMall.DEVICE_TYPE, ids)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override
