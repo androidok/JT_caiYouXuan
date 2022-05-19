@@ -12,20 +12,17 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.baidu.location.BDLocation;
-import com.example.chat.AppHttpPathChat;
 import com.example.chat.R;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
-import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.example.chat.bean.UploadFileBean;
+import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.tencent.smtt.sdk.TbsReaderView;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.wlf.filedownloader.DownloadFileInfo;
 import org.wlf.filedownloader.FileDownloader;
 import org.wlf.filedownloader.listener.OnDetectBigUrlFileListener;
@@ -314,7 +311,7 @@ public abstract class BaseChatAppActivity<P extends BasePresenter> extends BaseC
 
     @Override
     protected String getUpdateHttpUrl() {
-        return AppHttpPathChat.APP_UPDATE;
+        return "";
     }
 
 

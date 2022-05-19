@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppActivity;
@@ -16,7 +17,7 @@ import com.juntai.wisdom.project.base.selectPics.SelectPhotosFragment;
 import com.juntai.wisdom.project.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.beans.PicTextBean;
-import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.wisdom.project.beans.UserBeanMall;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.home.HomePageContract;
@@ -95,7 +96,10 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
 
                         break;
                     case HomePageContract.CUSTOMER:
-                        // TODO: 2022/5/3 联系店铺客服
+                        // : 2022/5/3 联系店铺客服
+                        // : 2022/5/19 获取客服人员的信息
+                        mPresenter.getUserInfo(getBaseBuilder().build(),AppHttpPathMall.GET_USER_INFO);
+
                         break;
                     case HomePageContract.COLLECT:
                         // : 2022/5/3 收藏商品
@@ -287,12 +291,12 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                 ToastUtils.toast(mContext, "已加入购物车");
                 break;
             case HomePageContract.UN_COLLECT_COMMODITY_SHOP:
-                collectId =0;
+                collectId = 0;
                 picTextAdapter.setNewData(mPresenter.getCommodityBottomMenus(false));
                 break;
             case HomePageContract.COLLECT_COMMODITY_SHOP:
                 BaseResult baseResult = (BaseResult) o;
-                 collectId = Integer.parseInt(baseResult.getMessage());
+                collectId = Integer.parseInt(baseResult.getMessage());
                 picTextAdapter.setNewData(mPresenter.getCommodityBottomMenus(true));
 
                 break;
@@ -303,8 +307,15 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                     startToConfirmOrder(dataBean);
 
                 }
+                break;
 
+            case AppHttpPathMall.GET_USER_INFO:
+                UserBeanMall loginBean = (UserBeanMall) o;
+                if (loginBean != null) {
+                    // : 2022/5/19 进入到聊天的界面
+                    startToChatActivity(loginBean.getData());
 
+                }
                 break;
             default:
                 break;

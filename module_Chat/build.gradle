@@ -37,7 +37,7 @@ dependencies {
      * 文件下载
      */
     implementation 'org.wlf:FileDownloader:0.3.2'
-    implementation project(':EmojiLib')
+    api project(':EmojiLib')
     implementation project((':oscvpush'))
     implementation project(path: ':rtc-chat')
     implementation 'com.oginotihiro:cropview:1.0.0'

@@ -9,7 +9,7 @@ package com.juntai.wisdom.project.utils;
  * @UpdateDate: 2021/2/27 10:59
  */
 public class HawkProperty {
-    public final static String SP_KEY_USER = "userBean";
+    public final static String SP_KEY_USER = "SP_KEY_USER";
     public final static String SP_KEY_TOKEN = "token";
     public final static String LOCAL_LABEL = "localLabel";
     public final static String SHOP_DETAIL = "shopDetail";
@@ -22,16 +22,26 @@ public class HawkProperty {
      */
     public static String FRIEND_APPLY = "friendApply";
     public static String UNREAD = "unreadCount";
+    /**
+     * 所有联系人
+     */
+    public static String All_CONTACT = "All_CONTACT";
 
 
     /**
      * 获取商铺的key
+     *
      * @return
      */
-    public static String  getShopKey(int shopId){
-        return SHOP_DETAIL+shopId;
+    public static String getShopKey(int shopId) {
+        return SHOP_DETAIL + shopId;
     }
-    public static String  getAllProvinceKey(String acode){
-        return ALL_PROVINCE_KEY+acode;
+
+    public static String getAllProvinceKey(String acode) {
+        return ALL_PROVINCE_KEY + acode;
     }
+
+
+
+
 }

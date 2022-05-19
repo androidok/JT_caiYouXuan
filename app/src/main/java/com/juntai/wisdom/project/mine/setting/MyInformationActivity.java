@@ -10,14 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.chat.bean.ContactBean;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.AppHttpPathMall;
-import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewActivity;
-import com.juntai.wisdom.project.beans.UserBeanMall;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.mine.MyCenterContract;
 import com.juntai.wisdom.project.mine.MyCenterPresent;
@@ -141,9 +141,8 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
     }
 
     private void initAdapterData() {
-        UserBeanMall bean = UserInfoManagerMall.getUser();
-        if (bean != null) {
-            UserBeanMall.DataBean userBean = bean.getData();
+        ContactBean userBean = UserInfoManagerMall.getUser();
+        if (userBean != null) {
             List<TextKeyValueBean> beanList = new ArrayList<>();
             beanList.add(new TextKeyValueBean(MY_INFO_NICK_NAME, userBean.getNickname()));
             beanList.add(new TextKeyValueBean(MY_INFO_ACCOUNT, userBean.getPhoneNumber()));

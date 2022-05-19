@@ -22,6 +22,15 @@ public class UrlFormatUtil {
     public static String getImageThumUrl(String path) {
         return path+"_-400.jpg";
     }
+    /**
+     * 缩略图路径
+     *
+     * @param path
+     * @return
+     */
+    public static String getImageThumUrl_100(String path) {
+        return path+"_-100.jpg";
+    }
 
 
 

@@ -129,7 +129,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                 if (loginBean != null) {
                     ToastUtils.success(mContext, "登录成功");
                     MyChatApp.isReLoadWarn = true;
-                    Hawk.put(HawkProperty.SP_KEY_USER, loginBean);
+                    Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, loginBean.getData().getToken());
                     startActivity(new Intent(mContext, MainActivity.class));
                     finish();

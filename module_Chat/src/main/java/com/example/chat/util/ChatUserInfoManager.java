@@ -1,7 +1,7 @@
 package com.example.chat.util;
 
+import com.example.chat.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
-import com.example.chat.bean.ChatUserBean;
 import com.orhanobut.hawk.Hawk;
 
 /**
@@ -35,8 +35,8 @@ public class ChatUserInfoManager {
      *
      * @return
      */
-    public static ChatUserBean getUser() {
-        ChatUserBean userBean = Hawk.get(HawkPropertyChat.SP_KEY_USER);
+    public static ContactBean getUser() {
+        ContactBean userBean = Hawk.get(HawkPropertyChat.SP_KEY_USER);
         return userBean;
     }
 
@@ -63,7 +63,7 @@ public class ChatUserInfoManager {
 
 
     public static String getHeadPic() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getHeadPortrait() : "";
+        return getUser() != null && getUser() != null ? getUser().getHeadPortrait() : "";
     }
 
     /**
@@ -72,11 +72,7 @@ public class ChatUserInfoManager {
      * @return
      */
     public static String getUserNickName() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getNickname() : "";
-    }
-
-    public static String getQRCode() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getQrCode() : "";
+        return getUser() != null && getUser() != null ? getUser().getNickname() : "";
     }
 
     /**
@@ -94,39 +90,12 @@ public class ChatUserInfoManager {
      * @return
      */
     public static int getUserId() {
-        return getUser().getData().getId();
+        return getUser().getUserId();
     }
 
-    public static boolean getUserVerifyFriend() {
-        return getUser() == null || getUser().getData() == null || getUser().getData().isAddFriendVerification();
-    }
 
-    /**
-     * 获取getUserId
-     *
-     * @return
-     */
-    public static int getSexId() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getGender() : 2;
-    }
 
-    /**
-     * 获取账户
-     *
-     * @return
-     */
-    public static String getUserAccount() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getAccountNumber() : "unregistered";
-    }
 
-    /**
-     * 获取getUserId
-     *
-     * @return
-     */
-    public static String getUserUUID() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getUuid() : "unregistered";
-    }
 
     /**
      * 可以@所有人

@@ -1,6 +1,5 @@
 package com.juntai.wisdom.project.base;
 
-import com.example.chat.bean.ChatUserBean;
 import com.example.chat.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
@@ -199,9 +198,9 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
         AppNetModuleMall.createrRetrofit()
                 .getUserInfo(body)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<ChatUserBean>(null) {
+                .subscribe(new BaseObserver<UserBeanMall>(null) {
                     @Override
-                    public void onSuccess(ChatUserBean o) {
+                    public void onSuccess(UserBeanMall o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

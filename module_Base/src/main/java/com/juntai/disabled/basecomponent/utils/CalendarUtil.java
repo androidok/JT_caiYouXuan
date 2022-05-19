@@ -741,4 +741,71 @@ public class CalendarUtil {
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         return sdf.format(calendar.getTime());
     }
+
+
+    /**
+     * 格式化时间
+     * 如果是当天的  只显示时分
+     * 如果是昨天的  显示 昨天 时分
+     * 如果日期还早  就显示 月日 时分
+     * 如果跨年  就显示 年月日 时分
+     *
+     * @return
+     */
+    public static String formatDataOfChatList(String targetTime) {
+        SimpleDateFormat sdfYmdhm = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdfMdhm = new SimpleDateFormat("MM-dd");
+        SimpleDateFormat sdfHm = new SimpleDateFormat("HH:mm");
+        if (TextUtils.isEmpty(targetTime)) {
+            return "";
+        }
+        Date targetDate = null;
+        try {
+            targetDate = sdf.parse(targetTime);
+        } catch (ParseException e) {
+            targetTime = formatSystemCurrentMillis(targetTime);
+            try {
+                targetDate = sdf.parse(targetTime);
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        }
+        if (targetDate == null) {
+            return "";
+        }
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(new Date());
+        int currentYear = ca.get(Calendar.YEAR);
+        int currentMonth = ca.get(Calendar.MONTH) + 1;
+        int currentDay = ca.get(Calendar.DATE);
+        Calendar targetCa = Calendar.getInstance();
+        targetCa.setTime(targetDate);
+        int targetYear = targetCa.get(Calendar.YEAR);
+        int targetMonth = targetCa.get(Calendar.MONTH) + 1;
+        int targetDay = targetCa.get(Calendar.DATE);
+
+        if (currentYear == targetYear) {
+            //当年的数据
+            if (currentMonth == targetMonth) {
+                //当月的数据
+                if (currentDay==targetDay) {
+                    //当天的数据
+                    return sdfHm.format(targetDate);
+                }else {
+                    if (ca.get(Calendar.DAY_OF_YEAR)-targetCa.get(Calendar.DAY_OF_YEAR)==1) {
+                        //昨天的数据
+                        return "昨天";
+                    }else {
+                        return sdfMdhm.format(targetDate);
+                    }
+                }
+            } else {
+                return sdfMdhm.format(targetDate);
+            }
+        } else {
+            //不是当年的数据
+            return sdfYmdhm.format(targetDate);
+        }
+    }
 }

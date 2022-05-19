@@ -44,465 +44,84 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
      */
     private String hwPushIntentUrl;
     private String fromHead;
+    private String title;
+    private String createTime;
+    private int orderId;
     private int toUserId;
     private int adapterPosition;
     private String toAccount;
     private String toNickname;
     private String toHead;
-    private String content;
-    //可被删除  主要用于离线的最后一条消息
-    private  boolean  canDelete;
-    //是否是草稿
-    private  boolean  isDraft;
-
-    private int otherUserId;
     /**
      * 未读数
      */
     private int unreadCount;
-    private String otherAccount;
-    private String otherNickname;
-    private String collectionCreateTime;
-    private String otherHead;
-    private String createTime;
+    private String content;
+    //可被删除  主要用于离线的最后一条消息
+    private  boolean  canDelete;
+    private int type;
     /**
-     * 1已接听；2已取消；3超时；4通话中断
-     */
-    private int faceTimeType;
-    /**
-     * 0：text；1：image；2：video；3：语音；4视频通话；5音频通话，6位置消息，7分享名片，8文件9合并消息 10 通知提示消息  11 外部分享的链接 100  消息时间
+     * 0：text；1：image；2：video；3：语音；4：直播）
      */
     private int msgType;
-    /**
-     * * "chatType":"聊天类型（1：私聊；2公聊；4好友添加）",
-     */
-    private int chatType;
-    private int groupId;
-    private String groupUserNickname;//我在群里的昵称（备注）;
-    private String groupName;//群名;
-    /**
-     * 是否是群主发的  0不是  1是
-     */
-    private int isGroupCreater;
-    private int readBurn;//阅后即焚（1：否；2：是）
     private boolean isRead;
-    //已经收藏
-    private boolean isCollected;
-    //是否被选中
-    private boolean isSelected;
     private String duration;//发送音频的总时长
 
-    //文件大小
-    private String fileSize;
-    private String fileName;
     //图片 视频 文件 本地缓存路径
     private String localCatchPath;
     //上传进度
     private  int  uploadProgress;
-
-
-    //视频通话相关
-    private String event;//
-    private String sdp;//
-    private int sdpMLineIndex;//
-    private String sdpMid;//
     //图片 视频的旋转角度
     private String rotation;//
     private String videoCover;//
-    private String shareTitle;//
-    private String shareContent;//
-    private String shareUrl;//
-    private String sharePic;//
-    private String shareAppName;//
 
-    private String quoteMsg;
 
-
-
-
-    public String getHwPushIntentUrl() {
-        return hwPushIntentUrl == null ? "" : hwPushIntentUrl;
-    }
-
-    public void setHwPushIntentUrl(String hwPushIntentUrl) {
-        this.hwPushIntentUrl = hwPushIntentUrl == null ? "" : hwPushIntentUrl;
-    }
-
-
-    //位置信息相关
-    private String addrName;//
-    private String addrDes;//
-    private String lat;//
-    private String lng;//
-
-
-
-
-
-    public MessageBodyBean(String content, int msgType) {
-        this.content = content;
-        this.msgType = msgType;
-    }
-
-    public String getQuoteMsg() {
-        return quoteMsg == null ? "" : quoteMsg;
-    }
-
-    public void setQuoteMsg(String quoteMsg) {
-        this.quoteMsg = quoteMsg == null ? "" : quoteMsg;
-    }
-
-    public boolean isCollected() {
-        return isCollected;
-    }
-
-    public void setCollected(boolean collected) {
-        isCollected = collected;
-    }
-
-    public boolean isDraft() {
-        return isDraft;
-    }
-
-    public void setDraft(boolean draft) {
-        isDraft = draft;
-    }
-
-    public boolean isCanDelete() {
-        return canDelete;
-    }
-
-    public void setCanDelete(boolean canDelete) {
-        this.canDelete = canDelete;
-    }
-
-    public String getLocalCatchPath() {
-        return localCatchPath == null ? "" : localCatchPath;
-    }
-
-    public void setLocalCatchPath(String localCatchPath) {
-        this.localCatchPath = localCatchPath == null ? "" : localCatchPath;
-    }
-
-    public String getShareTitle() {
-        return shareTitle == null ? "" : shareTitle;
-    }
-
-    public void setShareTitle(String shareTitle) {
-        this.shareTitle = shareTitle == null ? "" : shareTitle;
-    }
-
-    public String getGroupName() {
-        return groupName == null ? "" : groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName == null ? "" : groupName;
-    }
-
-    public String getShareContent() {
-        return shareContent == null ? "" : shareContent;
-    }
-
-    public void setShareContent(String shareContent) {
-        this.shareContent = shareContent == null ? "" : shareContent;
-    }
-
-    public String getShareUrl() {
-        return shareUrl == null ? "" : shareUrl;
-    }
-
-    public void setShareUrl(String shareUrl) {
-        this.shareUrl = shareUrl == null ? "" : shareUrl;
-    }
-
-    public String getSharePic() {
-        return sharePic == null ? "" : sharePic;
-    }
-
-    public void setSharePic(String sharePic) {
-        this.sharePic = sharePic == null ? "" : sharePic;
-    }
-
-    public String getShareAppName() {
-        return shareAppName == null ? "" : shareAppName;
-    }
-
-    public void setShareAppName(String shareAppName) {
-        this.shareAppName = shareAppName == null ? "" : shareAppName;
-    }
-
-    public String getVideoCover() {
-        return videoCover == null ? "" : videoCover;
-    }
-
-    public void setVideoCover(String videoCover) {
-        this.videoCover = videoCover == null ? "" : videoCover;
-    }
-
-    public String getOwner() {
-        return owner == null ? "" : owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner == null ? "" : owner;
-    }
-
-    public int getAdapterPosition() {
-        return adapterPosition;
-    }
-
-    public void setAdapterPosition(int adapterPosition) {
-        this.adapterPosition = adapterPosition;
-    }
-
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
-
-    public int getIsGroupCreater() {
-        return isGroupCreater;
-    }
-
-    public void setIsGroupCreater(int isGroupCreater) {
-        this.isGroupCreater = isGroupCreater;
-    }
-
-    public int getOtherUserId() {
-        return otherUserId;
-    }
-
-    public void setOtherUserId(int otherUserId) {
-        this.otherUserId = otherUserId;
-    }
-
-    public String getGroupUserNickname() {
-        return groupUserNickname == null ? "" : groupUserNickname;
-    }
-
-    public int getUploadProgress() {
-        return uploadProgress;
-    }
-
-    public void setUploadProgress(int uploadProgress) {
-        this.uploadProgress = uploadProgress;
-    }
-
-    public void setGroupUserNickname(String groupUserNickname) {
-        this.groupUserNickname = groupUserNickname == null ? "" : groupUserNickname;
-    }
-
-    public String getCollectionCreateTime() {
-        return collectionCreateTime == null ? "" : collectionCreateTime;
-    }
-
-    public void setCollectionCreateTime(String collectionCreateTime) {
-        this.collectionCreateTime = collectionCreateTime == null ? "" : collectionCreateTime;
-    }
-
-    public String getAtUserId() {
-        return atUserId == null ? "" : atUserId;
-    }
-
-    public void setAtUserId(String atUserId) {
-        this.atUserId = atUserId == null ? "" : atUserId;
-    }
-
-    public String getOtherAccount() {
-        return otherAccount == null ? "" : otherAccount;
-    }
-
-    public void setOtherAccount(String otherAccount) {
-        this.otherAccount = otherAccount == null ? "" : otherAccount;
-    }
-
-    public String getOtherNickname() {
-        return otherNickname == null ? "" : otherNickname;
-    }
-
-    public void setOtherNickname(String otherNickname) {
-        this.otherNickname = otherNickname == null ? "" : otherNickname;
-    }
-
-    public String getOtherHead() {
-        return otherHead == null ? "" : otherHead;
-    }
-
-    public void setOtherHead(String otherHead) {
-        this.otherHead = otherHead == null ? "" : otherHead;
-    }
-
-    public String getFileName() {
-        return fileName == null ? "" : fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName == null ? "" : fileName;
-    }
-
-    public String getFileSize() {
-        return fileSize == null ? "" : fileSize;
-    }
-
-    public void setFileSize(String fileSize) {
-        this.fileSize = fileSize == null ? "" : fileSize;
-    }
-
-    public String getAddrName() {
-        return addrName == null ? "" : addrName;
-    }
-
-    public void setAddrName(String addrName) {
-        this.addrName = addrName == null ? "" : addrName;
-    }
-
-    public String getAddrDes() {
-        return addrDes == null ? "" : addrDes;
-    }
-
-    public void setAddrDes(String addrDes) {
-        this.addrDes = addrDes == null ? "" : addrDes;
-    }
-
-    public String getLat() {
-        return lat == null ? "" : lat;
-    }
-
-    public void setLat(String lat) {
-        this.lat = lat == null ? "" : lat;
-    }
-
-    public String getLng() {
-        return lng == null ? "" : lng;
-    }
-
-    public void setLng(String lng) {
-        this.lng = lng == null ? "" : lng;
-    }
-
-    public String getSdp() {
-        return sdp == null ? "" : sdp;
-    }
-
-    public String getEvent() {
-        return event == null ? "" : event;
+    public long getId() {
+        return id;
     }
 
-    public void setEvent(String event) {
-        this.event = event == null ? "" : event;
+    public String getTitle() {
+        return title == null ? "" : title;
     }
 
-    public void setSdp(String sdp) {
-        this.sdp = sdp == null ? "" : sdp;
+    public void setTitle(String title) {
+        this.title = title == null ? "" : title;
     }
 
-    public int getSdpMLineIndex() {
-        return sdpMLineIndex;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setSdpMLineIndex(int sdpMLineIndex) {
-        this.sdpMLineIndex = sdpMLineIndex;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
-    public String getSdpMid() {
-        return sdpMid == null ? "" : sdpMid;
+    public String getCreateTime() {
+        return createTime == null ? "" : createTime;
     }
 
-    public void setSdpMid(String sdpMid) {
-        this.sdpMid = sdpMid == null ? "" : sdpMid;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime == null ? "" : createTime;
     }
 
     public int getUnreadCount() {
         return unreadCount;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public void setUnreadCount(int unreadCount) {
         this.unreadCount = unreadCount;
     }
 
-    public String getRotation() {
-        return rotation == null ? "" : rotation;
+    public int getMsgType() {
+        return msgType;
     }
 
-    public void setRotation(String rotation) {
-        this.rotation = rotation == null ? "" : rotation;
+    public void setMsgType(int msgType) {
+        this.msgType = msgType;
     }
 
-    public String getDuration() {
-        return duration == null ? "" : duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration == null ? "" : duration;
-    }
-
-    public int getFaceTimeType() {
-        return faceTimeType;
-    }
-
-    public void setFaceTimeType(int faceTimeType) {
-        this.faceTimeType = faceTimeType;
-    }
-
-    public String getFromHead() {
-        return fromHead == null ? "" : fromHead;
-    }
-
-    public void setFromHead(String fromHead) {
-        this.fromHead = fromHead == null ? "" : fromHead;
-    }
-
-    public String getToHead() {
-        return toHead == null ? "" : toHead;
-    }
-
-    public void setToHead(String toHead) {
-        this.toHead = toHead == null ? "" : toHead;
-    }
-
-
-    public int getReadBurn() {
-        return readBurn;
-    }
-
-    public void setReadBurn(int readBurn) {
-        this.readBurn = readBurn;
-    }
-
-    public boolean isRead() {
-        return isRead;
-    }
-
-    public void setRead(boolean read) {
-        isRead = read;
-    }
-
-    public String getFromNickname() {
-        return fromNickname == null ? "" : fromNickname;
-    }
-
-    public void setFromNickname(String fromNickname) {
-        this.fromNickname = fromNickname == null ? "" : fromNickname;
-    }
-
-    public String getToNickname() {
-        return toNickname == null ? "" : toNickname;
-    }
-
-    public void setToNickname(String toNickname) {
-        this.toNickname = toNickname == null ? "" : toNickname;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getFromUserId() {
@@ -521,12 +140,60 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
         this.fromAccount = fromAccount == null ? "" : fromAccount;
     }
 
+    public String getAtUserId() {
+        return atUserId == null ? "" : atUserId;
+    }
+
+    public void setAtUserId(String atUserId) {
+        this.atUserId = atUserId == null ? "" : atUserId;
+    }
+
+    public String getOwner() {
+        return owner == null ? "" : owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner == null ? "" : owner;
+    }
+
+    public String getFromNickname() {
+        return fromNickname == null ? "" : fromNickname;
+    }
+
+    public void setFromNickname(String fromNickname) {
+        this.fromNickname = fromNickname == null ? "" : fromNickname;
+    }
+
+    public String getHwPushIntentUrl() {
+        return hwPushIntentUrl == null ? "" : hwPushIntentUrl;
+    }
+
+    public void setHwPushIntentUrl(String hwPushIntentUrl) {
+        this.hwPushIntentUrl = hwPushIntentUrl == null ? "" : hwPushIntentUrl;
+    }
+
+    public String getFromHead() {
+        return fromHead == null ? "" : fromHead;
+    }
+
+    public void setFromHead(String fromHead) {
+        this.fromHead = fromHead == null ? "" : fromHead;
+    }
+
     public int getToUserId() {
         return toUserId;
     }
 
     public void setToUserId(int toUserId) {
         this.toUserId = toUserId;
+    }
+
+    public int getAdapterPosition() {
+        return adapterPosition;
+    }
+
+    public void setAdapterPosition(int adapterPosition) {
+        this.adapterPosition = adapterPosition;
     }
 
     public String getToAccount() {
@@ -537,6 +204,22 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
         this.toAccount = toAccount == null ? "" : toAccount;
     }
 
+    public String getToNickname() {
+        return toNickname == null ? "" : toNickname;
+    }
+
+    public void setToNickname(String toNickname) {
+        this.toNickname = toNickname == null ? "" : toNickname;
+    }
+
+    public String getToHead() {
+        return toHead == null ? "" : toHead;
+    }
+
+    public void setToHead(String toHead) {
+        this.toHead = toHead == null ? "" : toHead;
+    }
+
     public String getContent() {
         return content == null ? "" : content;
     }
@@ -545,41 +228,72 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
         this.content = content == null ? "" : content;
     }
 
-    public String getCreateTime() {
-        return createTime == null ? "" : createTime;
+    public boolean isCanDelete() {
+        return canDelete;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime == null ? "" : createTime;
+    public void setCanDelete(boolean canDelete) {
+        this.canDelete = canDelete;
     }
 
-    public int getMsgType() {
-        return msgType;
+    public int getType() {
+        return type;
     }
 
-    public void setMsgType(int msgType) {
-        this.msgType = msgType;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public int getChatType() {
-        return chatType;
+    public boolean isRead() {
+        return isRead;
     }
 
-    public void setChatType(int chatType) {
-        this.chatType = chatType;
+    public void setRead(boolean read) {
+        isRead = read;
     }
 
-    public int getGroupId() {
-        return groupId;
+    public String getDuration() {
+        return duration == null ? "" : duration;
     }
 
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
+    public void setDuration(String duration) {
+        this.duration = duration == null ? "" : duration;
+    }
+
+    public String getLocalCatchPath() {
+        return localCatchPath == null ? "" : localCatchPath;
+    }
+
+    public void setLocalCatchPath(String localCatchPath) {
+        this.localCatchPath = localCatchPath == null ? "" : localCatchPath;
+    }
+
+    public int getUploadProgress() {
+        return uploadProgress;
+    }
+
+    public void setUploadProgress(int uploadProgress) {
+        this.uploadProgress = uploadProgress;
+    }
+
+    public String getRotation() {
+        return rotation == null ? "" : rotation;
+    }
+
+    public void setRotation(String rotation) {
+        this.rotation = rotation == null ? "" : rotation;
+    }
+
+    public String getVideoCover() {
+        return videoCover == null ? "" : videoCover;
+    }
+
+    public void setVideoCover(String videoCover) {
+        this.videoCover = videoCover == null ? "" : videoCover;
     }
 
     public MessageBodyBean() {
     }
-
 
     @Override
     public int describeContents() {
@@ -596,54 +310,25 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
         dest.writeString(this.fromNickname);
         dest.writeString(this.hwPushIntentUrl);
         dest.writeString(this.fromHead);
+        dest.writeString(this.title);
+        dest.writeString(this.createTime);
+        dest.writeInt(this.orderId);
         dest.writeInt(this.toUserId);
         dest.writeInt(this.adapterPosition);
         dest.writeString(this.toAccount);
         dest.writeString(this.toNickname);
         dest.writeString(this.toHead);
+        dest.writeInt(this.unreadCount);
         dest.writeString(this.content);
         dest.writeByte(this.canDelete ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isDraft ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.otherUserId);
-        dest.writeInt(this.unreadCount);
-        dest.writeString(this.otherAccount);
-        dest.writeString(this.otherNickname);
-        dest.writeString(this.collectionCreateTime);
-        dest.writeString(this.otherHead);
-        dest.writeString(this.createTime);
-        dest.writeInt(this.faceTimeType);
+        dest.writeInt(this.type);
         dest.writeInt(this.msgType);
-        dest.writeInt(this.chatType);
-        dest.writeInt(this.groupId);
-        dest.writeString(this.groupUserNickname);
-        dest.writeString(this.groupName);
-        dest.writeInt(this.isGroupCreater);
-        dest.writeInt(this.readBurn);
         dest.writeByte(this.isRead ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isCollected ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isSelected ? (byte) 1 : (byte) 0);
         dest.writeString(this.duration);
-        dest.writeInt(this.unreadCount);
-        dest.writeString(this.fileSize);
-        dest.writeString(this.fileName);
         dest.writeString(this.localCatchPath);
         dest.writeInt(this.uploadProgress);
-        dest.writeString(this.event);
-        dest.writeString(this.sdp);
-        dest.writeInt(this.sdpMLineIndex);
-        dest.writeString(this.sdpMid);
         dest.writeString(this.rotation);
         dest.writeString(this.videoCover);
-        dest.writeString(this.shareTitle);
-        dest.writeString(this.shareContent);
-        dest.writeString(this.shareUrl);
-        dest.writeString(this.sharePic);
-        dest.writeString(this.shareAppName);
-        dest.writeString(this.quoteMsg);
-        dest.writeString(this.addrName);
-        dest.writeString(this.addrDes);
-        dest.writeString(this.lat);
-        dest.writeString(this.lng);
     }
 
     protected MessageBodyBean(Parcel in) {
@@ -655,54 +340,25 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
         this.fromNickname = in.readString();
         this.hwPushIntentUrl = in.readString();
         this.fromHead = in.readString();
+        this.title = in.readString();
+        this.createTime = in.readString();
+        this.orderId = in.readInt();
         this.toUserId = in.readInt();
         this.adapterPosition = in.readInt();
         this.toAccount = in.readString();
         this.toNickname = in.readString();
         this.toHead = in.readString();
+        this.unreadCount = in.readInt();
         this.content = in.readString();
         this.canDelete = in.readByte() != 0;
-        this.isDraft = in.readByte() != 0;
-        this.otherUserId = in.readInt();
-        this.unreadCount = in.readInt();
-        this.otherAccount = in.readString();
-        this.otherNickname = in.readString();
-        this.collectionCreateTime = in.readString();
-        this.otherHead = in.readString();
-        this.createTime = in.readString();
-        this.faceTimeType = in.readInt();
+        this.type = in.readInt();
         this.msgType = in.readInt();
-        this.chatType = in.readInt();
-        this.groupId = in.readInt();
-        this.groupUserNickname = in.readString();
-        this.groupName = in.readString();
-        this.isGroupCreater = in.readInt();
-        this.readBurn = in.readInt();
         this.isRead = in.readByte() != 0;
-        this.isCollected = in.readByte() != 0;
-        this.isSelected = in.readByte() != 0;
         this.duration = in.readString();
-        this.unreadCount = in.readInt();
-        this.fileSize = in.readString();
-        this.fileName = in.readString();
         this.localCatchPath = in.readString();
         this.uploadProgress = in.readInt();
-        this.event = in.readString();
-        this.sdp = in.readString();
-        this.sdpMLineIndex = in.readInt();
-        this.sdpMid = in.readString();
         this.rotation = in.readString();
         this.videoCover = in.readString();
-        this.shareTitle = in.readString();
-        this.shareContent = in.readString();
-        this.shareUrl = in.readString();
-        this.sharePic = in.readString();
-        this.shareAppName = in.readString();
-        this.quoteMsg = in.readString();
-        this.addrName = in.readString();
-        this.addrDes = in.readString();
-        this.lat = in.readString();
-        this.lng = in.readString();
     }
 
     public static final Creator<MessageBodyBean> CREATOR = new Creator<MessageBodyBean>() {

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.LinearLayout;
+
 import com.baidu.location.BDLocation;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
@@ -17,10 +18,11 @@ import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.wisdom.project.base.BaseAppActivity;
 import com.juntai.wisdom.project.base.customview.CustomViewPager;
 import com.juntai.wisdom.project.base.customview.MainPagerAdapter;
+import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.home.HomeFragment;
 import com.juntai.wisdom.project.live.LiveFragment;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.mine.MyCenterFragment;
+import com.juntai.wisdom.project.news.NewsListFragment;
 import com.juntai.wisdom.project.shoppingCart.ShoppingCartFragment;
 
 public class MainActivity extends BaseAppActivity<MainPagePresent> implements
@@ -58,7 +60,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         mainViewpager.setScanScroll(false);
         mFragments.append(0, new HomeFragment());//
         mFragments.append(1, new LiveFragment());//
-        mFragments.append(2, new LiveFragment());//
+        mFragments.append(2, new NewsListFragment());//
         mFragments.append(3, new ShoppingCartFragment());//
         mFragments.append(4, new MyCenterFragment());//
         mainViewpager.setOffscreenPageLimit(5);

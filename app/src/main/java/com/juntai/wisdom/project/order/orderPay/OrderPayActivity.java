@@ -359,6 +359,10 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
         }
     }
 
+    /**
+     * 跳转到支付成功的界面
+     *
+     */
     private void startToPaySuccessActivity() {
         startActivity(new Intent(mContext, PaySuccessActivity.class));
         finish();

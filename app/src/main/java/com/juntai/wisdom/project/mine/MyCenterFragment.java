@@ -18,12 +18,15 @@ import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.beans.PicTextBean;
+import com.juntai.wisdom.project.beans.UserBeanMall;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.OrderStatusAmountBean;
 import com.juntai.wisdom.project.home.commodityfragment.commodity_detail.PicTextAdapter;
 import com.juntai.wisdom.project.mine.collect.CollectCommoditiesActivity;
 import com.juntai.wisdom.project.mine.collect.CollectShopesActivity;
 import com.juntai.wisdom.project.mine.setting.MyInformationActivity;
+import com.juntai.wisdom.project.utils.HawkProperty;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.List;
 
@@ -170,8 +173,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         if (ChatUserInfoManager.isLogin()) {
             mLoginOut.setVisibility(View.VISIBLE);
             mPresenter.getOrderStatusAmount(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.ORDER_STATUS_AMOUNT);
-//            mPresenter.getUserData(MyCenterContract.USER_DATA_TAG);
-            //            mPresenter.getUnReadCount(MyCenterContract.GET_UNREAD_COUNT);
+            mPresenter.getUserInfo(getBaseAppActivity().getBaseBuilder().build(),AppHttpPathMall.GET_USER_INFO);
         } else {
             mLoginOut.setVisibility(View.GONE);
         }
@@ -256,6 +258,12 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
             case AppHttpPathMall.LOGOUT:
                 getBaseAppActivity().reLogin(UserInfoManagerMall.getPhoneNumber());
 
+                break;
+            case AppHttpPathMall.GET_USER_INFO:
+                UserBeanMall loginBean = (UserBeanMall) o;
+                if (loginBean != null) {
+                    Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
+                }
                 break;
             default:
                 break;

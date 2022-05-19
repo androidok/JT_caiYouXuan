@@ -54,7 +54,7 @@ public class CommodityDetailFragment extends BaseRecyclerviewFragment<CommodityP
                     case MultipleItem.ITEM_COMMODITY_EVALUTA:
                         switch (view.getId()) {
                             case R.id.all_evaluation_tv:
-                                // TODO: 2022/5/4 查看全部评价 切换到评价的fragment中
+                                // : 2022/5/4 查看全部评价 切换到评价的fragment中
                                 ((CommodityDetailActivity) Objects.requireNonNull(getActivity())).setTitleName("商品评价");
                                 ((CommodityDetailActivity) Objects.requireNonNull(getActivity())).initFragmentSelected(1);
                                 break;

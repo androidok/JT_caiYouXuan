@@ -30,6 +30,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
+        <activity android:name=".news.ChatActivity"></activity>
         <activity
             android:name=".order.refund.RefundRequestActivity"
             android:launchMode="singleTop" />

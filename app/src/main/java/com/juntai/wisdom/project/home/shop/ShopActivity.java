@@ -79,7 +79,6 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
     }
 
     private void initBanner(ShopDetailBean.DataBean shopBean) {
-        this.shopBean = shopBean;
         collectId = shopBean.getIsCollect();
         List<String> picVideos = new ArrayList<>();
 
@@ -120,7 +119,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
      * @param shopBean
      */
     public void initOwnerBaseInfo(ShopDetailBean.DataBean shopBean) {
-
+        this.shopBean = shopBean;
         ImageLoadUtil.loadSquareImage(mContext, shopBean.getHeadPortrait(), mShopOwnerHeadIv);
         mShopNameTv.setText(shopBean.getName());
         mShopCreatTimeTv.setText("开店时间:" + shopBean.getCreateTime());
@@ -139,21 +138,21 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
 
     @Override
     public void onSuccess(String tag, Object o) {
-switch (tag) {
-    case HomePageContract.UN_COLLECT_COMMODITY_SHOP:
-        collectId =0;
-        mShopCollectIv.setImageResource(R.mipmap.un_collect_icon);
+        switch (tag) {
+            case HomePageContract.UN_COLLECT_COMMODITY_SHOP:
+                collectId = 0;
+                mShopCollectIv.setImageResource(R.mipmap.un_collect_icon);
 
-        break;
-    case HomePageContract.COLLECT_COMMODITY_SHOP:
-        BaseResult baseResult = (BaseResult) o;
-        collectId = Integer.parseInt(baseResult.getMessage());
-        mShopCollectIv.setImageResource( R.mipmap.collected_icon);
+                break;
+            case HomePageContract.COLLECT_COMMODITY_SHOP:
+                BaseResult baseResult = (BaseResult) o;
+                collectId = Integer.parseInt(baseResult.getMessage());
+                mShopCollectIv.setImageResource(R.mipmap.collected_icon);
 
-        break;
-    default:
-        break;
-}
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -166,14 +165,14 @@ switch (tag) {
                 finish();
                 break;
             case R.id.shop_collect_iv:
-                if (collectId> 0) {
+                if (collectId > 0) {
                     mPresenter.collectShop(getBaseBuilder()
                             .add("isCollect", "1")
                             .add("id", String.valueOf(collectId))
                             .add("shopId", String.valueOf(shopId)).build(), HomePageContract.UN_COLLECT_COMMODITY_SHOP
                     );
 
-                }else {
+                } else {
                     //收藏
                     mPresenter.collectShop(getBaseBuilder()
                             .add("isCollect", "0")

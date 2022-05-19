@@ -5,7 +5,6 @@ import android.app.Activity;
 import com.example.chat.AppNetModuleChat;
 import com.example.chat.base.uploadFile.listener.OnThreadResultListener;
 import com.example.chat.bean.UploadFileBean;
-import com.example.chat.util.ChatUserInfoManager;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 
 import java.io.UnsupportedEncodingException;
@@ -51,8 +50,7 @@ public class UploadFileThread implements Runnable {
         //上传线程
 
         MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("account", ChatUserInfoManager.getUserUUID());
+                .setType(MultipartBody.FORM);
         FileUploadObserver<UploadFileBean> fileUploadObserver = new FileUploadObserver<UploadFileBean>() {
             @Override
             public void onUpLoadSuccess(UploadFileBean uploadFileBean) {

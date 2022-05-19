@@ -1,7 +1,6 @@
 package com.juntai.wisdom.project;
 
 
-import com.example.chat.bean.ChatUserBean;
 import com.example.chat.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
@@ -202,7 +201,7 @@ public interface AppServerMall {
      * @return
      */
     @POST(AppHttpPathMall.GET_USER_INFO)
-    Observable<ChatUserBean> getUserInfo(@Body RequestBody requestBody);
+    Observable<UserBeanMall> getUserInfo(@Body RequestBody requestBody);
 
     /**
      * 修改账户

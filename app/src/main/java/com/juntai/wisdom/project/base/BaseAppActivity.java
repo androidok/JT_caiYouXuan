@@ -12,6 +12,7 @@ import android.text.TextUtils;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
+import com.example.chat.bean.ContactBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
@@ -32,6 +33,7 @@ import com.juntai.wisdom.project.home.commodityfragment.commodity_detail.Commodi
 import com.juntai.wisdom.project.home.shop.ShopActivity;
 import com.juntai.wisdom.project.mine.address.AddOrEditAddressActivity;
 import com.juntai.wisdom.project.mine.address.AddressListActivity;
+import com.juntai.wisdom.project.news.ChatActivity;
 import com.juntai.wisdom.project.order.allOrder.AllOrderActivity;
 import com.juntai.wisdom.project.order.confirmOrder.ConfirmOrderActivity;
 import com.juntai.wisdom.project.order.evaluate.EvaluateActivity;
@@ -456,6 +458,13 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
         startActivity(new Intent(mContext, RefundActivity.class)
                 .putExtra(BASE_ID, receivedStatus)
                 .putExtra(BASE_PARCELABLE, orderDetailBean));
+    }
+    /**
+     * 进入聊天界面
+     */
+    public void startToChatActivity(ContactBean contactBean) {
+        startActivity(new Intent(mContext, ChatActivity.class)
+                .putExtra(BASE_PARCELABLE, contactBean));
     }
 
 }

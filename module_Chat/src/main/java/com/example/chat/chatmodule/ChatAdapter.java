@@ -14,23 +14,20 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.chat.R;
-import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.example.chat.chatcustomview.waveproview.WaveProgress;
 import com.example.chat.util.ChatUserInfoManager;
 import com.example.chat.util.MultipleItem;
-import com.example.chat.util.OperateMsgUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.CalendarUtil;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
-import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.negier.emojifragment.util.EmojiUtils;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @Author: tobato
@@ -61,15 +58,10 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
         super(data);
         addItemType(MultipleItem.ITEM_CHAT_TEXT_MSG, R.layout.chat_item_text);
         addItemType(MultipleItem.ITEM_CHAT_PIC_VIDEO, R.layout.chat_item_pic_video);
-//        addItemType(MultipleItem.ITEM_CHAT_OUTSIDE_SHARE, R.layout.chat_item_outside_share);
-//        addItemType(MultipleItem.ITEM_CHAT_VIDEO_CALL, R.layout.chat_item_video_call);
         addItemType(MultipleItem.ITEM_CHAT_DATE_MSG, R.layout.single_text_layout);
         addItemType(MultipleItem.ITEM_SEND_AUDIO, R.layout.chat_item_send_audio);
         addItemType(MultipleItem.ITEM_RECEIVE_AUDIO, R.layout.chat_item_receive_audio);
         addItemType(MultipleItem.ITEM_CHAT_LOCATE, R.layout.item_chat_locate);
-//        addItemType(MultipleItem.ITEM_CHAT_CARD, R.layout.item_chat_card);
-//        addItemType(MultipleItem.ITEM_CHAT_FILE, R.layout.item_chat_file);
-//        addItemType(MultipleItem.ITEM_CHAT_RECORD, R.layout.item_chat_record);
         addItemType(MultipleItem.ITEM_CHAT_NOTICE, R.layout.chat_item_notice_text);
     }
 
@@ -124,34 +116,6 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
 //
 //                }
 //                break;
-            case MultipleItem.ITEM_CHAT_LOCATE:
-                initSelectedViewStatus(helper, messageBodyBean);
-                helper.addOnClickListener(R.id.sender_locate_ll);
-                helper.addOnClickListener(R.id.receiver_locate_ll);
-                helper.addOnLongClickListener(R.id.sender_locate_ll);
-                helper.addOnLongClickListener(R.id.receiver_locate_ll);
-
-                if (ChatUserInfoManager.getUserId() == messageBodyBean.getFromUserId()) {
-                    //我发送的消息
-                    initNickName(helper, messageBodyBean, 0);
-                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(ChatUserInfoManager.getHeadPic()), (ImageView) helper.getView(R.id.sender_pic_iv));
-                    helper.setText(R.id.sender_locate_addr_name_tv, messageBodyBean.getAddrName());
-                    helper.setText(R.id.sender_locate_addr_des_tv, messageBodyBean.getAddrDes());
-                    if (FileCacheUtils.isFileExists(FileCacheUtils.getMapShotImagePath())) {
-                        ImageLoadUtil.loadSquareImage(mContext, FileCacheUtils.getMapShotImagePath(), (ImageView) helper.getView(R.id.sender_map_shot_iv));
-                    } else {
-                        ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(ChatUserInfoManager.getHeadPic()), (ImageView) helper.getView(R.id.sender_map_shot_iv));
-                    }
-                } else {
-                    //对方发送的消息
-                    initNickName(helper, messageBodyBean, 1);
-                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(messageBodyBean.getFromHead()), (ImageView) helper.getView(R.id.receiver_pic_iv));
-                    helper.setText(R.id.receiver_locate_addr_name_tv, messageBodyBean.getAddrName());
-                    helper.setText(R.id.receiver_locate_addr_des_tv, messageBodyBean.getAddrDes());
-                    ImageLoadUtil.loadImage(mContext, UrlFormatUtil.getImageThumUrl(messageBodyBean.getContent()), (ImageView) helper.getView(R.id.receiver_map_shot_iv));
-
-                }
-                break;
             case MultipleItem.ITEM_CHAT_DATE_MSG:
                 helper.setGone(R.id.single_text_div_v, false);
                 if (!TextUtils.isEmpty(messageBodyBean.getContent())) {
@@ -162,7 +126,6 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
 
                 break;
             case MultipleItem.ITEM_CHAT_TEXT_MSG:
-                initSelectedViewStatus(helper, messageBodyBean);
                 helper.addOnLongClickListener(R.id.receiver_content_tv);
                 helper.addOnLongClickListener(R.id.sender_content_tv);
                 helper.addOnClickListener(R.id.sender_quote_content_tv);
@@ -176,50 +139,36 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
                 setMaxWidth(mContext, (TextView) helper.getView(R.id.receiver_quote_content_tv),115);
                 helper.setGone(R.id.sender_quote_content_tv, false);
                 helper.setGone(R.id.receiver_quote_content_tv, false);
-                String quoteMsg = messageBodyBean.getQuoteMsg();
                 if (ChatUserInfoManager.getUserId() == fromUserId) {
                     //我发送的消息
                     initNickName(helper, messageBodyBean, 0);
                     EmojiUtils.showEmojiTextView(mContext, sendEt, messageBodyBean.getContent(), 22);
                     ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(ChatUserInfoManager.getHeadPic()), (ImageView) helper.getView(R.id.sender_pic_iv));
-                    if (TextUtils.isEmpty(quoteMsg)) {
-                        helper.setGone(R.id.sender_quote_content_tv, false);
-                    } else {
-                        helper.setGone(R.id.sender_quote_content_tv, true);
-                        helper.setText(R.id.sender_quote_content_tv, OperateMsgUtil.getContent(Objects.requireNonNull(GsonTools.changeGsonToBean(quoteMsg, MessageBodyBean.class))));
-                    }
                 } else {
                     //对方发送的消息
                     initNickName(helper, messageBodyBean, 1);
                     EmojiUtils.showEmojiTextView(mContext, receiveEt, messageBodyBean.getContent(), 22);
                     ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(messageBodyBean.getFromHead()), (ImageView) helper.getView(R.id.receiver_pic_iv));
-                    if (TextUtils.isEmpty(quoteMsg)) {
-                        helper.setGone(R.id.receiver_quote_content_tv, false);
-                    } else {
-                        helper.setGone(R.id.receiver_quote_content_tv, true);
-                        helper.setText(R.id.receiver_quote_content_tv, OperateMsgUtil.getContent(Objects.requireNonNull(GsonTools.changeGsonToBean(quoteMsg, MessageBodyBean.class))));
-                    }
                 }
                 break;
             case MultipleItem.ITEM_RECEIVE_AUDIO:
             case MultipleItem.ITEM_SEND_AUDIO:
                 helper.addOnClickListener(R.id.audio_bg_rl);
                 helper.addOnLongClickListener(R.id.audio_bg_rl);
-                initSelectedViewStatus(helper, messageBodyBean);
 
                 if (ChatUserInfoManager.getUserId() == messageBodyBean.getFromUserId()) {
                     //发送
-                    if (2 == messageBodyBean.getChatType()) {
-                        helper.setGone(R.id.sender_nick_name_tv, false);
-                    }
+//                    if (2 == messageBodyBean.getChatType()) {
+//                        helper.setGone(R.id.sender_nick_name_tv, false);
+//                    }
                     ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(ChatUserInfoManager.getHeadPic()), (ImageView) helper.getView(R.id.audio_head_iv));
                 } else {
-                    if (2 == messageBodyBean.getChatType()) {
-                        helper.setGone(R.id.receiver_nick_name_tv, true);
-                        //如果是好友 并且有好友备注 就显示好友备注
-                        helper.setText(R.id.receiver_nick_name_tv, ChatUserInfoManager.getContactRemarkName(messageBodyBean));
-
-                    }
+//                    if (2 == messageBodyBean.getChatType()) {
+//                        helper.setGone(R.id.receiver_nick_name_tv, true);
+//                        //如果是好友 并且有好友备注 就显示好友备注
+//                        helper.setText(R.id.receiver_nick_name_tv, ChatUserInfoManager.getContactRemarkName(messageBodyBean));
+//
+//                    }
                     ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(messageBodyBean.getFromHead()), (ImageView) helper.getView(R.id.audio_head_iv));
 
                 }
@@ -241,7 +190,6 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
                 helper.addOnClickListener(R.id.receiver_pic_video_iv);
                 helper.addOnLongClickListener(R.id.sender_pic_video_iv);
                 helper.addOnLongClickListener(R.id.receiver_pic_video_iv);
-                initSelectedViewStatus(helper, messageBodyBean);
                 ConstraintLayout.LayoutParams senderlayoutParams =
                         (ConstraintLayout.LayoutParams) sendIv.getLayoutParams();
                 ConstraintLayout.LayoutParams receiverlayoutParams =
@@ -356,24 +304,6 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
         }
     }
 
-    /**
-     * 选择控件的状态
-     *
-     * @param helper
-     * @param messageBodyBean
-     */
-    private void initSelectedViewStatus(BaseViewHolder helper, MessageBodyBean messageBodyBean) {
-        if (isEdit) {
-            helper.setGone(R.id.select_status_iv, true);
-            if (messageBodyBean.isSelected()) {
-                helper.setImageResource(R.id.select_status_iv, R.mipmap.select_icon);
-            } else {
-                helper.setImageResource(R.id.select_status_iv, R.mipmap.unselect_icon);
-            }
-        } else {
-            helper.setGone(R.id.select_status_iv, false);
-        }
-    }
 
     /**
      * @param helper
@@ -387,19 +317,10 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
         switch (nickNameType) {
             case 0:
                 helper.setGone(R.id.sender_g, true);
-                if (2 == messageBodyBean.getChatType()) {
-                    helper.setGone(R.id.sender_nick_name_tv, false);
-                    helper.setGone(R.id.receiver_nick_name_tv, false);
-                }
 
                 break;
             case 1:
                 helper.setGone(R.id.receiver_g, true);
-                if (2 == messageBodyBean.getChatType()) {
-                    helper.setGone(R.id.sender_nick_name_tv, false);
-                    helper.setGone(R.id.receiver_nick_name_tv, true);
-                    helper.setText(R.id.receiver_nick_name_tv, nickname);
-                }
 
                 break;
             default:

@@ -1,16 +1,9 @@
 package com.juntai.wisdom.project;
 
 
-import android.app.Activity;
-import android.text.TextUtils;
-
 import com.example.chat.MyChatApp;
 import com.juntai.disabled.video.ModuleVideo_Init;
 import com.mob.MobSDK;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 
 /**
  * @aouther Ma
@@ -35,23 +28,6 @@ public class MyApp extends MyChatApp {
     }
 
 
-    @Override
-    public void appBackground(boolean isBackground, Activity activity) {
-        if (isBackground && !isFinish) {
-            //            NitoficationTool.sendNotif(activity,
-            //                    11,
-            //                    "挂起",
-            //                    BaseAppUtils.getAppName() + "服务正在运行",
-            //                    R.mipmap.app_icon,
-            //                    true,
-            //                    new Intent(activity, ChatMainActivity.class));
-        } else {
-            //变为前台
-            //            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            //            manager.cancelAll();
-        }
-    }
-
 
     /**
      * 防止暴力点击
@@ -65,33 +41,5 @@ public class MyApp extends MyChatApp {
         return false;
     }
 
-    /**
-     * 获取进程号对应的进程名
-     *
-     * @param pid 进程号
-     * @return 进程名
-     */
-    private static String getProcessName(int pid) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));
-            String processName = reader.readLine();
-            if (!TextUtils.isEmpty(processName)) {
-                processName = processName.trim();
-            }
-            return processName;
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        } finally {
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
-        }
-        return null;
-    }
 
 }

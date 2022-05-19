@@ -1,7 +1,11 @@
 package com.juntai.wisdom.project.beans;
 
+import com.example.chat.bean.ContactBean;
 import com.juntai.wisdom.project.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author: tobato
@@ -27,7 +31,7 @@ public class UserInfoManagerMall {
     public static int getAccountStatus() {
         int status = -1;
         if (isLogin()) {
-            String phoneNum = getUser().getData().getPhoneNumber();
+            String phoneNum = getUser().getPhoneNumber();
             if ("未绑定".equals(phoneNum)) {
                 status = 2;
             } else {
@@ -38,6 +42,36 @@ public class UserInfoManagerMall {
         }
         return status;
     }
+
+    /**
+     * 获取所有联系人信息
+     *
+     * @return
+     */
+    public static Map<Integer,ContactBean> getAllContacts() {
+        Map<Integer,ContactBean> contactBeans = Hawk.get(HawkProperty.All_CONTACT);
+        if (contactBeans == null) {
+            return new HashMap<>();
+        }
+        return contactBeans;
+    }
+
+    /**
+     * 添加联系人
+     * @param contactBean
+     */
+    public static void initContacts(ContactBean contactBean) {
+        Map<Integer,ContactBean> contactBeans = getAllContacts();
+
+        if (contactBean != null) {
+            if (!contactBeans.containsKey(contactBean.getUserId())) {
+                contactBeans.put(contactBean.getUserId(),contactBean);
+            }
+        }
+        Hawk.put(HawkProperty.All_CONTACT,contactBeans);
+
+    }
+
 
     /**
      * 退出登录清理缓存配置
@@ -57,8 +91,8 @@ public class UserInfoManagerMall {
      *
      * @return
      */
-    public static UserBeanMall getUser() {
-        UserBeanMall userBean = Hawk.get(HawkProperty.SP_KEY_USER);
+    public static ContactBean getUser() {
+        ContactBean userBean = Hawk.get(HawkProperty.SP_KEY_USER);
         return userBean;
     }
 
@@ -77,33 +111,34 @@ public class UserInfoManagerMall {
      * @return
      */
     public static String getPhoneNumber() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getPhoneNumber() : "";
+        return getUser() != null && getUser() != null ? getUser().getPhoneNumber() : "";
     }
+
     /**
      * 获取用户信息
      *
      * @return
      */
     public static String getAccount() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getAccount() : "";
+        return getUser() != null && getUser() != null ? getUser().getAccount() : "";
     }
 
-    public  static  boolean canUsePubAccount(){
-        return (getUser() != null && getUser().getData() != null) && getUser().getData().getPaymentType() == 1;
+    public static boolean canUsePubAccount() {
+        return (getUser() != null && getUser() != null) && getUser().getPaymentType() == 1;
     }
+
     /**
      * 获取用户信息
      *
      * @return
      */
     public static String getSchoolName() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getSchoolName() : "";
+        return getUser() != null && getUser() != null ? getUser().getSchoolName() : "";
     }
 
 
-
     public static String getHeadPic() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getHeadPortrait() : "";
+        return getUser() != null && getUser() != null ? getUser().getHeadPortrait() : "";
     }
 
     /**
@@ -112,7 +147,7 @@ public class UserInfoManagerMall {
      * @return
      */
     public static String getUserNickName() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getNickname() : "";
+        return getUser() != null && getUser() != null ? getUser().getNickname() : "";
     }
 
 
@@ -131,10 +166,8 @@ public class UserInfoManagerMall {
      * @return
      */
     public static int getUserId() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getUserId() : -1;
+        return getUser() != null && getUser() != null ? getUser().getUserId() : -1;
     }
-
-
 
 
 }

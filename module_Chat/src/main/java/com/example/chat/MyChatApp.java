@@ -7,10 +7,8 @@ import android.app.NotificationManager;
 import android.os.Build;
 import android.util.Log;
 
-
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
-import com.juntai.disabled.basecomponent.utils.ObjectBox;
 import com.juntai.disabled.basecomponent.app.BaseApplication;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
@@ -38,14 +36,11 @@ import java.util.HashMap;
  * @aouther Ma
  * @date 2019/3/12
  */
-public class MyChatApp extends BaseApplication {
+public abstract class MyChatApp extends BaseApplication {
     public static MyChatApp app;
     public boolean isFinish = false;
     public static long lastClickTime;//上次点击按钮时间
     public static int timeLimit = 1000;
-
-
-
 
 
 
@@ -61,6 +56,7 @@ public class MyChatApp extends BaseApplication {
 //                Hawk.put(HawkPropertyChat.DEV_REGID,pushRegId);
             }
         }
+
         /**
          *  收到系统推送的消息
          * @param msg
@@ -173,7 +169,7 @@ public class MyChatApp extends BaseApplication {
         map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
         QbSdk.initTbsSettings(map);
         //x5内核初始化接口
-        QbSdk.initX5Environment(getApplicationContext(),  cb);
+        QbSdk.initX5Environment(getApplicationContext(), cb);
         QbSdk.setDownloadWithoutWifi(true);
 
     }
@@ -258,8 +254,6 @@ public class MyChatApp extends BaseApplication {
         lastClickTime = time;
         return false;
     }
-
-
 
 
 }

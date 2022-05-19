@@ -54,6 +54,10 @@ public class CommodityDetailBean extends BaseResult {
 
         private int id;
         private int shopId;
+        /**
+         * 店铺的userid
+         */
+        private int userId;
         private int shopClassifyId;
         private int categoryId;
         private String name;
@@ -99,6 +103,14 @@ public class CommodityDetailBean extends BaseResult {
 
         public int getShopClassifyId() {
             return shopClassifyId;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
         }
 
         public void setShopClassifyId(int shopClassifyId) {
