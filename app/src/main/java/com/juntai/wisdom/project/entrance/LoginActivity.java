@@ -12,18 +12,15 @@ import android.widget.TextView;
 
 import com.example.chat.MyChatApp;
 import com.example.chat.util.ChatUserInfoManager;
-import com.juntai.wisdom.project.AppHttpPathMall;
-import com.juntai.disabled.basecomponent.bean.UnionidBean;
-import com.juntai.disabled.basecomponent.utils.GsonTools;
-import com.juntai.disabled.basecomponent.utils.HttpUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.MD5;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.MainActivity;
 import com.juntai.wisdom.project.R;
-import com.juntai.wisdom.project.beans.UserBeanMall;
 import com.juntai.wisdom.project.base.sendcode.SmsCheckCodeActivity;
+import com.juntai.wisdom.project.beans.UserBeanMall;
+import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.mine.modifyPwd.BackPwdActivity;
 import com.juntai.wisdom.project.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
@@ -35,7 +32,6 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
 import okhttp3.FormBody;
 
@@ -183,7 +179,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                 break;
             case R.id.login_by_zfb_iv:
                 // TODO: 2022/4/28 支付宝登录
-                loginForQQWeChat(QQ.NAME);
+//                loginForQQWeChat(QQ.NAME);
                 break;
             case R.id.regist_tv:
                 // : 2022/4/28 跳转到注册的界面
@@ -268,11 +264,11 @@ public class LoginActivity extends SmsCheckCodeActivity implements
         Platform plat = ShareSDK.getPlatform(name);
         if (!plat.isClientValid()) {
             //判断是否存在授权凭条的客户端，true是有客户端，false是无
-            if (name.equals(QQ.NAME)) {
-                ToastUtils.warning(mContext, "未安装QQ");
-            } else {
-                ToastUtils.warning(mContext, "未安装微信");
-            }
+//            if (name.equals(QQ.NAME)) {
+//                ToastUtils.warning(mContext, "未安装QQ");
+//            } else {
+//                ToastUtils.warning(mContext, "未安装微信");
+//            }
         }
 
         plat.removeAccount(true); //移除授权状态和本地缓存，下次授权会重新授权
@@ -288,27 +284,27 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     LogUtil.e("id=" + platDB.getUserId());
                     ChatUserInfoManager.OTHER_NICK_NAME = platDB.getUserName();
                     otherHeadIcon = platDB.getUserIcon();
-                    if (platform.getName().equals(QQ.NAME)) {
-                        String params = "access_token=" + platform.getDb().getToken() + "&unionid=1&fmt=json";
-                        HttpUtil.sendGet("https://graph.qq.com/oauth2.0/me", params, new HttpUtil.NetCallBack() {
-                            @Override
-                            public void onSuccess(String str) {
-                                if (!TextUtils.isEmpty(str)) {
-                                    UnionidBean unionidBean = GsonTools.changeGsonToBean(str, UnionidBean.class);
-                                    ChatUserInfoManager.QQ_ID = unionidBean.getUnionid();
-                                    myHandler.sendEmptyMessage(1);
-                                }
-                            }
-
-                            @Override
-                            public void onError(String str) {
-                            }
-                        });
-
-                    } else {
-                        ChatUserInfoManager.WECHAT_ID = platform.getDb().get("unionid");
-                        myHandler.sendEmptyMessage(1);
-                    }
+//                    if (platform.getName().equals(QQ.NAME)) {
+//                        String params = "access_token=" + platform.getDb().getToken() + "&unionid=1&fmt=json";
+//                        HttpUtil.sendGet("https://graph.qq.com/oauth2.0/me", params, new HttpUtil.NetCallBack() {
+//                            @Override
+//                            public void onSuccess(String str) {
+//                                if (!TextUtils.isEmpty(str)) {
+//                                    UnionidBean unionidBean = GsonTools.changeGsonToBean(str, UnionidBean.class);
+//                                    ChatUserInfoManager.QQ_ID = unionidBean.getUnionid();
+//                                    myHandler.sendEmptyMessage(1);
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onError(String str) {
+//                            }
+//                        });
+//
+//                    } else {
+//                        ChatUserInfoManager.WECHAT_ID = platform.getDb().get("unionid");
+//                        myHandler.sendEmptyMessage(1);
+//                    }
 
                 }
             }

@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -43,7 +45,9 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 			if (resp.errCode == 0){
-				// TODO: 2022/5/19 跳转到支付成功的界面
+				// : 2022/5/19 跳转到支付成功的界面
+				EventManager.getEventBus().post(new EventBusObject(EventBusObject.WEIXIN_PAY_SUCCESS,""));
+
 			}
 		}
 		finish();

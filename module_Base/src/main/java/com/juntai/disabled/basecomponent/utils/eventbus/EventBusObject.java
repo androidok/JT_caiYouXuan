@@ -45,6 +45,7 @@ public class EventBusObject {
     public final static  String REFRESH_ORDER_LIST = "REFRESH_ORDER_LIST";
 
     public final static  String EVALUATE = "评价";
+    public final static  String WEIXIN_PAY_SUCCESS = "WEIXIN_PAY_SUCCESS";
 //    /**
 //     * 进入订单详情
 //     */

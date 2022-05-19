@@ -52,6 +52,7 @@ import okhttp3.FormBody;
  * @date 2020/4/27 8:48  app的基类
  */
 public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> {
+    public static String  WX_APPID = "wx5fd6d26f7806a119";
 
 
     @Override

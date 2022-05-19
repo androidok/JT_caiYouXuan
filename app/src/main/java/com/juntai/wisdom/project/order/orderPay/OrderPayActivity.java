@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewActivity;
@@ -24,6 +26,9 @@ import com.juntai.wisdom.project.beans.order.OrderPayWxBean;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.order.OrderPresent;
 import com.juntai.wisdom.project.utils.CalendarUtil;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +41,10 @@ import java.util.TimerTask;
  * @date 2022/5/11 14:11
  */
 public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> implements HomePageContract.IHomePageView, View.OnClickListener {
+
+    IWXAPI msgApi;
+
+
 
 
     private List<OrderDetailBean> orderDetailBeans;
@@ -152,6 +161,9 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
     @Override
     public void initView() {
         super.initView();
+
+        msgApi = WXAPIFactory.createWXAPI(mContext,WX_APPID);
+
         mOrderLeftTimeTv = (TextView) findViewById(R.id.order_left_time_tv);
         mOrderTotalPriceTv = (TextView) findViewById(R.id.order_total_price_tv);
 
@@ -265,14 +277,31 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
     public void onSuccess(String tag, Object o) {
         switch (tag) {
             case AppHttpPathMall.ORDER_PAY_PUB_ACCOUNT:
-                startActivity(new Intent(mContext, PaySuccessActivity.class));
-                finish();
+                startToPaySuccessActivity();
                 break;
 
             case AppHttpPathMall.ORDER_PAY_PUB_WEIXIN:
                 OrderPayWxBean wxBean = (OrderPayWxBean) o;
                 if (wxBean != null) {
                     List<OrderPayWxBean.DataBean> wxDataBeans = wxBean.getData();
+                    
+                    OrderPayWxBean.DataBean dataBean = wxDataBeans.get(0);
+
+                    if(!msgApi.isWXAppInstalled()){
+                        //未安装的处理
+                        ToastUtils.toast(mContext,"未安装微信");
+                    }else {
+                        PayReq request = new PayReq();
+                        request.appId = dataBean.getAppid();//appid
+                        request.partnerId = dataBean.getMch_id();//商户号
+                        request.prepayId= dataBean.getPrepayId();//微信返回的支付交易会话ID
+                        request.packageValue = dataBean.getPackageVal();//暂填写固定值Sign=WXPay
+                        request.nonceStr= dataBean.getNonce_str();//随机字符串，不长于32位。推荐随机数生成算法
+                        request.timeStamp= dataBean.getTimestamp();//时间戳，请见接口规则-参数规定
+                        request.sign= dataBean.getSign();//签名，详见签名生成算法注意：签名方式一定要与统一下单接口使用的一致
+                        msgApi.sendReq(request);
+                    }
+                    
                 }
 
                 break;
@@ -318,6 +347,22 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
         }
     }
 
+    @Override
+    public void onEvent(EventBusObject eventBusObject) {
+        super.onEvent(eventBusObject);
+        switch (eventBusObject.getEventKey()) {
+            case EventBusObject.WEIXIN_PAY_SUCCESS:
+                startToPaySuccessActivity();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void startToPaySuccessActivity() {
+        startActivity(new Intent(mContext, PaySuccessActivity.class));
+        finish();
+    }
 
     @Override
     public void onBackPressed() {
