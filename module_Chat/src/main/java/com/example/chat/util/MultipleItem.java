@@ -10,24 +10,6 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
  * @UpdateDate: 2020/4/15 10:08
  */
 public class MultipleItem implements MultiItemEntity {
-    public static final String SET_REMARK = "设置备注";
-    public static final String MORE_INFO = "更多信息";
-    public static final String SEND_MSG = "发消息";
-    public static final String CALL_IN_VIDEO = "音视频通话";
-    public static final String ADD_TO_CONTRACT = "添加到通讯录";
-    public static final String SEARCH_CHAT_RECORD = "查找聊天记录";
-    public static final String GROUP_CHAT_NAME = "群聊名称";
-    public static final String GROUP_QRCODE = "群二维码";
-    public static final String CHAT_IN_TOP = "置顶聊天";
-    public static final String DELETE_CHAT_RECORD = "清空聊天记录";
-    public static final String DELETE_QUIT_GROUP = "删除并退出";
-    public static final String NICK_NAME_IN_GROUP = "我在群里的昵称";
-    public static final String SHARE_TO_FRIENDS = "把他(她)推荐给朋友";
-    public static final String ADD_TO_BLACK_LIST = "加入黑名单";
-    public static final String CHECK_WHEN_ADD = "加我为朋友时需要验证";
-    public static final String RECOMMAND_CONTACT_FRIENDS = "向我推荐通讯录朋友";
-    public static final String BLACK_LIST = "通讯录黑名单";
-    public static final String DELETE = "删除";
 
 
 
@@ -78,18 +60,14 @@ public class MultipleItem implements MultiItemEntity {
 
 
 
-        /*====================================================    收藏   ==============================================================*/
+
+    public static final int ITEM_COMMODITY_BASE_INFO = 100;//  商品基本信息
+    public static final int ITEM_COMMODITY_EVALUTA = 101;//  商品评价
+    public static final int ITEM_COMMODITY_DETAIL = 102;//  商品详情
 
 
-    public static final int ITEM_COLLECTION_TEXT = 201;//  普通消息
-    public static final int ITEM_COLLECTION_PIC = 202;//  图片
-    public static final int ITEM_COLLECTION_VIDEO = 203;//  视频
-    public static final int ITEM_COLLECTION_AUDIO = 204;//  语音
-    public static final int ITEM_COLLECTION_FILE = 205;//  文件
-    public static final int ITEM_COLLECTION_LOCATE = 206;//  位置
-    public static final int ITEM_COLLECTION_CHAT_RECORD = 207;//  聊天记录
-    public static final int ITEM_COLLECTION_OUTSIDE_SHARE = 208;//  外部分享
-
+    public static final int ITEM_COMMODITY = 103;//  商品
+    public static final int ITEM_SHOP = 104;//  店铺
 
 
     private int itemType;

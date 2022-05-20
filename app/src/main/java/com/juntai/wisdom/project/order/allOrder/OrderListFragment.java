@@ -176,8 +176,9 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
 
         switch (eventBusObject.getEventKey()) {
             case EventBusObject.REFRESH_ORDER_LIST:
+                String key = (String) eventBusObject.getEventObj();
                 page = 1;
-                getRvAdapterData();
+               getList(key);
                 break;
             default:
                 break;
@@ -192,12 +193,17 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
     @Override
     protected void getRvAdapterData() {
         // : 2022/5/12 获取订单列表
+        getList("");
+
+    }
+
+    private void getList(String key) {
         mPresenter.getOrderList(getBaseAppActivity().getBaseBuilder()
                 .add("page", String.valueOf(page))
+                .add("key",key)
                 .add("limit", String.valueOf(limit))
                 .add("type", String.valueOf(labelId)).build(), AppHttpPathMall.ORDER_LIST
         );
-
     }
 
     @Override

@@ -44,6 +44,8 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
         super.initView();
         type = getIntent().getIntExtra(BASE_ID,0);
         setTitleName("我的收货地址");
+        baseQuickAdapter.setEmptyView(getAdapterEmptyView("一个收货地址都没有,快去添加吧~",-1));
+
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

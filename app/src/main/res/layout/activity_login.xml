@@ -87,8 +87,8 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
                     android:text="+86"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"></TextView>
+                    android:textColor="@color/black"
+                    android:textSize="16sp"></TextView>
 
                 <EditText
                     android:id="@+id/regist_phone_et"
@@ -101,6 +101,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -112,28 +113,26 @@
                     android:id="@+id/password_et"
                     style="@style/shop_login_edit_tv_style"
                     android:layout_width="match_parent"
-                    android:background="@null"
                     android:layout_weight="1"
+                    android:background="@null"
                     android:hint="输入密码"
                     android:inputType="textPassword"
                     android:maxLength="16"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/regist_phone_et" />
+
                 <TextView
                     android:id="@+id/get_code_tv"
                     android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
                     android:gravity="center"
                     android:paddingLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:paddingRight="10dp"
-                    android:layout_height="match_parent"
                     android:text="获取验证码"
-                    android:textColor="@color/colorAccent"
-                   ></TextView>
+                    android:textColor="@color/colorAccent"></TextView>
 
             </LinearLayout>
-
-
 
 
         </LinearLayout>
@@ -173,60 +172,69 @@
                 app:layout_constraintStart_toEndOf="@+id/switch_login_type_tv"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-            <TextView
-                android:id="@+id/other_login_type_tv"
-                android:layout_width="wrap_content"
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="其他方式登录"
-                android:textColor="@color/gray"
-                android:textSize="14dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reback_pwd_tv" />
+                app:layout_constraintTop_toBottomOf="@+id/reback_pwd_tv">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1px"
-                android:background="@color/gray"
-                app:layout_constraintBottom_toBottomOf="@+id/other_login_type_tv"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/other_login_type_tv"
-                app:layout_constraintTop_toTopOf="@+id/other_login_type_tv" />
+                <TextView
+                    android:id="@+id/other_login_type_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="其他方式登录"
+                    android:textColor="@color/gray"
+                    android:textSize="14dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1px"
-                android:background="@color/gray"
-                app:layout_constraintBottom_toBottomOf="@+id/other_login_type_tv"
-                app:layout_constraintLeft_toRightOf="@+id/other_login_type_tv"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/other_login_type_tv" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1px"
+                    android:background="@color/gray"
+                    app:layout_constraintBottom_toBottomOf="@+id/other_login_type_tv"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/other_login_type_tv"
+                    app:layout_constraintTop_toTopOf="@+id/other_login_type_tv" />
 
-            <ImageView
-                android:id="@+id/login_by_wchat_iv"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="20dp"
-                android:src="@mipmap/wchat_icon"
-                app:layout_constraintEnd_toStartOf="@+id/login_by_zfb_iv"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/other_login_type_tv" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1px"
+                    android:background="@color/gray"
+                    app:layout_constraintBottom_toBottomOf="@+id/other_login_type_tv"
+                    app:layout_constraintLeft_toRightOf="@+id/other_login_type_tv"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/other_login_type_tv" />
 
-            <ImageView
-                android:id="@+id/login_by_zfb_iv"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@mipmap/zhifubao_icon"
-                app:layout_constraintBottom_toBottomOf="@+id/login_by_wchat_iv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/login_by_wchat_iv"
-                app:layout_constraintTop_toTopOf="@+id/login_by_wchat_iv" />
+                <ImageView
+                    android:id="@+id/login_by_wchat_iv"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@mipmap/wchat_icon"
+                    app:layout_constraintEnd_toStartOf="@+id/login_by_zfb_iv"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/other_login_type_tv" />
+
+                <ImageView
+                    android:id="@+id/login_by_zfb_iv"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@mipmap/zhifubao_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/login_by_wchat_iv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/login_by_wchat_iv"
+                    app:layout_constraintTop_toTopOf="@+id/login_by_wchat_iv" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 

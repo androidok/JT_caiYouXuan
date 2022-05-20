@@ -68,6 +68,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
     @Override
     protected void initView() {
         super.initView();
+        baseQuickAdapter.setEmptyView(getBaseActivity().getAdapterEmptyView("购物车空空如也,快去选购吧~",-1));
         mStartEditTv = (TextView) getView(R.id.start_edit_tv);
         mStartEditTv.setOnClickListener(this);
         mSelectAllCb = (CheckBox) getView(R.id.select_all_cb);

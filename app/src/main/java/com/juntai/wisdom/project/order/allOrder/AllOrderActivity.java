@@ -8,7 +8,6 @@ import android.view.View;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.MainActivity;
-import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseTabViewPageActivity;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.order.OrderPresent;
@@ -33,7 +32,7 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
     @Override
     protected void onNewIntent(Intent intent) {
         enterType = intent.getIntExtra(BASE_ID, 0);
-        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, ""));
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, mSearchContentSv.getQuery().toString().trim()));
 
     }
 
@@ -62,12 +61,18 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
 
     @Override
     protected int getTabHeadLayout() {
-        return R.layout.homepage_top_search;
+        return 0;
     }
 
     @Override
     protected int getTabFootLayout() {
         return 0;
+    }
+
+    @Override
+    protected void commitSearch(String s) {
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, mSearchContentSv.getQuery().toString().trim()));
+
     }
 
     @Override

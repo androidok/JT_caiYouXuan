@@ -2,13 +2,12 @@ package com.juntai.wisdom.project.live;
 
 
 import android.view.View;
+import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.home.HomePageContract;
-import com.juntai.wisdom.project.home.HomePagePresent;
 import com.juntai.wisdom.project.home.commodityfragment.CommodityPresent;
-import com.juntai.wisdom.project.mine.MyCenterContract;
 
 /**
  * @aouther tobato
@@ -17,6 +16,9 @@ import com.juntai.wisdom.project.mine.MyCenterContract;
  */
 public class LiveFragment extends BaseMvpFragment<CommodityPresent> implements HomePageContract.IHomePageView,
         View.OnClickListener {
+
+    private View view;
+    private TextView mNoneTv;
 
     @Override
     protected int getLayoutRes() {
@@ -27,7 +29,8 @@ public class LiveFragment extends BaseMvpFragment<CommodityPresent> implements H
     protected void initView() {
 
 
-
+        mNoneTv = (TextView)getView(R.id.none_tv);
+        mNoneTv.setText("敬请期待~_~");
     }
 
     @Override
@@ -70,7 +73,6 @@ public class LiveFragment extends BaseMvpFragment<CommodityPresent> implements H
     }
 
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -78,4 +80,5 @@ public class LiveFragment extends BaseMvpFragment<CommodityPresent> implements H
                 break;
         }
     }
+
 }

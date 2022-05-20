@@ -7,12 +7,12 @@ import android.text.TextUtils;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.chat.util.MultipleItem;
+import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.beans.CommodityEvaluationBean;
-import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.home.commodityfragment.commodity_detail.evaluation.EvaluationAdapter;
 import com.juntai.wisdom.project.utils.GlideImageLoader;
-import com.juntai.wisdom.project.utils.MultipleItem;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 

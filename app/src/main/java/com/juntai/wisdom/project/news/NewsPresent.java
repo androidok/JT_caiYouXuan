@@ -11,6 +11,7 @@ import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.AppNetModuleMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppMallPresent;
+import com.juntai.wisdom.project.beans.NewsListBean;
 import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 
 import java.util.ArrayList;
@@ -129,6 +130,26 @@ public class NewsPresent extends BaseAppMallPresent {
                 .subscribe(new BaseObserver<MessageListBean>(null) {
                     @Override
                     public void onSuccess(MessageListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getNewsList(RequestBody body, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getNewsList(body)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<NewsListBean>(null) {
+                    @Override
+                    public void onSuccess(NewsListBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

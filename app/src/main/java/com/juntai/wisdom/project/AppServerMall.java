@@ -16,6 +16,7 @@ import com.juntai.wisdom.project.beans.CommodityDesListBean;
 import com.juntai.wisdom.project.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.beans.IdNameBean;
+import com.juntai.wisdom.project.beans.NewsListBean;
 import com.juntai.wisdom.project.beans.UserBeanMall;
 import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
@@ -299,5 +300,8 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.UNREAD_CONTACT_MSG)
     Observable<MessageListBean> getContactUnreadMsg(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.NEWS_LIST)
+    Observable<NewsListBean> getNewsList(@Body RequestBody requestBody);
 
 }

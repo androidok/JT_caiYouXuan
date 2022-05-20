@@ -3,6 +3,7 @@ package com.juntai.wisdom.project.base;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.SearchView;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -11,6 +12,7 @@ import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.customview.CustomViewPager;
 import com.juntai.wisdom.project.base.customview.MainPagerAdapter;
+import com.juntai.wisdom.project.utils.StringTools;
 
 
 /**
@@ -25,6 +27,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     public static final String   ORDER_SEND = "待发货";
     public static final String   ORDER_RECEIVE = "待收货";
     public static final String   ORDER_EVALUATE = "待评价";
+    public SearchView mSearchContentSv;
 
 
     public TabLayout mTabTb;
@@ -41,6 +44,9 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     @Override
     public void initView() {
         setTitleName(getTitleName());
+        mSearchContentSv = (SearchView) findViewById(R.id.search_content_sv);
+        SearchView.SearchAutoComplete textView = (SearchView.SearchAutoComplete) mSearchContentSv.findViewById(com.juntai.disabled.basecomponent.R.id.search_src_text);
+        textView.setTextSize(14);
         mTabTb = (TabLayout) findViewById(R.id.tab_tb);
         mTabTb.setTabMode(getTabMode());
         mViewpageVp = (CustomViewPager) findViewById(R.id.viewpage_vp);
@@ -54,11 +60,33 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
             mTabFootFl.setVisibility(View.VISIBLE);
             mTabFootFl.addView(View.inflate(this, getTabFootLayout(), null));
         }
+        mSearchContentSv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+//                if (!StringTools.isStringValueOk(s)) {
+//                    ToastUtils.warning(mContext, "请输入要搜索的内容");
+//                    return false;
+//                }
+                // 调用搜索接口
+                commitSearch(mSearchContentSv.getQuery().toString().trim());
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (!StringTools.isStringValueOk(s)) {
+                    commitSearch(mSearchContentSv.getQuery().toString().trim());
+                }
+                return false;
+            }
+        });
     }
 
     protected abstract int getTabMode();
     protected abstract int getTabHeadLayout();
     protected abstract int getTabFootLayout();
+    protected abstract void commitSearch(String s);
 
     protected abstract String getTitleName();
 

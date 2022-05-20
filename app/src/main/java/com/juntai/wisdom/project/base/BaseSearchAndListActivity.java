@@ -7,12 +7,11 @@ import android.view.View;
 
 import com.juntai.disabled.basecomponent.R;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
-import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.utils.StringTools;
 
 /**
  * @aouther tobato
- * @description 描述   搜索和列表的基类
+ * @description 描述   这是在当前页面搜索
  * @date 2021-10-09 10:21
  */
 public abstract class BaseSearchAndListActivity<P extends BasePresenter> extends BaseRecyclerviewActivity<P>  {
@@ -56,20 +55,20 @@ public abstract class BaseSearchAndListActivity<P extends BasePresenter> extends
         mSearchContentSv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!StringTools.isStringValueOk(mSearchContentSv.getQuery().toString().trim())) {
-                    ToastUtils.warning(mContext, "请输入要搜索的内容");
-                    return;
-                }
-                startSearch(mSearchContentSv.getQuery().toString().trim());
+//                if (!StringTools.isStringValueOk(mSearchContentSv.getQuery().toString().trim())) {
+//                    ToastUtils.warning(mContext, "请输入要搜索的内容");
+//                    return;
+//                }
+//                startSearch(mSearchContentSv.getQuery().toString().trim());
             }
         });
         mSearchContentSv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                if (!StringTools.isStringValueOk(s)) {
-                    ToastUtils.warning(mContext, "请输入要搜索的内容");
-                    return false;
-                }
+//                if (!StringTools.isStringValueOk(s)) {
+//                    ToastUtils.warning(mContext, "请输入要搜索的内容");
+//                    return false;
+//                }
                 // 调用搜索接口
                 startSearch(mSearchContentSv.getQuery().toString().trim());
 
@@ -78,6 +77,9 @@ public abstract class BaseSearchAndListActivity<P extends BasePresenter> extends
 
             @Override
             public boolean onQueryTextChange(String s) {
+                if (!StringTools.isStringValueOk(s)) {
+                    startSearch(mSearchContentSv.getQuery().toString().trim());
+                }
                 return false;
             }
         });

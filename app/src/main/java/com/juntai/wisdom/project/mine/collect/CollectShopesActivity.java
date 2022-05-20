@@ -35,6 +35,8 @@ public class CollectShopesActivity extends BaseSearchAndListActivity<MyCenterPre
     @Override
     public void initData() {
         super.initData();
+        baseQuickAdapter.setEmptyView(getAdapterEmptyView("一件收藏的店铺也没有..",-1));
+
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

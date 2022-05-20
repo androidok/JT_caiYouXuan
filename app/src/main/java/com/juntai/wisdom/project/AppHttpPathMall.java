@@ -297,5 +297,9 @@ public class AppHttpPathMall {
      * 未读消息详情
      * */
     public static final String UNREAD_CONTACT_MSG = BASE + "/msg/selectMsgInfo";
+    /**
+     * 消息列表
+     */
+    public static final String NEWS_LIST = BASE + "/msg/selectMsgList";
 
 }
