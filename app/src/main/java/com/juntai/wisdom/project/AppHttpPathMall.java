@@ -302,4 +302,15 @@ public class AppHttpPathMall {
      */
     public static final String NEWS_LIST = BASE + "/msg/selectMsgList";
 
+
+    /**
+     * 搜索
+     */
+    public static final String SEARCH_COMMODITY = BASE + "/member/search";
+
+    /**
+     * 搜索
+     */
+    public static final String SEARCH_SHOP = BASE + "/member/search";
+
 }

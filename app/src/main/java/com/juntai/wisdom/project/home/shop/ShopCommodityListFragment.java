@@ -113,7 +113,7 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
 
     @Override
     protected void getRvAdapterData() {
-        // TODO: 2022/5/8 获取店铺内所有的商品信息
+        // : 2022/5/8 获取店铺内所有的商品信息
 
         mPresenter.getShopCommodityList(getBaseAppActivity().getBaseBuilderWithoutParama()
                 .add("shopId", String.valueOf(((ShopActivity) getActivity()).shopId))

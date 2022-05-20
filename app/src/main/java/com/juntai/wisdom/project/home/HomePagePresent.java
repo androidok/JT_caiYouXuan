@@ -1,15 +1,14 @@
 package com.juntai.wisdom.project.home;
 
-import com.juntai.disabled.basecomponent.base.BaseResult;
-import com.juntai.wisdom.project.AppNetModuleMall;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
-import com.juntai.disabled.basecomponent.mvp.BasePresenter;
-import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.wisdom.project.R;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
+import com.juntai.disabled.basecomponent.mvp.IModel;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
+import com.juntai.wisdom.project.AppNetModuleMall;
+import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.base.BaseAppPresent;
 import com.juntai.wisdom.project.beans.AroundShopBean;
 import com.juntai.wisdom.project.beans.PicTextBean;
 
@@ -22,7 +21,7 @@ import okhttp3.RequestBody;
  * @aouther Ma
  * @date 2019/3/14
  */
-public class HomePagePresent extends BasePresenter<IModel, HomePageContract.IHomePageView> implements HomePageContract.IHomePagePresent {
+public class HomePagePresent extends BaseAppPresent<IModel, HomePageContract.IHomePageView> implements HomePageContract.IHomePagePresent {
     @Override
     protected IModel createModel() {
         return null;

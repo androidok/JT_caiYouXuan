@@ -33,6 +33,7 @@ import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
@@ -44,12 +45,11 @@ import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.beans.AroundShopBean;
+import com.juntai.wisdom.project.beans.IdNameBean;
+import com.juntai.wisdom.project.beans.PicTextBean;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.home.HomePagePresent;
 import com.juntai.wisdom.project.home.map.weather.WeatherActivity;
-import com.juntai.wisdom.project.beans.IdNameBean;
-import com.juntai.wisdom.project.beans.PicTextBean;
-import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.wisdom.project.utils.ImageUtil;
 import com.juntai.wisdom.project.utils.StringTools;
 import com.orhanobut.hawk.Hawk;
@@ -93,7 +93,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
     Marker nowMarker;
     private int clickItemType = 2;//2单个marker点击，1聚合列表点击
     private MapStatus lastPosition;
-    int nowMarkerId ;//当前markerid
+    int nowMarkerId;//当前markerid
     private BottomSheetDialog mapBottomDialog;
     private ClusterClickAdapter clusterClickAdapter;
     private ImageView mSwitchModeIv;
@@ -122,8 +122,8 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
                 break;
             case R.id.search_ll:
                 //搜索
-                // TODO: 2022/4/26 搜索
-//                startActivity(new Intent(getContext(), SearchActivity.class));
+                // : 2022/4/26 搜索
+                getBaseAppActivity().startToSearchActivity();
                 break;
             case R.id.zoomminus:
                 MapUtil.mapZoom(MapUtil.MAP_ZOOM_OUT1, mBaiduMap);
@@ -191,7 +191,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
 
     @Override
     protected void initView() {
-
+        getView(R.id.search_ll).setOnClickListener(this);
         mSwitchModeIv = (ImageView) getView(R.id.switch_mode_iv);
         mSwitchModeIv.setOnClickListener(this);
         mBmapView = (MapView) getView(R.id.bmapView);
@@ -472,7 +472,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
                     List<AroundShopBean.DataBean> shopes = aroundShopBean.getData();
                     if (shopes != null) {
                         for (AroundShopBean.DataBean shope : shopes) {
-                            LatLng  latLng = new LatLng(Double.parseDouble(shope.getLatitude()), Double.parseDouble(shope.getLongitude()));
+                            LatLng latLng = new LatLng(Double.parseDouble(shope.getLatitude()), Double.parseDouble(shope.getLongitude()));
                             MapClusterItem mCItem = new MapClusterItem(
                                     latLng, shope);
                             clusterItemList.add(mCItem);
@@ -587,8 +587,8 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
             case MapClusterItem.AROUND_SHOP:
                 bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.mipmap.shop_map_icon);
                 updateMarkerIcon(item.shop.getHeadPortrait());
-                if (clickItemType == 1 || nowMarkerId==item.shop.getId()) {
-                           getBaseAppActivity().startToShop(item.shop.getId());
+                if (clickItemType == 1 || nowMarkerId == item.shop.getId()) {
+                    getBaseAppActivity().startToShop(item.shop.getId());
                 }
                 nowMarkerId = item.shop.getId();
                 break;

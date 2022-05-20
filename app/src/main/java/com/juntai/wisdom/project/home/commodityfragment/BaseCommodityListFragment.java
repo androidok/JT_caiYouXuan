@@ -1,16 +1,17 @@
 package com.juntai.wisdom.project.home.commodityfragment;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.wisdom.project.AppHttpPathMall;
-import com.juntai.wisdom.project.beans.CommodityBean;
-import com.juntai.wisdom.project.beans.CommodityDesListBean;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewFragment;
+import com.juntai.wisdom.project.beans.CommodityBean;
+import com.juntai.wisdom.project.beans.CommodityDesListBean;
 import com.juntai.wisdom.project.home.HomePageContract;
 
 import java.util.List;
@@ -22,17 +23,9 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/4/29 17:37
  */
-public class CommodityListFragment extends BaseRecyclerviewFragment<CommodityPresent> implements HomePageContract.IHomePageView {
+public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment<CommodityPresent> implements HomePageContract.IHomePageView {
 
     private int labelId;
-
-    public static CommodityListFragment newInstance(int type) {
-        Bundle args = new Bundle();
-        args.putInt("label", type);
-        CommodityListFragment fragment = new CommodityListFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
 
     @Override
@@ -86,10 +79,50 @@ public class CommodityListFragment extends BaseRecyclerviewFragment<CommodityPre
     }
 
     @Override
-    protected void getRvAdapterData() {
-        mPresenter.getCommodityRecommendList(0 == labelId ? getBaseAppActivity().getBaseBuilderWithoutParama().build() : getBaseAppActivity().getBaseBuilderWithoutParama()
-                .add("categoryId", String.valueOf(labelId)).build(), AppHttpPathMall.COMMODIFY_RECOMMEND);
+    public void onEvent(EventBusObject eventBusObject) {
+        super.onEvent(eventBusObject);
+        switch (eventBusObject.getEventKey()) {
+            case EventBusObject.REFRESH_SEARCH_COMMODITY_LIST:
+                if (1 == getType()) {
+                    // : 2022/5/20 搜索中的商品列表
+                    String key = (String) eventBusObject.getEventObj();
+                    startSearch(key);
+                }
+                break;
+            default:
+                break;
+        }
     }
+
+    @Override
+    protected void getRvAdapterData() {
+        if (1 == getType()) {
+            // : 2022/5/20 搜索中的商品列表
+            startSearch(null);
+        } else {
+            mPresenter.getCommodityRecommendList(0 == labelId ? getBaseAppActivity().getBaseBuilderWithoutParama().build() : getBaseAppActivity().getBaseBuilderWithoutParama()
+                    .add("categoryId", String.valueOf(labelId)).build(), AppHttpPathMall.COMMODIFY_RECOMMEND);
+        }
+
+    }
+
+    private void startSearch(String key) {
+        if (TextUtils.isEmpty(key)) {
+            return;
+        }
+        mPresenter.startSearchCommodity(getBaseAppActivity().getBaseBuilderWithoutParama()
+                .add("key", key)
+                .add("type", "1").build(), AppHttpPathMall.SEARCH_COMMODITY
+        );
+
+    }
+
+    /**
+     * 0代表首页展示的商品列表  1代表搜索模块中展示的商品列表
+     *
+     * @return
+     */
+    protected abstract int getType();
 
     @Override
     protected boolean enableRefresh() {
@@ -103,13 +136,13 @@ public class CommodityListFragment extends BaseRecyclerviewFragment<CommodityPre
 
         switch (tag) {
             case AppHttpPathMall.COMMODIFY_RECOMMEND:
+            case AppHttpPathMall.SEARCH_COMMODITY:
                 CommodityDesListBean desListBean = (CommodityDesListBean) o;
                 if (desListBean != null) {
                     CommodityDesListBean.DataBean dataBean = desListBean.getData();
                     if (dataBean != null) {
                         List<CommodityBean> data = dataBean.getList();
                         setData(data, dataBean.getTotalCount());
-
                     }
                 }
                 break;

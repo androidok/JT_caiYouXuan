@@ -7,6 +7,8 @@ import android.support.v7.widget.SearchView;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.wisdom.project.R;
@@ -22,11 +24,13 @@ import com.juntai.wisdom.project.utils.StringTools;
  */
 public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends BaseAppActivity<P> {
 
-    public static final String   ORDER_TOTAL = "全部";
-    public static final String   ORDER_PAY = "待付款";
-    public static final String   ORDER_SEND = "待发货";
-    public static final String   ORDER_RECEIVE = "待收货";
-    public static final String   ORDER_EVALUATE = "待评价";
+    public static final String ORDER_TOTAL = "全部";
+    public static final String ORDER_PAY = "待付款";
+    public static final String ORDER_SEND = "待发货";
+    public static final String ORDER_RECEIVE = "待收货";
+    public static final String ORDER_EVALUATE = "待评价";
+    public static final String COMMODITY = "商品";
+    public static final String SHOP = "店铺";
     public SearchView mSearchContentSv;
 
 
@@ -34,6 +38,8 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     public CustomViewPager mViewpageVp;
     private FrameLayout mTabHeadFl;
     private FrameLayout mTabFootFl;
+    private LinearLayout mSearchLl;
+    private TextView mFinishTv;
 
 
     @Override
@@ -43,8 +49,10 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
 
     @Override
     public void initView() {
-        setTitleName(getTitleName());
+
         mSearchContentSv = (SearchView) findViewById(R.id.search_content_sv);
+        mSearchLl = (LinearLayout) findViewById(R.id.search_ll);
+        mFinishTv = (TextView) findViewById(R.id.cancel_tv);
         SearchView.SearchAutoComplete textView = (SearchView.SearchAutoComplete) mSearchContentSv.findViewById(com.juntai.disabled.basecomponent.R.id.search_src_text);
         textView.setTextSize(14);
         mTabTb = (TabLayout) findViewById(R.id.tab_tb);
@@ -52,13 +60,28 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
         mViewpageVp = (CustomViewPager) findViewById(R.id.viewpage_vp);
         mTabHeadFl = (FrameLayout) findViewById(R.id.tab_head_fl);
         mTabFootFl = (FrameLayout) findViewById(R.id.tab_foot_fl);
-        if (getTabHeadLayout()>0) {
+        if (getTabHeadLayout() > 0) {
             mTabHeadFl.setVisibility(View.VISIBLE);
             mTabHeadFl.addView(View.inflate(this, getTabHeadLayout(), null));
         }
-        if (getTabFootLayout()>0) {
+        if (getTabFootLayout() > 0) {
             mTabFootFl.setVisibility(View.VISIBLE);
             mTabFootFl.addView(View.inflate(this, getTabFootLayout(), null));
+        }
+        if (getTitleName() == null) {
+            initToolbarAndStatusBar(false);
+            mFinishTv.setVisibility(View.VISIBLE);
+            mFinishTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+            setMargin(mSearchLl, 15, 30, 15, 0);
+        } else {
+            setTitleName(getTitleName());
+            mFinishTv.setVisibility(View.GONE);
+
         }
         mSearchContentSv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -83,9 +106,18 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
         });
     }
 
+    /**
+     * TabLayout.MODE_FIXED  居中显示
+     * MODE_SCROLLABLE  居左显示
+     *
+     * @return
+     */
     protected abstract int getTabMode();
+
     protected abstract int getTabHeadLayout();
+
     protected abstract int getTabFootLayout();
+
     protected abstract void commitSearch(String s);
 
     protected abstract String getTitleName();
@@ -111,7 +143,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
 
             @Override
             public void onPageSelected(int i) {
-
+                onTabSelected(i);
             }
 
             @Override
@@ -132,6 +164,8 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
         /*viewpager切换默认第一个*/
         mViewpageVp.setCurrentItem(0);
     }
+
+    protected abstract void onTabSelected(int i);
 
 
     protected abstract SparseArray<Fragment> getFragments();

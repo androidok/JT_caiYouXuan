@@ -55,6 +55,11 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
     }
 
     @Override
+    protected void onTabSelected(int i) {
+
+    }
+
+    @Override
     protected int getTabMode() {
         return 0;
     }

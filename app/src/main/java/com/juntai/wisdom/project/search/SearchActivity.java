@@ -1,11 +1,17 @@
 package com.juntai.wisdom.project.search;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.SparseArray;
+import android.view.View;
 
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.base.BaseTabViewPageActivity;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.home.HomePagePresent;
+
 /**
  * @aouther tobato
  * @description 描述  首页搜索
@@ -20,8 +26,19 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
 
 
     @Override
+    public void initData() {
+        super.initData();
+        mTabTb.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onTabSelected(int i) {
+        commitSearch(mSearchContentSv.getQuery().toString().trim());
+    }
+
+    @Override
     protected int getTabMode() {
-        return 0;
+        return TabLayout.MODE_FIXED;
     }
 
     @Override
@@ -36,6 +53,16 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
 
     @Override
     protected void commitSearch(String s) {
+        if (!TextUtils.isEmpty(s)) {
+            mTabTb.setVisibility(View.VISIBLE);
+            mViewpageVp.setVisibility(View.VISIBLE);
+        }else {
+            mTabTb.setVisibility(View.GONE);
+            mViewpageVp.setVisibility(View.GONE);
+
+        }
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_SEARCH_COMMODITY_LIST, s));
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_SEARCH_SHOP_LIST, s));
 
     }
 
@@ -46,12 +73,16 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
 
     @Override
     protected SparseArray<Fragment> getFragments() {
-        return null;
+        SparseArray<Fragment> fragments = new SparseArray<>();
+        fragments.append(0, SearchCommodityFragment.newInstance(0));
+        fragments.append(1, SearchShopListFragment.newInstance(1));
+        return fragments;
     }
 
     @Override
     protected String[] getTabTitles() {
-        return new String[0];
+        return new String[]{COMMODITY, SHOP};
+
     }
 
     @Override

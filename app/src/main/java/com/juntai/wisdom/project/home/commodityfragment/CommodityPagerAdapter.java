@@ -44,7 +44,7 @@ public class CommodityPagerAdapter extends FragmentPagerAdapter {
         IdNameBean.DataBean label = titles.get(position);
         int lableId = label.getId();
         if (type==0) {
-            return CommodityListFragment.newInstance(lableId);
+            return HomePageCommodityFragment.newInstance(lableId);
         } else if (type == 1) {
             return CommodityLiveListFragment.newInstance(lableId);
         } else if (type == 2) {

@@ -17,6 +17,7 @@ import com.juntai.wisdom.project.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.beans.IdNameBean;
 import com.juntai.wisdom.project.beans.NewsListBean;
+import com.juntai.wisdom.project.beans.ShopListDataBean;
 import com.juntai.wisdom.project.beans.UserBeanMall;
 import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
@@ -303,5 +304,11 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.NEWS_LIST)
     Observable<NewsListBean> getNewsList(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.SEARCH_COMMODITY)
+    Observable<CommodityDesListBean> startSearchCommodity(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.SEARCH_SHOP)
+    Observable<ShopListDataBean> startSearchShop(@Body RequestBody requestBody);
 
 }

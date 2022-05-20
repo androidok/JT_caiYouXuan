@@ -42,15 +42,15 @@ public class NewsPresent extends BaseAppMallPresent {
         ObjectBox.get().boxFor(MessageBodyBean.class).query(
                 MessageBodyBean_.owner.equal(UserInfoManagerMall.getUserId())
                         .and(MessageBodyBean_.canDelete.equal(true))
-                                .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
-                                .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
-                        ).build().remove();
+                        .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
+                        .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
+        ).build().remove();
         QueryBuilder<MessageBodyBean> builder = ObjectBox.get().boxFor(MessageBodyBean.class).query(
                 MessageBodyBean_.owner.equal(UserInfoManagerMall.getUserId())
                         .and(MessageBodyBean_.canDelete.equal(false))
-                                .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
-                                .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
-                        );
+                        .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
+                        .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
+        );
         return builder.order(MessageBodyBean_.createTime)
                 .build()
                 .find();
@@ -65,9 +65,9 @@ public class NewsPresent extends BaseAppMallPresent {
     public MessageBodyBean findPrivateChatRecordLastMessage(int contactId) {
         List<MessageBodyBean> arrays = ObjectBox.get().boxFor(MessageBodyBean.class).query(
                 MessageBodyBean_.owner.equal(UserInfoManagerMall.getUserId())
-                                .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
-                                .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
-                        ).order(MessageBodyBean_.createTime).build().find();
+                        .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
+                        .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
+        ).order(MessageBodyBean_.createTime).build().find();
 
         if (arrays == null || arrays.size() == 0) {
             return null;
@@ -117,6 +117,7 @@ public class NewsPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     /**
      * 发送私聊消息
      *
@@ -143,6 +144,7 @@ public class NewsPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void getNewsList(RequestBody body, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .getNewsList(body)
@@ -163,4 +165,6 @@ public class NewsPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
+
 }

@@ -8,6 +8,8 @@ import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.AppNetModuleMall;
+import com.juntai.wisdom.project.beans.CommodityDesListBean;
+import com.juntai.wisdom.project.beans.ShopListDataBean;
 import com.juntai.wisdom.project.beans.UserBeanMall;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.beans.shop.ShopDetailBean;
@@ -281,6 +283,45 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
                     }
                 });
     }
+    public void startSearchCommodity(RequestBody body, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .startSearchCommodity(body)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<CommodityDesListBean>(null) {
+                    @Override
+                    public void onSuccess(CommodityDesListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
 
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void startSearchShop(RequestBody body, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .startSearchShop(body)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ShopListDataBean>(null) {
+                    @Override
+                    public void onSuccess(ShopListDataBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
 
 }

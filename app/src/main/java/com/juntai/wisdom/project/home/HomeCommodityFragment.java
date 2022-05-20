@@ -16,9 +16,10 @@ import com.juntai.wisdom.project.base.BaseAppFragment;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/9 17:26
  */
-public class HomeCommodityFragment extends BaseAppFragment<HomePagePresent> implements HomePageContract.IHomePageView, View.OnClickListener{
+public class HomeCommodityFragment extends BaseAppFragment<HomePagePresent> implements HomePageContract.IHomePageView, View.OnClickListener {
     private LinearLayout mSearchLl;
     private ImageView mSwitchModeIv;
+
     @Override
     protected HomePagePresent createPresenter() {
         return null;
@@ -34,6 +35,7 @@ public class HomeCommodityFragment extends BaseAppFragment<HomePagePresent> impl
         mSearchLl = (LinearLayout) getView(R.id.search_ll);
         mSwitchModeIv = (ImageView) getView(R.id.switch_mode_iv);
         mSwitchModeIv.setOnClickListener(this);
+        mSearchLl.setOnClickListener(this);
     }
 
     @Override
@@ -50,7 +52,10 @@ public class HomeCommodityFragment extends BaseAppFragment<HomePagePresent> impl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.switch_mode_iv:
-                EventManager.getEventBus().post(new EventBusObject(EventBusObject.HOME_PAGE_DISPLAY_MODE,1));
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.HOME_PAGE_DISPLAY_MODE, 1));
+                break;
+            case R.id.search_ll:
+                getBaseAppActivity().startToSearchActivity();
                 break;
             default:
                 break;

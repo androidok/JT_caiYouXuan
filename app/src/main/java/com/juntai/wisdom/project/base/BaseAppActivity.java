@@ -46,6 +46,7 @@ import com.juntai.wisdom.project.order.orderDetail.OrderDetailActivity;
 import com.juntai.wisdom.project.order.orderPay.OrderPayActivity;
 import com.juntai.wisdom.project.order.refund.RefundActivity;
 import com.juntai.wisdom.project.order.refund.RefundRequestActivity;
+import com.juntai.wisdom.project.search.SearchActivity;
 import com.juntai.wisdom.project.utils.StringTools;
 
 import java.util.ArrayList;
@@ -523,6 +524,13 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     public void startToChatActivity(ContactBean contactBean) {
         startActivity(new Intent(mContext, ChatActivity.class)
                 .putExtra(BASE_PARCELABLE, contactBean));
+    }
+
+    /**
+     * 进入聊天界面
+     */
+    public void startToSearchActivity() {
+        startActivity(new Intent(mContext, SearchActivity.class));
     }
 
 }

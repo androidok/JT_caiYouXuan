@@ -7,39 +7,59 @@
 
     <FrameLayout
         android:id="@+id/tab_head_fl"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"></FrameLayout>
-    <android.support.v7.widget.SearchView
-        android:id="@+id/search_content_sv"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/sp_filled_gray_lighter"
-        android:paddingLeft="-10dp"
-        app:defaultQueryHint="请输入关键字"
-        app:iconifiedByDefault="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/back_textview"
-        app:layout_constraintRight_toLeftOf="@+id/search_tv"
-        app:layout_constraintTop_toTopOf="parent"
-        app:queryBackground="@null"
-        app:searchIcon="@mipmap/search_icon"
-        app:showDividers="none"
-        app:submitBackground="@null" />
+        android:visibility="gone"></FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/search_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/search_content_sv"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/sp_filled_gray_lighter"
+            android:paddingLeft="-10dp"
+            app:defaultQueryHint="请输入关键字"
+            app:iconifiedByDefault="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/back_textview"
+            app:layout_constraintRight_toLeftOf="@+id/search_tv"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryBackground="@null"
+            app:searchIcon="@mipmap/search_icon"
+            app:showDividers="none"
+            app:submitBackground="@null" />
+
+        <TextView
+            android:id="@+id/cancel_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="取消"
+            android:visibility="gone"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_tb"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         app:tabBackground="@color/transparent"
-        app:tabGravity="fill"
+        app:tabGravity="center"
         app:tabIndicatorColor="@color/colorAccent"
         app:tabIndicatorFullWidth="false"
         app:tabIndicatorHeight="1dp"
-        app:tabMaxWidth="0dp"
         app:tabMode="fixed"
         app:tabRippleColor="@color/gray_ripple" />
 
@@ -48,6 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp" />
+
     <FrameLayout
         android:id="@+id/tab_foot_fl"
         android:layout_width="match_parent"
