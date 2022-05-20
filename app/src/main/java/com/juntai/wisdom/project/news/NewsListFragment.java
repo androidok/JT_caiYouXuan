@@ -1,8 +1,10 @@
 package com.juntai.wisdom.project.news;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.chat.bean.ContactBean;
 import com.example.chat.util.MultipleItem;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
@@ -24,6 +26,32 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {
         return null;
+    }
+
+
+    @Override
+    protected void initView() {
+        super.initView();
+        baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MultipleItem multipleItem = (MultipleItem) adapter.getItem(position);
+                switch (multipleItem.getItemType()) {
+                    case MultipleItem.ITEM_CHAT_LIST_CONTACT:
+                        NewsListBean.DataBean dataBean = (NewsListBean.DataBean) multipleItem.getObject();
+                        ContactBean contactBean = new ContactBean();
+                        contactBean.setNickname(dataBean.getFromNickname());
+                        contactBean.setHeadPortrait(dataBean.getFromHead());
+                        contactBean.setUserId(dataBean.getFromUserId());
+                        getBaseAppActivity().startToChatActivity(contactBean);
+
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -68,9 +96,9 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
                 if (newsListBean != null) {
                     List<NewsListBean.DataBean> dataBeans = newsListBean.getData();
                     if (dataBeans != null) {
-                        List<MultipleItem>  arrays = new ArrayList<>();
+                        List<MultipleItem> arrays = new ArrayList<>();
                         for (NewsListBean.DataBean array : dataBeans) {
-                            arrays.add(new MultipleItem(MultipleItem.ITEM_CHAT_LIST_CONTACT,array));
+                            arrays.add(new MultipleItem(MultipleItem.ITEM_CHAT_LIST_CONTACT, array));
                         }
                         baseQuickAdapter.setNewData(arrays);
                     }

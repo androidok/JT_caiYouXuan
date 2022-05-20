@@ -18,7 +18,7 @@ public interface AppServerChat {
      * todo  这个地址需要更换线上的
      * @return
      */
-    @POST("http://192.168.124.148:8080/jt-mall/uploadFile/upload")
+    @POST("http://www.juntaikeji.com:21970/jt-mall/uploadFile/upload")
     Observable<UploadFileBean> uploadFiles(@Body RequestBody requestBody);
 
 
