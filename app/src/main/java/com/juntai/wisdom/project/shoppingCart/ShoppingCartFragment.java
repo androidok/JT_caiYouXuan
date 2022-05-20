@@ -1,7 +1,6 @@
 package com.juntai.wisdom.project.shoppingCart;
 
 
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -13,14 +12,14 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
-import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.wisdom.project.AppHttpPathMall;
-import com.juntai.wisdom.project.beans.CartListBean;
-import com.juntai.wisdom.project.beans.CommodityDetailBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
+import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewFragment;
+import com.juntai.wisdom.project.beans.CartListBean;
+import com.juntai.wisdom.project.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.beans.order.ToCommitSelectedCommoditiesBean;
 import com.juntai.wisdom.project.home.HomePageContract;
@@ -343,7 +342,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
      */
     private void setSelectedCommoditiesPrice() {
         List<CartListBean.DataBean> dataBeans = baseQuickAdapter.getData();
-        DecimalFormat dFormat = new DecimalFormat("#.00");
+        DecimalFormat dFormat = new DecimalFormat("0.00");
         double price = 0.00;
         for (CartListBean.DataBean dataBean : dataBeans) {
             List<CartListBean.DataBean.CommodityListBean> commodityListBeans = dataBean.getCommodityList();

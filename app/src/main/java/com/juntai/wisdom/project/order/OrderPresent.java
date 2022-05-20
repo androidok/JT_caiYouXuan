@@ -10,20 +10,15 @@ import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.video.record.VideoPreviewActivity;
 import com.juntai.wisdom.project.AppNetModuleMall;
 import com.juntai.wisdom.project.base.BaseAppMallPresent;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailDataBean;
 import com.juntai.wisdom.project.beans.order.OrderListBean;
 import com.juntai.wisdom.project.beans.order.OrderPayWxBean;
 import com.juntai.wisdom.project.beans.order.OrderPayZfbBean;
 import com.juntai.wisdom.project.beans.order.RefundReasonBean;
-import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
 import com.mabeijianxi.smallvideorecord2.model.MediaRecorderConfig;
-import com.orhanobut.hawk.Hawk;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-
-import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 import io.reactivex.functions.Consumer;
@@ -316,9 +311,9 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
 
-    public void payByWeixin(List<Integer> ids, String tag) {
+    public void payByWeixin(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
-                .payByWeixin(UserInfoManagerMall.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManagerMall.DEVICE_TYPE, ids)
+                .payByWeixin(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<OrderPayWxBean>(getView()) {
                     @Override
@@ -338,9 +333,9 @@ public class OrderPresent extends BaseAppMallPresent {
                 });
     }
 
-    public void payByZhifubao(List<Integer> ids, String tag) {
+    public void payByZhifubao(RequestBody requestBody,String tag) {
         AppNetModuleMall.createrRetrofit()
-                .payByZhifubao(UserInfoManagerMall.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManagerMall.DEVICE_TYPE, ids)
+                .payByZhifubao(requestBody)
 
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<OrderPayZfbBean>(getView()) {
@@ -361,9 +356,9 @@ public class OrderPresent extends BaseAppMallPresent {
                 });
     }
 
-    public void payByPubAccount(List<Integer> ids, String tag) {
+    public void payByPubAccount(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
-                .payByPubAccount(UserInfoManagerMall.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManagerMall.DEVICE_TYPE, ids)
+                .payByPubAccount(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override

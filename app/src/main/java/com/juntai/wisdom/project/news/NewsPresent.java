@@ -5,6 +5,7 @@ import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean_;
+import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
 import com.juntai.disabled.basecomponent.utils.ObjectBox;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.AppNetModuleMall;
@@ -83,7 +84,7 @@ public class NewsPresent extends BaseAppMallPresent {
         List<MyMenuBean> arrays = new ArrayList<>();
         arrays.add(new MyMenuBean(MORE_ACTION_PIC, R.mipmap.more_action_pic));
         arrays.add(new MyMenuBean(MORE_ACTION_TAKE_PHOTO, R.mipmap.more_action_take_photo));
-        arrays.add(new MyMenuBean(MORE_ACTION_LOCATION, R.mipmap.more_action_location));
+//        arrays.add(new MyMenuBean(MORE_ACTION_LOCATION, R.mipmap.more_action_location));
 
         return arrays;
     }
@@ -125,9 +126,9 @@ public class NewsPresent extends BaseAppMallPresent {
         AppNetModuleMall.createrRetrofit()
                 .getContactUnreadMsg(body)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(null) {
+                .subscribe(new BaseObserver<MessageListBean>(null) {
                     @Override
-                    public void onSuccess(BaseResult o) {
+                    public void onSuccess(MessageListBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

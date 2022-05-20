@@ -51,6 +51,10 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
 
     private int id;
     private String orderFormNumber;
+    /**
+     * 订单支付的时候需要传入  总订单号
+     */
+    private String totalOrderFormNumber;
     private int userId;
     private String name;
     private String phone;
@@ -84,6 +88,14 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
 
     public int getId() {
         return id;
+    }
+
+    public String getTotalOrderFormNumber() {
+        return totalOrderFormNumber == null ? "" : totalOrderFormNumber;
+    }
+
+    public void setTotalOrderFormNumber(String totalOrderFormNumber) {
+        this.totalOrderFormNumber = totalOrderFormNumber == null ? "" : totalOrderFormNumber;
     }
 
     public void setId(int id) {
@@ -801,6 +813,9 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         };
     }
 
+    public OrderDetailBean() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -808,8 +823,10 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeInt(this.id);
         dest.writeString(this.orderFormNumber);
+        dest.writeString(this.totalOrderFormNumber);
         dest.writeInt(this.userId);
         dest.writeString(this.name);
         dest.writeString(this.phone);
@@ -839,12 +856,11 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         dest.writeTypedList(this.commodityList);
     }
 
-    public OrderDetailBean() {
-    }
-
     protected OrderDetailBean(Parcel in) {
+        super(in);
         this.id = in.readInt();
         this.orderFormNumber = in.readString();
+        this.totalOrderFormNumber = in.readString();
         this.userId = in.readInt();
         this.name = in.readString();
         this.phone = in.readString();
@@ -874,7 +890,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         this.commodityList = in.createTypedArrayList(CommodityListBean.CREATOR);
     }
 
-    public static final Parcelable.Creator<OrderDetailBean> CREATOR = new Parcelable.Creator<OrderDetailBean>() {
+    public static final Creator<OrderDetailBean> CREATOR = new Creator<OrderDetailBean>() {
         @Override
         public OrderDetailBean createFromParcel(Parcel source) {
             return new OrderDetailBean(source);

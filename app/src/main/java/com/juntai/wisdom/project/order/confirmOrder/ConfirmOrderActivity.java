@@ -170,7 +170,10 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
                 break;
             case R.id.commit_order_tv:
                 // : 2022/5/11 提交订单
-
+                if (!Hawk.contains(HawkProperty.DEFAULT_ADDR)) {
+                            ToastUtils.toast(mContext,"请选择收货地址");
+                    return;
+                }
                 dataBean.setName(getTextViewValue(mReceiverNameTv));
                 dataBean.setPhone(getTextViewValue(mReceiverPhoneTv));
                 dataBean.setDetailedAddress(getTextViewValue(mAddrDesTv));

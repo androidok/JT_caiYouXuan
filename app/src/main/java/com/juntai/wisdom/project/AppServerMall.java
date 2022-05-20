@@ -4,6 +4,7 @@ package com.juntai.wisdom.project;
 import com.example.chat.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
+import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
@@ -278,13 +279,13 @@ public interface AppServerMall {
 
 
     @POST(AppHttpPathMall.ORDER_PAY_PUB_WEIXIN)
-    Observable<OrderPayWxBean> payByWeixin(@Query("account") String account, @Query("token") String token, @Query("typeEnd") String typeEnd, @Query("orderId") List<Integer> ids);
+    Observable<OrderPayWxBean> payByWeixin(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.ORDER_PAY_ZHIFUBAO)
-    Observable<OrderPayZfbBean> payByZhifubao(@Query("account") String account, @Query("token") String token, @Query("typeEnd") String typeEnd, @Query("orderId") List<Integer> ids);
+    Observable<OrderPayZfbBean> payByZhifubao(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.ORDER_PAY_PUB_ACCOUNT)
-    Observable<BaseResult> payByPubAccount(@Query("account") String account, @Query("token") String token, @Query("typeEnd") String typeEnd, @Query("orderId") List<Integer> ids);
+    Observable<BaseResult> payByPubAccount(@Body RequestBody requestBody);
 
 
 
@@ -297,6 +298,6 @@ public interface AppServerMall {
     Observable<BaseResult> sendMessage(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.UNREAD_CONTACT_MSG)
-    Observable<BaseResult> getContactUnreadMsg(@Body RequestBody requestBody);
+    Observable<MessageListBean> getContactUnreadMsg(@Body RequestBody requestBody);
 
 }

@@ -10,8 +10,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alipay.sdk.app.PayTask;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.wisdom.project.AppHttpPathMall;
@@ -23,6 +25,7 @@ import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailBean;
 import com.juntai.wisdom.project.beans.order.OrderListBean;
 import com.juntai.wisdom.project.beans.order.OrderPayWxBean;
+import com.juntai.wisdom.project.beans.order.OrderPayZfbBean;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.order.OrderPresent;
 import com.juntai.wisdom.project.utils.CalendarUtil;
@@ -32,6 +35,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,12 +47,12 @@ import java.util.TimerTask;
 public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> implements HomePageContract.IHomePageView, View.OnClickListener {
 
     IWXAPI msgApi;
-
-
+    private final int SDK_PAY_FLAG = 1;
 
 
     private List<OrderDetailBean> orderDetailBeans;
     private double payPrice;
+    private OrderDetailBean orderDetailBe;
 
     /**
      * 支付剩余时间
@@ -85,41 +89,58 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
     private Handler handler = new Handler() {
         @SuppressLint("SetTextI18n")
         public void handleMessage(Message msg) {
-            if (minute == 0) {
-                if (second == 0) {
-                    mOrderLeftTimeTv.setText("结束");
-                    if (timer != null) {
-                        timer.cancel();
-                        timer = null;
+            if (msg.what == SDK_PAY_FLAG) {
+                Map<String,String> map = (Map<String, String>) msg.obj;
+                try {
+                    String status = map.get("resultStatus");
+                    switch (status){
+                        case "9000"://支付成功
+                            startToPaySuccessActivity();
+                            return;
+                        case "8000"://正在处理中，支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
+                            break;
+                        case "4000"://订单支付失败
+//                            startActivity(getIntent().setClass(mContext,PayCompleteActivity.class).putExtra("isSuccess",false));
+                            break;
+                        case "5000"://重复请求
+                            break;
+                        case "6001"://支付取消-不需要操作
+                            break;
+                        case "6002"://网络连接出错
+                            break;
+                        case "6004"://支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
+                            break;
                     }
-                    if (timerTask != null) {
-                        timerTask = null;
-                    }
-                    finish();
-                } else {
-                    second--;
-                    if (second >= 10) {
-                        mOrderLeftTimeTv.setText("0" + minute + ":" + second);
-                    } else {
-                        mOrderLeftTimeTv.setText("0" + minute + ":0" + second);
-                    }
+                    //ToastUtils.toast(mContext,memo);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    LogUtil.e("支付失败:"+e.toString());
                 }
+
             } else {
-                if (second == 0) {
-                    second = 59;
-                    minute--;
-                    if (minute >= 10) {
-                        mOrderLeftTimeTv.setText(minute + ":" + second);
-
+                if (minute == 0) {
+                    if (second == 0) {
+                        mOrderLeftTimeTv.setText("结束");
+                        if (timer != null) {
+                            timer.cancel();
+                            timer = null;
+                        }
+                        if (timerTask != null) {
+                            timerTask = null;
+                        }
+                        finish();
                     } else {
-                        mOrderLeftTimeTv.setText("0" + minute + ":" + second);
-
+                        second--;
+                        if (second >= 10) {
+                            mOrderLeftTimeTv.setText("0" + minute + ":" + second);
+                        } else {
+                            mOrderLeftTimeTv.setText("0" + minute + ":0" + second);
+                        }
                     }
-
                 } else {
-                    second--;
-
-                    if (second >= 10) {
+                    if (second == 0) {
+                        second = 59;
+                        minute--;
                         if (minute >= 10) {
                             mOrderLeftTimeTv.setText(minute + ":" + second);
 
@@ -129,19 +150,33 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
                         }
 
                     } else {
-                        if (minute >= 10) {
-                            mOrderLeftTimeTv.setText(minute + ":0" + second);
+                        second--;
+
+                        if (second >= 10) {
+                            if (minute >= 10) {
+                                mOrderLeftTimeTv.setText(minute + ":" + second);
+
+                            } else {
+                                mOrderLeftTimeTv.setText("0" + minute + ":" + second);
+
+                            }
 
                         } else {
-                            mOrderLeftTimeTv.setText("0" + minute + ":0" + second);
+                            if (minute >= 10) {
+                                mOrderLeftTimeTv.setText(minute + ":0" + second);
+
+                            } else {
+                                mOrderLeftTimeTv.setText("0" + minute + ":0" + second);
+
+                            }
 
                         }
 
                     }
 
                 }
-
             }
+
 
         }
 
@@ -162,7 +197,7 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
     public void initView() {
         super.initView();
 
-        msgApi = WXAPIFactory.createWXAPI(mContext,WX_APPID);
+        msgApi = WXAPIFactory.createWXAPI(mContext, WX_APPID);
 
         mOrderLeftTimeTv = (TextView) findViewById(R.id.order_left_time_tv);
         mOrderTotalPriceTv = (TextView) findViewById(R.id.order_total_price_tv);
@@ -173,10 +208,16 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
         if (baseResult instanceof ConfirmOrderBean) {
             ConfirmOrderBean confirmOrderBean = (ConfirmOrderBean) baseResult;
             orderDetailBeans = confirmOrderBean.getData();
+            if (orderDetailBeans != null && orderDetailBeans.size() > 0) {
+                orderDetailBe = orderDetailBeans.get(0);
+            }
             payPrice = confirmOrderBean.getTotalPrice();
         } else {
             OrderListBean orderListBean = (OrderListBean) baseResult;
             orderDetailBeans = orderListBean.getData().getList();
+            if (orderDetailBeans != null && orderDetailBeans.size() > 0) {
+                orderDetailBe = orderDetailBeans.get(0);
+            }
             payPrice = orderListBean.getTotalPrice();
 
         }
@@ -272,6 +313,20 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
     protected BaseQuickAdapter getBaseQuickAdapter() {
         return new OrderPayTypeAdapter(R.layout.mall_pay_type_item);
     }
+    public void payByZhiFuBao( OrderPayZfbBean  orderPayZfbBean){
+        final String orderInfo = orderPayZfbBean.getData();   // 订单信息
+        Runnable payRunnable = () -> {
+            PayTask alipay = new PayTask(OrderPayActivity.this);
+            Map<String,String> result = alipay.payV2(orderInfo,true);
+            Message msg = new Message();
+            msg.what = SDK_PAY_FLAG;
+            msg.obj = result;
+            handler.sendMessage(msg);
+        };
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
 
     @Override
     public void onSuccess(String tag, Object o) {
@@ -279,29 +334,32 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
             case AppHttpPathMall.ORDER_PAY_PUB_ACCOUNT:
                 startToPaySuccessActivity();
                 break;
-
+            case AppHttpPathMall.ORDER_PAY_ZHIFUBAO:
+                OrderPayZfbBean  orderPayZfbBean = (OrderPayZfbBean) o;
+                payByZhiFuBao(orderPayZfbBean);
+                break;
             case AppHttpPathMall.ORDER_PAY_PUB_WEIXIN:
                 OrderPayWxBean wxBean = (OrderPayWxBean) o;
                 if (wxBean != null) {
                     List<OrderPayWxBean.DataBean> wxDataBeans = wxBean.getData();
-                    
+
                     OrderPayWxBean.DataBean dataBean = wxDataBeans.get(0);
 
-                    if(!msgApi.isWXAppInstalled()){
+                    if (!msgApi.isWXAppInstalled()) {
                         //未安装的处理
-                        ToastUtils.toast(mContext,"未安装微信");
-                    }else {
+                        ToastUtils.toast(mContext, "未安装微信");
+                    } else {
                         PayReq request = new PayReq();
                         request.appId = dataBean.getAppid();//appid
                         request.partnerId = dataBean.getMch_id();//商户号
-                        request.prepayId= dataBean.getPrepayId();//微信返回的支付交易会话ID
+                        request.prepayId = dataBean.getPrepayId();//微信返回的支付交易会话ID
                         request.packageValue = dataBean.getPackageVal();//暂填写固定值Sign=WXPay
-                        request.nonceStr= dataBean.getNonce_str();//随机字符串，不长于32位。推荐随机数生成算法
-                        request.timeStamp= dataBean.getTimestamp();//时间戳，请见接口规则-参数规定
-                        request.sign= dataBean.getSign();//签名，详见签名生成算法注意：签名方式一定要与统一下单接口使用的一致
+                        request.nonceStr = dataBean.getNonce_str();//随机字符串，不长于32位。推荐随机数生成算法
+                        request.timeStamp = dataBean.getTimestamp();//时间戳，请见接口规则-参数规定
+                        request.sign = dataBean.getSign();//签名，详见签名生成算法注意：签名方式一定要与统一下单接口使用的一致
                         msgApi.sendReq(request);
                     }
-                    
+
                 }
 
                 break;
@@ -317,27 +375,23 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
             default:
                 break;
             case R.id.pay_tv:
-                List<Integer> ids = new ArrayList<>();
-                for (OrderDetailBean orderDetailBean : orderDetailBeans) {
-                    ids.add(orderDetailBean.getId());
-                }
                 switch (payType) {
 
                     case 0:
-                        // TODO: 2022/5/11 支付宝支付
-                        mPresenter.payByWeixin(ids, AppHttpPathMall.ORDER_PAY_ZHIFUBAO);
+                        // : 2022/5/11 支付宝支付
+                        mPresenter.payByZhifubao(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPathMall.ORDER_PAY_ZHIFUBAO);
 
                         break;
                     case 1:
                         // : 2022/5/11 微信支付
-                        mPresenter.payByWeixin(ids, AppHttpPathMall.ORDER_PAY_PUB_WEIXIN);
+                        mPresenter.payByWeixin(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPathMall.ORDER_PAY_PUB_WEIXIN);
 
 
                         break;
                     case 2:
                         // : 2022/5/11 公户支付
 
-                        mPresenter.payByPubAccount(ids, AppHttpPathMall.ORDER_PAY_PUB_ACCOUNT);
+                        mPresenter.payByPubAccount(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPathMall.ORDER_PAY_PUB_ACCOUNT);
                         break;
                     default:
                         break;
@@ -361,7 +415,6 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
 
     /**
      * 跳转到支付成功的界面
-     *
      */
     private void startToPaySuccessActivity() {
         startActivity(new Intent(mContext, PaySuccessActivity.class));

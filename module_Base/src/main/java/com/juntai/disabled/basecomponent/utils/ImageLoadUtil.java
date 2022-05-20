@@ -21,6 +21,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.juntai.disabled.basecomponent.R;
+import com.juntai.disabled.basecomponent.bean.objectboxbean.FileBaseInfoBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 
 import java.io.File;
@@ -37,7 +38,29 @@ import static com.bumptech.glide.load.resource.bitmap.VideoDecoder.FRAME_OPTION;
 public class ImageLoadUtil {
 
     public static String  IMAGE_TYPE_VIDEO_THUM = "videoThum_";
+    /**
+     * 获取视频文件的基本信息
+     *
+     * @param filePath
+     */
+    public static FileBaseInfoBean getVideoFileBaseInfo(String filePath) {
+        String rotation = null;
+        String videoDuration = null;
+        MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+        mediaMetadataRetriever.setDataSource(filePath);
+        rotation = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
+        videoDuration = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+        String width = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
+        String height = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
+        mediaMetadataRetriever.release();
+        if ("0".equals(rotation)) {
+            if (Integer.parseInt(width)*2<Integer.parseInt(height)) {
+                rotation = "90";
+            }
+        }
+        return new FileBaseInfoBean(rotation, videoDuration);
 
+    }
     /**
      * 加载本地图片
      *
@@ -55,7 +78,22 @@ public class ImageLoadUtil {
     public static void loadImage(Context context, Bitmap bitmap, ImageView view) {
         Glide.with(context).load(bitmap).into(view);
     }
-
+    public static void getExifOrientation(Context mContext, String filepath, OnImageLoadSuccess onImageLoadSuccess) {
+        //获取图片真正的宽高
+        Glide.with(mContext)
+                .asBitmap()//强制Glide返回一个Bitmap对象
+                .load(filepath)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
+                        int width = bitmap.getWidth();
+                        int height = bitmap.getHeight();
+                        if (onImageLoadSuccess != null) {
+                            onImageLoadSuccess.loadSuccess(width, height);
+                        }
+                    }
+                });
+    }
     /**
      * @param context
      * @param url

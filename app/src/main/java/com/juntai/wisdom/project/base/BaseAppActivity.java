@@ -9,10 +9,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
+import com.example.chat.base.uploadFile.UploadUtil;
+import com.example.chat.base.uploadFile.listener.OnUploadListener;
 import com.example.chat.bean.ContactBean;
+import com.example.chat.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
@@ -20,6 +24,7 @@ import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.wisdom.project.AppHttpPathMall;
@@ -54,14 +59,66 @@ import okhttp3.FormBody;
  * @date 2020/4/27 8:48  app的基类
  */
 public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> {
-    public static String  WX_APPID = "wx5fd6d26f7806a119";
+    public static String WX_APPID = "wx5fd6d26f7806a119";
+    public UploadUtil mUploadUtil;
 
+    private OnFileUploadStatus onFileUploadStatus;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NotificationTool.SHOW_NOTIFICATION = true;
         getToolbar().setBackgroundResource(R.drawable.sp_filled_gray_lighter);
+        initUploadUtil();
+    }
+
+    public void setOnFileUploadStatus(OnFileUploadStatus onFileUploadStatus) {
+        this.onFileUploadStatus = onFileUploadStatus;
+    }
+
+    protected void initUploadUtil() {
+        //上传文件工具类
+        mUploadUtil = new UploadUtil();
+        mUploadUtil.setOnUploadListener(new OnUploadListener() {
+            @Override
+            public void onAllSuccess() {
+                ToastUtils.toast(mContext, "onAllSuccess");
+            }
+
+            @Override
+            public void onAllFailed() {
+
+            }
+
+            @Override
+            public void onThreadProgressChange(UploadFileBean uploadFileBean, int position, int percent) {
+                Log.d("onThreadProgressChange", "onThreadProgressChange" + uploadFileBean.getFilePath() + "---------" + percent);
+
+                if (onFileUploadStatus != null) {
+                    onFileUploadStatus.onUploadProgressChange(uploadFileBean, percent);
+                }
+            }
+
+            @Override
+            public void onThreadFinish(UploadFileBean uploadFileBean, int position) {
+                if (onFileUploadStatus != null) {
+                    onFileUploadStatus.onUploadFinish(uploadFileBean);
+                }
+            }
+
+            @Override
+            public void onThreadInterrupted(int position) {
+
+            }
+        });
+    }
+
+
+    public interface OnFileUploadStatus {
+        void onUploadProgressChange(UploadFileBean uploadFileBean, int percent);
+
+        void onUploadFinish(UploadFileBean uploadFileBean);
+
     }
 
     /**
@@ -459,6 +516,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
                 .putExtra(BASE_ID, receivedStatus)
                 .putExtra(BASE_PARCELABLE, orderDetailBean));
     }
+
     /**
      * 进入聊天界面
      */

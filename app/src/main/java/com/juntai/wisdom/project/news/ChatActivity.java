@@ -3,6 +3,7 @@ package com.juntai.wisdom.project.news;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -23,11 +24,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.MainContract;
 import com.example.chat.R;
-import com.example.chat.base.BaseChatAppActivity;
 import com.example.chat.bean.ContactBean;
 import com.example.chat.bean.UploadFileBean;
 import com.example.chat.chatmodule.ChatAdapter;
@@ -37,8 +38,16 @@ import com.example.chat.util.MultipleItem;
 import com.example.chat.util.OperateMsgUtil;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;
+import com.juntai.disabled.basecomponent.bean.objectboxbean.FileBaseInfoBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
+import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
 import com.juntai.disabled.basecomponent.utils.CalendarUtil;
+import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
+import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.utils.LogUtil;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
+import com.juntai.disabled.basecomponent.utils.RxTask;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
 import com.juntai.wisdom.project.AppHttpPathMall;
@@ -64,7 +73,7 @@ import java.util.List;
  * @date 2022/5/19 14:48
  */
 public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.OnClickListener,
-        HomePageContract.IHomePageView, EmojiFragment.OnEmojiClickListener, BaseChatAppActivity.OnFileUploadStatus {
+        HomePageContract.IHomePageView, EmojiFragment.OnEmojiClickListener, BaseAppActivity.OnFileUploadStatus {
 
     private ContactBean contactBean;
     private BaseBottomDialog.OnItemClick onItemClick;
@@ -197,6 +206,40 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
         }, 500);
     }
 
+    @Override
+    protected void selectedPicsAndEmpressed(List<String> icons) {
+        super.selectedPicsAndEmpressed(icons);
+        if (icons.size() > 0) {
+            if (fileSizeIsOk(icons)) {
+                // TODO: 2022-03-09 发送图片或者视频文件
+
+                for (String picPath : icons) {
+                    if (1 == FileCacheUtils.getFileType(picPath)) {
+                        uploadPicFile(picPath);
+                    } else if (2 == FileCacheUtils.getFileType(picPath)) {
+                        uploadVideoFile(picPath);
+                    }
+                }
+
+            }
+        }
+    }
+
+    private boolean fileSizeIsOk(List<String> icons) {
+        for (String icon : icons) {
+            File file = new File(icon);
+            try {
+                long fileSize = FileCacheUtils.getFileSize(file);
+                if (FileCacheUtils.isOutInMaxLength(fileSize)) {
+                    ToastUtils.toast(mContext, "不能选择大于500M的文件");
+                    return false;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
     private void initMoreActionAdapter() {
         moreActionAdapter = new ChatMoreActionAdapter(R.layout.item_more_action);
         GridLayoutManager manager = new GridLayoutManager(mContext, 4);
@@ -230,9 +273,10 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
     }
 
     public void initData() {
+        setOnFileUploadStatus(this);
         contactBean = getIntent().getParcelableExtra(BaseActivity.BASE_PARCELABLE);
         // : 2022/5/19 联系人列表
-        UserInfoManagerMall.initContacts(contactBean);
+//        UserInfoManagerMall.initContacts(contactBean);
 // : 2022/5/19 获取所有的聊天记录
         setTitleName(contactBean.getNickname());
         List<MessageBodyBean> arrays = mPresenter.findPrivateChatRecordList(contactBean.getUserId());
@@ -251,6 +295,8 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                 }
             }
         }
+        mPresenter.getContactUnreadMsg(getBaseBuilder().add("toUserId", String.valueOf(contactBean.getUserId())).build(), AppHttpPathMall.UNREAD_CONTACT_MSG);
+
     }
 
     private void initAdapterDataFromMsgTypes(MessageBodyBean messageBean) {
@@ -300,7 +346,51 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
 
     @Override
     public void onSuccess(String tag, Object o) {
+        switch (tag) {
+            case MainContract.UPLOAD_AUDIO_FILE:
+                //上传音频文件
 
+                List<String> audioPaths = (List<String>) o;
+                if (audioPaths != null && !audioPaths.isEmpty()) {
+                    for (String picPath : audioPaths) {
+                        MessageBodyBean messageBodyBean = OperateMsgUtil.getPrivateMsg(3, contactBean.getUserId(),
+                                contactBean.getAccount(), contactBean.getNickname(),
+                                contactBean.getHeadPortrait(), picPath);
+                        messageBodyBean.setDuration(String.valueOf(mDuration));
+                        addDateTag(mPresenter.findPrivateChatRecordLastMessage(messageBodyBean.getFromUserId()), messageBodyBean);
+                        chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_SEND_AUDIO, messageBodyBean));
+                        ObjectBoxMallUtil.addMessage(messageBodyBean);
+                        mPresenter.sendPrivateMessage(OperateMsgUtil.getMsgBuilder(messageBodyBean).build(),
+                                AppHttpPathMall.SEND_MSG);
+
+
+                    }
+                }
+                scrollRecyclerview();
+                break;
+            case AppHttpPathMall.UNREAD_CONTACT_MSG:
+                MessageListBean messageListBean = (MessageListBean) o;
+                if (messageListBean != null) {
+                    List<MessageBodyBean> messageBodyBeans = messageListBean.getData();
+                    if (messageBodyBeans != null && !messageBodyBeans.isEmpty()) {
+                        for (int i = 0; i < messageBodyBeans.size(); i++) {
+                            MessageBodyBean startBean = messageBodyBeans.get(i);
+                            startBean.setId(0);
+                            startBean.setRead(true);
+                            if (i < messageBodyBeans.size() - 1) {
+                                MessageBodyBean endBean = messageBodyBeans.get(i + 1);
+                                addDateTag(startBean, endBean);
+                            }
+                            ObjectBoxMallUtil.addMessage(startBean);
+                        }
+                        initData();
+                    }
+                }
+
+                break;
+            default:
+                break;
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -689,81 +779,73 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
 
     @Override
     public void onUploadFinish(UploadFileBean uploadFileBean) {
-//        if (uploadFileBean.getCode() != 0) {
-//            ToastUtils.toast(mContext, "上传失败");
-//            return;
-//        }
-//        MessageBodyBean messageBodyBean = uploadFileBean.getMessageBodyBean();
-//        List<String> filePaths = uploadFileBean.getFilePaths();
-//        if (filePaths != null && filePaths.size() > 0) {
-//            // TODO: 2022/4/10 获取返回文件的文件名
-//
-//            switch (messageBodyBean.getMsgType()) {
-//                case 1:
-//                    //图片文件
-//                    /**
-//                     * 图片上传成功之后加载图片
-//                     */
-//                    messageBodyBean.setContent(filePaths.get(0));
-//                    addDateTag(mPresenter.findPrivateChatRecordLastMessage(messageBodyBean.getFromUserId()),
-//                            messageBodyBean);
-//                    chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_PIC_VIDEO, messageBodyBean));
-//                    scrollRecyclerview();
-//                    ObjectBox.addMessage(messageBodyBean);
+        if (uploadFileBean.getCode() != 0) {
+            ToastUtils.toast(mContext, "上传失败");
+            return;
+        }
+        MessageBodyBean messageBodyBean = uploadFileBean.getMessageBodyBean();
+        List<String> filePaths = uploadFileBean.getFilePaths();
+        if (filePaths != null && filePaths.size() > 0) {
+            // TODO: 2022/4/10 获取返回文件的文件名
+
+            switch (messageBodyBean.getMsgType()) {
+                case 1:
+                    //图片文件
+                    /**
+                     * 图片上传成功之后加载图片
+                     */
+                    messageBodyBean.setContent(filePaths.get(0));
+                    addDateTag(mPresenter.findPrivateChatRecordLastMessage(messageBodyBean.getFromUserId()),
+                            messageBodyBean);
+                    chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_PIC_VIDEO, messageBodyBean));
+                    scrollRecyclerview();
+                    ObjectBoxMallUtil.addMessage(messageBodyBean);
 //                    allPicVideoPath.add(messageBodyBean);
-//                    break;
-//                case 2:
-//                    //视频文件
-//                    String fileName = getSavedFileName(filePaths.get(0));
-//                    if (fileName.startsWith(ImageLoadUtil.IMAGE_TYPE_VIDEO_THUM)) {
-//                        LogUtil.d("视频缩略图" + messageBodyBean.getContent());
-//                        //视频缩略图
-//                        messageBodyBean.setVideoCover(filePaths.get(0));
-//                        messageBodyBean.setContent(null);
-//                        ImageLoadUtil.getExifOrientation(mContext, FileCacheUtils.getAppImagePath(true) + fileName, new ImageLoadUtil.OnImageLoadSuccess() {
-//                            @Override
-//                            public void loadSuccess(int width, int height) {
-//                                FileBaseInfoBean fileBaseInfoBean = ImageLoadUtil.getVideoFileBaseInfo(messageBodyBean.getLocalCatchPath());
-//                                messageBodyBean.setRotation(width > height ? "0" : "90");
-//                                messageBodyBean.setDuration(fileBaseInfoBean.getDuration());
-//                                addDateTag(mPresenter.findPrivateChatRecordLastMessage(messageBodyBean.getFromUserId()),
-//                                        messageBodyBean);
-//                                chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_PIC_VIDEO, messageBodyBean));
+                    break;
+                case 2:
+                    //视频文件
+                    String fileName = getSavedFileName(filePaths.get(0));
+                    if (fileName.startsWith(ImageLoadUtil.IMAGE_TYPE_VIDEO_THUM)) {
+                        LogUtil.d("视频缩略图" + messageBodyBean.getContent());
+                        //视频缩略图
+                        messageBodyBean.setVideoCover(filePaths.get(0));
+                        messageBodyBean.setContent(null);
+                        ImageLoadUtil.getExifOrientation(mContext, FileCacheUtils.getAppImagePath(true) + fileName, new ImageLoadUtil.OnImageLoadSuccess() {
+                            @Override
+                            public void loadSuccess(int width, int height) {
+                                FileBaseInfoBean fileBaseInfoBean = ImageLoadUtil.getVideoFileBaseInfo(messageBodyBean.getLocalCatchPath());
+                                messageBodyBean.setRotation(width > height ? "0" : "90");
+                                messageBodyBean.setDuration(fileBaseInfoBean.getDuration());
+                                addDateTag(mPresenter.findPrivateChatRecordLastMessage(messageBodyBean.getFromUserId()),
+                                        messageBodyBean);
+                                chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_PIC_VIDEO, messageBodyBean));
 //                                allPicVideoPath.add(messageBodyBean);
-//                                messageBodyBean.setAdapterPosition(chatAdapter.getData().size() - 1);
-//                                ObjectBox.addMessage(messageBodyBean);
-//                                scrollRecyclerview();
-//                                //上传视频文件
-//                                mUploadUtil.submit(ChatActivity.this, new UploadFileBean(messageBodyBean.getLocalCatchPath(), messageBodyBean));
-//                            }
-//                        });
-//                    } else {
-//                        LogUtil.d("视频原图" + messageBodyBean.getContent());
-//                        //视频内容
-//                        messageBodyBean.setContent(filePaths.get(0));
-//                    }
-//                    break;
-//                case 6:
-//                    //位置
-//                default:
-//                    messageBodyBean.setContent(filePaths.get(0));
-//                    break;
-//            }
-//            ObjectBox.addMessage(messageBodyBean);
-//            if (!TextUtils.isEmpty(messageBodyBean.getContent())) {
-//                switch (chatType) {
-//                    case 0:
-//                        mPresenter.sendPrivateMessage(OperateMsgUtil.getMsgBuilder(messageBodyBean).build(), AppHttpPath.SEND_MSG);
-//                        break;
-//                    case 1:
-//                        mPresenter.sendGroupMessage(OperateMsgUtil.getMsgBuilder(messageBodyBean).build(), AppHttpPath.SEND_MSG);
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//
-//        }
+                                messageBodyBean.setAdapterPosition(chatAdapter.getData().size() - 1);
+                                ObjectBoxMallUtil.addMessage(messageBodyBean);
+                                scrollRecyclerview();
+                                //上传视频文件
+                                mUploadUtil.submit(ChatActivity.this, new UploadFileBean(messageBodyBean.getLocalCatchPath(), messageBodyBean));
+                            }
+                        });
+                    } else {
+                        LogUtil.d("视频原图" + messageBodyBean.getContent());
+                        //视频内容
+                        messageBodyBean.setContent(filePaths.get(0));
+                    }
+                    break;
+                case 6:
+                    //位置
+                default:
+                    messageBodyBean.setContent(filePaths.get(0));
+                    break;
+            }
+            ObjectBoxMallUtil.addMessage(messageBodyBean);
+            if (!TextUtils.isEmpty(messageBodyBean.getContent())) {
+                mPresenter.sendPrivateMessage(OperateMsgUtil.getMsgBuilder(messageBodyBean).build(), AppHttpPathMall.SEND_MSG);
+
+            }
+
+        }
 
 
     }
@@ -796,13 +878,100 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
      * 发送普通信息
      */
     private void sendNormalMsg(ContactBean toContactBean, String content) {
-        MessageBodyBean messageBody = OperateMsgUtil.getPrivateMsg( 0, toContactBean.getUserId(), toContactBean.getAccount(),
+        MessageBodyBean messageBody = OperateMsgUtil.getPrivateMsg(0, toContactBean.getUserId(), toContactBean.getAccount(),
                 toContactBean.getNickname(), toContactBean.getHeadPortrait(), content);
-        mPresenter.sendPrivateMessage(OperateMsgUtil.getMsgBuilder( messageBody).build(), AppHttpPathMall.SEND_MSG);
+        mPresenter.sendPrivateMessage(OperateMsgUtil.getMsgBuilder(messageBody).build(), AppHttpPathMall.SEND_MSG);
         addDateTag(mPresenter.findPrivateChatRecordLastMessage(messageBody.getFromUserId()), messageBody);
         chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_TEXT_MSG, messageBody));
         scrollRecyclerview();
         ObjectBoxMallUtil.addMessage(messageBody);
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_TAKE_PHOTO:
+                if (resultCode == 101) {//拍照
+                    String path = data.getStringExtra("path");
+                    uploadPicFile(path);
+                } else if (resultCode == 102) {//拍视频
+                    String path = data.getStringExtra("path");
+                    uploadVideoFile(path);
+                } else if (resultCode == 103) {
+                    Toast.makeText(this, "请检查相机权限~", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+
+
+    /**
+     * 上传图片文件
+     *
+     * @param picPath
+     */
+    private void uploadPicFile(String picPath) {
+        hideBottomAndKeyboard();
+        //发送图片文件
+
+
+
+        ImageLoadUtil.getExifOrientation(mContext, picPath, new ImageLoadUtil.OnImageLoadSuccess() {
+            @Override
+            public void loadSuccess(int width, int height) {
+                MessageBodyBean messageBodyBean = OperateMsgUtil.getPrivateMsg(1, contactBean.getUserId(),
+                        contactBean.getAccount(), contactBean.getNickname(),
+                        contactBean.getHeadPortrait(), "");
+                messageBodyBean.setRotation(width > height ? "0" : "90");
+                messageBodyBean.setLocalCatchPath(picPath);
+                messageBodyBean.setAdapterPosition(chatAdapter.getData().size() - 1);
+                mUploadUtil.submit(ChatActivity.this, new UploadFileBean(picPath, messageBodyBean));
+
+
+            }
+        });
+
+
+    }
+
+    /**
+     * 上传视频文件
+     *
+     * @param picPath
+     */
+    private void uploadVideoFile(String picPath) {
+        hideBottomAndKeyboard();
+
+        //发送视频文件
+
+        // TODO: 2022/4/10 先上传一张视频的缩略图
+        MessageBodyBean messageBodyBean = OperateMsgUtil.getPrivateMsg(2, contactBean.getUserId(),
+                contactBean.getAccount(), contactBean.getNickname(),
+                contactBean.getHeadPortrait(), "");
+        messageBodyBean.setLocalCatchPath(picPath);
+        RxScheduler.doTask(this, new RxTask<String>() {
+            @Override
+            public String doOnIoThread() {
+                Bitmap videoBitmap = ImageLoadUtil.getVideoThumbnail(picPath);
+                return FileCacheUtils.saveBitmap(videoBitmap, ImageLoadUtil.getVideoThumbnailName(messageBodyBean.getCreateTime()), true);
+            }
+
+            @Override
+            public void doOnUIThread(String str) {
+                //封面图保存到本地之后上传到后台
+                mUploadUtil.submit(ChatActivity.this, new UploadFileBean(str, messageBodyBean));
+
+            }
+        });
+
+
+    }
+
 }
 
