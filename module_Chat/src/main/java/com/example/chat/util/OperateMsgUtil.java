@@ -118,10 +118,10 @@ public class OperateMsgUtil {
         MessageBodyBean messageBody = new MessageBodyBean();
         messageBody.setContent(content);
         messageBody.setCreateTime(String.valueOf(System.currentTimeMillis()));
-        messageBody.setFromAccount(ChatUserInfoManager.getUser().getAccount());
-        messageBody.setFromNickname(ChatUserInfoManager.getUser().getNickname());
-        messageBody.setFromHead(ChatUserInfoManager.getUser().getHeadPortrait());
-        messageBody.setFromUserId(ChatUserInfoManager.getUserId());
+        messageBody.setFromAccount(UserInfoManagerChat.getUser().getAccount());
+        messageBody.setFromNickname(UserInfoManagerChat.getUser().getNickname());
+        messageBody.setFromHead(UserInfoManagerChat.getUser().getHeadPortrait());
+        messageBody.setFromUserId(UserInfoManagerChat.getUserId());
         messageBody.setRead(true);
         messageBody.setToAccount(toUserAccout);
         messageBody.setToNickname(toNickName);
@@ -135,10 +135,10 @@ public class OperateMsgUtil {
     public static MultipartBody.Builder getMsgBuilder(MessageBodyBean messageBodyBean) {
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("token",ChatUserInfoManager.getUserToken())
-                .addFormDataPart("account",ChatUserInfoManager.getAccount())
+                .addFormDataPart("token", UserInfoManagerChat.getUserToken())
+                .addFormDataPart("account", UserInfoManagerChat.getAccount())
                 .addFormDataPart("typeEnd","app_buy")
-                .addFormDataPart("userId", String.valueOf(ChatUserInfoManager.getUserId()))
+                .addFormDataPart("userId", String.valueOf(UserInfoManagerChat.getUserId()))
                 .addFormDataPart("type", "1")
                 .addFormDataPart("fromUserId", String.valueOf(messageBodyBean.getFromUserId()))
                 .addFormDataPart("fromAccount", messageBodyBean.getFromAccount())
@@ -155,7 +155,7 @@ public class OperateMsgUtil {
 //                .addFormDataPart("hwPushIntentUrl", OperateMsgUtil.getHuaWeiPushIntentStr(messageBodyBean))
 //                .addFormDataPart("xiaomiPushIntentUrl", OperateMsgUtil.getXiaomiPushIntentStr(messageBodyBean))
                 .addFormDataPart("msgType", String.valueOf(messageBodyBean.getMsgType()));
-        if (messageBodyBean.getFromUserId() == ChatUserInfoManager.getUserId()) {
+        if (messageBodyBean.getFromUserId() == UserInfoManagerChat.getUserId()) {
             //我发送的信息
             //收藏的时候需要上传
             builder.addFormDataPart("localCatchPath", String.valueOf(messageBodyBean.getLocalCatchPath()));

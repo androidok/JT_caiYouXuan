@@ -6,7 +6,7 @@ public class AppHttpPathMall {
 //    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
             public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
 //    public static final String BASE_SOCKET = "ws://192.168.124.148/webSocket/";
-    public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21213/webSocket/";
+    public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21970/jt-mall/buyersSocket/";
     //    public static final String BASE_IMAGE = "http://192.168.124.148:9598";
     public static final String BASE_IMAGE = "http://www.juntaikeji.com:19170";
 
@@ -293,6 +293,10 @@ public class AppHttpPathMall {
      * 发送消息
      */
     public static final String SEND_MSG = BASE + "/msg/sendMassage";
+    /**
+     * 消息已读
+     */
+    public static final String MESSAGE_READ = BASE + "/msg/updateMsgRead";
     /**
      * 未读消息详情
      * */

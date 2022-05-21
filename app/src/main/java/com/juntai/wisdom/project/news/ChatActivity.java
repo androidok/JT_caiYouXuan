@@ -45,19 +45,22 @@ import com.juntai.disabled.basecomponent.utils.CalendarUtil;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
+import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.basecomponent.utils.RxTask;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.base.BaseAppActivity;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.utils.ObjectBoxMallUtil;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.negier.emojifragment.bean.Emoji;
 import com.negier.emojifragment.fragment.EmojiFragment;
 import com.negier.emojifragment.util.EmojiUtils;
+import com.zyl.chathelp.audio.AudioPlayManager;
 import com.zyl.chathelp.audio.AudioRecordManager;
 import com.zyl.chathelp.audio.IAudioRecordListener;
 import com.zyl.chathelp.utils.EmotionKeyboard;
@@ -194,6 +197,35 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
         });
     }
 
+    @Override
+    public void onEvent(EventBusObject eventBusObject) {
+        super.onEvent(eventBusObject);
+        switch (eventBusObject.getEventKey()) {
+            case EventBusObject.MESSAGE_BODY:
+                MessageBodyBean messageBody = (MessageBodyBean) eventBusObject.getEventObj();
+                if (messageBody.getFromUserId() == contactBean.getUserId() || messageBody.getToUserId() == contactBean.getUserId()) {
+                    //如果是正在聊天的对象发过来的 就不需要notification
+                    NotificationTool.SHOW_NOTIFICATION = false;
+                    // : 2022/5/21 通知后台消息已读
+                    mPresenter.messageRead(getBaseBuilder().add("msgId",String.valueOf(messageBody.getMsgId())).build(),AppHttpPathMall.MESSAGE_READ);
+                    messageBody.setRead(true);
+//                    HawkProperty.setRedPoint(mContext, -1);
+                    addDateTag(mPresenter.findPrivateChatRecordLastMessage(messageBody.getFromUserId()),
+                            messageBody);
+                    initAdapterDataFromMsgTypes(messageBody);
+                    scrollRecyclerview();
+                } else {
+                    NotificationTool.SHOW_NOTIFICATION = true;
+                }
+                ObjectBoxMallUtil.addMessage(messageBody);
+
+
+                break;
+            default:
+                break;
+        }
+    }
+
     /**
      * 滚到列表
      */
@@ -279,6 +311,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
 //        UserInfoManagerMall.initContacts(contactBean);
 // : 2022/5/19 获取所有的聊天记录
         setTitleName(contactBean.getNickname());
+        chatAdapter.setNewData(null);
         List<MessageBodyBean> arrays = mPresenter.findPrivateChatRecordList(contactBean.getUserId());
         if (arrays != null && arrays.size() > 0) {
             for (int i = 0; i < arrays.size(); i++) {
@@ -295,6 +328,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                 }
             }
         }
+        scrollRecyclerview();
         mPresenter.getContactUnreadMsg(getBaseBuilder().add("toUserId", String.valueOf(contactBean.getUserId())).build(), AppHttpPathMall.UNREAD_CONTACT_MSG);
 
     }
@@ -973,5 +1007,12 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AudioPlayManager.getInstance().stopPlay();
+        AudioRecordManager.getInstance(this).setAudioRecordListener(null);
+        AudioPlayManager.getInstance().release();
+    }
 }
 

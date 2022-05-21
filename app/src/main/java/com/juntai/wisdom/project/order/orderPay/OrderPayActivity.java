@@ -20,7 +20,7 @@ import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewActivity;
 import com.juntai.wisdom.project.beans.PicTextBean;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailBean;
 import com.juntai.wisdom.project.beans.order.OrderListBean;

@@ -15,7 +15,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.chat.R;
 import com.example.chat.chatcustomview.waveproview.WaveProgress;
-import com.example.chat.util.ChatUserInfoManager;
+import com.example.chat.util.UserInfoManagerChat;
 import com.example.chat.util.MultipleItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -94,10 +94,10 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
 //                initSelectedViewStatus(helper, messageBodyBean);
 //
 //
-//                if (ChatUserInfoManager.getUserId() == messageBodyBean.getFromUserId()) {
+//                if (UserInfoManagerChat.getUserId() == messageBodyBean.getFromUserId()) {
 //                    //我发送的消息
 //                    initNickName(helper, messageBodyBean, 0);
-//                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(ChatUserInfoManager.getHeadPic()), (ImageView) helper.getView(R.id.sender_pic_iv));
+//                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(UserInfoManagerChat.getHeadPic()), (ImageView) helper.getView(R.id.sender_pic_iv));
 //// : 2022/4/11 我发送的外部链接
 //                    helper.setText(R.id.sender_share_content_tv, messageBodyBean.getShareContent());
 //                    helper.setText(R.id.sender_share_title_tv, messageBodyBean.getShareTitle());
@@ -140,11 +140,11 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
                 helper.setGone(R.id.sender_quote_content_tv, false);
                 helper.setGone(R.id.receiver_quote_content_tv, false);
                 initSelectedViewStatus(helper, messageBodyBean);
-                if (ChatUserInfoManager.getUserId() == fromUserId) {
+                if (UserInfoManagerChat.getUserId() == fromUserId) {
                     //我发送的消息
                     initNickName(helper, messageBodyBean, 0);
                     EmojiUtils.showEmojiTextView(mContext, sendEt, messageBodyBean.getContent(), 22);
-                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(ChatUserInfoManager.getHeadPic()), (ImageView) helper.getView(R.id.sender_pic_iv));
+                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(UserInfoManagerChat.getHeadPic()), (ImageView) helper.getView(R.id.sender_pic_iv));
                 } else {
                     //对方发送的消息
                     initNickName(helper, messageBodyBean, 1);
@@ -158,17 +158,17 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
                 helper.addOnLongClickListener(R.id.audio_bg_rl);
                 initSelectedViewStatus(helper, messageBodyBean);
 
-                if (ChatUserInfoManager.getUserId() == messageBodyBean.getFromUserId()) {
+                if (UserInfoManagerChat.getUserId() == messageBodyBean.getFromUserId()) {
                     //发送
 //                    if (2 == messageBodyBean.getChatType()) {
 //                        helper.setGone(R.id.sender_nick_name_tv, false);
 //                    }
-                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(ChatUserInfoManager.getHeadPic()), (ImageView) helper.getView(R.id.audio_head_iv));
+                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(UserInfoManagerChat.getHeadPic()), (ImageView) helper.getView(R.id.audio_head_iv));
                 } else {
 //                    if (2 == messageBodyBean.getChatType()) {
 //                        helper.setGone(R.id.receiver_nick_name_tv, true);
 //                        //如果是好友 并且有好友备注 就显示好友备注
-//                        helper.setText(R.id.receiver_nick_name_tv, ChatUserInfoManager.getContactRemarkName(messageBodyBean));
+//                        helper.setText(R.id.receiver_nick_name_tv, UserInfoManagerChat.getContactRemarkName(messageBodyBean));
 //
 //                    }
                     ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(messageBodyBean.getFromHead()), (ImageView) helper.getView(R.id.audio_head_iv));
@@ -216,7 +216,7 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
                 helper.setGone(R.id.sender_video_duration_tv, false);
                 helper.setGone(R.id.receiver_video_duration_tv, false);
                 helper.setGone(R.id.receiver_play_iv, false);
-                if (ChatUserInfoManager.getUserId() == picFromUserId) {
+                if (UserInfoManagerChat.getUserId() == picFromUserId) {
                     //我发送的消息
                     WaveProgress waveProgress = helper.getView(R.id.sender_progress);
                     waveProgress.setMaxValue(100);
@@ -264,7 +264,7 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
 
                     }
                     initNickName(helper, messageBodyBean, 0);
-                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(ChatUserInfoManager.getHeadPic()), (ImageView) helper.getView(R.id.sender_pic_iv));
+                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(UserInfoManagerChat.getHeadPic()), (ImageView) helper.getView(R.id.sender_pic_iv));
 
                 } else {
                     //对方发送的消息
@@ -314,7 +314,7 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
      * @param nickNameType    0代表sender 1代表 receiver
      */
     private void initNickName(BaseViewHolder helper, MessageBodyBean messageBodyBean, int nickNameType) {
-        String nickname = ChatUserInfoManager.getContactRemarkName(messageBodyBean);
+        String nickname = UserInfoManagerChat.getContactRemarkName(messageBodyBean);
         helper.setGone(R.id.receiver_g, false);
         helper.setGone(R.id.sender_g, false);
         switch (nickNameType) {

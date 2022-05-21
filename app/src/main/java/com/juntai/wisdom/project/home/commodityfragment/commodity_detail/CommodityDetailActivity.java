@@ -18,7 +18,7 @@ import com.juntai.wisdom.project.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.beans.PicTextBean;
 import com.juntai.wisdom.project.beans.UserBeanMall;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.home.commodityfragment.CommodityPresent;

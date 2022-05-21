@@ -5,7 +5,6 @@ import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBea
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.ObjectBox;
 import com.juntai.wisdom.project.beans.CommodityDetailBean;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 
 import java.util.HashMap;
 import java.util.List;

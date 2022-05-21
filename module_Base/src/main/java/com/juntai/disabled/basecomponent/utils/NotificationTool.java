@@ -41,7 +41,7 @@ public class NotificationTool {
      * @param ongo:是否        设置为一个正在进行的通知，此时用户无法清除通知
      * @param intent
      */
-    public static Notification sendNotifMessage( int chatType,String nickName,int msgType, Context context, int id, String title, String content, int imageRes, boolean ongo, Intent intent, String otherNickName) {
+    public static Notification sendNotifMessage(int msgType, Context context, int id, String title, String content, int imageRes, boolean ongo, Intent intent) {
         NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
 
         switch (msgType) {
@@ -56,25 +56,6 @@ public class NotificationTool {
             case 3:
                 content = "[语音]";
                 break;
-            case 4:
-                content = "[视频通话]";
-                break;
-            case 5:
-                content = "[语音通话]";
-                break;
-            case 6:
-                content = "[位置]";
-                break;
-            case 7:
-                // : 2021-12-08 这个地方还需要优化下
-                content = title + "向你推荐了" + otherNickName;
-                break;
-            case 8:
-                content = "[文件]";
-                break;
-            case 9:
-                content = "[聊天记录]";
-                break;
             default:
                 break;
         }
@@ -84,7 +65,7 @@ public class NotificationTool {
         Uri   uri = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.msg);
         Notification notification = new NotificationCompat.Builder(context, MSG_CHANNEL_ID)
                 .setContentTitle(title)
-                .setContentText(2==chatType?String.format("%s:%s",nickName,content):content)
+                .setContentText(content)
                 .setSound(uri)
                 .setVibrate(new long[]{0, 500, 1000})
                 .setWhen(System.currentTimeMillis())

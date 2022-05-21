@@ -299,6 +299,9 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.SEND_MSG)
     Observable<BaseResult> sendMessage(@Body RequestBody requestBody);
 
+    @POST(AppHttpPathMall.MESSAGE_READ)
+    Observable<BaseResult> messageRead(@Body RequestBody requestBody);
+
     @POST(AppHttpPathMall.UNREAD_CONTACT_MSG)
     Observable<MessageListBean> getContactUnreadMsg(@Body RequestBody requestBody);
 

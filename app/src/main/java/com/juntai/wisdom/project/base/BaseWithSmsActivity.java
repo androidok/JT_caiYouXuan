@@ -13,7 +13,7 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.sendcode.SmsCheckCodeActivity;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mine.myinfo.HeadCropActivity;
 
 import java.util.List;

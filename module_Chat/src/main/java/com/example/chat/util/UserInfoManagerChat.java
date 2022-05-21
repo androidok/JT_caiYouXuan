@@ -12,7 +12,7 @@ import com.orhanobut.hawk.Hawk;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/12/19 14:04
  */
-public class ChatUserInfoManager {
+public class UserInfoManagerChat {
     public static String QQ_ID = null;//qqid
     public static String WECHAT_ID = null;//wechatid
     public static String OTHER_NICK_NAME = null;//第三方昵称

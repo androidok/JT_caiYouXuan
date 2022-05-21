@@ -18,7 +18,7 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewActivity;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mine.MyCenterContract;
 import com.juntai.wisdom.project.mine.MyCenterPresent;
 import com.juntai.wisdom.project.mine.modifyPwd.ModifyPwdActivity;
@@ -121,7 +121,7 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
                 TextKeyValueBean textKeyValueBean = (TextKeyValueBean) adapter.getData().get(position);
                 switch (textKeyValueBean.getKey()) {
 //                    case MY_INFO_NICK_NAME:
-//                        startActivityForResult(new Intent(mContext, ModifyNickNameActivity.class).putExtra(BaseModifyActivity.DEFAULT_HINT, ChatUserInfoManager.getUserNickName()), BASE_REQUEST_RESULT);
+//                        startActivityForResult(new Intent(mContext, ModifyNickNameActivity.class).putExtra(BaseModifyActivity.DEFAULT_HINT, UserInfoManagerChat.getUserNickName()), BASE_REQUEST_RESULT);
 //                        break;
 //                    case MY_INFO_ACCOUNT:
 //                        startActivityForResult(new Intent(mContext, ModifyAccountActivity.class)

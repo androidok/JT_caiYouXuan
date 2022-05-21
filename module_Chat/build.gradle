@@ -41,7 +41,7 @@ dependencies {
     implementation project((':oscvpush'))
     implementation project(path: ':rtc-chat')
     implementation 'com.oginotihiro:cropview:1.0.0'
-    implementation 'com.rabtman.wsmanager:wsmanager:1.0.2'
+    api 'com.rabtman.wsmanager:wsmanager:1.0.2'
     //发送语音相关
     api project(':chatAudioFile')
     implementation project(':module_Video')

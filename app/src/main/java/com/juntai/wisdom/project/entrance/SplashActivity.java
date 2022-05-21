@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.MainActivity;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;

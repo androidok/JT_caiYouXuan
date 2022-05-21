@@ -40,6 +40,7 @@ public class NewsListBean extends BaseResult {
         private String fromHead;
         private int toUserId;
         private int msgType;
+        private int unread;
         private String content;
         private long createTime;
 
@@ -53,6 +54,14 @@ public class NewsListBean extends BaseResult {
 
         public String getFromNickname() {
             return fromNickname;
+        }
+
+        public int getUnread() {
+            return unread;
+        }
+
+        public void setUnread(int unread) {
+            this.unread = unread;
         }
 
         public void setFromNickname(String fromNickname) {

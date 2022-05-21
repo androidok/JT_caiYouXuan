@@ -19,7 +19,7 @@ import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.beans.PicTextBean;
 import com.juntai.wisdom.project.beans.UserBeanMall;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.OrderStatusAmountBean;
 import com.juntai.wisdom.project.home.commodityfragment.commodity_detail.PicTextAdapter;
 import com.juntai.wisdom.project.mine.collect.CollectCommoditiesActivity;

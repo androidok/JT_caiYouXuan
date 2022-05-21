@@ -13,7 +13,7 @@ import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.base.customview.CustomViewPager;
 import com.juntai.wisdom.project.beans.IdNameBean;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.shop.ShopDetailBean;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.home.shop.ShopActivity;

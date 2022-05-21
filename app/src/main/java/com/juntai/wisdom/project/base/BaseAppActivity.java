@@ -30,7 +30,7 @@ import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.selectPics.BaseSelectPicsActivity;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.beans.order.OrderDetailBean;
 import com.juntai.wisdom.project.entrance.LoginActivity;
@@ -289,8 +289,8 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
 //     */
 //    public FormBody.Builder getBaseBuilderWithoutUserId() {
 //        FormBody.Builder builder = new FormBody.Builder();
-//        builder.add("account", ChatUserInfoManager.getUserAccount());
-//        builder.add("token", ChatUserInfoManager.getUserToken());
+//        builder.add("account", UserInfoManagerChat.getUserAccount());
+//        builder.add("token", UserInfoManagerChat.getUserToken());
 //        return builder;
 //    }
 
@@ -301,7 +301,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     //     * @return
     //     */
     //    public boolean isInnerAccount() {
-    //        return ChatUserInfoManager.isTest();
+    //        return UserInfoManagerChat.isTest();
 
     //    }
 

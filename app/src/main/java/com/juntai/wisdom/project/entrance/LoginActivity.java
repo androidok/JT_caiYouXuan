@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.chat.MyChatApp;
-import com.example.chat.util.ChatUserInfoManager;
+import com.example.chat.util.UserInfoManagerChat;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -20,7 +20,7 @@ import com.juntai.wisdom.project.MainActivity;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.beans.UserBeanMall;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mine.modifyPwd.BackPwdActivity;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
@@ -257,8 +257,8 @@ public class LoginActivity extends SmsCheckCodeActivity implements
      * @param name
      */
     public void loginForQQWeChat(String name) {
-        ChatUserInfoManager.QQ_ID = null;
-        ChatUserInfoManager.WECHAT_ID = null;
+        UserInfoManagerChat.QQ_ID = null;
+        UserInfoManagerChat.WECHAT_ID = null;
         otherHeadIcon = null;
 
         Platform plat = ShareSDK.getPlatform(name);
@@ -282,7 +282,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     platDB = platform.getDb();//获取数平台数据DB
                     //通过DB获取各种数据
                     LogUtil.e("id=" + platDB.getUserId());
-                    ChatUserInfoManager.OTHER_NICK_NAME = platDB.getUserName();
+                    UserInfoManagerChat.OTHER_NICK_NAME = platDB.getUserName();
                     otherHeadIcon = platDB.getUserIcon();
 //                    if (platform.getName().equals(QQ.NAME)) {
 //                        String params = "access_token=" + platform.getDb().getToken() + "&unionid=1&fmt=json";
@@ -291,7 +291,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
 //                            public void onSuccess(String str) {
 //                                if (!TextUtils.isEmpty(str)) {
 //                                    UnionidBean unionidBean = GsonTools.changeGsonToBean(str, UnionidBean.class);
-//                                    ChatUserInfoManager.QQ_ID = unionidBean.getUnionid();
+//                                    UserInfoManagerChat.QQ_ID = unionidBean.getUnionid();
 //                                    myHandler.sendEmptyMessage(1);
 //                                }
 //                            }
@@ -302,7 +302,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
 //                        });
 //
 //                    } else {
-//                        ChatUserInfoManager.WECHAT_ID = platform.getDb().get("unionid");
+//                        UserInfoManagerChat.WECHAT_ID = platform.getDb().get("unionid");
 //                        myHandler.sendEmptyMessage(1);
 //                    }
 
@@ -328,7 +328,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
      * 第三方登录
      */
     public void otherLogin() {
-//        mPresenter.login(null, null, ChatUserInfoManager.WECHAT_ID, ChatUserInfoManager.QQ_ID, EntranceContract.LOGIN_TAG);
+//        mPresenter.login(null, null, UserInfoManagerChat.WECHAT_ID, UserInfoManagerChat.QQ_ID, EntranceContract.LOGIN_TAG);
     }
 
     @Override

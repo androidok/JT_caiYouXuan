@@ -15,7 +15,7 @@ import io.objectbox.annotation.Id;
  * @UpdateDate: 2021-09-29 9:39
  */
 @Entity
-public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
+public class MessageBodyBean  implements Parcelable {
 
     /**
      * fromUserId : 101
@@ -31,6 +31,7 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
      */
     @Id
     public long id;
+    private int msgId;
     private int fromUserId;
     private String fromAccount;
     private String atUserId;
@@ -80,6 +81,14 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
     public MessageBodyBean(String content, int msgType) {
         this.content = content;
         this.msgType = msgType;
+    }
+
+    public int getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(int msgId) {
+        this.msgId = msgId;
     }
 
     public boolean isSelected() {
@@ -317,6 +326,7 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(this.id);
+        dest.writeInt(this.msgId);
         dest.writeInt(this.fromUserId);
         dest.writeString(this.fromAccount);
         dest.writeString(this.atUserId);
@@ -348,6 +358,7 @@ public class MessageBodyBean extends BaseWsMessageBean implements Parcelable {
 
     protected MessageBodyBean(Parcel in) {
         this.id = in.readLong();
+        this.msgId = in.readInt();
         this.fromUserId = in.readInt();
         this.fromAccount = in.readString();
         this.atUserId = in.readString();

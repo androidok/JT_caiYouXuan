@@ -12,7 +12,7 @@ import com.juntai.wisdom.project.AppNetModuleMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppMallPresent;
 import com.juntai.wisdom.project.beans.NewsListBean;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +100,32 @@ public class NewsPresent extends BaseAppMallPresent {
     public void sendPrivateMessage(RequestBody body, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .sendMessage(body)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(null) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    /**
+     * 发送私聊消息
+     *
+     * @param body
+     * @param tag
+     */
+    public void messageRead(RequestBody body, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .messageRead(body)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(null) {
                     @Override

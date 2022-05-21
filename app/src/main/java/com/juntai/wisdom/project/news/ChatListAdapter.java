@@ -87,8 +87,8 @@ public class ChatListAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                         break;
                 }
 
-//                helper.setGone(R.id.amount_tv, !messageBodyBean.isRead());
-//                helper.setText(R.id.amount_tv, String.valueOf(messageBodyBean.getUnreadCount()));
+                helper.setGone(R.id.amount_tv, dataBean.getUnread()>0);
+                helper.setText(R.id.amount_tv, String.valueOf(dataBean.getUnread()));
                 helper.setText(R.id.msg_time_tv, CalendarUtil.formatDataOfChatList(String.valueOf(dataBean.getCreateTime())));
                 break;
             default:

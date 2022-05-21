@@ -18,12 +18,13 @@ import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.wisdom.project.base.BaseAppActivity;
 import com.juntai.wisdom.project.base.customview.CustomViewPager;
 import com.juntai.wisdom.project.base.customview.MainPagerAdapter;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
 import com.juntai.wisdom.project.home.HomeFragment;
 import com.juntai.wisdom.project.live.LiveFragment;
 import com.juntai.wisdom.project.mine.MyCenterFragment;
 import com.juntai.wisdom.project.news.NewsListFragment;
 import com.juntai.wisdom.project.shoppingCart.ShoppingCartFragment;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
+import com.juntai.wisdom.project.webSocket.MyWsManager;
 
 public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         View.OnClickListener, MainPageContract.IMainPageView {
@@ -32,8 +33,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     private CustomViewPager mainViewpager;
 
     private TabLayout mainTablayout;
-    private String[] title = new String[]{"首页","直播","消息", "购物车","个人中心"};
-    private int[] tabDrawables = new int[]{R.drawable.home_index,R.drawable.live_index,R.drawable.notice_index,R.drawable.cart_index,R.drawable.mine_index};
+    private String[] title = new String[]{"首页", "直播", "消息", "购物车", "个人中心"};
+    private int[] tabDrawables = new int[]{R.drawable.home_index, R.drawable.live_index, R.drawable.notice_index, R.drawable.cart_index, R.drawable.mine_index};
     private SparseArray<Fragment> mFragments = new SparseArray<>();
     //
 
@@ -41,6 +42,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        startWebSocket();
         if (mainViewpager != null) {
             mainViewpager.setCurrentItem(0);
         }
@@ -65,7 +67,14 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         mFragments.append(4, new MyCenterFragment());//
         mainViewpager.setOffscreenPageLimit(5);
         initTab();
+        startWebSocket();
+    }
 
+    private void startWebSocket() {
+        MyWsManager.getInstance()
+                .init(mContext.getApplicationContext())
+                .setWsUrl(AppHttpPathMall.BASE_SOCKET + UserInfoManagerMall.getUserId())
+                .startConnect();
     }
 
     @Override
@@ -83,7 +92,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         for (int i = 0; i < title.length; i++) {
             TabLayout.Tab tab = mainTablayout.newTab();
             if (tab != null) {
-                if (i == title.length - 1) {
+                if (i == 2) {
                     tab.setCustomView(adapter.getTabView(i, true));
                 } else {
                     tab.setCustomView(adapter.getTabView(i, false));
@@ -135,6 +144,10 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
             case EventBusObject.RE_LOAD:
                 reLogin(UserInfoManagerMall.getPhoneNumber());
                 break;
+            case EventBusObject.UNREAD_MSG_AMOUNT:
+                int amount = (int) eventBusObject.getEventObj();
+                adapter.setUnReadMsg(amount);
+                break;
             default:
                 break;
         }
@@ -148,7 +161,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     @Override
     public void onLocationReceived(BDLocation bdLocation) {
 
-        EventManager.getEventBus().post(new EventBusObject(EventBusObject.ON_LOCATION_RECEIVED,bdLocation));
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.ON_LOCATION_RECEIVED, bdLocation));
     }
 
     @Override
@@ -159,6 +172,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     @Override
     protected void onResume() {
         super.onResume();
+        MyWsManager.getInstance().startConnect();
+
     }
 
     @Override
@@ -197,7 +212,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     public void onPause() {
         super.onPause();
     }
-
 
 
 }

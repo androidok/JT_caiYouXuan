@@ -52,6 +52,14 @@ public class EventBusObject {
 
     public final static String EVALUATE = "评价";
     public final static String WEIXIN_PAY_SUCCESS = "WEIXIN_PAY_SUCCESS";
+    /**
+     * 未读消息总数
+     */
+    public final static String UNREAD_MSG_AMOUNT = "UNREAD_MSG_AMOUNT";
+    /**
+     * 聊天内容
+     */
+    public final static String MESSAGE_BODY = "MESSAGE_BODY";
 //    /**
 //     * 进入订单详情
 //     */

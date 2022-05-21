@@ -341,8 +341,8 @@ public abstract class BaseChatAppActivity<P extends BasePresenter> extends BaseC
 //     */
 //    public FormBody.Builder getBaseBuilderWithoutUserId() {
 //        FormBody.Builder builder = new FormBody.Builder();
-//        builder.add("account", ChatUserInfoManager.getUserAccount());
-//        builder.add("token", ChatUserInfoManager.getUserToken());
+//        builder.add("account", UserInfoManagerChat.getUserAccount());
+//        builder.add("token", UserInfoManagerChat.getUserToken());
 //        return builder;
 //    }
 
@@ -353,7 +353,7 @@ public abstract class BaseChatAppActivity<P extends BasePresenter> extends BaseC
     //     * @return
     //     */
     //    public boolean isInnerAccount() {
-    //        return ChatUserInfoManager.isTest();
+    //        return UserInfoManagerChat.isTest();
 
     //    }
 

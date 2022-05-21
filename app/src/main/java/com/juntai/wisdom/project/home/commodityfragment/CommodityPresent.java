@@ -14,7 +14,7 @@ import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppPresent;
 import com.juntai.wisdom.project.home.HomePageContract;
-import com.juntai.wisdom.project.beans.UserInfoManagerMall;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 

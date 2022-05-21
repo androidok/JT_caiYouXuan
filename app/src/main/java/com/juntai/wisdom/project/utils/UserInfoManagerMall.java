@@ -1,7 +1,8 @@
-package com.juntai.wisdom.project.beans;
+package com.juntai.wisdom.project.utils;
 
 import com.example.chat.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
+import com.juntai.wisdom.project.webSocket.MyWsManager;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.HashMap;
@@ -81,7 +82,7 @@ public class UserInfoManagerMall {
         Hawk.delete(HawkProperty.SP_KEY_TOKEN);
 //        Hawk.delete(HawkPropertyChat.SP_KEY_UNREAD_COUNT);
         //ws退出连接
-//        MyWsManager.getInstance().disconnect();
+        MyWsManager.getInstance().disconnect();
 //        AliPushManager.getInstance().unbindAccount(UserInfoManager.getUserUUID());
 
     }

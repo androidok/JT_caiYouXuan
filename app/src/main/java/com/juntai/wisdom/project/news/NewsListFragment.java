@@ -6,6 +6,8 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.bean.ContactBean;
 import com.example.chat.util.MultipleItem;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewFragment;
@@ -55,8 +57,15 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getRvAdapterData();
+    }
+
+    @Override
     protected void getRvAdapterData() {
         mPresenter.getNewsList(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.NEWS_LIST);
+
     }
 
 
@@ -96,10 +105,13 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
                 if (newsListBean != null) {
                     List<NewsListBean.DataBean> dataBeans = newsListBean.getData();
                     if (dataBeans != null) {
+                        int unreadAmount = 0;
                         List<MultipleItem> arrays = new ArrayList<>();
                         for (NewsListBean.DataBean array : dataBeans) {
+                            unreadAmount+=array.getUnread();
                             arrays.add(new MultipleItem(MultipleItem.ITEM_CHAT_LIST_CONTACT, array));
                         }
+                        EventManager.getEventBus().post(new EventBusObject(EventBusObject.UNREAD_MSG_AMOUNT,unreadAmount));
                         baseQuickAdapter.setNewData(arrays);
                     }
                 }
