@@ -262,6 +262,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                 UserBeanMall loginBean = (UserBeanMall) o;
                 if (loginBean != null) {
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
+                    ImageLoadUtil.loadHeadPic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage, true);
                 }
                 break;
             default:

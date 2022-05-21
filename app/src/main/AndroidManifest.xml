@@ -30,7 +30,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".search.SearchActivity"></activity>
+        <activity android:name=".share.ShareActivity"></activity>
+        <activity android:name=".search.SearchActivity" />
+        <activity android:name="com.juntai.wisdom.project.mine.myinfo.ModifyNickNameActivity" />
         <activity
             android:name=".news.ChatActivity"
             android:launchMode="singleTask" />

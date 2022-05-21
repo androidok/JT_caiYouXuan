@@ -70,11 +70,11 @@ public class AppHttpPathMall {
     /**
      * 修改密码
      */
-    public static final String MODIFY_PWD = BASE + "/member/updatePassword";
+    public static final String MODIFY_PWD = BASE + "/member/updateMemberPwd";
     /**
      * 修改个人信息
      */
-    public static final String MODIFY_USER_INFO = BASE + "/member/updateUserInfo";
+    public static final String MODIFY_USER_INFO = BASE + "/member/updateMember";
 
     /**
      * 修改账户

@@ -18,11 +18,13 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewActivity;
-import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mine.MyCenterContract;
 import com.juntai.wisdom.project.mine.MyCenterPresent;
 import com.juntai.wisdom.project.mine.modifyPwd.ModifyPwdActivity;
+import com.juntai.wisdom.project.mine.myinfo.BaseModifyActivity;
 import com.juntai.wisdom.project.mine.myinfo.HeadCropActivity;
+import com.juntai.wisdom.project.mine.myinfo.ModifyNickNameActivity;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,9 +101,11 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
         super.selectedPicsAndEmpressed(icons);
         if (icons.size() > 0) {
             String picPath = icons.get(0);
+            ImageLoadUtil.loadHeadPic(getApplicationContext(), picPath,
+                    imageView,
+                    true);
             //跳转到裁剪头像的界面
-            startActivityForResult(new Intent(this, HeadCropActivity.class).putExtra(HeadCropActivity.HEAD_PIC,
-                    picPath), BASE_REQUEST_RESULT);
+            mPresenter.uploadFile(AppHttpPathMall.UPLOAD_FILES,picPath);
 
         }
     }
@@ -120,15 +124,15 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 TextKeyValueBean textKeyValueBean = (TextKeyValueBean) adapter.getData().get(position);
                 switch (textKeyValueBean.getKey()) {
-//                    case MY_INFO_NICK_NAME:
-//                        startActivityForResult(new Intent(mContext, ModifyNickNameActivity.class).putExtra(BaseModifyActivity.DEFAULT_HINT, UserInfoManagerChat.getUserNickName()), BASE_REQUEST_RESULT);
-//                        break;
+                    case MY_INFO_NICK_NAME:
+                        startActivityForResult(new Intent(mContext, ModifyNickNameActivity.class).putExtra(BaseModifyActivity.DEFAULT_HINT, UserInfoManagerMall.getUserNickName()), BASE_REQUEST_RESULT);
+                        break;
 //                    case MY_INFO_ACCOUNT:
 //                        startActivityForResult(new Intent(mContext, ModifyAccountActivity.class)
 //                                .putExtra(BaseModifyActivity.DEFAULT_HINT, UserInfoManagerMall.getPhoneNumber()), BASE_REQUEST_RESULT);
 //                        break;
                     case MY_INFO_MODIFY_PWD:
-                        // TODO: 2022/5/6 修改密码
+                        // : 2022/5/6 修改密码
                         startActivity(new Intent(mContext, ModifyPwdActivity.class));
                         break;
 //                    default:
@@ -178,8 +182,8 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
             case AppHttpPathMall.UPLOAD_FILES:
                 List<String> paths = (List<String>) o;
                 if (paths!=null&&!paths.isEmpty()) {
-                    //todo 调用修改头像的接口
-//                    mPresenter.modifyUserInfo(getBaseBuilder().add("headPortrait",paths.get(0)).build(),AppHttpPathChat.MODIFY_USER_INFO);
+                    // 调用修改头像的接口
+                    mPresenter.modifyUserInfo(getBaseBuilder().add("headPortrait",paths.get(0)).build(),AppHttpPathMall.MODIFY_USER_INFO);
                 }
 
                 break;

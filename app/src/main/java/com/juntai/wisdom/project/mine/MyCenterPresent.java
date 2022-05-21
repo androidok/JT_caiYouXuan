@@ -116,6 +116,27 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
                     }
                 });
     }
+    public void modifyUserInfo(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .modifyUserInfo(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
 
     public void getCommodityCollectList(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()

@@ -24,6 +24,13 @@ public interface HomePageContract {
     String MENUE_WEATHER = "天气";//天气
 
 
+    String  SHARE_WEIXIN = "微信";
+    String  SHARE_QQ = "QQ";
+    String  SHARE_WEIXIN_FRIENDS = "朋友圈";
+
+
+
+
     String  SHOP = "店铺";
     String  CUSTOMER = "客服";
     String  COLLECT = "收藏";

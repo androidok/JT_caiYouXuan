@@ -119,6 +119,26 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
                     }
                 });
     }
+    public void modifyPwd( RequestBody body,String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .modifyPwd(body)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
 
     /**
      * 上传文件

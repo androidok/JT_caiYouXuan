@@ -8,10 +8,12 @@ import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppActivity;
-import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.beans.shop.ShopDetailBean;
+import com.juntai.wisdom.project.home.HomePageContract;
+import com.juntai.wisdom.project.share.ShareActivity;
 import com.juntai.wisdom.project.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -48,6 +50,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
     private int collectId = 0;
 
     private ShopDetailBean.DataBean shopBean;
+    private List<String> bannerPics;
 
     @Override
     protected ShopPresent createPresenter() {
@@ -81,6 +84,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
     private void initBanner(ShopDetailBean.DataBean shopBean) {
         collectId = shopBean.getIsCollect();
         List<String> picVideos = new ArrayList<>();
+        bannerPics = new ArrayList<>();
 
         mShopBanner.isAutoPlay(false);
         mShopBanner.setOnBannerListener(new OnBannerListener() {
@@ -104,12 +108,13 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
             if (bannerPic.contains(",")) {
                 String[] pics = bannerPic.split(",");
                 for (String pic : pics) {
-                    picVideos.add(pic);
+                    bannerPics.add(pic);
                 }
             } else {
-                picVideos.add(bannerPic);
+                bannerPics.add(bannerPic);
             }
         }
+        picVideos.addAll(bannerPics);
         mShopBanner.setImages(picVideos).setImageLoader(imageLoader).start();
     }
 
@@ -181,7 +186,13 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                 }
                 break;
             case R.id.shop_share_iv:
-                // TODO: 2022/5/8 店铺分享
+                // : 2022/5/8 店铺分享
+                if (shopBean == null) {
+                    ToastUtils.toast(mContext, "无法获取店铺信息 不能分享");
+                    return;
+                }
+                ShareActivity.startShareActivity(mContext, 0, bannerPics.isEmpty()?"":bannerPics.get(0), shopBean.getIntroduction());
+
                 break;
         }
     }

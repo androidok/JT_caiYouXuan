@@ -158,7 +158,10 @@ public class UserInfoManagerMall {
      * @return
      */
     public static String getUserToken() {
-        return Hawk.get(HawkProperty.SP_KEY_TOKEN);
+        if (Hawk.contains(HawkProperty.SP_KEY_TOKEN)) {
+            return Hawk.get(HawkProperty.SP_KEY_TOKEN);
+        }
+       return "";
     }
 
     /**

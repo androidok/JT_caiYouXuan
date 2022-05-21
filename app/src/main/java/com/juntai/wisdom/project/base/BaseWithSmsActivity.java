@@ -1,6 +1,7 @@
 package com.juntai.wisdom.project.base;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -13,12 +14,10 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.sendcode.SmsCheckCodeActivity;
-import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mine.myinfo.HeadCropActivity;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 
 import java.util.List;
-
-import okhttp3.FormBody;
 
 /**
  * @aouther tobato
@@ -51,7 +50,6 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
     public ImageView mHideShowIv;
     public boolean isHide = true;//默认隐藏
     protected String headPicPath;
-    protected FormBody.Builder builder;
 
     @Override
     public int getLayoutView() {
@@ -90,6 +88,21 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
     public void onClick(View v) {
         switch (v.getId()) {
             default:
+                break;
+            case R.id.regist_tv:
+
+                if (checkMobileNo()) return;
+
+                if (TextUtils.isEmpty(getTextViewValue(mRegistCheckCodeEt))) {
+                    ToastUtils.warning(mContext, "请输入验证码");
+                    return;
+                }
+                if (TextUtils.isEmpty(getTextViewValue(mPasswordEt))) {
+                    ToastUtils.warning(mContext, "请输入密码");
+                    return;
+                }
+                commit();
+
                 break;
             case R.id.regist_send_check_code_tv:
                 // 注册界面发送验证码

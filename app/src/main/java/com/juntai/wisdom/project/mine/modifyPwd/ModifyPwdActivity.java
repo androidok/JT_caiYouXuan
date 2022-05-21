@@ -1,6 +1,10 @@
 package com.juntai.wisdom.project.mine.modifyPwd;
 
+import com.juntai.disabled.basecomponent.utils.MD5;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.base.BaseWithSmsActivity;
+import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 
 /**
  * @aouther tobato
@@ -26,10 +30,15 @@ public class ModifyPwdActivity extends BaseWithSmsActivity {
 
     @Override
     protected void commit() {
-
-// TODO: 2022/5/10 调用修改密码的接口
-//        mPresenter.modifyPwd(UserInfoManager.getUserId(), getTextViewValue(mRegistPhoneEt), MD5.md5(String.format("%s#%s", getTextViewValue(mRegistPhoneEt), getTextViewValue(mPasswordEt)))
-//                , getTextViewValue(mRegistCheckCodeEt), AppHttpPath.MODIFY_PWD);
+        if (!UserInfoManagerMall.getPhoneNumber().equals(getTextViewValue(mRegistPhoneEt))) {
+            ToastUtils.toast(mContext, "请输入注册的手机号");
+            return;
+        }
+// : 2022/5/10 调用修改密码的接口
+        mPresenter.modifyPwd(
+                getBaseBuilder().add("phone", getTextViewValue(mRegistPhoneEt))
+                        .add("code", getTextViewValue(mRegistCheckCodeEt))
+                        .add("newPwd", MD5.md5(String.format("%s#%s", getTextViewValue(mRegistPhoneEt), getTextViewValue(mPasswordEt)))).build(), AppHttpPathMall.MODIFY_PWD);
     }
 
 }

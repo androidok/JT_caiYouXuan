@@ -18,6 +18,7 @@ import com.juntai.wisdom.project.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.beans.PicTextBean;
 import com.juntai.wisdom.project.beans.UserBeanMall;
+import com.juntai.wisdom.project.share.ShareActivity;
 import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.home.HomePageContract;
@@ -74,7 +75,12 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
         getTitleRightTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 2022/5/3 跳转到 分享商品的界面
+                // : 2022/5/3 跳转到 分享商品的界面
+                if (dataBean == null) {
+                    ToastUtils.toast(mContext, "商品信息获取失败 无法分享");
+                    return;
+                }
+                ShareActivity.startShareActivity(mContext, 1, dataBean.getCoverImg(), dataBean.getDescription());
             }
         });
         commodityId = getIntent().getIntExtra(BASE_ID, 0);
@@ -105,7 +111,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                                 .add("token", UserInfoManagerMall.getUserToken())
                                 .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
                                 .add("userId", String.valueOf(dataBean.getUserId()));
-                        mPresenter.getUserInfo(builder.build(),AppHttpPathMall.GET_USER_INFO);
+                        mPresenter.getUserInfo(builder.build(), AppHttpPathMall.GET_USER_INFO);
 
                         break;
                     case HomePageContract.COLLECT:

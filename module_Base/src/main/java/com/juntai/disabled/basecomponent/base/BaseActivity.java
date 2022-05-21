@@ -13,7 +13,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,14 +42,14 @@ import com.juntai.disabled.basecomponent.bean.BaseMenuBean;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.DividerItemDecoration;
-import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
-import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.LoadingDialog;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ScreenUtils;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -99,6 +98,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     public static String BASE_ID = "baseId";//请求的回执
     public static String BASE_ID2 = "baseId2";//请求的回执
     public static String BASE_STRING = "baseString";//
+    public static String BASE_STRING2 = "baseString2";//
     public   final String TAG = getClass().getSimpleName();
 
 

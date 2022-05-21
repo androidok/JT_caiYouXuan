@@ -179,8 +179,7 @@ public interface AppServerMall {
     Observable<UploadFileBean> uploadFiles(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.MODIFY_PWD)
-    Observable<BaseResult> modifyPwd(@Query("userId") int userId, @Query("phoneNumber") String account, @Query("password") String password, @Query("code") String code
-    );
+    Observable<BaseResult> modifyPwd(@Body RequestBody requestBody);
 
     /**
      * account  手机号
