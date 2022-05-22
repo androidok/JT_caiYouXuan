@@ -12,7 +12,8 @@ import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.home.commodityfragment.commodity_detail.evaluation.EvaluationAdapter;
-import com.juntai.wisdom.project.utils.GlideImageLoader;
+import com.juntai.wisdom.project.utils.bannerImageLoader.BannerObject;
+import com.juntai.wisdom.project.utils.bannerImageLoader.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -47,7 +48,7 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
         switch (item.getItemType()) {
             case MultipleItem.ITEM_COMMODITY_BASE_INFO:
                 CommodityDetailBean.DataBean dataBean = (CommodityDetailBean.DataBean) item.getObject();
-                List<String> picVideos = new ArrayList<>();
+                List<BannerObject> bannerObjects = new ArrayList<>();
                 Banner banner = helper.getView(R.id.commodity_banner);
                 banner.isAutoPlay(false);
                 banner.setOnBannerListener(new OnBannerListener() {
@@ -63,19 +64,20 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
 
                     }
                 });
-                if (!TextUtils.isEmpty(dataBean.getCoverImg())) {
-                    picVideos.add(dataBean.getCoverImg());
-                }
                 if (!TextUtils.isEmpty(dataBean.getVideoUrl())) {
-                    picVideos.add(dataBean.getVideoUrl());
+                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO,dataBean.getVideoUrl()));
                 }
+                if (!TextUtils.isEmpty(dataBean.getCoverImg())) {
+                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE,dataBean.getCoverImg()));
+                }
+
                 List<CommodityDetailBean.DataBean.ImagesBean>  imagesBeans = dataBean.getImages();
                 if (imagesBeans != null&&imagesBeans.size()>0) {
                     for (CommodityDetailBean.DataBean.ImagesBean imagesBean : imagesBeans) {
-                        picVideos.add(imagesBean.getImgUrl());
+                        bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE,imagesBean.getImgUrl()));
                     }
                 }
-                banner.setImages(picVideos).setImageLoader(imageLoader).start();
+                banner.setImages(bannerObjects).setImageLoader(imageLoader).start();
                 helper.setText(R.id.commodity_des_tv, dataBean.getName());
                 helper.setText(R.id.commodity_price_tv, String.format("￥%s", dataBean.getPrice()));
                 helper.setText(R.id.commodity_sales_tv, String.format("销量:%s", dataBean.getSales()));

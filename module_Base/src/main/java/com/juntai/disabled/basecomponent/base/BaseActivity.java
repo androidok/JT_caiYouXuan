@@ -99,6 +99,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     public static String BASE_ID2 = "baseId2";//请求的回执
     public static String BASE_STRING = "baseString";//
     public static String BASE_STRING2 = "baseString2";//
+    public static String BASE_STRING3 = "baseString3";//
     public   final String TAG = getClass().getSimpleName();
 
 

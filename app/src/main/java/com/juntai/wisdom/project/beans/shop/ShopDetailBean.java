@@ -53,11 +53,29 @@ public class ShopDetailBean extends BaseResult {
         private String createTime;
         private String backImg;
         private String cameraUrl;
+        private String cameraNumber;
+        private String cameraCover;
         private String shopImg;
         private List<ClassifyListBean> classifyList;
 
         public int getIsCollect() {
             return isCollect;
+        }
+
+        public String getCameraNumber() {
+            return cameraNumber == null ? "" : cameraNumber;
+        }
+
+        public void setCameraNumber(String cameraNumber) {
+            this.cameraNumber = cameraNumber == null ? "" : cameraNumber;
+        }
+
+        public String getCameraCover() {
+            return cameraCover == null ? "" : cameraCover;
+        }
+
+        public void setCameraCover(String cameraCover) {
+            this.cameraCover = cameraCover == null ? "" : cameraCover;
         }
 
         public void setIsCollect(int isCollect) {

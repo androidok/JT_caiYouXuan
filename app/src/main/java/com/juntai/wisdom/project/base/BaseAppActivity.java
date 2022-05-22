@@ -266,7 +266,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      */
     public FormBody.Builder getBaseBuilder() {
         FormBody.Builder builder = new FormBody.Builder()
-                .add("account", UserInfoManagerMall.getPhoneNumber())
+                .add("account", UserInfoManagerMall.getAccount())
                 .add("token", UserInfoManagerMall.getUserToken())
                 .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
                 .add("userId", String.valueOf(UserInfoManagerMall.getUserId()));

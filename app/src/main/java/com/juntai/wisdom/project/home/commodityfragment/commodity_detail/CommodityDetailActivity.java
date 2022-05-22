@@ -107,7 +107,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                         // : 2022/5/3 联系店铺客服
                         // : 2022/5/19 获取客服人员的信息
                         FormBody.Builder builder = new FormBody.Builder()
-                                .add("account", UserInfoManagerMall.getPhoneNumber())
+                                .add("account", UserInfoManagerMall.getAccount())
                                 .add("token", UserInfoManagerMall.getUserToken())
                                 .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
                                 .add("userId", String.valueOf(dataBean.getUserId()));

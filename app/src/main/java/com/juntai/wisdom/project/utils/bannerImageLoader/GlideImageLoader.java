@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.utils;
+package com.juntai.wisdom.project.utils.bannerImageLoader;
 
 import android.content.Context;
 import android.view.View;
@@ -6,12 +6,14 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.wisdom.project.beans.shop.ShopDetailBean;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.youth.banner.loader.ImageLoaderInterface;
 
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
+
 
 public class GlideImageLoader implements ImageLoaderInterface<View> {
     StandardGSYVideoPlayer videoPlayer;
@@ -34,27 +36,46 @@ public class GlideImageLoader implements ImageLoaderInterface<View> {
          切记不要胡乱强转！
          */
         //eg：
-        if (((String)path).contains(".mp4") || ((String) path).contains("getVideo")){
-            pathV = (String) path;
-            startVideo(context);
-        }else {
+
+        BannerObject  bannerObject = (BannerObject) path;
+        String eventKey = bannerObject.getEventKey();
+        if (BannerObject.BANNER_TYPE_IMAGE.equals(eventKey)) {
             ImageView imageView = (ImageView) view;
             //Glide 加载图片简单用法
-            ImageLoadUtil.loadImageCache(context, (String) path,imageView);
+            ImageLoadUtil.loadImageCache(context, (String) bannerObject.getEventObj(),imageView);
+        } else if (BannerObject.BANNER_TYPE_VIDEO.equals(eventKey)) {
+            pathV = (String) bannerObject.getEventObj();
+            startVideo(context);
+        } else if (BannerObject.BANNER_TYPE_RTMP.equals(eventKey)) {
+            ImageView imageView = (ImageView) view;
+
+            ShopDetailBean.DataBean shopBean  = (ShopDetailBean.DataBean) bannerObject.getEventObj();
+            ImageLoadUtil.loadImageCache(context, shopBean.getCameraCover(),imageView);
         }
+
+
     }
 
 
     @Override
     public View createImageView(Context context, Object path) {
         //使用fresco，需要创建它提供的ImageView，当然你也可以用自己自定义的具有图片加载功能的ImageView
-        if (((String) path).contains(".mp4") || ((String) path).contains("getVideo")){
-            videoPlayer = new StandardGSYVideoPlayer(context);
-            return videoPlayer;
-        }else {
+        BannerObject  bannerObject = (BannerObject) path;
+        String eventKey = bannerObject.getEventKey();
+        if (BannerObject.BANNER_TYPE_IMAGE.equals(eventKey)) {
             ImageView simpleDraweeView = new ImageView(context);
             return simpleDraweeView;
+        } else if (BannerObject.BANNER_TYPE_VIDEO.equals(eventKey)) {
+            videoPlayer = new StandardGSYVideoPlayer(context);
+            return videoPlayer;
+        } else if (BannerObject.BANNER_TYPE_RTMP.equals(eventKey)) {
+            // 流的封面图
+            ImageView rtmpView = new ImageView(context);
+            return rtmpView;
         }
+
+        return null;
+
     }
 
     private ImageView startVideo(Context mContext) {

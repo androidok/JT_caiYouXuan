@@ -104,6 +104,13 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
             mOrderDetailTopFl.addView(getProgressView());
 
         }
+        mOrderCommodityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                OrderDetailBean.CommodityListBean commodityListBean = (OrderDetailBean.CommodityListBean) adapter.getItem(position);
+                startToCommodityDetail(commodityListBean.getCommodityId());
+            }
+        });
         mOrderCommodityAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

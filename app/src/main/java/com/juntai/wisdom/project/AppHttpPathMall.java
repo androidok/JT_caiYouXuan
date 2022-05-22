@@ -3,8 +3,8 @@ package com.juntai.wisdom.project;
 public class AppHttpPathMall {
 
 
-//    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
-            public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
+    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
+//            public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
 //    public static final String BASE_SOCKET = "ws://192.168.124.148/webSocket/";
     public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21970/jt-mall/buyersSocket/";
     //    public static final String BASE_IMAGE = "http://192.168.124.148:9598";
@@ -12,7 +12,11 @@ public class AppHttpPathMall {
 
     public static final String CHAT_VIDEO_URL = "turn:stun.juntaikeji.com:19603";
     public static final String ALL_CITYS = "https://restapi.amap.com/v3/config/district?";
+    /*==============================================  流媒体相关  =============================================*/
 
+
+    //摄像头拉流地址
+    public static final String BASE_CAMERA_URL = "http://www.juntaikeji.net:8060";
 
     /**
      * 上传图片或视频
@@ -32,7 +36,7 @@ public class AppHttpPathMall {
      * /**
      * 检查更新
      */
-    public static final String APP_UPDATE = BASE + "/appUpdate/detectionAppVersions";
+    public static final String APP_UPDATE = BASE + "/member/detectionAppVersions";
 
     /**
      * 获取短信验证码

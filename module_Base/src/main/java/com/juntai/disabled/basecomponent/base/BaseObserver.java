@@ -1,12 +1,10 @@
 package com.juntai.disabled.basecomponent.base;
 
-import android.content.Intent;
-
 import com.google.gson.JsonParseException;
 import com.juntai.disabled.basecomponent.app.BaseApplication;
 import com.juntai.disabled.basecomponent.bean.BaseAddrBean;
+import com.juntai.disabled.basecomponent.bean.BaseStreamBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
-import com.juntai.disabled.basecomponent.utils.ActionConfig;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
@@ -56,7 +54,7 @@ public abstract class BaseObserver<T> extends DisposableObserver<T> {
     public void onNext(T bean) {
         try {
             BaseResult model = (BaseResult) bean;
-            if (0 == model.code||model instanceof BaseAddrBean) {
+            if (0 == model.code||model instanceof BaseAddrBean||model instanceof BaseStreamBean) {
                 onSuccess(bean);
             } else if (30003 == model.code||30004 == model.code) {
                 //单点登录   被顶后 服务端的success值为false status没有赋值

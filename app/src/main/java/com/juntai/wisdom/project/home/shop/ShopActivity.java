@@ -13,8 +13,10 @@ import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppActivity;
 import com.juntai.wisdom.project.beans.shop.ShopDetailBean;
 import com.juntai.wisdom.project.home.HomePageContract;
+import com.juntai.wisdom.project.home.shop.ijkplayer.PlayerLiveActivity;
 import com.juntai.wisdom.project.share.ShareActivity;
-import com.juntai.wisdom.project.utils.GlideImageLoader;
+import com.juntai.wisdom.project.utils.bannerImageLoader.BannerObject;
+import com.juntai.wisdom.project.utils.bannerImageLoader.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -83,7 +85,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
 
     private void initBanner(ShopDetailBean.DataBean shopBean) {
         collectId = shopBean.getIsCollect();
-        List<String> picVideos = new ArrayList<>();
+        List<BannerObject> bannerObjects = new ArrayList<>();
         bannerPics = new ArrayList<>();
 
         mShopBanner.isAutoPlay(false);
@@ -91,6 +93,20 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
             @Override
             public void OnBannerClick(int position) {
                 // TODO: 2022/5/4 查看图片大图
+                BannerObject bannerObject = bannerObjects.get(position);
+                switch (bannerObject.getEventKey()) {
+                    case BannerObject.BANNER_TYPE_IMAGE:
+                    case BannerObject.BANNER_TYPE_VIDEO:
+                        // TODO: 2022/5/21 展示图片大图
+                        break;
+                    case BannerObject.BANNER_TYPE_RTMP:
+                        ShopDetailBean.DataBean shopBean = (ShopDetailBean.DataBean) bannerObject.getEventObj();
+                        PlayerLiveActivity.startPlayerLiveActivity(mContext, shopBean.getCameraNumber(), shopBean.getCameraCover(), shopBean.getCameraUrl());
+
+                        break;
+                    default:
+                        break;
+                }
 
             }
         });
@@ -100,22 +116,24 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
 
             }
         });
-        if (!TextUtils.isEmpty(shopBean.getCameraUrl())) {
-            picVideos.add(shopBean.getCameraUrl());
+        if (!TextUtils.isEmpty(shopBean.getCameraCover()) && !TextUtils.isEmpty(shopBean.getCameraNumber())) {
+            bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_RTMP, shopBean));
         }
         String bannerPic = shopBean.getShopImg();
         if (!TextUtils.isEmpty(bannerPic)) {
             if (bannerPic.contains(",")) {
                 String[] pics = bannerPic.split(",");
                 for (String pic : pics) {
+                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
                     bannerPics.add(pic);
                 }
             } else {
                 bannerPics.add(bannerPic);
+                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, bannerPic));
+
             }
         }
-        picVideos.addAll(bannerPics);
-        mShopBanner.setImages(picVideos).setImageLoader(imageLoader).start();
+        mShopBanner.setImages(bannerObjects).setImageLoader(imageLoader).start();
     }
 
     /**
@@ -191,7 +209,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                     ToastUtils.toast(mContext, "无法获取店铺信息 不能分享");
                     return;
                 }
-                ShareActivity.startShareActivity(mContext, 0, bannerPics.isEmpty()?"":bannerPics.get(0), shopBean.getIntroduction());
+                ShareActivity.startShareActivity(mContext, 0, bannerPics.isEmpty() ? "" : bannerPics.get(0), shopBean.getIntroduction());
 
                 break;
         }

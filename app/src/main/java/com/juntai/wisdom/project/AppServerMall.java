@@ -3,6 +3,7 @@ package com.juntai.wisdom.project;
 
 import com.example.chat.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
@@ -44,6 +45,15 @@ import retrofit2.http.Query;
  * responseBody里的数据只能调用(取出)一次，第二次为空。可赋值给新的变量使用
  */
 public interface AppServerMall {
+
+    /**
+     * 会话id   保活的接口
+     *
+     * @param sessionid
+     * @return
+     */
+    @GET(AppHttpPathMall.BASE_CAMERA_URL + "/vss/video_keepalive/{sessionid}")
+    Observable<OpenLiveBean> keepAlive(@Path("sessionid") String sessionid);
 
 
     @POST(AppHttpPathMall.GET_SHOPES_AROUND)

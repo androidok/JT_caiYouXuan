@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
@@ -185,27 +184,25 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(mContext)
-                .setMessage("请选择退出方式")
-                .setPositiveButton("退出", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MyApp.app.isFinish = true;
-                        ActivityManagerTool.getInstance().finishApp();
-                    }
-                })
-                .setNegativeButton("挂起", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //模拟home键,发送广播
-                        //sendBroadcast(new Intent().setAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
-                        // .putExtra("reason","homekey"));
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        startActivity(intent);
-                    }
-                }).show();
+        showAlertDialog("请选择退出方式", "退出", "挂起", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MyApp.app.isFinish = true;
+                ActivityManagerTool.getInstance().finishApp();
+            }
+        }, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //模拟home键,发送广播
+                //sendBroadcast(new Intent().setAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
+                // .putExtra("reason","homekey"));
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

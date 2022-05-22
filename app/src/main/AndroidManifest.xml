@@ -102,8 +102,14 @@
             android:name=".mine.myinfo.ImageCropActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name="com.juntai.wisdom.project.home.shop.ijkplayer.PlayerLiveActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".mine.myinfo.HeadCropActivity"
             android:launchMode="singleTop" />
+        <service android:name="com.juntai.wisdom.project.home.shop.ijkplayer.KeepAliveService" />
+
         <activity
             android:name=".mine.setting.MyInformationActivity"
             android:launchMode="singleTop" />
