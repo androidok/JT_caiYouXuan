@@ -1,6 +1,7 @@
 package com.juntai.wisdom.project.home.shop;
 
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -53,6 +54,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
 
     private ShopDetailBean.DataBean shopBean;
     private List<String> bannerPics;
+    private GlideImageLoader imageLoader;
 
     @Override
     protected ShopPresent createPresenter() {
@@ -92,7 +94,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         mShopBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                // TODO: 2022/5/4 查看图片大图
+                // : 2022/5/4 查看图片大图
                 BannerObject bannerObject = bannerObjects.get(position);
                 switch (bannerObject.getEventKey()) {
                     case BannerObject.BANNER_TYPE_IMAGE:
@@ -110,12 +112,33 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
 
             }
         });
-        GlideImageLoader imageLoader = new GlideImageLoader().setOnFullScreenCallBack(new GlideImageLoader.OnFullScreenListener() {
+        imageLoader = new GlideImageLoader().setOnFullScreenCallBack(new GlideImageLoader.OnFullScreenListener() {
             @Override
             public void onFullScreen() {
 
             }
         });
+
+        mShopBanner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                if (0 != i) {
+                    // : 2022/5/22 如果视频在播放 释放资源
+                    imageLoader.pause();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+
         if (!TextUtils.isEmpty(shopBean.getCameraCover()) && !TextUtils.isEmpty(shopBean.getCameraNumber())) {
             bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_RTMP, shopBean));
         }
@@ -212,6 +235,15 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                 ShareActivity.startShareActivity(mContext, 0, bannerPics.isEmpty() ? "" : bannerPics.get(0), shopBean.getIntroduction());
 
                 break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (imageLoader != null) {
+            imageLoader.release();
+
         }
     }
 }

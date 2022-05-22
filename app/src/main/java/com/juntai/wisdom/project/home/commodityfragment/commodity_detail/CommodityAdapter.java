@@ -1,6 +1,7 @@
 package com.juntai.wisdom.project.home.commodityfragment.commodity_detail;
 
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -30,6 +31,7 @@ import java.util.List;
 public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
 
     private FragmentManager fragmentManager;
+    private GlideImageLoader imageLoader;
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -58,23 +60,42 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
 
                     }
                 });
-                GlideImageLoader imageLoader = new GlideImageLoader().setOnFullScreenCallBack(new GlideImageLoader.OnFullScreenListener() {
+                banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int i, float v, int i1) {
+
+                    }
+
+                    @Override
+                    public void onPageSelected(int i) {
+                        if (0 != i) {
+                            // : 2022/5/22 如果视频在播放 释放资源
+                            imageLoader.pause();
+                        }
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int i) {
+
+                    }
+                });
+                imageLoader = new GlideImageLoader().setOnFullScreenCallBack(new GlideImageLoader.OnFullScreenListener() {
                     @Override
                     public void onFullScreen() {
 
                     }
                 });
                 if (!TextUtils.isEmpty(dataBean.getVideoUrl())) {
-                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO,dataBean.getVideoUrl()));
+                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, dataBean.getVideoUrl()));
                 }
                 if (!TextUtils.isEmpty(dataBean.getCoverImg())) {
-                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE,dataBean.getCoverImg()));
+                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, dataBean.getCoverImg()));
                 }
 
-                List<CommodityDetailBean.DataBean.ImagesBean>  imagesBeans = dataBean.getImages();
-                if (imagesBeans != null&&imagesBeans.size()>0) {
+                List<CommodityDetailBean.DataBean.ImagesBean> imagesBeans = dataBean.getImages();
+                if (imagesBeans != null && imagesBeans.size() > 0) {
                     for (CommodityDetailBean.DataBean.ImagesBean imagesBean : imagesBeans) {
-                        bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE,imagesBean.getImgUrl()));
+                        bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, imagesBean.getImgUrl()));
                     }
                 }
                 banner.setImages(bannerObjects).setImageLoader(imageLoader).start();
@@ -101,6 +122,12 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
                 break;
             default:
                 break;
+        }
+    }
+
+    public void  releaseVideo(){
+        if (imageLoader != null) {
+            imageLoader.release();
         }
     }
 }

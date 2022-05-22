@@ -90,16 +90,18 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
         @SuppressLint("SetTextI18n")
         public void handleMessage(Message msg) {
             if (msg.what == SDK_PAY_FLAG) {
-                Map<String,String> map = (Map<String, String>) msg.obj;
+                Map<String, String> map = (Map<String, String>) msg.obj;
                 try {
                     String status = map.get("resultStatus");
-                    switch (status){
+                    switch (status) {
                         case "9000"://支付成功
                             startToPaySuccessActivity();
                             return;
                         case "8000"://正在处理中，支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
                             break;
                         case "4000"://订单支付失败
+                            finish();
+                                    ToastUtils.toast(mContext,"支付失败");
 //                            startActivity(getIntent().setClass(mContext,PayCompleteActivity.class).putExtra("isSuccess",false));
                             break;
                         case "5000"://重复请求
@@ -111,10 +113,9 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
                         case "6004"://支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
                             break;
                     }
-                    //ToastUtils.toast(mContext,memo);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    LogUtil.e("支付失败:"+e.toString());
+                    LogUtil.e("支付失败:" + e.toString());
                 }
 
             } else {
@@ -313,11 +314,12 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
     protected BaseQuickAdapter getBaseQuickAdapter() {
         return new OrderPayTypeAdapter(R.layout.mall_pay_type_item);
     }
-    public void payByZhiFuBao( OrderPayZfbBean  orderPayZfbBean){
+
+    public void payByZhiFuBao(OrderPayZfbBean orderPayZfbBean) {
         final String orderInfo = orderPayZfbBean.getData();   // 订单信息
         Runnable payRunnable = () -> {
             PayTask alipay = new PayTask(OrderPayActivity.this);
-            Map<String,String> result = alipay.payV2(orderInfo,true);
+            Map<String, String> result = alipay.payV2(orderInfo, true);
             Message msg = new Message();
             msg.what = SDK_PAY_FLAG;
             msg.obj = result;
@@ -335,16 +337,13 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
                 startToPaySuccessActivity();
                 break;
             case AppHttpPathMall.ORDER_PAY_ZHIFUBAO:
-                OrderPayZfbBean  orderPayZfbBean = (OrderPayZfbBean) o;
+                OrderPayZfbBean orderPayZfbBean = (OrderPayZfbBean) o;
                 payByZhiFuBao(orderPayZfbBean);
                 break;
             case AppHttpPathMall.ORDER_PAY_PUB_WEIXIN:
                 OrderPayWxBean wxBean = (OrderPayWxBean) o;
                 if (wxBean != null) {
-                    List<OrderPayWxBean.DataBean> wxDataBeans = wxBean.getData();
-
-                    OrderPayWxBean.DataBean dataBean = wxDataBeans.get(0);
-
+                    OrderPayWxBean.DataBean dataBean = wxBean.getData();
                     if (!msgApi.isWXAppInstalled()) {
                         //未安装的处理
                         ToastUtils.toast(mContext, "未安装微信");

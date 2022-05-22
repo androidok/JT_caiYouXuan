@@ -46,7 +46,6 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
     private PlayerView player;
     //    private String url = "rtmp://juntaikeji.net:1935/video/37130201561327011011";
     private PowerManager.WakeLock wakeLock;
-    private Intent intent;
     public String mCameraNum;//
     private String playUrl;
     private ImageView mVideoIv, mShareCamera;
@@ -82,6 +81,7 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
     private TextView mFullScreenSetTv;
     private boolean hideAllScreen = false;//是否隐藏所有按钮
     private SoundPlayer soundPlayer;
+    private Intent intent;
 
     public static void startPlayerLiveActivity(Context mContext, String mCameraNum, String mThumUrl, String playUrl) {
         Intent intent = new Intent(mContext, PlayerLiveActivity.class);
@@ -110,7 +110,6 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
             playUrl = getIntent().getStringExtra(BASE_STRING3);
         }
         hideBottomVirtureBar();
-        intent = new Intent(this, KeepAliveService.class);
         setFileDownLoadCallBack(this);
         setTitleName("摄像头");
         mVideoIv = (ImageView) findViewById(R.id.video_iv);
@@ -244,17 +243,15 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
             @Override
             public void onClick(View v) {
                 //切换到竖屏模式
-               finish();
+                finish();
             }
         });
-        player.setOnlyFullScreen(true)
+        player.setOnlyFullScreen(false)
                 .isOffLine(false).setPlaySource(playUrl)
                 .startPlay();
+        intent = new Intent(this, KeepAliveService.class);
         intent.putExtra("sessionId", mCameraNum);
         startService(intent);
-
-//        player.getPlayerView().performClick();
-//        initToolbarAndStatusBar(false);
     }
 
     @Override

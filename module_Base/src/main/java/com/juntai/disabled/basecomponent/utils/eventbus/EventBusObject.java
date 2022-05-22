@@ -50,6 +50,11 @@ public class EventBusObject {
     public final static String REFRESH_SEARCH_COMMODITY_LIST = "REFRESH_SEARCH_COMMODITY_LIST";
     public final static String REFRESH_SEARCH_SHOP_LIST = "REFRESH_SEARCH_SHOP_LIST";
 
+    /**
+     * 刷新消息列表
+     */
+    public final static String REFRESH_NEWS_LIST = "REFRESH_NEWS_LIST";
+
     public final static String EVALUATE = "评价";
     public final static String WEIXIN_PAY_SUCCESS = "WEIXIN_PAY_SUCCESS";
     /**

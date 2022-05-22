@@ -57,6 +57,18 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
     }
 
     @Override
+    public void onEvent(EventBusObject eventBusObject) {
+        super.onEvent(eventBusObject);
+        switch (eventBusObject.getEventKey()) {
+            case EventBusObject.REFRESH_NEWS_LIST:
+                getRvAdapterData();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         getRvAdapterData();
@@ -108,10 +120,10 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
                         int unreadAmount = 0;
                         List<MultipleItem> arrays = new ArrayList<>();
                         for (NewsListBean.DataBean array : dataBeans) {
-                            unreadAmount+=array.getUnread();
+                            unreadAmount += array.getUnread();
                             arrays.add(new MultipleItem(MultipleItem.ITEM_CHAT_LIST_CONTACT, array));
                         }
-                        EventManager.getEventBus().post(new EventBusObject(EventBusObject.UNREAD_MSG_AMOUNT,unreadAmount));
+                        EventManager.getEventBus().post(new EventBusObject(EventBusObject.UNREAD_MSG_AMOUNT, unreadAmount));
                         baseQuickAdapter.setNewData(arrays);
                     }
                 }

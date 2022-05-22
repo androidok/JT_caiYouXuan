@@ -2,8 +2,6 @@ package com.juntai.wisdom.project.beans.order;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
-import java.util.List;
-
 /**
  * @Author: tobato
  * @Description: 作用描述
@@ -13,25 +11,29 @@ import java.util.List;
  */
 public class OrderPayWxBean extends BaseResult {
 
-    private List<DataBean> data;
+    /**
+     * data : {"nonce_str":"efd7e9ed0e5e694ba6df444d84dfa37d","packageVal":"Sign=WXPay","appid":"wx5fd6d26f7806a119","sign":"9970332EC988B38C91A03A38BD175BF7","prepayId":"wx22133941916742d1745bbdaaf5ae9a0000","mch_id":"1573354791","timestamp":"1653197980"}
+     */
 
-    public List<DataBean> getData() {
+    private DataBean data;
+
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(DataBean data) {
         this.data = data;
     }
 
     public static class DataBean {
         /**
-         * nonce_str : b0b183c207f46f0cca7dc63b2604f5cc
+         * nonce_str : efd7e9ed0e5e694ba6df444d84dfa37d
          * packageVal : Sign=WXPay
-         * appid : wx55706643d79cd22a
-         * sign : 1357FE3B2572B305FBD1A843A59F4BEE
-         * prepayId : wx07145136021297e82b6e51961982447200
+         * appid : wx5fd6d26f7806a119
+         * sign : 9970332EC988B38C91A03A38BD175BF7
+         * prepayId : wx22133941916742d1745bbdaaf5ae9a0000
          * mch_id : 1573354791
-         * timestamp : 1578379888
+         * timestamp : 1653197980
          */
 
         private String nonce_str;

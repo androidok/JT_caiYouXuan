@@ -22,7 +22,6 @@ import io.reactivex.functions.Consumer;
  */
 public class SplashActivity extends RxAppCompatActivity {
     String[] permissions = new String[]{
-            Manifest.permission.CALL_PHONE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.RECORD_AUDIO,
@@ -51,13 +50,6 @@ public class SplashActivity extends RxAppCompatActivity {
                             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                         }
                         finish();
-//                        if (SPTools.getBoolean(StartActivity.this, "first_start", true)) {
-//                            startActivity(new Intent(StartActivity.this, GuideActivity.class));
-//                            finish();
-//                        } else {
-//                            startActivity(new Intent(StartActivity.this, ChatMainActivity.class));
-//                            finish();
-//                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override

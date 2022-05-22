@@ -23,6 +23,7 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.news.ChatActivity;
+import com.juntai.wisdom.project.utils.ObjectBoxMallUtil;
 import com.rabtman.wsmanager.WsManager;
 import com.rabtman.wsmanager.listener.WsStatusListener;
 
@@ -109,7 +110,13 @@ public class MyWsManager {
                 //未读
                 messageBody.setRead(false);
 //                    HawkProperty.setRedPoint(mContext, 1);
-                EventManager.getEventBus().post(new EventBusObject(EventBusObject.MESSAGE_BODY, messageBody));
+                if (mContext instanceof ChatActivity) {
+                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.MESSAGE_BODY, messageBody));
+                }else {
+                    ObjectBoxMallUtil.addMessage(messageBody);
+                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_NEWS_LIST, messageBody));
+
+                }
                 if (NotificationTool.SHOW_NOTIFICATION) {
                     showNotification(messageBody);
                 }

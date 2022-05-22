@@ -97,4 +97,10 @@ public class CommodityDetailFragment extends BaseRecyclerviewFragment<CommodityP
     protected CommodityPresent createPresenter() {
         return new CommodityPresent();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((CommodityAdapter)baseQuickAdapter).releaseVideo();
+    }
 }
