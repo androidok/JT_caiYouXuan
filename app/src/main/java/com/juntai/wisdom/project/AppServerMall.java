@@ -18,6 +18,7 @@ import com.juntai.wisdom.project.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.beans.IdNameBean;
 import com.juntai.wisdom.project.beans.NewsListBean;
+import com.juntai.wisdom.project.beans.PlayUrlBean;
 import com.juntai.wisdom.project.beans.ShopListDataBean;
 import com.juntai.wisdom.project.beans.UserBeanMall;
 import com.juntai.wisdom.project.beans.order.ConfirmOrderBean;
@@ -54,7 +55,13 @@ public interface AppServerMall {
      */
     @GET(AppHttpPathMall.BASE_CAMERA_URL + "/vss/video_keepalive/{sessionid}")
     Observable<OpenLiveBean> keepAlive(@Path("sessionid") String sessionid);
-
+    /**
+     * 打开视频流
+     *
+     * @return
+     */
+    @POST(AppHttpPathMall.STREAM_OPE_ADDR)
+    Observable<PlayUrlBean> openStream(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.GET_SHOPES_AROUND)
     Observable<AroundShopBean> getAroundShopes(@Body RequestBody requestBody);

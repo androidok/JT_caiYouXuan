@@ -4,9 +4,15 @@ import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 
+import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
+import com.juntai.wisdom.project.AppNetModuleMall;
+import com.juntai.wisdom.project.beans.PlayUrlBean;
+
+import okhttp3.RequestBody;
 
 /**
  * @Author: tobato
@@ -33,5 +39,25 @@ public class PlayPresent extends BasePresenter<IModel, PlayContract.IPlayView>  
         layoutParams.setMargins(left, top, right, bottom);
         view.setLayoutParams(layoutParams);
     }
+    public void openStream(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .openStream(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<PlayUrlBean>(null) {
+                    @Override
+                    public void onSuccess(PlayUrlBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o.getData());
+                        }
 
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
 }

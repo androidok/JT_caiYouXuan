@@ -17,6 +17,10 @@ public class AppHttpPathMall {
 
     //摄像头拉流地址
     public static final String BASE_CAMERA_URL = "http://www.juntaikeji.net:8060";
+    /**
+     * 获取视频播放地址
+     */
+    public static final String STREAM_OPE_ADDR = "http://61.156.157.132:35080/streamingMedia/u/app/getVideoOpenStream.shtml";
 
     /**
      * 上传图片或视频

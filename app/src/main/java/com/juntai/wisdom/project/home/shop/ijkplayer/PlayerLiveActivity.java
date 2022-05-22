@@ -30,10 +30,14 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.SoundPlayer;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.wisdom.project.MainActivity;
 import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.beans.PlayUrlBean;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import okhttp3.FormBody;
 
 /**
  * @aouther tobato
@@ -46,13 +50,28 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
     private PlayerView player;
     //    private String url = "rtmp://juntaikeji.net:1935/video/37130201561327011011";
     private PowerManager.WakeLock wakeLock;
+    private Intent intent;
+    public static String STREAM_CAMERA_ID = "stream";
+    public static String ENTER_TYPE = "entry_type";//进入的入口
+    private int enterType = 0;//1代表从硬盘录像机进入
+    public static String STREAM_CAMERA_NUM = "stream_num";
+    public static String STREAM_CAMERA_THUM_URL = "stream_thum_url";//缩略图路径
+    private int mCameraId;//
     public String mCameraNum;//
     private String playUrl;
+    private String COMMENT = "COMMENT";//评价
+    private String YUN_CONTROL = "YUN_CONTROL";//云控制
+    private String VIDEO_RECORD = "VIDEO_RECORD";
     private ImageView mVideoIv, mShareCamera;
     private ImageView mYuntaiIv;
     private ImageView mCalendarIv;
     private String mThumUrl;
-    public static boolean isVerScreen = false;//是否是竖屏
+    private boolean isPlay = false;
+    private String videoStrsessionid = null;
+    /**
+     * 1121321
+     */
+    public static boolean isVerScreen = true;//是否是竖屏
     private LinearLayout mVideoViewLl;
     private DrawerLayout mDrawerlayout;
     private Group mOperateRightIvsG, mHorSuspensionG, mVerSuspensionG;
@@ -73,15 +92,27 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
     private ConstraintLayout mFullScreenRightMoreCl;
     private LinearLayout mFullScreenRightControlLl;
     private ImageView mFullScreenShareIv;
+    private ImageView mFullScreenSetIv;
     private TextView mFullScreenVisitAmountTv;
     private TextView mFullScreenOnlineAmountTv;
     private ImageView mZoomShrinkIv;
     private ImageView mVerCaptureIv;//竖屏模式下的截屏
     private boolean isMyDev = true;//默认是我的设备
+    private boolean devHasYunTai = false;//设备是否有云台
     private TextView mFullScreenSetTv;
     private boolean hideAllScreen = false;//是否隐藏所有按钮
     private SoundPlayer soundPlayer;
-    private Intent intent;
+
+    /**
+     * 获取摄像头num
+     *
+     * @return
+     */
+    public String getStreamCameraNum() {
+        return mCameraNum;
+    }
+
+
 
     public static void startPlayerLiveActivity(Context mContext, String mCameraNum, String mThumUrl, String playUrl) {
         Intent intent = new Intent(mContext, PlayerLiveActivity.class);
@@ -150,10 +181,12 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
         mYuntaiFloatIv = (ImageView) findViewById(R.id.top_yuntai_iv);
         mYuntaiFloatIv.setOnClickListener(this);
         mFullScreenShareIv = (ImageView) findViewById(R.id.full_screen_share_iv);
+        mFullScreenSetIv = (ImageView) findViewById(R.id.full_screen_set_iv);
         mFullScreenSetTv = (TextView) findViewById(R.id.full_screen_set_tv);
         mFullScreenVisitAmountTv = (TextView) findViewById(R.id.full_screen_visit_amount_tv);
         mFullScreenOnlineAmountTv = (TextView) findViewById(R.id.full_screen_online_amount_tv);
         mFullScreenShareIv.setOnClickListener(this);
+        mFullScreenSetIv.setOnClickListener(this);
         mVerCaptureIv = (ImageView) findViewById(R.id.app_video_capture);
         mVerCaptureIv.setOnClickListener(this);
     }
@@ -194,7 +227,31 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
 
     @Override
     public void initData() {
-
+        /**
+         * 注意！！！注意！！！注意！！！注意！！！注意！！！
+         *
+         * 播放摄像头流数据的时候 只有流地址是不行的  需要开流  并且还要保活 要不一分钟之后流就断了
+         *
+         */
+        //打开流数据
+        mPresenter.openStream(getBaseBuilder().add("chanpubid",
+                mCameraNum)
+                .add("transport", "udp").add("videourltype", "rtmp").build(), PlayContract.GET_URL_PATH);
+        /**
+         * 保活
+         */
+        intent = new Intent(this, KeepAliveService.class);
+        intent.putExtra("sessionId", mCameraNum);
+        startService(intent);
+    }
+    /**
+     * 获取builder
+     *
+     * @return
+     */
+    public FormBody.Builder getBaseBuilder() {
+        FormBody.Builder builder = new FormBody.Builder();
+        return builder;
     }
 
     @SuppressLint("InvalidWakeLockTag")
@@ -208,6 +265,12 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
         wakeLock.acquire();
         soundPlayer = new SoundPlayer(mContext);
 
+        initPlayer();
+
+
+    }
+
+    private void initPlayer() {
         player = new PlayerView(this, mBaseRootCol)
                 //隐藏顶部布局
                 .hideHideTopBar(false)
@@ -219,6 +282,7 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
                 .hideFullscreen(false)
                 .hideCenterPlayer(false)
                 .forbidTouch(false)
+                .setOnlyFullScreen(true)
                 .setForbidDoulbeUp(true)
                 .setThumPic(mThumUrl)
                 .setScaleType(PlayStateParams.fitxy).showThumbnail(new OnShowThumbnailListener() {
@@ -243,15 +307,9 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
             @Override
             public void onClick(View v) {
                 //切换到竖屏模式
-                finish();
+              finish();
             }
         });
-        player.setOnlyFullScreen(false)
-                .isOffLine(false).setPlaySource(playUrl)
-                .startPlay();
-        intent = new Intent(this, KeepAliveService.class);
-        intent.putExtra("sessionId", mCameraNum);
-        startService(intent);
     }
 
     @Override
@@ -275,22 +333,21 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
                 break;
             case R.id.zoom_shrink_iv:
                 //切换到竖屏模式
-//                player.setOnlyFullScreen(false);
-                finish();
+               finish();
+                break;
+            case R.id.record_iv:
+                ToastUtils.toast(mContext, "暂未开放");
                 break;
             case R.id.top_yuntai_iv:
                 mDrawerlayout.openDrawer(mFullScreenRightLl);
                 mFullScreenRightControlLl.setVisibility(View.VISIBLE);
                 mFullScreenRightMoreCl.setVisibility(View.GONE);
                 break;
-//            case R.id.full_screen_share_iv:
-//                //分享微信
-//                startActivity(new Intent(mContext, ShareToWeChatActivity.class));
-//                break;
             default:
                 break;
         }
     }
+
 
 
     @Override
@@ -333,17 +390,47 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
         if (player != null && player.onBackPressed()) {
             return;
         }
+        if (0 == enterType) {
+            startActivity(new Intent(mContext, MainActivity.class));
+        }
 
         super.onBackPressed();
 
     }
 
-
+    @Override
+    public void onError(String tag, Object o) {
+        super.onError(tag, o);
+        switch (tag) {
+            case PlayContract.GET_URL_PATH:
+                player.isOffLine(true);
+            default:
+                break;
+        }
+    }
     @Override
     public void onSuccess(String tag, Object o) {
 
 
         switch (tag) {
+            case PlayContract.GET_URL_PATH:
+                PlayUrlBean.DataBean bean = (PlayUrlBean.DataBean) o;
+                player.isOffLine(false);
+                playUrl = bean.getRtmpurl();
+                String strsessionid = bean.getStrsessionid();
+                player.setPlaySource(playUrl).startPlay();
+                /**
+                 * 保活
+                 */
+                intent = new Intent(this, KeepAliveService.class);
+                intent.putExtra("sessionId", strsessionid);
+                startService(intent);
+
+                break;
+            case PlayContract.UPLOAD_CAMERA_CAPTURE:
+                //上传预置位的封面图
+                ToastUtils.toast(mContext, "收藏成功");
+                break;
             case PlayContract.OPERATE_RECORD_VIDEO:
                 player.isLive = false;
                 player.onPlayPause();
@@ -378,6 +465,7 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
     public void onFileDownloaded(String filePath) {
 
     }
+
 
 
     @Override
@@ -457,28 +545,8 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
             }
 
         }
-//        if (isMyDev) {
-//            if (isVerScreen) {
-//                if (hideAllScreen) {
-//                    mCameraFloatSet.setVisibility(View.GONE);
-//                } else {
-//                    mCameraFloatSet.setVisibility(View.VISIBLE);
-//                }
-//
-//            } else {
-//                mCameraFloatSet.setVisibility(View.GONE);
-//            }
-//            if (hideAllScreen) {
-//                mFullScreenSetTv.setVisibility(View.GONE);
-//            } else {
-//                mFullScreenSetTv.setVisibility(View.VISIBLE);
-//
-//            }
-//            //自己的设备 可以查看录像回放
-//            mCalendarIv.setVisibility(View.VISIBLE);
-//            mYuntaiIv.setVisibility(View.INVISIBLE);
-//            mYuntaiFloatIv.setVisibility(View.INVISIBLE);
-//        }
+
+
 
     }
 

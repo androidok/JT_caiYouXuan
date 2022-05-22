@@ -18,7 +18,7 @@ public class MyFileProvider extends FileProvider {
         Uri  uri = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   //如果在Android7.0以上,使用FileProvider获取Uri
             try {
-                uri = FileProvider.getUriForFile(context, "com.juntai.wisdom.inspection" +
+                uri = FileProvider.getUriForFile(context, "com.juntai.wisdom.project.mall" +
                                 ".fileProvider",
                         file);
             } catch (Exception e) {
