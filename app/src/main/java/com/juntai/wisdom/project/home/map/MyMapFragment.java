@@ -494,7 +494,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
 
     @Override
     public void onError(String tag, Object o) {
-        ToastUtils.error(mContext, (String) o);
+        ToastUtils.toast(mContext, (String) o);
     }
 
 

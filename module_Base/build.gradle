@@ -107,5 +107,5 @@ dependencies {
     api project(':zXingLiteLib')
     api project(':zhihu_matisse')
     api project(':indexlib')
-
+    api files('libs\\jsoup-1.11.3.jar')
 }

@@ -77,6 +77,12 @@ public class CommodityDetailFragment extends BaseRecyclerviewFragment<CommodityP
     public void addEvaluationData(List<CommodityEvaluationBean.DataBean> arrays) {
         baseQuickAdapter.addData(new MultipleItem(MultipleItem.ITEM_COMMODITY_EVALUTA, arrays));
     }
+    /**
+     * 评价数据
+     */
+    public void addDetailData(String url) {
+        baseQuickAdapter.addData(new MultipleItem(MultipleItem.ITEM_COMMODITY_DETAIL, url));
+    }
 
     @Override
     protected boolean enableRefresh() {
@@ -90,7 +96,7 @@ public class CommodityDetailFragment extends BaseRecyclerviewFragment<CommodityP
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new CommodityAdapter(null);
+        return new CommodityAdapter(getFragmentManager(),null);
     }
 
     @Override

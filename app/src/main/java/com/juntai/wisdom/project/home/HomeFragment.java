@@ -3,8 +3,6 @@ package com.juntai.wisdom.project.home;
 
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.baidu.location.BDLocation;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
@@ -13,9 +11,6 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.wisdom.project.MainActivity;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.home.map.MyMapFragment;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * @aouther tobato
@@ -153,7 +148,7 @@ public class HomeFragment extends BaseMvpFragment<HomePagePresent> implements Ho
 
     @Override
     public void onError(String tag, Object o) {
-        ToastUtils.error(mContext, String.valueOf(o));
+        ToastUtils.toast(mContext, String.valueOf(o));
     }
 
 

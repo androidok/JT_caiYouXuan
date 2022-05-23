@@ -272,7 +272,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
     @Override
     public void onError(String tag, Object o) {
-        ToastUtils.error(mContext, String.valueOf(o));
+        ToastUtils.toast(mContext, String.valueOf(o));
     }
 
 

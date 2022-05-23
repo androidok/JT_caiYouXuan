@@ -297,6 +297,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                         commodityDetailFragment.addEvaluationData(arrays);
                     }
                 }
+                commodityDetailFragment.addDetailData(dataBean.getDescription());
 
                 break;
 

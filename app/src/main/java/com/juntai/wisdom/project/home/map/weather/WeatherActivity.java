@@ -327,7 +327,7 @@ public class WeatherActivity extends BaseAppActivity<HomePagePresent> implements
 
     @Override
     public void onError(String tag, Object o) {
-        ToastUtils.error(this, (String) o);
+        ToastUtils.toast(this, (String) o);
     }
 
     //    @Override

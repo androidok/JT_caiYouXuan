@@ -155,7 +155,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     return;
                 }
                 if (password.isEmpty()) {
-                    ToastUtils.error(mContext, loginType % 2 == 0 ? "登录密码不能为空" : "验证码不能为空");
+                    ToastUtils.toast(mContext, loginType % 2 == 0 ? "登录密码不能为空" : "验证码不能为空");
                     return;
                 }
                 // : 2022/4/28 调用登录的接口

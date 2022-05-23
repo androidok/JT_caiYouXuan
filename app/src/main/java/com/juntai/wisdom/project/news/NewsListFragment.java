@@ -34,6 +34,7 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
     @Override
     protected void initView() {
         super.initView();
+        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一条消息也没有-_-",-1));
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

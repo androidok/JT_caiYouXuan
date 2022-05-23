@@ -51,8 +51,11 @@ public class GlideImageLoader implements ImageLoaderInterface<View> {
             startVideo(context);
         } else if (BannerObject.BANNER_TYPE_RTMP.equals(eventKey)) {
             ImageView imageView = (ImageView) view.findViewById(R.id.rtmp_iv);
+            ImageView imageView1 = (ImageView) view.findViewById(R.id.item_top_iv);
             ShopDetailBean.DataBean shopBean = (ShopDetailBean.DataBean) bannerObject.getEventObj();
             ImageLoadUtil.loadImageCache(context, shopBean.getCameraCover(), imageView);
+            Glide.with(context).load(R.mipmap.live_going).into(imageView1);
+
         }
 
 
