@@ -96,6 +96,10 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
                     startSearch(key);
                 }
                 break;
+            case EventBusObject.REFRESH_HOMEPAGE_COMMODITY_LIST:
+                page=1;
+                getRvAdapterData();
+                break;
             default:
                 break;
         }

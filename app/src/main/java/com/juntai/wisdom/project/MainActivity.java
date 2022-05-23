@@ -113,6 +113,12 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                if (0==tab.getPosition()) {
+                    // : 2022/5/23 刷新首页列表
+                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_HOMEPAGE_COMMODITY_LIST, ""));
+
+                }
+
             }
         });
 

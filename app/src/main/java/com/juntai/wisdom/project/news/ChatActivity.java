@@ -321,14 +321,14 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                         RecyclerView recyclerView = popView.findViewById(R.id.home_pop_rv);
                         EditChatMsgAdapter editChatMsgAdapter = new EditChatMsgAdapter(R.layout.edit_chat_msg_item);
                         List<HomePageMenuBean> arrays = mPresenter.getEditChatMsgMenus(operateingMsgBean);
-                        GridLayoutManager manager = new GridLayoutManager(mContext, 4);
+                        GridLayoutManager manager = new GridLayoutManager(mContext, arrays.size());
                         recyclerView.setLayoutManager(manager);
                         recyclerView.setAdapter(editChatMsgAdapter);
                         editChatMsgAdapter.setNewData(arrays);
                         if (arrays.size() > 4) {
                             editPopupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 180), DisplayUtil.dp2px(mContext, 100));
                         } else {
-                            editPopupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 180), DisplayUtil.dp2px(mContext, 50));
+                            editPopupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 100), DisplayUtil.dp2px(mContext, 50));
 
                         }
                         editPopupWindow.setOutsideTouchable(true);
