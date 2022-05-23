@@ -47,7 +47,7 @@ import java.util.TimerTask;
 public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> implements HomePageContract.IHomePageView, View.OnClickListener {
 
     IWXAPI msgApi;
-    private final int SDK_PAY_FLAG = 1;
+    private final int SDK_PAY_FLAG = 10010;
 
 
     private List<OrderDetailBean> orderDetailBeans;

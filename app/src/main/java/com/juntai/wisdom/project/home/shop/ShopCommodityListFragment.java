@@ -1,6 +1,7 @@
 package com.juntai.wisdom.project.home.shop;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -10,12 +11,12 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.wisdom.project.AppHttpPathMall;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewFragment;
-import com.juntai.wisdom.project.home.HomePageContract;
-import com.juntai.wisdom.project.home.commodityfragment.CommodityListAdapter;
 import com.juntai.wisdom.project.beans.CommodityBean;
 import com.juntai.wisdom.project.beans.CommodityDesListBean;
 import com.juntai.wisdom.project.beans.shop.ShopCommodityListBean;
-
+import com.juntai.wisdom.project.home.HomePageContract;
+import com.juntai.wisdom.project.home.commodityfragment.CommodityListAdapter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import java.util.List;
 
@@ -43,8 +44,8 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
 
     @Override
     protected void lazyLoad() {
-        super.lazyLoad();
         labelId = getArguments().getInt("label");
+        super.lazyLoad();
 
 
     }
@@ -69,7 +70,10 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
     @Override
     protected void initView() {
         super.initView();
-
+        mRecyclerview.setBackgroundColor(ContextCompat.getColor(mContext, R.color.gray_lighter));
+        mSmartrefreshlayout.setPrimaryColors(ContextCompat.getColor(mContext,R.color.gray_lighter));
+        ClassicsHeader classicsHeader = (ClassicsHeader) mSmartrefreshlayout.getRefreshHeader();
+        classicsHeader.setAccentColor(ContextCompat.getColor(mContext,R.color.black));
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         mRecyclerview.setLayoutManager(staggeredGridLayoutManager);

@@ -1,5 +1,7 @@
 package com.juntai.wisdom.project.news;
 
+import com.example.chat.MainContract;
+import com.example.chat.bean.HomePageMenuBean;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;
@@ -192,5 +194,17 @@ public class NewsPresent extends BaseAppMallPresent {
                 });
     }
 
-
+    /**
+     * 获取适配器数据
+     *
+     * @return
+     */
+    public List<HomePageMenuBean> getEditChatMsgMenus(MessageBodyBean messageBodyBean) {
+        List<HomePageMenuBean> arrays = new ArrayList<>();
+        if (messageBodyBean.getMsgType()==0) {
+            arrays.add(new HomePageMenuBean(MainContract.COPY_MSG, R.mipmap.edit_msg_copy_icon));
+        }
+        arrays.add(new HomePageMenuBean(MainContract.DELETE_MSG, R.mipmap.edit_msg_delete_icon));
+        return arrays;
+    }
 }

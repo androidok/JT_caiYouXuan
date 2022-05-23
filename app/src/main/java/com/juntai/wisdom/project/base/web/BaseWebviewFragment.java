@@ -1,16 +1,14 @@
-package com.juntai.disabled.basecomponent.base;
+package com.juntai.wisdom.project.base.web;
 
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
 import com.juntai.disabled.basecomponent.R;
+import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
-import com.juntai.disabled.basecomponent.web.HtmlFormat;
-import com.juntai.disabled.basecomponent.web.ImageJavascriptInterface;
 
 /**
  * @Author: tobato
@@ -64,11 +62,10 @@ public class BaseWebviewFragment extends BaseMvpFragment {
 
     public void setWebData(String urlString) {
         if (!TextUtils.isEmpty(urlString)) {
+//            urlString = "<p><img src=https://image.juntaikeji.com/look/2022-05-21/7e8d6f417ba64d2da1a735725bdf89d6.jpg width=\"175\" height=\"175\" /></p>\n" +
+//                    "2022-05-23 08:34:03.478 17995-18293/com.juntai.wisdom.project.mall E/菜优选: │ <p>产品介绍</p>";
             urlString = HtmlFormat.getNewContent(urlString);
-            mAgreementWeb = new WebView(mContext.getApplicationContext());
             //        ScrollView 内置 Webview导致底部页面下方空白区域无限下滑,设置height=LayoutParams.WRAP_CONTENT解决
-            mAgreementWeb.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
             mAgreementWeb.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
             mAgreementWeb.setScrollBarSize(0);
 
@@ -83,13 +80,12 @@ public class BaseWebviewFragment extends BaseMvpFragment {
 //            mAgreementWeb.setWebViewClient(new WebViewClientDemo());
             mAgreementWeb.loadDataWithBaseURL("file:///android_asset/", urlString, "text/html",
                     "utf-8", null);
+            String finalUrlString = urlString;
             mAgreementWeb.setWebViewClient(new WebViewClient() {
                 @Override
                 public void onPageFinished(WebView webView, String s) {
                     //加载个人中心数据
-                    //加载个人中心数据
-                    s = HtmlFormat.getNewContent(s);
-                    imageJavascriptInterface.setImageUrls(HtmlFormat.getImageUrlsFromHtml(s));
+                    imageJavascriptInterface.setImageUrls(HtmlFormat.getImageUrlsFromHtml(finalUrlString));
                     setWebImageClick(webView, "newsInfoActivity");
                 }
             });
@@ -105,21 +101,6 @@ public class BaseWebviewFragment extends BaseMvpFragment {
     }
 
 
-    private class WebViewClientDemo extends WebViewClient {
-//        @Override
-        // 在WebView中不在默认浏览器下显示页面
-//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            view.loadUrl(url);
-//            return true;
-//        }
-        @Override
-        public void onPageFinished(WebView webView, String s) {
-            //加载个人中心数据
-            s = HtmlFormat.getNewContent(s);
-            imageJavascriptInterface.setImageUrls(HtmlFormat.getImageUrlsFromHtml(s));
-            setWebImageClick(webView, "newsInfoActivity");
-        }
-    }
     /**
      * 设置网页中图片的点击事件   当页面加载完成后 注入JavaScript
      *

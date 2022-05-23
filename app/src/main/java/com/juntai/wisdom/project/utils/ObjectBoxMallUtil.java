@@ -76,5 +76,11 @@ public class ObjectBoxMallUtil {
         }
 
     }
-
+    /**
+     * 删除消息
+     * @param messageBodyBean
+     */
+    public static void deleteMessage(MessageBodyBean...  messageBodyBean) {
+        ObjectBox.get().boxFor(MessageBodyBean.class).remove(messageBodyBean);
+    }
 }

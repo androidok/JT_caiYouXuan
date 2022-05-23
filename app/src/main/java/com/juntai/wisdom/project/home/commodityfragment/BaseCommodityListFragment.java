@@ -1,5 +1,6 @@
 package com.juntai.wisdom.project.home.commodityfragment;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
@@ -13,8 +14,11 @@ import com.juntai.wisdom.project.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.beans.CommodityBean;
 import com.juntai.wisdom.project.beans.CommodityDesListBean;
 import com.juntai.wisdom.project.home.HomePageContract;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import java.util.List;
+
+import okhttp3.FormBody;
 
 /**
  * @Author: tobato
@@ -30,8 +34,8 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
 
     @Override
     protected void lazyLoad() {
-        super.lazyLoad();
         labelId = getArguments().getInt("label");
+        super.lazyLoad();
 
 
     }
@@ -56,7 +60,10 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
     @Override
     protected void initView() {
         super.initView();
-
+        mRecyclerview.setBackgroundColor(ContextCompat.getColor(mContext, R.color.gray_lighter));
+        mSmartrefreshlayout.setPrimaryColors(ContextCompat.getColor(mContext, R.color.gray_lighter));
+        ClassicsHeader classicsHeader = (ClassicsHeader) mSmartrefreshlayout.getRefreshHeader();
+        classicsHeader.setAccentColor(ContextCompat.getColor(mContext, R.color.black));
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerview.setLayoutManager(manager);
 
@@ -100,7 +107,10 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
             // : 2022/5/20 搜索中的商品列表
             startSearch(null);
         } else {
-            mPresenter.getCommodityRecommendList(0 == labelId ? getBaseAppActivity().getBaseBuilderWithoutParama().build() : getBaseAppActivity().getBaseBuilderWithoutParama()
+            FormBody.Builder builder = new FormBody.Builder();
+            builder.add("page", String.valueOf(page))
+                    .add("limit", String.valueOf(limit));
+            mPresenter.getCommodityRecommendList(0 == labelId ? builder.build() : builder
                     .add("categoryId", String.valueOf(labelId)).build(), AppHttpPathMall.COMMODIFY_RECOMMEND);
         }
 

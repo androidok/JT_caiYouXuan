@@ -2,8 +2,10 @@ package com.juntai.wisdom.project.news;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -13,7 +15,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -30,10 +34,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.MainContract;
 import com.example.chat.R;
 import com.example.chat.bean.ContactBean;
+import com.example.chat.bean.HomePageMenuBean;
 import com.example.chat.bean.UploadFileBean;
 import com.example.chat.chatmodule.ChatAdapter;
 import com.example.chat.chatmodule.ChatMoreActionAdapter;
 import com.example.chat.chatmodule.ChatPresent;
+import com.example.chat.chatmodule.EditChatMsgAdapter;
 import com.example.chat.util.MultipleItem;
 import com.example.chat.util.OperateMsgUtil;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
@@ -42,6 +48,7 @@ import com.juntai.disabled.basecomponent.bean.objectboxbean.FileBaseInfoBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
 import com.juntai.disabled.basecomponent.utils.CalendarUtil;
+import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
@@ -49,6 +56,7 @@ import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.basecomponent.utils.RxTask;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
@@ -62,6 +70,7 @@ import com.negier.emojifragment.fragment.EmojiFragment;
 import com.negier.emojifragment.util.EmojiUtils;
 import com.zyl.chathelp.audio.AudioPlayManager;
 import com.zyl.chathelp.audio.AudioRecordManager;
+import com.zyl.chathelp.audio.IAudioPlayListener;
 import com.zyl.chathelp.audio.IAudioRecordListener;
 import com.zyl.chathelp.utils.EmotionKeyboard;
 import com.zyl.chathelp.video.CameraActivity;
@@ -195,6 +204,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                 return false;
             }
         });
+        initAdapterClick();
     }
 
     @Override
@@ -207,7 +217,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                     //如果是正在聊天的对象发过来的 就不需要notification
                     NotificationTool.SHOW_NOTIFICATION = false;
                     // : 2022/5/21 通知后台消息已读
-                    mPresenter.messageRead(getBaseBuilder().add("msgId",String.valueOf(messageBody.getMsgId())).build(),AppHttpPathMall.MESSAGE_READ);
+                    mPresenter.messageRead(getBaseBuilder().add("msgId", String.valueOf(messageBody.getMsgId())).build(), AppHttpPathMall.MESSAGE_READ);
                     messageBody.setRead(true);
 //                    HawkProperty.setRedPoint(mContext, -1);
                     addDateTag(mPresenter.findPrivateChatRecordLastMessage(messageBody.getFromUserId()),
@@ -224,6 +234,185 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
             default:
                 break;
         }
+    }
+
+    public void initAdapterClick() {
+
+        chatAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+                MultipleItem multipleItem = (MultipleItem) adapter.getData().get(position);
+                switch (multipleItem.getItemType()) {
+                    case MultipleItem.ITEM_CHAT_DATE_MSG:
+                        break;
+                    default:
+                        MessageBodyBean messageBodyBean = (MessageBodyBean) multipleItem.getObject();
+                        if (chatAdapter.isEdit()) {
+                            if (messageBodyBean.isSelected()) {
+                                messageBodyBean.setSelected(false);
+                            } else {
+                                messageBodyBean.setSelected(true);
+                            }
+                            chatAdapter.notifyItemChanged(position);
+                            return;
+                        }
+                        int id = view.getId();
+                        if (id == R.id.sender_pic_video_iv || id == R.id.receiver_pic_video_iv) {
+                            displayPicVideo(messageBodyBean);
+                        } else if (id == R.id.audio_bg_rl) {
+                            ImageView ivAudio = (ImageView) adapter.getViewByPosition(mRecyclerview, position,
+                                    R.id.ivAudio);
+                            AudioPlayManager.getInstance().stopPlay();
+                            String audioUri = UrlFormatUtil.getImageOriginalUrl(messageBodyBean.getContent());
+                            AudioPlayManager.getInstance().startPlay(mContext, Uri.parse(audioUri),
+                                    new IAudioPlayListener() {
+                                        @Override
+                                        public void onStart(Uri var1) {
+                                            // TODO: 2022/4/10 这个地方需要优化一下
+                                            if (ivAudio != null && ivAudio.getDrawable() instanceof AnimationDrawable) {
+                                                AnimationDrawable animation = (AnimationDrawable) ivAudio.getDrawable();
+                                                animation.start();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onStop(Uri var1) {
+                                            if (ivAudio != null && ivAudio.getDrawable() instanceof AnimationDrawable) {
+                                                AnimationDrawable animation = (AnimationDrawable) ivAudio.getDrawable();
+                                                animation.stop();
+                                                animation.selectDrawable(0);
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onComplete(Uri var1) {
+                                            if (ivAudio != null && ivAudio.getDrawable() instanceof AnimationDrawable) {
+                                                AnimationDrawable animation = (AnimationDrawable) ivAudio.getDrawable();
+                                                animation.stop();
+                                                animation.selectDrawable(0);
+                                            }
+                                        }
+                                    });
+                        }
+
+                        break;
+                }
+            }
+        });
+
+
+        chatAdapter.setOnItemChildLongClickListener(new BaseQuickAdapter.OnItemChildLongClickListener() {
+            @Override
+            public boolean onItemChildLongClick(BaseQuickAdapter msgAdapter, View view, int msgPosition) {
+                MultipleItem multipleItem = (MultipleItem) msgAdapter.getData().get(msgPosition);
+                MessageBodyBean operateingMsgBean = (MessageBodyBean) multipleItem.getObject();
+
+                switch (view.getId()) {
+
+                    default:
+                        View currentView = null;
+                        PopupWindow editPopupWindow = null;
+                        View popView = LayoutInflater.from(mContext).inflate(R.layout.home_pop, null);
+                        LinearLayout topLl = popView.findViewById(R.id.pop_bg_ll);
+                        topLl.setBackgroundResource(R.mipmap.edit_msg_bg);
+
+                        RecyclerView recyclerView = popView.findViewById(R.id.home_pop_rv);
+                        EditChatMsgAdapter editChatMsgAdapter = new EditChatMsgAdapter(R.layout.edit_chat_msg_item);
+                        List<HomePageMenuBean> arrays = mPresenter.getEditChatMsgMenus(operateingMsgBean);
+                        GridLayoutManager manager = new GridLayoutManager(mContext, 4);
+                        recyclerView.setLayoutManager(manager);
+                        recyclerView.setAdapter(editChatMsgAdapter);
+                        editChatMsgAdapter.setNewData(arrays);
+                        if (arrays.size() > 4) {
+                            editPopupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 180), DisplayUtil.dp2px(mContext, 100));
+                        } else {
+                            editPopupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 180), DisplayUtil.dp2px(mContext, 50));
+
+                        }
+                        editPopupWindow.setOutsideTouchable(true);
+
+                        int id = view.getId();
+                        if (id == R.id.sender_content_tv) {
+                            currentView = msgAdapter.getViewByPosition(mRecyclerview, msgPosition,
+                                    R.id.sender_content_tv);
+                        } else if (id == R.id.receiver_content_tv) {
+                            currentView = msgAdapter.getViewByPosition(mRecyclerview, msgPosition,
+                                    R.id.receiver_content_tv);
+                        } else if (id == R.id.sender_pic_video_iv) {//图片视频
+                            currentView = msgAdapter.getViewByPosition(mRecyclerview, msgPosition,
+                                    R.id.sender_pic_video_iv);
+                        } else if (id == R.id.receiver_pic_video_iv) {
+                            currentView = msgAdapter.getViewByPosition(mRecyclerview, msgPosition,
+                                    R.id.receiver_pic_video_iv);
+                        } else if (id == R.id.audio_bg_rl) {
+                            currentView = msgAdapter.getViewByPosition(mRecyclerview, msgPosition,
+                                    R.id.audio_bg_rl);
+                        } else {
+                            currentView = view;
+                        }
+                        int[] location = new int[2];
+                        currentView.getLocationOnScreen(location);
+                        //显示在正上方
+                        editPopupWindow.showAtLocation(currentView, Gravity.NO_GRAVITY,
+                                location[0] + currentView.getWidth() / 2 - editPopupWindow.getWidth() / 2,
+                                location[1] - editPopupWindow.getHeight());
+                        PopupWindow finalEditPopupWindow = editPopupWindow;
+                        editChatMsgAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                HomePageMenuBean menuBean = (HomePageMenuBean) adapter.getItem(position);
+                                finalEditPopupWindow.dismiss();
+                                switch (menuBean.getName()) {
+                                    case MainContract.COPY_MSG:
+                                        // : 2022-02-12 复制消息
+                                        copy(operateingMsgBean.getContent());
+
+                                        break;
+                                    case MainContract.DELETE_MSG:
+                                        // : 2022-01-21  删除当前消息
+                                        showAlertDialog("确定删除?", "确定", "取消", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                msgAdapter.remove(msgPosition);
+                                                ObjectBoxMallUtil.deleteMessage(operateingMsgBean);
+                                            }
+                                        });
+
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        });
+                        break;
+
+                }
+                return true;
+            }
+
+        });
+
+
+    }
+
+    //查看图片
+    private void displayPicVideo(MessageBodyBean messageBodyBean) {
+        // TODO: 2022/5/23 展示图片和视频
+
+//        int position = 0;
+//        for (int i = 0; i < allPicVideoPath.size(); i++) {
+//            MessageBodyBean path = allPicVideoPath.get(i);
+//            if (messageBodyBean.getCreateTime() == path.getCreateTime()) {
+//                position = i;
+//                break;
+//            }
+//        }
+//        startActivity(new Intent(mContext, PicVideoDisplayActivity.class)
+//                .putParcelableArrayListExtra(BASE_PARCELABLE, allPicVideoPath)
+//                .putExtra(PicVideoDisplayActivity.IMAGEITEM, position));
+
     }
 
     /**
@@ -272,6 +461,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
         }
         return true;
     }
+
     private void initMoreActionAdapter() {
         moreActionAdapter = new ChatMoreActionAdapter(R.layout.item_more_action);
         GridLayoutManager manager = new GridLayoutManager(mContext, 4);
@@ -944,7 +1134,6 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
     }
 
 
-
     /**
      * 上传图片文件
      *
@@ -953,7 +1142,6 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
     private void uploadPicFile(String picPath) {
         hideBottomAndKeyboard();
         //发送图片文件
-
 
 
         ImageLoadUtil.getExifOrientation(mContext, picPath, new ImageLoadUtil.OnImageLoadSuccess() {

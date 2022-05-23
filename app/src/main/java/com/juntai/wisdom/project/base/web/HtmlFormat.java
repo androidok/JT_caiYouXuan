@@ -1,4 +1,4 @@
-package com.juntai.disabled.basecomponent.web;
+package com.juntai.wisdom.project.base.web;
 
 
 import org.jsoup.Jsoup;

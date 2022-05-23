@@ -76,7 +76,16 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     public void setOnFileUploadStatus(OnFileUploadStatus onFileUploadStatus) {
         this.onFileUploadStatus = onFileUploadStatus;
     }
-
+    /**
+     * 实现文本复制功能
+     *
+     * @param content
+     */
+    public void copy(String content) {
+// 得到剪贴板管理器
+        ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(content.trim());
+    }
     protected void initUploadUtil() {
         //上传文件工具类
         mUploadUtil = new UploadUtil();

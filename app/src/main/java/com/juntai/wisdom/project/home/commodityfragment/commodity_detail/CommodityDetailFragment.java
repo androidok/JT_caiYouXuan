@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.util.MultipleItem;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.beans.CommodityDetailBean;
@@ -12,6 +13,7 @@ import com.juntai.wisdom.project.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.home.HomePageContract;
 import com.juntai.wisdom.project.home.commodityfragment.CommodityPresent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,6 +56,11 @@ public class CommodityDetailFragment extends BaseRecyclerviewFragment<CommodityP
                     case MultipleItem.ITEM_COMMODITY_EVALUTA:
                         switch (view.getId()) {
                             case R.id.all_evaluation_tv:
+                                List<CommodityEvaluationBean.DataBean> arrays = (List<CommodityEvaluationBean.DataBean>) multipleItem.getObject();
+                                if (arrays == null || arrays.isEmpty()) {
+                                    ToastUtils.toast(mContext, "暂无评价");
+                                    return;
+                                }
                                 // : 2022/5/4 查看全部评价 切换到评价的fragment中
                                 ((CommodityDetailActivity) Objects.requireNonNull(getActivity())).setTitleName("商品评价");
                                 ((CommodityDetailActivity) Objects.requireNonNull(getActivity())).initFragmentSelected(1);
@@ -75,8 +82,12 @@ public class CommodityDetailFragment extends BaseRecyclerviewFragment<CommodityP
      * 评价数据
      */
     public void addEvaluationData(List<CommodityEvaluationBean.DataBean> arrays) {
+        if (arrays == null) {
+            arrays = new ArrayList<>();
+        }
         baseQuickAdapter.addData(new MultipleItem(MultipleItem.ITEM_COMMODITY_EVALUTA, arrays));
     }
+
     /**
      * 评价数据
      */
@@ -96,7 +107,7 @@ public class CommodityDetailFragment extends BaseRecyclerviewFragment<CommodityP
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new CommodityAdapter(getFragmentManager(),null);
+        return new CommodityAdapter(getFragmentManager(), null);
     }
 
     @Override
@@ -107,6 +118,6 @@ public class CommodityDetailFragment extends BaseRecyclerviewFragment<CommodityP
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((CommodityAdapter)baseQuickAdapter).releaseVideo();
+        ((CommodityAdapter) baseQuickAdapter).releaseVideo();
     }
 }

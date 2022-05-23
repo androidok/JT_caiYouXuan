@@ -293,9 +293,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                 CommodityEvaluationBean commodityEvaluationBean = (CommodityEvaluationBean) o;
                 if (commodityEvaluationBean != null) {
                     List<CommodityEvaluationBean.DataBean> arrays = commodityEvaluationBean.getData();
-                    if (arrays != null && !arrays.isEmpty()) {
-                        commodityDetailFragment.addEvaluationData(arrays);
-                    }
+                    commodityDetailFragment.addEvaluationData(arrays);
                 }
                 commodityDetailFragment.addDetailData(dataBean.getDescription());
 

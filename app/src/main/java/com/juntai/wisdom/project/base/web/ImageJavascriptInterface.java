@@ -1,8 +1,9 @@
-package com.juntai.disabled.basecomponent.web;
+package com.juntai.wisdom.project.base.web;
 
 import android.content.Context;
 import android.webkit.JavascriptInterface;
 
+import com.juntai.disabled.video.img.DisPlayPicsActivity;
 import com.king.zxing.util.LogUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -46,8 +47,6 @@ public class ImageJavascriptInterface {
                 }
             }
         }
-//        mContext.startActivity(new Intent(mContext, ImageZoomActivity.class)
-//                .putExtra("item",pos)
-//                .putExtra("paths", images));
+        DisPlayPicsActivity.startDisplayPics(mContext,images,pos);
     }
 }

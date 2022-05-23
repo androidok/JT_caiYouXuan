@@ -39,8 +39,9 @@ public class CommodityLiveListFragment extends BaseRecyclerviewFragment<Commodit
 
     @Override
     protected void lazyLoad() {
-        super.lazyLoad();
         labelId = getArguments().getInt("label");
+
+        super.lazyLoad();
 
 
 

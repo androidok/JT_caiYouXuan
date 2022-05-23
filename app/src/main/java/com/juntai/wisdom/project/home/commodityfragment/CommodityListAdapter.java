@@ -18,9 +18,6 @@ public class CommodityListAdapter extends BaseQuickAdapter<CommodityBean, BaseVi
     //是否是线性布局
     private  boolean  isLinearLayoutManager;
 
-    public boolean isLinearLayoutManager() {
-        return isLinearLayoutManager;
-    }
 
     public void setLinearLayoutManager(boolean linearLayoutManager) {
         isLinearLayoutManager = linearLayoutManager;
