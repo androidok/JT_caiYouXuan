@@ -115,7 +115,10 @@ public class CartListBean  extends BaseResult {
             private double price;
             private String image;
             private int commodityNum;
-            private int putAwayStatus;
+            /**
+             * 0上架；1下架
+             */
+            private Integer putAwayStatus;
             private String createTime;
             private boolean selected;
 
@@ -207,11 +210,11 @@ public class CartListBean  extends BaseResult {
                 this.commodityNum = commodityNum;
             }
 
-            public int getPutAwayStatus() {
+            public Integer getPutAwayStatus() {
                 return putAwayStatus;
             }
 
-            public void setPutAwayStatus(int putAwayStatus) {
+            public void setPutAwayStatus(Integer putAwayStatus) {
                 this.putAwayStatus = putAwayStatus;
             }
 

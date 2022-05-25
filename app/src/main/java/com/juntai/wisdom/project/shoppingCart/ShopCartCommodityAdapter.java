@@ -30,7 +30,9 @@ public class ShopCartCommodityAdapter extends BaseQuickAdapter<CartListBean.Data
         helper.setText(R.id.commodity_name_tv, item.getCommodityName());
         helper.addOnClickListener(R.id.commodity_property_tv);
         helper.addOnClickListener(R.id.commodity_selected_iv);
-        if (TextUtils.isEmpty(item.getSku())) {
+
+
+        if (TextUtils.isEmpty(item.getSku())||null==item.getPutAwayStatus()||1==item.getPutAwayStatus()) {
             helper.setText(R.id.commodity_property_tv, "宝贝已失效");
             helper.setTextColor(R.id.commodity_property_tv, ContextCompat.getColor(mContext,R.color.red));
         }else {

@@ -96,6 +96,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
                 switch (picTextBean.getTextName()) {
 //                    case HomePageContract.SHARE_WEIXIN:
 //                        // TODO: 2022/5/21 分享到微信
+//                        MobUtils.share(mContext,MobUtils.SHARE_WECHAT,"title","content","www.baidu.com","www.baidu.com");
 //                        break;
 //                    case HomePageContract.SHARE_WEIXIN_FRIENDS:
 //                        // TODO: 2022/5/21 分享到微信 朋友圈
@@ -111,6 +112,8 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
             }
         });
     }
+
+
 
     @Override
     public void initData() {

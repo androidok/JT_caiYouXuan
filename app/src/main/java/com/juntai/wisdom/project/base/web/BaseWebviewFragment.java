@@ -23,6 +23,7 @@ public class BaseWebviewFragment extends BaseMvpFragment {
     private WebView mAgreementWeb;
     private LinearLayout mAgreementLayout;
     private ImageJavascriptInterface imageJavascriptInterface;
+    private String finalUrlString;
 
     @Override
     protected IPresenter createPresenter() {
@@ -80,21 +81,30 @@ public class BaseWebviewFragment extends BaseMvpFragment {
 //            mAgreementWeb.setWebViewClient(new WebViewClientDemo());
             mAgreementWeb.loadDataWithBaseURL("file:///android_asset/", urlString, "text/html",
                     "utf-8", null);
-            String finalUrlString = urlString;
-            mAgreementWeb.setWebViewClient(new WebViewClient() {
-                @Override
-                public void onPageFinished(WebView webView, String s) {
-                    //加载个人中心数据
-                    imageJavascriptInterface.setImageUrls(HtmlFormat.getImageUrlsFromHtml(finalUrlString));
-                    setWebImageClick(webView, "newsInfoActivity");
-                }
-            });
+            finalUrlString = urlString;
+            mAgreementWeb.setWebViewClient(new CustomWebViewClient());
         }
 
 
 
     }
 
+
+    public  class  CustomWebViewClient extends WebViewClient{
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+        @Override
+        public void onPageFinished(WebView webView, String s) {
+            //加载个人中心数据
+            imageJavascriptInterface.setImageUrls(HtmlFormat.getImageUrlsFromHtml(finalUrlString));
+            setWebImageClick(webView, "newsInfoActivity");
+        }
+
+
+    }
     @Override
     public void onSuccess(String tag, Object o) {
 

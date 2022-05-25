@@ -31,7 +31,7 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
 
 
     public List<PicTextBean> getMyCenterTopMenus() {
-// TODO: 2022/5/3 这个地方需要更换图片资源
+// : 2022/5/3 这个地方需要更换图片资源
         List<PicTextBean> arrays = new ArrayList<>();
         arrays.add(new PicTextBean(R.mipmap.collect_commodity_icon, MyCenterContract.TOP_MENU_COLLECT_COMMODITY));
         arrays.add(new PicTextBean(R.mipmap.collect_shop_icon, MyCenterContract.TOP_MENU_COLLECT_SHOP));
@@ -40,7 +40,7 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
     }
 
     public List<PicTextBean> getMyCenterOrderMenus() {
-// TODO: 2022/5/3 这个地方需要更换图片资源
+// : 2022/5/3 这个地方需要更换图片资源
         List<PicTextBean> arrays = new ArrayList<>();
         arrays.add(new PicTextBean(R.mipmap.to_pay_icon, MyCenterContract.ORDER_TO_PAY));
         arrays.add(new PicTextBean(R.mipmap.to_send_icon, MyCenterContract.ORDER_TO_SEND));

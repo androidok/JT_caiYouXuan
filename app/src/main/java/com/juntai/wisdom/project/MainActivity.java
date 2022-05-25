@@ -24,6 +24,7 @@ import com.juntai.wisdom.project.news.NewsListFragment;
 import com.juntai.wisdom.project.shoppingCart.ShoppingCartFragment;
 import com.juntai.wisdom.project.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.webSocket.MyWsManager;
+import com.mob.MobSDK;
 
 public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         View.OnClickListener, MainPageContract.IMainPageView {
@@ -178,7 +179,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     protected void onResume() {
         super.onResume();
         MyWsManager.getInstance().startConnect();
-
+        MobSDK.submitPolicyGrantResult(true,null);
     }
 
     @Override

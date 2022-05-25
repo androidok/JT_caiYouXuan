@@ -54,10 +54,8 @@
         <activity android:name=".order.orderPay.PaySuccessActivity" />
         <activity android:name=".order.orderPay.OrderPayActivity" />
         <activity
-            android:name=".wxapi.WXPayEntryActivity"
+            android:name=".mall.wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent" />
         <activity
             android:name=".order.confirmOrder.ConfirmOrderActivity"

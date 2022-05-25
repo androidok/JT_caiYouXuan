@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.wxapi;
+package com.juntai.wisdom.project.mall.wxapi;
 
 
 import android.app.Activity;

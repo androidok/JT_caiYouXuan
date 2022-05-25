@@ -80,7 +80,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                     ToastUtils.toast(mContext, "商品信息获取失败 无法分享");
                     return;
                 }
-                ShareActivity.startShareActivity(mContext, 1, dataBean.getCoverImg(), dataBean.getDescription());
+                ShareActivity.startShareActivity(mContext, 1, dataBean.getCoverImg(), dataBean.getSynopsis());
             }
         });
         commodityId = getIntent().getIntExtra(BASE_ID, 0);

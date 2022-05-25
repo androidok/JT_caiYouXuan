@@ -235,7 +235,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                     // 结算
                     List<Integer> ids = getSelectedCommodities(isEdit);
                     if (ids.isEmpty()) {
-                        ToastUtils.toast(mContext, "请选择要结算的商品");
+                        ToastUtils.toast(mContext, "请选择要结算的有效商品");
                         return;
                     }
                     // : 2022/5/7 结算  生成订单
@@ -287,7 +287,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                         ids.add(child.getId());
                     }
                 } else {
-                    if (child.isSelected() && !TextUtils.isEmpty(child.getSku())) {
+                    if (child.isSelected() && !TextUtils.isEmpty(child.getSku())&&null!=child.getPutAwayStatus()&&1!=child.getPutAwayStatus()) {
                         ids.add(child.getId());
                     }
                 }

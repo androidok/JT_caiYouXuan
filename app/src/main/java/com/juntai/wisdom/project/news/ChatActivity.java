@@ -269,7 +269,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                                     new IAudioPlayListener() {
                                         @Override
                                         public void onStart(Uri var1) {
-                                            // TODO: 2022/4/10 这个地方需要优化一下
+                                            // : 2022/4/10 这个地方需要优化一下
                                             if (ivAudio != null && ivAudio.getDrawable() instanceof AnimationDrawable) {
                                                 AnimationDrawable animation = (AnimationDrawable) ivAudio.getDrawable();
                                                 animation.start();
@@ -432,7 +432,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
         super.selectedPicsAndEmpressed(icons);
         if (icons.size() > 0) {
             if (fileSizeIsOk(icons)) {
-                // TODO: 2022-03-09 发送图片或者视频文件
+                // : 2022-03-09 发送图片或者视频文件
 
                 for (String picPath : icons) {
                     if (1 == FileCacheUtils.getFileType(picPath)) {
@@ -1010,7 +1010,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
         MessageBodyBean messageBodyBean = uploadFileBean.getMessageBodyBean();
         List<String> filePaths = uploadFileBean.getFilePaths();
         if (filePaths != null && filePaths.size() > 0) {
-            // TODO: 2022/4/10 获取返回文件的文件名
+            // : 2022/4/10 获取返回文件的文件名
 
             switch (messageBodyBean.getMsgType()) {
                 case 1:
@@ -1172,7 +1172,8 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
 
         //发送视频文件
 
-        // TODO: 2022/4/10 先上传一张视频的缩略图
+        // : 2022/4/10 先上传一张视频的缩略图  这个地方必须确保上传图片名称不被更改 如果被重命名 就无法辨识是否是视频缩略图了
+
         MessageBodyBean messageBodyBean = OperateMsgUtil.getPrivateMsg(2, contactBean.getUserId(),
                 contactBean.getAccount(), contactBean.getNickname(),
                 contactBean.getHeadPortrait(), "");
