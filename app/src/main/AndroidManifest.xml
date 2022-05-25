@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.juntai.wisdom.project">
+    package="com.juntai.wisdom.project.mall">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -32,7 +32,7 @@
         tools:replace="android:appComponentFactory">
         <activity android:name=".share.ShareActivity"></activity>
         <activity android:name=".search.SearchActivity" />
-        <activity android:name="com.juntai.wisdom.project.mine.myinfo.ModifyNickNameActivity" />
+        <activity android:name=".mine.myinfo.ModifyNickNameActivity" />
         <activity
             android:name=".news.ChatActivity"
             android:launchMode="singleTask" />
@@ -54,7 +54,7 @@
         <activity android:name=".order.orderPay.PaySuccessActivity" />
         <activity android:name=".order.orderPay.OrderPayActivity" />
         <activity
-            android:name=".mall.wxapi.WXPayEntryActivity"
+            android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent" />
         <activity
@@ -100,13 +100,13 @@
             android:name=".mine.myinfo.ImageCropActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.wisdom.project.home.shop.ijkplayer.PlayerLiveActivity"
+            android:name=".home.shop.ijkplayer.PlayerLiveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".mine.myinfo.HeadCropActivity"
             android:launchMode="singleTop" />
-        <service android:name="com.juntai.wisdom.project.home.shop.ijkplayer.KeepAliveService" />
+        <service android:name=".home.shop.ijkplayer.KeepAliveService" />
 
         <activity
             android:name=".mine.setting.MyInformationActivity"

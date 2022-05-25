@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".order.orderPay.PaySuccessActivity">
+    tools:context=".mall.order.orderPay.PaySuccessActivity">
 
     <ImageView
         android:layout_width="50dp"

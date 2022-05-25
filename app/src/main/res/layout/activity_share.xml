@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray_lighter"
     android:orientation="vertical"
-    tools:context="com.juntai.wisdom.project.share.ShareActivity">
+    tools:context=".mall.share.ShareActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
