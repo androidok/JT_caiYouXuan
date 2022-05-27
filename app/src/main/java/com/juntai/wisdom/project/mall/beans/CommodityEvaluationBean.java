@@ -63,9 +63,18 @@ public class CommodityEvaluationBean extends BaseResult {
         private String replyEvaluate;
         private String replyTime;
         private int browseNum;
+        private String videoCover;//评价视频封面路径
 
         public int getId() {
             return id;
+        }
+
+        public String getVideoCover() {
+            return videoCover == null ? "" : videoCover;
+        }
+
+        public void setVideoCover(String videoCover) {
+            this.videoCover = videoCover == null ? "" : videoCover;
         }
 
         public void setId(int id) {

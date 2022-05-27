@@ -14,6 +14,8 @@ public interface MainContract {
     String UPLOAD_HISTORY = "upload_history";
      String UPLOAD_IMAGES = "uploadPictures";
      String UPLOAD_VIDEO = "UPLOAD_VIDEO";
+     //上次视频封面
+     String UPLOAD_VIDEO_COVER = "UPLOAD_VIDEO_COVER";
      String UPLOAD_MAP_SHOT = "uploadmapshot";
      //发送语音
      String UPLOAD_AUDIO_FILE = "audiofile";

@@ -103,8 +103,8 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
                         mPresenter.startEvaluate(builder.build(), AppHttpPathMall.START_EVALUATE
                         );
                     } else {
-                        // : 2022/5/17 上传视频
-                        mPresenter.uploadFile(MainContract.UPLOAD_VIDEO,videoPath);
+                        // : 2022/5/17 上传视频封面
+                        mPresenter.uploadFile(MainContract.UPLOAD_VIDEO_COVER, videoScreen);
 
 
                     }
@@ -172,6 +172,16 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
                 }
 
                 break;
+            case MainContract.UPLOAD_VIDEO_COVER:
+                //上传封面成功之后上传视频文件
+                List<String> videoCoverPaths = (List<String>) o;
+                if (videoCoverPaths != null && videoCoverPaths.size() > 0) {
+                    builder.add("videoCover", videoCoverPaths.get(0));
+                }
+                mPresenter.uploadFile(MainContract.UPLOAD_VIDEO, videoPath);
+
+
+                break;
             case MainContract.UPLOAD_IMAGES:
                 //发送图片
                 List<String> picPaths = (List<String>) o;
@@ -183,7 +193,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
                     }
                 } else {
                     // : 2022/5/17 上传视频
-                    mPresenter.uploadFile(MainContract.UPLOAD_VIDEO,videoPath);
+                    mPresenter.uploadFile(MainContract.UPLOAD_VIDEO_COVER, videoScreen);
                 }
 
 

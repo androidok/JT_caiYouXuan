@@ -63,7 +63,10 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
         mRecyclerview.setBackgroundColor(ContextCompat.getColor(mContext, R.color.gray_lighter));
         mSmartrefreshlayout.setPrimaryColors(ContextCompat.getColor(mContext, R.color.gray_lighter));
         ClassicsHeader classicsHeader = (ClassicsHeader) mSmartrefreshlayout.getRefreshHeader();
-        classicsHeader.setAccentColor(ContextCompat.getColor(mContext, R.color.black));
+        if (classicsHeader != null) {
+            classicsHeader.setAccentColor(ContextCompat.getColor(mContext, R.color.black));
+
+        }
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerview.setLayoutManager(manager);
         baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个商品也没有-_-",-1));

@@ -9,12 +9,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.MainContract;
 import com.example.chat.chatmodule.ChatPresent;
 import com.juntai.disabled.basecomponent.bean.BaseMenuBean;
-import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.video.CustomStandardGSYVideoPlayer;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
+import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 
@@ -37,7 +38,7 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
     private static String MSG = "msgStr";
     private CustomStandardGSYVideoPlayer videoPlayer;
     boolean isPlay, isPause;
-    private MessageBodyBean messageBodyBean;
+    private String videoPath;
 
     @Override
     protected ChatPresent createPresenter() {
@@ -45,11 +46,10 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
     }
 
 
-    public static DisplayVideoFragment getInstance(String videoPath, MessageBodyBean msgJson) {
+    public static DisplayVideoFragment getInstance(String videoPath, BannerObject bannerObject) {
         DisplayVideoFragment fragment = new DisplayVideoFragment();
         Bundle bundle = new Bundle();
         bundle.putString(VIDEOPATH, videoPath);
-        bundle.putParcelable(MSG, msgJson);
         fragment.setArguments(bundle);
         return fragment;
 
@@ -62,24 +62,14 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
 
     @Override
     protected void lazyLoad() {
-        messageBodyBean = getArguments().getParcelable(MSG);
+        videoPath = getArguments().getString(VIDEOPATH);
         videoPlayer = (CustomStandardGSYVideoPlayer) getView(R.id.video_player);
         //RTMP播放需切换至exo播放
         PlayerFactory.setPlayManager(Exo2PlayerManager.class);
-        String videoPath = getArguments().getString(VIDEOPATH);
         /**如果是本人发送的视频 文件地址路径是
          * 如果是非本人发送的适配 文件地址是getAppVideoPath()+getSavedFileName(messageBodyBean)/文件
          */
-//        if (messageBodyBean.getFromUserId() == UserInfoManager.getUserId()) {
-//            // : 2022-03-09  本人发的视频
-//            if (FileCacheUtils.isFileExists(messageBodyBean.getLocalCatchPath())) {
-//                videoPlayer.setUp(messageBodyBean.getLocalCatchPath(), false, "");
-//            } else {
-//                loadNetVideoFile(videoPath);
-//            }
-//        } else {
-//            loadNetVideoFile(videoPath);
-//        }
+        loadNetVideoFile(videoPath);
 
 
         //增加封面
@@ -168,30 +158,25 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
 
     private void downloadVideoFile() {
         String oldFilePath = null;
-//        if (messageBodyBean.getFromUserId()== UserInfoManager.getUserId()) {
-//            //自己发的视频 本地有记录
-//            oldFilePath = messageBodyBean.getLocalCatchPath();
-//        }else {
-//            oldFilePath = FileCacheUtils.isVideoFileExistsInDir(getSavedFileNameWithoutSuffix(messageBodyBean), true);
-//
-//        }
-//        if (!TextUtils.isEmpty(oldFilePath)) {
-//            File file = new File(oldFilePath);
-//            FileCacheUtils.copyFile((PicVideoDisplayActivity)getActivity(),oldFilePath, FileCacheUtils.getAppVideoPath(false) + getSavedFileNameWithoutSuffix(messageBodyBean)+".mp4",false);
-//        } else {
-//            ToastUtils.toast(mContext, "视频缓存完成之后才可保存到本地");
-//        }
+        oldFilePath = FileCacheUtils.isVideoFileExistsInDir(getSavedFileNameWithoutSuffix(videoPath), true);
+
+        if (!TextUtils.isEmpty(oldFilePath)) {
+            File file = new File(oldFilePath);
+            FileCacheUtils.copyFile((PicVideoDisplayActivity)getActivity(),oldFilePath, FileCacheUtils.getAppVideoPath(false) + getSavedFileNameWithoutSuffix(videoPath)+".mp4",false);
+        } else {
+            ToastUtils.toast(mContext, "视频缓存完成之后才可保存到本地");
+        }
     }
 
     private void loadNetVideoFile(String videoPath) {
-        if (!TextUtils.isEmpty(FileCacheUtils.isVideoFileExistsInDir(getSavedFileNameWithoutSuffix(messageBodyBean), true))) {
+        if (!TextUtils.isEmpty(FileCacheUtils.isVideoFileExistsInDir(getSavedFileNameWithoutSuffix(videoPath), true))) {
 //            ToastUtils.toast(getBaseActivity(), "对方发送的   本地已缓存");
             //视频存在
-            videoPath = FileCacheUtils.getVideoFileInDir(getSavedFileNameWithoutSuffix(messageBodyBean), true);
+            videoPath = FileCacheUtils.getVideoFileInDir(getSavedFileNameWithoutSuffix(videoPath), true);
             videoPlayer.setUp(videoPath, false, "");
         } else {
 //            ToastUtils.toast(getBaseActivity(), "对方发送的   本地没有缓存");
-            videoPlayer.setUp(videoPath, true, new File(FileCacheUtils.getAppVideoPath(true) + getSavedFileNameWithoutSuffix(messageBodyBean)), "");
+            videoPlayer.setUp(videoPath, true, new File(FileCacheUtils.getAppVideoPath(true) + getSavedFileNameWithoutSuffix(videoPath)), "");
         }
     }
 

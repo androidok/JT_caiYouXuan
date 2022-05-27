@@ -1,15 +1,20 @@
 package com.juntai.wisdom.project.mall.base.displayPicVideo;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.example.chat.MainContract;
 import com.juntai.disabled.PicVideoViewPagerAdapter;
-import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
+import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,47 +28,58 @@ public class PicVideoDisplayActivity extends BaseAppActivity implements MainCont
     PicVideoViewPagerAdapter myViewPagerAdapter;
     ViewPager viewPager;
     List<Fragment> fragmentList = new ArrayList<>();
-    private List<MessageBodyBean> messageBodyBeanList;
+    private List<BannerObject> bannerObjects;
     private String diaplayPath;
 
     public static String IMAGEITEM = "imageitem";
 
+
+    public static void startPicVideoPlayActivity(Context mContext, List<BannerObject> bannerObjects, int position) {
+        Hawk.put(HawkProperty.PIC_VIDEOS_DISPLAY,bannerObjects);
+        Intent intent = new Intent(mContext,PicVideoDisplayActivity.class);
+        intent.putExtra(IMAGEITEM, position);
+        mContext.startActivity(intent);
+    }
+
+
     @Override
     public int getLayoutView() {
-        return com.juntai.disabled.video.R.layout.activity_imagezoom;
+        return R.layout.activity_imagezoom;
     }
 
     @Override
     public void initView() {
         initToolbarAndStatusBar(false);
-        viewPager = findViewById(com.juntai.disabled.video.R.id.imagezoom_viewpager);
-
+        viewPager = findViewById(R.id.imagezoom_viewpager);
+        mImmersionBar.reset().statusBarColor(R.color.black)
+                .statusBarDarkFont(true)
+                .init();
     }
 
 
     @Override
     public void initData() {
-        messageBodyBeanList = getIntent().getParcelableArrayListExtra(BASE_PARCELABLE);
-        if (messageBodyBeanList == null) {
+        bannerObjects = Hawk.get(HawkProperty.PIC_VIDEOS_DISPLAY);
+        if (bannerObjects == null) {
             ToastUtils.toast(mContext, "请传入需要展示图片的路径");
             finish();
             return;
         }
         int item = getIntent().getIntExtra(IMAGEITEM, 0);
-        if (item >= messageBodyBeanList.size()) {
+        if (item >= bannerObjects.size()) {
             ToastUtils.toast(mContext, "图片的索引越界");
             finish();
             return;
         }
 
-        diaplayPath = UrlFormatUtil.getImageOriginalUrl(messageBodyBeanList.get(item).getContent());
-        for (MessageBodyBean messageBodyBean : messageBodyBeanList) {
-            switch (messageBodyBean.getMsgType()) {
-                case 1:
-                    fragmentList.add(DisplayPhotoFragment.getInstance(UrlFormatUtil.getImageOriginalUrl(messageBodyBean.getContent()), messageBodyBean));
+        diaplayPath = UrlFormatUtil.getImageOriginalUrl((String) bannerObjects.get(item).getEventObj());
+        for (BannerObject bannerObject : bannerObjects) {
+            switch (bannerObject.getEventKey()) {
+                case BannerObject.BANNER_TYPE_IMAGE:
+                    fragmentList.add(DisplayPhotoFragment.getInstance(UrlFormatUtil.getImageOriginalUrl((String) bannerObject.getEventObj()), bannerObject));
                     break;
-                case 2:
-                    fragmentList.add(DisplayVideoFragment.getInstance(UrlFormatUtil.getImageOriginalUrl(messageBodyBean.getContent()), messageBodyBean));
+                case BannerObject.BANNER_TYPE_VIDEO:
+                    fragmentList.add(DisplayVideoFragment.getInstance(UrlFormatUtil.getImageOriginalUrl((String) bannerObject.getEventObj()), bannerObject));
                     break;
                 default:
                     break;
@@ -75,7 +91,7 @@ public class PicVideoDisplayActivity extends BaseAppActivity implements MainCont
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-                diaplayPath = UrlFormatUtil.getImageOriginalUrl(messageBodyBeanList.get(i).getContent());
+                diaplayPath = UrlFormatUtil.getImageOriginalUrl((String) bannerObjects.get(i).getEventObj());
 
             }
 

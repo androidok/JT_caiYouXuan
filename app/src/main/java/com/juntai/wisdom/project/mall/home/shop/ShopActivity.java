@@ -12,6 +12,7 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
+import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.wisdom.project.mall.beans.shop.ShopDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.shop.ijkplayer.PlayerLiveActivity;
@@ -53,7 +54,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
     private int collectId = 0;
 
     private ShopDetailBean.DataBean shopBean;
-    private List<String> bannerPics;
+    private List<BannerObject> bannerPics;
     private GlideImageLoader imageLoader;
 
     @Override
@@ -100,6 +101,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                     case BannerObject.BANNER_TYPE_IMAGE:
                     case BannerObject.BANNER_TYPE_VIDEO:
                         // TODO: 2022/5/21 展示图片大图
+                        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,bannerPics, bannerPics.size()==bannerObjects.size()?position:position-1);
                         break;
                     case BannerObject.BANNER_TYPE_RTMP:
                         ShopDetailBean.DataBean shopBean = (ShopDetailBean.DataBean) bannerObject.getEventObj();
@@ -148,10 +150,10 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                 String[] pics = bannerPic.split(",");
                 for (String pic : pics) {
                     bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
-                    bannerPics.add(pic);
+                    bannerPics.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE,pic));
                 }
             } else {
-                bannerPics.add(bannerPic);
+                bannerPics.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, bannerPic));
                 bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, bannerPic));
 
             }
@@ -232,7 +234,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                     ToastUtils.toast(mContext, "无法获取店铺信息 不能分享");
                     return;
                 }
-                ShareActivity.startShareActivity(mContext, 0, bannerPics.isEmpty() ? "" : bannerPics.get(0), shopBean.getIntroduction());
+                ShareActivity.startShareActivity(mContext, 0, bannerPics.isEmpty() ? "" : (String)bannerPics.get(0).getEventObj(), shopBean.getIntroduction());
 
                 break;
         }

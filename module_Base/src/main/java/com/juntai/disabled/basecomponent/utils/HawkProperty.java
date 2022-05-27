@@ -16,6 +16,11 @@ public class HawkProperty {
     public static String DEV_REGID = "dev_regid";
     public static String ALL_PROVINCE_KEY = "ALL_PROVINCE_KEY";
     public static String DEFAULT_ADDR = "DEFAULT_ADDR";
+    /**
+     * 视频图片展示
+     */
+    public static String PIC_VIDEOS_DISPLAY = "PIC_VIDEOS_DISPLAY";
+
 
     /**
      * 所有联系人

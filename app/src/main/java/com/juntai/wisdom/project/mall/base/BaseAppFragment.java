@@ -40,12 +40,38 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
         return content;
     }
     /**
+     * 获取文件名称  后缀
+     * @return
+     */
+    public String getSavedFileNameWithoutSuffix(String content){
+        if (TextUtils.isEmpty(content)) {
+            return null;
+        }
+        if (content.contains("/")) {
+            content = content.substring(content.lastIndexOf("/")+1,content.lastIndexOf("."));
+        }
+        return content;
+    }
+    /**
      * 获取文件名称  带后缀   图片的缓存需要
      * @param messageBodyBean
      * @return
      */
     public String getSavedFileName(MessageBodyBean messageBodyBean){
         String content = messageBodyBean.getContent();
+        if (TextUtils.isEmpty(content)) {
+            return null;
+        }
+        if (content.contains("/")) {
+            content = content.substring(content.lastIndexOf("/")+1,content.length());
+        }
+        return content;
+    }
+    /**
+     * 获取文件名称  带后缀   图片的缓存需要
+     * @return
+     */
+    public String getSavedFileName(String  content){
         if (TextUtils.isEmpty(content)) {
             return null;
         }

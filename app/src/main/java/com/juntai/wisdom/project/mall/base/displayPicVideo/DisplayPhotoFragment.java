@@ -13,13 +13,13 @@ import com.example.chat.MainContract;
 import com.example.chat.chatmodule.ChatPresent;
 import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.bean.BaseMenuBean;
-import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.video.img.PhotoView;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
+import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -44,7 +44,6 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
     private static String MSGSTR = "msgStr";
 
     private String path;
-    private MessageBodyBean messageBodyBean;
 
     @Override
     protected ChatPresent createPresenter() {
@@ -52,11 +51,10 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
     }
 
 
-    public static DisplayPhotoFragment getInstance(String picPath, MessageBodyBean msgStr) {
+    public static DisplayPhotoFragment getInstance(String picPath, BannerObject bannerObject) {
         DisplayPhotoFragment fragment = new DisplayPhotoFragment();
         Bundle bundle = new Bundle();
         bundle.putString(PICPATH, picPath);
-        bundle.putParcelable(MSGSTR, msgStr);
         fragment.setArguments(bundle);
         return fragment;
 
@@ -80,10 +78,9 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
     @Override
     protected void initView() {
         path = getArguments().getString(PICPATH);
-        messageBodyBean = getArguments().getParcelable(MSGSTR);
         mPhotoDisplayPv = (PhotoView) getView(R.id.photo_display_pv);
         mDisplayPicActionMoreIv = (ImageView) getView(R.id.display_pic_action_more_iv);
-        mDisplayPicActionMoreIv.setOnClickListener(this);
+//        mDisplayPicActionMoreIv.setOnClickListener(this);
         mDisplayPicActionDownloadIv = (ImageView) getView(R.id.display_pic_action_download_iv);
         mDisplayPicActionDownloadIv.setOnClickListener(this);
         mPhotoDisplayPv.enable();
@@ -97,32 +94,19 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
                 return true;
             }
         });
-//        if (messageBodyBean.getFromUserId() == UserInfoManager.getUserId()) {
-//            // : 2022-03-09  本人发的视频
-//            if (FileCacheUtils.isFileExists(messageBodyBean.getLocalCatchPath())) {
-//                //本地原图片存在
-//                ImageLoadUtil.loadImageCache(getActivity(), messageBodyBean.getLocalCatchPath(), mPhotoDisplayPv);
-//            } else {
-//                //本地原图片被删除  或者是转发的别人的照片
-//                loadNetImageFile();
-//            }
-//        } else {
-//            loadNetImageFile();
-//        }
-//
-
+        loadNetImageFile();
     }
 
     private void loadNetImageFile() {
-        if (!FileCacheUtils.isFileExists(FileCacheUtils.getAppImagePath(true) + getSavedFileName(messageBodyBean))) {
+        if (!FileCacheUtils.isFileExists(FileCacheUtils.getAppImagePath(true) + getSavedFileName(path))) {
             //本地没有缓存
-            ImageLoadUtil.loadImageCache(getActivity(), messageBodyBean.getContent(), mPhotoDisplayPv);
-            ImageLoadUtil.setGlideDownloadFileToLocal((PicVideoDisplayActivity) getActivity(), mContext, messageBodyBean.getContent(), true);
+            ImageLoadUtil.loadImageCache(getActivity(), path, mPhotoDisplayPv);
+            ImageLoadUtil.setGlideDownloadFileToLocal((PicVideoDisplayActivity) getActivity(), mContext, path, true);
 //            ToastUtils.toast(getBaseActivity(), "对方发送的   本地没有缓存");
 
         } else {
 //            ToastUtils.toast(getBaseActivity(), "对方发送的   本地已缓存");
-            ImageLoadUtil.loadImageCache(getActivity(), FileCacheUtils.getAppImagePath(true) + getSavedFileName(messageBodyBean), mPhotoDisplayPv);
+            ImageLoadUtil.loadImageCache(getActivity(), FileCacheUtils.getAppImagePath(true) + getSavedFileName(path), mPhotoDisplayPv);
 
         }
     }
@@ -253,18 +237,11 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
     }
 
     private void downloadImage() {
-//        String oldFilePath = null;
-//        String newFilePath = null;
-//        if (messageBodyBean.getFromUserId() == UserInfoManager.getUserId()) {
-//            //自己发的图片 本地有记录
-//            oldFilePath = messageBodyBean.getLocalCatchPath();
-//            File oldFile = new File(oldFilePath);
-//            newFilePath = FileCacheUtils.getAppImagePath(false) + oldFile.getName();
-//        } else {
-//            oldFilePath = FileCacheUtils.getAppImagePath(true) + getSavedFileName(messageBodyBean);
-//            newFilePath = FileCacheUtils.getAppImagePath(false) + getSavedFileName(messageBodyBean);
-//        }
-//        FileCacheUtils.copyFile((PicVideoDisplayActivity) getActivity(), oldFilePath, newFilePath, false);
+        String oldFilePath = null;
+        String newFilePath = null;
+        oldFilePath = FileCacheUtils.getAppImagePath(true) + getSavedFileName(path);
+        newFilePath = FileCacheUtils.getAppImagePath(false) + getSavedFileName(path);
+        FileCacheUtils.copyFile((PicVideoDisplayActivity) getActivity(), oldFilePath, newFilePath, false);
 
     }
 

@@ -35,7 +35,7 @@ public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> ex
     IntentFilter intentFilter = new IntentFilter();
     private VideoBroadcastReceiver videoBroadcastReceiver = null;
     //视频
-    private String videoScreen;
+    protected String videoScreen;
     protected String videoPath = null;
     private ImageView mItemVideoPic, mDeleteVedio, mItemVideoTag;
 
