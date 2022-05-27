@@ -2,9 +2,11 @@ package com.juntai.disabled.video.img;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.juntai.disabled.basecomponent.base.BaseDownLoadActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
@@ -46,6 +48,8 @@ public class DisPlayPicsActivity extends BaseDownLoadActivity {
     public void initView() {
         mBaseRootCol.setFitsSystemWindows(true);
         viewPager = findViewById(R.id.imagezoom_viewpager);
+       LinearLayout mDisplayLl = findViewById(R.id.display_pic_ll);
+        mDisplayLl.setBackgroundColor(ContextCompat.getColor(mContext,R.color.white));
 
     }
 

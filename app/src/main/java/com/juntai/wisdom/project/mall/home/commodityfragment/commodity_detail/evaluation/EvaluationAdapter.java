@@ -8,10 +8,10 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.video.img.DisPlayPicsActivity;
+import com.juntai.disabled.video.player.DisplayVideoActivity;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
-import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,20 +35,19 @@ public class EvaluationAdapter extends BaseQuickAdapter<CommodityEvaluationBean.
         helper.setText(R.id.evaluator_name_tv, item.getNickname());
         helper.setText(R.id.evaluate_time_tv, item.getCreateTime());
         helper.setText(R.id.evaluate_content_tv, item.getEvaluate());
-        List<BannerObject> picVideos = new ArrayList<>();
-        if (!TextUtils.isEmpty(item.getVideoCover())) {
-            picVideos.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, item.getVideoCover()));
+        List<String> picVideos = new ArrayList<>();
+        if (!TextUtils.isEmpty(item.getVideoUrl())) {
+            picVideos.add(item.getVideoUrl());
         }
-
         String imageUrls = item.getImgUrl();
         if (!TextUtils.isEmpty(imageUrls)) {
             if (imageUrls.contains(",")) {
                 String[] urls = imageUrls.split(",");
                 for (String url : urls) {
-                    picVideos.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, url));
+                    picVideos.add(url);
                 }
             } else {
-                picVideos.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, imageUrls));
+                picVideos.add(imageUrls);
             }
         }
 
@@ -62,9 +61,20 @@ public class EvaluationAdapter extends BaseQuickAdapter<CommodityEvaluationBean.
         picVideoAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                List<BannerObject> arrays = adapter.getData();
-                // : 2022/5/27 跳转到图片视频展示页面
-                PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,arrays, position);
+                List<String> arrays = adapter.getData();
+                ArrayList<String> pics = new ArrayList<>();
+                for (String array : arrays) {
+                    if (!array.endsWith(".mp4")) {
+                        pics.add(array);
+                    }
+                }
+                String str = (String) adapter.getItem(position);
+                if (str.endsWith(".mp4")) {
+                    DisplayVideoActivity.startDisplayVideo(mContext,str);
+                }else {
+                    DisPlayPicsActivity.startDisplayPics(mContext,pics,0);
+                }
+
 
             }
         });

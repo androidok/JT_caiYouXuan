@@ -4,7 +4,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 
 /**
  * @Author: tobato
@@ -13,24 +12,20 @@ import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/17 14:22
  */
-public class EvaluatePicVideoAdapter extends BaseQuickAdapter<BannerObject, BaseViewHolder> {
+public class EvaluatePicVideoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     public EvaluatePicVideoAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, BannerObject item) {
-        ImageLoadUtil.loadSquareImageHasCorner(mContext, (String) item.getEventObj(), helper.getView(R.id.select_pic_icon_iv));
-        switch (item.getEventKey()) {
-            case BannerObject.BANNER_TYPE_VIDEO:
-                helper.setGone(R.id.item_video_tag, true);
-                break;
-            case BannerObject.BANNER_TYPE_IMAGE:
-                helper.setGone(R.id.item_video_tag, false);
-                break;
-            default:
-                break;
+    protected void convert(BaseViewHolder helper, String item) {
+        if (item.contains(".mp4")) {
+            // TODO: 2022/5/27 这个地方换成加载视频封面图
+            ImageLoadUtil.loadRoundCornerImg(mContext,item, helper.getView(R.id.select_pic_icon_iv), R.mipmap.empty_pic,1);
+            helper.setGone(R.id.item_video_tag, true);
+        } else {
+            ImageLoadUtil.loadSquareImageHasCorner(mContext, item, helper.getView(R.id.select_pic_icon_iv));
+            helper.setGone(R.id.item_video_tag, false);
         }
-
     }
 }
