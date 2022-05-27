@@ -21,7 +21,7 @@ public class CollectCommoditiesAdapter extends BaseQuickAdapter<CollectDataBean.
     @Override
     protected void convert(BaseViewHolder helper, CollectDataBean.DataDTO item) {
         helper.setGone(R.id.linearlayout_commodity_sales_tv, false);
-        ImageLoadUtil.loadHeadPic(mContext, item.getPhoto(), helper.getView(R.id.linearlayout_commodity_cover_iv), false);
+        ImageLoadUtil.loadSquareImageHasCorner(mContext, item.getPhoto(), helper.getView(R.id.linearlayout_commodity_cover_iv));
         helper.setText(R.id.linearlayout_commodity_des_tv, item.getName());
         helper.setText(R.id.linearlayout_commodity_price_tv, String.format("￥%s",item.getPrice()));
     }

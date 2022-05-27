@@ -144,12 +144,12 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
                     //我发送的消息
                     initNickName(helper, messageBodyBean, 0);
                     EmojiUtils.showEmojiTextView(mContext, sendEt, messageBodyBean.getContent(), 22);
-                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(UserInfoManagerChat.getHeadPic()), (ImageView) helper.getView(R.id.sender_pic_iv));
+                    ImageLoadUtil.loadHeadSquareImageHasCorner(mContext, UrlFormatUtil.getImageThumUrl(UserInfoManagerChat.getHeadPic()), (ImageView) helper.getView(R.id.sender_pic_iv));
                 } else {
                     //对方发送的消息
                     initNickName(helper, messageBodyBean, 1);
                     EmojiUtils.showEmojiTextView(mContext, receiveEt, messageBodyBean.getContent(), 22);
-                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(messageBodyBean.getFromHead()), (ImageView) helper.getView(R.id.receiver_pic_iv));
+                    ImageLoadUtil.loadHeadSquareImageHasCorner(mContext, UrlFormatUtil.getImageThumUrl(messageBodyBean.getFromHead()), (ImageView) helper.getView(R.id.receiver_pic_iv));
                 }
                 break;
             case MultipleItem.ITEM_RECEIVE_AUDIO:
@@ -163,7 +163,7 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
 //                    if (2 == messageBodyBean.getChatType()) {
 //                        helper.setGone(R.id.sender_nick_name_tv, false);
 //                    }
-                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(UserInfoManagerChat.getHeadPic()), (ImageView) helper.getView(R.id.audio_head_iv));
+                    ImageLoadUtil.loadHeadSquareImageHasCorner(mContext, UrlFormatUtil.getImageThumUrl(UserInfoManagerChat.getHeadPic()), (ImageView) helper.getView(R.id.audio_head_iv));
                 } else {
 //                    if (2 == messageBodyBean.getChatType()) {
 //                        helper.setGone(R.id.receiver_nick_name_tv, true);
@@ -171,7 +171,7 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
 //                        helper.setText(R.id.receiver_nick_name_tv, UserInfoManagerChat.getContactRemarkName(messageBodyBean));
 //
 //                    }
-                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(messageBodyBean.getFromHead()), (ImageView) helper.getView(R.id.audio_head_iv));
+                    ImageLoadUtil.loadHeadSquareImageHasCorner(mContext, UrlFormatUtil.getImageThumUrl(messageBodyBean.getFromHead()), (ImageView) helper.getView(R.id.audio_head_iv));
 
                 }
                 RelativeLayout audioRl = helper.getView(R.id.audio_bg_rl);
@@ -264,7 +264,7 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
 
                     }
                     initNickName(helper, messageBodyBean, 0);
-                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(UserInfoManagerChat.getHeadPic()), (ImageView) helper.getView(R.id.sender_pic_iv));
+                    ImageLoadUtil.loadHeadSquareImageHasCorner(mContext, UrlFormatUtil.getImageThumUrl(UserInfoManagerChat.getHeadPic()), (ImageView) helper.getView(R.id.sender_pic_iv));
 
                 } else {
                     //对方发送的消息
@@ -298,7 +298,7 @@ public class ChatAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseVie
 
                     }
                     initNickName(helper, messageBodyBean, 1);
-                    ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(messageBodyBean.getFromHead()), (ImageView) helper.getView(R.id.receiver_pic_iv));
+                    ImageLoadUtil.loadHeadSquareImageHasCorner(mContext, UrlFormatUtil.getImageThumUrl(messageBodyBean.getFromHead()), (ImageView) helper.getView(R.id.receiver_pic_iv));
                 }
 
                 break;

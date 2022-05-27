@@ -3,7 +3,6 @@ package com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.e
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
-import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.juntai.wisdom.project.mall.R;
 
 /**
@@ -21,10 +20,11 @@ public class EvaluatePicVideoAdapter extends BaseQuickAdapter<String, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, String item) {
         if (item.contains(".mp4")) {
+            // TODO: 2022/5/27 这个地方换成加载视频封面图
             ImageLoadUtil.loadRoundCornerImg(mContext,item, helper.getView(R.id.select_pic_icon_iv), R.mipmap.empty_pic,1);
             helper.setGone(R.id.item_video_tag, true);
         } else {
-            ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(item), helper.getView(R.id.select_pic_icon_iv), R.mipmap.empty_pic);
+            ImageLoadUtil.loadSquareImageHasCorner(mContext, item, helper.getView(R.id.select_pic_icon_iv));
             helper.setGone(R.id.item_video_tag, false);
         }
     }

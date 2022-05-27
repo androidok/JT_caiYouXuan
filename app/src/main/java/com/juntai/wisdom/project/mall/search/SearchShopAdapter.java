@@ -20,7 +20,7 @@ public class SearchShopAdapter extends BaseQuickAdapter<ShopListDataBean.DataBea
 
     @Override
     protected void convert(BaseViewHolder helper, ShopListDataBean.DataBean.ListBean item) {
-        ImageLoadUtil.loadHeadPic(mContext,item.getHeadPortrait(), helper.getView(R.id.commodity_cover_iv),true);
+        ImageLoadUtil.loadHeadCirclePic(mContext,item.getHeadPortrait(), helper.getView(R.id.commodity_cover_iv));
         helper.setText(R.id.linearlayout_commodity_des_tv,item.getName());
     }
 }

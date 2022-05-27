@@ -31,7 +31,7 @@ public class EvaluationAdapter extends BaseQuickAdapter<CommodityEvaluationBean.
 
     @Override
     protected void convert(BaseViewHolder helper, CommodityEvaluationBean.DataBean item) {
-        ImageLoadUtil.loadHeadPic(mContext, item.getHeadPortrait(), helper.getView(R.id.evaluator_iv), true);
+        ImageLoadUtil.loadHeadCirclePic(mContext, item.getHeadPortrait(), helper.getView(R.id.evaluator_iv));
         helper.setText(R.id.evaluator_name_tv, item.getNickname());
         helper.setText(R.id.evaluate_time_tv, item.getCreateTime());
         helper.setText(R.id.evaluate_content_tv, item.getEvaluate());

@@ -3,7 +3,6 @@ package com.juntai.wisdom.project.mall.home.commodityfragment;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
-import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.beans.CommodityBean;
 
@@ -33,14 +32,14 @@ public class CommodityListAdapter extends BaseQuickAdapter<CommodityBean, BaseVi
         if (isLinearLayoutManager) {
             helper.setGone(R.id.un_linearlayout_cl,false);
             helper.setGone(R.id.linearlayout_cl,true);
-            ImageLoadUtil.loadImage(mContext, UrlFormatUtil.getImageThumUrl(item.getCoverImg()), helper.getView(R.id.linearlayout_commodity_cover_iv));
+            ImageLoadUtil.loadSquareImage(mContext,item.getCoverImg(),helper.getView(R.id.linearlayout_commodity_cover_iv));
             helper.setText(R.id.linearlayout_commodity_des_tv, item.getName());
             helper.setText(R.id.linearlayout_commodity_price_tv,String.format("￥%s",item.getPrice()));
             helper.setText(R.id.linearlayout_commodity_sales_tv,String.format("销量:%s",item.getSales()));
         }else {
             helper.setGone(R.id.un_linearlayout_cl,true);
             helper.setGone(R.id.linearlayout_cl,false);
-            ImageLoadUtil.loadImage(mContext, UrlFormatUtil.getImageThumUrl(item.getCoverImg()), helper.getView(R.id.commodity_cover_iv));
+            ImageLoadUtil.loadSquareImage(mContext,item.getCoverImg(),helper.getView(R.id.commodity_cover_iv));
             helper.setText(R.id.commodity_des_tv, item.getName());
             helper.setText(R.id.commodity_price_tv,String.format("￥%s",item.getPrice()));
             helper.setText(R.id.commodity_sales_tv,String.format("销量:%s",item.getSales()));

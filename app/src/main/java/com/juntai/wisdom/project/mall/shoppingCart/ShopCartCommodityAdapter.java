@@ -26,7 +26,7 @@ public class ShopCartCommodityAdapter extends BaseQuickAdapter<CartListBean.Data
 
     @Override
     protected void convert(BaseViewHolder helper, CartListBean.DataBean.CommodityListBean item) {
-        ImageLoadUtil.loadSquareImage(mContext, item.getImage(), helper.getView(R.id.commodity_pic_iv));
+        ImageLoadUtil.loadSquareImageHasCorner(mContext, item.getImage(), helper.getView(R.id.commodity_pic_iv));
         helper.setText(R.id.commodity_name_tv, item.getCommodityName());
         helper.addOnClickListener(R.id.commodity_property_tv);
         helper.addOnClickListener(R.id.commodity_selected_iv);

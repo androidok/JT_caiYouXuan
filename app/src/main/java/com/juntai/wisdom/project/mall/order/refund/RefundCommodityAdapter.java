@@ -23,7 +23,7 @@ public class RefundCommodityAdapter extends BaseQuickAdapter<OrderDetailBean.Com
 
    @Override
    protected void convert(BaseViewHolder helper, OrderDetailBean.CommodityListBean item) {
-      ImageLoadUtil.loadSquareImage(mContext, item.getCoverImg(), helper.getView(R.id.commodity_pic_iv));
+      ImageLoadUtil.loadSquareImageHasCorner(mContext, item.getCoverImg(), helper.getView(R.id.commodity_pic_iv));
       helper.setText(R.id.commodity_name_tv, item.getCommodityName());
       helper.addOnClickListener(R.id.commodity_property_tv);
       helper.addOnClickListener(R.id.commodity_selected_iv);

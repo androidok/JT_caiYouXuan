@@ -97,13 +97,13 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
 // TODO: 2022/5/5  获取对应的图片和价格
                 commodityPropertyBean = ObjectBoxMallUtil.getCommodityProperty(dataBean, propertyMap);
                 if (commodityPropertyBean != null) {
-                    ImageLoadUtil.loadSquareImage(getContext(), commodityPropertyBean.getImage(), mCommodityPicIv);
+                    ImageLoadUtil.loadSquareImageHasCorner(getContext(), commodityPropertyBean.getImage(), mCommodityPicIv);
                     mAllPriceTv.setText(String.valueOf(commodityPropertyBean.getPrice()));
                 }
 
             }
         });
-        ImageLoadUtil.loadSquareImage(getContext(), dataBean.getCoverImg(), mCommodityPicIv);
+        ImageLoadUtil.loadSquareImageHasCorner(getContext(), dataBean.getCoverImg(), mCommodityPicIv);
         mAllPriceTv.setText(String.valueOf(dataBean.getPrice()));
         mNumberButton.setCurrentNumber(1).setInventory(dataBean.getStock());
         mNumberButton.setOnWarnListener(new NumberButton.OnWarnListener() {

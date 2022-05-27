@@ -166,7 +166,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
      */
     public void initOwnerBaseInfo(ShopDetailBean.DataBean shopBean) {
         this.shopBean = shopBean;
-        ImageLoadUtil.loadSquareImage(mContext, shopBean.getHeadPortrait(), mShopOwnerHeadIv);
+        ImageLoadUtil.loadSquareImageHasCorner(mContext, shopBean.getHeadPortrait(), mShopOwnerHeadIv);
         mShopNameTv.setText(shopBean.getName());
         mShopCreatTimeTv.setText("开店时间:" + shopBean.getCreateTime());
         mScoreTv.setText("店铺得分:" + shopBean.getShopFraction());

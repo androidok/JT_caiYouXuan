@@ -99,12 +99,12 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
                 switch (picTextBean.getTextName()) {
                     case HomePageContract.SHARE_WEIXIN:
                         // : 2022/5/21 分享到微信
-                        // TODO: 2022/5/27 分享路径需要更改
+                        // TODO: 2022/5/27 分享链接需要更改
                         ToolShare.share(mContext, ToolShare.SHARE_WECHAT, shareDes, shareDes, sharePic, UserInfoManagerMall.getHeadPic());
                         break;
                     case HomePageContract.SHARE_WEIXIN_FRIENDS:
                         // : 2022/5/21 分享到微信 朋友圈
-                        // TODO: 2022/5/27 分享路径需要更改
+                        // TODO: 2022/5/27 分享链接需要更改
 
                         ToolShare.share(mContext, ToolShare.SHARE_WECHAT_CIRCLE, shareDes, shareDes, sharePic, UserInfoManagerMall.getHeadPic());
 

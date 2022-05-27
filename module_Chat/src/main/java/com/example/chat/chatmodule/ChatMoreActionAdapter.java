@@ -24,6 +24,6 @@ public class ChatMoreActionAdapter extends BaseQuickAdapter<MyMenuBean, BaseView
     protected void convert(BaseViewHolder helper, MyMenuBean item) {
 
         helper.setText(R.id.more_action_tv, item.getName());
-        ImageLoadUtil.loadSquareImage(mContext, item.getImageId(), (ImageView)helper.getView(R.id.more_action_iv));
+        ImageLoadUtil.loadSquareImageWithoutCatch(mContext, item.getImageId(), (ImageView)helper.getView(R.id.more_action_iv));
     }
 }

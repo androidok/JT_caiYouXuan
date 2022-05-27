@@ -101,9 +101,8 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
         super.selectedPicsAndEmpressed(icons);
         if (icons.size() > 0) {
             String picPath = icons.get(0);
-            ImageLoadUtil.loadHeadPic(getApplicationContext(), picPath,
-                    imageView,
-                    true);
+            ImageLoadUtil.loadHeadCirclePic(getApplicationContext(), picPath,
+                    imageView);
             //跳转到裁剪头像的界面
             mPresenter.uploadFile(AppHttpPathMall.UPLOAD_FILES,picPath);
 
@@ -152,7 +151,7 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
             beanList.add(new TextKeyValueBean(MY_INFO_ACCOUNT, userBean.getPhoneNumber()));
             beanList.add(new TextKeyValueBean(MY_INFO_MODIFY_PWD, "\u3000"));
             baseQuickAdapter.setNewData(beanList);
-            ImageLoadUtil.loadHeadPic(mContext,userBean.getHeadPortrait(),imageView,true);
+            ImageLoadUtil.loadHeadCirclePic(mContext,userBean.getHeadPortrait(),imageView);
 
         }
     }
@@ -163,9 +162,8 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
         if (resultCode == BASE_REQUEST_RESULT) {
             if (data != null) {
                 String path = data.getStringExtra(HeadCropActivity.CROPED_HEAD_PIC);
-                ImageLoadUtil.loadHeadPic(getApplicationContext(), path,
-                        imageView,
-                      true);
+                ImageLoadUtil.loadHeadCirclePic(getApplicationContext(), path,
+                        imageView);
                 //  调用上传图片的接口
 
                mPresenter.uploadFile(AppHttpPathMall.UPLOAD_FILES,path);

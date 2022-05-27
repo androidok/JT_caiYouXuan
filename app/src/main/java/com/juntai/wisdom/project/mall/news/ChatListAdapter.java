@@ -65,7 +65,7 @@ public class ChatListAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
             case MultipleItem.ITEM_CHAT_LIST_CONTACT:
                 NewsListBean.DataBean dataBean = (NewsListBean.DataBean) item.getObject();
                 helper.setText(R.id.item_name_tv, dataBean.getFromNickname());
-                ImageLoadUtil.loadSquareImage(mContext, UrlFormatUtil.getImageThumUrl(dataBean.getFromHead()), (ImageView) helper.getView(R.id.contact_name_iv));
+                ImageLoadUtil.loadHeadSquareImageHasCorner(mContext, UrlFormatUtil.getImageThumUrl(dataBean.getFromHead()), (ImageView) helper.getView(R.id.contact_name_iv));
                 String content = dataBean.getContent();
                 // TODO: 2022/4/18 新增消息类型的时候 这个地方需要注意
                 switch (dataBean.getMsgType()) {

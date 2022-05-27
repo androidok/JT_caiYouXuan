@@ -17,7 +17,7 @@ public class ClusterClickAdapter extends BaseQuickAdapter<MapClusterItem, BaseVi
 
     @Override
     protected void convert(BaseViewHolder helper, MapClusterItem item) {
-        ImageLoadUtil.loadHeadPic(mContext, item.shop.getHeadPortrait(), helper.getView(R.id.commodity_cover_iv), true);
+        ImageLoadUtil.loadSquareImageHasCorner(mContext, item.shop.getHeadPortrait(), helper.getView(R.id.commodity_cover_iv));
         helper.setText(R.id.linearlayout_commodity_des_tv, item.shop.getName());
 
     }

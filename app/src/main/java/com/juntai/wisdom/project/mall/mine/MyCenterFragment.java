@@ -71,7 +71,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     protected void initView() {
         mHeadImage = getView(R.id.headImage_iv);
         mHeadImage.setOnClickListener(this);
-        ImageLoadUtil.loadHeadPic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage, true);
+        ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage);
         mNickname = getView(R.id.nickname_tv);
         mNickname.setText(UserInfoManagerMall.getUserNickName());
         mLoginOut = getView(R.id.login_out_tv);
@@ -262,7 +262,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                 UserBeanMall loginBean = (UserBeanMall) o;
                 if (loginBean != null) {
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
-                    ImageLoadUtil.loadHeadPic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage, true);
+                    ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage);
                 }
                 break;
             default:
