@@ -21,7 +21,7 @@ import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.news.ChatActivity;
 import com.juntai.wisdom.project.mall.utils.ObjectBoxMallUtil;
 import com.rabtman.wsmanager.WsManager;

@@ -28,9 +28,8 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.wisdom.project.mall.AppHttpPathMall;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.selectPics.BaseSelectPicsActivity;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mall.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.mall.beans.order.OrderDetailBean;
 import com.juntai.wisdom.project.mall.entrance.LoginActivity;
@@ -48,6 +47,7 @@ import com.juntai.wisdom.project.mall.order.refund.RefundActivity;
 import com.juntai.wisdom.project.mall.order.refund.RefundRequestActivity;
 import com.juntai.wisdom.project.mall.search.SearchActivity;
 import com.juntai.wisdom.project.mall.utils.StringTools;
+import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 
 import java.util.ArrayList;
 import java.util.List;

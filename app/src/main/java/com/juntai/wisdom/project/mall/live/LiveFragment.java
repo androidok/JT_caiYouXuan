@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 

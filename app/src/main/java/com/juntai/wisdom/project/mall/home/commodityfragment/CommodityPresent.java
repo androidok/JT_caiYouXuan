@@ -1,21 +1,21 @@
 package com.juntai.wisdom.project.mall.home.commodityfragment;
 
-import com.juntai.wisdom.project.mall.AppNetModuleMall;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.mvp.IModel;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
+import com.juntai.wisdom.project.mall.AppNetModuleMall;
+import com.juntai.wisdom.project.mall.R;
+import com.juntai.wisdom.project.mall.base.BaseAppPresent;
 import com.juntai.wisdom.project.mall.beans.CartListBean;
 import com.juntai.wisdom.project.mall.beans.CommodityDesListBean;
 import com.juntai.wisdom.project.mall.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.mall.beans.IdNameBean;
 import com.juntai.wisdom.project.mall.beans.PicTextBean;
-import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.wisdom.project.R;
-import com.juntai.wisdom.project.mall.base.BaseAppPresent;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
-import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;

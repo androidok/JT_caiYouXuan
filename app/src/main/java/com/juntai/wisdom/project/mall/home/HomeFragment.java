@@ -9,7 +9,7 @@ import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.wisdom.project.mall.MainActivity;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.home.map.MyMapFragment;
 
 /**

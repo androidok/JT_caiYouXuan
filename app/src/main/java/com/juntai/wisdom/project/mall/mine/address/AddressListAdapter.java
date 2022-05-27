@@ -6,7 +6,7 @@ import android.widget.CheckBox;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 
 /**
  * @aouther tobato

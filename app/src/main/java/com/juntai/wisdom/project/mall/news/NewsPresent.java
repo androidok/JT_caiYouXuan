@@ -11,7 +11,7 @@ import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
 import com.juntai.disabled.basecomponent.utils.ObjectBox;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.mall.AppNetModuleMall;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppMallPresent;
 import com.juntai.wisdom.project.mall.beans.NewsListBean;
 import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;

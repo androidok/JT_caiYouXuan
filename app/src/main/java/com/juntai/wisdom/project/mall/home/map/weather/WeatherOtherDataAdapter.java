@@ -4,8 +4,8 @@ import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.wisdom.project.R;
 import com.juntai.disabled.basecomponent.bean.weather.WeatherEveryDayBean;
+import com.juntai.wisdom.project.mall.R;
 
 import java.util.List;
 

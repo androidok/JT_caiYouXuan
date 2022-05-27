@@ -10,8 +10,9 @@ import android.widget.SeekBar;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.wisdom.project.mall.MyApp;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.utils.cropbitmap.LikeQQCropView;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

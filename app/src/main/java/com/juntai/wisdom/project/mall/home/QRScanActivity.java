@@ -15,7 +15,7 @@ import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.GlideEngine4;
 import com.juntai.disabled.basecomponent.utils.JsonUtil;
 import com.juntai.wisdom.project.mall.MainActivity;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.utils.StringTools;
 import com.king.zxing.CaptureHelper;
 import com.king.zxing.OnCaptureCallback;

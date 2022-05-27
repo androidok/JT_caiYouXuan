@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.promeg.pinyinhelper.Pinyin;
 import com.juntai.disabled.basecomponent.base.BaseBottomSheetFragment;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.beans.CitysBean;
 import com.juntai.wisdom.project.mall.mine.address.AddOrEditAddressActivity;
 

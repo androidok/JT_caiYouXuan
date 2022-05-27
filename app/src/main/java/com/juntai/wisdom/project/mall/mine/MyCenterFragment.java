@@ -15,16 +15,16 @@ import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.AppHttpPathMall;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
 import com.juntai.wisdom.project.mall.beans.PicTextBean;
 import com.juntai.wisdom.project.mall.beans.UserBeanMall;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mall.beans.order.OrderStatusAmountBean;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.PicTextAdapter;
 import com.juntai.wisdom.project.mall.mine.collect.CollectCommoditiesActivity;
 import com.juntai.wisdom.project.mall.mine.collect.CollectShopesActivity;
 import com.juntai.wisdom.project.mall.mine.setting.MyInformationActivity;
+import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.List;

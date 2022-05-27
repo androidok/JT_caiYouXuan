@@ -37,7 +37,7 @@ import com.dou361.ijkplayer.widget.LayoutQuery;
 import com.dou361.ijkplayer.widget.PlayStateParams;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ScreenUtils;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

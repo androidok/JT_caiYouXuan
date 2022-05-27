@@ -3,7 +3,7 @@ package com.juntai.wisdom.project.mall.search;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.chat.util.MultipleItem;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 
 import java.util.List;
 

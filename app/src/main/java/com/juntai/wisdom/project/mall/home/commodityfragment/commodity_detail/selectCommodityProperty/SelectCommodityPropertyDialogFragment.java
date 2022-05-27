@@ -16,11 +16,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseBottomSheetFragment;
 import com.juntai.disabled.basecomponent.base.view.NumberButton;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
-import com.juntai.wisdom.project.mall.beans.CommodityDetailBean;
-import com.juntai.wisdom.project.mall.beans.CommodityPropertyListBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
+import com.juntai.wisdom.project.mall.beans.CommodityDetailBean;
+import com.juntai.wisdom.project.mall.beans.CommodityPropertyListBean;
 import com.juntai.wisdom.project.mall.utils.ObjectBoxMallUtil;
 
 import java.util.ArrayList;

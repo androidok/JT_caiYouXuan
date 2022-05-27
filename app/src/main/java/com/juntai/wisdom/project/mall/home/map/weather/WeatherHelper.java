@@ -2,7 +2,7 @@ package com.juntai.wisdom.project.mall.home.map.weather;
 
 
 import com.juntai.disabled.bdmap.utils.DateUtil;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 
 /**
  * Describe:天气工具类

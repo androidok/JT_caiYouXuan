@@ -3,7 +3,7 @@ package com.juntai.wisdom.project.mall.mine.myinfo;
 import com.example.chat.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.wisdom.project.mall.AppHttpPathMall;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
 

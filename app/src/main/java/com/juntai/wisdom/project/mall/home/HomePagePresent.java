@@ -7,7 +7,7 @@ import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.mall.AppNetModuleMall;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppPresent;
 import com.juntai.wisdom.project.mall.beans.AroundShopBean;
 import com.juntai.wisdom.project.mall.beans.PicTextBean;

@@ -3,7 +3,7 @@ package com.juntai.wisdom.project.mall.home.map;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 
 /**
  * author:wong  地图底部弹窗的适配器

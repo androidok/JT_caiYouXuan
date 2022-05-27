@@ -11,21 +11,21 @@ import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.AppHttpPathMall;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.wisdom.project.mall.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.mall.beans.PicTextBean;
 import com.juntai.wisdom.project.mall.beans.UserBeanMall;
-import com.juntai.wisdom.project.mall.share.ShareActivity;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mall.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.evaluation.AllEvaluateFragment;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
+import com.juntai.wisdom.project.mall.share.ShareActivity;
 import com.juntai.wisdom.project.mall.utils.ObjectBoxMallUtil;
+import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 
 import java.util.List;
 
@@ -80,7 +80,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                     ToastUtils.toast(mContext, "商品信息获取失败 无法分享");
                     return;
                 }
-                ShareActivity.startShareActivity(mContext, 1, dataBean.getCoverImg(), dataBean.getSynopsis());
+                ShareActivity.startShareActivity(mContext, 1, dataBean.getCoverImg(), dataBean.getName());
             }
         });
         commodityId = getIntent().getIntExtra(BASE_ID, 0);

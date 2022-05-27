@@ -8,8 +8,7 @@ import android.util.LayoutDirection;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 
 import java.util.ArrayList;
 import java.util.Collections;

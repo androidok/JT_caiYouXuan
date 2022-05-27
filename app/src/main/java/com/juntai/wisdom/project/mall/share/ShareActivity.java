@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,12 +12,14 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
 import com.juntai.wisdom.project.mall.beans.PicTextBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.HomePagePresent;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.PicTextAdapter;
+import com.juntai.wisdom.project.mall.utils.ToolShare;
+import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,8 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
      * 取消
      */
     private TextView mCancelShareTv;
+    private String sharePic;
+    private String shareDes;
 
     /**
      * @param mContext
@@ -94,19 +97,23 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 PicTextBean picTextBean = (PicTextBean) adapter.getItem(position);
                 switch (picTextBean.getTextName()) {
-//                    case HomePageContract.SHARE_WEIXIN:
-//                        // TODO: 2022/5/21 分享到微信
-//                        MobUtils.share(mContext,MobUtils.SHARE_WECHAT,"title","content","www.baidu.com","www.baidu.com");
-//                        break;
-//                    case HomePageContract.SHARE_WEIXIN_FRIENDS:
-//                        // TODO: 2022/5/21 分享到微信 朋友圈
-//                        break;
+                    case HomePageContract.SHARE_WEIXIN:
+                        // : 2022/5/21 分享到微信
+                        // TODO: 2022/5/27 分享路径需要更改
+                        ToolShare.share(mContext, ToolShare.SHARE_WECHAT, shareDes, shareDes, sharePic, UserInfoManagerMall.getHeadPic());
+                        break;
+                    case HomePageContract.SHARE_WEIXIN_FRIENDS:
+                        // : 2022/5/21 分享到微信 朋友圈
+                        // TODO: 2022/5/27 分享路径需要更改
+
+                        ToolShare.share(mContext, ToolShare.SHARE_WECHAT_CIRCLE, shareDes, shareDes, sharePic, UserInfoManagerMall.getHeadPic());
+
+                        break;
 //                    case HomePageContract.SHARE_QQ:
 //                        // TODO: 2022/5/21 分享到QQ
 //                        break;
                     default:
-                        ToastUtils.toast(mContext, "分享到" + picTextBean.getTextName());
-
+                        ToastUtils.toast(mContext, "暂未开放");
                         break;
                 }
             }
@@ -114,19 +121,13 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
     }
 
 
-
     @Override
     public void initData() {
         int type = getIntent().getIntExtra(BASE_ID, 0);
-        String pic = getIntent().getStringExtra(BASE_STRING);
-        String des = getIntent().getStringExtra(BASE_STRING2);
-        if (TextUtils.isEmpty(pic)) {
-            // TODO: 2022/5/21 展示默认图片
-            mShareCoverIv.setImageResource(R.mipmap.shop_default_bg);
-        } else {
-            ImageLoadUtil.loadImage(mContext, pic, mShareCoverIv);
-        }
-        mShareDesTv.setText(des);
+        sharePic = getIntent().getStringExtra(BASE_STRING);
+        shareDes = getIntent().getStringExtra(BASE_STRING2);
+        ImageLoadUtil.loadImage(mContext, sharePic, mShareCoverIv);
+        mShareDesTv.setText(shareDes);
         if (2 == type) {
             //分享直播
             mShareLiveCl.setVisibility(View.VISIBLE);

@@ -3,6 +3,7 @@ package com.juntai.wisdom.project.mall.beans;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -85,14 +86,6 @@ public class CommodityDetailBean extends BaseResult {
             this.id = id;
         }
 
-        public int getIsCollect() {
-            return isCollect;
-        }
-
-        public void setIsCollect(int isCollect) {
-            this.isCollect = isCollect;
-        }
-
         public int getShopId() {
             return shopId;
         }
@@ -101,16 +94,16 @@ public class CommodityDetailBean extends BaseResult {
             this.shopId = shopId;
         }
 
-        public int getShopClassifyId() {
-            return shopClassifyId;
-        }
-
         public int getUserId() {
             return userId;
         }
 
         public void setUserId(int userId) {
             this.userId = userId;
+        }
+
+        public int getShopClassifyId() {
+            return shopClassifyId;
         }
 
         public void setShopClassifyId(int shopClassifyId) {
@@ -126,43 +119,43 @@ public class CommodityDetailBean extends BaseResult {
         }
 
         public String getName() {
-            return name;
+            return name == null ? "" : name;
         }
 
         public void setName(String name) {
-            this.name = name;
+            this.name = name == null ? "" : name;
         }
 
         public String getCoverImg() {
-            return coverImg;
+            return coverImg == null ? "" : coverImg;
         }
 
         public void setCoverImg(String coverImg) {
-            this.coverImg = coverImg;
+            this.coverImg = coverImg == null ? "" : coverImg;
         }
 
         public String getVideoUrl() {
-            return videoUrl;
+            return videoUrl == null ? "" : videoUrl;
         }
 
         public void setVideoUrl(String videoUrl) {
-            this.videoUrl = videoUrl;
+            this.videoUrl = videoUrl == null ? "" : videoUrl;
         }
 
         public String getSynopsis() {
-            return synopsis;
+            return synopsis == null ? "" : synopsis;
         }
 
         public void setSynopsis(String synopsis) {
-            this.synopsis = synopsis;
+            this.synopsis = synopsis == null ? "" : synopsis;
         }
 
         public String getDescription() {
-            return description;
+            return description == null ? "" : description;
         }
 
         public void setDescription(String description) {
-            this.description = description;
+            this.description = description == null ? "" : description;
         }
 
         public double getPrice() {
@@ -205,6 +198,14 @@ public class CommodityDetailBean extends BaseResult {
             this.stock = stock;
         }
 
+        public int getIsCollect() {
+            return isCollect;
+        }
+
+        public void setIsCollect(int isCollect) {
+            this.isCollect = isCollect;
+        }
+
         public int getIsPostage() {
             return isPostage;
         }
@@ -222,6 +223,9 @@ public class CommodityDetailBean extends BaseResult {
         }
 
         public List<ResultBean> getResult() {
+            if (result == null) {
+                return new ArrayList<>();
+            }
             return result;
         }
 
@@ -230,6 +234,9 @@ public class CommodityDetailBean extends BaseResult {
         }
 
         public List<CommodityPropertyBean> getValue() {
+            if (value == null) {
+                return new ArrayList<>();
+            }
             return value;
         }
 
@@ -238,6 +245,9 @@ public class CommodityDetailBean extends BaseResult {
         }
 
         public List<ImagesBean> getImages() {
+            if (images == null) {
+                return new ArrayList<>();
+            }
             return images;
         }
 

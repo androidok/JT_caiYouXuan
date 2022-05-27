@@ -9,7 +9,8 @@ import android.text.TextUtils;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.chat.util.MultipleItem;
-import com.juntai.wisdom.project.R;
+import com.juntai.disabled.video.img.DisPlayPicsActivity;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.web.BaseWebviewFragment;
 import com.juntai.wisdom.project.mall.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
@@ -60,8 +61,8 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
                 banner.setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
-                        // TODO: 2022/5/4 查看图片大图
-//                        DisPlayPicsActivity.startDisplayPics(mContext,pics,position);
+                        // : 2022/5/4 查看图片大图
+                        DisPlayPicsActivity.startDisplayPics(mContext,pics,!TextUtils.isEmpty(dataBean.getVideoUrl())?position-1:position);
 
                     }
                 });

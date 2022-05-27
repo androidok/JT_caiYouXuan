@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.customview.CustomViewPager;
 import com.juntai.wisdom.project.mall.base.customview.MainPagerAdapter;
 import com.juntai.wisdom.project.mall.utils.StringTools;

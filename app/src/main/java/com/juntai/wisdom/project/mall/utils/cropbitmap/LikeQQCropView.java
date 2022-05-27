@@ -28,8 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 
-
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 
 import java.io.FileDescriptor;
 import java.io.InputStream;

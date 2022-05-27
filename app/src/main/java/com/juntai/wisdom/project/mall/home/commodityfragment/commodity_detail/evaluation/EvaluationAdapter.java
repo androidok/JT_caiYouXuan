@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.video.img.DisPlayPicsActivity;
 import com.juntai.disabled.video.player.DisplayVideoActivity;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
 
 import java.util.ArrayList;

@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.juntai.wisdom.project.mall.MyApp;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.home.label.helper.OnDragVHListener;
 import com.juntai.wisdom.project.mall.home.label.helper.OnItemMoveListener;
 import com.juntai.wisdom.project.mall.home.label.labelbean.LabelListBean;

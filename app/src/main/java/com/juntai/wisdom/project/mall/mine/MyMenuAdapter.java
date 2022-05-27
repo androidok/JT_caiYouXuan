@@ -5,8 +5,8 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.wisdom.project.R;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;
+import com.juntai.wisdom.project.mall.R;
 
 import java.util.List;
 

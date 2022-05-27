@@ -10,8 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 
 import java.util.HashSet;
 import java.util.Iterator;

@@ -4,8 +4,8 @@ import android.support.v4.content.ContextCompat;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.beans.CommodityPropertyListBean;
-import com.juntai.wisdom.project.R;
 
 /**
  * @Author: tobato

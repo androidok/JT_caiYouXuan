@@ -4,7 +4,7 @@ import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.model.LatLng;
 import com.juntai.disabled.bdmap.utils.clusterutil.clustering.ClusterItem;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.beans.AroundShopBean;
 
 /**

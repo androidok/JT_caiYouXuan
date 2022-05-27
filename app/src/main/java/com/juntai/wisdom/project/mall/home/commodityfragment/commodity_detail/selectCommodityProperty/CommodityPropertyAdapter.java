@@ -6,8 +6,8 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.beans.CommodityPropertyListBean;
-import com.juntai.wisdom.project.R;
 
 import java.util.List;
 

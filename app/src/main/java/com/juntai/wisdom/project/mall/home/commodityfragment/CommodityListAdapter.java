@@ -2,10 +2,10 @@ package com.juntai.wisdom.project.mall.home.commodityfragment;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
-import com.juntai.wisdom.project.mall.beans.CommodityBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
-import com.juntai.wisdom.project.R;
+import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
+import com.juntai.wisdom.project.mall.R;
+import com.juntai.wisdom.project.mall.beans.CommodityBean;
 
 /**
  * @Author: tobato

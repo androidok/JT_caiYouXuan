@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.juntai.wisdom.project.mall.MainActivity;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;

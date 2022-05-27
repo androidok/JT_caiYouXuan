@@ -29,9 +29,17 @@ android {
     }
     signingConfigs {
         release {
+
+            storeFile file('caiYouXuan.jks')
+            storePassword "bugaosuni5156"
+            keyAlias "caiyouxuan"
+            keyPassword "bugaosuni5156"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        debug {
             //设置release的签名信息
-            //D8:8A:32:E8:3B:5A:37:B8:FF:BD:EC:39:8B:55:45:F4:5E:31:9F:20
-            //ofafc6dcbd1e89aa638a022b8f02d90d
+            //c204528aaa01367971e36f2b06a2dc25
             storeFile file('juntaikey.jks')
             storePassword "bugaosuni5156"
             keyAlias "juntaikey"

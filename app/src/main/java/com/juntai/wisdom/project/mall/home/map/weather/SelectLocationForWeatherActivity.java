@@ -9,8 +9,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
-import com.juntai.wisdom.project.R;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.HomePagePresent;

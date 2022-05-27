@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 
 /**
  * @aouther Ma

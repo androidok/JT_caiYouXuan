@@ -2,7 +2,7 @@ package com.juntai.wisdom.project.mall.order.orderPay;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.beans.PicTextBean;
 
 /**

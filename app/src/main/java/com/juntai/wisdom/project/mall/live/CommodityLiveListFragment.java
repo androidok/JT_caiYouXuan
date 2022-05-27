@@ -7,10 +7,10 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.wisdom.project.mall.AppHttpPathMall;
+import com.juntai.wisdom.project.mall.R;
+import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.mall.beans.CommodityBean;
 import com.juntai.wisdom.project.mall.beans.CommodityDesListBean;
-import com.juntai.wisdom.project.R;
-import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityListAdapter;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
