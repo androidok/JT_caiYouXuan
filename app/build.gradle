@@ -37,16 +37,6 @@ android {
             v1SigningEnabled true
             v2SigningEnabled true
         }
-        debug {
-            //设置release的签名信息
-            //c204528aaa01367971e36f2b06a2dc25
-            storeFile file('juntaikey.jks')
-            storePassword "bugaosuni5156"
-            keyAlias "juntaikey"
-            keyPassword "bugaosuni5156"
-            v1SigningEnabled true
-            v2SigningEnabled true
-        }
     }
     buildTypes {
         release {

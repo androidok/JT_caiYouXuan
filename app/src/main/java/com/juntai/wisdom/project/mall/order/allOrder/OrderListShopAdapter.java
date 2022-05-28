@@ -94,6 +94,7 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
             case 3:
                 helper.setGone(R.id.order_left_tv,false);
                 helper.setGone(R.id.order_right_tv,false);
+//                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_REFUND);
                 break;
             case 4:
                 helper.setGone(R.id.order_left_tv,false);

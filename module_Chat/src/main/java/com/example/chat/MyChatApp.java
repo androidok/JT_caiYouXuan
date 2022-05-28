@@ -53,7 +53,7 @@ public abstract class MyChatApp extends BaseApplication {
         public void onRegister(int resCode, Token regId) {
             if (resCode == PushConstants.SUCCESS_CODE && regId != null) {
                 String pushRegId = regId.getRegId();
-//                Hawk.put(HawkPropertyChat.DEV_REGID,pushRegId);
+                Hawk.put("dfa",pushRegId);
             }
         }
 
@@ -205,7 +205,7 @@ public abstract class MyChatApp extends BaseApplication {
             OppoPushRegister.getInstance(this).register("a8aaa44a557b420f921aa4079ec1774b", "34eecd930b2849edbc5162305fee687e");
         } else {
             //小米
-            MiPushRegister.getInstance(this).register("2882303761520089591", "5432008920591");
+            MiPushRegister.getInstance(this).register("2882303761520161715", "5302016173715");
         }
         if (RomUtil.isEmui()) {
             //华为
