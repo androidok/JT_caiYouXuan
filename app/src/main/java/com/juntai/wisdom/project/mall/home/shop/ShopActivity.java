@@ -100,12 +100,12 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                 switch (bannerObject.getEventKey()) {
                     case BannerObject.BANNER_TYPE_IMAGE:
                     case BannerObject.BANNER_TYPE_VIDEO:
-                        // TODO: 2022/5/21 展示图片大图
+                        // : 2022/5/21 展示图片大图
                         PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,bannerPics, bannerPics.size()==bannerObjects.size()?position:position-1);
                         break;
                     case BannerObject.BANNER_TYPE_RTMP:
-                        ShopDetailBean.DataBean shopBean = (ShopDetailBean.DataBean) bannerObject.getEventObj();
-                        PlayerLiveActivity.startPlayerLiveActivity(mContext, shopBean.getCameraNumber(), shopBean.getCameraCover(), shopBean.getCameraUrl());
+                        BannerObject.StreamBean streamBean =  bannerObject.getStreamBean();
+                        PlayerLiveActivity.startPlayerLiveActivity(mContext, streamBean.getCameraNum(), streamBean.getCameraCover(), streamBean.getRtmpUrl());
 
                         break;
                     default:
@@ -142,8 +142,9 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         });
 
         if (!TextUtils.isEmpty(shopBean.getCameraCover()) && !TextUtils.isEmpty(shopBean.getCameraNumber())) {
-            bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_RTMP, shopBean));
+            bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_RTMP, new BannerObject.StreamBean(shopBean.getCameraNumber(),shopBean.getCameraCover(),shopBean.getCameraUrl())));
         }
+
         String bannerPic = shopBean.getShopImg();
         if (!TextUtils.isEmpty(bannerPic)) {
             if (bannerPic.contains(",")) {
@@ -234,7 +235,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                     ToastUtils.toast(mContext, "无法获取店铺信息 不能分享");
                     return;
                 }
-                ShareActivity.startShareActivity(mContext, 0, bannerPics.isEmpty() ? "" : (String)bannerPics.get(0).getEventObj(), shopBean.getIntroduction());
+                ShareActivity.startShareActivity(mContext, 0, bannerPics.isEmpty() ? "" : (String)bannerPics.get(0).getPicPath(), shopBean.getIntroduction());
 
                 break;
         }

@@ -63,6 +63,7 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
     @Override
     protected void initView() {
         super.initView();
+        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个店铺也没有-_-",-1));
 
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

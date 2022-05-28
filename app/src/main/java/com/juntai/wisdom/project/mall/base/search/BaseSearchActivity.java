@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.base;
+package com.juntai.wisdom.project.mall.base.search;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.wisdom.project.mall.R;
+import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
 import com.juntai.wisdom.project.mall.search.BaseSearchAdapter;
 
 /**

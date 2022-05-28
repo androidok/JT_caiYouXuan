@@ -8,7 +8,9 @@ import android.view.View;
 
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseTabViewPageActivity;
+import com.juntai.wisdom.project.mall.base.search.BaseSearchHeadFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.HomePagePresent;
 
@@ -17,7 +19,7 @@ import com.juntai.wisdom.project.mall.home.HomePagePresent;
  * @description 描述  首页搜索
  * @date 2022/5/20 14:27
  */
-public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> implements HomePageContract.IHomePageView  {
+public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> implements HomePageContract.IHomePageView, BaseSearchHeadFragment.OnSearchCallBack {
 
     @Override
     protected HomePagePresent createPresenter() {
@@ -29,6 +31,9 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
     public void initData() {
         super.initData();
         mTabTb.setVisibility(View.GONE);
+        mViewpageVp.setVisibility(View.GONE);
+        mSearchLl.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -43,7 +48,7 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
 
     @Override
     protected int getTabHeadLayout() {
-        return 0;
+        return R.layout.fragment_search_head;
     }
 
     @Override
@@ -53,17 +58,6 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
 
     @Override
     protected void commitSearch(String s) {
-        if (!TextUtils.isEmpty(s)) {
-            mTabTb.setVisibility(View.VISIBLE);
-            mViewpageVp.setVisibility(View.VISIBLE);
-        }else {
-            mTabTb.setVisibility(View.GONE);
-            mViewpageVp.setVisibility(View.GONE);
-
-        }
-        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_SEARCH_COMMODITY_LIST, s));
-        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_SEARCH_SHOP_LIST, s));
-
     }
 
     @Override
@@ -88,5 +82,19 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
     @Override
     public void onSuccess(String tag, Object o) {
 
+    }
+
+    @Override
+    public void onSearch(String s) {
+        if (!TextUtils.isEmpty(s)) {
+            mTabTb.setVisibility(View.VISIBLE);
+            mViewpageVp.setVisibility(View.VISIBLE);
+        } else {
+            mTabTb.setVisibility(View.GONE);
+            mViewpageVp.setVisibility(View.GONE);
+
+        }
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_SEARCH_COMMODITY_LIST, s));
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_SEARCH_SHOP_LIST, s));
     }
 }

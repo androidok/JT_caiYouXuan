@@ -193,7 +193,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
     @Override
     protected void getRvAdapterData() {
         // : 2022/5/12 获取订单列表
-        getList("");
+        getList(((AllOrderActivity)getActivity()).mSearchContentSv.getQuery().toString().trim());
 
     }
 

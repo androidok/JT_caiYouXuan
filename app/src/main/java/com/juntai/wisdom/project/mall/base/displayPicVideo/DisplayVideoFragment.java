@@ -4,17 +4,20 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.MainContract;
 import com.example.chat.chatmodule.ChatPresent;
 import com.juntai.disabled.basecomponent.bean.BaseMenuBean;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
+import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.video.CustomStandardGSYVideoPlayer;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
+import com.juntai.wisdom.project.mall.utils.ToolShare;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
@@ -34,11 +37,9 @@ import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implements MainContract.IBaseView {
 
 
-    private static String VIDEOPATH = "VIDEOPATH";
-    private static String MSG = "msgStr";
     private CustomStandardGSYVideoPlayer videoPlayer;
     boolean isPlay, isPause;
-    private String videoPath;
+    private String videoCover,videoPath;
 
     @Override
     protected ChatPresent createPresenter() {
@@ -46,10 +47,10 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
     }
 
 
-    public static DisplayVideoFragment getInstance(String videoPath, BannerObject bannerObject) {
+    public static DisplayVideoFragment getInstance(BannerObject bannerObject) {
         DisplayVideoFragment fragment = new DisplayVideoFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(VIDEOPATH, videoPath);
+        bundle.putParcelable(BASE_PARCELABLE, bannerObject);
         fragment.setArguments(bundle);
         return fragment;
 
@@ -62,7 +63,10 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
 
     @Override
     protected void lazyLoad() {
-        videoPath = getArguments().getString(VIDEOPATH);
+        BannerObject bannerObject = getArguments().getParcelable(BASE_PARCELABLE);
+        BannerObject.VideoBean videoBean = bannerObject.getVideoBean();
+        videoPath = videoBean.getVideoPath();
+        videoCover = videoBean.getVideoCover();
         videoPlayer = (CustomStandardGSYVideoPlayer) getView(R.id.video_player);
         //RTMP播放需切换至exo播放
         PlayerFactory.setPlayManager(Exo2PlayerManager.class);
@@ -73,10 +77,14 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
 
 
         //增加封面
-//        ImageView imageView = new ImageView(getActivity());
-//        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//        imageView.setImageResource(R.drawable.empty_drawable);
-//        videoPlayer.setThumbImageView(imageView);
+        ImageView imageView = new ImageView(getActivity());
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        if (TextUtils.isEmpty(videoBean.getVideoCover())) {
+            imageView.setImageResource(R.drawable.empty_drawable);
+        } else {
+            ImageLoadUtil.loadImage(mContext, videoBean.getVideoCover(), imageView);
+        }
+        videoPlayer.setThumbImageView(imageView);
         //增加title
         videoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
         //设置返回键
@@ -131,8 +139,8 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
                 MoreActionAdapter actionAdapter = new MoreActionAdapter(R.layout.more_action);
 
                 ((PicVideoDisplayActivity) getActivity()).initBottomDialog(getBaseActivity().getBaseBottomDialogMenus(
-                        new BaseMenuBean("分享", R.mipmap.share_icon)
-//                        , new BaseMenuBean("保存到本地", R.mipmap.save_icon)
+                        new BaseMenuBean("分享", R.mipmap.share_pic_video_icon)
+                        , new BaseMenuBean("保存到本地", R.mipmap.save_icon)
                         ), actionAdapter
                         , new GridLayoutManager(mContext, 5), new BaseBottomDialog.OnItemClick() {
                             @Override
@@ -140,6 +148,8 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
                                 switch (position) {
                                     case 1:
                                         // TODO: 2022-02-28 分享
+                                        ToolShare.share(mContext, ToolShare.SHARE_WECHAT, "视频分享", "视频分享", videoCover, videoPath);
+
                                         break;
                                     case 3:
                                         // : 2022-02-28 下载视频
@@ -162,7 +172,7 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
 
         if (!TextUtils.isEmpty(oldFilePath)) {
             File file = new File(oldFilePath);
-            FileCacheUtils.copyFile((PicVideoDisplayActivity)getActivity(),oldFilePath, FileCacheUtils.getAppVideoPath(false) + getSavedFileNameWithoutSuffix(videoPath)+".mp4",false);
+            FileCacheUtils.copyFile((PicVideoDisplayActivity) getActivity(), oldFilePath, FileCacheUtils.getAppVideoPath(false) + getSavedFileNameWithoutSuffix(videoPath) + ".mp4", false);
         } else {
             ToastUtils.toast(mContext, "视频缓存完成之后才可保存到本地");
         }
@@ -179,8 +189,6 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
             videoPlayer.setUp(videoPath, true, new File(FileCacheUtils.getAppVideoPath(true) + getSavedFileNameWithoutSuffix(videoPath)), "");
         }
     }
-
-
 
 
     @Override

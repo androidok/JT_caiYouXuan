@@ -19,7 +19,7 @@ import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.video.img.PhotoView;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
-import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
+import com.juntai.wisdom.project.mall.utils.ToolShare;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -43,7 +43,7 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
     private static String PICPATH = "picPath";
     private static String MSGSTR = "msgStr";
 
-    private String path;
+    private String picPath;
 
     @Override
     protected ChatPresent createPresenter() {
@@ -51,7 +51,7 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
     }
 
 
-    public static DisplayPhotoFragment getInstance(String picPath, BannerObject bannerObject) {
+    public static DisplayPhotoFragment getInstance(String picPath) {
         DisplayPhotoFragment fragment = new DisplayPhotoFragment();
         Bundle bundle = new Bundle();
         bundle.putString(PICPATH, picPath);
@@ -77,10 +77,10 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
 
     @Override
     protected void initView() {
-        path = getArguments().getString(PICPATH);
+        picPath = getArguments().getString(PICPATH);
         mPhotoDisplayPv = (PhotoView) getView(R.id.photo_display_pv);
         mDisplayPicActionMoreIv = (ImageView) getView(R.id.display_pic_action_more_iv);
-//        mDisplayPicActionMoreIv.setOnClickListener(this);
+        mDisplayPicActionMoreIv.setOnClickListener(this);
         mDisplayPicActionDownloadIv = (ImageView) getView(R.id.display_pic_action_download_iv);
         mDisplayPicActionDownloadIv.setOnClickListener(this);
         mPhotoDisplayPv.enable();
@@ -98,15 +98,15 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
     }
 
     private void loadNetImageFile() {
-        if (!FileCacheUtils.isFileExists(FileCacheUtils.getAppImagePath(true) + getSavedFileName(path))) {
+        if (!FileCacheUtils.isFileExists(FileCacheUtils.getAppImagePath(true) + getSavedFileName(picPath))) {
             //本地没有缓存
-            ImageLoadUtil.loadImageCache(getActivity(), path, mPhotoDisplayPv);
-            ImageLoadUtil.setGlideDownloadFileToLocal((PicVideoDisplayActivity) getActivity(), mContext, path, true);
+            ImageLoadUtil.loadImageCache(getActivity(), picPath, mPhotoDisplayPv);
+            ImageLoadUtil.setGlideDownloadFileToLocal((PicVideoDisplayActivity) getActivity(), mContext, picPath, true);
 //            ToastUtils.toast(getBaseActivity(), "对方发送的   本地没有缓存");
 
         } else {
 //            ToastUtils.toast(getBaseActivity(), "对方发送的   本地已缓存");
-            ImageLoadUtil.loadImageCache(getActivity(), FileCacheUtils.getAppImagePath(true) + getSavedFileName(path), mPhotoDisplayPv);
+            ImageLoadUtil.loadImageCache(getActivity(), FileCacheUtils.getAppImagePath(true) + getSavedFileName(picPath), mPhotoDisplayPv);
 
         }
     }
@@ -146,8 +146,8 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
         int id = v.getId();
         if (id == R.id.display_pic_action_more_iv) {
             List<BaseMenuBean> menuBeans = getBaseActivity().getBaseBottomDialogMenus(
-                     new BaseMenuBean(BaseMenuBean.PIC_MENU_SHARE, R.mipmap.share_icon)
-//                    , new BaseMenuBean(BaseMenuBean.PIC_MENU_SAVE, R.mipmap.save_icon)
+                     new BaseMenuBean(BaseMenuBean.PIC_MENU_SHARE, R.mipmap.share_pic_video_icon)
+                    , new BaseMenuBean(BaseMenuBean.PIC_MENU_SAVE, R.mipmap.save_icon)
             );
             Bitmap bitmap = null;
             String result = null;
@@ -178,30 +178,8 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
                             switch (menuBean.getName()) {
                                 case BaseMenuBean.PIC_MENU_SHARE:
                                     // TODO: 2022-02-28 分享
-//                                    ShareTool.shareForMob(mContext,
-//                                            "",
-//                                            messageBodyBean.getContent(),
-//                                            "",
-//                                            messageBodyBean.getContent(),
-//                                            new PlatformActionListener() {
-//                                                @Override
-//                                                public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-//                                                    //  分享成功后的操作或者提示
-//                                                    ToastUtils.success(mContext, "分享成功！");
-//                                                }
-//
-//                                                @Override
-//                                                public void onError(Platform platform, int i, Throwable throwable) {
-//                                                    //  失败，打印throwable为错误码
-//                                                    ToastUtils.warning(mContext, "分享失败！");
-//                                                }
-//
-//                                                @Override
-//                                                public void onCancel(Platform platform, int i) {
-//                                                    //  分享取消操作
-//                                                    ToastUtils.warning(mContext, "分享已取消！");
-//                                                }
-//                                            });
+                                    ToolShare.share(mContext, ToolShare.SHARE_WECHAT, "图片分享", "图片分享", picPath, picPath);
+
                                     break;
                                 case BaseMenuBean.PIC_MENU_SAVE:
                                     // : 2022-02-28 下载图片
@@ -239,8 +217,8 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
     private void downloadImage() {
         String oldFilePath = null;
         String newFilePath = null;
-        oldFilePath = FileCacheUtils.getAppImagePath(true) + getSavedFileName(path);
-        newFilePath = FileCacheUtils.getAppImagePath(false) + getSavedFileName(path);
+        oldFilePath = FileCacheUtils.getAppImagePath(true) + getSavedFileName(picPath);
+        newFilePath = FileCacheUtils.getAppImagePath(false) + getSavedFileName(picPath);
         FileCacheUtils.copyFile((PicVideoDisplayActivity) getActivity(), oldFilePath, newFilePath, false);
 
     }

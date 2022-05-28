@@ -38,7 +38,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     public CustomViewPager mViewpageVp;
     private FrameLayout mTabHeadFl;
     private FrameLayout mTabFootFl;
-    private LinearLayout mSearchLl;
+    protected LinearLayout mSearchLl;
     private TextView mFinishTv;
 
 

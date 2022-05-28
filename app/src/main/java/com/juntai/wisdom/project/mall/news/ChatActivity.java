@@ -62,9 +62,11 @@ import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
 import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
+import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.utils.ObjectBoxMallUtil;
 import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
+import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 import com.negier.emojifragment.bean.Emoji;
 import com.negier.emojifragment.fragment.EmojiFragment;
 import com.negier.emojifragment.util.EmojiUtils;
@@ -115,18 +117,27 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
     private int mDuration = 0;
     public final static int REQUEST_TAKE_PHOTO = 1001;
 
-    public static boolean ACTIVITY_IS_ON = false;
     private ChatMoreActionAdapter moreActionAdapter;
-    private double lat;
-    private double lng;
-    private String addrName;
-    private String addrDes;
-    private ImageView mReceiverHeadIv;
 
     //@的成员
     List<Integer> atUsers = new ArrayList<>();
     private TextView mQuoteContentTv;
     private ImageView mCloseQuoteIv;
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        allPicVideoPath.clear();
+        initAdapterData(intent);
+
+    }
+
+    /**
+     * 所有的图片和视频
+     */
+    ArrayList<BannerObject> allPicVideoPath = new ArrayList<>();
+
 
     @Override
     protected NewsPresent createPresenter() {
@@ -205,6 +216,11 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
             }
         });
         initAdapterClick();
+    }
+
+    @Override
+    public void initData() {
+        initAdapterData(getIntent());
     }
 
     @Override
@@ -399,19 +415,32 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
 
     //查看图片
     private void displayPicVideo(MessageBodyBean messageBodyBean) {
-        // TODO: 2022/5/23 展示图片和视频
+        // : 2022/5/23 展示图片和视频
 
-//        int position = 0;
-//        for (int i = 0; i < allPicVideoPath.size(); i++) {
-//            MessageBodyBean path = allPicVideoPath.get(i);
-//            if (messageBodyBean.getCreateTime() == path.getCreateTime()) {
-//                position = i;
-//                break;
-//            }
-//        }
-//        startActivity(new Intent(mContext, PicVideoDisplayActivity.class)
-//                .putParcelableArrayListExtra(BASE_PARCELABLE, allPicVideoPath)
-//                .putExtra(PicVideoDisplayActivity.IMAGEITEM, position));
+        int position = 0;
+        for (int i = 0; i < allPicVideoPath.size(); i++) {
+            BannerObject bannerObject = allPicVideoPath.get(i);
+
+            String eventKey = bannerObject.getEventKey();
+            if (BannerObject.BANNER_TYPE_IMAGE.equals(eventKey)) {
+                if (messageBodyBean.getContent().equals(bannerObject.getPicPath())) {
+                    position = i;
+                    break;
+                }
+
+            } else if (BannerObject.BANNER_TYPE_VIDEO.equals(eventKey)) {
+                BannerObject.VideoBean videoBean = bannerObject.getVideoBean();
+                if (videoBean != null && !TextUtils.isEmpty(videoBean.getVideoPath())) {
+                    if (messageBodyBean.getContent().equals(videoBean.getVideoPath())) {
+                        position = i;
+                        break;
+                    }
+                }
+            }
+
+        }
+        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,allPicVideoPath,position);
+
 
     }
 
@@ -494,7 +523,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
         });
     }
 
-    public void initData() {
+    public void initAdapterData(Intent intent) {
         setOnFileUploadStatus(this);
         contactBean = getIntent().getParcelableExtra(BaseActivity.BASE_PARCELABLE);
         // : 2022/5/19 联系人列表
@@ -529,7 +558,11 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                 chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_TEXT_MSG, messageBean));
                 break;
             case 1:
+                allPicVideoPath.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, messageBean.getContent()));
+                chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_PIC_VIDEO, messageBean));
+                break;
             case 2:
+                allPicVideoPath.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, new BannerObject.VideoBean(messageBean.getContent(), messageBean.getVideoCover())));
                 chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_PIC_VIDEO, messageBean));
                 break;
             case 3:
@@ -607,7 +640,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                             }
                             ObjectBoxMallUtil.addMessage(startBean);
                         }
-                        initData();
+                        initAdapterData(getIntent());
                     }
                 }
 
@@ -1024,7 +1057,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                     chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_PIC_VIDEO, messageBodyBean));
                     scrollRecyclerview();
                     ObjectBoxMallUtil.addMessage(messageBodyBean);
-//                    allPicVideoPath.add(messageBodyBean);
+                    allPicVideoPath.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, messageBodyBean.getContent()));
                     break;
                 case 2:
                     //视频文件
@@ -1043,7 +1076,6 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                                 addDateTag(mPresenter.findPrivateChatRecordLastMessage(messageBodyBean.getFromUserId()),
                                         messageBodyBean);
                                 chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_PIC_VIDEO, messageBodyBean));
-//                                allPicVideoPath.add(messageBodyBean);
                                 messageBodyBean.setAdapterPosition(chatAdapter.getData().size() - 1);
                                 ObjectBoxMallUtil.addMessage(messageBodyBean);
                                 scrollRecyclerview();
@@ -1055,6 +1087,8 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                         LogUtil.d("视频原图" + messageBodyBean.getContent());
                         //视频内容
                         messageBodyBean.setContent(filePaths.get(0));
+                        allPicVideoPath.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, new BannerObject.VideoBean(messageBodyBean.getContent(), messageBodyBean.getVideoCover())));
+
                     }
                     break;
                 case 6:
@@ -1199,6 +1233,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        allPicVideoPath.clear();
         AudioPlayManager.getInstance().stopPlay();
         AudioRecordManager.getInstance(this).setAudioRecordListener(null);
         AudioPlayManager.getInstance().release();

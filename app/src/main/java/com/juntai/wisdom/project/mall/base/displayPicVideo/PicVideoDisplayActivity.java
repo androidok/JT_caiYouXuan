@@ -8,13 +8,11 @@ import android.support.v4.view.ViewPager;
 import com.example.chat.MainContract;
 import com.juntai.disabled.PicVideoViewPagerAdapter;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
-import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
-import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +33,9 @@ public class PicVideoDisplayActivity extends BaseAppActivity implements MainCont
 
 
     public static void startPicVideoPlayActivity(Context mContext, List<BannerObject> bannerObjects, int position) {
-        Hawk.put(HawkProperty.PIC_VIDEOS_DISPLAY,bannerObjects);
         Intent intent = new Intent(mContext,PicVideoDisplayActivity.class);
-        intent.putExtra(IMAGEITEM, position);
+        intent.putParcelableArrayListExtra(BASE_PARCELABLE, (ArrayList<BannerObject>) bannerObjects)
+                .putExtra(IMAGEITEM, position);
         mContext.startActivity(intent);
     }
 
@@ -59,7 +57,7 @@ public class PicVideoDisplayActivity extends BaseAppActivity implements MainCont
 
     @Override
     public void initData() {
-        bannerObjects = Hawk.get(HawkProperty.PIC_VIDEOS_DISPLAY);
+        bannerObjects =getIntent().getParcelableArrayListExtra(BASE_PARCELABLE);
         if (bannerObjects == null) {
             ToastUtils.toast(mContext, "请传入需要展示图片的路径");
             finish();
@@ -72,14 +70,14 @@ public class PicVideoDisplayActivity extends BaseAppActivity implements MainCont
             return;
         }
 
-        diaplayPath = UrlFormatUtil.getImageOriginalUrl((String) bannerObjects.get(item).getEventObj());
+        diaplayPath = UrlFormatUtil.getImageOriginalUrl((String) bannerObjects.get(item).getPicPath());
         for (BannerObject bannerObject : bannerObjects) {
             switch (bannerObject.getEventKey()) {
                 case BannerObject.BANNER_TYPE_IMAGE:
-                    fragmentList.add(DisplayPhotoFragment.getInstance(UrlFormatUtil.getImageOriginalUrl((String) bannerObject.getEventObj()), bannerObject));
+                    fragmentList.add(DisplayPhotoFragment.getInstance(UrlFormatUtil.getImageOriginalUrl((String) bannerObject.getPicPath())));
                     break;
                 case BannerObject.BANNER_TYPE_VIDEO:
-                    fragmentList.add(DisplayVideoFragment.getInstance(UrlFormatUtil.getImageOriginalUrl((String) bannerObject.getEventObj()), bannerObject));
+                    fragmentList.add(DisplayVideoFragment.getInstance(bannerObject));
                     break;
                 default:
                     break;
@@ -91,7 +89,7 @@ public class PicVideoDisplayActivity extends BaseAppActivity implements MainCont
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-                diaplayPath = UrlFormatUtil.getImageOriginalUrl((String) bannerObjects.get(i).getEventObj());
+                diaplayPath = UrlFormatUtil.getImageOriginalUrl((String) bannerObjects.get(i).getPicPath());
 
             }
 

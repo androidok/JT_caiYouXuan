@@ -1,6 +1,7 @@
 package com.juntai.wisdom.project.mall.utils.bannerImageLoader;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,7 +9,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.beans.shop.ShopDetailBean;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
@@ -20,8 +20,8 @@ import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 public class GlideImageLoader implements ImageLoaderInterface<View> {
     StandardGSYVideoPlayer videoPlayer;
     long seek = 0;
-    String pathV;
     private OnFullScreenListener onFullScreenListener;
+    private BannerObject.VideoBean videoBean;
 
     public GlideImageLoader setOnFullScreenCallBack(OnFullScreenListener onFullScreenListener) {
         this.onFullScreenListener = onFullScreenListener;
@@ -45,15 +45,15 @@ public class GlideImageLoader implements ImageLoaderInterface<View> {
         if (BannerObject.BANNER_TYPE_IMAGE.equals(eventKey)) {
             ImageView imageView = (ImageView) view;
             //Glide 加载图片简单用法
-            ImageLoadUtil.loadImageCache(context, (String) bannerObject.getEventObj(), imageView);
+            ImageLoadUtil.loadImageCache(context, (String) bannerObject.getPicPath(), imageView);
         } else if (BannerObject.BANNER_TYPE_VIDEO.equals(eventKey)) {
-            pathV = (String) bannerObject.getEventObj();
+            videoBean = bannerObject.getVideoBean();
             startVideo(context);
         } else if (BannerObject.BANNER_TYPE_RTMP.equals(eventKey)) {
             ImageView imageView = (ImageView) view.findViewById(R.id.rtmp_iv);
             ImageView imageView1 = (ImageView) view.findViewById(R.id.item_top_iv);
-            ShopDetailBean.DataBean shopBean = (ShopDetailBean.DataBean) bannerObject.getEventObj();
-            ImageLoadUtil.loadImageCache(context, shopBean.getCameraCover(), imageView);
+            BannerObject.StreamBean streamBean = (BannerObject.StreamBean) bannerObject.getStreamBean();
+            ImageLoadUtil.loadImageCache(context, streamBean.getCameraCover(), imageView);
             Glide.with(context).load(R.mipmap.live_going).into(imageView1);
 
         }
@@ -94,10 +94,10 @@ public class GlideImageLoader implements ImageLoaderInterface<View> {
     private ImageView startVideo(Context mContext) {
         //RTMP播放需切换至exo播放
         PlayerFactory.setPlayManager(Exo2PlayerManager.class);
-        videoPlayer.setUp(pathV, false, "");
+        videoPlayer.setUp(videoBean.getVideoPath(), false, "");
         //增加封面
         ImageView imageView = new ImageView(mContext);
-        Glide.with(mContext).asBitmap().load(pathV).into(imageView);
+        Glide.with(mContext).asBitmap().load(TextUtils.isEmpty(videoBean.getVideoCover())?videoBean.getVideoPath():videoBean.getVideoCover()).into(imageView);
         videoPlayer.setThumbImageView(imageView);
         //增加title
         videoPlayer.getTitleTextView().setVisibility(View.GONE);

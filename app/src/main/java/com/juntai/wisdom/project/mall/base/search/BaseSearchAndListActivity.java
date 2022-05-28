@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.base;
+package com.juntai.wisdom.project.mall.base.search;
 
 
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.juntai.disabled.basecomponent.R;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
 import com.juntai.wisdom.project.mall.utils.StringTools;
 
 /**
@@ -14,7 +15,7 @@ import com.juntai.wisdom.project.mall.utils.StringTools;
  * @description 描述   这是在当前页面搜索
  * @date 2021-10-09 10:21
  */
-public abstract class BaseSearchAndListActivity<P extends BasePresenter> extends BaseRecyclerviewActivity<P>  {
+public abstract class BaseSearchAndListActivity<P extends BasePresenter> extends BaseRecyclerviewActivity<P> {
 
     public SearchView mSearchContentSv;
 

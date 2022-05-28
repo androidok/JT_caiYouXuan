@@ -34,7 +34,6 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
 
     private FragmentManager fragmentManager;
     private GlideImageLoader imageLoader;
-    private ArrayList<BannerObject> pics;
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -63,7 +62,7 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
                     public void OnBannerClick(int position) {
                         // : 2022/5/4 查看图片大图
 
-                        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,pics,!TextUtils.isEmpty(dataBean.getVideoUrl())?position-1:position);
+                        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,bannerObjects,position);
                     }
                 });
                 banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -92,19 +91,16 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
                     }
                 });
                 if (!TextUtils.isEmpty(dataBean.getVideoUrl())) {
-                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, dataBean.getVideoUrl()));
+                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, new BannerObject.VideoBean(dataBean.getVideoUrl())));
                 }
-                pics = new ArrayList<>();
                 if (!TextUtils.isEmpty(dataBean.getCoverImg())) {
                     bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, dataBean.getCoverImg()));
-                    pics.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, dataBean.getCoverImg()));
                 }
 
                 List<CommodityDetailBean.DataBean.ImagesBean> imagesBeans = dataBean.getImages();
                 if (imagesBeans != null && imagesBeans.size() > 0) {
                     for (CommodityDetailBean.DataBean.ImagesBean imagesBean : imagesBeans) {
                         bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, imagesBean.getImgUrl()));
-                        pics.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, imagesBean.getImgUrl()));
                     }
                 }
                 banner.setImages(bannerObjects).setImageLoader(imageLoader).start();
