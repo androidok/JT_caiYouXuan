@@ -22,6 +22,7 @@ import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -136,6 +137,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      */
     public void reLogin(String regPhone) {
         UserInfoManagerMall.clearUserData();//清理数据
+        HawkProperty.clearRedPoint(mContext.getApplicationContext());
         ActivityManagerTool.getInstance().finishApp();
         startActivity(new Intent(this, LoginActivity.class).putExtra(BASE_STRING, regPhone
         ));

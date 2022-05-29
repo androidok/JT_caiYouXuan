@@ -83,12 +83,17 @@ public class SelectAddressDialogFragment extends BaseBottomSheetFragment impleme
         selectorAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                nestedScrollView.scrollTo(0,0);
+                if (!getAddOrEditAddressActivity().canClick) {
+                    return;
+                }else {
+                    getAddOrEditAddressActivity().canClick = false;
+                }
+                nestedScrollView.scrollTo(0, 0);
                 CitysBean.DistrictsBean cityBean = (CitysBean.DistrictsBean) adapter.getItem(position);
 
                 List<CitysBean.DistrictsBean> citys = mSelectedAdapter.getData();
                 for (CitysBean.DistrictsBean city : citys) {
-                    if (city.getAdcode().equals(cityBean.getAdcode())&&city.getName().equals(cityBean.getName())) {
+                    if (city.getAdcode().equals(cityBean.getAdcode()) && city.getName().equals(cityBean.getName())) {
                         return;
                     }
                     city.setSelected(false);
@@ -97,10 +102,11 @@ public class SelectAddressDialogFragment extends BaseBottomSheetFragment impleme
                 mSelectedAdapter.addData(cityBean);
                 mSelectedAdapter.notifyDataSetChanged();
                 if (!cityBean.getDistricts().isEmpty()) {
-                    ((AddOrEditAddressActivity) Objects.requireNonNull(getActivity())).getAllCitys(cityBean.getAdcode());
+                    getAddOrEditAddressActivity().getAllCitys(cityBean.getAdcode());
                 } else {
                     //没有下级城镇了
                     comfirmAddr();
+                    getAddOrEditAddressActivity().canClick = true;
                 }
             }
         });
@@ -109,21 +115,25 @@ public class SelectAddressDialogFragment extends BaseBottomSheetFragment impleme
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 CitysBean.DistrictsBean cityBean = (CitysBean.DistrictsBean) adapter.getItem(position);
                 List<CitysBean.DistrictsBean> citys = adapter.getData();
-                List<CitysBean.DistrictsBean> aa= new ArrayList<>();
+                List<CitysBean.DistrictsBean> aa = new ArrayList<>();
                 for (int i = 0; i < citys.size(); i++) {
-                    if (i<position+1) {
-                      aa.add(citys.get(i));
+                    if (i < position + 1) {
+                        aa.add(citys.get(i));
                     }
                 }
                 adapter.setNewData(aa);
                 if (!cityBean.getDistricts().isEmpty()) {
-                    ((AddOrEditAddressActivity) Objects.requireNonNull(getActivity())).getAllCitys(cityBean.getAdcode());
+                    getAddOrEditAddressActivity().getAllCitys(cityBean.getAdcode());
                 } else {
                     comfirmAddr();
                 }
             }
         });
 
+    }
+
+    private AddOrEditAddressActivity getAddOrEditAddressActivity() {
+        return (AddOrEditAddressActivity) Objects.requireNonNull(getActivity());
     }
 
     @Override
@@ -144,11 +154,11 @@ public class SelectAddressDialogFragment extends BaseBottomSheetFragment impleme
     private void comfirmAddr() {
         //没有下级城镇了
         List<CitysBean.DistrictsBean> citys = mSelectedAdapter.getData();
-        StringBuffer  sb = new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         for (CitysBean.DistrictsBean city : citys) {
-            sb.append(city.getName()+"\u3000");
+            sb.append(city.getName() + "\u3000");
         }
-        ((AddOrEditAddressActivity) Objects.requireNonNull(getActivity())).setAddrDes(sb.toString());
+        getAddOrEditAddressActivity().setAddrDes(sb.toString());
         dismiss();
     }
 
@@ -176,7 +186,7 @@ public class SelectAddressDialogFragment extends BaseBottomSheetFragment impleme
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.selector_close:
-               dismiss();
+                dismiss();
                 break;
             default:
                 break;

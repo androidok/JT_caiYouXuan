@@ -15,6 +15,7 @@ import com.example.chat.util.UserInfoManagerChat;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.MD5;
+import com.juntai.disabled.basecomponent.utils.RomUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.MainActivity;
@@ -161,11 +162,18 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                 // : 2022/4/28 调用登录的接口
                 if (0 == loginType % 2) {
                     mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
-                            .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE).add("password", MD5.md5(String.format("%s#%s", account, password)))
+                            .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
+                            .add("mobileName", RomUtil.getName())
+                            .add("regId", Hawk.get(HawkProperty.DEV_REGID))
+
+                            .add("password", MD5.md5(String.format("%s#%s", account, password)))
                             .build(), AppHttpPathMall.LOGIN);
                 } else {
                     mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
-                            .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE).add("code", password)
+                            .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
+                            .add("mobileName", RomUtil.getName())
+                            .add("regId", Hawk.get(HawkProperty.DEV_REGID))
+                            .add("code", password)
                             .build(), AppHttpPathMall.LOGIN);
                 }
                 break;

@@ -11,6 +11,7 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.juntai.disabled.basecomponent.app.BaseApplication;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.RomUtil;
 import com.king.zxing.util.LogUtils;
@@ -53,7 +54,7 @@ public abstract class MyChatApp extends BaseApplication {
         public void onRegister(int resCode, Token regId) {
             if (resCode == PushConstants.SUCCESS_CODE && regId != null) {
                 String pushRegId = regId.getRegId();
-                Hawk.put("dfa",pushRegId);
+                Hawk.put(HawkProperty.DEV_REGID,pushRegId);
             }
         }
 

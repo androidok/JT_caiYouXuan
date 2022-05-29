@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="35dp">
 
-    <ImageView
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:src="@mipmap/selected_addr_tag" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_marginLeft="25dp"
+        android:orientation="vertical">
+
+
+        <View
+            android:id="@+id/selected_addr_top_v"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black" />
+
+        <TextView
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:background="@drawable/sp_filled_red_circle" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black" />
+
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/selected_addr_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="20dp"
-        android:textColor="@color/black"
         android:gravity="center_vertical"
-        android:text="名字"></TextView>
+        android:paddingStart="20dp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:text="名字"
+        android:textColor="@color/black" />
 </LinearLayout>

@@ -10,7 +10,6 @@ public class AppHttpPathMall {
     //    public static final String BASE_IMAGE = "http://192.168.124.148:9598";
     public static final String BASE_IMAGE = "http://www.juntaikeji.com:19170";
 
-    public static final String CHAT_VIDEO_URL = "turn:stun.juntaikeji.com:19603";
     public static final String ALL_CITYS = "https://restapi.amap.com/v3/config/district?";
     /*==============================================  流媒体相关  =============================================*/
 

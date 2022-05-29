@@ -4,14 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/item_address_image"
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_centerVertical="true"
-        android:src="@mipmap/ic_region_checked"/>
     <TextView
         android:id="@+id/item_address_pinyin"
         android:layout_width="40dp"

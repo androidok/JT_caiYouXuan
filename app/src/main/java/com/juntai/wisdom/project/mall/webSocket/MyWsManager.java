@@ -18,6 +18,7 @@ import com.example.chat.util.UserInfoManagerChat;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
@@ -109,7 +110,7 @@ public class MyWsManager {
                 MessageBodyBean messageBody = GsonTools.changeGsonToBean(text, MessageBodyBean.class);
                 //未读
                 messageBody.setRead(false);
-//                    HawkProperty.setRedPoint(mContext, 1);
+                    HawkProperty.setRedPoint(mContext, 1);
                 if (mContext instanceof ChatActivity) {
                     EventManager.getEventBus().post(new EventBusObject(EventBusObject.MESSAGE_BODY, messageBody));
                 }else {

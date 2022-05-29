@@ -29,8 +29,8 @@ public class NotificationTool {
     //是否展示notification
     public static boolean SHOW_NOTIFICATION = false;
 
-    public static String MSG_CHANNEL_ID = "chaoshiju_msg_channel";//普通消息通知id
-    public static String MSG_CHANNEL_NAME = "在线聊天消息";//普通消息通知
+    public static String MSG_CHANNEL_ID = "msg_channel";//普通消息通知id
+    public static String MSG_CHANNEL_NAME = "聊天消息";//普通消息通知
 
 
     /**

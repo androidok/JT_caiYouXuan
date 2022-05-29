@@ -1,11 +1,16 @@
 package com.example.chat.util;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
+import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
+import com.juntai.disabled.basecomponent.utils.GsonTools;
 
 import java.util.List;
 
@@ -34,32 +39,18 @@ public class OperateMsgUtil {
         // TODO: 2022/5/6 华为推送点击事件
         Intent intent = null;
 // Scheme协议（例如：pushscheme://com.huawei.codelabpush/deeplink?）需要您自定义
-//        intent = new Intent(Intent.ACTION_VIEW);
-//        if (messageBodyBean.getGroupId() > 0) {
-//            //群组消息
-//            intent.setData(Uri.parse("pushscheme://com.juntai.wisdom.im.groupchat/push?"));
-//        } else {
-//            if (messageBodyBean.getMsgType() == 4 || messageBodyBean.getMsgType() == 5) {
-//                if (VideoRequestActivity.EVENT_CAMERA_REQUEST.equals(messageBodyBean.getEvent())) {
-//                    intent.setData(Uri.parse("pushscheme://com.juntai.wisdom.im.videocall/push?"));
-//                } else {
-//                    intent.setData(Uri.parse("pushscheme://com.juntai.wisdom.im.privatechat/push?"));
-//                }
-//            } else {
-//                intent.setData(Uri.parse("pushscheme://com.juntai.wisdom.im.privatechat/push?"));
-//            }
-//        }
-//
-//
-//// 往intent中添加参数，用户可以根据自己的需求添加参数
-//        intent.putExtra(BaseActivity.BASE_STRING, GsonTools.createGsonString(messageBodyBean));
-//        intent.putExtra(VideoRequestActivity.IS_SENDER, false);
-//// 应用必须带上该Flag，如果不添加该选项有可能会显示重复的消息
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        String intentUri = intent.toUri(Intent.URI_INTENT_SCHEME);
+        intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("pushscheme://com.juntai.wisdom.mall.chatactivity/push?"));
+
+
+// 往intent中添加参数，用户可以根据自己的需求添加参数
+        intent.putExtra(BaseActivity.BASE_STRING, GsonTools.createGsonString(messageBodyBean));
+// 应用必须带上该Flag，如果不添加该选项有可能会显示重复的消息
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        String intentUri = intent.toUri(Intent.URI_INTENT_SCHEME);
 
 // 打印出的intentUri值就是设置到推送消息中intent字段的值
-        return null;
+        return intentUri;
     }
 
     /**
@@ -69,34 +60,20 @@ public class OperateMsgUtil {
      */
     public static String getXiaomiPushIntentStr(MessageBodyBean messageBodyBean) {
         Intent intent = new Intent();
-//// Scheme协议（例如：pushscheme://com.huawei.codelabpush/deeplink?）需要您自定义
-//        ComponentName componentName = null;
-//        if (messageBodyBean.getGroupId() > 0) {
-//            //群组消息com.juntai.wisdom.im.chat_module.groupchat
-//            componentName = new ComponentName("com.juntai.wisdom.im", "com.juntai.wisdom.im.chat_module.groupchat.GroupChatActivity");
-//        } else {
-//            if (messageBodyBean.getMsgType() == 4 || messageBodyBean.getMsgType() == 5) {
-//                if (VideoRequestActivity.EVENT_CAMERA_REQUEST.equals(messageBodyBean.getEvent())) {
-//                    componentName = new ComponentName("com.juntai.wisdom.im", "com.juntai.wisdom.im.chat_module.chat.videocall.VideoRequestActivity");
-//                } else {
-//                    componentName = new ComponentName("com.juntai.wisdom.im", "com.juntai.wisdom.im.chat_module.chat.PrivateChatActivity");
-//                }
-//            } else {
-//                componentName = new ComponentName("com.juntai.wisdom.im", "com.juntai.wisdom.im.chat_module.chat.PrivateChatActivity");
-//            }
-//        }
-//
-//        intent.setComponent(componentName);//调用Intent的setComponent()方法实现传递
-//
-//// 往intent中添加参数，用户可以根据自己的需求添加参数
-//        intent.putExtra(BaseActivity.BASE_STRING, GsonTools.createGsonString(messageBodyBean));
-//
-//// 应用必须带上该Flag，如果不添加该选项有可能会显示重复的消息
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        String intentUri = intent.toUri(Intent.URI_INTENT_SCHEME);
-//
-//// 打印出的intentUri值就是设置到推送消息中intent字段的值
-        return null;
+// Scheme协议（例如：pushscheme://com.huawei.codelabpush/deeplink?）需要您自定义
+        ComponentName componentName = null;
+        componentName = new ComponentName(BaseAppUtils.getFileprovider(), "com.juntai.wisdom.project.mall.news.ChatActivity");
+        intent.setComponent(componentName);//调用Intent的setComponent()方法实现传递
+
+// 往intent中添加参数，用户可以根据自己的需求添加参数
+        intent.putExtra(BaseActivity.BASE_STRING, GsonTools.createGsonString(messageBodyBean));
+
+// 应用必须带上该Flag，如果不添加该选项有可能会显示重复的消息
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        String intentUri = intent.toUri(Intent.URI_INTENT_SCHEME);
+
+// 打印出的intentUri值就是设置到推送消息中intent字段的值
+        return intentUri;
     }
 //
 //    /**
@@ -137,7 +114,7 @@ public class OperateMsgUtil {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("token", UserInfoManagerChat.getUserToken())
                 .addFormDataPart("account", UserInfoManagerChat.getAccount())
-                .addFormDataPart("typeEnd","app_buy")
+                .addFormDataPart("typeEnd", "app_buy")
                 .addFormDataPart("userId", String.valueOf(UserInfoManagerChat.getUserId()))
                 .addFormDataPart("type", "1")
                 .addFormDataPart("fromUserId", String.valueOf(messageBodyBean.getFromUserId()))
@@ -166,7 +143,8 @@ public class OperateMsgUtil {
 
     /**
      * 获取各种消息类型展示的内容
-     *0：text；1：image；2：video；3：语音；4：直播
+     * 0：text；1：image；2：video；3：语音；4：直播
+     *
      * @param messageBodyBean
      * @return
      */

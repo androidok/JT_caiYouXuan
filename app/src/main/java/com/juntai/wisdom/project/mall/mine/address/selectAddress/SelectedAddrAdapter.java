@@ -20,6 +20,11 @@ public class SelectedAddrAdapter extends BaseQuickAdapter<CitysBean.DistrictsBea
 
     @Override
     protected void convert(BaseViewHolder helper, CitysBean.DistrictsBean item) {
+        if (0==helper.getAdapterPosition()) {
+            helper.setVisible(R.id.selected_addr_top_v,false);
+        }else {
+            helper.setVisible(R.id.selected_addr_top_v,true);
+        }
         helper.setText(R.id.selected_addr_tv, item.getName());
         if (item.isSelected()) {
             helper.setTextColor(R.id.selected_addr_tv, ContextCompat.getColor(mContext,R.color.red));

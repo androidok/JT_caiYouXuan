@@ -38,7 +38,19 @@
             android:launchMode="singleTop"/>
         <activity
             android:name=".news.ChatActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.juntai.wisdom.mall.chatactivity"
+                    android:path="/push"
+                    android:scheme="pushscheme" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".order.refund.RefundRequestActivity"
             android:launchMode="singleTop" />

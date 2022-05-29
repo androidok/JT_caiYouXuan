@@ -46,6 +46,10 @@ public class AddOrEditAddressActivity extends BaseAppActivity<AddrPresent> imple
     private AddressListBean.DataBean dataBean;
     
     private String addrDes;
+    /**
+     * 是否可点击
+     */
+    public boolean canClick = true;
 
     @Override
     public int getLayoutView() {
@@ -232,7 +236,7 @@ public class AddOrEditAddressActivity extends BaseAppActivity<AddrPresent> imple
         switch (tag) {
             case AppHttpPathMall.ALL_CITYS:
                 CitysBean citysBean = (CitysBean) o;
-
+                canClick = true;
                 if (citysBean != null) {
                     CitysBean.DistrictsBean presentCity = citysBean.getDistricts().get(0);
                     List<CitysBean.DistrictsBean> citys = presentCity.getDistricts();

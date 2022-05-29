@@ -103,6 +103,9 @@ dependencies {
     api 'com.alipay.sdk:alipaysdk-android:+@aar'
     //微信支付
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
+    implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'
+
 }
 
 configurations.all {

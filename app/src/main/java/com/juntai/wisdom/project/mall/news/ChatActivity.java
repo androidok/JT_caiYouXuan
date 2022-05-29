@@ -524,8 +524,9 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
     }
 
     public void initAdapterData(Intent intent) {
+
         setOnFileUploadStatus(this);
-        contactBean = getIntent().getParcelableExtra(BaseActivity.BASE_PARCELABLE);
+        contactBean = intent.getParcelableExtra(BaseActivity.BASE_PARCELABLE);
         // : 2022/5/19 联系人列表
 //        UserInfoManagerMall.initContacts(contactBean);
 // : 2022/5/19 获取所有的聊天记录

@@ -1,6 +1,12 @@
 package com.juntai.disabled.basecomponent.utils;
 
 
+import android.content.Context;
+
+import com.orhanobut.hawk.Hawk;
+
+import me.leolin.shortcutbadger.ShortcutBadger;
+
 /**
  * @Author: tobato
  * @Description: 作用描述
@@ -17,6 +23,7 @@ public class HawkProperty {
     public static String DEV_REGID = "dev_regid";
     public static String ALL_PROVINCE_KEY = "ALL_PROVINCE_KEY";
     public static String DEFAULT_ADDR = "DEFAULT_ADDR";
+    public static String UNREAD = "unreadCount";
 
 
     /**
@@ -48,5 +55,27 @@ public class HawkProperty {
 
 
 
+    /**
+     * 配置小红点
+     *
+     * @param mContext
+     * @param badgeCount
+     */
+    public static void setRedPoint(Context mContext, int badgeCount) {
+        int unread = Hawk.get(UNREAD, 0);
+        unread += badgeCount;
+        Hawk.put(UNREAD, unread);
+        ShortcutBadger.applyCount(mContext.getApplicationContext(), unread);
+    }
+
+    /**
+     * 配置小红点
+     *
+     * @param mContext
+     */
+    public static void clearRedPoint(Context mContext) {
+        Hawk.put(UNREAD, 0);
+        ShortcutBadger.applyCount(mContext.getApplicationContext(), 0);
+    }
 
 }
