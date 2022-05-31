@@ -86,6 +86,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
 // 得到剪贴板管理器
         ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(content.trim());
+        ToastUtils.toast(mContext,"已复制");
     }
     protected void initUploadUtil() {
         //上传文件工具类

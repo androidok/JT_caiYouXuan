@@ -235,7 +235,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                     ToastUtils.toast(mContext, "无法获取店铺信息 不能分享");
                     return;
                 }
-                ShareActivity.startShareActivity(mContext, 0, bannerPics.isEmpty() ? "" : (String)bannerPics.get(0).getPicPath(), shopBean.getIntroduction());
+                ShareActivity.startShareActivity(mContext, 0, bannerPics.isEmpty() ? "" : (String)bannerPics.get(0).getPicPath(), shopBean.getIntroduction(),shopBean.getShareUrl());
 
                 break;
         }

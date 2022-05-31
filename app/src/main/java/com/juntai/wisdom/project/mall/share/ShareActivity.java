@@ -7,10 +7,13 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.utils.ScreenUtils;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
@@ -20,9 +23,12 @@ import com.juntai.wisdom.project.mall.home.HomePagePresent;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.PicTextAdapter;
 import com.juntai.wisdom.project.mall.utils.ToolShare;
 import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
+import com.king.zxing.util.CodeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.graphics.BitmapFactory.decodeFile;
 
 /**
  * @aouther tobato
@@ -50,6 +56,8 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
     private TextView mCancelShareTv;
     private String sharePic;
     private String shareDes;
+    private String shareUrl;
+    private LinearLayout mRootLl;
 
     /**
      * @param mContext
@@ -57,10 +65,11 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
      * @param pic
      * @param des
      */
-    public static void startShareActivity(Context mContext, int type, String pic, String des) {
+    public static void startShareActivity(Context mContext, int type, String pic, String des, String shareUrl) {
         Intent intent = new Intent(mContext, ShareActivity.class);
         intent.putExtra(BASE_ID, type)
                 .putExtra(BASE_STRING, pic)
+                .putExtra(BASE_STRING3, shareUrl)
                 .putExtra(BASE_STRING2, des);
         mContext.startActivity(intent);
 
@@ -87,6 +96,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
         mShopNameTv = (TextView) findViewById(R.id.shop_name_tv);
         mShopDesTv = (TextView) findViewById(R.id.shop_des_tv);
         mShareLiveCl = (ConstraintLayout) findViewById(R.id.share_live_cl);
+        mRootLl = (LinearLayout) findViewById(R.id.share_root_ll);
         mShareCoverIv = (ImageView) findViewById(R.id.share_cover_iv);
         mShareDesTv = (TextView) findViewById(R.id.share_des_tv);
         mQrcodeIv = (ImageView) findViewById(R.id.qrcode_iv);
@@ -99,19 +109,32 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
                 switch (picTextBean.getTextName()) {
                     case HomePageContract.SHARE_WEIXIN:
                         // : 2022/5/21 分享到微信
-                        // TODO: 2022/5/27 分享链接需要更改
-                        ToolShare.share(mContext, ToolShare.SHARE_WECHAT, shareDes, shareDes, sharePic, UserInfoManagerMall.getHeadPic());
+                        ToolShare.share(mContext, ToolShare.SHARE_WECHAT, shareDes, shareDes, sharePic, shareUrl);
                         break;
                     case HomePageContract.SHARE_WEIXIN_FRIENDS:
                         // : 2022/5/21 分享到微信 朋友圈
-                        // TODO: 2022/5/27 分享链接需要更改
 
-                        ToolShare.share(mContext, ToolShare.SHARE_WECHAT_CIRCLE, shareDes, shareDes, sharePic, UserInfoManagerMall.getHeadPic());
+                        ToolShare.share(mContext, ToolShare.SHARE_WECHAT_CIRCLE, shareDes, shareDes, sharePic, shareUrl);
 
                         break;
-//                    case HomePageContract.SHARE_QQ:
-//                        // TODO: 2022/5/21 分享到QQ
-//                        break;
+                    case HomePageContract.SHARE_QQ:
+                        // TODO: 2022/5/21 分享到QQ
+                        break;
+                    case HomePageContract.SHARE_QQ_SPACE:
+                        // TODO: 2022/5/21 分享到QQ空间
+                        break;
+                    case HomePageContract.SHARE_SAVE_PIC:
+                        // : 2022/5/21 保存到本地
+                        if (!FileCacheUtils.isFileExists(FileCacheUtils.getAppImagePath(false)+shareDes + ".png")) {
+                            FileCacheUtils.saveBitmapByView(ShareActivity.this,mContext, mRootLl, shareDes + ".png");
+                        }else {
+                            ToastUtils.toast(mContext, "已保存到本地");
+                        }
+                        break;
+                    case HomePageContract.SHARE_COPY_LINK:
+                        copy(shareUrl);
+
+                        break;
                     default:
                         ToastUtils.toast(mContext, "暂未开放");
                         break;
@@ -126,7 +149,9 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
         int type = getIntent().getIntExtra(BASE_ID, 0);
         sharePic = getIntent().getStringExtra(BASE_STRING);
         shareDes = getIntent().getStringExtra(BASE_STRING2);
+        shareUrl = getIntent().getStringExtra(BASE_STRING3);
         ImageLoadUtil.loadImage(mContext, sharePic, mShareCoverIv);
+        mQrcodeIv.setImageBitmap(CodeUtils.createQRCode(UserInfoManagerMall.getHeadPic(), ScreenUtils.getInstance(mContext).getScreenWidth(), decodeFile(FileCacheUtils.getAppImagePath(true) + getSavedFileName(sharePic))));
         mShareDesTv.setText(shareDes);
         if (2 == type) {
             //分享直播
@@ -140,7 +165,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
 
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {
-        return new GridLayoutManager(mContext, 5);
+        return new GridLayoutManager(mContext, 6);
     }
 
     @Override
@@ -164,11 +189,14 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
     }
 
     public List<PicTextBean> getShareMenus() {
-// TODO: 2022/5/21 这个地方需要添加功能图片
+// todo: 2022/5/21 这个地方需要添加功能图片
         List<PicTextBean> arrays = new ArrayList<>();
         arrays.add(new PicTextBean(R.mipmap.weixin_icon, HomePageContract.SHARE_WEIXIN));
         arrays.add(new PicTextBean(R.mipmap.weixin_friends, HomePageContract.SHARE_WEIXIN_FRIENDS));
-        arrays.add(new PicTextBean(R.mipmap.qq_icon, HomePageContract.SHARE_QQ));
+//        arrays.add(new PicTextBean(R.mipmap.qq_icon, HomePageContract.SHARE_QQ));
+//        arrays.add(new PicTextBean(R.mipmap.share_qq_space, HomePageContract.SHARE_QQ_SPACE));
+        arrays.add(new PicTextBean(R.mipmap.share_save_img, HomePageContract.SHARE_SAVE_PIC));
+        arrays.add(new PicTextBean(R.mipmap.share_copy_link, HomePageContract.SHARE_COPY_LINK));
         return arrays;
     }
 

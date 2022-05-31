@@ -77,6 +77,7 @@ public class CommodityEvaluationBean extends BaseResult {
             this.videoCover = videoCover == null ? "" : videoCover;
         }
 
+
         public void setId(int id) {
             this.id = id;
         }

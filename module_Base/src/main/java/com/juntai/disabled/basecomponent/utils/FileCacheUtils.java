@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
@@ -58,7 +59,7 @@ public class FileCacheUtils {
      * @param dirPath
      * @return
      */
-    public static String isVideoFileExistsInDir(String dirPath,boolean isCatch) {
+    public static String isVideoFileExistsInDir(String dirPath, boolean isCatch) {
 
         dirPath = getAppVideoPath(isCatch) + dirPath;
         File file = new File(dirPath);
@@ -81,7 +82,7 @@ public class FileCacheUtils {
      * @param dirPath
      * @return
      */
-    public static String getVideoFileInDir(String dirPath,boolean isCatch) {
+    public static String getVideoFileInDir(String dirPath, boolean isCatch) {
 
         dirPath = getAppVideoPath(isCatch) + dirPath;
         File file = new File(dirPath);
@@ -127,7 +128,7 @@ public class FileCacheUtils {
         RxScheduler.doTask(iView, new RxTask<String>() {
             @Override
             public String doOnIoThread() {
-                String  str = null;
+                String str = null;
                 try {
 
                     int bytesum = 0;
@@ -174,7 +175,7 @@ public class FileCacheUtils {
             public void doOnUIThread(String s) {
                 if (!isCatch) {
                     ToastUtils.success(BaseApplication.app, s);
-                    sendBroadcastToAlbum(BaseApplication.app,newPath);
+                    sendBroadcastToAlbum(BaseApplication.app, newPath);
                 }
 
             }
@@ -223,7 +224,7 @@ public class FileCacheUtils {
      *
      * @return
      */
-    public static String getAppImagePath(String dirName,boolean isCatch) {
+    public static String getAppImagePath(String dirName, boolean isCatch) {
         File destDir = new File(getAppPath(isCatch) + "image/" + dirName + File.separator);
         if (!destDir.exists()) {
             destDir.mkdirs();
@@ -294,7 +295,7 @@ public class FileCacheUtils {
      * @param bmp
      * @return
      */
-    public static String saveBitmap(Bitmap bmp, String picName,boolean isCatch) {
+    public static String saveBitmap(Bitmap bmp, String picName, boolean isCatch) {
         FileOutputStream out;
         File file;
         String path = null;
@@ -319,6 +320,52 @@ public class FileCacheUtils {
         return path;
     }
 
+    /**
+     * 缓存bmp
+     *
+     * @return
+     */
+    public static void saveBitmapByView(IView iView,Context context, View view, String picName) {
+        RxScheduler.doTask(iView, new RxTask<String>(){
+            @Override
+            public String doOnIoThread() {
+                view.setDrawingCacheEnabled(true);
+                view.buildDrawingCache();
+                Bitmap bmp = view.getDrawingCache();
+                FileOutputStream out;
+                File file;
+                String path = null;
+                try {
+                    // 获取SDCard指定目录下
+                    String sdCardDir = getAppImagePath(false);
+                    File dirFile = new File(sdCardDir);  //目录转化成文件夹
+                    if (!dirFile.exists()) {              //如果不存在，那就建立这个文件夹
+                        dirFile.mkdirs();
+                    }
+                    file = new File(sdCardDir, picName);
+                    out = new FileOutputStream(file);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                    out.flush();
+                    out.close();
+                    path = sdCardDir + picName;
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return path;
+            }
+
+            @Override
+            public void doOnUIThread(String s) {
+                view.destroyDrawingCache();
+                sendBroadcastToAlbum(context, s);
+                ToastUtils.toast(context, "已保存到本地");
+            }
+        });
+    }
+
 
     /**
      * 创建文件夹
@@ -333,7 +380,6 @@ public class FileCacheUtils {
             file.mkdirs();
         }
     }
-
 
 
     /**

@@ -45,7 +45,7 @@ public class GlideImageLoader implements ImageLoaderInterface<View> {
         if (BannerObject.BANNER_TYPE_IMAGE.equals(eventKey)) {
             ImageView imageView = (ImageView) view;
             //Glide 加载图片简单用法
-            ImageLoadUtil.loadImageCache(context, (String) bannerObject.getPicPath(), imageView);
+            ImageLoadUtil.loadSquareImage(context,(String) bannerObject.getPicPath(), imageView);
         } else if (BannerObject.BANNER_TYPE_VIDEO.equals(eventKey)) {
             videoBean = bannerObject.getVideoBean();
             startVideo(context);

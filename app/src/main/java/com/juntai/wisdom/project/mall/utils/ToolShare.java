@@ -129,11 +129,13 @@ public class ToolShare {
             ToastUtils.toast(mContext, "分享内容不能为空");
             return;
         }
+        if (TextUtils.isEmpty(shareUrl)) {
+            // : 2022/5/31  如果分享链接为null 直接显示百度首页
+            shareUrl = "https://www.baidu.com/";
+        }
         if (shareType == SHARE_WECHAT) {
             setSharePlatform(sharePlatform, shareTitle, shareText, shareImageUrl, logo, shareUrl);
-            if (shareUrl != null && !shareUrl.equalsIgnoreCase("")) {
-                sharePlatform.setTitleUrl(shareUrl);
-            }
+            sharePlatform.setTitleUrl(shareUrl);
             platform = ShareSDK.getPlatform(Wechat.NAME);
             if (!platform.isClientValid()) {
                 ToastUtils.toast(mContext, "未安装微信");

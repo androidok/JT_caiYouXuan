@@ -8,8 +8,8 @@
     android:paddingBottom="5dp">
     <ImageView
         android:id="@+id/tabitem_image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:scaleType="fitCenter"
         android:layout_centerHorizontal="true"
         android:src="@mipmap/app_icon"

@@ -46,6 +46,7 @@ public class ShopDetailBean extends BaseResult {
         private int id;
         private int userId;
         private int isCollect;
+        private String shareUrl;//分享地址
         private String name;
         private String headPortrait;
         private String introduction;
@@ -84,6 +85,14 @@ public class ShopDetailBean extends BaseResult {
 
         public int getId() {
             return id;
+        }
+
+        public String getShareUrl() {
+            return shareUrl == null ? "" : shareUrl;
+        }
+
+        public void setShareUrl(String shareUrl) {
+            this.shareUrl = shareUrl == null ? "" : shareUrl;
         }
 
         public void setId(int id) {

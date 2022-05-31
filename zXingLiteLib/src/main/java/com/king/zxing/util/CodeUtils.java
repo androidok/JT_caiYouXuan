@@ -101,7 +101,7 @@ public final class CodeUtils {
      * @return
      */
     public static Bitmap createQRCode(String content, int heightPix, Bitmap logo,int codeColor) {
-        return createQRCode(content,heightPix,logo,0.2f,codeColor);
+        return createQRCode(content,heightPix,logo,0.4f,codeColor);
     }
 
     /**
