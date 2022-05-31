@@ -1,5 +1,6 @@
 package com.juntai.wisdom.project.mall.home;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,6 +37,8 @@ public class HomeCommodityFragment extends BaseAppFragment<HomePagePresent> impl
         mSwitchModeIv = (ImageView) getView(R.id.switch_mode_iv);
         mSwitchModeIv.setOnClickListener(this);
         mSearchLl.setOnClickListener(this);
+        getView(R.id.scan_iv).setOnClickListener(this);
+
     }
 
     @Override
@@ -56,6 +59,11 @@ public class HomeCommodityFragment extends BaseAppFragment<HomePagePresent> impl
                 break;
             case R.id.search_ll:
                 getBaseAppActivity().startToSearchActivity();
+                break;
+            case R.id.scan_iv:
+                // : 2022/5/31 扫码
+                startActivity(new Intent(mContext, QRScanActivity.class));
+
                 break;
             default:
                 break;

@@ -1,5 +1,6 @@
 package com.juntai.wisdom.project.mall.home.shop;
 
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.wisdom.project.mall.beans.shop.ShopDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
+import com.juntai.wisdom.project.mall.home.QRScanActivity;
 import com.juntai.wisdom.project.mall.home.shop.ijkplayer.PlayerLiveActivity;
 import com.juntai.wisdom.project.mall.share.ShareActivity;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
@@ -75,6 +77,8 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         mShopBackIv.setOnClickListener(this);
         mShopCollectIv = (ImageView) findViewById(R.id.shop_collect_iv);
         mShopCollectIv.setOnClickListener(this);
+        findViewById(R.id.scan_iv).setOnClickListener(this);
+        findViewById(R.id.search_ll).setOnClickListener(this);
         mShopShareIv = (ImageView) findViewById(R.id.shop_share_iv);
         mShopShareIv.setOnClickListener(this);
         mTopCl = (ConstraintLayout) findViewById(R.id.top_cl);
@@ -101,10 +105,10 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                     case BannerObject.BANNER_TYPE_IMAGE:
                     case BannerObject.BANNER_TYPE_VIDEO:
                         // : 2022/5/21 展示图片大图
-                        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,bannerPics, bannerPics.size()==bannerObjects.size()?position:position-1);
+                        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext, bannerPics, bannerPics.size() == bannerObjects.size() ? position : position - 1);
                         break;
                     case BannerObject.BANNER_TYPE_RTMP:
-                        BannerObject.StreamBean streamBean =  bannerObject.getStreamBean();
+                        BannerObject.StreamBean streamBean = bannerObject.getStreamBean();
                         PlayerLiveActivity.startPlayerLiveActivity(mContext, streamBean.getCameraNum(), streamBean.getCameraCover(), streamBean.getRtmpUrl());
 
                         break;
@@ -142,7 +146,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         });
 
         if (!TextUtils.isEmpty(shopBean.getCameraCover()) && !TextUtils.isEmpty(shopBean.getCameraNumber())) {
-            bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_RTMP, new BannerObject.StreamBean(shopBean.getCameraNumber(),shopBean.getCameraCover(),shopBean.getCameraUrl())));
+            bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_RTMP, new BannerObject.StreamBean(shopBean.getCameraNumber(), shopBean.getCameraCover(), shopBean.getCameraUrl())));
         }
 
         String bannerPic = shopBean.getShopImg();
@@ -151,7 +155,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                 String[] pics = bannerPic.split(",");
                 for (String pic : pics) {
                     bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
-                    bannerPics.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE,pic));
+                    bannerPics.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
                 }
             } else {
                 bannerPics.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, bannerPic));
@@ -213,6 +217,18 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
             case R.id.shop_back_iv:
                 finish();
                 break;
+            case R.id.search_ll:
+                // : 2022/5/31 店铺内部搜索商品
+                startActivity(new Intent(mContext, SearchShopCommodityActivity.class)
+                .putExtra(BASE_ID,shopBean.getId())
+
+                );
+
+
+                break;
+            case R.id.scan_iv:
+                startActivity(new Intent(mContext, QRScanActivity.class));
+                break;
             case R.id.shop_collect_iv:
                 if (collectId > 0) {
                     mPresenter.collectShop(getBaseBuilder()
@@ -235,7 +251,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                     ToastUtils.toast(mContext, "无法获取店铺信息 不能分享");
                     return;
                 }
-                ShareActivity.startShareActivity(mContext, 0, bannerPics.isEmpty() ? "" : (String)bannerPics.get(0).getPicPath(), shopBean.getIntroduction(),shopBean.getShareUrl());
+                ShareActivity.startShareActivity(mContext, 0, bannerPics.isEmpty() ? "" : (String) bannerPics.get(0).getPicPath(), shopBean.getIntroduction(), shopBean.getShareUrl());
 
                 break;
         }

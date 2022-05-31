@@ -12,10 +12,10 @@ MobSDK {
                 withShareTicket true
                 miniprogramType 2
             }
-//            QQ {
-//                appId "101935239"
-//                appKey "3e2818e7584b279d591cc7f82ecb24ed"
-//            }
+            QQ {
+                appId "102011696"
+                appKey "IQL2Xt0sWvjJekgN"
+            }
             WechatMoments {
                 appId "wx5fd6d26f7806a119"
                 appSecret "3e2818e7584b279d591cc7f82ecb24ed"

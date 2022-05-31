@@ -18,7 +18,7 @@
 <ShortMessage Enable="false" />
 <Wechat AppId="wx5fd6d26f7806a119" AppSecret="3e2818e7584b279d591cc7f82ecb24ed" WithShareTicket="true" MiniprogramType="2" />
 <WechatMoments AppId="wx5fd6d26f7806a119" AppSecret="3e2818e7584b279d591cc7f82ecb24ed" />
-<QQ Enable="false" />
+<QQ AppId="102011696" AppKey="IQL2Xt0sWvjJekgN" />
 <Instapaper Enable="false" />
 <Pocket Enable="false" />
 <YouDao Enable="false" />

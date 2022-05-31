@@ -30,12 +30,16 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".share.ShareActivity"
-            android:launchMode="singleTop"></activity>
-        <activity android:name=".search.SearchActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".mine.myinfo.ModifyNickNameActivity"
-            android:launchMode="singleTop"/>
+        <activity android:name=".home.shop.SearchShopCommodityActivity"></activity>
+        <activity
+            android:name=".share.ShareActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".search.SearchActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".mine.myinfo.ModifyNickNameActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".news.ChatActivity"
             android:launchMode="singleTask">
@@ -69,10 +73,12 @@
         <activity
             android:name=".order.allOrder.AllOrderActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".order.orderPay.PaySuccessActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".order.orderPay.OrderPayActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".order.orderPay.PaySuccessActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".order.orderPay.OrderPayActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -80,26 +86,31 @@
         <activity
             android:name=".order.confirmOrder.ConfirmOrderActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".mine.collect.CollectShopesActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".mine.collect.CollectCommoditiesActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".mine.modifyPwd.BackPwdActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".home.shop.ShopActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".home.commodityfragment.commodity_detail.CommodityDetailActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".entrance.RegistActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".mine.collect.CollectShopesActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".mine.collect.CollectCommoditiesActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".mine.modifyPwd.BackPwdActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home.shop.ShopActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home.commodityfragment.commodity_detail.CommodityDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".entrance.RegistActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".home.QRScanActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".entrance.LoginActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".mine.address.AddressListActivity"
-            />
+        <activity android:name=".mine.address.AddressListActivity" />
         <activity android:name=".mine.address.AddOrEditAddressActivity" />
         <activity
             android:name=".entrance.SplashActivity"
@@ -110,10 +121,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.map.weather.WeatherActivity"
-            android:launchMode="singleTop"/> <!-- 适配华为（huawei）刘海屏 -->
-        <activity android:name=".home.map.weather.SelectLocationForWeatherActivity"
-            /> <!-- 适配小米（xiaomi）刘海屏 -->
+        <activity
+            android:name=".home.map.weather.WeatherActivity"
+            android:launchMode="singleTop" /> <!-- 适配华为（huawei）刘海屏 -->
+        <activity android:name=".home.map.weather.SelectLocationForWeatherActivity" /> <!-- 适配小米（xiaomi）刘海屏 -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -135,6 +146,7 @@
         <activity
             android:name=".mine.myinfo.HeadCropActivity"
             android:launchMode="singleTop" />
+
         <service android:name=".home.shop.ijkplayer.KeepAliveService" />
 
         <activity

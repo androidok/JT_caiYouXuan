@@ -3,7 +3,9 @@ package com.juntai.wisdom.project.mall.search;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.chat.util.MultipleItem;
+import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.wisdom.project.mall.R;
+import com.juntai.wisdom.project.mall.beans.CommodityBean;
 
 import java.util.List;
 
@@ -29,6 +31,17 @@ public class BaseSearchAdapter extends BaseMultiItemQuickAdapter<MultipleItem, B
 
     @Override
     protected void convert(BaseViewHolder helper, MultipleItem item) {
+        switch (item.getItemType()) {
+            case MultipleItem.ITEM_COMMODITY:
+                CommodityBean commodityBean = (CommodityBean) item.getObject();
+                helper.setGone(R.id.linearlayout_commodity_sales_tv, false);
+                ImageLoadUtil.loadSquareImageHasCorner(mContext, commodityBean.getCoverImg(), helper.getView(R.id.linearlayout_commodity_cover_iv));
+                helper.setText(R.id.linearlayout_commodity_des_tv, commodityBean.getName());
+                helper.setText(R.id.linearlayout_commodity_price_tv, String.format("￥%s",commodityBean.getPrice()));
 
+                break;
+            default:
+                break;
+        }
     }
 }

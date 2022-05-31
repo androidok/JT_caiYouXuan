@@ -22,7 +22,6 @@ import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.HomePagePresent;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.PicTextAdapter;
 import com.juntai.wisdom.project.mall.utils.ToolShare;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.king.zxing.util.CodeUtils;
 
 import java.util.ArrayList;
@@ -119,6 +118,8 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
                         break;
                     case HomePageContract.SHARE_QQ:
                         // TODO: 2022/5/21 分享到QQ
+                        ToolShare.share(mContext, ToolShare.SHARE_QQ, shareDes, shareDes, sharePic, shareUrl);
+
                         break;
                     case HomePageContract.SHARE_QQ_SPACE:
                         // TODO: 2022/5/21 分享到QQ空间
@@ -151,7 +152,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
         shareDes = getIntent().getStringExtra(BASE_STRING2);
         shareUrl = getIntent().getStringExtra(BASE_STRING3);
         ImageLoadUtil.loadImage(mContext, sharePic, mShareCoverIv);
-        mQrcodeIv.setImageBitmap(CodeUtils.createQRCode(UserInfoManagerMall.getHeadPic(), ScreenUtils.getInstance(mContext).getScreenWidth(), decodeFile(FileCacheUtils.getAppImagePath(true) + getSavedFileName(sharePic))));
+        mQrcodeIv.setImageBitmap(CodeUtils.createQRCode(shareUrl, ScreenUtils.getInstance(mContext).getScreenWidth(), decodeFile(FileCacheUtils.getAppImagePath(true) + getSavedFileName(sharePic))));
         mShareDesTv.setText(shareDes);
         if (2 == type) {
             //分享直播
@@ -165,7 +166,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
 
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {
-        return new GridLayoutManager(mContext, 6);
+        return new GridLayoutManager(mContext, 5);
     }
 
     @Override
@@ -193,7 +194,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
         List<PicTextBean> arrays = new ArrayList<>();
         arrays.add(new PicTextBean(R.mipmap.weixin_icon, HomePageContract.SHARE_WEIXIN));
         arrays.add(new PicTextBean(R.mipmap.weixin_friends, HomePageContract.SHARE_WEIXIN_FRIENDS));
-//        arrays.add(new PicTextBean(R.mipmap.qq_icon, HomePageContract.SHARE_QQ));
+        arrays.add(new PicTextBean(R.mipmap.qq_icon, HomePageContract.SHARE_QQ));
 //        arrays.add(new PicTextBean(R.mipmap.share_qq_space, HomePageContract.SHARE_QQ_SPACE));
         arrays.add(new PicTextBean(R.mipmap.share_save_img, HomePageContract.SHARE_SAVE_PIC));
         arrays.add(new PicTextBean(R.mipmap.share_copy_link, HomePageContract.SHARE_COPY_LINK));
