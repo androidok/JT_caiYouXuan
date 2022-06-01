@@ -110,10 +110,10 @@ public class MyWsManager {
                 MessageBodyBean messageBody = GsonTools.changeGsonToBean(text, MessageBodyBean.class);
                 //未读
                 messageBody.setRead(false);
-                    HawkProperty.setRedPoint(mContext, 1);
+                HawkProperty.setRedPoint(mContext, 1);
                 if (mContext instanceof ChatActivity) {
                     EventManager.getEventBus().post(new EventBusObject(EventBusObject.MESSAGE_BODY, messageBody));
-                }else {
+                } else {
                     ObjectBoxMallUtil.addMessage(messageBody);
                     EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_NEWS_LIST, messageBody));
 
