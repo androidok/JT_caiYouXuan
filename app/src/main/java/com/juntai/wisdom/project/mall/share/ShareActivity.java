@@ -117,7 +117,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
 
                         break;
                     case HomePageContract.SHARE_QQ:
-                        // TODO: 2022/5/21 分享到QQ
+                        // : 2022/5/21 分享到QQ
                         ToolShare.share(mContext, ToolShare.SHARE_QQ, shareDes, shareDes, sharePic, shareUrl);
 
                         break;
@@ -190,7 +190,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
     }
 
     public List<PicTextBean> getShareMenus() {
-// todo: 2022/5/21 这个地方需要添加功能图片
+// : 2022/5/21 这个地方需要添加功能图片
         List<PicTextBean> arrays = new ArrayList<>();
         arrays.add(new PicTextBean(R.mipmap.weixin_icon, HomePageContract.SHARE_WEIXIN));
         arrays.add(new PicTextBean(R.mipmap.weixin_friends, HomePageContract.SHARE_WEIXIN_FRIENDS));

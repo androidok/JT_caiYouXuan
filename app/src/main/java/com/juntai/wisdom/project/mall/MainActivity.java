@@ -43,7 +43,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        startWebSocket();
         if (mainViewpager != null) {
             mainViewpager.setCurrentItem(0);
         }
@@ -70,15 +69,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         mFragments.append(4, new MyCenterFragment());//
         mainViewpager.setOffscreenPageLimit(5);
         initTab();
-        startWebSocket();
     }
 
-    private void startWebSocket() {
-        MyWsManager.getInstance()
-                .init(mContext.getApplicationContext())
-                .setWsUrl(AppHttpPathMall.BASE_SOCKET + UserInfoManagerMall.getUserId())
-                .startConnect();
-    }
 
     @Override
     public void initData() {

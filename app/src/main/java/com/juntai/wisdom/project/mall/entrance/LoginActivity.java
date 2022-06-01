@@ -24,6 +24,7 @@ import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.mall.beans.UserBeanMall;
 import com.juntai.wisdom.project.mall.mine.modifyPwd.BackPwdActivity;
 import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
+import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 import com.orhanobut.hawk.Hawk;
 
 import java.lang.ref.WeakReference;
@@ -132,6 +133,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     MyChatApp.isReLoadWarn = true;
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, loginBean.getData().getToken());
+                    MyWsManager.getInstance() .setWsUrl(AppHttpPathMall.BASE_SOCKET + UserInfoManagerMall.getUserId());
                     startActivity(new Intent(mContext, MainActivity.class));
                     finish();
                 }

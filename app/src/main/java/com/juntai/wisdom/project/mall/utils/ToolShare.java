@@ -16,6 +16,7 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 
@@ -158,23 +159,23 @@ public class ToolShare {
             platform.setPlatformActionListener(listener);
             platform.share(sharePlatform);
         }
-//        /**
-//         * 如果是QQ分享
-//         */
-//        else if (shareType == SHARE_QQ) {
-//            setSharePlatform(sharePlatform, shareTitle, shareText, shareImageUrl, logo,shareUrl);
-//            if (shareUrl != null && !shareUrl.equalsIgnoreCase("")) {
-//                sharePlatform.setTitleUrl(shareUrl);
-//            }
-//            sharePlatform.setShareType(Platform.SHARE_WEBPAGE);
-//            platform = ShareSDK.getPlatform(QQ.NAME);
-//            if (!platform.isClientValid()) {
-//                ToastUtils.toast(mContext,"未安装QQ");
-//                return;
-//            }
-//            platform.setPlatformActionListener(listener);
-//            platform.share(sharePlatform);
-//        }
+        /**
+         * 如果是QQ分享
+         */
+        else if (shareType == SHARE_QQ) {
+            setSharePlatform(sharePlatform, shareTitle, shareText, shareImageUrl, logo,shareUrl);
+            if (shareUrl != null && !shareUrl.equalsIgnoreCase("")) {
+                sharePlatform.setTitleUrl(shareUrl);
+            }
+            sharePlatform.setShareType(Platform.SHARE_WEBPAGE);
+            platform = ShareSDK.getPlatform(QQ.NAME);
+            if (!platform.isClientValid()) {
+                ToastUtils.toast(mContext,"未安装QQ");
+                return;
+            }
+            platform.setPlatformActionListener(listener);
+            platform.share(sharePlatform);
+        }
 
 //        else if (shareType == SHARE_QQ_ZONE) {
 //
