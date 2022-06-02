@@ -93,7 +93,7 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
             if (dataBean != null) {
                 initDefaultAddr(dataBean);
             }
-        }else {
+        } else {
             mDefaultAddrCl.setVisibility(View.GONE);
             mSelectAddrTv.setVisibility(View.VISIBLE);
         }
@@ -110,7 +110,7 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
     private void initDefaultAddr(AddressListBean.DataBean dataBean) {
         mReceiverNameTv.setText(dataBean.getName());
         mReceiverPhoneTv.setText(dataBean.getPhone());
-        mAddrDesTv.setText(dataBean.getCityName() + dataBean.getDetailedAddress());
+        mAddrDesTv.setText(dataBean.getDetailedAddress());
 
     }
 
@@ -136,7 +136,7 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
                 if (orderListBean != null) {
                     orderListBean.setTotalPrice(dataBean.getTotalPrice());
                     orderListBean.setTotalCommodityNum(dataBean.getTotalCommodityNum());
-                    startToOrderPayActivity(orderListBean,1);
+                    startToOrderPayActivity(orderListBean, 1);
                     finish();
                 }
                 break;
@@ -171,7 +171,7 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
             case R.id.commit_order_tv:
                 // : 2022/5/11 提交订单
                 if (!Hawk.contains(HawkProperty.DEFAULT_ADDR)) {
-                            ToastUtils.toast(mContext,"请选择收货地址");
+                    ToastUtils.toast(mContext, "请选择收货地址");
                     return;
                 }
                 dataBean.setName(getTextViewValue(mReceiverNameTv));
