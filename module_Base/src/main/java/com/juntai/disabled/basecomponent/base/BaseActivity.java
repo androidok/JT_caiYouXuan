@@ -3,6 +3,8 @@ package com.juntai.disabled.basecomponent.base;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -136,16 +138,16 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     }
 
     /**
-     * 警小宝 东关派出所版本 初始化toolbar和状态栏
+     *  初始化toolbar和状态栏
      */
     protected void initToolbarAndStatusBar(boolean visible) {
         if (visible) {
             getToolbar().setVisibility(View.VISIBLE);
             getToolbar().setNavigationIcon(null);
-            getToolbar().setBackgroundResource(R.drawable.sp_filled_gray_lighter);
+            getToolbar().setBackgroundResource(R.drawable.bg_white_only_bottom_gray_shape_1px);
             //状态栏配置
             mBaseRootCol.setFitsSystemWindows(true);
-            mImmersionBar.statusBarColor(R.color.gray_light)
+            mImmersionBar.statusBarColor(R.color.white)
                     .statusBarDarkFont(true)
                     .init();
         }else{
@@ -218,6 +220,20 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
                     }
                 }).show();
 
+        setAlertDialogHeightWidth(alertDialog,-1,0);
+    }
+    /**
+     * 展示对话框
+     * @param msg
+     */
+    public void showAlertDialogOfOneBt(String title,String msg,String btName,DialogInterface.OnClickListener positiveListener) {
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext)
+                .setMessage(msg)
+                .setPositiveButton(btName, positiveListener).create();
+        if (!TextUtils.isEmpty(title)) {
+            alertDialog.setTitle(title);
+        }
+        alertDialog.show();
         setAlertDialogHeightWidth(alertDialog,-1,0);
     }
     /**
@@ -561,7 +577,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
      * @return
      */
     public List<String> getTestData() {
-        return Arrays.asList(new String[]{ "test2", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "test3", "test4", "test5", "测试很测试很多数据的测试很多数据的多数据的XXXXXXXXXXXXX", "测试很测试很多数据的测试很多数据的多数据的"});
+        return Arrays.asList(new String[]{ "test2", "test3", "test4", "test5", "test3", "test4", "test3", "test4", "test5", "test3", "test4"});
     }
 
     /**
@@ -904,6 +920,20 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         }
     }
 
-
+    /**
+     * 复制内容到剪贴板
+     *
+     * @param content
+     * @param context
+     */
+    public  void copyContentToClipboard(String content, Context context) {
+        //获取剪贴板管理器：
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        // 创建普通字符型ClipData
+        ClipData mClipData = ClipData.newPlainText("Label", content);
+        // 将ClipData内容放到系统剪贴板里。
+        cm.setPrimaryClip(mClipData);
+        ToastUtils.info(context, "复制成功");
+    }
 
 }

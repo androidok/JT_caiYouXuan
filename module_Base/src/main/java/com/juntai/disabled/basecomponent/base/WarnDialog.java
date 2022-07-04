@@ -52,7 +52,7 @@ public class WarnDialog {
 
         // 定义Dialog布局和参数
 //        dialog = new Dialog(context, R.style.AlertDialogStyle);
-        dialog = new Dialog(context, R.style.shop_ActionSheetDialogStyle);
+        dialog = new Dialog(context,R.style.shop_ActionSheetDialogStyle);
         dialog.setContentView(view);
 //        ScreenAdapterTools.getInstance().loadView(view);
         // 调整dialog背景大小

@@ -27,10 +27,10 @@ import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.base.selectPics.BaseSelectPicsActivity;
 import com.juntai.wisdom.project.mall.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.mall.beans.order.OrderDetailBean;
 import com.juntai.wisdom.project.mall.entrance.LoginActivity;
@@ -60,7 +60,7 @@ import okhttp3.FormBody;
  * @description 描述
  * @date 2020/4/27 8:48  app的基类
  */
-public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> {
+public abstract class BaseAppActivity<P extends BasePresenter> extends BaseRequestLocationActivity<P> {
     public static String WX_APPID = "wx5fd6d26f7806a119";
     public UploadUtil mUploadUtil;
 

@@ -52,8 +52,9 @@ public abstract  class BaseBottomSheetFragment extends BottomSheetDialogFragment
 
     }
     public void initView(View view) {
-        mRecyclerview = (RecyclerView) view.findViewById(R.id.recyclerview);
         mTitleTv = (TextView) view.findViewById(R.id.selector_title);
+
+        mRecyclerview = (RecyclerView) view.findViewById(R.id.recyclerview);
         mSmartrefreshlayout = (SmartRefreshLayout) view.findViewById(R.id.smartrefreshlayout);
         mSmartrefreshlayout.setEnableRefresh(false);
         mSmartrefreshlayout.setEnableLoadMore(false);
