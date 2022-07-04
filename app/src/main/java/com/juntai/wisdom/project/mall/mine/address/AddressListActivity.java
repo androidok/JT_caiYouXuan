@@ -17,6 +17,7 @@ import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.confirmOrder.ConfirmOrderActivity;
+import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
@@ -178,7 +179,7 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
                         for (AddressListBean.DataBean array : arrays) {
                             if (1== array.getDefaultAddress()) {
                                 //默认地址
-                                Hawk.put(HawkProperty.DEFAULT_ADDR,array);
+                                Hawk.put(HawkProperty.getDefaultAddrKey(UserInfoManagerMall.getUserId()),array);
                             }
                         }
                     }

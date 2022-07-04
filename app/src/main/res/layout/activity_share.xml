@@ -94,13 +94,13 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/qrcode_cl"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_margin="15dp">
 
             <ImageView
                 android:id="@+id/qrcode_iv"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@mipmap/qr_code_tag"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -141,8 +141,8 @@
 
             <ImageView
                 android:id="@+id/cart_iv"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_margin="15dp"
                 android:src="@mipmap/shop_card_icon"
                 app:layout_constraintBottom_toBottomOf="parent"

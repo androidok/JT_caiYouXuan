@@ -126,11 +126,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
                         break;
                     case HomePageContract.SHARE_SAVE_PIC:
                         // : 2022/5/21 保存到本地
-                        if (!FileCacheUtils.isFileExists(FileCacheUtils.getAppImagePath(false)+shareDes + ".png")) {
-                            FileCacheUtils.saveBitmapByView(ShareActivity.this,mContext, mRootLl, shareDes + ".png");
-                        }else {
-                            ToastUtils.toast(mContext, "已保存到本地");
-                        }
+                        FileCacheUtils.saveBitmapByView(ShareActivity.this, mContext, mRootLl, shareDes + ".png");
                         break;
                     case HomePageContract.SHARE_COPY_LINK:
                         copy(shareUrl);

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.beans.IdNameBean;
 import com.juntai.wisdom.project.mall.home.shop.ShopCommodityListFragment;
-import com.juntai.wisdom.project.mall.live.CommodityLiveListFragment;
+import com.juntai.wisdom.project.mall.live.LiveCommodityListFragment;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class CommodityPagerAdapter extends FragmentPagerAdapter {
         if (type==0) {
             return HomePageCommodityFragment.newInstance(lableId);
         } else if (type == 1) {
-            return CommodityLiveListFragment.newInstance(lableId);
+            return LiveCommodityListFragment.newInstance(lableId);
         } else if (type == 2) {
             return ShopCommodityListFragment.newInstance(lableId);
         }

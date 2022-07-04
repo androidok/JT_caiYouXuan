@@ -5,18 +5,18 @@
     android:gravity="center"
     android:layout_height="match_parent">
 
-<!--    <include-->
-<!--        layout="@layout/homepage_top_search"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_marginTop="30dp" />-->
+    <include
+        layout="@layout/homepage_top_search"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/commodity_live_fg"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        class="com.juntai.wisdom.project.mall.live.CommodityLiveFragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
+    <fragment
+        android:id="@+id/commodity_live_fg"
+        android:layout_marginTop="5dp"
+        class="com.juntai.wisdom.project.mall.live.LiveCommodityFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
     <include layout="@layout/empty_view"></include>

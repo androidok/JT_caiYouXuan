@@ -31,6 +31,13 @@ public class HawkProperty {
      */
     public static String All_CONTACT = "All_CONTACT";
 
+    public static String getRegid() {
+        if (Hawk.contains(HawkProperty.DEV_REGID)) {
+            return Hawk.get(HawkProperty.DEV_REGID);
+        }
+        return "";
+    }
+
 
     /**
      * 获取商铺的key
@@ -40,6 +47,7 @@ public class HawkProperty {
     public static String getShopKey(int shopId) {
         return SHOP_DETAIL + shopId;
     }
+
     /**
      * 获取首页搜索历史记录的key
      *
@@ -48,11 +56,18 @@ public class HawkProperty {
     public static String getHomeSearchHisKey(int userId) {
         return HOME_SEARCH + userId;
     }
+    /**
+     * 默认地址
+     *
+     * @return
+     */
+    public static String getDefaultAddrKey(int userId) {
+        return DEFAULT_ADDR + userId;
+    }
 
     public static String getAllProvinceKey(String acode) {
         return ALL_PROVINCE_KEY + acode;
     }
-
 
 
     /**

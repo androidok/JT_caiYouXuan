@@ -24,14 +24,14 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/4/29 17:37
  */
-public class CommodityLiveListFragment extends BaseRecyclerviewFragment<CommodityPresent> implements HomePageContract.IHomePageView {
+public class LiveCommodityListFragment extends BaseRecyclerviewFragment<CommodityPresent> implements HomePageContract.IHomePageView {
 
     private int labelId;
 
-    public static CommodityLiveListFragment newInstance(int type) {
+    public static LiveCommodityListFragment newInstance(int type) {
         Bundle args = new Bundle();
         args.putInt("label", type);
-        CommodityLiveListFragment fragment = new CommodityLiveListFragment();
+        LiveCommodityListFragment fragment = new LiveCommodityListFragment();
         fragment.setArguments(args);
         return fragment;
     }

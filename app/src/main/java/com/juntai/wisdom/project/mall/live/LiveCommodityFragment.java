@@ -9,7 +9,7 @@ import com.juntai.wisdom.project.mall.home.commodityfragment.BaseCommodityFragme
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/4 18:26
  */
-public class CommodityLiveFragment extends BaseCommodityFragment {
+public class LiveCommodityFragment extends BaseCommodityFragment {
     @Override
     protected int getType() {
         return 1;

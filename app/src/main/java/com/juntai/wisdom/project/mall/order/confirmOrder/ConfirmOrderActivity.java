@@ -18,6 +18,7 @@ import com.juntai.wisdom.project.mall.beans.order.ConfirmOrderBean;
 import com.juntai.wisdom.project.mall.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
+import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
 
 /**
@@ -86,10 +87,10 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
         mCommitOrderTv.setOnClickListener(this);
         mSelectAddrTv = (TextView) findViewById(R.id.select_addr_tv);
         mDefaultAddrCl = (ConstraintLayout) findViewById(R.id.default_addr_cl);
-        if (Hawk.contains(HawkProperty.DEFAULT_ADDR)) {
+        if (Hawk.contains(HawkProperty.getDefaultAddrKey(UserInfoManagerMall.getUserId()))) {
             mDefaultAddrCl.setVisibility(View.VISIBLE);
             mSelectAddrTv.setVisibility(View.GONE);
-            AddressListBean.DataBean dataBean = Hawk.get(HawkProperty.DEFAULT_ADDR);
+            AddressListBean.DataBean dataBean = Hawk.get(HawkProperty.getDefaultAddrKey(UserInfoManagerMall.getUserId()));
             if (dataBean != null) {
                 initDefaultAddr(dataBean);
             }
@@ -170,7 +171,7 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
                 break;
             case R.id.commit_order_tv:
                 // : 2022/5/11 提交订单
-                if (!Hawk.contains(HawkProperty.DEFAULT_ADDR)) {
+                if (!Hawk.contains(HawkProperty.getDefaultAddrKey(UserInfoManagerMall.getUserId()))) {
                     ToastUtils.toast(mContext, "请选择收货地址");
                     return;
                 }

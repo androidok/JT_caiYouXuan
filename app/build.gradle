@@ -98,6 +98,7 @@ dependencies {
     implementation project(':module_Base')
     implementation project(':banner')
     implementation project(':module_Video')
+    implementation project(':live_moudle')
     implementation project(':module_Map')
     //支付宝支付
     api 'com.alipay.sdk:alipaysdk-android:+@aar'

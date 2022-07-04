@@ -69,6 +69,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        update(false);
         NotificationTool.SHOW_NOTIFICATION = true;
         getToolbar().setBackgroundResource(R.drawable.sp_filled_gray_lighter);
         initUploadUtil();
