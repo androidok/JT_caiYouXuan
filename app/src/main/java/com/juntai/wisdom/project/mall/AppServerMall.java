@@ -31,8 +31,8 @@ import com.juntai.wisdom.project.mall.beans.order.OrderPayWxBean;
 import com.juntai.wisdom.project.mall.beans.order.OrderPayZfbBean;
 import com.juntai.wisdom.project.mall.beans.order.OrderStatusAmountBean;
 import com.juntai.wisdom.project.mall.beans.order.RefundReasonBean;
-import com.juntai.wisdom.project.mall.beans.shop.ShopCommodityListBean;
-import com.juntai.wisdom.project.mall.beans.shop.ShopDetailBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 
 import java.util.List;
 

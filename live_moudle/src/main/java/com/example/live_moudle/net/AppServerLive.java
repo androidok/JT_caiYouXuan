@@ -5,6 +5,7 @@ import com.example.live_moudle.bean.LiveResultBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -43,6 +44,13 @@ public interface AppServerLive {
      */
     @POST(AppHttpPathLive.UPLOAD_PICS)
     Observable<UploadFileBean> uploadFiles(@Body RequestBody requestBody);
+    /**
+     * 上传文件
+     *
+     * @return
+     */
+    @POST(AppHttpPathLive.LIVE_ROOM_COMMODITIES)
+    Observable<ShopCommodityListBean> getLiveRoomCommodities(@Body RequestBody requestBody);
 
 
     @POST(AppHttpPathLive.SHOP_COLLECT)

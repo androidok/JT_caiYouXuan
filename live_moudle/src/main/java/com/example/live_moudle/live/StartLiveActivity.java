@@ -75,7 +75,7 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements I
         mCameraQiehuan = (ImageView) findViewById(R.id.camera_qiehuan);
         mCameraQiehuan.setOnClickListener(this);
 
-        commentFragment = CommentFragment.newInstance(roomNum).setCanLike(false)
+        commentFragment = CommentFragment.newInstance(roomNum,0).setCanLike(false)
                 .setCanShare(true).setOnLineUsersListener(this).setShareCallBack(true);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.camera_fl, commentFragment);

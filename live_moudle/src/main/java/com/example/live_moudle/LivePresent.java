@@ -8,6 +8,7 @@ import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
@@ -134,7 +135,27 @@ public class LivePresent extends BasePresenter<IModel, IView> {
                 });
     }
 
+    public void getLiveRoomCommodities(RequestBody requestBody, String tag) {
+        AppNetModuleLive.createrRetrofit()
+                .getLiveRoomCommodities(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ShopCommodityListBean>(getView()) {
+                    @Override
+                    public void onSuccess(ShopCommodityListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
 
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
     /**
      * 上传文件
      *

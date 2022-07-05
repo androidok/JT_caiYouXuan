@@ -5,7 +5,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.beans.CommodityBean;
+import com.juntai.disabled.basecomponent.bean.CommodityBean;
 
 import java.util.List;
 

@@ -19,22 +19,27 @@ import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
 import com.example.live_moudle.base.InputTextMsgDialog;
 import com.example.live_moudle.bean.LiveMsgBean;
+import com.example.live_moudle.live.commodity.BaseLiveCommoditiesFragment;
 import com.example.live_moudle.net.AppHttpPathLive;
 import com.example.live_moudle.util.UserInfoManagerLive;
 import com.example.live_moudle.websocket.IEvent;
 import com.example.live_moudle.websocket.SocketManager;
-import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
+import com.juntai.disabled.basecomponent.bean.CommodityBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 
+import java.util.List;
 import java.util.Objects;
+
+import okhttp3.FormBody;
 
 /**
  * @aouther tobato
  * @description 描述  评论
  * @date 2022/7/2 15:07
  */
-public class CommentFragment extends BaseMvpFragment<LivePresent> implements IView, View.OnClickListener, IEvent {
+public class CommentFragment extends BaseLiveCommoditiesFragment<LivePresent> implements IView, View.OnClickListener, IEvent {
     private static final String TAG = "ChatRoomFragment";
     private static final int REQUEST_LOGIN = 0;
     private static final int TYPING_TIMER_LENGTH = 600;
@@ -52,10 +57,12 @@ public class CommentFragment extends BaseMvpFragment<LivePresent> implements IVi
     private boolean isCanShare = true, isCanLike = true;
     private MessageAdapter mAdapter;
     private final Handler handler = new Handler(Looper.getMainLooper());
+    private int shopId;
 
-    public static CommentFragment newInstance(String liveId) {
+    public static CommentFragment newInstance(String liveId, int shopId) {
         Bundle args = new Bundle();
         args.putString("liveRoomId", liveId);
+        args.putInt("shopId", shopId);
         CommentFragment fragment = new CommentFragment();
         fragment.setArguments(args);
         return fragment;
@@ -81,6 +88,7 @@ public class CommentFragment extends BaseMvpFragment<LivePresent> implements IVi
     @Override
     protected void initView() {
         liveRoomId = getArguments().getString("liveRoomId");
+        shopId = getArguments().getInt("shopId");
         mMsgRv = (RecyclerView) getView(R.id.messages);
         mMsgRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         mMsgRv.setAdapter(mAdapter);
@@ -121,14 +129,15 @@ public class CommentFragment extends BaseMvpFragment<LivePresent> implements IVi
         switch (tag) {
             default:
                 break;
-//            case NewsContract.LIKE_TAG:
-//                mStreamCameraBean.setIsLike(((BaseIntDataBean) o).getData());
-//                if (mStreamCameraBean.getIsLike() > 0) {
-//                    mLiveLikeIv.setSelected(true);
-//                } else {
-//                    mLiveLikeIv.setSelected(false);
-//                }
-//                break;
+            case AppHttpPathLive.LIVE_ROOM_COMMODITIES:
+                ShopCommodityListBean shopCommodityListBean = (ShopCommodityListBean) o;
+                if (shopCommodityListBean != null) {
+                    List<CommodityBean> arrrays = shopCommodityListBean.getData();
+                    if (arrrays != null) {
+                        initBottomDialog(arrrays);
+                    }
+                }
+                break;
         }
     }
 
@@ -244,9 +253,10 @@ public class CommentFragment extends BaseMvpFragment<LivePresent> implements IVi
             initInputTextMsgDialog();
         } else if (id == R.id.live_share_iv) {//分享
             // TODO: 2022/7/5 分享
-        }else if(id==R.id.live_commodities_iv){
-            // TODO: 2022/7/5 商品
-
+        } else if (id == R.id.live_commodities_iv) {
+            // : 2022/7/5 商品
+            FormBody.Builder builder = new FormBody.Builder().add("shopId", String.valueOf(shopId));
+            mPresenter.getLiveRoomCommodities(builder.build(), AppHttpPathLive.LIVE_ROOM_COMMODITIES);
 
         }
     }

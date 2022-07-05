@@ -29,6 +29,10 @@ public class AppHttpPathLive {
      * 上传图片
      */
     public static final String UPLOAD_PICS =AppHttpPath.BASE + "/uploadFile/upload";
+    /**
+     * 直播间商品列表
+     */
+    public static final String LIVE_ROOM_COMMODITIES =AppHttpPath.BASE + "/buyers/selectLiveCommodityList";
 
 
     /**

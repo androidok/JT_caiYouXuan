@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.beans;
+package com.juntai.disabled.basecomponent.bean;
 
 /**
  * @Author: tobato

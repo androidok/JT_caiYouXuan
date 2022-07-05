@@ -14,7 +14,7 @@ import com.juntai.disabled.basecomponent.bean.LiveListBean;
 import com.juntai.wisdom.project.mall.beans.ShopListDataBean;
 import com.juntai.wisdom.project.mall.beans.UserBeanMall;
 import com.juntai.wisdom.project.mall.beans.order.CreatOrderBean;
-import com.juntai.wisdom.project.mall.beans.shop.ShopDetailBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;

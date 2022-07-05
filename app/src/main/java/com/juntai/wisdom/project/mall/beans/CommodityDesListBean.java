@@ -1,6 +1,7 @@
 package com.juntai.wisdom.project.mall.beans;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.bean.CommodityBean;
 
 import java.util.List;
 

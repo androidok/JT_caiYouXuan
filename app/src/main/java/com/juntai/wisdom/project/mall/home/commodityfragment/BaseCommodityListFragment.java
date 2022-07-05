@@ -11,7 +11,7 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
-import com.juntai.wisdom.project.mall.beans.CommodityBean;
+import com.juntai.disabled.basecomponent.bean.CommodityBean;
 import com.juntai.wisdom.project.mall.beans.CommodityDesListBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;

@@ -14,7 +14,7 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
-import com.juntai.wisdom.project.mall.beans.shop.ShopDetailBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.QRScanActivity;
 import com.juntai.wisdom.project.mall.home.shop.ijkplayer.PlayerLiveActivity;

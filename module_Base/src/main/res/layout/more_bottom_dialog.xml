@@ -20,6 +20,7 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:text="取消"
+        android:visibility="gone"
         android:textSize="16dp"
         android:textColor="@color/text_gray"
         android:background="@color/white"/>

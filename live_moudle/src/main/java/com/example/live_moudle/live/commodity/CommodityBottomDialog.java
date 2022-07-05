@@ -1,61 +1,58 @@
-package com.juntai.disabled.basecomponent.base;
+package com.example.live_moudle.live.commodity;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.basecomponent.R;
-import com.juntai.disabled.basecomponent.bean.MoreMenuBean;
+import com.example.live_moudle.R;
+import com.juntai.disabled.basecomponent.bean.CommodityBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @aouther tobato
- * @description 描述
+ * @description 描述 直播商品
  * @date 2022/7/5 16:30
  */
-public class BaseMoreBottomDialog extends BottomSheetDialog implements View.OnClickListener {
+public class CommodityBottomDialog extends BottomSheetDialog implements View.OnClickListener {
     private Context mContext;
-    private List<MoreMenuBean> arrays = new ArrayList<>();
     private RecyclerView mBaseBottomDialogRv;
     private OnItemClick onItemClick;
     /**
      * 取消
      */
     private TextView mBaseBottomDialogCancelTv;
-    private BottomDialogGridAdapter adapter;
+    private LiveCommodityAdapter adapter;
 
-    public BaseMoreBottomDialog(@NonNull Context context) {
+    public CommodityBottomDialog(@NonNull Context context) {
         super(context, R.style.dialog_2);
         this.mContext = context;
         initView();
     }
 
-    public BaseMoreBottomDialog(@NonNull Context context, int theme) {
+    public CommodityBottomDialog(@NonNull Context context, int theme) {
         super(context, theme);
         this.mContext = context;
         initView();
     }
 
-    protected BaseMoreBottomDialog(@NonNull Context context, boolean cancelable, OnCancelListener cancelListener) {
+    protected CommodityBottomDialog(@NonNull Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
         this.mContext = context;
         initView();
     }
 
-    public BaseMoreBottomDialog setOnBottomDialogCallBack(OnItemClick onItemClick) {
+    public CommodityBottomDialog setOnBottomDialogCallBack(OnItemClick onItemClick) {
         this.onItemClick = onItemClick;
         return this;
     }
 
-    public void setData(List<MoreMenuBean> arrays) {
-        this.arrays = arrays;
+    public void setData(List<CommodityBean> arrays) {
         if (adapter != null) {
             adapter.setNewData(arrays);
         }
@@ -66,9 +63,9 @@ public class BaseMoreBottomDialog extends BottomSheetDialog implements View.OnCl
         mBaseBottomDialogRv = (RecyclerView) findViewById(R.id.base_bottom_dialog_rv);
         mBaseBottomDialogCancelTv = (TextView) findViewById(R.id.base_bottom_dialog_cancel_tv);
         mBaseBottomDialogCancelTv.setOnClickListener(this);
-        adapter = new BottomDialogGridAdapter(R.layout.more_menu_layout, arrays);
+        adapter = new LiveCommodityAdapter(R.layout.live_commodity_item);
         mBaseBottomDialogRv.setAdapter(adapter);
-        mBaseBottomDialogRv.setLayoutManager(new GridLayoutManager(mContext, 5));
+        mBaseBottomDialogRv.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

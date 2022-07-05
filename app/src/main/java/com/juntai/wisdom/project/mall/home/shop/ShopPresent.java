@@ -4,7 +4,7 @@ import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.mall.AppNetModuleMall;
 import com.juntai.wisdom.project.mall.base.BaseAppMallPresent;
-import com.juntai.wisdom.project.mall.beans.shop.ShopCommodityListBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
 
 import okhttp3.RequestBody;
 

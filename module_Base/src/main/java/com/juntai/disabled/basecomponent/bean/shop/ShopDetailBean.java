@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.beans.shop;
+package com.juntai.disabled.basecomponent.bean.shop;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 

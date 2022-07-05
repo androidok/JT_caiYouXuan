@@ -15,7 +15,7 @@ import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
 import com.juntai.wisdom.project.mall.base.customview.CustomViewPager;
 import com.juntai.wisdom.project.mall.beans.IdNameBean;
-import com.juntai.wisdom.project.mall.beans.shop.ShopDetailBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.shop.ShopActivity;
 import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;

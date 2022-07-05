@@ -6,8 +6,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.util.MultipleItem;
 import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchActivity;
-import com.juntai.wisdom.project.mall.beans.CommodityBean;
-import com.juntai.wisdom.project.mall.beans.shop.ShopCommodityListBean;
+import com.juntai.disabled.basecomponent.bean.CommodityBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 
 import java.util.ArrayList;

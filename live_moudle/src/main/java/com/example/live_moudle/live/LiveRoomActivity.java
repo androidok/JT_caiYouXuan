@@ -113,7 +113,7 @@ private LiveListBean.DataBean.ListBean bean;
         mLiveCloseBtn.setOnClickListener(this);
         mCameraFl = (FrameLayout) findViewById(R.id.camera_fl);
         mLoadingView = findViewById(R.id.loading_view);
-        cameraCommentFragment = CommentFragment.newInstance(liveNumber).setCanLike(false)
+        cameraCommentFragment = CommentFragment.newInstance(liveNumber,bean.getShopId()).setCanLike(false)
                 .setCanShare(true).setOnLineUsersListener(this).setShareCallBack(true);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.camera_fl, cameraCommentFragment);
