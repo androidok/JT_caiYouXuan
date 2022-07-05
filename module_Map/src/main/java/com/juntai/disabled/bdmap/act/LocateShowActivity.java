@@ -233,7 +233,7 @@ public class LocateShowActivity extends BaseRequestLocationActivity implements V
     }
 
     @Override
-    protected void onPicsAndEmpressed(List icons) {
+    protected void selectedPicsAndEmpressed(List icons) {
 
     }
 }

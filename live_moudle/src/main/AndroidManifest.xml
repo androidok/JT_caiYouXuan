@@ -2,9 +2,14 @@
     package="com.example.live_moudle">
 
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application android:allowBackup="true">
         <service
             android:name=".live.BackgroundService"
             android:enabled="true" />
+        <activity android:name=".live.LivePrepareActivity" />
+        <activity android:name=".live.StartLiveActivity" />
+        <activity android:name=".live.LiveRoomActivity" />
+        <activity android:name=".live.LiveEndActivity" />
     </application>
 </manifest>

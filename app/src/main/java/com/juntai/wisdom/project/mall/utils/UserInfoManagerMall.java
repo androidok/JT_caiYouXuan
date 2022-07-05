@@ -1,6 +1,6 @@
 package com.juntai.wisdom.project.mall.utils;
 
-import com.example.chat.bean.ContactBean;
+import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 import com.orhanobut.hawk.Hawk;
@@ -49,7 +49,7 @@ public class UserInfoManagerMall {
      *
      * @return
      */
-    public static Map<Integer,ContactBean> getAllContacts() {
+    public static Map<Integer, ContactBean> getAllContacts() {
         Map<Integer,ContactBean> contactBeans = Hawk.get(HawkProperty.All_CONTACT);
         if (contactBeans == null) {
             return new HashMap<>();

@@ -15,11 +15,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
 import com.example.live_moudle.bean.LiveResultBean;
-import com.example.live_moudle.bean.LiveTypeListBean;
+import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
 import com.example.live_moudle.net.AppHttpPathLive;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.base.BaseSelectPicsActivity;
-import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -110,7 +109,7 @@ public class LivePrepareActivity extends BaseSelectPicsActivity<LivePresent> imp
                 if (liveResultBean != null) {
                     LiveResultBean.DataBean resultBean = liveResultBean.getData();
 
-                    startActivity(new Intent(mContext,StartLiveActivity.class).putExtra(BaseActivity.BASE_PARCELABLE,resultBean));
+                    startActivity(new Intent(mContext, StartLiveActivity.class).putExtra(BaseActivity.BASE_PARCELABLE,resultBean));
                 }
                 break;
             default:
@@ -119,7 +118,7 @@ public class LivePrepareActivity extends BaseSelectPicsActivity<LivePresent> imp
     }
 
     @Override
-    protected void onPicsAndEmpressed(List<String> icons) {
+    protected void selectedPicsAndEmpressed(List<String> icons) {
         String pic = icons.get(0);
         mPresenter.uploadFile(AppHttpPathLive.UPLOAD_PICS, pic);
 

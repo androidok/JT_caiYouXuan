@@ -19,6 +19,5 @@
         android:layout_height="match_parent" />
 
 
-    <include layout="@layout/empty_view"></include>
 
 </LinearLayout>

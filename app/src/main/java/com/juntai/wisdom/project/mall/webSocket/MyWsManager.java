@@ -13,9 +13,9 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.chat.bean.ContactBean;
 import com.example.chat.util.UserInfoManagerChat;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
+import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;

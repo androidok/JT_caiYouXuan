@@ -1,6 +1,6 @@
 package com.juntai.wisdom.project.mall.mine.myinfo;
 
-import com.example.chat.bean.ContactBean;
+import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;

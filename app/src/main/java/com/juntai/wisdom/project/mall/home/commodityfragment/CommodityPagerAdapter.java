@@ -32,10 +32,9 @@ public class CommodityPagerAdapter extends FragmentPagerAdapter {
         notifyDataSetChanged();
     }
 
-    public CommodityPagerAdapter(FragmentManager fm, Context mContext, List<IdNameBean.DataBean> titles,int type) {
+    public CommodityPagerAdapter(FragmentManager fm, Context mContext,int type) {
         super(fm);
         this.mContext = mContext;
-        this.titles = titles;
         this.type = type;
     }
 

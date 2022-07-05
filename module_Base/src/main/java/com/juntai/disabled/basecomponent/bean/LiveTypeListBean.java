@@ -1,4 +1,4 @@
-package com.example.live_moudle.bean;
+package com.juntai.disabled.basecomponent.bean;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 

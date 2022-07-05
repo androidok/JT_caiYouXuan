@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
@@ -52,16 +53,16 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
         initTab();
         initTabData();
 
-        if (getType()==2) {
+        if (getType() == 2) {
             mMoreMenuBtn.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             mMoreMenuBtn.setVisibility(View.GONE);
         }
     }
 
     private void initTab() {
         adapter = new CommodityPagerAdapter(getChildFragmentManager(), mContext,
-                getLabels(), getType());
+                getType());
         mShopViewpager.setAdapter(adapter);
         /*viewpager切换监听，包含滑动点击两种*/
         mShopViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -89,11 +90,17 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
 
     }
 
+    /**
+     * 0 是首页  1是店铺 2是直播列表
+     *
+     * @return
+     */
     protected abstract int getType();
 
     private void initTabData() {
-        adapter.setTitles(getLabels());
-        mShopViewpager.setOffscreenPageLimit(getLabels().size());
+        List<IdNameBean.DataBean> lables = getLabels();
+        adapter.setTitles(lables);
+        mShopViewpager.setOffscreenPageLimit(lables.size());
         /**
          * 添加自定义tab布局
          * */
@@ -114,28 +121,45 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
      */
     private List<IdNameBean.DataBean> getLabels() {
         List<IdNameBean.DataBean> arrays = new ArrayList<>();
-        if (2 != getType()) {
-            arrays.add(0, new IdNameBean.DataBean(0, "推荐"));
-            if (Hawk.contains(HawkProperty.LOCAL_LABEL)) {
-                List<IdNameBean.DataBean> dataBeans = Hawk.get(HawkProperty.LOCAL_LABEL);
-                arrays.addAll(dataBeans);
-            }
-        } else {
-            //店铺
-            ShopDetailBean.DataBean shopBean = Hawk.get(HawkProperty.getShopKey(((ShopActivity) getActivity()).shopId));
-            if (shopBean != null) {
-                List<ShopDetailBean.DataBean.ClassifyListBean> classifyListBeans = shopBean.getClassifyList();
-                if (classifyListBeans != null && !classifyListBeans.isEmpty()) {
-                    for (ShopDetailBean.DataBean.ClassifyListBean classifyListBean : classifyListBeans) {
-                        arrays.add(new IdNameBean.DataBean(classifyListBean.getId(), classifyListBean.getShopClassifyName()));
+
+        switch (getType()) {
+            case 0:
+                arrays.add(0, new IdNameBean.DataBean(0, "推荐"));
+                if (Hawk.contains(HawkProperty.LOCAL_LABEL)) {
+                    List<IdNameBean.DataBean> dataBeans = Hawk.get(HawkProperty.LOCAL_LABEL);
+                    arrays.addAll(dataBeans);
+                }
+                break;
+            case 1:
+                arrays.add(0, new IdNameBean.DataBean(0, "推荐"));
+                if (Hawk.contains(HawkProperty.LOCAL_LIVE_LABEL)) {
+                    List<LiveTypeListBean.DataBean>   liveTypes =Hawk.get(HawkProperty.LOCAL_LIVE_LABEL);
+                    if (liveTypes != null) {
+                        for (LiveTypeListBean.DataBean liveType : liveTypes) {
+                            arrays.add(new IdNameBean.DataBean(liveType.getId(), liveType.getName()));
+                        }
+                    }
+
+                }
+                break;
+            case 2:
+                //店铺
+                ShopDetailBean.DataBean shopBean = Hawk.get(HawkProperty.getShopKey(((ShopActivity) getActivity()).shopId));
+                if (shopBean != null) {
+                    List<ShopDetailBean.DataBean.ClassifyListBean> classifyListBeans = shopBean.getClassifyList();
+                    if (classifyListBeans != null && !classifyListBeans.isEmpty()) {
+                        for (ShopDetailBean.DataBean.ClassifyListBean classifyListBean : classifyListBeans) {
+                            arrays.add(new IdNameBean.DataBean(classifyListBean.getId(), classifyListBean.getShopClassifyName()));
+                        }
                     }
                 }
-            }
+                break;
+            default:
+                break;
         }
 
         return arrays;
     }
-
 
 
     @Override
@@ -151,14 +175,24 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
 
     @Override
     protected void lazyLoad() {
-        if (2 == getType()) {
-            mPresenter.getShopDetail(getBaseAppActivity().getBaseBuilderWithoutParama().add("shopId", String.valueOf(((ShopActivity) getActivity()).shopId)
-                    ).add("userId", String.valueOf(UserInfoManagerMall.getUserId())).build()
-                    , AppHttpPathMall.SHOP_DETAIL);
-        } else {
-            mPresenter.getCommodityLaBels(AppHttpPathMall.COMMODIFY_LABELS);
 
+        switch (getType()) {
+            case 0:
+                mPresenter.getCommodityLaBels(AppHttpPathMall.COMMODIFY_LABELS);
+                break;
+            case 1:
+                // : 2022/7/4 获取直播菜单列表
+                mPresenter.getLiveType(AppHttpPathMall.GET_LIVE_TYPE);
+                break;
+            case 2:
+                mPresenter.getShopDetail(getBaseAppActivity().getBaseBuilderWithoutParama().add("shopId", String.valueOf(((ShopActivity) getActivity()).shopId)
+                        ).add("userId", String.valueOf(UserInfoManagerMall.getUserId())).build()
+                        , AppHttpPathMall.SHOP_DETAIL);
+                break;
+            default:
+                break;
         }
+
     }
 
     @Override
@@ -184,6 +218,15 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
                 List<IdNameBean.DataBean> dataBeans = (List<IdNameBean.DataBean>) o;
                 if (!dataBeans.isEmpty()) {
                     Hawk.put(HawkProperty.LOCAL_LABEL, dataBeans);
+                    initTabData();
+                }
+                break;
+
+            case AppHttpPathMall.GET_LIVE_TYPE:
+                LiveTypeListBean liveTypeListBean = (LiveTypeListBean) o;
+                if (liveTypeListBean != null) {
+                    List<LiveTypeListBean.DataBean>   liveTypes = liveTypeListBean.getData();
+                    Hawk.put(HawkProperty.LOCAL_LIVE_LABEL, liveTypes);
                     initTabData();
                 }
                 break;

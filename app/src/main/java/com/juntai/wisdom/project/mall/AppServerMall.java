@@ -3,6 +3,7 @@ package com.juntai.wisdom.project.mall;
 
 import com.example.chat.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
 import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
@@ -17,6 +18,7 @@ import com.juntai.wisdom.project.mall.beans.CommodityDesListBean;
 import com.juntai.wisdom.project.mall.beans.CommodityDetailBean;
 import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.mall.beans.IdNameBean;
+import com.juntai.disabled.basecomponent.bean.LiveListBean;
 import com.juntai.wisdom.project.mall.beans.NewsListBean;
 import com.juntai.wisdom.project.mall.beans.PlayUrlBean;
 import com.juntai.wisdom.project.mall.beans.ShopListDataBean;
@@ -55,6 +57,7 @@ public interface AppServerMall {
      */
     @GET(AppHttpPathMall.BASE_CAMERA_URL + "/vss/video_keepalive/{sessionid}")
     Observable<OpenLiveBean> keepAlive(@Path("sessionid") String sessionid);
+
     /**
      * 打开视频流
      *
@@ -310,7 +313,7 @@ public interface AppServerMall {
 
 
 
-        /*====================================================    消息   ==============================================================*/
+    /*====================================================    消息   ==============================================================*/
 
     @POST(AppHttpPathMall.SEND_MSG)
     Observable<BaseResult> sendMessage(@Body RequestBody requestBody);
@@ -329,5 +332,12 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.SEARCH_SHOP)
     Observable<ShopListDataBean> startSearchShop(@Body RequestBody requestBody);
+
+
+    @POST(AppHttpPathMall.GET_LIVE_TYPE)
+    Observable<LiveTypeListBean> getLiveType();
+
+    @POST(AppHttpPathMall.GET_LIVE_LIST)
+    Observable<LiveListBean> getLiveList(@Body RequestBody requestBody);
 
 }

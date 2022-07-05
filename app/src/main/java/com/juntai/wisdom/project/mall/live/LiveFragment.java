@@ -2,7 +2,6 @@ package com.juntai.wisdom.project.mall.live;
 
 
 import android.view.View;
-import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.wisdom.project.mall.R;
@@ -17,8 +16,6 @@ import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 public class LiveFragment extends BaseMvpFragment<CommodityPresent> implements HomePageContract.IHomePageView,
         View.OnClickListener {
 
-    private View view;
-    private TextView mNoneTv;
 
     @Override
     protected int getLayoutRes() {
@@ -29,8 +26,6 @@ public class LiveFragment extends BaseMvpFragment<CommodityPresent> implements H
     protected void initView() {
 
 
-        mNoneTv = (TextView)getView(R.id.none_tv);
-        mNoneTv.setText("敬请期待~_~");
     }
 
     @Override

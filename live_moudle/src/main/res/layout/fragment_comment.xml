@@ -45,11 +45,10 @@
             android:src="@mipmap/live_share"
             android:layout_marginLeft="12dp"/>
         <ImageView
-            android:id="@+id/live_like_iv"
+            android:id="@+id/live_commodities_iv"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="12dp"
-            android:src="@drawable/bg_live_like_selecter"
-            android:visibility="gone"/>
+            android:src="@mipmap/live_share"
+            android:layout_marginLeft="12dp"/>
     </LinearLayout>
 </LinearLayout>

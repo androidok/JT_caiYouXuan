@@ -31,7 +31,12 @@ public class AppHttpPathLive {
     public static final String UPLOAD_PICS =AppHttpPath.BASE + "/uploadFile/upload";
 
 
-
+    /**
+     * 店铺收藏或取消
+     */
+    public static final String SHOP_COLLECT = AppHttpPath.BASE + "/buyers/addCollectShop";
+    public static final String SHOP_COLLECT_FINISH = AppHttpPath.BASE + "/buyers/addCollectShop///finish";
+    public static final String SHOP_UNCOLLECT = AppHttpPath.BASE + "/buyers/unCollectShop";
 
 
 

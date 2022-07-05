@@ -1,5 +1,6 @@
 package com.example.live_moudle.live;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
@@ -10,8 +11,6 @@ import android.widget.TextView;
 
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
-import com.example.live_moudle.bean.LiveResultBean;
-import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.base.WarnDialog;
 import com.juntai.disabled.basecomponent.mvp.IView;
@@ -29,7 +28,6 @@ import me.lake.librestreaming.ws.StreamLiveCameraView;
  */
 public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements IView,
         View.OnClickListener, CommentFragment.OnLineUsersListener {
-    LiveResultBean.DataBean liveBean;
     private StreamLiveCameraView mStreamPreviewView;
     private StreamAVOption streamAVOption;
     /**
@@ -39,10 +37,19 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements I
     private ImageView mLiveCloseBtn;
     private ImageView mCameraQiehuan;
     private CommentFragment commentFragment;
+    private String roomNum;
+    private String rtmpUrl;
 
-//    private CommentFragment cameraCommentFragment;
-//    private CameraLiveDetailBean.DataBean mLiveBean;//详情
 
+    public  static void startToLiveRoomActivity(Context mContext,String roomNum,String rtmpUrl){
+        Intent intent = new Intent(mContext, StartLiveActivity.class);
+        intent.putExtra(BASE_STRING,roomNum);
+        intent.putExtra(BASE_STRING2,rtmpUrl);
+        mContext.startActivity(intent);
+        
+    }
+    
+    
     @Override
     protected LivePresent createPresenter() {
         return new LivePresent();
@@ -59,7 +66,8 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements I
         mImmersionBar.reset().statusBarColor(R.color.transparent)
                 .statusBarDarkFont(true)
                 .init();
-        liveBean = getIntent().getParcelableExtra(BaseActivity.BASE_PARCELABLE);
+        roomNum = getIntent().getStringExtra(BASE_STRING);
+        rtmpUrl = getIntent().getStringExtra(BASE_STRING2);
         mStreamPreviewView = (StreamLiveCameraView) findViewById(R.id.stream_previewView);
         mViewNumberTv = (TextView) findViewById(R.id.view_number_tv);
         mLiveCloseBtn = (ImageView) findViewById(R.id.live_close_btn);
@@ -67,7 +75,7 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements I
         mCameraQiehuan = (ImageView) findViewById(R.id.camera_qiehuan);
         mCameraQiehuan.setOnClickListener(this);
 
-        commentFragment = CommentFragment.newInstance(liveBean.getLiveNumber()).setCanLike(false)
+        commentFragment = CommentFragment.newInstance(roomNum).setCanLike(false)
                 .setCanShare(true).setOnLineUsersListener(this).setShareCallBack(true);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.camera_fl, commentFragment);
@@ -96,7 +104,7 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements I
     public void initLiveConfig() {
         //参数配置 start
         streamAVOption = new StreamAVOption();
-        streamAVOption.streamUrl =liveBean.getRtmpUrl();
+        streamAVOption.streamUrl =rtmpUrl;
         //参数配置 end
         mStreamPreviewView.init(this, streamAVOption);
         mStreamPreviewView.addStreamStateListener(resConnectionListener);
@@ -114,7 +122,7 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements I
             ToastUtils.info(mContext, "推流出错,请尝试重连");
             mStreamPreviewView.stopStreaming();
             if (!mStreamPreviewView.isStreaming()) {
-                mStreamPreviewView.startStreaming(liveBean.getRtmpUrl());
+                mStreamPreviewView.startStreaming(rtmpUrl);
             }
         }
 
@@ -152,7 +160,7 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements I
     protected void onResume() {
         super.onResume();
         if (!mStreamPreviewView.isStreaming()) {
-            mStreamPreviewView.startStreaming(liveBean.getRtmpUrl());
+            mStreamPreviewView.startStreaming(rtmpUrl);
         }
     }
 

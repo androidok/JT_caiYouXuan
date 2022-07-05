@@ -3,9 +3,9 @@ package com.juntai.wisdom.project.mall;
 public class AppHttpPathMall {
 
 
-//    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
-            public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
-//    public static final String BASE_SOCKET = "ws://192.168.124.148/webSocket/";
+    //    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
+    public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
+    //    public static final String BASE_SOCKET = "ws://192.168.124.148/webSocket/";
     public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21970/jt-mall/buyersSocket/";
     //    public static final String BASE_IMAGE = "http://192.168.124.148:9598";
     public static final String BASE_IMAGE = "http://www.juntaikeji.com:19170";
@@ -293,7 +293,7 @@ public class AppHttpPathMall {
 
 
 
-        /*====================================================    消息   ==============================================================*/
+    /*====================================================    消息   ==============================================================*/
 
 
     /**
@@ -306,7 +306,7 @@ public class AppHttpPathMall {
     public static final String MESSAGE_READ = BASE + "/msg/updateMsgRead";
     /**
      * 未读消息详情
-     * */
+     */
     public static final String UNREAD_CONTACT_MSG = BASE + "/msg/selectMsgInfo";
     /**
      * 消息列表
@@ -324,4 +324,16 @@ public class AppHttpPathMall {
      */
     public static final String SEARCH_SHOP = BASE + "/member/search";
 
+
+
+
+    /*====================================================    直播   ==============================================================*/
+    /**
+     * 直播类型标签
+     */
+    public static final String GET_LIVE_TYPE = BASE + "/live/getLiveType";
+    /**
+     * 获取直播列表
+     */
+    public static final String GET_LIVE_LIST = BASE + "/live/getLiveRoomList";
 }

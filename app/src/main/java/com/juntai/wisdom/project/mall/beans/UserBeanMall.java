@@ -1,8 +1,8 @@
 package com.juntai.wisdom.project.mall.beans;
 
 
-import com.example.chat.bean.ContactBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.bean.ContactBean;
 
 /**
  * 个人信息

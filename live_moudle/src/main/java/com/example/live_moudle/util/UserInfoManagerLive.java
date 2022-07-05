@@ -122,14 +122,6 @@ public class UserInfoManagerLive {
      *
      * @return
      */
-    public static int getShopId() {
-        return getUser() != null? getUser().getShopId() : 0;
-    }
-    /**
-     * 获取getUserId
-     *
-     * @return
-     */
     public static String getShopName() {
         if (Hawk.contains(HawkProperty.SHOP_NAME)) {
             return Hawk.get(HawkProperty.SHOP_NAME);

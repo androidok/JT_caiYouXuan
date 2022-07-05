@@ -2,10 +2,11 @@ package com.example.live_moudle;
 
 
 import com.example.live_moudle.bean.LiveResultBean;
-import com.example.live_moudle.bean.LiveTypeListBean;
 import com.example.live_moudle.net.AppNetModuleLive;
 import com.example.live_moudle.util.UserInfoManagerLive;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
+import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
@@ -38,11 +39,8 @@ public class LivePresent extends BasePresenter<IModel, IView> {
         FormBody.Builder builder = new FormBody.Builder()
                 .add("account", UserInfoManagerLive.getAccount())
                 .add("token",UserInfoManagerLive.getUserToken())
-                .add("typeEnd", "app_seller")
+                .add("typeEnd", "app_buy")
                 .add("userId", String.valueOf(UserInfoManagerLive.getUserId()));
-        if (UserInfoManagerLive.getShopId() > 0) {
-            builder.add("shopId", String.valueOf(UserInfoManagerLive.getShopId()));
-        }
         return builder;
     }
 
@@ -67,7 +65,27 @@ public class LivePresent extends BasePresenter<IModel, IView> {
                 });
     }
 
+    public void collectShop(RequestBody requestBody, String tag) {
+        AppNetModuleLive.createrRetrofit()
+                .collectShop(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
 
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
     public void startLive(RequestBody requestBody, String tag) {
         AppNetModuleLive.createrRetrofit()
                 .startLive(requestBody)

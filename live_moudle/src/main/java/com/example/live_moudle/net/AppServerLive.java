@@ -2,7 +2,8 @@ package com.example.live_moudle.net;
 
 
 import com.example.live_moudle.bean.LiveResultBean;
-import com.example.live_moudle.bean.LiveTypeListBean;
+import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 
 import io.reactivex.Observable;
@@ -42,5 +43,10 @@ public interface AppServerLive {
      */
     @POST(AppHttpPathLive.UPLOAD_PICS)
     Observable<UploadFileBean> uploadFiles(@Body RequestBody requestBody);
+
+
+    @POST(AppHttpPathLive.SHOP_COLLECT)
+    Observable<BaseResult> collectShop(@Body RequestBody requestBody);
+
 
 }
