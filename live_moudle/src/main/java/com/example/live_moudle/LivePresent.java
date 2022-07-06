@@ -1,6 +1,7 @@
 package com.example.live_moudle;
 
 
+import com.example.live_moudle.bean.CommodityDetailBean;
 import com.example.live_moudle.bean.LiveResultBean;
 import com.example.live_moudle.net.AppNetModuleLive;
 import com.example.live_moudle.util.UserInfoManagerLive;
@@ -87,6 +88,31 @@ public class LivePresent extends BasePresenter<IModel, IView> {
                     }
                 });
     }
+
+    public void getCommodityDetail(RequestBody requestBody, String tag) {
+        AppNetModuleLive.createrRetrofit()
+                .getCommodityDetail(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<CommodityDetailBean>(getView()) {
+                    @Override
+                    public void onSuccess(CommodityDetailBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+
+
     public void startLive(RequestBody requestBody, String tag) {
         AppNetModuleLive.createrRetrofit()
                 .startLive(requestBody)

@@ -34,7 +34,10 @@ public class AppHttpPathLive {
      */
     public static final String LIVE_ROOM_COMMODITIES =AppHttpPath.BASE + "/buyers/selectLiveCommodityList";
 
-
+    /**
+     * 商品详情
+     */
+    public static final String COMMODIFY_DETAIL = AppHttpPath.BASE + "/buyers/selectCommodityInfo";
     /**
      * 店铺收藏或取消
      */

@@ -1,6 +1,7 @@
 package com.example.live_moudle.net;
 
 
+import com.example.live_moudle.bean.CommodityDetailBean;
 import com.example.live_moudle.bean.LiveResultBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
@@ -56,5 +57,6 @@ public interface AppServerLive {
     @POST(AppHttpPathLive.SHOP_COLLECT)
     Observable<BaseResult> collectShop(@Body RequestBody requestBody);
 
-
+    @POST(AppHttpPathLive.COMMODIFY_DETAIL)
+    Observable<CommodityDetailBean> getCommodityDetail(@Body RequestBody requestBody);
 }

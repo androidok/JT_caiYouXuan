@@ -4,8 +4,10 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.live_moudle.R;
+import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.bean.CommodityBean;
+import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 
 import java.util.List;
@@ -22,7 +24,7 @@ public abstract class BaseLiveCommoditiesFragment<P extends BasePresenter> exten
      * 初始化dialog
      */
     public void initBottomDialog(List<CommodityBean> commodityBeans) {
-        if (moreBottomDialog == null){
+        if (moreBottomDialog == null) {
             moreBottomDialog = new CommodityBottomDialog(mContext);
             moreBottomDialog.setData(commodityBeans);
         }
@@ -30,21 +32,41 @@ public abstract class BaseLiveCommoditiesFragment<P extends BasePresenter> exten
             @Override
             public void onChildItemClick(BaseQuickAdapter adapter, View view, int position) {
                 moreBottomDialog.dismiss();
+// TODO: 2022/7/6 获取商品详情
+
 
                 int id = view.getId();
-                if (id == R.id.live_add_to_cart_iv) {// TODO: 2022/7/6 添加到购物车
+                SelectCommodityPropertyDialogFragment selectCommodityPropertyFragment = new SelectCommodityPropertyDialogFragment();
+                selectCommodityPropertyFragment.show(getFragmentManager(), "selectCommodityPropertyFragment");
+                selectCommodityPropertyFragment.setOnConfirmCallBack(new SelectCommodityPropertyDialogFragment.OnConfirmCallBack() {
+                    @Override
+                    public void confirm(CommodityPropertyBean commodityPropertyBean, int amount) {
+//                        if (id == R.id.live_add_to_cart_iv) {
+//                            mPresenter.editCart(getBaseBuilder().add("shopId", String.valueOf(dataBean.getShopId()))
+//                                    .add("commodityId", String.valueOf(commodityId))
+//                                    .add("attributeUnique", commodityPropertyBean.getUnique())
+//                                    .add("commodityNum", String.valueOf(amount))
+//                                    .add("commodityAttr", commodityPropertyBean.getSku())
+//                                    .build(), AppHttpPathMall.EDIT_CART
+//                            );
+//                        } else {
+//                            mPresenter.creatOrderBuy(getBaseBuilder()
+//                                    .add("shopId", String.valueOf(commodityPropertyBean.getShopId()))
+//                                    .add("commodityId", String.valueOf(commodityPropertyBean.getCommodityId()))
+//                                    .add("unique", commodityPropertyBean.getUnique())
+//                                    .add("commodityNum", String.valueOf(amount)).build(), AppHttpPathMall.CREAT_ORDER_BUY
+//                            );
+//                        }
 
+                    }
+                });
+                selectCommodityPropertyFragment.setData(dataBean);
 
-                } else if (id == R.id.linearlayout_commodity_buy_tv) {// TODO: 2022/7/6 去抢购
-
-
-                }
 
             }
         });
         moreBottomDialog.show();
     }
-
 
 
 }
