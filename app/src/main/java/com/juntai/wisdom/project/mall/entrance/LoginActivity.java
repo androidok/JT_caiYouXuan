@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.app_basemodule.bean.UserBeanMall;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.example.chat.MyChatApp;
 import com.example.chat.util.UserInfoManagerChat;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
@@ -17,13 +19,11 @@ import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.RomUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.MainActivity;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
-import com.juntai.wisdom.project.mall.beans.UserBeanMall;
 import com.juntai.wisdom.project.mall.mine.modifyPwd.BackPwdActivity;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 import com.orhanobut.hawk.Hawk;
 
@@ -126,14 +126,14 @@ public class LoginActivity extends SmsCheckCodeActivity implements
         super.onSuccess(tag, o);
         switch (tag) {
             //登录成功
-            case AppHttpPathMall.LOGIN:
+            case AppHttpPath.LOGIN:
                 UserBeanMall loginBean = (UserBeanMall) o;
                 if (loginBean != null) {
                     ToastUtils.success(mContext, "登录成功");
                     MyChatApp.isReLoadWarn = true;
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, loginBean.getData().getToken());
-                    MyWsManager.getInstance() .setWsUrl(AppHttpPathMall.BASE_SOCKET + UserInfoManagerMall.getUserId());
+                    MyWsManager.getInstance() .setWsUrl(AppHttpPath.BASE_SOCKET + UserInfoManager.getUserId());
                     startActivity(new Intent(mContext, MainActivity.class));
                     finish();
                 }
@@ -164,19 +164,19 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                 // : 2022/4/28 调用登录的接口
                 if (0 == loginType % 2) {
                     mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
-                            .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
+                            .add("typeEnd", UserInfoManager.DEVICE_TYPE)
                             .add("mobileName", RomUtil.getName())
                             .add("regId", HawkProperty.getRegid())
 
                             .add("password", MD5.md5(String.format("%s#%s", account, password)))
-                            .build(), AppHttpPathMall.LOGIN);
+                            .build(), AppHttpPath.LOGIN);
                 } else {
                     mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
-                            .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
+                            .add("typeEnd", UserInfoManager.DEVICE_TYPE)
                             .add("mobileName", RomUtil.getName())
                             .add("regId", HawkProperty.getRegid())
                             .add("code", password)
-                            .build(), AppHttpPathMall.LOGIN);
+                            .build(), AppHttpPath.LOGIN);
                 }
                 break;
             case R.id.reback_pwd_tv:

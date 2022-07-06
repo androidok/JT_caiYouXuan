@@ -5,12 +5,12 @@ import android.text.TextUtils;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.app_basemodule.bean.CartListBean;
 import com.juntai.disabled.basecomponent.base.view.NumberButton;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.beans.CartListBean;
 
 /**
  * @Author: tobato

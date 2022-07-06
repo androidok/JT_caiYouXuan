@@ -13,10 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.CommodityDetailBean;
+import com.example.app_basemodule.bean.CommodityPropertyListBean;
 import com.example.live_moudle.R;
-import com.example.live_moudle.bean.CommodityDetailBean;
-import com.example.live_moudle.bean.CommodityPropertyListBean;
-import com.example.live_moudle.util.ObjectBoxMallUtil;
+import com.example.live_moudle.util.ObjectBoxUtil;
 import com.juntai.disabled.basecomponent.base.BaseBottomSheetFragment;
 import com.juntai.disabled.basecomponent.base.view.NumberButton;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
@@ -94,7 +94,7 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
                 }
                 propertyMap.put(propertyContentBean.getPresentName(), propertyContentBean.getContent());
 // TODO: 2022/5/5  获取对应的图片和价格
-                commodityPropertyBean = ObjectBoxMallUtil.getCommodityProperty(dataBean, propertyMap);
+                commodityPropertyBean = ObjectBoxUtil.getCommodityProperty(dataBean, propertyMap);
                 if (commodityPropertyBean != null) {
                     ImageLoadUtil.loadSquareImageHasCorner(getContext(), commodityPropertyBean.getImage(), mCommodityPicIv);
                     mAllPriceTv.setText(String.valueOf(commodityPropertyBean.getPrice()));

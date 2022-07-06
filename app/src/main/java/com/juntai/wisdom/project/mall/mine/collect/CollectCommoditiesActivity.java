@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
+import com.example.app_basemodule.bean.CollectDataBean;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchAndListActivity;
-import com.juntai.wisdom.project.mall.beans.CollectDataBean;
 import com.juntai.wisdom.project.mall.mine.MyCenterContract;
 import com.juntai.wisdom.project.mall.mine.MyCenterPresent;
 
@@ -29,7 +29,7 @@ public class CollectCommoditiesActivity extends BaseSearchAndListActivity<MyCent
     @Override
     protected void startSearch(String s) {
         // : 2022/5/10 搜索所有收藏的商品
-      mPresenter.getCommodityCollectList(getBaseBuilder().add("key",s).build(), AppHttpPathMall.COMMODITY_COLLECT_LIST);
+      mPresenter.getCommodityCollectList(getBaseBuilder().add("key",s).build(), AppHttpPath.COMMODITY_COLLECT_LIST);
     }
     @Override
     protected boolean enableRefresh() {
@@ -70,7 +70,7 @@ public class CollectCommoditiesActivity extends BaseSearchAndListActivity<MyCent
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag, o);
         switch (tag) {
-            case AppHttpPathMall.COMMODITY_COLLECT_LIST:
+            case AppHttpPath.COMMODITY_COLLECT_LIST:
                 CollectDataBean collectDataBean = (CollectDataBean) o;
                 if (collectDataBean != null) {
                     List<CollectDataBean.DataDTO> arrays = collectDataBean.getData();

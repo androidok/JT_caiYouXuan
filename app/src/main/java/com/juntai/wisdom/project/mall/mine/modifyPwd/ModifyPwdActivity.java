@@ -1,10 +1,10 @@
 package com.juntai.wisdom.project.mall.mine.modifyPwd;
 
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.base.BaseWithSmsActivity;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 
 /**
  * @aouther tobato
@@ -30,7 +30,7 @@ public class ModifyPwdActivity extends BaseWithSmsActivity {
 
     @Override
     protected void commit() {
-        if (!UserInfoManagerMall.getPhoneNumber().equals(getTextViewValue(mRegistPhoneEt))) {
+        if (!UserInfoManager.getPhoneNumber().equals(getTextViewValue(mRegistPhoneEt))) {
             ToastUtils.toast(mContext, "请输入注册的手机号");
             return;
         }
@@ -38,7 +38,7 @@ public class ModifyPwdActivity extends BaseWithSmsActivity {
         mPresenter.modifyPwd(
                 getBaseBuilder().add("phone", getTextViewValue(mRegistPhoneEt))
                         .add("code", getTextViewValue(mRegistCheckCodeEt))
-                        .add("newPwd", MD5.md5(String.format("%s#%s", getTextViewValue(mRegistPhoneEt), getTextViewValue(mPasswordEt)))).build(), AppHttpPathMall.MODIFY_PWD);
+                        .add("newPwd", MD5.md5(String.format("%s#%s", getTextViewValue(mRegistPhoneEt), getTextViewValue(mPasswordEt)))).build(), AppHttpPath.MODIFY_PWD);
     }
 
 }

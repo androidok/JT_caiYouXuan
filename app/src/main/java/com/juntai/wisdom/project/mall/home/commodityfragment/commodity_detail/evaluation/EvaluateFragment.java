@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
+import com.example.app_basemodule.bean.CommodityEvaluationBean;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
-import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 
@@ -51,7 +51,7 @@ public class EvaluateFragment extends BaseRecyclerviewFragment<CommodityPresent>
         int type = getArguments().getInt("type");
         mPresenter.getCommodityEvaluation(getBaseAppActivity().getBaseBuilderWithoutParama()
                 .add("type",String.valueOf(type))
-                .add("commodityId", String.valueOf(commodityId)).build(), AppHttpPathMall.COMMODIFY_EVALUATION);
+                .add("commodityId", String.valueOf(commodityId)).build(), AppHttpPath.COMMODIFY_EVALUATION);
 
     }
 
@@ -80,7 +80,7 @@ public class EvaluateFragment extends BaseRecyclerviewFragment<CommodityPresent>
         super.onSuccess(tag, o);
 
         switch (tag) {
-            case AppHttpPathMall.COMMODIFY_EVALUATION:
+            case AppHttpPath.COMMODIFY_EVALUATION:
                 CommodityEvaluationBean commodityEvaluationBean = (CommodityEvaluationBean) o;
                 if (commodityEvaluationBean != null) {
                     List<CommodityEvaluationBean.DataBean> arrays = commodityEvaluationBean.getData();

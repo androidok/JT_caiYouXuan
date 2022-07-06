@@ -9,15 +9,15 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
-import com.juntai.wisdom.project.mall.order.confirmOrder.ConfirmOrderActivity;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
+import com.example.live_moudle.confirmOrder.ConfirmOrderActivity;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
                         CheckBox defaultAddrCb = (CheckBox) adapter.getViewByPosition(mRecyclerview, position, R.id.default_addr_cb);
                         if (defaultAddrCb.isChecked()) {
                             // : 2022/5/8 设为默认地址
-                            mPresenter.setDefaultAdddr(getBaseBuilder().add("id", String.valueOf(dataBean.getId())).build(), AppHttpPathMall.SET_DEFAULT_ADDR);
+                            mPresenter.setDefaultAdddr(getBaseBuilder().add("id", String.valueOf(dataBean.getId())).build(), AppHttpPath.SET_DEFAULT_ADDR);
                         } else {
                             getRvAdapterData();
                         }
@@ -102,7 +102,7 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
             public void onClick(DialogInterface dialog, int which) {
                 List<Integer> ids = new ArrayList<>();
                 ids.add(dataBean.getId());
-                mPresenter.deleteAddr(ids, AppHttpPathMall.DELETE_ADDR);
+                mPresenter.deleteAddr(ids, AppHttpPath.DELETE_ADDR);
             }
         }, new DialogInterface.OnClickListener() {
             @Override
@@ -120,7 +120,7 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
 
     @Override
     protected void getRvAdapterData() {
-        mPresenter.getAddrList(getBaseBuilder().build(), AppHttpPathMall.ADDR_LIST);
+        mPresenter.getAddrList(getBaseBuilder().build(), AppHttpPath.ADDR_LIST);
     }
 
     @Override
@@ -171,7 +171,7 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
         super.onSuccess(tag, o);
 
         switch (tag) {
-            case AppHttpPathMall.ADDR_LIST:
+            case AppHttpPath.ADDR_LIST:
                 AddressListBean addressListBean = (AddressListBean) o;
                 if (addressListBean != null) {
                     List<AddressListBean.DataBean> arrays = addressListBean.getData();
@@ -179,7 +179,7 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
                         for (AddressListBean.DataBean array : arrays) {
                             if (1== array.getDefaultAddress()) {
                                 //默认地址
-                                Hawk.put(HawkProperty.getDefaultAddrKey(UserInfoManagerMall.getUserId()),array);
+                                Hawk.put(HawkProperty.getDefaultAddrKey(UserInfoManager.getUserId()),array);
                             }
                         }
                     }
@@ -188,11 +188,11 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
 
                 break;
 
-            case AppHttpPathMall.DELETE_ADDR:
+            case AppHttpPath.DELETE_ADDR:
                 ToastUtils.toast(mContext, "已删除");
                 getRvAdapterData();
                 break;
-            case AppHttpPathMall.SET_DEFAULT_ADDR:
+            case AppHttpPath.SET_DEFAULT_ADDR:
                 getRvAdapterData();
                 break;
             default:

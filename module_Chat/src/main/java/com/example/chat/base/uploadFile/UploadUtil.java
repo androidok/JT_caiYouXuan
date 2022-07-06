@@ -6,10 +6,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-
 import com.example.chat.base.uploadFile.listener.OnThreadResultListener;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
-import com.example.chat.bean.UploadFileBean;
+import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.ExecutorService;

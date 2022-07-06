@@ -10,22 +10,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.CartListBean;
+import com.example.app_basemodule.bean.order.CreatOrderBean;
+import com.example.app_basemodule.bean.order.ToCommitSelectedCommoditiesBean;
+import com.example.app_basemodule.bean.CommodityDetailBean;
+import com.example.app_basemodule.net.AppHttpPath;
+import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
+import com.example.live_moudle.util.ObjectBoxUtil;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
-import com.juntai.wisdom.project.mall.beans.CartListBean;
-import com.example.live_moudle.bean.CommodityDetailBean;
-import com.juntai.wisdom.project.mall.beans.order.CreatOrderBean;
-import com.juntai.wisdom.project.mall.beans.order.ToCommitSelectedCommoditiesBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
-import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
-import com.example.live_moudle.util.ObjectBoxMallUtil;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -161,7 +161,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
             mSelectAllCb.setChecked(false);
             mAllPriceTv.setText("0.00");
         }
-        mPresenter.getCartList(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.CART_LIST);
+        mPresenter.getCartList(getBaseAppActivity().getBaseBuilder().build(), AppHttpPath.CART_LIST);
 
     }
 
@@ -230,7 +230,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                         ToastUtils.toast(mContext, "请选择要删除的商品");
                         return;
                     }
-                    mPresenter.deleteCartCommodity(ids, AppHttpPathMall.DELETE_CART_COMMODITY);
+                    mPresenter.deleteCartCommodity(ids, AppHttpPath.DELETE_CART_COMMODITY);
                 } else {
                     // 结算
                     List<Integer> ids = getSelectedCommodities(isEdit);
@@ -239,7 +239,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                         return;
                     }
                     // : 2022/5/7 结算  生成订单
-                    mPresenter.creatOrderCart(getBaseAppActivity().getBaseBuilder().add("json", getSelectedCommodities()).build(), AppHttpPathMall.CREAT_ORDER_CART);
+                    mPresenter.creatOrderCart(getBaseAppActivity().getBaseBuilder().add("json", getSelectedCommodities()).build(), AppHttpPath.CREAT_ORDER_CART);
                 }
                 break;
             default:
@@ -309,7 +309,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                         .add("commodityNum", String.valueOf(commodityBean.getCommodityNum()))
                         .add("commodityAttr", commodityBean.getSku())
                         .add("id", String.valueOf(commodityBean.getId()))
-                        .build(), AppHttpPathMall.EDIT_CART
+                        .build(), AppHttpPath.EDIT_CART
                 );
                 setSelectedCommoditiesPrice();
 
@@ -317,7 +317,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
 
             case EventBusObject.GET_COMMODITY_DETAIL_INFO:
                 commodityListBean = (CartListBean.DataBean.CommodityListBean) eventBusObject.getEventObj();
-                mPresenter.getCommodityDetail(getBaseAppActivity().getBaseBuilderWithoutParama().add("commodityId", String.valueOf(commodityListBean.getCommodityId())).build(), AppHttpPathMall.COMMODIFY_DETAIL);
+                mPresenter.getCommodityDetail(getBaseAppActivity().getBaseBuilderWithoutParama().add("commodityId", String.valueOf(commodityListBean.getCommodityId())).build(), AppHttpPath.COMMODIFY_DETAIL);
 
 
                 break;
@@ -376,7 +376,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag, o);
         switch (tag) {
-            case AppHttpPathMall.CART_LIST:
+            case AppHttpPath.CART_LIST:
                 CartListBean cartListBean = (CartListBean) o;
                 if (cartListBean != null) {
                     List<CartListBean.DataBean> dataBeans = cartListBean.getData();
@@ -388,13 +388,13 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                     baseQuickAdapter.setNewData(dataBeans);
                 }
                 break;
-            case AppHttpPathMall.COMMODIFY_DETAIL:
+            case AppHttpPath.COMMODIFY_DETAIL:
 
                 CommodityDetailBean commodityDetailBean = (CommodityDetailBean) o;
                 if (commodityDetailBean != null) {
                     CommodityDetailBean.DataBean dataBean = commodityDetailBean.getData();
                     List<CommodityPropertyBean> commodityPropertyBeans = dataBean.getValue();
-                    ObjectBoxMallUtil.addCommodityProperty(dataBean, commodityPropertyBeans);
+                    ObjectBoxUtil.addCommodityProperty(dataBean, commodityPropertyBeans);
                     SelectCommodityPropertyDialogFragment selectCommodityPropertyFragment = new SelectCommodityPropertyDialogFragment();
                     selectCommodityPropertyFragment.show(getFragmentManager(), "selectCommodityPropertyFragment");
                     selectCommodityPropertyFragment.setOnConfirmCallBack(new SelectCommodityPropertyDialogFragment.OnConfirmCallBack() {
@@ -406,7 +406,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                                     .add("commodityNum", String.valueOf(amount))
                                     .add("commodityAttr", commodityPropertyBean.getSku())
                                     .add("id", String.valueOf(commodityListBean.getId()))
-                                    .build(), AppHttpPathMall.EDIT_CART
+                                    .build(), AppHttpPath.EDIT_CART
                             );
                         }
 
@@ -415,11 +415,11 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                 }
 
                 break;
-            case AppHttpPathMall.DELETE_CART_COMMODITY:
-            case AppHttpPathMall.EDIT_CART:
+            case AppHttpPath.DELETE_CART_COMMODITY:
+            case AppHttpPath.EDIT_CART:
                 getRvAdapterData();
                 break;
-            case AppHttpPathMall.CREAT_ORDER_CART:
+            case AppHttpPath.CREAT_ORDER_CART:
 
                 CreatOrderBean creatOrderBean = (CreatOrderBean) o;
                 if (creatOrderBean != null) {

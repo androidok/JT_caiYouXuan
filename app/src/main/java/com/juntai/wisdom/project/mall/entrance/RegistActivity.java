@@ -10,7 +10,7 @@ import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.mall.utils.StringTools;
@@ -104,7 +104,7 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag, o);
         switch (tag) {
-            case AppHttpPathMall.REGIST:
+            case AppHttpPath.REGIST:
                 ToastUtils.toast(mContext, "注册成功");
                 startActivity(new Intent(mContext, LoginActivity.class));
                 break;
@@ -167,7 +167,7 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
                 builder.add("phoneNumber", account);
                 builder.add("password", MD5.md5(String.format("%s#%s", account, getTextViewValue(mPasswordEt))));
                 builder.add("code", getTextViewValue(mCodeEt));
-                mPresenter.regist(AppHttpPathMall.REGIST, builder.build());
+                mPresenter.regist(AppHttpPath.REGIST, builder.build());
 
                 break;
             case R.id.regist_agree_protocal_rb:

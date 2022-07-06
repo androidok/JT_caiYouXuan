@@ -1,11 +1,11 @@
 package com.juntai.wisdom.project.mall.base.sendcode;
 
 
-import com.juntai.wisdom.project.mall.AppNetModuleMall;
+import com.example.app_basemodule.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.wisdom.project.mall.base.BaseAppPresent;
+import com.example.app_basemodule.base.BaseAppPresent;
 
 /**
  * @Author: tobato
@@ -34,7 +34,7 @@ public class SendCodePresent extends BaseAppPresent<SendCodeModel, SendCodeContr
      */
     private void getCheckCodeFromNet(String mobile, String tag) {
         //获取验证码
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getSMSCode(mobile)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {

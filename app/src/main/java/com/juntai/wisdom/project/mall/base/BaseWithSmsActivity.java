@@ -9,13 +9,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.utils.RuleTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.mall.mine.myinfo.HeadCropActivity;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 
 import java.util.List;
 
@@ -136,7 +136,7 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
             return true;
         }
         if ("修改密码".equals(getTitleName())) {
-            if (!UserInfoManagerMall.getPhoneNumber().equals(getTextViewValue(mRegistPhoneEt))) {
+            if (!UserInfoManager.getPhoneNumber().equals(getTextViewValue(mRegistPhoneEt))) {
                 ToastUtils.toast(mContext, "手机号码和注册号码不一致");
                 return true;
             }
@@ -167,7 +167,7 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag,o);
         switch (tag) {
-            case AppHttpPathMall.MODIFY_PWD:
+            case AppHttpPath.MODIFY_PWD:
                 ToastUtils.toast(mContext,"修改成功");
                 reLogin(getTextViewValue(mRegistPhoneEt));
                 break;

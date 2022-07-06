@@ -95,7 +95,7 @@ dependencies {
     implementation 'com.oginotihiro:cropview:1.0.0'
     implementation 'com.github.promeg:tinypinyin:2.0.3' // TinyPinyin核心包，约80KB
     implementation project(':jjdxm-ijkplayer')
-    implementation project(':module_Base')
+    implementation project(':app_basemodule')
     implementation project(':banner')
     implementation project(':module_Video')
     implementation project(':live_moudle')

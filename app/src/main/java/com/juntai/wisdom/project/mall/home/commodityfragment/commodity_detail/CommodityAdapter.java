@@ -8,12 +8,12 @@ import android.text.TextUtils;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.app_basemodule.bean.CommodityEvaluationBean;
 import com.example.chat.util.MultipleItem;
+import com.example.app_basemodule.bean.CommodityDetailBean;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.wisdom.project.mall.base.web.BaseWebviewFragment;
-import com.example.live_moudle.bean.CommodityDetailBean;
-import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.evaluation.EvaluationAdapter;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.GlideImageLoader;

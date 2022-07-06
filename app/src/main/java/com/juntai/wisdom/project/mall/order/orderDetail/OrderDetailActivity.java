@@ -9,16 +9,16 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
-import com.juntai.wisdom.project.mall.beans.order.OrderDetailBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderDetailDataBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderListBean;
+import com.example.app_basemodule.bean.order.OrderDetailBean;
+import com.example.app_basemodule.bean.order.OrderDetailDataBean;
+import com.example.app_basemodule.bean.order.OrderListBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 import com.juntai.wisdom.project.mall.order.allOrder.OrderCommodityAdapter;
@@ -171,7 +171,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
 
     @Override
     public void initData() {
-        mPresenter.getOrderDetail(getBaseBuilder().add("orderId", String.valueOf(orderId)).build(), AppHttpPathMall.ORDER_DETAIL);
+        mPresenter.getOrderDetail(getBaseBuilder().add("orderId", String.valueOf(orderId)).build(), AppHttpPath.ORDER_DETAIL);
 
     }
 
@@ -222,7 +222,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mPresenter.cancelOrder(getBaseBuilder()
-                                        .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.CANCEL_ORDER);
+                                        .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPath.CANCEL_ORDER);
                             }
                         });
 
@@ -257,7 +257,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
 
                     case HomePageContract.ORDER_SEND:
                         // : 2022/5/14 提醒发货
-                        mPresenter.noticeSend(getBaseBuilder().add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.NOTICE_SEND);
+                        mPresenter.noticeSend(getBaseBuilder().add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPath.NOTICE_SEND);
                         break;
                     case HomePageContract.ORDER_RECEIVE:
                         // : 2022/5/12 确认收货
@@ -265,7 +265,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mPresenter.confirmReceived(getBaseBuilder()
-                                        .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.CONFIRM_RECEIVED);
+                                        .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPath.CONFIRM_RECEIVED);
                             }
                         });
                         break;
@@ -286,7 +286,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
-            case AppHttpPathMall.ORDER_DETAIL:
+            case AppHttpPath.ORDER_DETAIL:
                 OrderDetailDataBean orderDetailDataBean = (OrderDetailDataBean) o;
                 if (orderDetailDataBean != null) {
                     orderDetailBean = orderDetailDataBean.getData();
@@ -371,11 +371,11 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                 }
 
                 break;
-            case AppHttpPathMall.NOTICE_SEND:
+            case AppHttpPath.NOTICE_SEND:
                 ToastUtils.toast(mContext, "已通知卖家尽快发货");
                 break;
-            case AppHttpPathMall.CANCEL_ORDER:
-            case AppHttpPathMall.CONFIRM_RECEIVED:
+            case AppHttpPath.CANCEL_ORDER:
+            case AppHttpPath.CONFIRM_RECEIVED:
                 onBackPressed();
                 break;
             default:

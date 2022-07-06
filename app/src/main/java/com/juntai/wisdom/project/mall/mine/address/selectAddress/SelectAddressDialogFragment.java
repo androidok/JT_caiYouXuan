@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.CitysBean;
 import com.github.promeg.pinyinhelper.Pinyin;
 import com.juntai.disabled.basecomponent.base.BaseBottomSheetFragment;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.beans.CitysBean;
 import com.juntai.wisdom.project.mall.mine.address.AddOrEditAddressActivity;
 
 import java.util.ArrayList;

@@ -8,13 +8,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.example.chat.MainContract;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.selectPics.BaseSelectPicsAndVedioActivity;
 import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
-import com.juntai.wisdom.project.mall.beans.order.OrderDetailBean;
+import com.example.app_basemodule.bean.order.OrderDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 import com.juntai.wisdom.project.mall.order.refund.RefundCommodityAdapter;
@@ -100,7 +100,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
                     if (TextUtils.isEmpty(videoPath)) {
                         //没有选择视频
                         // : 2022/5/17 提交评价
-                        mPresenter.startEvaluate(builder.build(), AppHttpPathMall.START_EVALUATE
+                        mPresenter.startEvaluate(builder.build(), AppHttpPath.START_EVALUATE
                         );
                     } else {
                         // : 2022/5/17 上传视频封面
@@ -168,7 +168,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
                 List<String> videoPaths = (List<String>) o;
                 if (videoPaths != null && videoPaths.size() > 0) {
                     builder.add("videoUrl", videoPaths.get(0));
-                    mPresenter.startEvaluate(builder.build(), AppHttpPathMall.START_EVALUATE);
+                    mPresenter.startEvaluate(builder.build(), AppHttpPath.START_EVALUATE);
                 }
 
                 break;
@@ -189,7 +189,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
                 if (TextUtils.isEmpty(videoPath)) {
                     if (picPaths != null && picPaths.size() > 0) {
                         // 调用评价的接口
-                        mPresenter.startEvaluate(builder.build(), AppHttpPathMall.START_EVALUATE);
+                        mPresenter.startEvaluate(builder.build(), AppHttpPath.START_EVALUATE);
                     }
                 } else {
                     // : 2022/5/17 上传视频
@@ -198,7 +198,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
 
 
                 break;
-            case AppHttpPathMall.START_EVALUATE:
+            case AppHttpPath.START_EVALUATE:
                 startToAllOrderActivity(1, 0);
                 break;
             default:

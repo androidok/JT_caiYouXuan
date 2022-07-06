@@ -24,7 +24,7 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.news.ChatActivity;
-import com.example.live_moudle.util.ObjectBoxMallUtil;
+import com.example.live_moudle.util.ObjectBoxUtil;
 import com.rabtman.wsmanager.WsManager;
 import com.rabtman.wsmanager.listener.WsStatusListener;
 
@@ -114,7 +114,7 @@ public class MyWsManager {
                 if (mContext instanceof ChatActivity) {
                     EventManager.getEventBus().post(new EventBusObject(EventBusObject.MESSAGE_BODY, messageBody));
                 } else {
-                    ObjectBoxMallUtil.addMessage(messageBody);
+                    ObjectBoxUtil.addMessage(messageBody);
                     EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_NEWS_LIST, messageBody));
 
                 }

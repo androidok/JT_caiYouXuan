@@ -4,14 +4,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.NewsListBean;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
-import com.juntai.wisdom.project.mall.beans.NewsListBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 
 import java.util.ArrayList;
@@ -77,7 +77,7 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
 
     @Override
     protected void getRvAdapterData() {
-        mPresenter.getNewsList(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.NEWS_LIST);
+        mPresenter.getNewsList(getBaseAppActivity().getBaseBuilder().build(), AppHttpPath.NEWS_LIST);
 
     }
 
@@ -113,7 +113,7 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
         super.onSuccess(tag, o);
 
         switch (tag) {
-            case AppHttpPathMall.NEWS_LIST:
+            case AppHttpPath.NEWS_LIST:
                 NewsListBean newsListBean = (NewsListBean) o;
                 if (newsListBean != null) {
                     List<NewsListBean.DataBean> dataBeans = newsListBean.getData();

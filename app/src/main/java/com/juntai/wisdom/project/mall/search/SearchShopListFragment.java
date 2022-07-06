@@ -6,11 +6,11 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.ShopListDataBean;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
-import com.juntai.wisdom.project.mall.beans.ShopListDataBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.HomePagePresent;
 
@@ -107,7 +107,7 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
         }
         mPresenter.startSearchShop(getBaseAppActivity().getBaseBuilderWithoutParama()
                 .add("key", key)
-                .add("type", "2").build(), AppHttpPathMall.SEARCH_COMMODITY
+                .add("type", "2").build(), AppHttpPath.SEARCH_COMMODITY
         );
 
     }
@@ -124,7 +124,7 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
         super.onSuccess(tag, o);
 
         switch (tag) {
-            case AppHttpPathMall.SEARCH_SHOP:
+            case AppHttpPath.SEARCH_SHOP:
                 ShopListDataBean shopListDataBean = (ShopListDataBean) o;
                 if (shopListDataBean != null) {
                     ShopListDataBean.DataBean dataBean = shopListDataBean.getData();

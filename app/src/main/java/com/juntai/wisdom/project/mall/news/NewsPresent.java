@@ -1,5 +1,8 @@
 package com.juntai.wisdom.project.mall.news;
 
+import com.example.app_basemodule.bean.NewsListBean;
+import com.example.app_basemodule.net.AppNetModule;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.chat.MainContract;
 import com.example.chat.bean.HomePageMenuBean;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
@@ -10,11 +13,8 @@ import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean_;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
 import com.juntai.disabled.basecomponent.utils.ObjectBox;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.wisdom.project.mall.AppNetModuleMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppMallPresent;
-import com.juntai.wisdom.project.mall.beans.NewsListBean;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,16 +42,16 @@ public class NewsPresent extends BaseAppMallPresent {
      */
     public List<MessageBodyBean> findPrivateChatRecordList(int contactId) {
         ObjectBox.get().boxFor(MessageBodyBean.class).query(
-                MessageBodyBean_.owner.equal(UserInfoManagerMall.getUserId())
+                MessageBodyBean_.owner.equal(UserInfoManager.getUserId())
                         .and(MessageBodyBean_.canDelete.equal(true))
-                        .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
-                        .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
+                        .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManager.getUserId()}))
+                        .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManager.getUserId()}))
         ).build().remove();
         QueryBuilder<MessageBodyBean> builder = ObjectBox.get().boxFor(MessageBodyBean.class).query(
-                MessageBodyBean_.owner.equal(UserInfoManagerMall.getUserId())
+                MessageBodyBean_.owner.equal(UserInfoManager.getUserId())
                         .and(MessageBodyBean_.canDelete.equal(false))
-                        .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
-                        .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
+                        .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManager.getUserId()}))
+                        .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManager.getUserId()}))
         );
         return builder.order(MessageBodyBean_.createTime)
                 .build()
@@ -66,9 +66,9 @@ public class NewsPresent extends BaseAppMallPresent {
      */
     public MessageBodyBean findPrivateChatRecordLastMessage(int contactId) {
         List<MessageBodyBean> arrays = ObjectBox.get().boxFor(MessageBodyBean.class).query(
-                MessageBodyBean_.owner.equal(UserInfoManagerMall.getUserId())
-                        .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
-                        .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManagerMall.getUserId()}))
+                MessageBodyBean_.owner.equal(UserInfoManager.getUserId())
+                        .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManager.getUserId()}))
+                        .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManager.getUserId()}))
         ).order(MessageBodyBean_.createTime).build().find();
 
         if (arrays == null || arrays.size() == 0) {
@@ -100,7 +100,7 @@ public class NewsPresent extends BaseAppMallPresent {
      * @param tag
      */
     public void sendPrivateMessage(RequestBody body, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .sendMessage(body)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(null) {
@@ -126,7 +126,7 @@ public class NewsPresent extends BaseAppMallPresent {
      * @param tag
      */
     public void messageRead(RequestBody body, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .messageRead(body)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(null) {
@@ -153,7 +153,7 @@ public class NewsPresent extends BaseAppMallPresent {
      * @param tag
      */
     public void getContactUnreadMsg(RequestBody body, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getContactUnreadMsg(body)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<MessageListBean>(null) {
@@ -174,7 +174,7 @@ public class NewsPresent extends BaseAppMallPresent {
     }
 
     public void getNewsList(RequestBody body, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getNewsList(body)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<NewsListBean>(null) {

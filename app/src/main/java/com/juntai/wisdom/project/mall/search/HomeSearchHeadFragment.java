@@ -1,8 +1,8 @@
 package com.juntai.wisdom.project.mall.search;
 
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchHeadFragment;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 
 /**
  * @Author: tobato
@@ -14,6 +14,6 @@ import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 public class HomeSearchHeadFragment extends BaseSearchHeadFragment {
     @Override
     protected String getHiskey() {
-        return HawkProperty.getHomeSearchHisKey(UserInfoManagerMall.getUserId());
+        return HawkProperty.getHomeSearchHisKey(UserInfoManager.getUserId());
     }
 }

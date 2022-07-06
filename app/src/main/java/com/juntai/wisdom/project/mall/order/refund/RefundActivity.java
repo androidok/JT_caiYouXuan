@@ -8,14 +8,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.example.chat.MainContract;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
-import com.juntai.wisdom.project.mall.beans.order.OrderDetailBean;
-import com.juntai.wisdom.project.mall.beans.order.RefundReasonBean;
+import com.example.app_basemodule.bean.order.OrderDetailBean;
+import com.example.app_basemodule.bean.order.RefundReasonBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 
@@ -113,18 +113,18 @@ public class RefundActivity extends BaseAppActivity<OrderPresent> implements Hom
                         }
                     }
                     // : 2022/5/15 调用提交申请的接口
-                    mPresenter.requestRefund(builder.build(), AppHttpPathMall.REQUEST_REFUND
+                    mPresenter.requestRefund(builder.build(), AppHttpPath.REQUEST_REFUND
                     );
                 }
 
 
                 break;
 
-            case AppHttpPathMall.REQUEST_REFUND:
+            case AppHttpPath.REQUEST_REFUND:
                 ToastUtils.toast(mContext, "已提交申请");
                 startToOrderDetailActivity(orderDetailBean.getId(),4);
                 break;
-            case AppHttpPathMall.GET_REFUND_REASON:
+            case AppHttpPath.GET_REFUND_REASON:
 
                 RefundReasonBean refundReasonBean = (RefundReasonBean) o;
                 if (refundReasonBean != null) {
@@ -164,7 +164,7 @@ public class RefundActivity extends BaseAppActivity<OrderPresent> implements Hom
             case R.id.key_value_ll:
                 // : 2022/5/15 退款原因
                 //获取退款原因
-                mPresenter.getRefundReasons(getBaseBuilder().add("typeId", "1").build(), AppHttpPathMall.GET_REFUND_REASON);
+                mPresenter.getRefundReasons(getBaseBuilder().add("typeId", "1").build(), AppHttpPath.GET_REFUND_REASON);
 
 
                 break;
@@ -190,7 +190,7 @@ public class RefundActivity extends BaseAppActivity<OrderPresent> implements Hom
                             .add("orderId", String.valueOf(orderDetailBean.getId()))
                             .add("cargoStatus", String.valueOf(receivedStatus))
                             .add("causeId", String.valueOf(reasonId))
-                            .add("remark", getTextViewValue(mRefundReasonEt)).build(), AppHttpPathMall.REQUEST_REFUND
+                            .add("remark", getTextViewValue(mRefundReasonEt)).build(), AppHttpPath.REQUEST_REFUND
                     );
 
                 }

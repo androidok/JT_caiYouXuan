@@ -4,18 +4,18 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.support.v4.app.FragmentActivity;
 
+import com.example.app_basemodule.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.video.record.VideoPreviewActivity;
-import com.juntai.wisdom.project.mall.AppNetModuleMall;
 import com.juntai.wisdom.project.mall.base.BaseAppMallPresent;
-import com.juntai.wisdom.project.mall.beans.order.ConfirmOrderBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderDetailDataBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderListBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderPayWxBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderPayZfbBean;
-import com.juntai.wisdom.project.mall.beans.order.RefundReasonBean;
+import com.example.app_basemodule.bean.order.ConfirmOrderBean;
+import com.example.app_basemodule.bean.order.OrderDetailDataBean;
+import com.example.app_basemodule.bean.order.OrderListBean;
+import com.example.app_basemodule.bean.order.OrderPayWxBean;
+import com.example.app_basemodule.bean.order.OrderPayZfbBean;
+import com.example.app_basemodule.bean.order.RefundReasonBean;
 import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
 import com.mabeijianxi.smallvideorecord2.model.MediaRecorderConfig;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -68,7 +68,7 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
     public void commitOrder(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .commitOrder(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<ConfirmOrderBean>(getView()) {
@@ -90,7 +90,7 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
     public void cancelOrder(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .cancelOrder(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
@@ -112,7 +112,7 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
     public void noticeSend(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .noticeSend(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
@@ -134,7 +134,7 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
     public void deleteCancelOrder(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .deleteCancelOrder(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
@@ -156,7 +156,7 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
     public void requestRefund(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .requestRefund(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
@@ -178,7 +178,7 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
     public void startEvaluate(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .startEvaluate(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
@@ -201,7 +201,7 @@ public class OrderPresent extends BaseAppMallPresent {
 
 
     public void confirmReceived(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .confirmReceived(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
@@ -223,7 +223,7 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
     public void getOrderStatus(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getOrderStatus(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
@@ -245,7 +245,7 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
     public void getOrderList(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getOrderList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<OrderListBean>(getView()) {
@@ -267,7 +267,7 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
     public void getOrderDetail(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getOrderDetail(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<OrderDetailDataBean>(getView()) {
@@ -289,7 +289,7 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
     public void getRefundReasons(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getRefundReasons(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<RefundReasonBean>(getView()) {
@@ -312,7 +312,7 @@ public class OrderPresent extends BaseAppMallPresent {
 
 
     public void payByWeixin(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .payByWeixin(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<OrderPayWxBean>(getView()) {
@@ -334,7 +334,7 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
     public void payByZhifubao(RequestBody requestBody,String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .payByZhifubao(requestBody)
 
                 .compose(RxScheduler.ObsIoMain(getView()))
@@ -357,7 +357,7 @@ public class OrderPresent extends BaseAppMallPresent {
     }
 
     public void payByPubAccount(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .payByPubAccount(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {

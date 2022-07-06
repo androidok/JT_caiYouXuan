@@ -4,13 +4,13 @@ import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 
+import com.example.app_basemodule.bean.PlayUrlBean;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.wisdom.project.mall.AppNetModuleMall;
-import com.juntai.wisdom.project.mall.beans.PlayUrlBean;
+import com.example.app_basemodule.net.AppNetModule;
 
 import okhttp3.RequestBody;
 
@@ -40,7 +40,7 @@ public class PlayPresent extends BasePresenter<IModel, PlayContract.IPlayView>  
         view.setLayoutParams(layoutParams);
     }
     public void openStream(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .openStream(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<PlayUrlBean>(null) {

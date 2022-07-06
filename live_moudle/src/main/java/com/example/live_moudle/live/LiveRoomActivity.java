@@ -15,9 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.app_basemodule.net.AppHttpPath;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
-import com.example.live_moudle.net.AppHttpPathLive;
 import com.example.live_moudle.websocket.SocketManager;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.base.BaseSelectPicsActivity;
@@ -188,16 +188,16 @@ private LiveListBean.DataBean.ListBean bean;
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag){
-            case AppHttpPathLive.SHOP_UNCOLLECT:
+            case AppHttpPath.SHOP_UNCOLLECT:
                 collectId = 0;
                 initCollectTvStatus();
                 break;
-            case AppHttpPathLive.SHOP_COLLECT:
+            case AppHttpPath.SHOP_COLLECT:
                 BaseResult baseResult = (BaseResult) o;
                 collectId = Integer.parseInt(baseResult.getMessage());
                 initCollectTvStatus();
                 break;
-            case AppHttpPathLive.SHOP_COLLECT_FINISH:
+            case AppHttpPath.SHOP_COLLECT_FINISH:
                finish();
                 break;
             default:
@@ -226,7 +226,7 @@ private LiveListBean.DataBean.ListBean bean;
                                 mPresenter.collectShop(mPresenter.getBaseBuilder()
                                         .add("isCollect", "1")
                                         .add("id", String.valueOf(collectId))
-                                        .add("shopId", String.valueOf(bean.getShopId())).build(), AppHttpPathLive.SHOP_UNCOLLECT
+                                        .add("shopId", String.valueOf(bean.getShopId())).build(), AppHttpPath.SHOP_UNCOLLECT
                                 );
                             }
                         }).show();
@@ -237,7 +237,7 @@ private LiveListBean.DataBean.ListBean bean;
                 //收藏
                 mPresenter.collectShop(mPresenter.getBaseBuilder()
                         .add("isCollect", "0")
-                        .add("shopId", String.valueOf(bean.getShopId())).build(), AppHttpPathLive.SHOP_COLLECT
+                        .add("shopId", String.valueOf(bean.getShopId())).build(), AppHttpPath.SHOP_COLLECT
                 );
             }
         }
@@ -264,7 +264,7 @@ private LiveListBean.DataBean.ListBean bean;
                         if (collectId<1) {
                             mPresenter.collectShop(mPresenter.getBaseBuilder()
                                     .add("isCollect", "0")
-                                    .add("shopId", String.valueOf(bean.getShopId())).build(), AppHttpPathLive.SHOP_COLLECT_FINISH
+                                    .add("shopId", String.valueOf(bean.getShopId())).build(), AppHttpPath.SHOP_COLLECT_FINISH
                             );
                         }
 

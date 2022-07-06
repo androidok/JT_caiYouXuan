@@ -1,8 +1,8 @@
 package com.juntai.wisdom.project.mall.home.shop;
 
+import com.example.app_basemodule.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.wisdom.project.mall.AppNetModuleMall;
 import com.juntai.wisdom.project.mall.base.BaseAppMallPresent;
 import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
 
@@ -19,7 +19,7 @@ public class ShopPresent extends BaseAppMallPresent {
 
 
     public void getShopCommodityList(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getShopCommodityList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<ShopCommodityListBean>(getView()) {

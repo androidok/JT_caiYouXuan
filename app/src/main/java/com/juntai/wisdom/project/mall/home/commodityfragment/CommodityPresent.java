@@ -1,22 +1,21 @@
 package com.juntai.wisdom.project.mall.home.commodityfragment;
 
+import com.example.app_basemodule.base.BaseAppPresent;
+import com.example.app_basemodule.bean.CartListBean;
+import com.example.app_basemodule.bean.CommodityDesListBean;
+import com.example.app_basemodule.bean.CommodityEvaluationBean;
+import com.example.app_basemodule.bean.IdNameBean;
+import com.example.app_basemodule.bean.PicTextBean;
+import com.example.app_basemodule.net.AppNetModule;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.wisdom.project.mall.AppNetModuleMall;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.base.BaseAppPresent;
-import com.juntai.wisdom.project.mall.beans.CartListBean;
-import com.juntai.wisdom.project.mall.beans.CommodityDesListBean;
-import com.example.live_moudle.bean.CommodityDetailBean;
-import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
-import com.juntai.wisdom.project.mall.beans.IdNameBean;
-import com.juntai.wisdom.project.mall.beans.PicTextBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class CommodityPresent extends BaseAppPresent<IModel, IView> {
 
 
     public void getCommodityLaBels(String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getCommodityLaBels()
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<IdNameBean>(getView()) {
@@ -61,7 +60,7 @@ public class CommodityPresent extends BaseAppPresent<IModel, IView> {
     }
 
     public void getCommodityRecommendList(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getCommodityRecommendList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<CommodityDesListBean>(getView()) {
@@ -82,30 +81,10 @@ public class CommodityPresent extends BaseAppPresent<IModel, IView> {
                 });
     }
 
-    public void getCommodityDetail(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
-                .getCommodityDetail(requestBody)
-                .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<CommodityDetailBean>(getView()) {
-                    @Override
-                    public void onSuccess(CommodityDetailBean o) {
-                        if (getView() != null) {
-                            getView().onSuccess(tag, o);
-                        }
 
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (getView() != null) {
-                            getView().onError(tag, msg);
-                        }
-                    }
-                });
-    }
 
     public void getCommodityEvaluation(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getCommodityEvaluation(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<CommodityEvaluationBean>(getView()) {
@@ -126,31 +105,11 @@ public class CommodityPresent extends BaseAppPresent<IModel, IView> {
                 });
     }
 
-    public void editCart(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
-                .editCart(requestBody)
-                .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(getView()) {
-                    @Override
-                    public void onSuccess(BaseResult o) {
-                        if (getView() != null) {
-                            getView().onSuccess(tag, o);
-                        }
 
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (getView() != null) {
-                            getView().onError(tag, msg);
-                        }
-                    }
-                });
-    }
 
     public void deleteCartCommodity(List<Integer> ids, String tag) {
-        AppNetModuleMall.createrRetrofit()
-                .deleteCartCommodity(UserInfoManagerMall.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManagerMall.DEVICE_TYPE,ids)
+        AppNetModule.createrRetrofit()
+                .deleteCartCommodity(UserInfoManager.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManager.DEVICE_TYPE,ids)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override
@@ -171,7 +130,7 @@ public class CommodityPresent extends BaseAppPresent<IModel, IView> {
     }
 
     public void getCartList(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getCartList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<CartListBean>(null) {

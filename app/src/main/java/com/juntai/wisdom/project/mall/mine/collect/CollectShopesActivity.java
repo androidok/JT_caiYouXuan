@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
+import com.example.app_basemodule.bean.CollectDataBean;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchAndListActivity;
-import com.juntai.wisdom.project.mall.beans.CollectDataBean;
 import com.juntai.wisdom.project.mall.mine.MyCenterContract;
 import com.juntai.wisdom.project.mall.mine.MyCenterPresent;
 
@@ -24,7 +24,7 @@ public class CollectShopesActivity extends BaseSearchAndListActivity<MyCenterPre
     @Override
     protected void startSearch(String s) {
         // : 2022/5/10 查找所有收藏的店铺
-        mPresenter.getShopCollectList(getBaseBuilder().add("key", s).build(), AppHttpPathMall.SHOP_COLLECT_LIST);
+        mPresenter.getShopCollectList(getBaseBuilder().add("key", s).build(), AppHttpPath.SHOP_COLLECT_LIST);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class CollectShopesActivity extends BaseSearchAndListActivity<MyCenterPre
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag, o);
         switch (tag) {
-            case AppHttpPathMall.SHOP_COLLECT_LIST:
+            case AppHttpPath.SHOP_COLLECT_LIST:
                 CollectDataBean collectDataBean = (CollectDataBean) o;
                 if (collectDataBean != null) {
                     List<CollectDataBean.DataDTO> arrays = collectDataBean.getData();

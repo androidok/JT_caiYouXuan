@@ -1,9 +1,10 @@
 package com.juntai.wisdom.project.mall;
 
 
+import com.example.app_basemodule.net.AppHttpPath;
 import com.example.chat.MyChatApp;
 import com.juntai.disabled.video.ModuleVideo_Init;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 import com.mob.MobSDK;
 
@@ -27,10 +28,10 @@ public class MyApp extends MyChatApp {
         MobSDK.init(this);
         //Video模块初始化
         ModuleVideo_Init.init();
-        if (UserInfoManagerMall.isLogin()) {
+        if (UserInfoManager.isLogin()) {
             MyWsManager.getInstance()
                     .init(getApplicationContext())
-                    .setWsUrl(AppHttpPathMall.BASE_SOCKET + UserInfoManagerMall.getUserId())
+                    .setWsUrl(AppHttpPath.BASE_SOCKET + UserInfoManager.getUserId())
                     .startConnect();
         } else {
             MyWsManager.getInstance()

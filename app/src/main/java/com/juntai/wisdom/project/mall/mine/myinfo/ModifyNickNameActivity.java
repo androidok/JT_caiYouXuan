@@ -1,10 +1,10 @@
 package com.juntai.wisdom.project.mall.mine.myinfo;
 
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.orhanobut.hawk.Hawk;
 
 /**
@@ -29,14 +29,14 @@ public class ModifyNickNameActivity extends BaseModifyActivity {
     protected void commit(String textViewValue) {
 
 // 修改昵称
-        mPresenter.modifyUserInfo(getBaseBuilder().add("nickname", textViewValue).build(), AppHttpPathMall.MODIFY_USER_ACCOUNT);
+        mPresenter.modifyUserInfo(getBaseBuilder().add("nickname", textViewValue).build(), AppHttpPath.MODIFY_USER_ACCOUNT);
 
 
     }
 
     @Override
     public void onSuccess(String tag, Object o) {
-        ContactBean contact = UserInfoManagerMall.getUser();
+        ContactBean contact = UserInfoManager.getUser();
         contact.setNickname(getTextViewValue(mNickNameEt));
         Hawk.put(HawkProperty.SP_KEY_USER, contact);
         finish();

@@ -9,12 +9,12 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.live_moudle.live.LiveRoomActivity;
 import com.juntai.disabled.basecomponent.bean.LiveListBean;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
+import com.example.app_basemodule.utils.UserInfoManager;
 
 import java.util.List;
 
@@ -96,10 +96,10 @@ public class LiveCommodityListFragment extends BaseRecyclerviewFragment<Commodit
         // : 2022/5/4 获取直播列表
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("page", String.valueOf(page))
-                .add("userId",String.valueOf(UserInfoManagerMall.getUserId()))
+                .add("userId",String.valueOf(UserInfoManager.getUserId()))
                 .add("limit", String.valueOf(limit));
         mPresenter.getLiveList(0 == labelId ? builder.build() : builder
-                .add("type", String.valueOf(labelId)).build(), AppHttpPathMall.GET_LIVE_LIST);
+                .add("type", String.valueOf(labelId)).build(), AppHttpPath.GET_LIVE_LIST);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class LiveCommodityListFragment extends BaseRecyclerviewFragment<Commodit
         super.onSuccess(tag, o);
 
         switch (tag) {
-            case AppHttpPathMall.GET_LIVE_LIST:
+            case AppHttpPath.GET_LIVE_LIST:
                 LiveListBean liveListBean = (LiveListBean) o;
                 if (liveListBean != null) {
                     LiveListBean.DataBean dataBean = liveListBean.getData();

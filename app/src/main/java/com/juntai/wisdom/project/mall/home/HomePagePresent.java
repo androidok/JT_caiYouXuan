@@ -1,16 +1,16 @@
 package com.juntai.wisdom.project.mall.home;
 
+import com.example.app_basemodule.bean.AroundShopBean;
+import com.example.app_basemodule.bean.PicTextBean;
+import com.example.app_basemodule.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.wisdom.project.mall.AppNetModuleMall;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.base.BaseAppPresent;
-import com.juntai.wisdom.project.mall.beans.AroundShopBean;
-import com.juntai.wisdom.project.mall.beans.PicTextBean;
+import com.example.app_basemodule.base.BaseAppPresent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class HomePagePresent extends BaseAppPresent<IModel, HomePageContract.IHo
 
 
     public void getWeatherRealTime(String tag, String lng, String lat) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getWeatherRealtime(lng, lat)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<ResponseRealTimeWeather>(getView()) {
@@ -66,7 +66,7 @@ public class HomePagePresent extends BaseAppPresent<IModel, HomePageContract.IHo
     }
 
     public void getForcastWeather(String tag, String lng, String lat) {
-        AppNetModuleMall.createrRetrofit().getForcast(lng, lat).compose(RxScheduler.ObsIoMain(getView())).subscribe(new BaseObserver<ResponseForcastWeather>(getView()) {
+        AppNetModule.createrRetrofit().getForcast(lng, lat).compose(RxScheduler.ObsIoMain(getView())).subscribe(new BaseObserver<ResponseForcastWeather>(getView()) {
             @Override
             public void onSuccess(ResponseForcastWeather o) {
                 if (getView() != null) {
@@ -86,7 +86,7 @@ public class HomePagePresent extends BaseAppPresent<IModel, HomePageContract.IHo
 
 
     public void getPrivince(String tag) {
-        AppNetModuleMall.createrRetrofit().getProvince().compose(RxScheduler.ObsIoMain(getView())).subscribe(new BaseObserver<CityBean>(getView()) {
+        AppNetModule.createrRetrofit().getProvince().compose(RxScheduler.ObsIoMain(getView())).subscribe(new BaseObserver<CityBean>(getView()) {
             @Override
             public void onSuccess(CityBean o) {
                 if (getView() != null) {
@@ -105,7 +105,7 @@ public class HomePagePresent extends BaseAppPresent<IModel, HomePageContract.IHo
     }
 
     public void getCitys(String tag, int privinceNum) {
-        AppNetModuleMall.createrRetrofit().getCity(privinceNum).compose(RxScheduler.ObsIoMain(getView())).subscribe(new BaseObserver<CityBean>(getView()) {
+        AppNetModule.createrRetrofit().getCity(privinceNum).compose(RxScheduler.ObsIoMain(getView())).subscribe(new BaseObserver<CityBean>(getView()) {
             @Override
             public void onSuccess(CityBean o) {
                 if (getView() != null) {
@@ -124,7 +124,7 @@ public class HomePagePresent extends BaseAppPresent<IModel, HomePageContract.IHo
     }
 
     public void getTowns(String tag, int cityNum) {
-        AppNetModuleMall.createrRetrofit().getArea(cityNum).compose(RxScheduler.ObsIoMain(getView())).subscribe(new BaseObserver<CityBean>(getView()) {
+        AppNetModule.createrRetrofit().getArea(cityNum).compose(RxScheduler.ObsIoMain(getView())).subscribe(new BaseObserver<CityBean>(getView()) {
             @Override
             public void onSuccess(CityBean o) {
                 if (getView() != null) {
@@ -143,7 +143,7 @@ public class HomePagePresent extends BaseAppPresent<IModel, HomePageContract.IHo
     }
 
     public void getStreets(String tag, int townNum) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getStreet(townNum)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<CityBean>(getView()) {
@@ -164,7 +164,7 @@ public class HomePagePresent extends BaseAppPresent<IModel, HomePageContract.IHo
     }
 
     public void getAroundShopes(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getAroundShopes(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<AroundShopBean>(getView()) {

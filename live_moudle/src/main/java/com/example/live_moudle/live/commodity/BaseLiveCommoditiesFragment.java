@@ -1,14 +1,21 @@
 package com.example.live_moudle.live.commodity;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.CommodityDetailBean;
+import com.example.app_basemodule.bean.order.CreatOrderBean;
+import com.example.app_basemodule.net.AppHttpPath;
+import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
 import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
+import com.example.live_moudle.util.ObjectBoxUtil;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.bean.CommodityBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
-import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 
 import java.util.List;
 
@@ -17,8 +24,15 @@ import java.util.List;
  * @description 描述 直播更多菜单基类
  * @date 2022/7/3 10:13
  */
-public abstract class BaseLiveCommoditiesFragment<P extends BasePresenter> extends BaseMvpFragment<P> {
+public abstract class BaseLiveCommoditiesFragment extends BaseMvpFragment<LivePresent> implements IView {
     protected CommodityBottomDialog moreBottomDialog;
+    private CommodityDetailBean.DataBean dataBean;
+    private int childViewId;
+
+    @Override
+    protected LivePresent createPresenter() {
+        return new LivePresent();
+    }
 
     /**
      * 初始化dialog
@@ -31,36 +45,12 @@ public abstract class BaseLiveCommoditiesFragment<P extends BasePresenter> exten
         moreBottomDialog.setOnBottomDialogCallBack(new CommodityBottomDialog.OnItemClick() {
             @Override
             public void onChildItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CommodityBean commodityBean = (CommodityBean) adapter.getItem(position);
                 moreBottomDialog.dismiss();
-// TODO: 2022/7/6 获取商品详情
+// : 2022/7/6 获取商品详情
+                mPresenter.getCommodityDetail(mPresenter.getBaseBuilderWithoutParama().add("commodityId", String.valueOf(commodityBean.getId())).build(), AppHttpPath.COMMODIFY_DETAIL);
+                childViewId = view.getId();
 
-
-                int id = view.getId();
-                SelectCommodityPropertyDialogFragment selectCommodityPropertyFragment = new SelectCommodityPropertyDialogFragment();
-                selectCommodityPropertyFragment.show(getFragmentManager(), "selectCommodityPropertyFragment");
-                selectCommodityPropertyFragment.setOnConfirmCallBack(new SelectCommodityPropertyDialogFragment.OnConfirmCallBack() {
-                    @Override
-                    public void confirm(CommodityPropertyBean commodityPropertyBean, int amount) {
-//                        if (id == R.id.live_add_to_cart_iv) {
-//                            mPresenter.editCart(getBaseBuilder().add("shopId", String.valueOf(dataBean.getShopId()))
-//                                    .add("commodityId", String.valueOf(commodityId))
-//                                    .add("attributeUnique", commodityPropertyBean.getUnique())
-//                                    .add("commodityNum", String.valueOf(amount))
-//                                    .add("commodityAttr", commodityPropertyBean.getSku())
-//                                    .build(), AppHttpPathMall.EDIT_CART
-//                            );
-//                        } else {
-//                            mPresenter.creatOrderBuy(getBaseBuilder()
-//                                    .add("shopId", String.valueOf(commodityPropertyBean.getShopId()))
-//                                    .add("commodityId", String.valueOf(commodityPropertyBean.getCommodityId()))
-//                                    .add("unique", commodityPropertyBean.getUnique())
-//                                    .add("commodityNum", String.valueOf(amount)).build(), AppHttpPathMall.CREAT_ORDER_BUY
-//                            );
-//                        }
-
-                    }
-                });
-                selectCommodityPropertyFragment.setData(dataBean);
 
 
             }
@@ -69,4 +59,56 @@ public abstract class BaseLiveCommoditiesFragment<P extends BasePresenter> exten
     }
 
 
+    @Override
+    public void onSuccess(String tag, Object o) {
+        switch (tag) {
+            case AppHttpPath.COMMODIFY_DETAIL:
+                CommodityDetailBean commodityDetailBean = (CommodityDetailBean) o;
+                if (commodityDetailBean != null) {
+                    dataBean = commodityDetailBean.getData();
+                    List<CommodityPropertyBean> commodityPropertyBeans = dataBean.getValue();
+                    ObjectBoxUtil.addCommodityProperty(dataBean, commodityPropertyBeans);
+                    SelectCommodityPropertyDialogFragment selectCommodityPropertyFragment = new SelectCommodityPropertyDialogFragment();
+                    selectCommodityPropertyFragment.show(getFragmentManager(), "selectCommodityPropertyFragment");
+                    selectCommodityPropertyFragment.setOnConfirmCallBack(new SelectCommodityPropertyDialogFragment.OnConfirmCallBack() {
+                        @Override
+                        public void confirm(CommodityPropertyBean commodityPropertyBean, int amount) {
+                            if (childViewId == R.id.live_add_to_cart_iv) {
+                                mPresenter.editCart(mPresenter.getBaseBuilder().add("shopId", String.valueOf(dataBean.getShopId()))
+                                        .add("commodityId", String.valueOf(dataBean.getId()))
+                                        .add("attributeUnique", commodityPropertyBean.getUnique())
+                                        .add("commodityNum", String.valueOf(amount))
+                                        .add("commodityAttr", commodityPropertyBean.getSku())
+                                        .build(), AppHttpPath.EDIT_CART
+                                );
+                            } else {
+                                mPresenter.creatOrderBuy(mPresenter.getBaseBuilder()
+                                        .add("shopId", String.valueOf(commodityPropertyBean.getShopId()))
+                                        .add("commodityId", String.valueOf(commodityPropertyBean.getCommodityId()))
+                                        .add("unique", commodityPropertyBean.getUnique())
+                                        .add("commodityNum", String.valueOf(amount)).build(), AppHttpPath.CREAT_ORDER_BUY
+                                );
+                            }
+
+                        }
+                    });
+                    selectCommodityPropertyFragment.setData(dataBean);
+                }
+                break;
+            case AppHttpPath.EDIT_CART:
+                ToastUtils.toast(mContext, "已加入购物车");
+                break;
+            case AppHttpPath.CREAT_ORDER_BUY:
+                CreatOrderBean creatOrderBean = (CreatOrderBean) o;
+                if (creatOrderBean != null) {
+                    CreatOrderBean.DataBean dataBean = creatOrderBean.getData();
+                    startActivity(new Intent(mContext, ConfirmOrderActivity.class).putExtra(BASE_PARCELABLE, dataBean));
+
+
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }

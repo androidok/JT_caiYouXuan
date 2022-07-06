@@ -1,16 +1,16 @@
 package com.juntai.wisdom.project.mall.mine;
 
 
+import com.example.app_basemodule.bean.CollectDataBean;
+import com.example.app_basemodule.bean.PicTextBean;
+import com.example.app_basemodule.bean.order.OrderStatusAmountBean;
+import com.example.app_basemodule.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.wisdom.project.mall.AppNetModuleMall;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.base.BaseAppPresent;
-import com.juntai.wisdom.project.mall.beans.CollectDataBean;
-import com.juntai.wisdom.project.mall.beans.PicTextBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderStatusAmountBean;
+import com.example.app_basemodule.base.BaseAppPresent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
 
 
     public void getOrderStatusAmount(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getOrderStatusAmount(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<OrderStatusAmountBean>(null) {
@@ -74,7 +74,7 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
     }
 
     public void getShopCollectList(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getShopCollectList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<CollectDataBean>(getView()) {
@@ -96,7 +96,7 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
     }
 
     public void logout(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .logout(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
@@ -117,7 +117,7 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
                 });
     }
     public void modifyUserInfo(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .modifyUserInfo(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
@@ -139,7 +139,7 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
     }
 
     public void getCommodityCollectList(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getCommodityCollectList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<CollectDataBean>(getView()) {

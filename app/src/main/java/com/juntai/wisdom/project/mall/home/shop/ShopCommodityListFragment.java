@@ -7,13 +7,13 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.CommodityDesListBean;
+import com.example.app_basemodule.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.bean.CommodityBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
-import com.juntai.disabled.basecomponent.bean.CommodityBean;
-import com.juntai.wisdom.project.mall.beans.CommodityDesListBean;
-import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityListAdapter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
@@ -121,7 +121,7 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
 
         mPresenter.getShopCommodityList(getBaseAppActivity().getBaseBuilderWithoutParama()
                 .add("shopId", String.valueOf(((ShopActivity) getActivity()).shopId))
-                .add("classifyId", String.valueOf(labelId)).build(), AppHttpPathMall.SHOP_COMMODITY_LIST);
+                .add("classifyId", String.valueOf(labelId)).build(), AppHttpPath.SHOP_COMMODITY_LIST);
 
     }
 
@@ -136,7 +136,7 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
         super.onSuccess(tag, o);
 
         switch (tag) {
-            case AppHttpPathMall.COMMODIFY_RECOMMEND:
+            case AppHttpPath.COMMODIFY_RECOMMEND:
                 CommodityDesListBean desListBean = (CommodityDesListBean) o;
                 if (desListBean != null) {
                     CommodityDesListBean.DataBean dataBean = desListBean.getData();
@@ -147,7 +147,7 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
                     }
                 }
                 break;
-            case AppHttpPathMall.SHOP_COMMODITY_LIST:
+            case AppHttpPath.SHOP_COMMODITY_LIST:
 
                 ShopCommodityListBean shopCommodityListBean = (ShopCommodityListBean) o;
                 if (shopCommodityListBean != null) {

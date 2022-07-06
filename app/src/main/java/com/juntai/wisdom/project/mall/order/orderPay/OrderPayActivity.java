@@ -12,23 +12,23 @@ import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.PicTextBean;
+import com.example.app_basemodule.bean.order.ConfirmOrderBean;
+import com.example.app_basemodule.bean.order.OrderDetailBean;
+import com.example.app_basemodule.bean.order.OrderListBean;
+import com.example.app_basemodule.bean.order.OrderPayWxBean;
+import com.example.app_basemodule.bean.order.OrderPayZfbBean;
+import com.example.app_basemodule.net.AppHttpPath;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
-import com.juntai.wisdom.project.mall.beans.PicTextBean;
-import com.juntai.wisdom.project.mall.beans.order.ConfirmOrderBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderDetailBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderListBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderPayWxBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderPayZfbBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 import com.juntai.wisdom.project.mall.utils.CalendarUtil;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -294,8 +294,8 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
         List<PicTextBean> arrays = new ArrayList<>();
         arrays.add(new PicTextBean(R.mipmap.zhifubao_icon, PicTextBean.PAY_TYPE_ZHIFUBAO, false));
         arrays.add(new PicTextBean(R.mipmap.weixin_icon, PicTextBean.PAY_TYPE_WEIXIN, true));
-        if (UserInfoManagerMall.canUsePubAccount()) {
-            arrays.add(new PicTextBean(R.mipmap.bank_icon, PicTextBean.PAY_TYPE_PUB_ACCOUNT + UserInfoManagerMall.getSchoolName(), false));
+        if (UserInfoManager.canUsePubAccount()) {
+            arrays.add(new PicTextBean(R.mipmap.bank_icon, PicTextBean.PAY_TYPE_PUB_ACCOUNT + UserInfoManager.getSchoolName(), false));
         }
         baseQuickAdapter.setNewData(arrays);
     }
@@ -333,14 +333,14 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
-            case AppHttpPathMall.ORDER_PAY_PUB_ACCOUNT:
+            case AppHttpPath.ORDER_PAY_PUB_ACCOUNT:
                 startToPaySuccessActivity();
                 break;
-            case AppHttpPathMall.ORDER_PAY_ZHIFUBAO:
+            case AppHttpPath.ORDER_PAY_ZHIFUBAO:
                 OrderPayZfbBean orderPayZfbBean = (OrderPayZfbBean) o;
                 payByZhiFuBao(orderPayZfbBean);
                 break;
-            case AppHttpPathMall.ORDER_PAY_PUB_WEIXIN:
+            case AppHttpPath.ORDER_PAY_PUB_WEIXIN:
                 OrderPayWxBean wxBean = (OrderPayWxBean) o;
                 if (wxBean != null) {
                     OrderPayWxBean.DataBean dataBean = wxBean.getData();
@@ -378,19 +378,19 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
 
                     case 0:
                         // : 2022/5/11 支付宝支付
-                        mPresenter.payByZhifubao(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPathMall.ORDER_PAY_ZHIFUBAO);
+                        mPresenter.payByZhifubao(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_ZHIFUBAO);
 
                         break;
                     case 1:
                         // : 2022/5/11 微信支付
-                        mPresenter.payByWeixin(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPathMall.ORDER_PAY_PUB_WEIXIN);
+                        mPresenter.payByWeixin(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_PUB_WEIXIN);
 
 
                         break;
                     case 2:
                         // : 2022/5/11 公户支付
 
-                        mPresenter.payByPubAccount(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPathMall.ORDER_PAY_PUB_ACCOUNT);
+                        mPresenter.payByPubAccount(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_PUB_ACCOUNT);
                         break;
                     default:
                         break;

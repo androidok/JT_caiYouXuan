@@ -1,14 +1,14 @@
 package com.juntai.wisdom.project.mall.mine.address;
 
+import com.example.app_basemodule.bean.CitysBean;
+import com.example.app_basemodule.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
-import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.wisdom.project.mall.AppNetModuleMall;
-import com.juntai.wisdom.project.mall.base.BaseAppMallPresent;
-import com.juntai.wisdom.project.mall.beans.CitysBean;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
+import com.juntai.wisdom.project.mall.base.BaseAppMallPresent;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class AddrPresent extends BaseAppMallPresent {
      * @param keywords
      */
     public void getAllCitys(String keywords, String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getAllCitys(keywords, "2", "65862700fcb4f4b4dcbe4e554e5bbe3d")
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<CitysBean>(null) {
@@ -50,7 +50,7 @@ public class AddrPresent extends BaseAppMallPresent {
     }
 
     public void getAddrList( RequestBody body,String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .getAddrList(body)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<AddressListBean>(getView()) {
@@ -70,7 +70,7 @@ public class AddrPresent extends BaseAppMallPresent {
                 });
     }
     public void addOrEditAddrList(RequestBody body,String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .addOrEditAddrList(body)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
@@ -90,7 +90,7 @@ public class AddrPresent extends BaseAppMallPresent {
                 });
     }
     public void setDefaultAdddr(RequestBody body,String tag) {
-        AppNetModuleMall.createrRetrofit()
+        AppNetModule.createrRetrofit()
                 .setDefaultAdddr(body)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
@@ -112,8 +112,8 @@ public class AddrPresent extends BaseAppMallPresent {
 
 
     public void deleteAddr(List<Integer> ids, String tag) {
-        AppNetModuleMall.createrRetrofit()
-                .deleteAddr(UserInfoManagerMall.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManagerMall.DEVICE_TYPE,ids)
+        AppNetModule.createrRetrofit()
+                .deleteAddr(UserInfoManager.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManager.DEVICE_TYPE,ids)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override

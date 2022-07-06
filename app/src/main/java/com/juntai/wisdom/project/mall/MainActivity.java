@@ -23,7 +23,7 @@ import com.juntai.wisdom.project.mall.live.LiveFragment;
 import com.juntai.wisdom.project.mall.mine.MyCenterFragment;
 import com.juntai.wisdom.project.mall.news.NewsListFragment;
 import com.juntai.wisdom.project.mall.shoppingCart.ShoppingCartFragment;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 import com.mob.MobSDK;
 
@@ -142,7 +142,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         super.onEvent(eventBusObject);
         switch (eventBusObject.getEventKey()) {
             case EventBusObject.RE_LOAD:
-                reLogin(UserInfoManagerMall.getPhoneNumber());
+                reLogin(UserInfoManager.getPhoneNumber());
                 break;
             case EventBusObject.UNREAD_MSG_AMOUNT:
                 int amount = (int) eventBusObject.getEventObj();

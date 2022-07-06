@@ -31,19 +31,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.net.AppHttpPath;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.chat.MainContract;
 import com.example.chat.R;
 import com.example.chat.bean.HomePageMenuBean;
-import com.example.chat.bean.UploadFileBean;
 import com.example.chat.chatmodule.ChatAdapter;
 import com.example.chat.chatmodule.ChatMoreActionAdapter;
 import com.example.chat.chatmodule.ChatPresent;
 import com.example.chat.chatmodule.EditChatMsgAdapter;
 import com.example.chat.util.MultipleItem;
 import com.example.chat.util.OperateMsgUtil;
+import com.example.live_moudle.util.ObjectBoxUtil;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;
+import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.FileBaseInfoBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
@@ -60,12 +63,9 @@ import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
-import com.example.live_moudle.util.ObjectBoxMallUtil;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 import com.negier.emojifragment.bean.Emoji;
 import com.negier.emojifragment.fragment.EmojiFragment;
@@ -233,7 +233,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                     //如果是正在聊天的对象发过来的 就不需要notification
                     NotificationTool.SHOW_NOTIFICATION = false;
                     // : 2022/5/21 通知后台消息已读
-                    mPresenter.messageRead(getBaseBuilder().add("msgId", String.valueOf(messageBody.getMsgId())).build(), AppHttpPathMall.MESSAGE_READ);
+                    mPresenter.messageRead(getBaseBuilder().add("msgId", String.valueOf(messageBody.getMsgId())).build(), AppHttpPath.MESSAGE_READ);
                     messageBody.setRead(true);
 //                    HawkProperty.setRedPoint(mContext, -1);
                     addDateTag(mPresenter.findPrivateChatRecordLastMessage(messageBody.getFromUserId()),
@@ -243,7 +243,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                 } else {
                     NotificationTool.SHOW_NOTIFICATION = true;
                 }
-                ObjectBoxMallUtil.addMessage(messageBody);
+                ObjectBoxUtil.addMessage(messageBody);
 
 
                 break;
@@ -392,7 +392,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 msgAdapter.remove(msgPosition);
-                                                ObjectBoxMallUtil.deleteMessage(operateingMsgBean);
+                                                ObjectBoxUtil.deleteMessage(operateingMsgBean);
                                             }
                                         });
 
@@ -528,7 +528,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
         setOnFileUploadStatus(this);
         contactBean = intent.getParcelableExtra(BaseActivity.BASE_PARCELABLE);
         // : 2022/5/19 联系人列表
-//        UserInfoManagerMall.initContacts(contactBean);
+//        UserInfoManager.initContacts(contactBean);
 // : 2022/5/19 获取所有的聊天记录
         setTitleName(contactBean.getNickname());
         chatAdapter.setNewData(null);
@@ -539,7 +539,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                 if (!startBean.isRead()) {
                     startBean.setRead(true);
                     //更新数据库数据
-                    ObjectBoxMallUtil.addMessage(startBean);
+                    ObjectBoxUtil.addMessage(startBean);
                 }
                 initAdapterDataFromMsgTypes(startBean);
                 if (i < arrays.size() - 1) {
@@ -549,7 +549,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
             }
         }
         scrollRecyclerview();
-        mPresenter.getContactUnreadMsg(getBaseBuilder().add("toUserId", String.valueOf(contactBean.getUserId())).build(), AppHttpPathMall.UNREAD_CONTACT_MSG);
+        mPresenter.getContactUnreadMsg(getBaseBuilder().add("toUserId", String.valueOf(contactBean.getUserId())).build(), AppHttpPath.UNREAD_CONTACT_MSG);
 
     }
 
@@ -568,7 +568,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                 break;
             case 3:
                 //发送语音
-                if (UserInfoManagerMall.getUserId() == messageBean.getFromUserId()) {
+                if (UserInfoManager.getUserId() == messageBean.getFromUserId()) {
                     chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_SEND_AUDIO, messageBean));
                 } else {
                     chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_RECEIVE_AUDIO, messageBean));
@@ -617,16 +617,16 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                         messageBodyBean.setDuration(String.valueOf(mDuration));
                         addDateTag(mPresenter.findPrivateChatRecordLastMessage(messageBodyBean.getFromUserId()), messageBodyBean);
                         chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_SEND_AUDIO, messageBodyBean));
-                        ObjectBoxMallUtil.addMessage(messageBodyBean);
+                        ObjectBoxUtil.addMessage(messageBodyBean);
                         mPresenter.sendPrivateMessage(OperateMsgUtil.getMsgBuilder(messageBodyBean).build(),
-                                AppHttpPathMall.SEND_MSG);
+                                AppHttpPath.SEND_MSG);
 
 
                     }
                 }
                 scrollRecyclerview();
                 break;
-            case AppHttpPathMall.UNREAD_CONTACT_MSG:
+            case AppHttpPath.UNREAD_CONTACT_MSG:
                 MessageListBean messageListBean = (MessageListBean) o;
                 if (messageListBean != null) {
                     List<MessageBodyBean> messageBodyBeans = messageListBean.getData();
@@ -639,7 +639,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                                 MessageBodyBean endBean = messageBodyBeans.get(i + 1);
                                 addDateTag(startBean, endBean);
                             }
-                            ObjectBoxMallUtil.addMessage(startBean);
+                            ObjectBoxUtil.addMessage(startBean);
                         }
                         initAdapterData(getIntent());
                     }
@@ -1057,7 +1057,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                             messageBodyBean);
                     chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_PIC_VIDEO, messageBodyBean));
                     scrollRecyclerview();
-                    ObjectBoxMallUtil.addMessage(messageBodyBean);
+                    ObjectBoxUtil.addMessage(messageBodyBean);
                     allPicVideoPath.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, messageBodyBean.getContent()));
                     break;
                 case 2:
@@ -1078,7 +1078,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                                         messageBodyBean);
                                 chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_PIC_VIDEO, messageBodyBean));
                                 messageBodyBean.setAdapterPosition(chatAdapter.getData().size() - 1);
-                                ObjectBoxMallUtil.addMessage(messageBodyBean);
+                                ObjectBoxUtil.addMessage(messageBodyBean);
                                 scrollRecyclerview();
                                 //上传视频文件
                                 mUploadUtil.submit(ChatActivity.this, new UploadFileBean(messageBodyBean.getLocalCatchPath(), messageBodyBean));
@@ -1098,9 +1098,9 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
                     messageBodyBean.setContent(filePaths.get(0));
                     break;
             }
-            ObjectBoxMallUtil.addMessage(messageBodyBean);
+            ObjectBoxUtil.addMessage(messageBodyBean);
             if (!TextUtils.isEmpty(messageBodyBean.getContent())) {
-                mPresenter.sendPrivateMessage(OperateMsgUtil.getMsgBuilder(messageBodyBean).build(), AppHttpPathMall.SEND_MSG);
+                mPresenter.sendPrivateMessage(OperateMsgUtil.getMsgBuilder(messageBodyBean).build(), AppHttpPath.SEND_MSG);
 
             }
 
@@ -1139,11 +1139,11 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
     private void sendNormalMsg(ContactBean toContactBean, String content) {
         MessageBodyBean messageBody = OperateMsgUtil.getPrivateMsg(0, toContactBean.getUserId(), toContactBean.getAccount(),
                 toContactBean.getNickname(), toContactBean.getHeadPortrait(), content);
-        mPresenter.sendPrivateMessage(OperateMsgUtil.getMsgBuilder(messageBody).build(), AppHttpPathMall.SEND_MSG);
+        mPresenter.sendPrivateMessage(OperateMsgUtil.getMsgBuilder(messageBody).build(), AppHttpPath.SEND_MSG);
         addDateTag(mPresenter.findPrivateChatRecordLastMessage(messageBody.getFromUserId()), messageBody);
         chatAdapter.addData(new MultipleItem(MultipleItem.ITEM_CHAT_TEXT_MSG, messageBody));
         scrollRecyclerview();
-        ObjectBoxMallUtil.addMessage(messageBody);
+        ObjectBoxUtil.addMessage(messageBody);
     }
 
 

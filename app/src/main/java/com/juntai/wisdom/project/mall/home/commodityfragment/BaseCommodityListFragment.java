@@ -7,12 +7,12 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.CommodityDesListBean;
+import com.juntai.disabled.basecomponent.bean.CommodityBean;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
-import com.juntai.disabled.basecomponent.bean.CommodityBean;
-import com.juntai.wisdom.project.mall.beans.CommodityDesListBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
@@ -118,7 +118,7 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
             builder.add("page", String.valueOf(page))
                     .add("limit", String.valueOf(limit));
             mPresenter.getCommodityRecommendList(0 == labelId ? builder.build() : builder
-                    .add("categoryId", String.valueOf(labelId)).build(), AppHttpPathMall.COMMODIFY_RECOMMEND);
+                    .add("categoryId", String.valueOf(labelId)).build(), AppHttpPath.COMMODIFY_RECOMMEND);
         }
 
     }
@@ -129,7 +129,7 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
         }
         mPresenter.startSearchCommodity(getBaseAppActivity().getBaseBuilderWithoutParama()
                 .add("key", key)
-                .add("type", "1").build(), AppHttpPathMall.SEARCH_COMMODITY
+                .add("type", "1").build(), AppHttpPath.SEARCH_COMMODITY
         );
 
     }
@@ -152,8 +152,8 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
         super.onSuccess(tag, o);
 
         switch (tag) {
-            case AppHttpPathMall.COMMODIFY_RECOMMEND:
-            case AppHttpPathMall.SEARCH_COMMODITY:
+            case AppHttpPath.COMMODIFY_RECOMMEND:
+            case AppHttpPath.SEARCH_COMMODITY:
                 CommodityDesListBean desListBean = (CommodityDesListBean) o;
                 if (desListBean != null) {
                     CommodityDesListBean.DataBean dataBean = desListBean.getData();

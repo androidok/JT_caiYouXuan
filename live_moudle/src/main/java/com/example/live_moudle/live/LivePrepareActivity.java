@@ -12,13 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.LiveResultBean;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
-import com.example.live_moudle.bean.LiveResultBean;
-import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
-import com.example.live_moudle.net.AppHttpPathLive;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.base.BaseSelectPicsActivity;
+import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -82,14 +82,14 @@ public class LivePrepareActivity extends BaseSelectPicsActivity<LivePresent> imp
 
     @Override
     public void initData() {
-        mPresenter.getLiveType(AppHttpPathLive.GET_LIVE_TYPE);
+        mPresenter.getLiveType(AppHttpPath.GET_LIVE_TYPE);
     }
 
 
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
-            case AppHttpPathLive.UPLOAD_PICS:
+            case AppHttpPath.UPLOAD_PICS:
                 List<String> paths = (List<String>) o;
                 if (paths != null && !paths.isEmpty()) {
                     liveCover = paths.get(0);
@@ -97,14 +97,14 @@ public class LivePrepareActivity extends BaseSelectPicsActivity<LivePresent> imp
                 }
                 break;
 
-            case AppHttpPathLive.GET_LIVE_TYPE:
+            case AppHttpPath.GET_LIVE_TYPE:
                 LiveTypeListBean liveTypeListBean = (LiveTypeListBean) o;
                 if (liveTypeListBean != null) {
                     liveTypes = liveTypeListBean.getData();
                 }
 
                 break;
-            case AppHttpPathLive.START_LIVE:
+            case AppHttpPath.START_LIVE:
                 LiveResultBean liveResultBean = (LiveResultBean) o;
                 if (liveResultBean != null) {
                     LiveResultBean.DataBean resultBean = liveResultBean.getData();
@@ -120,7 +120,7 @@ public class LivePrepareActivity extends BaseSelectPicsActivity<LivePresent> imp
     @Override
     protected void selectedPicsAndEmpressed(List<String> icons) {
         String pic = icons.get(0);
-        mPresenter.uploadFile(AppHttpPathLive.UPLOAD_PICS, pic);
+        mPresenter.uploadFile(AppHttpPath.UPLOAD_PICS, pic);
 
     }
 
@@ -147,7 +147,7 @@ public class LivePrepareActivity extends BaseSelectPicsActivity<LivePresent> imp
             mPresenter.startLive(mPresenter.getBaseBuilder()
                     .add("title", getTextViewValue(mLiveTitle))
                     .add("coverImg", liveCover)
-                    .add("type", String.valueOf(liveTypeId)).build(), AppHttpPathLive.START_LIVE
+                    .add("type", String.valueOf(liveTypeId)).build(), AppHttpPath.START_LIVE
             );
         }
     }

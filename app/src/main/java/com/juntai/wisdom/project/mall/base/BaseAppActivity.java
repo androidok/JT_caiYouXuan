@@ -13,11 +13,15 @@ import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
+import com.example.app_basemodule.bean.order.CreatOrderBean;
+import com.example.app_basemodule.bean.order.OrderDetailBean;
+import com.example.app_basemodule.net.AppHttpPath;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
-import com.example.chat.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
+import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
@@ -29,10 +33,7 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.beans.order.CreatOrderBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderDetailBean;
 import com.juntai.wisdom.project.mall.entrance.LoginActivity;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.CommodityDetailActivity;
 import com.juntai.wisdom.project.mall.home.shop.ShopActivity;
@@ -40,7 +41,7 @@ import com.juntai.wisdom.project.mall.mine.address.AddOrEditAddressActivity;
 import com.juntai.wisdom.project.mall.mine.address.AddressListActivity;
 import com.juntai.wisdom.project.mall.news.ChatActivity;
 import com.juntai.wisdom.project.mall.order.allOrder.AllOrderActivity;
-import com.juntai.wisdom.project.mall.order.confirmOrder.ConfirmOrderActivity;
+import com.example.live_moudle.confirmOrder.ConfirmOrderActivity;
 import com.juntai.wisdom.project.mall.order.evaluate.EvaluateActivity;
 import com.juntai.wisdom.project.mall.order.orderDetail.OrderDetailActivity;
 import com.juntai.wisdom.project.mall.order.orderPay.OrderPayActivity;
@@ -48,7 +49,7 @@ import com.juntai.wisdom.project.mall.order.refund.RefundActivity;
 import com.juntai.wisdom.project.mall.order.refund.RefundRequestActivity;
 import com.juntai.wisdom.project.mall.search.SearchActivity;
 import com.juntai.wisdom.project.mall.utils.StringTools;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
+import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,7 +139,9 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      * 重新登录
      */
     public void reLogin(String regPhone) {
-        UserInfoManagerMall.clearUserData();//清理数据
+        UserInfoManager.clearUserData();//清理数据
+        //ws退出连接
+        MyWsManager.getInstance().disconnect();
         HawkProperty.clearRedPoint(mContext.getApplicationContext());
         ActivityManagerTool.getInstance().finishApp();
         startActivity(new Intent(this, LoginActivity.class).putExtra(BASE_STRING, regPhone
@@ -224,7 +227,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
 
     @Override
     protected String getUpdateHttpUrl() {
-        return AppHttpPathMall.APP_UPDATE;
+        return AppHttpPath.APP_UPDATE;
     }
 
     /**
@@ -279,10 +282,10 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      */
     public FormBody.Builder getBaseBuilder() {
         FormBody.Builder builder = new FormBody.Builder()
-                .add("account", UserInfoManagerMall.getAccount())
-                .add("token", UserInfoManagerMall.getUserToken())
-                .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
-                .add("userId", String.valueOf(UserInfoManagerMall.getUserId()));
+                .add("account", UserInfoManager.getAccount())
+                .add("token", UserInfoManager.getUserToken())
+                .add("typeEnd", UserInfoManager.DEVICE_TYPE)
+                .add("userId", String.valueOf(UserInfoManager.getUserId()));
         return builder;
     }
 

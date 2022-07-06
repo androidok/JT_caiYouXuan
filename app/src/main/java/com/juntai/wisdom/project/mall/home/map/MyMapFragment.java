@@ -33,6 +33,9 @@ import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.AroundShopBean;
+import com.example.app_basemodule.bean.IdNameBean;
+import com.example.app_basemodule.bean.PicTextBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -41,12 +44,9 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.disabled.bdmap.utils.MapUtil;
 import com.juntai.disabled.bdmap.utils.clusterutil.clustering.Cluster;
 import com.juntai.disabled.bdmap.utils.clusterutil.clustering.ClusterManager;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
-import com.juntai.wisdom.project.mall.beans.AroundShopBean;
-import com.juntai.wisdom.project.mall.beans.IdNameBean;
-import com.juntai.wisdom.project.mall.beans.PicTextBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.HomePagePresent;
 import com.juntai.wisdom.project.mall.home.map.weather.WeatherActivity;
@@ -266,7 +266,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
         mPresenter.getAroundShopes(getBaseAppActivity().getBaseBuilderWithoutParama()
                 .add("longitude", String.valueOf(lng))
                 .add("latitude", String.valueOf(lat))
-                .add("categoryId", String.valueOf(labelId)).build(), AppHttpPathMall.GET_SHOPES_AROUND
+                .add("categoryId", String.valueOf(labelId)).build(), AppHttpPath.GET_SHOPES_AROUND
         );
     }
 
@@ -465,7 +465,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
-            case AppHttpPathMall.GET_SHOPES_AROUND:
+            case AppHttpPath.GET_SHOPES_AROUND:
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                 AroundShopBean aroundShopBean = (AroundShopBean) o;
                 if (aroundShopBean != null) {

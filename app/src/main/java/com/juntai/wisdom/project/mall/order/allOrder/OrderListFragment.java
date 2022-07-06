@@ -7,14 +7,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
-import com.juntai.wisdom.project.mall.beans.order.OrderDetailBean;
-import com.juntai.wisdom.project.mall.beans.order.OrderListBean;
+import com.example.app_basemodule.bean.order.OrderDetailBean;
+import com.example.app_basemodule.bean.order.OrderListBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 
@@ -93,7 +93,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         mPresenter.cancelOrder(getBaseAppActivity().getBaseBuilder()
-                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.CANCEL_ORDER);
+                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPath.CANCEL_ORDER);
                                     }
                                 });
 
@@ -123,7 +123,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                                 break;
                             case HomePageContract.ORDER_SEND:
                                 // : 2022/5/12 提醒发货
-                                mPresenter.noticeSend(getBaseAppActivity().getBaseBuilder().add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.NOTICE_SEND);
+                                mPresenter.noticeSend(getBaseAppActivity().getBaseBuilder().add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPath.NOTICE_SEND);
 
                                 break;
                             case HomePageContract.ORDER_RECEIVE:
@@ -132,7 +132,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         mPresenter.confirmReceived(getBaseAppActivity().getBaseBuilder()
-                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.CONFIRM_RECEIVED);
+                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPath.CONFIRM_RECEIVED);
                                     }
                                 });
                                 break;
@@ -151,7 +151,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         mPresenter.deleteCancelOrder(getBaseAppActivity().getBaseBuilder()
-                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.DELETE_CANCEL_ORDER);
+                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPath.DELETE_CANCEL_ORDER);
                                     }
                                 });
 
@@ -202,7 +202,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                 .add("page", String.valueOf(page))
                 .add("key",key)
                 .add("limit", String.valueOf(limit))
-                .add("type", String.valueOf(labelId)).build(), AppHttpPathMall.ORDER_LIST
+                .add("type", String.valueOf(labelId)).build(), AppHttpPath.ORDER_LIST
         );
     }
 
@@ -216,7 +216,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag, o);
         switch (tag) {
-            case AppHttpPathMall.ORDER_LIST:
+            case AppHttpPath.ORDER_LIST:
                 OrderListBean orderListBean = (OrderListBean) o;
                 if (orderListBean != null) {
                     OrderListBean.DataBean dataBean = orderListBean.getData();
@@ -228,18 +228,18 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
 
 
                 break;
-            case AppHttpPathMall.CANCEL_ORDER:
+            case AppHttpPath.CANCEL_ORDER:
                 ToastUtils.toast(mContext, "已取消订单");
                 EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, ""));
                 break;
-            case AppHttpPathMall.NOTICE_SEND:
+            case AppHttpPath.NOTICE_SEND:
                 ToastUtils.toast(mContext, "已通知卖家尽快发货");
                 break;
-            case AppHttpPathMall.CONFIRM_RECEIVED:
+            case AppHttpPath.CONFIRM_RECEIVED:
                 EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, ""));
 
                 break;
-            case AppHttpPathMall.DELETE_CANCEL_ORDER:
+            case AppHttpPath.DELETE_CANCEL_ORDER:
                 ToastUtils.toast(mContext, "已删除订单");
                 EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, ""));
 

@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
-import com.juntai.wisdom.project.mall.AppNetModuleMall;
+import com.example.app_basemodule.net.AppNetModule;
 import com.juntai.wisdom.project.mall.base.OnBaseCallBack;
 
 import java.util.concurrent.TimeUnit;
@@ -60,7 +60,7 @@ public class KeepAliveService extends Service {
                 .doOnNext(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        AppNetModuleMall.createrRetrofit()
+                        AppNetModule.createrRetrofit()
                                 .keepAlive(sessionId)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())

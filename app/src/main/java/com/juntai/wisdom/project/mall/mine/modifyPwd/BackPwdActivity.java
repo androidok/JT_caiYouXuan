@@ -1,7 +1,7 @@
 package com.juntai.wisdom.project.mall.mine.modifyPwd;
 
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.MD5;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.base.BaseWithSmsActivity;
 
 /**
@@ -33,7 +33,7 @@ public class BackPwdActivity extends BaseWithSmsActivity {
         mPresenter.modifyPwd(
                 getBaseBuilder().add("phone", getTextViewValue(mRegistPhoneEt))
                         .add("code", getTextViewValue(mRegistCheckCodeEt))
-                        .add("newPwd", MD5.md5(String.format("%s#%s", getTextViewValue(mRegistPhoneEt), getTextViewValue(mPasswordEt)))).build(), AppHttpPathMall.MODIFY_PWD);
+                        .add("newPwd", MD5.md5(String.format("%s#%s", getTextViewValue(mRegistPhoneEt), getTextViewValue(mPasswordEt)))).build(), AppHttpPath.MODIFY_PWD);
     }
 
 }

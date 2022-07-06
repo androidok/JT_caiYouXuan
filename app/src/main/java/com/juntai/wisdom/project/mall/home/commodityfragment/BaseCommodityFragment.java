@@ -6,19 +6,19 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.app_basemodule.bean.IdNameBean;
+import com.example.app_basemodule.net.AppHttpPath;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
 import com.juntai.wisdom.project.mall.base.customview.CustomViewPager;
-import com.juntai.wisdom.project.mall.beans.IdNameBean;
-import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.shop.ShopActivity;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
@@ -178,16 +178,16 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
 
         switch (getType()) {
             case 0:
-                mPresenter.getCommodityLaBels(AppHttpPathMall.COMMODIFY_LABELS);
+                mPresenter.getCommodityLaBels(AppHttpPath.COMMODIFY_LABELS);
                 break;
             case 1:
                 // : 2022/7/4 获取直播菜单列表
-                mPresenter.getLiveType(AppHttpPathMall.GET_LIVE_TYPE);
+                mPresenter.getLiveType(AppHttpPath.GET_LIVE_TYPE);
                 break;
             case 2:
                 mPresenter.getShopDetail(getBaseAppActivity().getBaseBuilderWithoutParama().add("shopId", String.valueOf(((ShopActivity) getActivity()).shopId)
-                        ).add("userId", String.valueOf(UserInfoManagerMall.getUserId())).build()
-                        , AppHttpPathMall.SHOP_DETAIL);
+                        ).add("userId", String.valueOf(UserInfoManager.getUserId())).build()
+                        , AppHttpPath.SHOP_DETAIL);
                 break;
             default:
                 break;
@@ -214,7 +214,7 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
-            case AppHttpPathMall.COMMODIFY_LABELS:
+            case AppHttpPath.COMMODIFY_LABELS:
                 List<IdNameBean.DataBean> dataBeans = (List<IdNameBean.DataBean>) o;
                 if (!dataBeans.isEmpty()) {
                     Hawk.put(HawkProperty.LOCAL_LABEL, dataBeans);
@@ -222,7 +222,7 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
                 }
                 break;
 
-            case AppHttpPathMall.GET_LIVE_TYPE:
+            case AppHttpPath.GET_LIVE_TYPE:
                 LiveTypeListBean liveTypeListBean = (LiveTypeListBean) o;
                 if (liveTypeListBean != null) {
                     List<LiveTypeListBean.DataBean>   liveTypes = liveTypeListBean.getData();
@@ -230,7 +230,7 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
                     initTabData();
                 }
                 break;
-            case AppHttpPathMall.SHOP_DETAIL:
+            case AppHttpPath.SHOP_DETAIL:
                 ShopDetailBean shopDetailBean = (ShopDetailBean) o;
                 if (shopDetailBean != null) {
                     ShopDetailBean.DataBean shopBean = shopDetailBean.getData();

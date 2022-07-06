@@ -11,13 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.PicTextBean;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ScreenUtils;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
-import com.juntai.wisdom.project.mall.beans.PicTextBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.HomePagePresent;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.PicTextAdapter;

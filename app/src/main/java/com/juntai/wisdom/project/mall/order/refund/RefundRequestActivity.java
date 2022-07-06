@@ -7,7 +7,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
-import com.juntai.wisdom.project.mall.beans.order.OrderDetailBean;
+import com.example.app_basemodule.bean.order.OrderDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 

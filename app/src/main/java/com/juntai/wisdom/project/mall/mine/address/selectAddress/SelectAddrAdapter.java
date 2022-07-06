@@ -2,8 +2,8 @@ package com.juntai.wisdom.project.mall.mine.address.selectAddress;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.app_basemodule.bean.CitysBean;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.beans.CitysBean;
 
 import java.util.List;
 

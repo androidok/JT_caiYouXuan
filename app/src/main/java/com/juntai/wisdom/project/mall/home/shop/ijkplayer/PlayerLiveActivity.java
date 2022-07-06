@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.dou361.ijkplayer.listener.OnShowThumbnailListener;
 import com.dou361.ijkplayer.utils.MediaUtils;
 import com.dou361.ijkplayer.widget.PlayStateParams;
+import com.example.app_basemodule.bean.PlayUrlBean;
 import com.juntai.disabled.basecomponent.base.BaseDownLoadActivity;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
@@ -32,7 +33,6 @@ import com.juntai.disabled.basecomponent.utils.SoundPlayer;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.MainActivity;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.beans.PlayUrlBean;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

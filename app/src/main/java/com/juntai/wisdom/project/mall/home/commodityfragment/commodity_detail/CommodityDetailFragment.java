@@ -4,12 +4,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.CommodityEvaluationBean;
 import com.example.chat.util.MultipleItem;
+import com.example.app_basemodule.bean.CommodityDetailBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
-import com.example.live_moudle.bean.CommodityDetailBean;
-import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 

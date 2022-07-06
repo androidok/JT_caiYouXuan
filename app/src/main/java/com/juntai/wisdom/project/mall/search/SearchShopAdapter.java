@@ -2,9 +2,9 @@ package com.juntai.wisdom.project.mall.search;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.app_basemodule.bean.ShopListDataBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.beans.ShopListDataBean;
 
 /**
  * @Author: tobato

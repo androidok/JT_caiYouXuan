@@ -7,26 +7,26 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.CommodityEvaluationBean;
+import com.example.app_basemodule.bean.PicTextBean;
+import com.example.app_basemodule.bean.UserBeanMall;
+import com.example.app_basemodule.bean.order.CreatOrderBean;
+import com.example.app_basemodule.bean.CommodityDetailBean;
+import com.example.app_basemodule.net.AppHttpPath;
+import com.example.app_basemodule.utils.UserInfoManager;
+import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
+import com.example.live_moudle.util.ObjectBoxUtil;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
-import com.example.live_moudle.bean.CommodityDetailBean;
-import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
-import com.juntai.wisdom.project.mall.beans.PicTextBean;
-import com.juntai.wisdom.project.mall.beans.UserBeanMall;
-import com.juntai.wisdom.project.mall.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.evaluation.AllEvaluateFragment;
-import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
 import com.juntai.wisdom.project.mall.share.ShareActivity;
-import com.example.live_moudle.util.ObjectBoxMallUtil;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 
 import java.util.List;
 
@@ -108,11 +108,11 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                         // : 2022/5/3 联系店铺客服
                         // : 2022/5/19 获取客服人员的信息
                         FormBody.Builder builder = new FormBody.Builder()
-                                .add("account", UserInfoManagerMall.getAccount())
-                                .add("token", UserInfoManagerMall.getUserToken())
-                                .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
+                                .add("account", UserInfoManager.getAccount())
+                                .add("token", UserInfoManager.getUserToken())
+                                .add("typeEnd", UserInfoManager.DEVICE_TYPE)
                                 .add("userId", String.valueOf(dataBean.getUserId()));
-                        mPresenter.getUserInfo(builder.build(), AppHttpPathMall.GET_USER_INFO);
+                        mPresenter.getUserInfo(builder.build(), AppHttpPath.GET_USER_INFO);
 
                         break;
                     case HomePageContract.COLLECT:
@@ -147,8 +147,8 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
     @Override
     public void initData() {
         mPresenter.getCommodityDetail(getBaseBuilderWithoutParama()
-                .add("userId", String.valueOf(UserInfoManagerMall.getUserId()))
-                .add("commodityId", String.valueOf(commodityId)).build(), AppHttpPathMall.COMMODIFY_DETAIL);
+                .add("userId", String.valueOf(UserInfoManager.getUserId()))
+                .add("commodityId", String.valueOf(commodityId)).build(), AppHttpPath.COMMODIFY_DETAIL);
     }
 
 
@@ -227,14 +227,14 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                                     .add("attributeUnique", commodityPropertyBean.getUnique())
                                     .add("commodityNum", String.valueOf(amount))
                                     .add("commodityAttr", commodityPropertyBean.getSku())
-                                    .build(), AppHttpPathMall.EDIT_CART
+                                    .build(), AppHttpPath.EDIT_CART
                             );
                         } else {
                             mPresenter.creatOrderBuy(getBaseBuilder()
                                     .add("shopId", String.valueOf(commodityPropertyBean.getShopId()))
                                     .add("commodityId", String.valueOf(commodityPropertyBean.getCommodityId()))
                                     .add("unique", commodityPropertyBean.getUnique())
-                                    .add("commodityNum", String.valueOf(amount)).build(), AppHttpPathMall.CREAT_ORDER_BUY
+                                    .add("commodityNum", String.valueOf(amount)).build(), AppHttpPath.CREAT_ORDER_BUY
                             );
                         }
 
@@ -272,7 +272,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
     public void onSuccess(String tag, Object o) {
 
         switch (tag) {
-            case AppHttpPathMall.COMMODIFY_DETAIL:
+            case AppHttpPath.COMMODIFY_DETAIL:
                 CommodityDetailBean commodityDetailBean = (CommodityDetailBean) o;
                 if (commodityDetailBean != null) {
                     dataBean = commodityDetailBean.getData();
@@ -282,15 +282,15 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                     //获取商品评价
                     mPresenter.getCommodityEvaluation(getBaseBuilderWithoutParama()
                             .add("type", "8")
-                            .add("commodityId", String.valueOf(commodityId)).build(), AppHttpPathMall.COMMODIFY_EVALUATION);
+                            .add("commodityId", String.valueOf(commodityId)).build(), AppHttpPath.COMMODIFY_EVALUATION);
 
                     List<CommodityPropertyBean> commodityPropertyBeans = dataBean.getValue();
-                    ObjectBoxMallUtil.addCommodityProperty(dataBean, commodityPropertyBeans);
+                    ObjectBoxUtil.addCommodityProperty(dataBean, commodityPropertyBeans);
 
                 }
                 break;
 
-            case AppHttpPathMall.COMMODIFY_EVALUATION:
+            case AppHttpPath.COMMODIFY_EVALUATION:
                 CommodityEvaluationBean commodityEvaluationBean = (CommodityEvaluationBean) o;
                 if (commodityEvaluationBean != null) {
                     List<CommodityEvaluationBean.DataBean> arrays = commodityEvaluationBean.getData();
@@ -300,7 +300,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
 
                 break;
 
-            case AppHttpPathMall.EDIT_CART:
+            case AppHttpPath.EDIT_CART:
                 ToastUtils.toast(mContext, "已加入购物车");
                 break;
             case HomePageContract.UN_COLLECT_COMMODITY_SHOP:
@@ -313,7 +313,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                 picTextAdapter.setNewData(mPresenter.getCommodityBottomMenus(true));
 
                 break;
-            case AppHttpPathMall.CREAT_ORDER_BUY:
+            case AppHttpPath.CREAT_ORDER_BUY:
                 CreatOrderBean creatOrderBean = (CreatOrderBean) o;
                 if (creatOrderBean != null) {
                     CreatOrderBean.DataBean dataBean = creatOrderBean.getData();
@@ -322,7 +322,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                 }
                 break;
 
-            case AppHttpPathMall.GET_USER_INFO:
+            case AppHttpPath.GET_USER_INFO:
                 UserBeanMall loginBean = (UserBeanMall) o;
                 if (loginBean != null) {
                     // : 2022/5/19 进入到聊天的界面

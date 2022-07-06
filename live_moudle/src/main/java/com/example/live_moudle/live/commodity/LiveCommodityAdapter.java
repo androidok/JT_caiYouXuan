@@ -18,6 +18,8 @@ public class LiveCommodityAdapter extends BaseQuickAdapter<CommodityBean, BaseVi
 
     @Override
     protected void convert(BaseViewHolder helper, CommodityBean item) {
+        helper.addOnClickListener(R.id.live_add_to_cart_iv);
+        helper.addOnClickListener(R.id.linearlayout_commodity_buy_tv);
         ImageLoadUtil.loadSquareImage(mContext,item.getCoverImg(),helper.getView(R.id.linearlayout_commodity_cover_iv));
         helper.setText(R.id.linearlayout_commodity_des_tv, item.getName());
         helper.setText(R.id.linearlayout_commodity_price_tv,String.format("￥%s",item.getPrice()));

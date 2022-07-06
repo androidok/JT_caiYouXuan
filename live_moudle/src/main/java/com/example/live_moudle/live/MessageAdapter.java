@@ -2,8 +2,8 @@ package com.example.live_moudle.live;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.app_basemodule.bean.LiveMsgBean;
 import com.example.live_moudle.R;
-import com.example.live_moudle.bean.LiveMsgBean;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 
 import java.util.List;

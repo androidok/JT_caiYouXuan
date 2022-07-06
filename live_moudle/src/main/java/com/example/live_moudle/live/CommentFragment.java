@@ -15,18 +15,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.live_moudle.LivePresent;
+import com.example.app_basemodule.bean.LiveMsgBean;
+import com.example.app_basemodule.net.AppHttpPath;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.live_moudle.R;
 import com.example.live_moudle.base.InputTextMsgDialog;
-import com.example.live_moudle.bean.LiveMsgBean;
 import com.example.live_moudle.live.commodity.BaseLiveCommoditiesFragment;
-import com.example.live_moudle.net.AppHttpPathLive;
-import com.example.live_moudle.util.UserInfoManagerLive;
 import com.example.live_moudle.websocket.IEvent;
 import com.example.live_moudle.websocket.SocketManager;
 import com.juntai.disabled.basecomponent.bean.CommodityBean;
 import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
-import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 
 import java.util.List;
@@ -39,7 +37,7 @@ import okhttp3.FormBody;
  * @description 描述  评论
  * @date 2022/7/2 15:07
  */
-public class CommentFragment extends BaseLiveCommoditiesFragment<LivePresent> implements IView, View.OnClickListener, IEvent {
+public class CommentFragment extends BaseLiveCommoditiesFragment implements View.OnClickListener, IEvent {
     private static final String TAG = "ChatRoomFragment";
     private static final int REQUEST_LOGIN = 0;
     private static final int TYPING_TIMER_LENGTH = 600;
@@ -69,10 +67,7 @@ public class CommentFragment extends BaseLiveCommoditiesFragment<LivePresent> im
     }
 
 
-    @Override
-    protected LivePresent createPresenter() {
-        return new LivePresent();
-    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -105,7 +100,7 @@ public class CommentFragment extends BaseLiveCommoditiesFragment<LivePresent> im
             mLiveShareIv.setVisibility(View.GONE);
         }
 
-        SocketManager.getInstance().connect(AppHttpPathLive.BASE_LIVE_URL, String.valueOf(UserInfoManagerLive.getUserId()), liveRoomId, "0", this);
+        SocketManager.getInstance().connect(AppHttpPath.BASE_LIVE_URL, String.valueOf(UserInfoManager.getUserId()), liveRoomId, "0", this);
     }
 
     @Override
@@ -126,10 +121,11 @@ public class CommentFragment extends BaseLiveCommoditiesFragment<LivePresent> im
 
     @Override
     public void onSuccess(String tag, Object o) {
+        super.onSuccess(tag,o);
         switch (tag) {
             default:
                 break;
-            case AppHttpPathLive.LIVE_ROOM_COMMODITIES:
+            case AppHttpPath.LIVE_ROOM_COMMODITIES:
                 ShopCommodityListBean shopCommodityListBean = (ShopCommodityListBean) o;
                 if (shopCommodityListBean != null) {
                     List<CommodityBean> arrrays = shopCommodityListBean.getData();
@@ -237,9 +233,9 @@ public class CommentFragment extends BaseLiveCommoditiesFragment<LivePresent> im
             return;
         }
         mInputMessageView.setText("");
-        addMessage(UserInfoManagerLive.getUserNickName(), message);
+        addMessage(UserInfoManager.getUserNickName(), message);
 // : 2022/7/3 发送消息
-        SocketManager.getInstance().sendMsg(liveRoomId, String.valueOf(UserInfoManagerLive.getUserId()), message);
+        SocketManager.getInstance().sendMsg(liveRoomId, String.valueOf(UserInfoManager.getUserId()), message);
     }
 
     private void scrollToBottom() {
@@ -256,7 +252,7 @@ public class CommentFragment extends BaseLiveCommoditiesFragment<LivePresent> im
         } else if (id == R.id.live_commodities_iv) {
             // : 2022/7/5 商品
             FormBody.Builder builder = new FormBody.Builder().add("shopId", String.valueOf(shopId));
-            mPresenter.getLiveRoomCommodities(builder.build(), AppHttpPathLive.LIVE_ROOM_COMMODITIES);
+            mPresenter.getLiveRoomCommodities(builder.build(), AppHttpPath.LIVE_ROOM_COMMODITIES);
 
         }
     }
@@ -275,7 +271,7 @@ public class CommentFragment extends BaseLiveCommoditiesFragment<LivePresent> im
     @Override
     public void onOpen() {
         handler.post(() -> {
-            SocketManager.getInstance().sendJoin(liveRoomId, String.valueOf(UserInfoManagerLive.getUserId()));
+            SocketManager.getInstance().sendJoin(liveRoomId, String.valueOf(UserInfoManager.getUserId()));
             addLog(getString(R.string.live_welcome));
             addParticipantsLog(1);
         });

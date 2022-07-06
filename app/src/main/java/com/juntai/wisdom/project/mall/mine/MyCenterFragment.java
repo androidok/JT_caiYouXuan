@@ -10,21 +10,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.PicTextBean;
+import com.example.app_basemodule.bean.UserBeanMall;
+import com.example.app_basemodule.bean.order.OrderStatusAmountBean;
+import com.example.app_basemodule.net.AppHttpPath;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.utils.DialogUtil;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
-import com.juntai.wisdom.project.mall.beans.PicTextBean;
-import com.juntai.wisdom.project.mall.beans.UserBeanMall;
-import com.juntai.wisdom.project.mall.beans.order.OrderStatusAmountBean;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.PicTextAdapter;
 import com.juntai.wisdom.project.mall.mine.collect.CollectCommoditiesActivity;
 import com.juntai.wisdom.project.mall.mine.collect.CollectShopesActivity;
 import com.juntai.wisdom.project.mall.mine.setting.MyInformationActivity;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.List;
@@ -71,15 +71,15 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     protected void initView() {
         mHeadImage = getView(R.id.headImage_iv);
         mHeadImage.setOnClickListener(this);
-        ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage);
+        ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManager.getHeadPic(), mHeadImage);
         mNickname = getView(R.id.nickname_tv);
-        mNickname.setText(UserInfoManagerMall.getUserNickName());
+        mNickname.setText(UserInfoManager.getUserNickName());
         mLoginOut = getView(R.id.login_out_tv);
         mLoginOut.setOnClickListener(this);
         mSetIv = (ImageView) getView(R.id.set_iv);
         mSetIv.setOnClickListener(this);
         mDesTv = (TextView) getView(R.id.des_tv);
-        mDesTv.setText(String.format("账号:%s", UserInfoManagerMall.getAccount()));
+        mDesTv.setText(String.format("账号:%s", UserInfoManager.getAccount()));
         mCollectRv = (RecyclerView) getView(R.id.collect_rv);
         mAllOrdersTv = (TextView) getView(R.id.all_orders_tv);
         mAllOrdersTv.setOnClickListener(this);
@@ -169,10 +169,10 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     @Override
     public void onResume() {
         super.onResume();
-        if (UserInfoManagerMall.isLogin()) {
+        if (UserInfoManager.isLogin()) {
             mLoginOut.setVisibility(View.VISIBLE);
-            mPresenter.getOrderStatusAmount(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.ORDER_STATUS_AMOUNT);
-            mPresenter.getUserInfo(getBaseAppActivity().getBaseBuilder().build(),AppHttpPathMall.GET_USER_INFO);
+            mPresenter.getOrderStatusAmount(getBaseAppActivity().getBaseBuilder().build(), AppHttpPath.ORDER_STATUS_AMOUNT);
+            mPresenter.getUserInfo(getBaseAppActivity().getBaseBuilder().build(), AppHttpPath.GET_USER_INFO);
         } else {
             mLoginOut.setVisibility(View.GONE);
         }
@@ -192,7 +192,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
     @Override
     public void onClick(View v) {
-        if (!UserInfoManagerMall.isLogin()) {
+        if (!UserInfoManager.isLogin()) {
 //            MyChatApp.goLogin();
             return;
         }
@@ -204,7 +204,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         // : 2022/5/16 调用退出登录的接口
-                        mPresenter.logout(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.LOGOUT);
+                        mPresenter.logout(getBaseAppActivity().getBaseBuilder().build(), AppHttpPath.LOGOUT);
 
                     }
                 }).show();
@@ -223,7 +223,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
-            case AppHttpPathMall.ORDER_STATUS_AMOUNT:
+            case AppHttpPath.ORDER_STATUS_AMOUNT:
                 OrderStatusAmountBean statusAmountBean = (OrderStatusAmountBean) o;
                 if (statusAmountBean != null) {
                     OrderStatusAmountBean.DataBean dataBean = statusAmountBean.getData();
@@ -254,16 +254,16 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                     }
                 }
                 break;
-            case AppHttpPathMall.LOGOUT:
-                getBaseAppActivity().reLogin(UserInfoManagerMall.getPhoneNumber());
+            case AppHttpPath.LOGOUT:
+                getBaseAppActivity().reLogin(UserInfoManager.getPhoneNumber());
 
                 break;
-            case AppHttpPathMall.GET_USER_INFO:
+            case AppHttpPath.GET_USER_INFO:
                 UserBeanMall loginBean = (UserBeanMall) o;
                 if (loginBean != null) {
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
-                    ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage);
-                    mNickname.setText(UserInfoManagerMall.getUserNickName());
+                    ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManager.getHeadPic(), mHeadImage);
+                    mNickname.setText(UserInfoManager.getUserNickName());
                 }
                 break;
             default:

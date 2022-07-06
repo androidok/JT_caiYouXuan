@@ -13,13 +13,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.app_basemodule.bean.CitysBean;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
-import com.juntai.wisdom.project.mall.beans.CitysBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.mine.address.selectAddress.SelectAddressDialogFragment;
 import com.orhanobut.hawk.Hawk;
@@ -102,7 +102,7 @@ public class AddOrEditAddressActivity extends BaseAppActivity<AddrPresent> imple
             public void onClick(DialogInterface dialog, int which) {
                 List<Integer> ids = new ArrayList<>();
                 ids.add(dataBean.getId());
-                mPresenter.deleteAddr(ids, AppHttpPathMall.DELETE_ADDR);
+                mPresenter.deleteAddr(ids, AppHttpPath.DELETE_ADDR);
             }
         }, new DialogInterface.OnClickListener() {
             @Override
@@ -117,7 +117,7 @@ public class AddOrEditAddressActivity extends BaseAppActivity<AddrPresent> imple
     }
 
     public void getAllCitys(String keyword) {
-        mPresenter.getAllCitys(keyword, AppHttpPathMall.ALL_CITYS);
+        mPresenter.getAllCitys(keyword, AppHttpPath.ALL_CITYS);
     }
 
     public void setAddrDes(String addrDes) {
@@ -145,7 +145,7 @@ public class AddOrEditAddressActivity extends BaseAppActivity<AddrPresent> imple
             if (dataBean != null) {
                 builder.add("id", String.valueOf(dataBean.getId()));
             }
-            mPresenter.addOrEditAddrList(builder.build(), AppHttpPathMall.ADD_OR_EDIT_ADDR);
+            mPresenter.addOrEditAddrList(builder.build(), AppHttpPath.ADD_OR_EDIT_ADDR);
         }
     }
 
@@ -234,7 +234,7 @@ public class AddOrEditAddressActivity extends BaseAppActivity<AddrPresent> imple
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
-            case AppHttpPathMall.ALL_CITYS:
+            case AppHttpPath.ALL_CITYS:
                 CitysBean citysBean = (CitysBean) o;
                 canClick = true;
                 if (citysBean != null) {
@@ -247,7 +247,7 @@ public class AddOrEditAddressActivity extends BaseAppActivity<AddrPresent> imple
                 }
                 break;
 
-            case AppHttpPathMall.ADD_OR_EDIT_ADDR:
+            case AppHttpPath.ADD_OR_EDIT_ADDR:
                 if (dataBean != null) {
                     ToastUtils.toast(mContext, "已修改");
                 } else {
@@ -255,7 +255,7 @@ public class AddOrEditAddressActivity extends BaseAppActivity<AddrPresent> imple
                 }
                 finish();
                 break;
-            case AppHttpPathMall.DELETE_ADDR:
+            case AppHttpPath.DELETE_ADDR:
                 ToastUtils.toast(mContext, "已删除");
                 finish();
                 break;

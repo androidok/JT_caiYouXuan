@@ -3,8 +3,8 @@ package com.juntai.wisdom.project.mall.home.shop;
 import android.os.Bundle;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.example.chat.util.MultipleItem;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchActivity;
 import com.juntai.disabled.basecomponent.bean.CommodityBean;
 import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
@@ -44,7 +44,7 @@ public class SearchShopCommodityActivity extends BaseSearchActivity<ShopPresent>
     protected boolean commitSearch(String s) {
         mPresenter.getShopCommodityList(getBaseBuilderWithoutParama()
                 .add("shopId", String.valueOf(shopId))
-                .add("key", s).build(), AppHttpPathMall.SHOP_COMMODITY_LIST);
+                .add("key", s).build(), AppHttpPath.SHOP_COMMODITY_LIST);
         return true;
     }
 
@@ -71,7 +71,7 @@ public class SearchShopCommodityActivity extends BaseSearchActivity<ShopPresent>
         super.onSuccess(tag, o);
 
         switch (tag) {
-            case AppHttpPathMall.SHOP_COMMODITY_LIST:
+            case AppHttpPath.SHOP_COMMODITY_LIST:
 
                 ShopCommodityListBean shopCommodityListBean = (ShopCommodityListBean) o;
                 if (shopCommodityListBean != null) {

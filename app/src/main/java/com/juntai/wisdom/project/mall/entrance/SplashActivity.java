@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.wisdom.project.mall.MainActivity;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -44,7 +44,7 @@ public class SplashActivity extends RxAppCompatActivity {
                         } else {
                             //有一个权限没通过
                         }
-                        if (UserInfoManagerMall.isLogin()) {
+                        if (UserInfoManager.isLogin()) {
                             startActivity(new Intent(SplashActivity.this, MainActivity.class));
                         }else {
                             startActivity(new Intent(SplashActivity.this, LoginActivity.class));

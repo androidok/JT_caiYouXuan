@@ -10,12 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.AppHttpPathMall;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
 import com.juntai.wisdom.project.mall.mine.MyCenterContract;
@@ -24,7 +25,6 @@ import com.juntai.wisdom.project.mall.mine.modifyPwd.ModifyPwdActivity;
 import com.juntai.wisdom.project.mall.mine.myinfo.BaseModifyActivity;
 import com.juntai.wisdom.project.mall.mine.myinfo.HeadCropActivity;
 import com.juntai.wisdom.project.mall.mine.myinfo.ModifyNickNameActivity;
-import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +104,7 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
             ImageLoadUtil.loadHeadCirclePic(getApplicationContext(), picPath,
                     imageView);
             //跳转到裁剪头像的界面
-            mPresenter.uploadFile(AppHttpPathMall.UPLOAD_FILES,picPath);
+            mPresenter.uploadFile(AppHttpPath.UPLOAD_FILES,picPath);
 
         }
     }
@@ -124,11 +124,11 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
                 TextKeyValueBean textKeyValueBean = (TextKeyValueBean) adapter.getData().get(position);
                 switch (textKeyValueBean.getKey()) {
                     case MY_INFO_NICK_NAME:
-                        startActivityForResult(new Intent(mContext, ModifyNickNameActivity.class).putExtra(BaseModifyActivity.DEFAULT_HINT, UserInfoManagerMall.getUserNickName()), BASE_REQUEST_RESULT);
+                        startActivityForResult(new Intent(mContext, ModifyNickNameActivity.class).putExtra(BaseModifyActivity.DEFAULT_HINT, UserInfoManager.getUserNickName()), BASE_REQUEST_RESULT);
                         break;
 //                    case MY_INFO_ACCOUNT:
 //                        startActivityForResult(new Intent(mContext, ModifyAccountActivity.class)
-//                                .putExtra(BaseModifyActivity.DEFAULT_HINT, UserInfoManagerMall.getPhoneNumber()), BASE_REQUEST_RESULT);
+//                                .putExtra(BaseModifyActivity.DEFAULT_HINT, UserInfoManager.getPhoneNumber()), BASE_REQUEST_RESULT);
 //                        break;
                     case MY_INFO_MODIFY_PWD:
                         // : 2022/5/6 修改密码
@@ -144,7 +144,7 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
     }
 
     private void initAdapterData() {
-        ContactBean userBean = UserInfoManagerMall.getUser();
+        ContactBean userBean = UserInfoManager.getUser();
         if (userBean != null) {
             List<TextKeyValueBean> beanList = new ArrayList<>();
             beanList.add(new TextKeyValueBean(MY_INFO_NICK_NAME, userBean.getNickname()));
@@ -166,7 +166,7 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
                         imageView);
                 //  调用上传图片的接口
 
-               mPresenter.uploadFile(AppHttpPathMall.UPLOAD_FILES,path);
+               mPresenter.uploadFile(AppHttpPath.UPLOAD_FILES,path);
             }
         } else {
             initAdapterData();
@@ -177,15 +177,15 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag, o);
         switch (tag) {
-            case AppHttpPathMall.UPLOAD_FILES:
+            case AppHttpPath.UPLOAD_FILES:
                 List<String> paths = (List<String>) o;
                 if (paths!=null&&!paths.isEmpty()) {
                     // 调用修改头像的接口
-                    mPresenter.modifyUserInfo(getBaseBuilder().add("headPortrait",paths.get(0)).build(),AppHttpPathMall.MODIFY_USER_INFO);
+                    mPresenter.modifyUserInfo(getBaseBuilder().add("headPortrait",paths.get(0)).build(), AppHttpPath.MODIFY_USER_INFO);
                 }
 
                 break;
-            case AppHttpPathMall.MODIFY_USER_INFO:
+            case AppHttpPath.MODIFY_USER_INFO:
                 ToastUtils.toast(mContext, "更改成功");
                 break;
             default:

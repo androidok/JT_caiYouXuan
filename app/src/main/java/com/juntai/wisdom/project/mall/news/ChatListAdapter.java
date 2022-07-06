@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.app_basemodule.bean.NewsListBean;
 import com.example.chat.R;
 import com.example.chat.util.MultipleItem;
 import com.google.gson.Gson;
@@ -13,7 +14,6 @@ import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.CalendarUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
-import com.juntai.wisdom.project.mall.beans.NewsListBean;
 import com.negier.emojifragment.util.EmojiUtils;
 
 import java.util.List;
