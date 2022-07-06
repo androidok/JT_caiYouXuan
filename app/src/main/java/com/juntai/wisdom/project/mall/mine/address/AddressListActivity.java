@@ -10,14 +10,14 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.net.AppHttpPath;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
-import com.example.live_moudle.confirmOrder.ConfirmOrderActivity;
-import com.example.app_basemodule.utils.UserInfoManager;
+import com.juntai.wisdom.project.mall.order.confirmOrder.ConfirmOrderActivity;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;

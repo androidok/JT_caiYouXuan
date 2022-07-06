@@ -26,6 +26,8 @@ import com.juntai.disabled.basecomponent.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.pili.pldroid.player.AVOptions;
 import com.pili.pldroid.player.PLOnCompletionListener;
 import com.pili.pldroid.player.PLOnErrorListener;
@@ -270,6 +272,10 @@ private LiveListBean.DataBean.ListBean bean;
 
                     }
                 }).show();
+
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_LIVE_COMMODITY_LIST, ""));
+
+
     }
 
     private PLOnInfoListener mOnInfoListener = new PLOnInfoListener() {

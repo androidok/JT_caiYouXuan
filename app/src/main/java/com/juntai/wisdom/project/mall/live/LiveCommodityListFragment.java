@@ -7,14 +7,15 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.net.AppHttpPath;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.live_moudle.live.LiveRoomActivity;
 import com.juntai.disabled.basecomponent.bean.LiveListBean;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
-import com.example.app_basemodule.utils.UserInfoManager;
 
 import java.util.List;
 
@@ -84,7 +85,18 @@ public class LiveCommodityListFragment extends BaseRecyclerviewFragment<Commodit
         });
 
     }
-
+    @Override
+    public void onEvent(EventBusObject eventBusObject) {
+        super.onEvent(eventBusObject);
+        switch (eventBusObject.getEventKey()) {
+            case EventBusObject.REFRESH_LIVE_COMMODITY_LIST:
+                page=1;
+                getRvAdapterData();
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {

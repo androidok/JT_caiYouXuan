@@ -1,4 +1,4 @@
-package com.example.live_moudle.confirmOrder;
+package com.juntai.wisdom.project.mall.order.confirmOrder;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -6,7 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.app_basemodule.bean.order.CreatOrderBean;
-import com.example.live_moudle.R;
+import com.juntai.wisdom.project.mall.R;
+
 
 /**
  * @Author: tobato

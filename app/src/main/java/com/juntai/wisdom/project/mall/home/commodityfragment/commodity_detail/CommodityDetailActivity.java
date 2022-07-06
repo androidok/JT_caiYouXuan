@@ -26,7 +26,7 @@ import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.evaluation.AllEvaluateFragment;
-import com.juntai.wisdom.project.mall.share.ShareActivity;
+import com.example.live_moudle.share.ShareActivity;
 
 import java.util.List;
 

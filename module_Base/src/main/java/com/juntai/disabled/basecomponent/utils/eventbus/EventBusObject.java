@@ -52,6 +52,7 @@ public class EventBusObject {
      * 首页商品列表刷新
      */
     public final static String REFRESH_HOMEPAGE_COMMODITY_LIST = "REFRESH_HOMEPAGE_COMMODITY_LIST";
+    public final static String REFRESH_LIVE_COMMODITY_LIST = "REFRESH_LIVE_COMMODITY_LIST";
     public final static String REFRESH_SEARCH_SHOP_LIST = "REFRESH_SEARCH_SHOP_LIST";
 
     /**
@@ -60,6 +61,10 @@ public class EventBusObject {
     public final static String REFRESH_NEWS_LIST = "REFRESH_NEWS_LIST";
 
     public final static String EVALUATE = "评价";
+    /**
+     * 创建订单
+     */
+    public final static String CREAT_ORDER = "CREAT_ORDER";
     public final static String WEIXIN_PAY_SUCCESS = "WEIXIN_PAY_SUCCESS";
     /**
      * 未读消息总数

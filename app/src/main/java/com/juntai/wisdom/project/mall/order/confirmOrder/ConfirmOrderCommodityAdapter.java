@@ -1,10 +1,10 @@
-package com.example.live_moudle.confirmOrder;
+package com.juntai.wisdom.project.mall.order.confirmOrder;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.app_basemodule.bean.order.CreatOrderBean;
-import com.example.live_moudle.R;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.wisdom.project.mall.R;
 
 /**
  * @Author: tobato

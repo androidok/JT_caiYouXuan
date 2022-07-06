@@ -18,7 +18,7 @@ import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.QRScanActivity;
 import com.juntai.wisdom.project.mall.home.shop.ijkplayer.PlayerLiveActivity;
-import com.juntai.wisdom.project.mall.share.ShareActivity;
+import com.example.live_moudle.share.ShareActivity;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.GlideImageLoader;
 import com.youth.banner.Banner;

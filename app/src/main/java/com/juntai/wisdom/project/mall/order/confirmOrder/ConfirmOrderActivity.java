@@ -1,4 +1,4 @@
-package com.example.live_moudle.confirmOrder;
+package com.juntai.wisdom.project.mall.order.confirmOrder;
 
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
@@ -11,11 +11,14 @@ import com.example.app_basemodule.bean.order.ConfirmOrderBean;
 import com.example.app_basemodule.bean.order.CreatOrderBean;
 import com.example.app_basemodule.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
-import com.example.live_moudle.R;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.wisdom.project.mall.R;
+import com.juntai.wisdom.project.mall.base.BaseAppActivity;
+import com.juntai.wisdom.project.mall.home.HomePageContract;
+import com.juntai.wisdom.project.mall.order.OrderPresent;
 import com.orhanobut.hawk.Hawk;
 
 /**

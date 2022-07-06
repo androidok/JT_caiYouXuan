@@ -1,6 +1,5 @@
 package com.example.live_moudle.live.commodity;
 
-import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -16,6 +15,8 @@ import com.juntai.disabled.basecomponent.bean.CommodityBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 
 import java.util.List;
 
@@ -102,7 +103,7 @@ public abstract class BaseLiveCommoditiesFragment extends BaseMvpFragment<LivePr
                 CreatOrderBean creatOrderBean = (CreatOrderBean) o;
                 if (creatOrderBean != null) {
                     CreatOrderBean.DataBean dataBean = creatOrderBean.getData();
-                    startActivity(new Intent(mContext, ConfirmOrderActivity.class).putExtra(BASE_PARCELABLE, dataBean));
+                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.CREAT_ORDER,dataBean));
 
 
                 }

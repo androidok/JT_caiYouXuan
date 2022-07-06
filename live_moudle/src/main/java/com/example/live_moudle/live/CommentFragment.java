@@ -249,6 +249,8 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
             initInputTextMsgDialog();
         } else if (id == R.id.live_share_iv) {//分享
             // TODO: 2022/7/5 分享
+            ShareActivity.startShareActivity(mContext, 1, dataBean.getCoverImg(), dataBean.getName(),dataBean.getShareUrl());
+
         } else if (id == R.id.live_commodities_iv) {
             // : 2022/7/5 商品
             FormBody.Builder builder = new FormBody.Builder().add("shopId", String.valueOf(shopId));

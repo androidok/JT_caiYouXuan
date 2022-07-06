@@ -41,7 +41,7 @@ import com.juntai.wisdom.project.mall.mine.address.AddOrEditAddressActivity;
 import com.juntai.wisdom.project.mall.mine.address.AddressListActivity;
 import com.juntai.wisdom.project.mall.news.ChatActivity;
 import com.juntai.wisdom.project.mall.order.allOrder.AllOrderActivity;
-import com.example.live_moudle.confirmOrder.ConfirmOrderActivity;
+import com.juntai.wisdom.project.mall.order.confirmOrder.ConfirmOrderActivity;
 import com.juntai.wisdom.project.mall.order.evaluate.EvaluateActivity;
 import com.juntai.wisdom.project.mall.order.orderDetail.OrderDetailActivity;
 import com.juntai.wisdom.project.mall.order.orderPay.OrderPayActivity;
@@ -501,8 +501,10 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
                     OrderDetailBean.CommodityListBean commodityBean = (OrderDetailBean.CommodityListBean) eventBusObject.getEventObj();
                     startToEvaluateActivity(commodityBean);
                 }
-
-
+                break;
+            case EventBusObject.CREAT_ORDER:
+                CreatOrderBean.DataBean dataBean  = (CreatOrderBean.DataBean) eventBusObject.getEventObj();
+                startToConfirmOrder(dataBean);
                 break;
             default:
                 break;
