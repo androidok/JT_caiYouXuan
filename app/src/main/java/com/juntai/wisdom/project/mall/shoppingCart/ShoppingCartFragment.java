@@ -19,13 +19,13 @@ import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.mall.beans.CartListBean;
-import com.juntai.wisdom.project.mall.beans.CommodityDetailBean;
+import com.example.live_moudle.bean.CommodityDetailBean;
 import com.juntai.wisdom.project.mall.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.mall.beans.order.ToCommitSelectedCommoditiesBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
-import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
-import com.juntai.wisdom.project.mall.utils.ObjectBoxMallUtil;
+import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
+import com.example.live_moudle.util.ObjectBoxMallUtil;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

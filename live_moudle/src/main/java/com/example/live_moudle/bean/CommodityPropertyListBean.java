@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.beans;
+package com.example.live_moudle.bean;
 
 import java.util.ArrayList;
 import java.util.List;

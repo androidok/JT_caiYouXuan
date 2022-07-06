@@ -9,12 +9,13 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
-import com.juntai.wisdom.project.mall.beans.CommodityDetailBean;
+import com.example.live_moudle.bean.CommodityDetailBean;
 import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.mall.beans.PicTextBean;
 import com.juntai.wisdom.project.mall.beans.UserBeanMall;
@@ -22,9 +23,9 @@ import com.juntai.wisdom.project.mall.beans.order.CreatOrderBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.evaluation.AllEvaluateFragment;
-import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
+import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
 import com.juntai.wisdom.project.mall.share.ShareActivity;
-import com.juntai.wisdom.project.mall.utils.ObjectBoxMallUtil;
+import com.example.live_moudle.util.ObjectBoxMallUtil;
 import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 
 import java.util.List;
@@ -36,7 +37,7 @@ import okhttp3.FormBody;
  * @description 描述  商品详情
  * @date 2022/5/3 15:55
  */
-public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> implements HomePageContract.IHomePageView, View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
+public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> implements IView, View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
 
     public int commodityId;
     private RecyclerView mCommodityBottomRv;

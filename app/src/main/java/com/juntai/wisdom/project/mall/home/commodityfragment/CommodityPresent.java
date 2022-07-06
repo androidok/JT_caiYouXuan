@@ -3,6 +3,7 @@ package com.juntai.wisdom.project.mall.home.commodityfragment;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.IModel;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.mall.AppNetModuleMall;
@@ -10,7 +11,7 @@ import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppPresent;
 import com.juntai.wisdom.project.mall.beans.CartListBean;
 import com.juntai.wisdom.project.mall.beans.CommodityDesListBean;
-import com.juntai.wisdom.project.mall.beans.CommodityDetailBean;
+import com.example.live_moudle.bean.CommodityDetailBean;
 import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.mall.beans.IdNameBean;
 import com.juntai.wisdom.project.mall.beans.PicTextBean;
@@ -30,7 +31,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/3 10:49
  */
-public class CommodityPresent extends BaseAppPresent<IModel, HomePageContract.IHomePageView> {
+public class CommodityPresent extends BaseAppPresent<IModel, IView> {
     @Override
     protected IModel createModel() {
         return null;

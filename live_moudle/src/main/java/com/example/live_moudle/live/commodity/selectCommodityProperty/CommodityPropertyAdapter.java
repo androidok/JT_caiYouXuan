@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.selectCommodityProperty;
+package com.example.live_moudle.live.commodity.selectCommodityProperty;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -6,8 +6,8 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.beans.CommodityPropertyListBean;
+import com.example.live_moudle.R;
+import com.example.live_moudle.bean.CommodityPropertyListBean;
 
 import java.util.List;
 

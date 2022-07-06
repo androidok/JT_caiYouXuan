@@ -66,11 +66,11 @@ public class CommodityBottomDialog extends BottomSheetDialog implements View.OnC
         adapter = new LiveCommodityAdapter(R.layout.live_commodity_item);
         mBaseBottomDialogRv.setAdapter(adapter);
         mBaseBottomDialogRv.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (onItemClick != null) {
-                    onItemClick.onItemClick(adapter,view,position);
+                    onItemClick.onChildItemClick(adapter,view,position);
                 }
             }
         });
@@ -87,6 +87,6 @@ public class CommodityBottomDialog extends BottomSheetDialog implements View.OnC
     }
 
     public  interface OnItemClick{
-        void  onItemClick(BaseQuickAdapter adapter, View view, int position);
+        void onChildItemClick(BaseQuickAdapter adapter, View view, int position);
     }
 }

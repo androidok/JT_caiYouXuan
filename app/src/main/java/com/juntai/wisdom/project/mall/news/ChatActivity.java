@@ -64,7 +64,7 @@ import com.juntai.wisdom.project.mall.AppHttpPathMall;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
-import com.juntai.wisdom.project.mall.utils.ObjectBoxMallUtil;
+import com.example.live_moudle.util.ObjectBoxMallUtil;
 import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 import com.negier.emojifragment.bean.Emoji;

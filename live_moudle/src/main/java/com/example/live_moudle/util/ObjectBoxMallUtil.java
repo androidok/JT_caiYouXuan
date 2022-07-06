@@ -1,10 +1,10 @@
-package com.juntai.wisdom.project.mall.utils;
+package com.example.live_moudle.util;
 
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean_;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.ObjectBox;
-import com.juntai.wisdom.project.mall.beans.CommodityDetailBean;
+import com.example.live_moudle.bean.CommodityDetailBean;
 
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +70,7 @@ public class ObjectBoxMallUtil {
     public static void addMessage(MessageBodyBean...  messageBodyBean) {
         if (messageBodyBean.length>0) {
             for (MessageBodyBean bodyBean : messageBodyBean) {
-                bodyBean.setOwner(UserInfoManagerMall.getUserId());
+                bodyBean.setOwner(UserInfoManagerLive.getUserId());
                 ObjectBox.get().boxFor(MessageBodyBean.class).put(bodyBean);
             }
         }

@@ -24,7 +24,7 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.news.ChatActivity;
-import com.juntai.wisdom.project.mall.utils.ObjectBoxMallUtil;
+import com.example.live_moudle.util.ObjectBoxMallUtil;
 import com.rabtman.wsmanager.WsManager;
 import com.rabtman.wsmanager.listener.WsStatusListener;
 

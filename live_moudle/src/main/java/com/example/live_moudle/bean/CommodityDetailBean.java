@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.beans;
+package com.example.live_moudle.bean;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;

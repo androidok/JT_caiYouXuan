@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.selectCommodityProperty;
+package com.example.live_moudle.live.commodity.selectCommodityProperty;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -13,15 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.live_moudle.R;
+import com.example.live_moudle.bean.CommodityDetailBean;
+import com.example.live_moudle.bean.CommodityPropertyListBean;
+import com.example.live_moudle.util.ObjectBoxMallUtil;
 import com.juntai.disabled.basecomponent.base.BaseBottomSheetFragment;
 import com.juntai.disabled.basecomponent.base.view.NumberButton;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.beans.CommodityDetailBean;
-import com.juntai.wisdom.project.mall.beans.CommodityPropertyListBean;
-import com.juntai.wisdom.project.mall.utils.ObjectBoxMallUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +37,6 @@ import java.util.List;
  */
 public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragment implements View.OnClickListener {
 
-    private View view;
     private ImageView mCommodityPicIv;
     /**
      * ￥:1016.69
@@ -167,23 +166,18 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.close_dialog_iv:
-                dismiss();
-                break;
-            case R.id.comfirm_tv:
-                // : 2022/5/5  加入购物车
-                if (onConfirmCallBack != null) {
-                    if (commodityPropertyBean == null || propertyMap.size() != propertyListBeans.size()) {
-                        ToastUtils.toast(getContext(), "请选择商品属性");
-                        return;
-                    }
-                    onConfirmCallBack.confirm(commodityPropertyBean, mNumberButton.getNumber());
-                    dismiss();
+        int id = v.getId();
+        if (id == R.id.close_dialog_iv) {
+            dismiss();
+        } else if (id == R.id.comfirm_tv) {// : 2022/5/5  加入购物车
+            if (onConfirmCallBack != null) {
+                if (commodityPropertyBean == null || propertyMap.size() != propertyListBeans.size()) {
+                    ToastUtils.toast(getContext(), "请选择商品属性");
+                    return;
                 }
-                break;
+                onConfirmCallBack.confirm(commodityPropertyBean, mNumberButton.getNumber());
+                dismiss();
+            }
         }
     }
 

@@ -15,7 +15,7 @@ import com.juntai.wisdom.project.mall.beans.CartListBean;
 import com.juntai.wisdom.project.mall.beans.CitysBean;
 import com.juntai.wisdom.project.mall.beans.CollectDataBean;
 import com.juntai.wisdom.project.mall.beans.CommodityDesListBean;
-import com.juntai.wisdom.project.mall.beans.CommodityDetailBean;
+import com.example.live_moudle.bean.CommodityDetailBean;
 import com.juntai.wisdom.project.mall.beans.CommodityEvaluationBean;
 import com.juntai.wisdom.project.mall.beans.IdNameBean;
 import com.juntai.disabled.basecomponent.bean.LiveListBean;
