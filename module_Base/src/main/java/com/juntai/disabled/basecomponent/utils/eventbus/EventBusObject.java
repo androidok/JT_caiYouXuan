@@ -45,15 +45,10 @@ public class EventBusObject {
     public final static String REFRESH_ORDER_LIST = "REFRESH_ORDER_LIST";
 
     /**
-     * 搜索 商品刷新
-     */
-    public final static String REFRESH_SEARCH_COMMODITY_LIST = "REFRESH_SEARCH_COMMODITY_LIST";
-    /**
      * 首页商品列表刷新
      */
     public final static String REFRESH_HOMEPAGE_COMMODITY_LIST = "REFRESH_HOMEPAGE_COMMODITY_LIST";
     public final static String REFRESH_LIVE_COMMODITY_LIST = "REFRESH_LIVE_COMMODITY_LIST";
-    public final static String REFRESH_SEARCH_SHOP_LIST = "REFRESH_SEARCH_SHOP_LIST";
 
     /**
      * 刷新消息列表

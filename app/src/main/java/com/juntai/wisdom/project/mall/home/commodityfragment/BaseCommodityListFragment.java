@@ -3,14 +3,13 @@ package com.juntai.wisdom.project.mall.home.commodityfragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.bean.CommodityDesListBean;
+import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.CommodityBean;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
-import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
@@ -30,7 +29,6 @@ import okhttp3.FormBody;
 public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment<CommodityPresent> implements HomePageContract.IHomePageView {
 
     private int labelId;
-
 
     @Override
     protected void lazyLoad() {
@@ -69,7 +67,7 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
         }
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerview.setLayoutManager(manager);
-        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个商品也没有-_-",-1));
+        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个商品也没有-_-", -1));
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -92,15 +90,8 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
     public void onEvent(EventBusObject eventBusObject) {
         super.onEvent(eventBusObject);
         switch (eventBusObject.getEventKey()) {
-            case EventBusObject.REFRESH_SEARCH_COMMODITY_LIST:
-                if (1 == getType()) {
-                    // : 2022/5/20 搜索中的商品列表
-                    String key = (String) eventBusObject.getEventObj();
-                    startSearch(key);
-                }
-                break;
             case EventBusObject.REFRESH_HOMEPAGE_COMMODITY_LIST:
-                page=1;
+                page = 1;
                 getRvAdapterData();
                 break;
             default:
@@ -110,36 +101,14 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
 
     @Override
     protected void getRvAdapterData() {
-        if (1 == getType()) {
-            // : 2022/5/20 搜索中的商品列表
-            startSearch(null);
-        } else {
-            FormBody.Builder builder = new FormBody.Builder();
-            builder.add("page", String.valueOf(page))
-                    .add("limit", String.valueOf(limit));
-            mPresenter.getCommodityRecommendList(0 == labelId ? builder.build() : builder
-                    .add("categoryId", String.valueOf(labelId)).build(), AppHttpPath.COMMODIFY_RECOMMEND);
-        }
-
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("page", String.valueOf(page))
+                .add("limit", String.valueOf(limit));
+        mPresenter.getCommodityRecommendList(0 == labelId ? builder.build() : builder
+                .add("categoryId", String.valueOf(labelId)).build(), AppHttpPath.COMMODIFY_RECOMMEND);
     }
 
-    private void startSearch(String key) {
-        if (TextUtils.isEmpty(key)) {
-            return;
-        }
-        mPresenter.startSearchCommodity(getBaseAppActivity().getBaseBuilderWithoutParama()
-                .add("key", key)
-                .add("type", "1").build(), AppHttpPath.SEARCH_COMMODITY
-        );
 
-    }
-
-    /**
-     * 0代表首页展示的商品列表  1代表搜索模块中展示的商品列表
-     *
-     * @return
-     */
-    protected abstract int getType();
 
     @Override
     protected boolean enableRefresh() {

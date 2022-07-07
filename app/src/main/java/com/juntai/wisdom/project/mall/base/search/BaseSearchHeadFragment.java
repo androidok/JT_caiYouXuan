@@ -45,7 +45,7 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
      * 返回
      */
     private TextView mBackTv;
-    private SearchView mSearchContentSv;
+    private SearchView mSearchTopContentSv;
     /**
      * 搜索
      */
@@ -58,6 +58,13 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
 
     private OnSearchCallBack searchCallBack;
     private LinearLayout mHisLl;
+
+    private String  searchContent;
+
+    public String getSearchContent() {
+        return mSearchTopContentSv.getQuery().toString().trim();
+    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -93,7 +100,7 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
         mBackTv = (TextView) view.findViewById(R.id.back_tv);
         initViewLeftDrawable(mBackTv,R.drawable.app_back);
         mBackTv.setOnClickListener(this);
-        mSearchContentSv = (SearchView) view.findViewById(R.id.search_content_sv);
+        mSearchTopContentSv = (SearchView) view.findViewById(R.id.search_content_sv);
         mSearchTv = (TextView) view.findViewById(R.id.search_tv);
         mSearchTv.setOnClickListener(this);
         mDeleteHistoryIv = (ImageView) view.findViewById(R.id.delete_history_iv);
@@ -103,7 +110,7 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
         mHisRecordCl = (ConstraintLayout) view.findViewById(R.id.his_record_cl);
         mHisLl = (LinearLayout) view.findViewById(R.id.his_ll);
         initFlowLayoutData();
-        mSearchContentSv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchTopContentSv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 if (!StringTools.isStringValueOk(s)) {
@@ -156,7 +163,7 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
             @Override
             public void onTagClick(View view, int position, FlowLayout parent) {
                 List<String> his_data = Hawk.get(getHiskey());
-                mSearchContentSv.setQuery(his_data.get(position), true);
+                mSearchTopContentSv.setQuery(his_data.get(position), true);
             }
         });
         //删除某个条目
@@ -225,7 +232,7 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
             case R.id.search_tv:
                 //搜索
 
-                String content = mSearchContentSv.getQuery().toString();
+                String content = mSearchTopContentSv.getQuery().toString();
                 if (!StringTools.isStringValueOk(content)) {
                     ToastUtils.warning(getContext(), "请输入要搜索的内容");
                     return;
@@ -262,9 +269,9 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
         }
         if (searchCallBack != null) {
             searchCallBack.onSearch(content);
-            mSearchContentSv.setFocusable(false);
-            mSearchContentSv.setFocusableInTouchMode(false);
-            mSearchContentSv.clearFocus();
+            mSearchTopContentSv.setFocusable(false);
+            mSearchTopContentSv.setFocusableInTouchMode(false);
+            mSearchTopContentSv.clearFocus();
             // : 2022/5/28 隐藏历史记录
             if (TextUtils.isEmpty(content)) {
                 mHisLl.setVisibility(View.VISIBLE);

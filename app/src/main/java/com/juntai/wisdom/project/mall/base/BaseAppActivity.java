@@ -554,8 +554,8 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
     /**
      * 进入聊天界面
      */
-    public void startToSearchActivity() {
-        startActivity(new Intent(mContext, SearchActivity.class));
+    public void startToSearchActivity(int type) {
+        SearchActivity.startSearchActivity(mContext,type);
     }
 
 }

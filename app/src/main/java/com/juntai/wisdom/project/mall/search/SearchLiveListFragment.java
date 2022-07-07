@@ -12,6 +12,7 @@ import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.HomePagePresent;
+import com.juntai.wisdom.project.mall.live.LiveListAdapter;
 
 import java.util.List;
 
@@ -22,13 +23,13 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/4/29 17:37
  */
-public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePresent> implements HomePageContract.IHomePageView {
+public class SearchLiveListFragment extends BaseRecyclerviewFragment<HomePagePresent> implements HomePageContract.IHomePageView {
 
 
-    public static SearchShopListFragment newInstance(int type) {
+    public static SearchLiveListFragment newInstance(int type) {
         Bundle args = new Bundle();
         args.putInt("label", type);
-        SearchShopListFragment fragment = new SearchShopListFragment();
+        SearchLiveListFragment fragment = new SearchLiveListFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,7 +44,7 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new SearchShopAdapter(R.layout.mall_collect_shop_item);
+        return new LiveListAdapter(R.layout.live_list_item);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
     @Override
     protected void initView() {
         super.initView();
-        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个店铺也没有-_-",-1));
+        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个直播也没有-_-",-1));
 
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

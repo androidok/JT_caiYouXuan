@@ -31,6 +31,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     public static final String ORDER_EVALUATE = "待评价";
     public static final String COMMODITY = "商品";
     public static final String SHOP = "店铺";
+    public static final String LIVE = "直播";
     public SearchView mSearchContentSv;
 
 

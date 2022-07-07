@@ -58,7 +58,7 @@ public class HomeCommodityFragment extends BaseAppFragment<HomePagePresent> impl
                 EventManager.getEventBus().post(new EventBusObject(EventBusObject.HOME_PAGE_DISPLAY_MODE, 1));
                 break;
             case R.id.search_ll:
-                getBaseAppActivity().startToSearchActivity();
+                getBaseAppActivity().startToSearchActivity(0);
                 break;
             case R.id.scan_iv:
                 // : 2022/5/31 扫码

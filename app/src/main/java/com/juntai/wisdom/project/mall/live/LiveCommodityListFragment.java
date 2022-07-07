@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -31,6 +32,7 @@ import okhttp3.FormBody;
 public class LiveCommodityListFragment extends BaseRecyclerviewFragment<CommodityPresent> implements HomePageContract.IHomePageView {
 
     private int labelId;
+    private String keyWord;
 
     public static LiveCommodityListFragment newInstance(int type) {
         Bundle args = new Bundle();
@@ -83,14 +85,36 @@ public class LiveCommodityListFragment extends BaseRecyclerviewFragment<Commodit
 
             }
         });
+        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个直播也没有-_-", -1));
+
 
     }
+
+    public void startSearch(String key) {
+        this.keyWord = key;
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("page", String.valueOf(page))
+                .add("userId", String.valueOf(UserInfoManager.getUserId()))
+                .add("limit", String.valueOf(limit));
+        if (!TextUtils.isEmpty(key)) {
+            builder.add("keyword", keyWord);
+        } else {
+            if (0 != labelId) {
+                builder.add("type", String.valueOf(labelId));
+            }
+        }
+        if (mPresenter != null) {
+            mPresenter.getLiveList( builder.build(), AppHttpPath.GET_LIVE_LIST);
+        }
+
+    }
+
     @Override
     public void onEvent(EventBusObject eventBusObject) {
         super.onEvent(eventBusObject);
         switch (eventBusObject.getEventKey()) {
             case EventBusObject.REFRESH_LIVE_COMMODITY_LIST:
-                page=1;
+                page = 1;
                 getRvAdapterData();
                 break;
             default:
@@ -106,12 +130,7 @@ public class LiveCommodityListFragment extends BaseRecyclerviewFragment<Commodit
     @Override
     protected void getRvAdapterData() {
         // : 2022/5/4 获取直播列表
-        FormBody.Builder builder = new FormBody.Builder();
-        builder.add("page", String.valueOf(page))
-                .add("userId",String.valueOf(UserInfoManager.getUserId()))
-                .add("limit", String.valueOf(limit));
-        mPresenter.getLiveList(0 == labelId ? builder.build() : builder
-                .add("type", String.valueOf(labelId)).build(), AppHttpPath.GET_LIVE_LIST);
+        startSearch(keyWord);
     }
 
     @Override

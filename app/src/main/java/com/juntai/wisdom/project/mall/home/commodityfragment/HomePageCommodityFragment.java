@@ -18,8 +18,4 @@ public class HomePageCommodityFragment extends BaseCommodityListFragment {
         fragment.setArguments(args);
         return fragment;
     }
-    @Override
-    protected int getType() {
-        return 0;
-    }
 }

@@ -123,7 +123,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
             case R.id.search_ll:
                 //搜索
                 // : 2022/4/26 搜索
-                getBaseAppActivity().startToSearchActivity();
+                getBaseAppActivity().startToSearchActivity(0);
                 break;
             case R.id.zoomminus:
                 MapUtil.mapZoom(MapUtil.MAP_ZOOM_OUT1, mBaiduMap);
