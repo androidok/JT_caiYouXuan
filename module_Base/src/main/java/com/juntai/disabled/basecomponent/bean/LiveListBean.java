@@ -113,6 +113,17 @@ public class LiveListBean extends BaseResult {
             private String flvUrl;
             private String shareLiveUrl;
 
+            public ListBean(int shopId, int isCollect, String liveNumber, String shopName, String title, String headPortrait,   String rtmpUrl, String shareLiveUrl) {
+                this.shopId = shopId;
+                this.isCollect = isCollect;
+                this.liveNumber = liveNumber;
+                this.shopName = shopName;
+                this.title = title;
+                this.headPortrait = headPortrait;
+                this.rtmpUrl = rtmpUrl;
+                this.shareLiveUrl = shareLiveUrl;
+            }
+
             public String getShareLiveUrl() {
                 return shareLiveUrl == null ? "" : shareLiveUrl;
             }
@@ -217,8 +228,6 @@ public class LiveListBean extends BaseResult {
                 this.flvUrl = flvUrl;
             }
 
-            public ListBean() {
-            }
 
             @Override
             public int describeContents() {

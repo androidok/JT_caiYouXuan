@@ -47,8 +47,15 @@ public class ShopDetailBean extends BaseResult {
         private int userId;
         private int isCollect;
         private String shareUrl;//分享地址
+        private String shareLiveUrl;//分享直播地址
+        private String liveNumber;//房间号
+        private String rtmpUrl;//直播地址
         private String name;
         private String headPortrait;
+        /**
+         * 直播标题
+         */
+        private String title;
         private String introduction;
         private double shopFraction;
         private String createTime;
@@ -58,6 +65,30 @@ public class ShopDetailBean extends BaseResult {
         private String cameraCover;
         private String shopImg;
         private List<ClassifyListBean> classifyList;
+
+        public String getLiveNumber() {
+            return liveNumber == null ? "" : liveNumber;
+        }
+
+        public String getTitle() {
+            return title == null ? "" : title;
+        }
+
+        public String getRtmpUrl() {
+            return rtmpUrl == null ? "" : rtmpUrl;
+        }
+
+        public void setRtmpUrl(String rtmpUrl) {
+            this.rtmpUrl = rtmpUrl == null ? "" : rtmpUrl;
+        }
+
+        public void setTitle(String title) {
+            this.title = title == null ? "" : title;
+        }
+
+        public void setLiveNumber(String liveNumber) {
+            this.liveNumber = liveNumber == null ? "" : liveNumber;
+        }
 
         public int getIsCollect() {
             return isCollect;
@@ -93,6 +124,14 @@ public class ShopDetailBean extends BaseResult {
 
         public void setShareUrl(String shareUrl) {
             this.shareUrl = shareUrl == null ? "" : shareUrl;
+        }
+
+        public String getShareLiveUrl() {
+            return shareLiveUrl == null ? "" : shareLiveUrl;
+        }
+
+        public void setShareLiveUrl(String shareLiveUrl) {
+            this.shareLiveUrl = shareLiveUrl == null ? "" : shareLiveUrl;
         }
 
         public void setId(int id) {

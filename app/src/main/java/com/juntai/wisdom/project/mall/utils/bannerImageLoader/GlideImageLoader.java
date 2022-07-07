@@ -49,7 +49,7 @@ public class GlideImageLoader implements ImageLoaderInterface<View> {
         } else if (BannerObject.BANNER_TYPE_VIDEO.equals(eventKey)) {
             videoBean = bannerObject.getVideoBean();
             startVideo(context);
-        } else if (BannerObject.BANNER_TYPE_RTMP.equals(eventKey)) {
+        } else if (BannerObject.BANNER_TYPE_CAMERA.equals(eventKey)) {
             ImageView imageView = (ImageView) view.findViewById(R.id.rtmp_iv);
             ImageView imageView1 = (ImageView) view.findViewById(R.id.item_top_iv);
             BannerObject.StreamBean streamBean = (BannerObject.StreamBean) bannerObject.getStreamBean();
@@ -73,7 +73,7 @@ public class GlideImageLoader implements ImageLoaderInterface<View> {
         } else if (BannerObject.BANNER_TYPE_VIDEO.equals(eventKey)) {
             videoPlayer = new StandardGSYVideoPlayer(context);
             return videoPlayer;
-        } else if (BannerObject.BANNER_TYPE_RTMP.equals(eventKey)) {
+        } else if (BannerObject.BANNER_TYPE_CAMERA.equals(eventKey)) {
             // 流的封面图
             return getRtmpView(context);
         }

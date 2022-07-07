@@ -32,7 +32,7 @@
         tools:replace="android:appComponentFactory">
         <activity android:name=".home.shop.SearchShopCommodityActivity"></activity>
         <activity
-            android:name="com.example.live_moudle.share.ShareActivity"
+            android:name=".share.ShareActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".search.SearchActivity"

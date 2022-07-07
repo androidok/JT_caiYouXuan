@@ -7,11 +7,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.CommodityDetailBean;
 import com.example.app_basemodule.bean.CommodityEvaluationBean;
 import com.example.app_basemodule.bean.PicTextBean;
 import com.example.app_basemodule.bean.UserBeanMall;
 import com.example.app_basemodule.bean.order.CreatOrderBean;
-import com.example.app_basemodule.bean.CommodityDetailBean;
 import com.example.app_basemodule.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
@@ -26,7 +26,7 @@ import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.evaluation.AllEvaluateFragment;
-import com.example.live_moudle.share.ShareActivity;
+import com.juntai.wisdom.project.mall.share.ShareActivity;
 
 import java.util.List;
 

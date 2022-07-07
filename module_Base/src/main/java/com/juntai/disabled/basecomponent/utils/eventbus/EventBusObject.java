@@ -65,6 +65,10 @@ public class EventBusObject {
      * 创建订单
      */
     public final static String CREAT_ORDER = "CREAT_ORDER";
+    /**
+     * 分享
+     */
+    public final static String LIVE_SHARE = "LIVE_SHARE";
     public final static String WEIXIN_PAY_SUCCESS = "WEIXIN_PAY_SUCCESS";
     /**
      * 未读消息总数

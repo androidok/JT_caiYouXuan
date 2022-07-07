@@ -115,7 +115,7 @@ private LiveListBean.DataBean.ListBean bean;
         mLiveCloseBtn.setOnClickListener(this);
         mCameraFl = (FrameLayout) findViewById(R.id.camera_fl);
         mLoadingView = findViewById(R.id.loading_view);
-        cameraCommentFragment = CommentFragment.newInstance(liveNumber,bean.getShopId()).setCanLike(false)
+        cameraCommentFragment = CommentFragment.newInstance(bean).setCanLike(false)
                 .setCanShare(true).setOnLineUsersListener(this).setShareCallBack(true);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.camera_fl, cameraCommentFragment);
@@ -200,7 +200,8 @@ private LiveListBean.DataBean.ListBean bean;
                 initCollectTvStatus();
                 break;
             case AppHttpPath.SHOP_COLLECT_FINISH:
-               finish();
+                finish();
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_LIVE_COMMODITY_LIST, ""));
                 break;
             default:
                 break;
@@ -256,6 +257,7 @@ private LiveListBean.DataBean.ListBean bean;
                     @Override
                     public void onClick(View v) {
                         finish();
+                        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_LIVE_COMMODITY_LIST, ""));
                         SocketManager.getInstance().unConnect();
                     }
                 })
@@ -268,12 +270,16 @@ private LiveListBean.DataBean.ListBean bean;
                                     .add("isCollect", "0")
                                     .add("shopId", String.valueOf(bean.getShopId())).build(), AppHttpPath.SHOP_COLLECT_FINISH
                             );
+                        }else {
+                            finish();
+                            EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_LIVE_COMMODITY_LIST, ""));
                         }
+
+
 
                     }
                 }).show();
 
-        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_LIVE_COMMODITY_LIST, ""));
 
 
     }

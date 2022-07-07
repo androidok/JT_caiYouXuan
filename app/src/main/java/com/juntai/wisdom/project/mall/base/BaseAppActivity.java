@@ -21,6 +21,7 @@ import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
+import com.juntai.disabled.basecomponent.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
@@ -48,6 +49,7 @@ import com.juntai.wisdom.project.mall.order.orderPay.OrderPayActivity;
 import com.juntai.wisdom.project.mall.order.refund.RefundActivity;
 import com.juntai.wisdom.project.mall.order.refund.RefundRequestActivity;
 import com.juntai.wisdom.project.mall.search.SearchActivity;
+import com.juntai.wisdom.project.mall.share.ShareActivity;
 import com.juntai.wisdom.project.mall.utils.StringTools;
 import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 
@@ -505,6 +507,11 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
             case EventBusObject.CREAT_ORDER:
                 CreatOrderBean.DataBean dataBean  = (CreatOrderBean.DataBean) eventBusObject.getEventObj();
                 startToConfirmOrder(dataBean);
+                break;
+            case EventBusObject.LIVE_SHARE:
+                LiveListBean.DataBean.ListBean bean = (LiveListBean.DataBean.ListBean) eventBusObject.getEventObj();
+                ShareActivity.startShareActivity(mContext, 2,bean);
+
                 break;
             default:
                 break;

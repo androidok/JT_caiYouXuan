@@ -24,8 +24,11 @@ import com.example.live_moudle.live.commodity.BaseLiveCommoditiesFragment;
 import com.example.live_moudle.websocket.IEvent;
 import com.example.live_moudle.websocket.SocketManager;
 import com.juntai.disabled.basecomponent.bean.CommodityBean;
+import com.juntai.disabled.basecomponent.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 
 import java.util.List;
 import java.util.Objects;
@@ -57,10 +60,11 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
     private final Handler handler = new Handler(Looper.getMainLooper());
     private int shopId;
 
-    public static CommentFragment newInstance(String liveId, int shopId) {
+  private   LiveListBean.DataBean.ListBean bean ;
+
+    public static CommentFragment newInstance(LiveListBean.DataBean.ListBean bean) {
         Bundle args = new Bundle();
-        args.putString("liveRoomId", liveId);
-        args.putInt("shopId", shopId);
+        args.putParcelable("liveBean", bean);
         CommentFragment fragment = new CommentFragment();
         fragment.setArguments(args);
         return fragment;
@@ -82,8 +86,10 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
 
     @Override
     protected void initView() {
-        liveRoomId = getArguments().getString("liveRoomId");
-        shopId = getArguments().getInt("shopId");
+
+        bean = getArguments().getParcelable("liveBean");
+        liveRoomId = bean.getLiveNumber();
+        shopId = bean.getShopId();
         mMsgRv = (RecyclerView) getView(R.id.messages);
         mMsgRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         mMsgRv.setAdapter(mAdapter);
@@ -249,8 +255,7 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
             initInputTextMsgDialog();
         } else if (id == R.id.live_share_iv) {//分享
             // TODO: 2022/7/5 分享
-            ShareActivity.startShareActivity(mContext, 1, dataBean.getCoverImg(), dataBean.getName(),dataBean.getShareUrl());
-
+            EventManager.getEventBus().post(new EventBusObject(EventBusObject.LIVE_SHARE,bean));
         } else if (id == R.id.live_commodities_iv) {
             // : 2022/7/5 商品
             FormBody.Builder builder = new FormBody.Builder().add("shopId", String.valueOf(shopId));

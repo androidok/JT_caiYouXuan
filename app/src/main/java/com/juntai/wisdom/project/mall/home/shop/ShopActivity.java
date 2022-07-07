@@ -8,17 +8,20 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.live_moudle.live.LiveRoomActivity;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.bean.LiveListBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
+import com.juntai.wisdom.project.mall.base.customview.DragFloatActionButton;
 import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
-import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.QRScanActivity;
 import com.juntai.wisdom.project.mall.home.shop.ijkplayer.PlayerLiveActivity;
-import com.example.live_moudle.share.ShareActivity;
+import com.juntai.wisdom.project.mall.share.ShareActivity;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.GlideImageLoader;
 import com.youth.banner.Banner;
@@ -35,6 +38,7 @@ import java.util.List;
 public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePageContract.IHomePageView, View.OnClickListener {
 
     private ImageView mShopBackIv;
+    private DragFloatActionButton mLiveTagIv;
     private ImageView mShopCollectIv;
     private ImageView mShopShareIv;
     private ConstraintLayout mTopCl;
@@ -56,6 +60,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
     private int collectId = 0;
 
     private ShopDetailBean.DataBean shopBean;
+    private LiveListBean.DataBean.ListBean liveBean;
     private List<BannerObject> bannerPics;
     private GlideImageLoader imageLoader;
 
@@ -74,7 +79,9 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         shopId = getIntent().getIntExtra(BASE_ID, 0);
         initToolbarAndStatusBar(false);
         mShopBackIv = (ImageView) findViewById(R.id.shop_back_iv);
+        mLiveTagIv = (DragFloatActionButton) findViewById(R.id.live_tag_iv);
         mShopBackIv.setOnClickListener(this);
+        mLiveTagIv.setOnClickListener(this);
         mShopCollectIv = (ImageView) findViewById(R.id.shop_collect_iv);
         mShopCollectIv.setOnClickListener(this);
         findViewById(R.id.scan_iv).setOnClickListener(this);
@@ -107,7 +114,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                         // : 2022/5/21 展示图片大图
                         PicVideoDisplayActivity.startPicVideoPlayActivity(mContext, bannerPics, bannerPics.size() == bannerObjects.size() ? position : position - 1);
                         break;
-                    case BannerObject.BANNER_TYPE_RTMP:
+                    case BannerObject.BANNER_TYPE_CAMERA:
                         BannerObject.StreamBean streamBean = bannerObject.getStreamBean();
                         PlayerLiveActivity.startPlayerLiveActivity(mContext, streamBean.getCameraNum(), streamBean.getCameraCover(), streamBean.getRtmpUrl());
 
@@ -146,7 +153,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         });
 
         if (!TextUtils.isEmpty(shopBean.getCameraCover()) && !TextUtils.isEmpty(shopBean.getCameraNumber())) {
-            bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_RTMP, new BannerObject.StreamBean(shopBean.getCameraNumber(), shopBean.getCameraCover(), shopBean.getCameraUrl())));
+            bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_CAMERA, new BannerObject.StreamBean(shopBean.getCameraNumber(), shopBean.getCameraCover(), shopBean.getCameraUrl())));
         }
 
         String bannerPic = shopBean.getShopImg();
@@ -173,6 +180,8 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
      */
     public void initOwnerBaseInfo(ShopDetailBean.DataBean shopBean) {
         this.shopBean = shopBean;
+        liveBean = new LiveListBean.DataBean.ListBean(shopBean.getId(),shopBean.getIsCollect(),shopBean.getLiveNumber(),shopBean.getName()
+        ,shopBean.getTitle(),shopBean.getHeadPortrait(),shopBean.getRtmpUrl(),shopBean.getShareLiveUrl());
         ImageLoadUtil.loadSquareImageHasCorner(mContext, shopBean.getHeadPortrait(), mShopOwnerHeadIv);
         mShopNameTv.setText(shopBean.getName());
         mShopCreatTimeTv.setText("开店时间:" + shopBean.getCreateTime());
@@ -216,6 +225,10 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                 break;
             case R.id.shop_back_iv:
                 finish();
+                break;
+            case R.id.live_tag_iv:
+                // : 2022/7/6 正在直播
+                LiveRoomActivity.startToLiveRoomActivity(mContext,liveBean);
                 break;
             case R.id.search_ll:
                 // : 2022/5/31 店铺内部搜索商品
