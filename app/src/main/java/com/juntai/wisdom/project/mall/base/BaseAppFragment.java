@@ -3,8 +3,8 @@ package com.juntai.wisdom.project.mall.base;
 
 import android.text.TextUtils;
 
-import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
+import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 
@@ -93,4 +93,7 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
     public BaseAppActivity getBaseAppActivity() {
         return (BaseAppActivity) getActivity();
     }
+
+
+
 }

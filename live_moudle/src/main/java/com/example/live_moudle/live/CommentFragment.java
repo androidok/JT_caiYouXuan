@@ -254,7 +254,7 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
         if (id == R.id.message_input) {
             initInputTextMsgDialog();
         } else if (id == R.id.live_share_iv) {//分享
-            // TODO: 2022/7/5 分享
+            // : 2022/7/5 分享
             EventManager.getEventBus().post(new EventBusObject(EventBusObject.LIVE_SHARE,bean));
         } else if (id == R.id.live_commodities_iv) {
             // : 2022/7/5 商品

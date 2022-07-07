@@ -50,6 +50,7 @@ public class ShopDetailBean extends BaseResult {
         private String shareLiveUrl;//分享直播地址
         private String liveNumber;//房间号
         private String rtmpUrl;//直播地址
+        private String coverImg;//直播封面
         private String name;
         private String headPortrait;
         /**
@@ -65,6 +66,14 @@ public class ShopDetailBean extends BaseResult {
         private String cameraCover;
         private String shopImg;
         private List<ClassifyListBean> classifyList;
+
+        public String getCoverImg() {
+            return coverImg == null ? "" : coverImg;
+        }
+
+        public void setCoverImg(String coverImg) {
+            this.coverImg = coverImg == null ? "" : coverImg;
+        }
 
         public String getLiveNumber() {
             return liveNumber == null ? "" : liveNumber;

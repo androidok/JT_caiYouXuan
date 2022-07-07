@@ -82,6 +82,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         mLiveTagIv = (DragFloatActionButton) findViewById(R.id.live_tag_iv);
         mShopBackIv.setOnClickListener(this);
         mLiveTagIv.setOnClickListener(this);
+        ImageLoadUtil.loadImage(mContext,R.mipmap.live,mLiveTagIv);
         mShopCollectIv = (ImageView) findViewById(R.id.shop_collect_iv);
         mShopCollectIv.setOnClickListener(this);
         findViewById(R.id.scan_iv).setOnClickListener(this);
@@ -180,8 +181,13 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
      */
     public void initOwnerBaseInfo(ShopDetailBean.DataBean shopBean) {
         this.shopBean = shopBean;
+        if (TextUtils.isEmpty(shopBean.getLiveNumber())) {
+            mLiveTagIv.setVisibility(View.GONE);
+        }else{
+            mLiveTagIv.setVisibility(View.VISIBLE);
+        }
         liveBean = new LiveListBean.DataBean.ListBean(shopBean.getId(),shopBean.getIsCollect(),shopBean.getLiveNumber(),shopBean.getName()
-        ,shopBean.getTitle(),shopBean.getHeadPortrait(),shopBean.getRtmpUrl(),shopBean.getShareLiveUrl());
+        ,shopBean.getTitle(),shopBean.getHeadPortrait(),shopBean.getCoverImg(),shopBean.getRtmpUrl(),shopBean.getShareLiveUrl());
         ImageLoadUtil.loadSquareImageHasCorner(mContext, shopBean.getHeadPortrait(), mShopOwnerHeadIv);
         mShopNameTv.setText(shopBean.getName());
         mShopCreatTimeTv.setText("开店时间:" + shopBean.getCreateTime());
