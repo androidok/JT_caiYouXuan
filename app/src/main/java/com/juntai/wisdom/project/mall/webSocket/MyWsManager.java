@@ -111,13 +111,8 @@ public class MyWsManager {
                 //未读
                 messageBody.setRead(false);
                 HawkProperty.setRedPoint(mContext, 1);
-                if (mContext instanceof ChatActivity) {
-                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.MESSAGE_BODY, messageBody));
-                } else {
-                    ObjectBoxUtil.addMessage(messageBody);
-                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_NEWS_LIST, messageBody));
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.HANDLER_MESSAGE, messageBody));
 
-                }
                 if (NotificationTool.SHOW_NOTIFICATION) {
                     showNotification(messageBody);
                 }

@@ -119,7 +119,7 @@ public abstract class UpdateActivity<P extends BasePresenter> extends BaseDownLo
      */
     private HttpParams getHttpParams() {
         HttpParams httpParams = new HttpParams();
-//        httpParams.put("typeId", MyApp.CHECK_UPDATE_TYPE);
+//        httpParams.put("type", "0");
         return httpParams;
     }
 }

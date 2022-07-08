@@ -8,7 +8,10 @@ package com.juntai.disabled.basecomponent.utils.eventbus;
  * @UpdateDate: 2022/5/6 14:10
  */
 public class EventBusObject {
-
+    /**
+     * 处理接收到的消息
+     */
+    public final static String HANDLER_MESSAGE = "HANDLER_MESSAGE";
     /**
      * 更改购物车商品属性  数量或者规格
      */

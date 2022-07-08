@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.baidu.location.BDLocation;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
@@ -23,9 +24,7 @@ import com.juntai.wisdom.project.mall.live.LiveFragment;
 import com.juntai.wisdom.project.mall.mine.MyCenterFragment;
 import com.juntai.wisdom.project.mall.news.NewsListFragment;
 import com.juntai.wisdom.project.mall.shoppingCart.ShoppingCartFragment;
-import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
-import com.mob.MobSDK;
 
 public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         View.OnClickListener, MainPageContract.IMainPageView {
@@ -173,7 +172,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     protected void onResume() {
         super.onResume();
         MyWsManager.getInstance().startConnect();
-        MobSDK.submitPolicyGrantResult(true, null);
     }
 
     @Override

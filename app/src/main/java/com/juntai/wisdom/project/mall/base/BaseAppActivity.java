@@ -19,6 +19,7 @@ import com.example.app_basemodule.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
+import com.example.live_moudle.util.ObjectBoxUtil;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.LiveListBean;
@@ -32,6 +33,7 @@ import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.wisdom.project.mall.R;
@@ -498,6 +500,16 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
     public void onEvent(EventBusObject eventBusObject) {
         super.onEvent(eventBusObject);
         switch (eventBusObject.getEventKey()) {
+            case EventBusObject.HANDLER_MESSAGE:
+                MessageBodyBean messageBody = (MessageBodyBean) eventBusObject.getEventObj();
+                if (mContext instanceof ChatActivity) {
+                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.MESSAGE_BODY, messageBody));
+                } else {
+                    ObjectBoxUtil.addMessage(messageBody);
+                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_NEWS_LIST, messageBody));
+
+                }
+                break;
             case EventBusObject.EVALUATE:
                 if (this instanceof AllOrderActivity) {
                     OrderDetailBean.CommodityListBean commodityBean = (OrderDetailBean.CommodityListBean) eventBusObject.getEventObj();

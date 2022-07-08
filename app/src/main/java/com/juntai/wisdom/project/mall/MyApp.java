@@ -31,8 +31,7 @@ public class MyApp extends MyChatApp {
         if (UserInfoManager.isLogin()) {
             MyWsManager.getInstance()
                     .init(getApplicationContext())
-                    .setWsUrl(AppHttpPath.BASE_SOCKET + UserInfoManager.getUserId())
-                    .startConnect();
+                    .setWsUrl(AppHttpPath.BASE_SOCKET + UserInfoManager.getUserId());
         } else {
             MyWsManager.getInstance()
                     .init(getApplicationContext());
