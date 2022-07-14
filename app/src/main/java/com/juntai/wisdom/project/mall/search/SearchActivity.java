@@ -58,6 +58,8 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
         mTabTb.setVisibility(View.GONE);
         mViewpageVp.setVisibility(View.GONE);
         mSearchLl.setVisibility(View.GONE);
+        initToolbarAndStatusBar(false);
+        setMargin(mTabHeadFl,0,20,0,0);
         searchHeadFragment = (HomeSearchHeadFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_serach_top);
 
     }

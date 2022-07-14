@@ -267,6 +267,17 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
 
     }
 
+    @Override
+    public void onError(String tag, Object o) {
+        super.onError(tag, o);
+        switch (tag) {
+            case AppHttpPath.COMMODIFY_DETAIL:
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     public void onSuccess(String tag, Object o) {

@@ -138,43 +138,52 @@ public class ToolShare {
             setSharePlatform(sharePlatform, shareTitle, shareText, shareImageUrl, logo, shareUrl);
             sharePlatform.setTitleUrl(shareUrl);
             platform = ShareSDK.getPlatform(Wechat.NAME);
-            if (!platform.isClientValid()) {
-                ToastUtils.toast(mContext, "未安装微信");
-                return;
+            if (platform != null) {
+                if (!platform.isClientValid()) {
+                    ToastUtils.toast(mContext, "未安装微信");
+                    return;
+                }
+                platform.setPlatformActionListener(listener);
+                platform.share(sharePlatform);
             }
-            platform.setPlatformActionListener(listener);
-            platform.share(sharePlatform);
+
         } else if (shareType == SHARE_WECHAT_CIRCLE) {
             platform = ShareSDK.getPlatform(WechatMoments.NAME);
-            if (!platform.isClientValid()) {
-                ToastUtils.toast(mContext, "未安装微信");
+            if (platform != null) {
 
-                return;
+                if (!platform.isClientValid()) {
+                    ToastUtils.toast(mContext, "未安装微信");
+
+                    return;
+                }
+                sharePlatform.setShareType(Platform.SHARE_WEBPAGE);
+                setSharePlatform(sharePlatform, shareTitle, null, shareImageUrl, logo, shareUrl);
+                if (shareUrl != null && !shareUrl.equalsIgnoreCase("")) {
+                    sharePlatform.setTitleUrl(shareUrl);
+                }
+                platform.setPlatformActionListener(listener);
+                platform.share(sharePlatform);
             }
-            sharePlatform.setShareType(Platform.SHARE_WEBPAGE);
-            setSharePlatform(sharePlatform, shareTitle, null, shareImageUrl, logo, shareUrl);
-            if (shareUrl != null && !shareUrl.equalsIgnoreCase("")) {
-                sharePlatform.setTitleUrl(shareUrl);
-            }
-            platform.setPlatformActionListener(listener);
-            platform.share(sharePlatform);
         }
         /**
          * 如果是QQ分享
          */
         else if (shareType == SHARE_QQ) {
-            setSharePlatform(sharePlatform, shareTitle, shareText, shareImageUrl, logo,shareUrl);
+            setSharePlatform(sharePlatform, shareTitle, shareText, shareImageUrl, logo, shareUrl);
             if (shareUrl != null && !shareUrl.equalsIgnoreCase("")) {
                 sharePlatform.setTitleUrl(shareUrl);
             }
             sharePlatform.setShareType(Platform.SHARE_WEBPAGE);
             platform = ShareSDK.getPlatform(QQ.NAME);
-            if (!platform.isClientValid()) {
-                ToastUtils.toast(mContext,"未安装QQ");
-                return;
+            if (platform != null) {
+
+                if (!platform.isClientValid()) {
+                    ToastUtils.toast(mContext, "未安装QQ");
+                    return;
+                }
+                platform.setPlatformActionListener(listener);
+                platform.share(sharePlatform);
             }
-            platform.setPlatformActionListener(listener);
-            platform.share(sharePlatform);
         }
 
 //        else if (shareType == SHARE_QQ_ZONE) {

@@ -36,7 +36,6 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
-import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.entrance.LoginActivity;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.CommodityDetailActivity;
 import com.juntai.wisdom.project.mall.home.shop.ShopActivity;
@@ -76,7 +75,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
         super.onCreate(savedInstanceState);
         update(false);
         NotificationTool.SHOW_NOTIFICATION = true;
-        getToolbar().setBackgroundResource(R.drawable.sp_filled_gray_lighter);
         initUploadUtil();
     }
 

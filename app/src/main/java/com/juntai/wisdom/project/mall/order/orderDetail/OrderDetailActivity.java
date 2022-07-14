@@ -3,12 +3,16 @@ package com.juntai.wisdom.project.mall.order.orderDetail;
 import android.content.DialogInterface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.bean.order.OrderDetailBean;
+import com.example.app_basemodule.bean.order.OrderDetailDataBean;
+import com.example.app_basemodule.bean.order.OrderListBean;
 import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -16,14 +20,12 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
-import com.example.app_basemodule.bean.order.OrderDetailBean;
-import com.example.app_basemodule.bean.order.OrderDetailDataBean;
-import com.example.app_basemodule.bean.order.OrderListBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 import com.juntai.wisdom.project.mall.order.allOrder.OrderCommodityAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -124,24 +126,25 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
 
     /**
      * 退款进度
-     *            //4是等待商家处理  7是商家同意退款 8是商家不同意退款
+     * //4是等待商家处理  7是商家同意退款 8是商家不同意退款
+     *
      * @return
      */
     private View getProgressView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.refund_progress_layout, null);
-        TextView contentTv =view.findViewById(R.id.progress_content_tv);
+        TextView contentTv = view.findViewById(R.id.progress_content_tv);
 
         if (orderStatus == 8) {
             view.findViewById(R.id.recommit_ll).setVisibility(View.VISIBLE);
-            setTextViewDrawable(contentTv,true,R.mipmap.mall_unagree_icon);
+            setTextViewDrawable(contentTv, true, R.mipmap.mall_unagree_icon);
             contentTv.setText("商家不同意");
         } else {
             view.findViewById(R.id.recommit_ll).setVisibility(View.GONE);
-            setTextViewDrawable(contentTv,true,R.mipmap.mall_agree_icon);
+            setTextViewDrawable(contentTv, true, R.mipmap.mall_agree_icon);
 
-            if (4==orderStatus) {
+            if (4 == orderStatus) {
                 contentTv.setText("等待商家处理");
-            }else {
+            } else {
                 contentTv.setText("商家已同意");
             }
         }
@@ -301,6 +304,9 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                         mOrderShopNameTv.setText(orderDetailBean.getShopName());
                         mFinalPaymentTv.setText(0 == orderStatus ? String.format("需付款:%s", orderDetailBean.getPayPrice()) : String.format("实付款:%s", orderDetailBean.getPayPrice()));
                         List<TextKeyValueBean> arrays = new ArrayList<>();
+                        List<OrderDetailItemBean> itemBeans = new ArrayList<>();
+                        OrderDetailItemBean orderDetailItemBean = new OrderDetailItemBean("", arrays);
+                        initEvaluate(itemBeans);
                         mCustomTv.setVisibility(View.GONE);
                         switch (orderStatus) {
                             case 0:
@@ -329,6 +335,8 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                                 arrays.add(new TextKeyValueBean("发货时间:", orderDetailBean.getShipmentsTime()));
                                 arrays.add(new TextKeyValueBean("物流公司:", orderDetailBean.getLogisticsName()));
                                 arrays.add(new TextKeyValueBean("快递单号:", orderDetailBean.getLogisticsNumber()));
+                                arrays.add(new TextKeyValueBean("物流信息:", orderDetailBean.getLogisticsLink()));
+
                                 break;
                             case 3:
 //                                mOrderLeftTv.setText(HomePageContract.ORDER_REBUY);
@@ -343,6 +351,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                                 arrays.add(new TextKeyValueBean("发货时间:", orderDetailBean.getShipmentsTime()));
                                 arrays.add(new TextKeyValueBean("物流公司:", orderDetailBean.getLogisticsName()));
                                 arrays.add(new TextKeyValueBean("快递单号:", orderDetailBean.getLogisticsNumber()));
+                                arrays.add(new TextKeyValueBean("物流信息:", orderDetailBean.getLogisticsLink()));
                                 arrays.add(new TextKeyValueBean("成交时间:", orderDetailBean.getConfirmTime()));
                                 break;
                             case 4:
@@ -358,13 +367,32 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                                     arrays.add(new TextKeyValueBean("退款金额:", String.valueOf(returnOrderFormInfoBean.getReturnPrice())));
                                     arrays.add(new TextKeyValueBean("申请时间:", returnOrderFormInfoBean.getRefundTime()));
                                     arrays.add(new TextKeyValueBean("退款编号:", returnOrderFormInfoBean.getSalesFormNumber()));
+                                    if (!TextUtils.isEmpty(returnOrderFormInfoBean.getRemark())) {
+                                        arrays.add(new TextKeyValueBean("退款说明:", returnOrderFormInfoBean.getRemark()));
+                                    }
+                                    List<String> refundPics = new ArrayList<>();
+                                    if (!TextUtils.isEmpty(returnOrderFormInfoBean.getPictureOne())) {
+                                        refundPics.add(returnOrderFormInfoBean.getPictureOne());
+                                    }
+                                    if (!TextUtils.isEmpty(returnOrderFormInfoBean.getPictureTwo())) {
+                                        refundPics.add(returnOrderFormInfoBean.getPictureTwo());
+                                    }
+                                    if (!TextUtils.isEmpty(returnOrderFormInfoBean.getPictureThree())) {
+                                        refundPics.add(returnOrderFormInfoBean.getPictureThree());
+                                    }
+                                    if (refundPics.size() > 0) {
+                                        arrays.add(new TextKeyValueBean("上传凭证", ""));
+                                        orderDetailItemBean.setImages(refundPics);
+                                    }
                                 }
 
                                 break;
                             default:
                                 break;
                         }
-                        mOrderBaseInfoAdapter.setNewData(arrays);
+                        orderDetailItemBean.setArrays(arrays);
+                        itemBeans.add(orderDetailItemBean);
+                        mOrderBaseInfoAdapter.setNewData(itemBeans);
 
                     }
 
@@ -380,6 +408,36 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                 break;
             default:
                 break;
+        }
+    }
+
+    private void initEvaluate(List<OrderDetailItemBean> itemBeans) {
+        OrderDetailBean.CommodityEvaluateVoBean commodityEvaluateBean = orderDetailBean.getCommodityEvaluateVo();
+        if (commodityEvaluateBean != null) {
+            List<TextKeyValueBean> buyerEvalute = new ArrayList<>();
+            buyerEvalute.add(new TextKeyValueBean("评价内容", commodityEvaluateBean.getEvaluate()));
+            buyerEvalute.add(new TextKeyValueBean("评价时间", commodityEvaluateBean.getCreateTime()));
+            List<String> pics = new ArrayList<>();
+            String imageUrl = commodityEvaluateBean.getImgUrl();
+            if (!TextUtils.isEmpty(imageUrl)) {
+                if (imageUrl.contains(",")) {
+                    String[] arrays = imageUrl.split(",");
+                    pics.addAll(Arrays.asList(arrays));
+                } else {
+                    pics.add(imageUrl);
+                }
+            }
+            String video = commodityEvaluateBean.getVideoUrl();
+
+            OrderDetailItemBean orderDetailItemBean = new OrderDetailItemBean("", buyerEvalute);
+            if (!TextUtils.isEmpty(video)) {
+                pics.add(video);
+                orderDetailItemBean.setVideoCover(commodityEvaluateBean.getVideoCover());
+            }
+            if (pics.size() > 0) {
+                orderDetailItemBean.setImages(pics);
+            }
+            itemBeans.add(orderDetailItemBean);
         }
     }
 }

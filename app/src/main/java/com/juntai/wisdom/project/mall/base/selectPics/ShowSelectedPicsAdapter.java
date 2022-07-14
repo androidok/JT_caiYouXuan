@@ -46,8 +46,15 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
             }
 
             if (item.contains(".mp4")) {
+                ImageLoadUtil.loadVideoScreenshot(mContext, item, helper.getView(R.id.select_pic_icon_iv),  new ImageLoadUtil.OnImageLoadSuccess() {
+                    @Override
+                    public void loadSuccess(int width, int height) {
+                        //加载成功
+                    }
+                });
                 helper.setGone(R.id.item_video_tag, true);
             } else {
+                ImageLoadUtil.loadImageNoCache(mContext, item, (ImageView) helper.getView(R.id.select_pic_icon_iv));
                 helper.setGone(R.id.item_video_tag, false);
             }
         }

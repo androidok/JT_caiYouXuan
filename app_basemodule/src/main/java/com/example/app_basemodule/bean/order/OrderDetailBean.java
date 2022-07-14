@@ -84,7 +84,16 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
     private String logisticsNumber;
     private String logisticsLink;
     private ReturnOrderFormInfoBean returnOrderFormInfo;
+    private CommodityEvaluateVoBean commodityEvaluateVo;
     private List<CommodityListBean> commodityList;
+
+    public CommodityEvaluateVoBean getCommodityEvaluateVo() {
+        return commodityEvaluateVo;
+    }
+
+    public void setCommodityEvaluateVo(CommodityEvaluateVoBean commodityEvaluateVo) {
+        this.commodityEvaluateVo = commodityEvaluateVo;
+    }
 
     public int getId() {
         return id;
@@ -313,7 +322,6 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
     }
 
 
-
     public ReturnOrderFormInfoBean getReturnOrderFormInfo() {
         return returnOrderFormInfo;
     }
@@ -328,6 +336,91 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
 
     public void setCommodityList(List<CommodityListBean> commodityList) {
         this.commodityList = commodityList;
+    }
+
+    public static class CommodityEvaluateVoBean implements Parcelable {
+        private String evaluate;
+        private String createTime;
+        private String imgUrl;
+        private String videoCover;
+        private String videoUrl;
+
+        public String getEvaluate() {
+            return evaluate == null ? "" : evaluate;
+        }
+
+        public void setEvaluate(String evaluate) {
+            this.evaluate = evaluate == null ? "" : evaluate;
+        }
+
+        public String getCreateTime() {
+            return createTime == null ? "" : createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime == null ? "" : createTime;
+        }
+
+        public String getImgUrl() {
+            return imgUrl == null ? "" : imgUrl;
+        }
+
+        public void setImgUrl(String imgUrl) {
+            this.imgUrl = imgUrl == null ? "" : imgUrl;
+        }
+
+        public String getVideoCover() {
+            return videoCover == null ? "" : videoCover;
+        }
+
+        public void setVideoCover(String videoCover) {
+            this.videoCover = videoCover == null ? "" : videoCover;
+        }
+
+        public String getVideoUrl() {
+            return videoUrl == null ? "" : videoUrl;
+        }
+
+        public void setVideoUrl(String videoUrl) {
+            this.videoUrl = videoUrl == null ? "" : videoUrl;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.evaluate);
+            dest.writeString(this.createTime);
+            dest.writeString(this.imgUrl);
+            dest.writeString(this.videoCover);
+            dest.writeString(this.videoUrl);
+        }
+
+        public CommodityEvaluateVoBean() {
+        }
+
+        protected CommodityEvaluateVoBean(Parcel in) {
+            this.evaluate = in.readString();
+            this.createTime = in.readString();
+            this.imgUrl = in.readString();
+            this.videoCover = in.readString();
+            this.videoUrl = in.readString();
+        }
+
+        public static final Creator<CommodityEvaluateVoBean> CREATOR = new Creator<CommodityEvaluateVoBean>() {
+            @Override
+            public CommodityEvaluateVoBean createFromParcel(Parcel source) {
+                return new CommodityEvaluateVoBean(source);
+            }
+
+            @Override
+            public CommodityEvaluateVoBean[] newArray(int size) {
+                return new CommodityEvaluateVoBean[size];
+            }
+        };
     }
 
     public static class ReturnOrderFormInfoBean implements Parcelable {
@@ -853,6 +946,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         dest.writeString(this.logisticsNumber);
         dest.writeString(this.logisticsLink);
         dest.writeParcelable(this.returnOrderFormInfo, flags);
+        dest.writeParcelable(this.commodityEvaluateVo, flags);
         dest.writeTypedList(this.commodityList);
     }
 
@@ -887,6 +981,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         this.logisticsNumber = in.readString();
         this.logisticsLink = in.readString();
         this.returnOrderFormInfo = in.readParcelable(ReturnOrderFormInfoBean.class.getClassLoader());
+        this.commodityEvaluateVo = in.readParcelable(CommodityEvaluateVoBean.class.getClassLoader());
         this.commodityList = in.createTypedArrayList(CommodityListBean.CREATOR);
     }
 

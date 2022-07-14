@@ -1,15 +1,20 @@
 package com.juntai.wisdom.project.mall.order.orderDetail;
 
 
-import android.graphics.drawable.Drawable;
-import android.view.Gravity;
-import android.widget.TextView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
-import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.wisdom.project.mall.R;
+import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
+import com.juntai.wisdom.project.mall.base.selectPics.ShowSelectedPicsAdapter;
+import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -17,30 +22,52 @@ import com.juntai.wisdom.project.mall.R;
  * @description 描述  我的信息
  * @date 2021/6/1 16:48
  */
-public class OrderBaseInfoAdapter extends BaseQuickAdapter<TextKeyValueBean, BaseViewHolder> {
+public class OrderBaseInfoAdapter extends BaseQuickAdapter<OrderDetailItemBean, BaseViewHolder> {
 
     public OrderBaseInfoAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, TextKeyValueBean item) {
-        helper.setText(R.id.item_myinfo_name, item.getKey());
-        TextView  valueTv = helper.getView(R.id.item_myinfo_value);
-        valueTv.setText(item.getValue());
-        valueTv.setGravity(Gravity.RIGHT|Gravity.CENTER_VERTICAL);
+    protected void convert(BaseViewHolder helper, OrderDetailItemBean orderDetailBean) {
+        helper.setText(R.id.order_info_title_tv, orderDetailBean.getTitle());
 
-    }
+        RecyclerView  recyclerView = helper.getView(R.id.order_detail_info_rv);
+        OrderBaseInfoChildAdapter childAdapter = new OrderBaseInfoChildAdapter(R.layout.mall_order_baseinfo_child_item);
+        recyclerView.setAdapter(childAdapter);
+        LinearLayoutManager manager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(manager);
+        childAdapter.setNewData(orderDetailBean.getArrays());
 
-    /**
-     * 设置左边图标
-     * @param textView
-     * @param drawableId
-     */
-    public void initViewLeftDrawable(TextView textView, int drawableId, int width, int height) {
-        Drawable drawable = mContext.getResources().getDrawable(drawableId);
-        drawable.setBounds(0, 0, DisplayUtil.dp2px(mContext, width), DisplayUtil.dp2px(mContext, height));//第一个 0 是距左边距离，第二个 0 是距上边距离，40 分别是长宽
-        textView.setCompoundDrawables(null, null, drawable, null);//放左边
+        List<String> pics = orderDetailBean.getImages();
+        if (pics != null&&pics.size()>0) {
+            List<BannerObject> bannerObjects = new ArrayList<>();
+            for (String pic : pics) {
+                if (pic.endsWith(".mp4")) {
+                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, new BannerObject.VideoBean(pic, orderDetailBean.getVideoCover())));
+                }else {
+                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
+                }
+            }
+            helper.setGone(R.id.order_pics_rv,true);
+            RecyclerView refundPicRv = helper.getView(R.id.order_pics_rv);
+            ShowSelectedPicsAdapter refundPicAdapter = new ShowSelectedPicsAdapter(R.layout.show_selected_pic_item);
+            refundPicAdapter.setDelateable(false);
+            refundPicRv.setAdapter(refundPicAdapter);
+            GridLayoutManager reFundLm = new GridLayoutManager(mContext,4);
+            refundPicRv.setLayoutManager(reFundLm);
+            refundPicAdapter.setNewData(pics);
+            refundPicAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,bannerObjects,position);
+
+                }
+            });
+        }else {
+            helper.setGone(R.id.order_pics_rv,false);
+        }
+
     }
 
 }

@@ -25,6 +25,7 @@ import com.juntai.wisdom.project.mall.mine.MyCenterFragment;
 import com.juntai.wisdom.project.mall.news.NewsListFragment;
 import com.juntai.wisdom.project.mall.shoppingCart.ShoppingCartFragment;
 import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
+import com.mob.MobSDK;
 
 public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         View.OnClickListener, MainPageContract.IMainPageView {
@@ -172,12 +173,16 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     protected void onResume() {
         super.onResume();
         MyWsManager.getInstance().startConnect();
+        // : 2022/7/13 mob的隐私授权 不能删
+        MobSDK.submitPolicyGrantResult(true);
+
     }
 
     @Override
     protected void onDestroy() {
         Log.e("EEEEEEEEEE", " = ChatMainActivity  onDestroy");
         stopService(new Intent(MainActivity.this, LocateAndUpload.class));
+        MyWsManager.getInstance().disconnect();
         super.onDestroy();
     }
 

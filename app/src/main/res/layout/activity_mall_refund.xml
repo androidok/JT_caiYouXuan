@@ -55,7 +55,7 @@
         android:layout_marginRight="15dp"
         android:background="@drawable/sp_filled_gray_lighter"
         android:gravity="top|left"
-        android:hint="选填,说明原因"
+        android:hint="请说明原因"
         android:lines="6"
         android:padding="10dp"
         android:textSize="14sp">
