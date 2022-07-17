@@ -2,6 +2,7 @@ package com.example.live_moudle;
 
 
 import com.example.app_basemodule.base.BaseAppPresent;
+import com.example.app_basemodule.bean.LiveDetailBean;
 import com.example.app_basemodule.bean.LiveResultBean;
 import com.example.app_basemodule.net.AppNetModule;
 import com.example.app_basemodule.utils.UserInfoManager;
@@ -34,6 +35,17 @@ public class LivePresent extends BaseAppPresent<IModel, IView> {
                 .add("userId", String.valueOf(UserInfoManager.getUserId()));
         return builder;
     }
+    /**
+     * 获取builder
+     *
+     * @return
+     */
+    public FormBody.Builder getBaseBuilderWithoutToken() {
+        FormBody.Builder builder = new FormBody.Builder()
+                .add("typeEnd", "app_buy")
+                .add("userId", String.valueOf(UserInfoManager.getUserId()));
+        return builder;
+    }
 
 
 
@@ -45,6 +57,26 @@ public class LivePresent extends BaseAppPresent<IModel, IView> {
                 .subscribe(new BaseObserver<LiveResultBean>(getView()) {
                     @Override
                     public void onSuccess(LiveResultBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getLiveDetail(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .getLiveDetail(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<LiveDetailBean>(getView()) {
+                    @Override
+                    public void onSuccess(LiveDetailBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

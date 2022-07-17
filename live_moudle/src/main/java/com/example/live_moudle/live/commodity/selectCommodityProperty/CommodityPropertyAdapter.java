@@ -71,7 +71,7 @@ public class CommodityPropertyAdapter extends BaseQuickAdapter<CommodityProperty
     public interface OnAdapterItemCallBack {
         /**
          * 选择属性
-         *
+         *size  一共有多少属性
          */
         void propertySelected(CommodityPropertyListBean.PropertyContentBean propertyContentBean);
     }

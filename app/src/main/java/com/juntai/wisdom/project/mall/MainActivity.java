@@ -45,6 +45,9 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         super.onNewIntent(intent);
         if (mainViewpager != null) {
             mainViewpager.setCurrentItem(0);
+            if (mainTablayout != null) {
+                mainTablayout.getTabAt(0).select();
+            }
         }
     }
 
@@ -55,6 +58,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
 
     @Override
     public void initView() {
+        // : 2022/7/13 mob的隐私授权 不能删
+        MobSDK.submitPolicyGrantResult(true);
         HawkProperty.clearRedPoint(mContext.getApplicationContext());
 
         initToolbarAndStatusBar(false);
@@ -173,8 +178,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     protected void onResume() {
         super.onResume();
         MyWsManager.getInstance().startConnect();
-        // : 2022/7/13 mob的隐私授权 不能删
-        MobSDK.submitPolicyGrantResult(true);
+
 
     }
 

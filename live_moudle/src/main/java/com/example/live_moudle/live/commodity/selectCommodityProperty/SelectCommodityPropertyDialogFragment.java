@@ -24,7 +24,7 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 
@@ -54,7 +54,7 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
     private CommodityPropertyAdapter commodityPropertyAdapter;
     private List<CommodityPropertyListBean> propertyListBeans = new ArrayList<>();
     private CommodityDetailBean.DataBean dataBean;
-    private HashMap<String, String> propertyMap = new HashMap<>();
+    private LinkedHashMap<String, String> propertyMap = new LinkedHashMap<>();
     private CommodityPropertyBean commodityPropertyBean;
 
     public void setOnConfirmCallBack(OnConfirmCallBack onConfirmCallBack) {
@@ -88,17 +88,17 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
 
             @Override
             public void propertySelected(CommodityPropertyListBean.PropertyContentBean propertyContentBean) {
-                // : 2022/5/5 属性选择之后的逻辑
-                if (propertyMap.containsKey(propertyContentBean.getPresentName())) {
-                    propertyMap.remove(propertyContentBean.getPresentName());
+                // : 2022/7/15 获取选中的属性
+                getSelectedProperties();
+                if (propertyMap.size()==propertyListBeans.size()) {
+                    // : 2022/5/5  获取对应的图片和价格
+                    commodityPropertyBean = ObjectBoxUtil.getCommodityProperty(dataBean, propertyMap);
+                    if (commodityPropertyBean != null) {
+                        ImageLoadUtil.loadSquareImageHasCorner(getContext(), commodityPropertyBean.getImage(), mCommodityPicIv);
+                        mAllPriceTv.setText(String.valueOf(commodityPropertyBean.getPrice()));
+                    }
                 }
-                propertyMap.put(propertyContentBean.getPresentName(), propertyContentBean.getContent());
-// TODO: 2022/5/5  获取对应的图片和价格
-                commodityPropertyBean = ObjectBoxUtil.getCommodityProperty(dataBean, propertyMap);
-                if (commodityPropertyBean != null) {
-                    ImageLoadUtil.loadSquareImageHasCorner(getContext(), commodityPropertyBean.getImage(), mCommodityPicIv);
-                    mAllPriceTv.setText(String.valueOf(commodityPropertyBean.getPrice()));
-                }
+
 
             }
         });
@@ -122,6 +122,22 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
             }
 
         });
+    }
+
+    /**
+     * 获取选中的属性
+     */
+    private void getSelectedProperties() {
+        propertyMap.clear();
+        for (CommodityPropertyListBean propertyListBean : propertyListBeans) {
+           List<CommodityPropertyListBean.PropertyContentBean>  propertyContentBeans = propertyListBean.getPropertyContent();
+            for (CommodityPropertyListBean.PropertyContentBean propertyContentBean : propertyContentBeans) {
+                if (propertyContentBean.isSelected()) {
+                    propertyMap.put(propertyContentBean.getPresentName(), propertyContentBean.getContent());
+                }
+            }
+        }
+
     }
 
 

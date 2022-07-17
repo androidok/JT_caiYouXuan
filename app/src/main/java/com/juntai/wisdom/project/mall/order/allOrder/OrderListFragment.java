@@ -67,7 +67,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
     @Override
     protected void initView() {
         super.initView();
-
+        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个订单也没有-_-",-1));
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

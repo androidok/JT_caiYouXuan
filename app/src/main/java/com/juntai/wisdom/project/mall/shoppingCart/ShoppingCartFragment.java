@@ -315,6 +315,9 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
 
                 break;
 
+            case EventBusObject.REFRESH_SHOP_CART:
+                getRvAdapterData();
+                break;
             case EventBusObject.GET_COMMODITY_DETAIL_INFO:
                 commodityListBean = (CartListBean.DataBean.CommodityListBean) eventBusObject.getEventObj();
                 mPresenter.getCommodityDetail(getBaseAppActivity().getBaseBuilderWithoutParama().add("commodityId", String.valueOf(commodityListBean.getCommodityId())).build(), AppHttpPath.COMMODIFY_DETAIL);

@@ -8,6 +8,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.live_moudle.live.LiveRoomActivity;
 import com.huawei.hms.hmsscankit.ScanUtil;
 import com.huawei.hms.ml.scan.HmsScan;
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
@@ -130,8 +131,8 @@ public class QRScanActivity extends BaseAppActivity implements View.OnClickListe
             if (hmsScans != null && hmsScans.length > 0) {
                 result = hmsScans[0].showResult;
                 resolveQrcode(result);
-            }else {
-                    ToastUtils.toast(mContext,"没有检测到有效的二维码");
+            } else {
+                ToastUtils.toast(mContext, "没有检测到有效的二维码");
             }
 
         }
@@ -144,18 +145,32 @@ public class QRScanActivity extends BaseAppActivity implements View.OnClickListe
      * @param result
      */
     public void resolveQrcode(String result) {
+        // : 2022/7/15 分享的逻辑需要调整
         /**
          *  21960 菜优选的端口号
          */
-        if (result.contains("juntaikeji") && result.contains("21960")) {
+        if (result.contains("juntaikeji") && result.contains("juntaitype")) {
             //内部二维码
-            String id = result.substring(result.lastIndexOf("=") + 1, result.length());
-            if (result.contains("shopShare")) {
-                //店铺分享
-                startToShop(Integer.parseInt(id));
-            } else {
-                // : 2022/5/31 商品分享
-                startToCommodityDetail(Integer.parseInt(id));
+            String type = result.substring(result.lastIndexOf("=") + 1, result.length());
+            String id = result.substring(result.indexOf("=") + 1, result.indexOf("&"));
+            /**
+             * 1 商品 2 商家 3 直播
+             */
+            switch (type) {
+                case "1":
+                    // : 2022/5/31 商品分享
+                    startToCommodityDetail(Integer.parseInt(id));
+                    break;
+                case "2":
+                    //店铺分享
+                    startToShop(Integer.parseInt(id));
+                    break;
+                case "3":
+                    //直播
+                    LiveRoomActivity.startToLiveRoomActivity(mContext,id);
+                    break;
+                default:
+                    break;
             }
         } else {
             startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url", result));
@@ -204,7 +219,6 @@ public class QRScanActivity extends BaseAppActivity implements View.OnClickListe
         }
         return true;
     }
-
 
 
     @Override

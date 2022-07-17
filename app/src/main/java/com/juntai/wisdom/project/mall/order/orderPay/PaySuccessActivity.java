@@ -63,7 +63,7 @@ public class PaySuccessActivity extends BaseAppActivity<OrderPresent> implements
                 break;
             case R.id.back_home_tv:
                 // : 2022/5/12 返回首页
-                startActivity(new Intent(mContext, MainActivity.class));
+                finish();
                 break;
             case R.id.order_tv:
                 // : 2022/5/12 跳转到全部订单
@@ -71,5 +71,12 @@ public class PaySuccessActivity extends BaseAppActivity<OrderPresent> implements
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(mContext, MainActivity.class));
+
     }
 }

@@ -277,7 +277,7 @@ public class WeatherActivity extends BaseAppActivity<HomePagePresent> implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.weather_place:
-                startActivityForResult(new Intent(mContext, SelectLocationForWeatherActivity.class).putExtra("city", city), SelectLocationForWeatherActivity.SELECT_LOCATION);
+//                startActivityForResult(new Intent(mContext, SelectLocationForWeatherActivity.class).putExtra("city", city), SelectLocationForWeatherActivity.SELECT_LOCATION);
                 break;
             default:
                 break;

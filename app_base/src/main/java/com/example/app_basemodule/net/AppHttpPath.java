@@ -95,9 +95,9 @@ public class AppHttpPath {
     /*====================================================    天气   ==============================================================*/
 
     //实时天气
-    public static final String REALTIME_WEATHER = BASE + "/u/appConnector/getRealTimeWeather.shtml";
+    public static final String REALTIME_WEATHER = BASE + "/buyers/getRealTimeWeather";
     //天气预报
-    public static final String FORCAST_WEATHER = BASE + "/u/appConnector/weatherForecast.shtml";
+    public static final String FORCAST_WEATHER = BASE + "/buyers/weatherForecast";
     //获取省份
     public static final String PROVINCE = BASE + "/u/appConnector/getProvince.shtml";
     //获取城市 u/apiAppAlarm/getProvince.shtml
@@ -347,6 +347,10 @@ public class AppHttpPath {
      * 开启直播
      */
     public static final String START_LIVE = BASE + "/live/openLive";
+    /**
+     * 直播详情
+     */
+    public static final String LIVE_DETAIL = BASE + "/live/getLiveInfo";
 
 
     /**

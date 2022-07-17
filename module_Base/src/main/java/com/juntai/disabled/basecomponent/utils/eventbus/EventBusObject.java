@@ -67,6 +67,10 @@ public class EventBusObject {
      * 分享
      */
     public final static String LIVE_SHARE = "LIVE_SHARE";
+    /**
+     * 刷新购物车
+     */
+    public final static String REFRESH_SHOP_CART = "REFRESH_SHOP_CART";
     public final static String WEIXIN_PAY_SUCCESS = "WEIXIN_PAY_SUCCESS";
     /**
      * 未读消息总数

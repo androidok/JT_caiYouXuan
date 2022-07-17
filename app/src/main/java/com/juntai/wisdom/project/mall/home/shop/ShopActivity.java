@@ -234,7 +234,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                 break;
             case R.id.live_tag_iv:
                 // : 2022/7/6 正在直播
-                LiveRoomActivity.startToLiveRoomActivity(mContext,liveBean);
+                LiveRoomActivity.startToLiveRoomActivity(mContext,liveBean.getLiveNumber());
                 break;
             case R.id.search_ll:
                 // : 2022/5/31 店铺内部搜索商品

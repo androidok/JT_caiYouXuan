@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.app_basemodule.bean.LiveDetailBean;
 import com.example.app_basemodule.net.AppHttpPath;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
@@ -22,7 +23,6 @@ import com.example.live_moudle.websocket.SocketManager;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.base.BaseSelectPicsActivity;
 import com.juntai.disabled.basecomponent.base.WarnDialog;
-import com.juntai.disabled.basecomponent.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -67,12 +67,12 @@ public class LiveRoomActivity extends BaseSelectPicsActivity<LivePresent> implem
     private String liveNumber;
     protected String livePath;//直播间地址
     private boolean canReconnection = true;
-private LiveListBean.DataBean.ListBean bean;
     private int collectId;
+    private LiveDetailBean.DataBean dataBean;
 
-    public  static void startToLiveRoomActivity(Context mContext, LiveListBean.DataBean.ListBean bean){
+    public static void startToLiveRoomActivity(Context mContext, String liveNumber) {
         Intent intent = new Intent(mContext, LiveRoomActivity.class);
-        intent.putExtra(BASE_PARCELABLE,bean);
+        intent.putExtra(BASE_STRING, liveNumber);
         mContext.startActivity(intent);
 
     }
@@ -89,22 +89,17 @@ private LiveListBean.DataBean.ListBean bean;
 
     @Override
     public void initView() {
-       initToolbarAndStatusBar(false);
+        initToolbarAndStatusBar(false);
         mImmersionBar.reset().statusBarColor(R.color.transparent)
                 .statusBarDarkFont(true)
                 .init();
 
-        bean = getIntent().getParcelableExtra(BASE_PARCELABLE);
-        liveNumber = bean.getLiveNumber();
-        livePath = bean.getRtmpUrl();
-        collectId = bean.getIsCollect();
+        liveNumber = getIntent().getStringExtra(BASE_STRING);
         mVideoView = (PLVideoTextureView) findViewById(R.id.VideoView);
         mInfoUserImage = (ImageView) findViewById(R.id.info_user_image);
         mInfoUserImage.setOnClickListener(this);
         mInfoUserName = (TextView) findViewById(R.id.info_user_name);
         mInfoUserName.setOnClickListener(this);
-        mInfoUserName.setText(bean.getShopName());
-        ImageLoadUtil.loadHeadCirclePic(mContext,bean.getHeadPortrait(),mInfoUserImage);
         mInfoFansCount = (TextView) findViewById(R.id.info_fans_count);
         mInfoGuanzhuBtn = (TextView) findViewById(R.id.info_guanzhu_btn);
         mInfoGuanzhuBtn.setOnClickListener(this);
@@ -115,11 +110,7 @@ private LiveListBean.DataBean.ListBean bean;
         mLiveCloseBtn.setOnClickListener(this);
         mCameraFl = (FrameLayout) findViewById(R.id.camera_fl);
         mLoadingView = findViewById(R.id.loading_view);
-        cameraCommentFragment = CommentFragment.newInstance(bean).setCanLike(false)
-                .setCanShare(true).setOnLineUsersListener(this).setShareCallBack(true);
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.camera_fl, cameraCommentFragment);
-        fragmentTransaction.commit();
+
         initLiveSetting();
     }
 
@@ -127,27 +118,28 @@ private LiveListBean.DataBean.ListBean bean;
      * 关注
      */
     private void initCollectTvStatus() {
-        if (collectId>0) {
+        if (collectId > 0) {
             //已关注
             mInfoGuanzhuBtn.setText("已关注");
-            mInfoGuanzhuBtn.setTextColor(ContextCompat.getColor(mContext,R.color.black));
+            mInfoGuanzhuBtn.setTextColor(ContextCompat.getColor(mContext, R.color.black));
             mInfoGuanzhuBtn.setBackgroundResource(R.drawable.sp_filled_gray_circle);
-        }else {
+        } else {
             mInfoGuanzhuBtn.setText("关注");
-            mInfoGuanzhuBtn.setTextColor(ContextCompat.getColor(mContext,R.color.white));
+            mInfoGuanzhuBtn.setTextColor(ContextCompat.getColor(mContext, R.color.white));
             mInfoGuanzhuBtn.setBackgroundResource(R.drawable.sp_filled_accent_circle);
         }
     }
 
     @Override
     public void initData() {
-
+// TODO: 2022/7/15 获取直播间详情
+        mPresenter.getLiveDetail(mPresenter.getBaseBuilderWithoutToken().add("number",liveNumber).build(),AppHttpPath.LIVE_DETAIL);
     }
 
     /**
      * 初始化直播设置
      */
-    private void initLiveSetting(){
+    private void initLiveSetting() {
         AVOptions options = new AVOptions();
         // the unit of timeout is ms
         options.setInteger(AVOptions.KEY_PREPARE_TIMEOUT, 5 * 1000);
@@ -170,7 +162,7 @@ private LiveListBean.DataBean.ListBean bean;
         mVideoView.setDisplayAspectRatio(PLVideoTextureView.ASPECT_RATIO_PAVED_PARENT);
 //        mVideoView.setDisplayOrientation(90); // 旋转90度
         mVideoView.setBufferingIndicator(mLoadingView);
-        if (!TextUtils.isEmpty(livePath)){
+        if (!TextUtils.isEmpty(livePath)) {
             mVideoView.setVideoPath(livePath);
 
         }
@@ -180,8 +172,8 @@ private LiveListBean.DataBean.ListBean bean;
     /**
      * 重新链接
      */
-    private void reStartLive(){
-        if (!TextUtils.isEmpty(livePath)){
+    private void reStartLive() {
+        if (!TextUtils.isEmpty(livePath)) {
 //            mVideoView.setVideoPath(livePath);
             mVideoView.start();
         }
@@ -189,11 +181,29 @@ private LiveListBean.DataBean.ListBean bean;
 
     @Override
     public void onSuccess(String tag, Object o) {
-        switch (tag){
+        switch (tag) {
             case AppHttpPath.SHOP_UNCOLLECT:
                 collectId = 0;
                 initCollectTvStatus();
                 break;
+
+            case AppHttpPath.LIVE_DETAIL:
+                LiveDetailBean liveDetailBean = (LiveDetailBean) o;
+                if (liveDetailBean != null) {
+                    dataBean = liveDetailBean.getData();
+                    if (dataBean != null) {
+                        mInfoUserName.setText(dataBean.getShopName());
+                        ImageLoadUtil.loadHeadCirclePic(mContext, dataBean.getHeadPortrait(), mInfoUserImage);
+                        cameraCommentFragment = CommentFragment.newInstance(dataBean).setCanLike(false)
+                                .setCanShare(true).setOnLineUsersListener(this).setShareCallBack(true);
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.camera_fl, cameraCommentFragment);
+                        fragmentTransaction.commit();
+                    }
+                }
+
+                break;
+
             case AppHttpPath.SHOP_COLLECT:
                 BaseResult baseResult = (BaseResult) o;
                 collectId = Integer.parseInt(baseResult.getMessage());
@@ -213,35 +223,41 @@ private LiveListBean.DataBean.ListBean bean;
     public void onClick(View v) {
         if (v.getId() == R.id.live_close_btn) {
             onBackPressed();
-        }else if(v.getId() == R.id.info_guanzhu_btn){
+        } else if (v.getId() == R.id.info_guanzhu_btn) {
             // : 2022/7/5 关注
             if (collectId > 0) {
                 new WarnDialog(mContext).builder()
                         .setTitle("确认不再关注？")
                         .setCancelButton("取消", new View.OnClickListener() {
                             @Override
-                            public void onClick(View v) {}
+                            public void onClick(View v) {
+                            }
                         })
                         .setOkButton("确定", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //取消
-                                mPresenter.collectShop(mPresenter.getBaseBuilder()
-                                        .add("isCollect", "1")
-                                        .add("id", String.valueOf(collectId))
-                                        .add("shopId", String.valueOf(bean.getShopId())).build(), AppHttpPath.SHOP_UNCOLLECT
-                                );
+                                if (dataBean != null) {
+                                    //取消
+                                    mPresenter.collectShop(mPresenter.getBaseBuilder()
+                                            .add("isCollect", "1")
+                                            .add("id", String.valueOf(collectId))
+                                            .add("shopId", String.valueOf(dataBean.getShopId())).build(), AppHttpPath.SHOP_UNCOLLECT
+                                    );
+                                }
+
                             }
                         }).show();
 
 
-
             } else {
                 //收藏
-                mPresenter.collectShop(mPresenter.getBaseBuilder()
-                        .add("isCollect", "0")
-                        .add("shopId", String.valueOf(bean.getShopId())).build(), AppHttpPath.SHOP_COLLECT
-                );
+                if (dataBean != null) {
+                    mPresenter.collectShop(mPresenter.getBaseBuilder()
+                            .add("isCollect", "0")
+                            .add("shopId", String.valueOf(dataBean.getShopId())).build(), AppHttpPath.SHOP_COLLECT
+                    );
+                }
+
             }
         }
     }
@@ -265,21 +281,22 @@ private LiveListBean.DataBean.ListBean bean;
                     @Override
                     public void onClick(View v) {
                         SocketManager.getInstance().unConnect();
-                        if (collectId<1) {
-                            mPresenter.collectShop(mPresenter.getBaseBuilder()
-                                    .add("isCollect", "0")
-                                    .add("shopId", String.valueOf(bean.getShopId())).build(), AppHttpPath.SHOP_COLLECT_FINISH
-                            );
-                        }else {
+                        if (collectId < 1) {
+                            if (dataBean != null) {
+                                mPresenter.collectShop(mPresenter.getBaseBuilder()
+                                        .add("isCollect", "0")
+                                        .add("shopId", String.valueOf(dataBean.getShopId())).build(), AppHttpPath.SHOP_COLLECT_FINISH
+                                );
+                            }
+
+                        } else {
                             finish();
                             EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_LIVE_COMMODITY_LIST, ""));
                         }
 
 
-
                     }
                 }).show();
-
 
 
     }
@@ -287,7 +304,7 @@ private LiveListBean.DataBean.ListBean bean;
     private PLOnInfoListener mOnInfoListener = new PLOnInfoListener() {
         @Override
         public void onInfo(int what, int extra) {
-            if (what != 10005){
+            if (what != 10005) {
             }
             switch (what) {
                 case PLOnInfoListener.MEDIA_INFO_BUFFERING_START:
@@ -412,6 +429,7 @@ private LiveListBean.DataBean.ListBean bean;
 
     /**
      * 判断网络是否连接
+     *
      * @returnw
      */
     private boolean isNetConnected(Context context) {
@@ -454,14 +472,14 @@ private LiveListBean.DataBean.ListBean bean;
 //                    checkStreamIsComplete(livePath);
 //                }
 //            }).start();
-            if (canReconnection){
+            if (canReconnection) {
                 reStartLive();
                 canReconnection = false;
-            }else {
+            } else {
                 ToastUtils.warning(mContext, "直播断开或已结束！");
                 finish();
             }
-        }else {
+        } else {
             ToastUtils.warning(mContext, "网络断开，请检查网络设置！");
             finish();
         }

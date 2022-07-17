@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.app_basemodule.bean.LiveDetailBean;
 import com.example.app_basemodule.bean.LiveMsgBean;
 import com.example.app_basemodule.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
@@ -24,7 +25,6 @@ import com.example.live_moudle.live.commodity.BaseLiveCommoditiesFragment;
 import com.example.live_moudle.websocket.IEvent;
 import com.example.live_moudle.websocket.SocketManager;
 import com.juntai.disabled.basecomponent.bean.CommodityBean;
-import com.juntai.disabled.basecomponent.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
@@ -60,11 +60,11 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
     private final Handler handler = new Handler(Looper.getMainLooper());
     private int shopId;
 
-  private   LiveListBean.DataBean.ListBean bean ;
+  private   LiveDetailBean.DataBean  bean ;
 
-    public static CommentFragment newInstance(LiveListBean.DataBean.ListBean bean) {
+    public static CommentFragment newInstance(LiveDetailBean.DataBean dataBean) {
         Bundle args = new Bundle();
-        args.putParcelable("liveBean", bean);
+        args.putParcelable("liveBean", dataBean);
         CommentFragment fragment = new CommentFragment();
         fragment.setArguments(args);
         return fragment;

@@ -63,8 +63,6 @@ public abstract class BaseApplication extends MultiDexApplication {
             Logger.addLogAdapter(new AndroidLogAdapter(PrettyFormatStrategy.newBuilder().
                     tag(getString(R.string.app_name)).build()));
             LogUtil.logInit(true);
-        }else {
-            CrashHandler.getInstance().init(getApplicationContext(), BaseAppUtils.getAppName());
         }
         registerActivityLifecycleCallbacks(mCallbacks);
 //是本人的QQ号申请的

@@ -24,6 +24,7 @@ import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
@@ -433,6 +434,8 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 finish();
+                // : 2022/7/17 刷新购物车列表
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_SHOP_CART,""));
             }
         });
     }

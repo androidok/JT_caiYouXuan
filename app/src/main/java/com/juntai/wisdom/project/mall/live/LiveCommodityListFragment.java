@@ -81,7 +81,7 @@ public class LiveCommodityListFragment extends BaseRecyclerviewFragment<Commodit
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LiveListBean.DataBean.ListBean bean = (LiveListBean.DataBean.ListBean) adapter.getItem(position);
 // : 2022/7/4 进入直播间
-                LiveRoomActivity.startToLiveRoomActivity(mContext, bean);
+                LiveRoomActivity.startToLiveRoomActivity(mContext, bean.getLiveNumber());
 
             }
         });

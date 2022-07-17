@@ -9,6 +9,7 @@ import com.example.app_basemodule.bean.CommodityDesListBean;
 import com.example.app_basemodule.bean.CommodityDetailBean;
 import com.example.app_basemodule.bean.CommodityEvaluationBean;
 import com.example.app_basemodule.bean.IdNameBean;
+import com.example.app_basemodule.bean.LiveDetailBean;
 import com.example.app_basemodule.bean.LiveResultBean;
 import com.example.app_basemodule.bean.NewsListBean;
 import com.example.app_basemodule.bean.PlayUrlBean;
@@ -354,6 +355,9 @@ public interface AppServer {
      */
     @POST(AppHttpPath.START_LIVE)
     Observable<LiveResultBean> startLive(@Body RequestBody requestBody);
+
+    @POST(AppHttpPath.LIVE_DETAIL)
+    Observable<LiveDetailBean> getLiveDetail(@Body RequestBody requestBody);
 
     /**
      * 上传文件
