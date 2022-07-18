@@ -55,6 +55,31 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
                 }
             }
         });
+        baseQuickAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                MultipleItem multipleItem = (MultipleItem) adapter.getData().get(position);
+                switch (multipleItem.getItemType()) {
+                    case MultipleItem.ITEM_CHAT_LIST_CONTACT:
+                        // TODO: 2022/7/18 删除聊天记录 暂时不支持 后台提供不了接口
+                        NewsListBean.DataBean dataBean = (NewsListBean.DataBean) multipleItem.getObject();
+
+//                        getBaseActivity().showAlertDialog("删除后,将清空该聊天的消息记录", "确定", "取消", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // : 2022-01-18 删除群聊信息
+//                                mPresenter.deletePrivateChatRecord(dataBean.getFromUserId());
+//                                adapter.remove(position);
+//                            }
+//                        });
+                        break;
+
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override

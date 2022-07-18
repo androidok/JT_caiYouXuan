@@ -77,7 +77,21 @@ public class NewsPresent extends BaseAppMallPresent {
 
         return arrays.get(arrays.size() - 1);
     }
+    /**
+     * 删除私聊记录
+     *
+     * @param contactId
+     * @return
+     */
+    public void  deletePrivateChatRecord(int contactId) {
+        QueryBuilder<MessageBodyBean> builder = ObjectBox.get().boxFor(MessageBodyBean.class).query(
+               MessageBodyBean_.owner.equal(UserInfoManager.getUserId())
+                                .and(MessageBodyBean_.toUserId.oneOf(new int[]{contactId, UserInfoManager.getUserId()}))
+                                .and(MessageBodyBean_.fromUserId.oneOf(new int[]{contactId, UserInfoManager.getUserId()}))
+                        );
 
+        builder.build().remove();
+    }
     /**
      * 获取更多功能菜单
      *
@@ -207,4 +221,7 @@ public class NewsPresent extends BaseAppMallPresent {
         arrays.add(new HomePageMenuBean(MainContract.DELETE_MSG, R.mipmap.edit_msg_delete_icon));
         return arrays;
     }
+
+
+
 }
