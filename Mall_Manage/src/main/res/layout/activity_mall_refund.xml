@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/item_key_value" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/bg_pre_line"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="15dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical|left"
+            android:text="退款金额"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/refund_amount_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:text="dfad"
+            android:textColor="@color/red"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginLeft="15dp"
+        android:gravity="center_vertical|left"
+        android:text="退款说明"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <EditText
+        android:id="@+id/refund_reason_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/sp_filled_gray_lighter"
+        android:gravity="top|left"
+        android:hint="选填,说明原因"
+        android:lines="6"
+        android:padding="10dp"
+        android:textSize="14sp">
+
+    </EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginLeft="15dp"
+        android:gravity="center_vertical|left"
+        android:text="上传凭证"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <fragment
+        android:id="@+id/select_pic_fg"
+        class="com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:paddingBottom="20dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/commit_refund_tv"
+            android:text="提交申请"
+            style="@style/bt_bg_style" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.app_basemodule.utils.UserInfoManager;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.utils.RuleTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.example.app_basemodule.net.AppHttpPath;
@@ -151,7 +152,7 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
             String path = icons.get(0);
             //跳转到裁剪头像的界面
             startActivityForResult(new Intent(this, HeadCropActivity.class).putExtra(HeadCropActivity.HEAD_PIC,
-                    path), BASE_REQUEST_RESULT);
+                    path), BaseActivity.BASE_REQUEST_RESULT);
 
         }
     }

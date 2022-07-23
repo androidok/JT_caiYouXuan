@@ -20,6 +20,7 @@ import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
 import com.example.live_moudle.util.ObjectBoxUtil;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.LiveListBean;
@@ -146,7 +147,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
         MyWsManager.getInstance().disconnect();
         HawkProperty.clearRedPoint(mContext.getApplicationContext());
         ActivityManagerTool.getInstance().finishApp();
-        startActivity(new Intent(this, LoginActivity.class).putExtra(BASE_STRING, regPhone
+        startActivity(new Intent(this, LoginActivity.class).putExtra(BaseActivity.BASE_STRING, regPhone
         ));
     }
 
@@ -401,7 +402,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
 
     @Override
     public void onBackPressed() {
-        hideKeyboard(mBaseRootCol);
+        BaseActivity.hideKeyboard(mBaseRootCol);
         super.onBackPressed();
     }
 
@@ -413,7 +414,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      */
     public void startToCommodityDetail(int commodityId) {
         startActivityForResult(new Intent(mContext, CommodityDetailActivity.class)
-                .putExtra(BASE_ID, commodityId), BASE_REQUEST_RESULT);
+                .putExtra(BaseActivity.BASE_ID, commodityId), BaseActivity.BASE_REQUEST_RESULT);
     }
 
     /**
@@ -422,7 +423,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      * @param shopId
      */
     public void startToShop(int shopId) {
-        startActivityForResult(new Intent(mContext, ShopActivity.class).putExtra(BASE_ID, shopId), BASE_REQUEST_RESULT);
+        startActivityForResult(new Intent(mContext, ShopActivity.class).putExtra(BaseActivity.BASE_ID, shopId), BaseActivity.BASE_REQUEST_RESULT);
 
     }
 
@@ -434,8 +435,8 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      */
     public void startToOrderPayActivity(BaseResult orderListBean, int enterType) {
         startActivity(new Intent(mContext, OrderPayActivity.class)
-                .putExtra(BASE_STRING, enterType)
-                .putExtra(BASE_PARCELABLE, orderListBean));
+                .putExtra(BaseActivity.BASE_STRING, enterType)
+                .putExtra(BaseActivity.BASE_PARCELABLE, orderListBean));
 
     }
 
@@ -443,7 +444,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      * 跳转到确认订单
      */
     public void startToConfirmOrder(CreatOrderBean.DataBean dataBean) {
-        startActivity(new Intent(mContext, ConfirmOrderActivity.class).putExtra(BASE_PARCELABLE, dataBean));
+        startActivity(new Intent(mContext, ConfirmOrderActivity.class).putExtra(BaseActivity.BASE_PARCELABLE, dataBean));
 
     }
 
@@ -452,7 +453,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      * type  1是选择地址  0是地址管理
      */
     public void startToAddressListActivity(int type) {
-        startActivityForResult(new Intent(mContext, AddressListActivity.class).putExtra(BASE_ID, type), BASE_REQUEST_RESULT);
+        startActivityForResult(new Intent(mContext, AddressListActivity.class).putExtra(BaseActivity.BASE_ID, type), BaseActivity.BASE_REQUEST_RESULT);
 
 
     }
@@ -461,7 +462,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      * 添加(编辑地址)
      */
     public void startToAddAddress(AddressListBean.DataBean dataBean) {
-        startActivityForResult(new Intent(mContext, AddOrEditAddressActivity.class).putExtra(BASE_PARCELABLE, dataBean), BASE_REQUEST_RESULT);
+        startActivityForResult(new Intent(mContext, AddOrEditAddressActivity.class).putExtra(BaseActivity.BASE_PARCELABLE, dataBean), BaseActivity.BASE_REQUEST_RESULT);
     }
 
     /**
@@ -470,8 +471,8 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      */
     public void startToAllOrderActivity(int enterType, int tabPosition) {
         startActivity(new Intent(mContext, AllOrderActivity.class)
-                .putExtra(BASE_ID2, tabPosition)
-                .putExtra(BASE_ID, enterType));
+                .putExtra(BaseActivity.BASE_ID2, tabPosition)
+                .putExtra(BaseActivity.BASE_ID, enterType));
     }
 
     /**
@@ -480,8 +481,8 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      */
     public void startToOrderDetailActivity(int orderId, int orderStatus) {
         startActivity(new Intent(mContext, OrderDetailActivity.class)
-                .putExtra(BASE_ID, orderId)
-                .putExtra(BASE_ID2, orderStatus));
+                .putExtra(BaseActivity.BASE_ID, orderId)
+                .putExtra(BaseActivity.BASE_ID2, orderStatus));
     }
 
     /**
@@ -489,7 +490,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      */
     public void startToOrderRefundRequestActivity(OrderDetailBean orderDetailBean) {
         startActivity(new Intent(mContext, RefundRequestActivity.class)
-                .putExtra(BASE_PARCELABLE, orderDetailBean)
+                .putExtra(BaseActivity.BASE_PARCELABLE, orderDetailBean)
         );
 
     }
@@ -538,7 +539,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
         orderDetailBean.setShopName(commodityBean.getShopName());
         orderDetailBean.setCommodityList(listBeans);
         startActivity(new Intent(mContext, EvaluateActivity.class)
-                .putExtra(BASE_PARCELABLE, orderDetailBean)
+                .putExtra(BaseActivity.BASE_PARCELABLE, orderDetailBean)
         );
 
     }
@@ -549,8 +550,8 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      */
     public void startToRefundActivity(OrderDetailBean orderDetailBean, int receivedStatus) {
         startActivity(new Intent(mContext, RefundActivity.class)
-                .putExtra(BASE_ID, receivedStatus)
-                .putExtra(BASE_PARCELABLE, orderDetailBean));
+                .putExtra(BaseActivity.BASE_ID, receivedStatus)
+                .putExtra(BaseActivity.BASE_PARCELABLE, orderDetailBean));
     }
 
     /**
@@ -558,7 +559,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      */
     public void startToChatActivity(ContactBean contactBean) {
         startActivity(new Intent(mContext, ChatActivity.class)
-                .putExtra(BASE_PARCELABLE, contactBean));
+                .putExtra(BaseActivity.BASE_PARCELABLE, contactBean));
     }
 
     /**

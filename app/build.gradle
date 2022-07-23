@@ -89,7 +89,6 @@ dependencies {
     //noinspection GradleCompatible
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation project(':module_Chat')
 //    implementation project(':chatModule')
     implementation 'com.oginotihiro:cropview:1.0.0'
     implementation 'com.github.promeg:tinypinyin:2.0.3' // TinyPinyin核心包，约80KB
@@ -97,8 +96,11 @@ dependencies {
     implementation project(':app_base')
     implementation project(':banner')
     implementation project(':module_Video')
+
     implementation project(':live_moudle')
     implementation project(':module_Map')
+    implementation project(':module_Chat')
+    implementation project(':Mall_Manage')
     //支付宝支付
     api 'com.alipay.sdk:alipaysdk-android:+@aar'
     //微信支付

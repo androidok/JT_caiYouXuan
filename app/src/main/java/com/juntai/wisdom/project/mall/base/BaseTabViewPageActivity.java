@@ -1,5 +1,6 @@
 package com.juntai.wisdom.project.mall.base;
 
+
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -15,7 +16,6 @@ import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.customview.CustomViewPager;
 import com.juntai.wisdom.project.mall.base.customview.MainPagerAdapter;
 import com.juntai.wisdom.project.mall.utils.StringTools;
-
 
 /**
  * @aouther tobato
