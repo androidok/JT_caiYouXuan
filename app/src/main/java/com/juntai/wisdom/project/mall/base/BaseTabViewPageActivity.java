@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.app_basemodule.base.customview.CustomViewPager;
+import com.example.app_basemodule.base.customview.MainPagerAdapter;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.utils.StringTools;
@@ -44,7 +45,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
 
     @Override
     public int getLayoutView() {
-        return R.layout.base_tab_page_layout;
+        return R.layout.sell_base_tab_page_layout;
     }
 
     @Override

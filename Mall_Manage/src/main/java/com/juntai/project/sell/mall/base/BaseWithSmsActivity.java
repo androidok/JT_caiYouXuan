@@ -53,7 +53,7 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_modify_pwd;
+        return R.layout.sell_activity_modify_pwd;
     }
 
     @Override

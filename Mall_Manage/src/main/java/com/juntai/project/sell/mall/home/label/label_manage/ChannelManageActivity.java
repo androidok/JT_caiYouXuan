@@ -35,7 +35,7 @@ public class ChannelManageActivity extends BaseAppActivity<LabelPresenter> imple
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_label_manage;
+        return R.layout.sell_activity_label_manage;
     }
 
     @Override

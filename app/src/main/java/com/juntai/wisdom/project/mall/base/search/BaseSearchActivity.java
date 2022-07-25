@@ -28,7 +28,7 @@ public abstract class BaseSearchActivity<P extends BasePresenter> extends BaseRe
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_base_search;
+        return R.layout.sell_activity_base_search;
     }
 
     @Override

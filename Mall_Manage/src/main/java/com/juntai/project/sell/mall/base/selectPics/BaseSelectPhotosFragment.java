@@ -390,7 +390,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.select_photo_layout;
+        return R.layout.sell_select_photo_layout;
     }
 
     @Override

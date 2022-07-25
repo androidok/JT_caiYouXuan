@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.app_basemodule.base.customview.DragFloatActionButton;
 import com.example.live_moudle.live.LiveRoomActivity;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
@@ -15,7 +16,6 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
-import com.juntai.wisdom.project.mall.base.customview.DragFloatActionButton;
 import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.QRScanActivity;
@@ -59,9 +59,9 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
     private int collectId = 0;
 
     private ShopDetailBean.DataBean shopBean;
-    private LiveListBean.DataBean.ListBean liveBean;
     private List<BannerObject> bannerPics;
     private GlideImageLoader imageLoader;
+    private String liveNum;
 
     @Override
     protected ShopPresent createPresenter() {
@@ -185,8 +185,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         }else{
             mLiveTagIv.setVisibility(View.VISIBLE);
         }
-        liveBean = new LiveListBean.DataBean.ListBean(shopBean.getId(),shopBean.getIsCollect(),shopBean.getLiveNumber(),shopBean.getName()
-        ,shopBean.getTitle(),shopBean.getHeadPortrait(),shopBean.getCoverImg(),shopBean.getRtmpUrl(),shopBean.getShareLiveUrl());
+        liveNum = shopBean.getLiveNumber();
         ImageLoadUtil.loadSquareImageHasCorner(mContext, shopBean.getHeadPortrait(), mShopOwnerHeadIv);
         mShopNameTv.setText(shopBean.getName());
         mShopCreatTimeTv.setText("开店时间:" + shopBean.getCreateTime());
@@ -233,7 +232,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                 break;
             case R.id.live_tag_iv:
                 // : 2022/7/6 正在直播
-                LiveRoomActivity.startToLiveRoomActivity(mContext,liveBean.getLiveNumber());
+                LiveRoomActivity.startToLiveRoomActivity(mContext,liveNum);
                 break;
             case R.id.search_ll:
                 // : 2022/5/31 店铺内部搜索商品

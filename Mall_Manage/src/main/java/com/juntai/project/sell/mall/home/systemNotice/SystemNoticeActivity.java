@@ -112,7 +112,7 @@ public class SystemNoticeActivity extends BaseRecyclerviewActivity<HomePagePrese
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new SystemNoticeAdapter(R.layout.system_notice_item);
+        return new SystemNoticeAdapter(R.layout.sell_system_notice_item);
     }
 
     @Override

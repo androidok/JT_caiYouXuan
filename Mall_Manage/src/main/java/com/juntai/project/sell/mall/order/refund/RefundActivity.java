@@ -54,7 +54,7 @@ public class RefundActivity extends BaseAppActivity<OrderPresent> implements Hom
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_mall_refund;
+        return R.layout.sell_activity_mall_refund;
     }
 
     @Override

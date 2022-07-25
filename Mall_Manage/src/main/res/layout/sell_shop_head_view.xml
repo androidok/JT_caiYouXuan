@@ -35,7 +35,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <include
-        layout="@layout/homepage_top_search"
+        layout="@layout/sell_homepage_top_search"
         app:layout_constraintTop_toBottomOf="@+id/top_ll" />
 
     <android.support.constraint.ConstraintLayout

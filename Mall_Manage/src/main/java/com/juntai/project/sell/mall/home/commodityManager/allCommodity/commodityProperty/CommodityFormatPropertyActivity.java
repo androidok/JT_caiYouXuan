@@ -52,7 +52,7 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
 
     @Override
     public int getLayoutView() {
-        return R.layout.commodity_property_activity;
+        return R.layout.sell_commodity_property_activity;
     }
 
     @Override
@@ -154,7 +154,7 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new CommodityFormatAdapter(R.layout.commodity_format_item);
+        return new CommodityFormatAdapter(R.layout.sell_commodity_format_item);
     }
 
     @Override
@@ -254,11 +254,11 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
     private void loadFootView(List<CommodityFormatListBean.DataBean> formatList) {
         if (formatPropertyAdapter == null) {
             // : 2022/6/15 加载尾布局
-            View view = LayoutInflater.from(mContext).inflate(R.layout.set_format_layout, null);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.sell_set_format_layout, null);
             mSetPriceStockTv = view.findViewById(R.id.item_small_title_tv);
             mSetPriceStockTv.setText("设置价格库存");
             RecyclerView mCommodityFormatRv = view.findViewById(R.id.commodity_format_rv);
-            formatPropertyAdapter = new CommodityFormatPropertyAdapter(R.layout.format_property_item);
+            formatPropertyAdapter = new CommodityFormatPropertyAdapter(R.layout.sell_format_property_item);
             initRecyclerview(mCommodityFormatRv, formatPropertyAdapter, LinearLayoutManager.VERTICAL);
             baseQuickAdapter.addFooterView(view);
         }

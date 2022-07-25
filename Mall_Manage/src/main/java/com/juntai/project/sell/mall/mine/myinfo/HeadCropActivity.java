@@ -42,7 +42,7 @@ public class HeadCropActivity extends BaseAppActivity implements View.OnClickLis
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_head_crop;
+        return R.layout.sell_activity_head_crop;
     }
 
     @Override

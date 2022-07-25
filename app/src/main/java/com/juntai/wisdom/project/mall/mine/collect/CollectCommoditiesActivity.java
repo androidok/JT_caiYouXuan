@@ -63,7 +63,7 @@ public class CollectCommoditiesActivity extends BaseSearchAndListActivity<MyCent
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new CollectCommoditiesAdapter(R.layout.mall_collect_commodity_item);
+        return new CollectCommoditiesAdapter(R.layout.sell_mall_collect_commodity_item);
     }
 
     @Override

@@ -96,7 +96,7 @@
             app:layout_constraintLeft_toLeftOf="@+id/refund_tv"
             app:layout_constraintTop_toBottomOf="@+id/refund_tv" />
 
-        <include layout="@layout/select_photo_vedio_ll"></include>
+        <include layout="@layout/sell_select_photo_vedio_ll"></include>
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

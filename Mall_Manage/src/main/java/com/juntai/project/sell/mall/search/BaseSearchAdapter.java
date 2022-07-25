@@ -25,8 +25,8 @@ public class BaseSearchAdapter extends BaseMultiItemQuickAdapter<MultipleItem, B
      */
     public BaseSearchAdapter(List<MultipleItem> data) {
         super(data);
-        addItemType(MultipleItem.ITEM_COMMODITY, R.layout.mall_collect_commodity_item);
-        addItemType(MultipleItem.ITEM_SHOP, R.layout.mall_collect_shop_item);
+        addItemType(MultipleItem.ITEM_COMMODITY, R.layout.sell_mall_collect_commodity_item);
+        addItemType(MultipleItem.ITEM_SHOP, R.layout.sell_mall_collect_shop_item);
     }
 
     @Override

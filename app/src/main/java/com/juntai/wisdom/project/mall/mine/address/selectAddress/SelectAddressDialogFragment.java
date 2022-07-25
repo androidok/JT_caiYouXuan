@@ -60,7 +60,7 @@ public class SelectAddressDialogFragment extends BaseBottomSheetFragment impleme
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.address_selector_layout, null);
+        View view = inflater.inflate(R.layout.sell_address_selector_layout, null);
 
         initView(view);
         return view;
@@ -71,13 +71,13 @@ public class SelectAddressDialogFragment extends BaseBottomSheetFragment impleme
         mAllCitiesRv = view.findViewById(R.id.all_cities_rv);
         nestedScrollView = view.findViewById(R.id.addr_vv);
         mAllCitiesRv.setLayoutManager(new LinearLayoutManager(mContext));
-        selectorAdapter = new SelectAddrAdapter(R.layout.item_address_selector, new ArrayList());
+        selectorAdapter = new SelectAddrAdapter(R.layout.sell_item_address_selector, new ArrayList());
         mAllCitiesRv.setAdapter(selectorAdapter);
 
         mSelectedCitiesRv = view.findViewById(R.id.selected_cities_rv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         mSelectedCitiesRv.setLayoutManager(linearLayoutManager);
-        mSelectedAdapter = new SelectedAddrAdapter(R.layout.item_selected_cities);
+        mSelectedAdapter = new SelectedAddrAdapter(R.layout.sell_item_selected_cities);
         mSelectedCitiesRv.setAdapter(mSelectedAdapter);
         pinyin(list);
         selectorAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

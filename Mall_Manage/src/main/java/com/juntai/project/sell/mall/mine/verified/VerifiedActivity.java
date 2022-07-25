@@ -87,7 +87,7 @@ public class VerifiedActivity extends SmsCheckCodeActivity implements View.OnCli
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_verified;
+        return R.layout.sell_activity_verified;
     }
 
     @Override
@@ -106,7 +106,7 @@ public class VerifiedActivity extends SmsCheckCodeActivity implements View.OnCli
         mSmartrefreshlayout.setEnableLoadMore(false);
         mSmartrefreshlayout.setBackgroundResource(R.drawable.stroke_gray_square_bg);
         mRecyclerview.setBackgroundResource(0);
-        adapter = new VerifiedAdapter(R.layout.business_need_info_item);
+        adapter = new VerifiedAdapter(R.layout.sell_business_need_info_item);
         initRecyclerview(mRecyclerview, adapter, LinearLayoutManager.VERTICAL);
         adapter.setHeaderView(getHeadLayout());
         adapter.setFooterView(getFootLayout());
@@ -139,7 +139,7 @@ public class VerifiedActivity extends SmsCheckCodeActivity implements View.OnCli
      * @return
      */
     private View getHeadLayout() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.verified_layout_head, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.sell_verified_layout_head, null);
         mNameEt = (EditText) view.findViewById(R.id.name_et);
         mIdCardTv = (EditText) view.findViewById(R.id.id_card_tv);
         return view;
@@ -151,7 +151,7 @@ public class VerifiedActivity extends SmsCheckCodeActivity implements View.OnCli
      * @return
      */
     private View getFootLayout() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.verified_layout_foot, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.sell_verified_layout_foot, null);
         mPhoneEt = (EditText) view.findViewById(R.id.phone_et);
         mCheckCodeEt = (EditText) view.findViewById(R.id.check_code_et);
         mSendCheckCodeTv = (TextView) view.findViewById(R.id.send_check_code_tv);

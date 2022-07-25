@@ -42,7 +42,7 @@ public  abstract class AssetsBaseDetailActivity extends BaseRecyclerviewActivity
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_assets_detail;
+        return R.layout.sell_activity_assets_detail;
     }
 
 
@@ -80,9 +80,9 @@ public  abstract class AssetsBaseDetailActivity extends BaseRecyclerviewActivity
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
         if (getDetailType()==1) {
-            return new AssetsDetailAdapter(R.layout.assets_detail_item);
+            return new AssetsDetailAdapter(R.layout.sell_assets_detail_item);
         }
-        return new AssetsWithDrawAdapter(R.layout.assets_detail_item);
+        return new AssetsWithDrawAdapter(R.layout.sell_assets_detail_item);
     }
 
 

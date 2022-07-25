@@ -93,6 +93,6 @@ public class NewHandGuideActivity extends BaseRecyclerviewActivity {
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new GuideMenuAdapter(R.layout.guide_menu_item);
+        return new GuideMenuAdapter(R.layout.sell_guide_menu_item);
     }
 }

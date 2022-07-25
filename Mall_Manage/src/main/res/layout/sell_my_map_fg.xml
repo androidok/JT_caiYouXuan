@@ -24,7 +24,7 @@
                 android:orientation="horizontal">
 
                 <include
-                    layout="@layout/homepage_top_search"
+                    layout="@layout/sell_homepage_top_search"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_weight="1"
@@ -44,7 +44,7 @@
 
             </LinearLayout>
 
-            <include layout="@layout/tab_with_edit_layout" />
+            <include layout="@layout/sell_tab_with_edit_layout" />
 
         </LinearLayout>
 
@@ -110,7 +110,7 @@
             app:layout_constraintLeft_toLeftOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
-    <include layout="@layout/home_page_right_layout" />
+    <include layout="@layout/sell_home_page_right_layout" />
 
 
 </com.juntai.disabled.basecomponent.base.BaseDrawerLayout>

@@ -107,18 +107,13 @@
             android:name=".home.QRScanActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".entrance.LoginActivity"
+            android:name=".entrance.SellLoginActivity"
             android:launchMode="singleTask" />
         <activity android:name=".mine.address.AddressListActivity" />
         <activity android:name=".mine.address.AddOrEditAddressActivity" />
         <activity
             android:name=".entrance.SplashActivity"
             android:theme="@style/AppTheme.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".SellMainActivity"

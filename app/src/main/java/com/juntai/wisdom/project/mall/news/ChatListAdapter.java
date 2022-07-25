@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.app_basemodule.bean.NewsListBean;
 import com.juntai.disabled.basecomponent.utils.CalendarUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.juntai.wisdom.project.mall.R;
 import com.negier.emojifragment.util.EmojiUtils;

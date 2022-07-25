@@ -35,7 +35,7 @@ public class OrderBaseInfoAdapter extends BaseQuickAdapter<OrderDetailItemBean, 
         helper.setText(R.id.order_info_title_tv, orderDetailBean.getTitle());
 
         RecyclerView  recyclerView = helper.getView(R.id.order_detail_info_rv);
-        OrderBaseInfoChildAdapter childAdapter = new OrderBaseInfoChildAdapter(R.layout.mall_order_baseinfo_child_item);
+        OrderBaseInfoChildAdapter childAdapter = new OrderBaseInfoChildAdapter(R.layout.sell_mall_order_baseinfo_child_item);
         recyclerView.setAdapter(childAdapter);
         LinearLayoutManager manager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(manager);
@@ -53,7 +53,7 @@ public class OrderBaseInfoAdapter extends BaseQuickAdapter<OrderDetailItemBean, 
             }
             helper.setGone(R.id.order_pics_rv,true);
             RecyclerView  refundPicRv = helper.getView(R.id.order_pics_rv);
-            ShowSelectedPicsAdapter refundPicAdapter = new ShowSelectedPicsAdapter(R.layout.show_selected_pic_item,false);
+            ShowSelectedPicsAdapter refundPicAdapter = new ShowSelectedPicsAdapter(R.layout.sell_show_selected_pic_item,false);
             refundPicAdapter.setDelateable(false);
             refundPicRv.setAdapter(refundPicAdapter);
             GridLayoutManager reFundLm = new GridLayoutManager(mContext,4);

@@ -33,7 +33,7 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
     Button btClip;
     @Override
     public int getLayoutView() {
-        return R.layout.activity_image_crop;
+        return R.layout.sell_activity_image_crop;
     }
 
     @Override

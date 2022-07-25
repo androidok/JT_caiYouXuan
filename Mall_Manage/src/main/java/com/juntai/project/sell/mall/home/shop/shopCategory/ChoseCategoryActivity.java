@@ -121,7 +121,7 @@ public class ChoseCategoryActivity extends BaseRecyclerviewActivity<ShopPresent>
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new ShopCategoryAdapter(R.layout.shop_category_item);
+        return new ShopCategoryAdapter(R.layout.sell_shop_category_item);
     }
 
     @Override

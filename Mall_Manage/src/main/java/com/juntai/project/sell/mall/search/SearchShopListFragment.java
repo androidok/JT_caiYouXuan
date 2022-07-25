@@ -46,7 +46,7 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new SearchShopAdapter(R.layout.mall_collect_shop_item);
+        return new SearchShopAdapter(R.layout.sell_mall_collect_shop_item);
     }
 
     @Override

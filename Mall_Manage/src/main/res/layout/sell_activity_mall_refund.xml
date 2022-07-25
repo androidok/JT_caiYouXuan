@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
 
-    <include layout="@layout/item_key_value" />
+    <include layout="@layout/sell_item_key_value" />
 
     <LinearLayout
         android:layout_width="match_parent"

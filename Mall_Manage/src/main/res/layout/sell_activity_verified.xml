@@ -135,7 +135,7 @@
         app:constraint_referenced_ids="verified_success_tag_tv,verified_succeed_confirm_tv,verified_success_title_tv" />
 
     <include
-        layout="@layout/verified_notice_layout"
+        layout="@layout/sell_verified_notice_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></include>
 

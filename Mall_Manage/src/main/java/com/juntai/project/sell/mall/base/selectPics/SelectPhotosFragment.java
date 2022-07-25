@@ -45,6 +45,6 @@ public class SelectPhotosFragment extends BaseSelectPhotosFragment {
 
     @Override
     protected ShowSelectedPicsAdapter getPicAdapter() {
-        return new ShowSelectedPicsAdapter(R.layout.show_selected_pic_item,false);
+        return new ShowSelectedPicsAdapter(R.layout.sell_show_selected_pic_item,false);
     }
 }

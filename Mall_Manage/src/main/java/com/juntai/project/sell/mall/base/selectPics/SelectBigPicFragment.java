@@ -12,6 +12,6 @@ import com.juntai.project.sell.mall.R;
 public class SelectBigPicFragment  extends BaseSelectPhotosFragment{
     @Override
     protected ShowSelectedPicsAdapter getPicAdapter() {
-        return new ShowSelectedPicsAdapter(R.layout.show_selected_pic_item_big,true);
+        return new ShowSelectedPicsAdapter(R.layout.sell_show_selected_pic_item_big,true);
     }
 }

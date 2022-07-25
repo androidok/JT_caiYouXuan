@@ -5,10 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 
+import com.example.app_basemodule.base.customview.CustomViewPager;
+import com.example.app_basemodule.base.customview.MainPagerAdapter;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
-import com.juntai.wisdom.project.mall.base.customview.CustomViewPager;
-import com.juntai.wisdom.project.mall.base.customview.MainPagerAdapter;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.CommodityDetailActivity;
@@ -34,7 +34,7 @@ public class AllEvaluateFragment extends BaseAppFragment<CommodityPresent> imple
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.shop_commodity_evaluate_fg;
+        return R.layout.sell_shop_commodity_evaluate_fg;
     }
 
     @Override

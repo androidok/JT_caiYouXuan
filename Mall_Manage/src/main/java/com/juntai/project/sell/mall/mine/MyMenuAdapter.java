@@ -25,8 +25,8 @@ public class MyMenuAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseV
      */
     public MyMenuAdapter(List<MultipleItem> data) {
         super(data);
-        addItemType(MultipleItem.ITEM_DIVIDER, R.layout.memu_divider);
-        addItemType(MultipleItem.ITEM_MENUS,R.layout.my_center_menu_item);
+        addItemType(MultipleItem.ITEM_DIVIDER, R.layout.sell_memu_divider);
+        addItemType(MultipleItem.ITEM_MENUS,R.layout.sell_my_center_menu_item);
     }
 
 

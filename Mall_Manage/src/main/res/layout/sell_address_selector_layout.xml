@@ -5,7 +5,7 @@
     android:background="@drawable/bg_round_top_white"
     android:orientation="vertical">
 
-    <include layout="@layout/include_selector_head" />
+    <include layout="@layout/sell_include_selector_head" />
 
 
     <android.support.v4.widget.NestedScrollView

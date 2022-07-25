@@ -98,7 +98,7 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
             mDefaultAddrCl.setVisibility(View.GONE);
             mSelectAddrTv.setVisibility(View.VISIBLE);
         }
-        orderShopAdapter = new ConfirmOrderShopAdapter(R.layout.mall_comfirm_order_shop_item);
+        orderShopAdapter = new ConfirmOrderShopAdapter(R.layout.sell_mall_comfirm_order_shop_item);
         initRecyclerview(mOrderShopCommodityRv, orderShopAdapter, LinearLayoutManager.VERTICAL);
 
     }

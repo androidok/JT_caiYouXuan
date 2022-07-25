@@ -66,7 +66,7 @@ public class BindBankCardActivity extends SmsCheckCodeActivity implements HomePa
     }
 
     protected View getAdapterFootView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.bind_bank_card_footview, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.sell_bind_bank_card_footview, null);
         TextView commitTv = view.findViewById(R.id.commit_tv);
         mSendCodeTv = view.findViewById(R.id.send_check_code_tv);
         mSendCodeTv.setOnClickListener(new View.OnClickListener() {

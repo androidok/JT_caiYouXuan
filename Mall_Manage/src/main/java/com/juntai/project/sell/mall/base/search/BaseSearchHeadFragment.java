@@ -19,12 +19,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.app_basemodule.base.customview.flowlayout.FlowLayout;
+import com.example.app_basemodule.base.customview.flowlayout.TagAdapter;
+import com.example.app_basemodule.base.customview.flowlayout.TagFlowLayout;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.customview.flowlayout.FlowLayout;
-import com.juntai.project.sell.mall.base.customview.flowlayout.TagAdapter;
-import com.juntai.project.sell.mall.base.customview.flowlayout.TagFlowLayout;
 import com.juntai.project.sell.mall.utils.StringTools;
 import com.orhanobut.hawk.Hawk;
 
@@ -74,7 +74,7 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search_head_layout, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.sell_fragment_search_head_layout, null);
         initView(view);
         return view;
     }
@@ -142,7 +142,7 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
 
             @Override
             public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.search_item_textview,
+                TextView tv = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.sell_search_item_textview,
                         tagFlowLayout, false);
                 //为标签设置对应的内容
                 tv.setText(s);

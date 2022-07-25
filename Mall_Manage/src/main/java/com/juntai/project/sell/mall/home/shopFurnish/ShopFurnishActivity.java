@@ -58,7 +58,7 @@ public class ShopFurnishActivity extends BaseAppActivity<ShopPresent> implements
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_furnish_shop;
+        return R.layout.sell_activity_furnish_shop;
     }
 
     @Override

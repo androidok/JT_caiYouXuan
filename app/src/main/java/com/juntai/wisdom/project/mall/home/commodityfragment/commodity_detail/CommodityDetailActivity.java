@@ -63,7 +63,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_commodity_detail;
+        return R.layout.sell_activity_commodity_detail;
     }
 
 
@@ -86,7 +86,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
         });
         commodityId = getIntent().getIntExtra(BASE_ID, 0);
         mCommodityBottomRv = (RecyclerView) findViewById(R.id.commodity_bottom_rv);
-        picTextAdapter = new PicTextAdapter(R.layout.custom_tabitem);
+        picTextAdapter = new PicTextAdapter(R.layout.sell_custom_tabitem);
         GridLayoutManager manager = new GridLayoutManager(mContext, 3);
         mCommodityBottomRv.setLayoutManager(manager);
         mCommodityBottomRv.setAdapter(picTextAdapter);

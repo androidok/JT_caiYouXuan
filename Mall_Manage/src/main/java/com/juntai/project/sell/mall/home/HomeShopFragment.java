@@ -163,7 +163,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
     }
 
     private View getHeadView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.shop_head_view, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.sell_shop_head_view, null);
         mSearchLl = (LinearLayout) view.findViewById(R.id.search_ll);
         mSystemNoticeLl = (LinearLayout) view.findViewById(R.id.system_notice_ll);
         mShareShopIv = (ImageView) view.findViewById(R.id.share_shop_iv);
@@ -187,7 +187,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         });
         mShopTypeTv = (TextView) view.findViewById(R.id.shop_type_tv);
         mShopFlowRv = (RecyclerView) view.findViewById(R.id.shop_flow_rv);
-        shopFlowAdapter = new ShopFlowAdapter(R.layout.text_key_value_item_vertical);
+        shopFlowAdapter = new ShopFlowAdapter(R.layout.sell_text_key_value_item_vertical);
         GridLayoutManager manager = new GridLayoutManager(mContext, 3);
         mShopFlowRv.setLayoutManager(manager);
         mShopFlowRv.setAdapter(shopFlowAdapter);
@@ -238,7 +238,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new PicTextAdapter(R.layout.shop_manager_item);
+        return new PicTextAdapter(R.layout.sell_shop_manager_item);
     }
 
     @Override

@@ -384,7 +384,7 @@ public class SelectPhotosFragment<T> extends BaseAppFragment implements View.OnC
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.select_photo_layout;
+        return R.layout.sell_select_photo_layout;
     }
 
     @Override
@@ -392,7 +392,7 @@ public class SelectPhotosFragment<T> extends BaseAppFragment implements View.OnC
         mSelectPhotosRv = (RecyclerView) getView(R.id.select_photos_rv);
 
         mSelectPhotosTitleTv = (TextView) getView(R.id.select_photos_title_tv);
-        selectedPicsAdapter = new ShowSelectedPicsAdapter(R.layout.show_selected_pic_item);
+        selectedPicsAdapter = new ShowSelectedPicsAdapter(R.layout.sell_show_selected_pic_item);
         selectedPicsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
 
 

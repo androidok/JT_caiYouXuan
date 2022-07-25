@@ -39,7 +39,7 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
         helper.setText(R.id.final_payment_tv, 0 == item.getState() ? String.format("金额:%s", item.getPayPrice()) : String.format("金额:%s", item.getPayPrice()));
         initBottomButton(helper,item);
         RecyclerView recyclerView = helper.getView(R.id.order_commodities_rv);
-        OrderCommodityAdapter orderCommodityAdapter = new OrderCommodityAdapter(R.layout.comfirm_order_commodity_item);
+        OrderCommodityAdapter orderCommodityAdapter = new OrderCommodityAdapter(R.layout.sell_comfirm_order_commodity_item);
         LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         recyclerView.setAdapter(orderCommodityAdapter);
         recyclerView.setLayoutManager(manager);

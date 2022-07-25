@@ -60,7 +60,7 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
 
     @Override
     public int getLayoutView() {
-        return R.layout.shop_activity_regist;
+        return R.layout.sell_shop_activity_regist;
     }
 
     @Override
@@ -106,7 +106,7 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
         switch (tag) {
             case AppHttpPathMall.REGIST:
                 ToastUtils.toast(mContext, "注册成功");
-                startActivity(new Intent(mContext, LoginActivity.class));
+                startActivity(new Intent(mContext, SellLoginActivity.class));
                 break;
             default:
                 break;
@@ -171,7 +171,7 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
                 isAgreeProtocal = true;
             }
         } else if (id == R.id.login_tv) {
-            startActivity(new Intent(mContext, LoginActivity.class));
+            startActivity(new Intent(mContext, SellLoginActivity.class));
         }
     }
 }

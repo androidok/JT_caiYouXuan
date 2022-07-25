@@ -42,7 +42,7 @@ import okhttp3.FormBody;
  * @description 描述  登录
  * @date 2020/3/6 9:12
  */
-public class LoginActivity extends SmsCheckCodeActivity implements
+public class SellLoginActivity extends SmsCheckCodeActivity implements
         View.OnClickListener {
     public String otherHeadIcon = "";
     /**
@@ -92,7 +92,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
 
         @Override
         public void handleMessage(Message msg) {
-            LoginActivity theActivity = (LoginActivity) mActivity.get();
+            SellLoginActivity theActivity = (SellLoginActivity) mActivity.get();
             switch (msg.what) {
                 //此处可以根据what的值处理多条信息
                 case 1:
@@ -104,7 +104,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_login;
+        return R.layout.sell_activity_login;
     }
 
     @Override

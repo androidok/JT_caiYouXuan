@@ -88,7 +88,7 @@ public class GlideImageLoader implements ImageLoaderInterface<View> {
      * @return
      */
     private View getRtmpView(Context context) {
-        return LayoutInflater.from(context).inflate(R.layout.rtmp_view, null);
+        return LayoutInflater.from(context).inflate(R.layout.sell_rtmp_view, null);
     }
 
     private ImageView startVideo(Context mContext) {

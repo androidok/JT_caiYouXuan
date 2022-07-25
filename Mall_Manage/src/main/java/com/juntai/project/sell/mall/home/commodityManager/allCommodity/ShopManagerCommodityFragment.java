@@ -95,7 +95,7 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new ShopCommodityAdapter(R.layout.shop_commodity_item, this);
+        return new ShopCommodityAdapter(R.layout.sell_shop_commodity_item, this);
     }
 
     @Override

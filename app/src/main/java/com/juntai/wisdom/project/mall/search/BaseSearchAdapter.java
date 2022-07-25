@@ -2,9 +2,10 @@ package com.juntai.wisdom.project.mall.search;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
-import com.juntai.wisdom.project.mall.R;
 import com.juntai.disabled.basecomponent.bean.CommodityBean;
+import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
+import com.juntai.wisdom.project.mall.R;
 
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class BaseSearchAdapter extends BaseMultiItemQuickAdapter<MultipleItem, B
      */
     public BaseSearchAdapter(List<MultipleItem> data) {
         super(data);
-        addItemType(MultipleItem.ITEM_COMMODITY, R.layout.mall_collect_commodity_item);
-        addItemType(MultipleItem.ITEM_SHOP, R.layout.mall_collect_shop_item);
+        addItemType(MultipleItem.ITEM_COMMODITY, R.layout.sell_mall_collect_commodity_item);
+        addItemType(MultipleItem.ITEM_SHOP, R.layout.sell_mall_collect_shop_item);
     }
 
     @Override

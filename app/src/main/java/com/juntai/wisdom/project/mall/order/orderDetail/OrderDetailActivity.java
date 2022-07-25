@@ -72,7 +72,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
 
     @Override
     public int getLayoutView() {
-        return R.layout.order_detail_activity;
+        return R.layout.sell_order_detail_activity;
     }
 
     @Override
@@ -92,9 +92,9 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
         mOrderRightTv = (TextView) findViewById(R.id.order_right_tv);
         mOrderRightTv.setOnClickListener(this);
         mOrderDetailTopFl.setVisibility(View.GONE);
-        mOrderCommodityAdapter = new OrderCommodityAdapter(R.layout.comfirm_order_commodity_item);
+        mOrderCommodityAdapter = new OrderCommodityAdapter(R.layout.sell_);
         initRecyclerview(mOrderDetailCommodityRv, mOrderCommodityAdapter, LinearLayoutManager.VERTICAL);
-        mOrderBaseInfoAdapter = new OrderBaseInfoAdapter(R.layout.mall_order_baseinfo_item);
+        mOrderBaseInfoAdapter = new OrderBaseInfoAdapter(R.layout.sell_mall_order_baseinfo_item);
         initRecyclerview(mOrderDetailInfoRv, mOrderBaseInfoAdapter, LinearLayoutManager.VERTICAL);
         if (0 == orderStatus || 1 == orderStatus) {
             mOrderDetailTopFl.setVisibility(View.VISIBLE);

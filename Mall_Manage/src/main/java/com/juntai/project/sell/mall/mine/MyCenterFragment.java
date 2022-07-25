@@ -56,7 +56,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_my_center;
+        return R.layout.sell_fragment_my_center;
     }
 
     @Override

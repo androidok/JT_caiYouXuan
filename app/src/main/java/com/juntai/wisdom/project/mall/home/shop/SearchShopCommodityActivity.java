@@ -4,9 +4,10 @@ import android.os.Bundle;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.net.AppHttpPath;
-import com.juntai.wisdom.project.mall.base.search.BaseSearchActivity;
 import com.juntai.disabled.basecomponent.bean.CommodityBean;
 import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
+import com.juntai.wisdom.project.mall.base.search.BaseSearchActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 
 import java.util.ArrayList;

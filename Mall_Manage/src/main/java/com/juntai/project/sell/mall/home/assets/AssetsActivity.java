@@ -56,7 +56,7 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_assets;
+        return R.layout.sell_activity_assets;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
         mLbarChartView = (LBarChartView) findViewById(R.id.frameNewBase);
         initChartData(null);
         mItemBigTitleTv.setText("月收入金额统计");
-        assetsAdapter = new AssetsAdapter(R.layout.assets_item);
+        assetsAdapter = new AssetsAdapter(R.layout.sell_assets_item);
         mAssetsMenuRv.setAdapter(assetsAdapter);
         GridLayoutManager manager = new GridLayoutManager(mContext, 3);
         mAssetsMenuRv.setLayoutManager(manager);
@@ -237,12 +237,12 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
             List<String> arrays = new ArrayList<>();
             arrays.add("普通商城");
             arrays.add("对公财务管理");
-            View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_recycler, null);
+            View popView = LayoutInflater.from(mContext).inflate(R.layout.sell_pop_recycler, null);
             if (popupWindow == null) {
                 popupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 120), WindowManager.LayoutParams.WRAP_CONTENT,
                         false);
                 popupWindow.setOutsideTouchable(true);
-                SingleTextAdapter singleTextAdapter = new SingleTextAdapter(R.layout.pop_text_item);
+                SingleTextAdapter singleTextAdapter = new SingleTextAdapter(R.layout.sell_pop_text_item);
                 RecyclerView mRecyclerview = (RecyclerView) popView.findViewById(R.id.pop_rv);
                 mRecyclerview.setAdapter(singleTextAdapter);
                 LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);

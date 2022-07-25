@@ -91,7 +91,7 @@ public class ModifyPriceStockFragment extends BaseBottomSheetFragment implements
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.modify_commodity_stock_price, null);
+        View view = inflater.inflate(R.layout.sell_modify_commodity_stock_price, null);
         initView(view);
         return view;
     }

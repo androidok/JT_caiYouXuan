@@ -56,7 +56,7 @@ public class CommodityFormatAdapter extends BaseQuickAdapter<CommodityFormatBean
         helper.addOnClickListener(R.id.delete_iv);
         helper.addOnClickListener(R.id.add_property_tv);
         RecyclerView propertyRv = helper.getView(R.id.commodity_property_content_rv);
-        CommodityPropertyAdapter propertyAdapter = new CommodityPropertyAdapter(R.layout.commodity_add_property_item);
+        CommodityPropertyAdapter propertyAdapter = new CommodityPropertyAdapter(R.layout.sell_commodity_add_property_item);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
         propertyRv.setAdapter(propertyAdapter);
         propertyRv.setLayoutManager(gridLayoutManager);

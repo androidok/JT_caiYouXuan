@@ -37,7 +37,7 @@ public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityManagerL
         helper.setText(R.id.commodity_resove_tv, String.format("库存量 %s", item.getStock()));
 
         RecyclerView recyclerView = helper.getView(R.id.edit_commodity_rv);
-        ShopCommodityEditAdapter editAdapter = new ShopCommodityEditAdapter(R.layout.edit_commodity_item);
+        ShopCommodityEditAdapter editAdapter = new ShopCommodityEditAdapter(R.layout.sell_edit_commodity_item);
         GridLayoutManager manager = new GridLayoutManager(mContext, 4);
         recyclerView.setAdapter(editAdapter);
         recyclerView.setLayoutManager(manager);

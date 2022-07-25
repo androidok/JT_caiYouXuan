@@ -83,13 +83,13 @@ public class SplashActivity extends BaseAppActivity<HomePagePresent> implements 
                                     mPresenter.getUserInfo(getBaseBuilder().build(), AppHttpPathMall.GET_USER_INFO);
                                 }else {
                                     UserInfoManagerMall.clearUserData();
-                                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                                    startActivity(new Intent(SplashActivity.this, SellLoginActivity.class));
                                     finish();
                                 }
                             }
 
                         } else {
-                            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                            startActivity(new Intent(SplashActivity.this, SellLoginActivity.class));
                             finish();
                         }
 

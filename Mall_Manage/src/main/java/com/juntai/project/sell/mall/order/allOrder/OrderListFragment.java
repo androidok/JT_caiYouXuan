@@ -51,7 +51,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new OrderListShopAdapter(R.layout.mall_order_list_item);
+        return new OrderListShopAdapter(R.layout.sell_mall_order_list_item);
     }
 
     @Override

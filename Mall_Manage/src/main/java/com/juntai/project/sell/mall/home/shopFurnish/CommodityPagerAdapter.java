@@ -60,7 +60,7 @@ public class CommodityPagerAdapter extends FragmentPagerAdapter {
      * @return
      */
     public View getTabView(int position,boolean isMsg) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.custom_tabitem, null);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.sell_custom_tabitem, null);
         TextView title = v.findViewById(R.id.tabitem_text);
         title.setText(titles.get(position).getName());
         return v;

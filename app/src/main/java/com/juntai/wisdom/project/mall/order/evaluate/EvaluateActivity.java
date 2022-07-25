@@ -49,7 +49,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
 
     @Override
     public int getLayoutView() {
-        return R.layout.mall_evaluate_activity;
+        return R.layout.sell_mall_evaluate_activity;
     }
 
     @Override
@@ -141,7 +141,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new RefundCommodityAdapter(R.layout.mall_refund_commodity_item);
+        return new RefundCommodityAdapter(R.layout.sell_mall_refund_commodity_item);
     }
 
     @Override

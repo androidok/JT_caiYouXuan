@@ -70,12 +70,12 @@ public class OrderManagerActivity extends BaseTabViewPageActivity<OrderPresent> 
                 arrays.add("全部订单");
                 arrays.add("商城订单");
                 arrays.add("公户订单");
-                View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_recycler, null);
+                View popView = LayoutInflater.from(mContext).inflate(R.layout.sell_pop_recycler, null);
                 if (popupWindow == null) {
                     popupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 80), WindowManager.LayoutParams.WRAP_CONTENT,
                             false);
                     popupWindow.setOutsideTouchable(true);
-                    SingleTextAdapter singleTextAdapter = new SingleTextAdapter(R.layout.pop_text_item);
+                    SingleTextAdapter singleTextAdapter = new SingleTextAdapter(R.layout.sell_pop_text_item);
                     RecyclerView mRecyclerview = (RecyclerView) popView.findViewById(R.id.pop_rv);
                     mRecyclerview.setAdapter(singleTextAdapter);
                     LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
@@ -119,7 +119,7 @@ public class OrderManagerActivity extends BaseTabViewPageActivity<OrderPresent> 
 
     @Override
     protected int getTabHeadLayout() {
-        return R.layout.order_manager_head_layout;
+        return R.layout.sell_order_manager_head_layout;
     }
 
     @Override

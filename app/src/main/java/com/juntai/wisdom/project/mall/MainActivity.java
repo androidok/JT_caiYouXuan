@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.baidu.location.BDLocation;
+import com.example.app_basemodule.base.customview.CustomViewPager;
+import com.example.app_basemodule.base.customview.MainPagerAdapter;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
@@ -17,8 +19,6 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
-import com.juntai.wisdom.project.mall.base.customview.CustomViewPager;
-import com.juntai.wisdom.project.mall.base.customview.MainPagerAdapter;
 import com.juntai.wisdom.project.mall.home.HomeFragment;
 import com.juntai.wisdom.project.mall.live.LiveFragment;
 import com.juntai.wisdom.project.mall.mine.MyCenterFragment;
@@ -53,7 +53,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_main;
+        return R.layout.sell_activity_main;
     }
 
     @Override

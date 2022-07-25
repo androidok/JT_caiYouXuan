@@ -23,7 +23,7 @@ public class GuideDetailActivity extends BaseAppActivity {
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_guide_detail;
+        return R.layout.sell_activity_guide_detail;
     }
 
     @Override

@@ -313,7 +313,7 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new OrderPayTypeAdapter(R.layout.mall_pay_type_item);
+        return new OrderPayTypeAdapter(R.layout.sell_mall_pay_type_item);
     }
 
     public void payByZhiFuBao(OrderPayZfbBean orderPayZfbBean) {

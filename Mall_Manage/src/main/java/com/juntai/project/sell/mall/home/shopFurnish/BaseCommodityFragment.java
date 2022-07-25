@@ -6,11 +6,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.app_basemodule.base.customview.CustomViewPager;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppFragment;
-import com.juntai.project.sell.mall.base.customview.CustomViewPager;
 import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
@@ -38,7 +38,7 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<ShopPresent>
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.homepage_commidity_fg;
+        return R.layout.sell_homepage_commidity_fg;
     }
 
     @Override

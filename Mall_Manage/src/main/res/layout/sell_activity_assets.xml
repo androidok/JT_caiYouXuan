@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <include layout="@layout/item_layout_type_title_big" />
+    <include layout="@layout/sell_item_layout_type_title_big" />
 
     <com.lixs.charts.BarChart.LBarChartView
         android:id="@+id/frameNewBase"

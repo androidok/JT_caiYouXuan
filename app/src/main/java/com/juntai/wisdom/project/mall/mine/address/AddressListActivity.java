@@ -37,7 +37,7 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_address_list;
+        return R.layout.sell_activity_address_list;
     }
 
     @Override
@@ -135,7 +135,7 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new AddressListAdapter(R.layout.item_address);
+        return new AddressListAdapter(R.layout.sell_item_address);
     }
 
 

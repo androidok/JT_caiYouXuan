@@ -71,9 +71,9 @@ android {
     packagingOptions {//解决so文件重复问题，使用第一个
         pickFirst "**/libsqlite.so"
     }
-    viewBinding {
-        enabled true
-    }
+//    viewBinding {
+//        enabled true
+//    }
 
 }
 dependencies {

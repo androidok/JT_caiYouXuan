@@ -93,7 +93,7 @@ public class WeatherActivity extends BaseAppActivity<HomePagePresent> implements
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_weather;
+        return R.layout.sell_activity_weather;
     }
 
     @Override
@@ -128,17 +128,17 @@ public class WeatherActivity extends BaseAppActivity<HomePagePresent> implements
 
         mWeatherDays.setLayoutManager(new LinearLayoutManager(mContext));
         mWeatherHours.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL,false));
-        daysAdapter = new WeatherDaysAdapter(R.layout.item_weather_days, daysBeans);
+        daysAdapter = new WeatherDaysAdapter(R.layout.sell_item_weather_days, daysBeans);
         mWeatherDays.setAdapter(daysAdapter);
-        hoursAdapter = new WeatherHoursAdapter(R.layout.item_weather_hours, hourlyBeans);
+        hoursAdapter = new WeatherHoursAdapter(R.layout.sell_item_weather_hours, hourlyBeans);
         mWeatherHours.setNestedScrollingEnabled(false);
         mWeatherHours.setAdapter(hoursAdapter);
 
         mWeatherOther.setLayoutManager(new GridLayoutManager(mContext,4));
         mEverydayRecyclerview.setLayoutManager(new GridLayoutManager(mContext,3));
-        otherDataAdapter = new WeatherOtherDataAdapter(R.layout.item_weather_other,otherDatas);
+        otherDataAdapter = new WeatherOtherDataAdapter(R.layout.sell_item_weather_other,otherDatas);
         mWeatherOther.setAdapter(otherDataAdapter);
-        everyDayAdapter = new WeatherEveryDayAdapter(R.layout.item_weather_everyday,everyDayBeans);
+        everyDayAdapter = new WeatherEveryDayAdapter(R.layout.sell_item_weather_everyday,everyDayBeans);
         mEverydayRecyclerview.setAdapter(everyDayAdapter);
 
     }

@@ -49,7 +49,7 @@ public class SendActivity extends BaseShopActivity implements HomePageContract.I
 
     @Override
     protected View getAdapterFootView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.sell_footview_commit, null);
         TextView commitTv = view.findViewById(R.id.commit_tv);
         commitTv.setOnClickListener(new View.OnClickListener() {
             @Override

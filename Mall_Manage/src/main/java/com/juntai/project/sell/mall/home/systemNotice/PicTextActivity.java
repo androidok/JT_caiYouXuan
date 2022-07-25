@@ -34,7 +34,7 @@ public class PicTextActivity extends BaseAppActivity<HomePagePresent> implements
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_pic_text;
+        return R.layout.sell_activity_pic_text;
     }
 
     @Override

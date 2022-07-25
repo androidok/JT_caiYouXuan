@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.bean.NewsListBean;
 import com.example.app_basemodule.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
@@ -108,7 +109,7 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.news_list_fg;
+        return R.layout.sell_news_list_fg;
     }
 
     @Override

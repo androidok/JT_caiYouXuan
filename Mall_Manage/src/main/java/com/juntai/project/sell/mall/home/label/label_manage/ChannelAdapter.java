@@ -87,7 +87,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         final View view;
         switch (viewType) {
             case TYPE_MY_CHANNEL_HEADER:
-                view = mInflater.inflate(R.layout.item_my_channel_header, parent, false);
+                view = mInflater.inflate(R.layout.sell_item_my_channel_header, parent, false);
                 final MyChannelHeaderViewHolder holder = new MyChannelHeaderViewHolder(view);
                 holder.tvBtnEdit.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -104,7 +104,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 return holder;
 
             case TYPE_MY:
-                view = mInflater.inflate(R.layout.item_my, parent, false);
+                view = mInflater.inflate(R.layout.sell_item_my, parent, false);
                 final MyViewHolder myHolder = new MyViewHolder(view);
 
                 myHolder.textView.setOnClickListener(new View.OnClickListener() {
@@ -197,12 +197,12 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 return myHolder;
 
             case TYPE_OTHER_CHANNEL_HEADER:
-                view = mInflater.inflate(R.layout.item_other_channel_header, parent, false);
+                view = mInflater.inflate(R.layout.sell_item_other_channel_header, parent, false);
                 return new RecyclerView.ViewHolder(view) {
                 };
 
             case TYPE_OTHER:
-                view = mInflater.inflate(R.layout.item_other, parent, false);
+                view = mInflater.inflate(R.layout.sell_item_other, parent, false);
                 final OtherViewHolder otherHolder = new OtherViewHolder(view);
                 otherHolder.textView.setOnClickListener(new View.OnClickListener() {
                     @Override

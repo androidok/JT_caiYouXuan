@@ -70,14 +70,14 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new MyInfoAdapter(R.layout.item_key_value);
+        return new MyInfoAdapter(R.layout.sell_item_key_value);
     }
 
     /**
      * 添加头部
      */
     public View getHeadView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.include_myinfo_head, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.sell_include_myinfo_head, null);
         LinearLayout headLayout = view.findViewById(R.id.myinfo_headLayout);
         imageView = view.findViewById(R.id.myinfo_headimage);
         nicknameTv = view.findViewById(R.id.myinfo_nickname);

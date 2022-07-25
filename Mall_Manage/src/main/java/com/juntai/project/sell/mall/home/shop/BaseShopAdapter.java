@@ -82,22 +82,22 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
      */
     public BaseShopAdapter(List<MultipleItem> data, boolean isDetail, FragmentManager mFragmentManager, OnPicVideoLoadSuccessCallBack onPicVideoLoadSuccessCallBack) {
         super(data);
-        addItemType(MultipleItem.ITEM_HEAD_PIC, R.layout.item_layout_type_head_pic);
-        addItemType(MultipleItem.ITEM_TITILE_BIG, R.layout.item_layout_type_title_big);
-        addItemType(MultipleItem.ITEM_TITILE_SMALL, R.layout.item_layout_type_title_small);
-        addItemType(MultipleItem.ITEM_NOTICE, R.layout.item_layout_type_notice);
-        addItemType(MultipleItem.ITEM_EDIT, R.layout.item_layout_type_edit);
-        addItemType(MultipleItem.ITEM_EDIT2, R.layout.item_layout_type_edit2);
-        addItemType(MultipleItem.ITEM_SELECT, R.layout.item_layout_type_select);
-        addItemType(MultipleItem.ITEM_NORMAL_RECYCLEVIEW, R.layout.item_layout_type_recyclerview);
-        addItemType(MultipleItem.ITEM_LOCATION, R.layout.item_layout_location);
-        addItemType(MultipleItem.ITEM_TEXT, R.layout.item_text);
-        addItemType(MultipleItem.ITEM_PIC, R.layout.item_pic);
-        addItemType(MultipleItem.ITEM_RADIO, R.layout.item_layout_type_radio);
-        addItemType(MultipleItem.ITEM_FRAGMENT, R.layout.item_pic_fragment);
-        addItemType(MultipleItem.ITEM_FRAGMENT2, R.layout.item_pic_fragment2);
-        addItemType(MultipleItem.ITEM_FRAGMENT_VIDEO, R.layout.item_pic_fragment3);
-        addItemType(MultipleItem.ITEM_RICH_TEXT, R.layout.item_rich_text);
+        addItemType(MultipleItem.ITEM_HEAD_PIC, R.layout.sell_item_layout_type_head_pic);
+        addItemType(MultipleItem.ITEM_TITILE_BIG, R.layout.sell_item_layout_type_title_big);
+        addItemType(MultipleItem.ITEM_TITILE_SMALL, R.layout.sell_item_layout_type_title_small);
+        addItemType(MultipleItem.ITEM_NOTICE, R.layout.sell_item_layout_type_notice);
+        addItemType(MultipleItem.ITEM_EDIT, R.layout.sell_item_layout_type_edit);
+        addItemType(MultipleItem.ITEM_EDIT2, R.layout.sell_item_layout_type_edit2);
+        addItemType(MultipleItem.ITEM_SELECT, R.layout.sell_item_layout_type_select);
+        addItemType(MultipleItem.ITEM_NORMAL_RECYCLEVIEW, R.layout.sell_item_layout_type_recyclerview);
+        addItemType(MultipleItem.ITEM_LOCATION, R.layout.sell_item_layout_location);
+        addItemType(MultipleItem.ITEM_TEXT, R.layout.sell_item_text);
+        addItemType(MultipleItem.ITEM_PIC, R.layout.sell_item_pic);
+        addItemType(MultipleItem.ITEM_RADIO, R.layout.sell_item_layout_type_radio);
+        addItemType(MultipleItem.ITEM_FRAGMENT, R.layout.sell_item_pic_fragment);
+        addItemType(MultipleItem.ITEM_FRAGMENT2, R.layout.sell_item_pic_fragment2);
+        addItemType(MultipleItem.ITEM_FRAGMENT_VIDEO, R.layout.sell_item_pic_fragment3);
+        addItemType(MultipleItem.ITEM_RICH_TEXT, R.layout.sell_item_rich_text);
         this.isDetail = isDetail;
         this.mFragmentManager = mFragmentManager;
         this.onPicVideoLoadSuccessCallBack = onPicVideoLoadSuccessCallBack;

@@ -63,7 +63,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
 
     @Override
     public int getLayoutView() {
-        return R.layout.order_detail_activity;
+        return R.layout.sell_order_detail_activity;
     }
 
     @Override
@@ -81,9 +81,9 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
 
 
         mOrderDetailTopFl.setVisibility(View.GONE);
-        mOrderCommodityAdapter = new OrderCommodityAdapter(R.layout.comfirm_order_commodity_item);
+        mOrderCommodityAdapter = new OrderCommodityAdapter(R.layout.sell_comfirm_order_commodity_item);
         initRecyclerviewNoScroll(mOrderDetailCommodityRv, mOrderCommodityAdapter, LinearLayoutManager.VERTICAL);
-        mOrderInfoAdapter = new OrderBaseInfoAdapter(R.layout.mall_order_baseinfo_item);
+        mOrderInfoAdapter = new OrderBaseInfoAdapter(R.layout.sell_mall_order_baseinfo_item);
         initRecyclerviewNoScroll(mOrderInfoRv, mOrderInfoAdapter, LinearLayoutManager.VERTICAL);
         mOrderDetailTopFl.setVisibility(View.VISIBLE);
         mOrderDetailTopFl.addView(getOrderStatusView());
@@ -110,7 +110,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
      * @return
      */
     private View getOrderStatusView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.order_status_layout, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.sell_order_status_layout, null);
         mOrderStatusTv = view.findViewById(R.id.order_status_tv);
         mOrderPositiveTv = view.findViewById(R.id.order_positive_tv);
         mOrderNegativeTv = view.findViewById(R.id.order_negative_tv);

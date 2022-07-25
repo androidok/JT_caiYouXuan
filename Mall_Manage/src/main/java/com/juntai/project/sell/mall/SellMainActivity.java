@@ -10,14 +10,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.baidu.location.BDLocation;
+import com.example.app_basemodule.base.customview.CustomViewPager;
+import com.example.app_basemodule.base.customview.MainPagerAdapter;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-import com.juntai.project.sell.mall.base.customview.CustomViewPager;
-import com.juntai.project.sell.mall.base.customview.MainPagerAdapter;
 import com.juntai.project.sell.mall.home.HomeShopFragment;
 import com.juntai.project.sell.mall.mine.MyCenterFragment;
 import com.juntai.project.sell.mall.news.NewsListFragment;
@@ -48,7 +48,7 @@ public class SellMainActivity extends BaseAppActivity<MainPagePresent> implement
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_main;
+        return R.layout.sell_activity_main;
     }
 
     @Override

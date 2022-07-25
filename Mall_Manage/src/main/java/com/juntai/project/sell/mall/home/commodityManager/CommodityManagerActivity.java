@@ -56,7 +56,7 @@ public class CommodityManagerActivity extends BaseRecyclerviewActivity<ShopPrese
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new CommodityManagerAdapter(R.layout.commodity_manager_item);
+        return new CommodityManagerAdapter(R.layout.sell_commodity_manager_item);
     }
 
     @Override

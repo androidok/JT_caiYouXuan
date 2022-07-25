@@ -67,7 +67,7 @@ public class EvaluateFragment extends BaseRecyclerviewFragment<CommodityPresent>
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new EvaluationAdapter(R.layout.shop_commodity_evaluta_child_item);
+        return new EvaluationAdapter(R.layout.sell_shop_commodity_evaluta_child_item);
     }
 
     @Override

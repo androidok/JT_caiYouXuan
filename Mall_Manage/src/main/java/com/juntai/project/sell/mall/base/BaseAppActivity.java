@@ -44,7 +44,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
-import com.juntai.project.sell.mall.entrance.LoginActivity;
+import com.juntai.project.sell.mall.entrance.SellLoginActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
@@ -156,7 +156,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
         UserInfoManagerMall.clearUserData();//清理数据
         HawkProperty.clearRedPoint(mContext.getApplicationContext());
         ActivityManagerTool.getInstance().finishApp();
-        startActivity(new Intent(this, LoginActivity.class).putExtra(BASE_STRING, regPhone
+        startActivity(new Intent(this, SellLoginActivity.class).putExtra(BASE_STRING, regPhone
         ));
     }
 
@@ -590,7 +590,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
         arrays.add("全部订单");
         arrays.add("商城订单");
         arrays.add("公户订单");
-        View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_recycler, null);
+        View popView = LayoutInflater.from(mContext).inflate(R.layout.sell_pop_recycler, null);
         PopupWindow popupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 70), DisplayUtil.dp2px(mContext, 90),
                 false);
         popupWindow.setOutsideTouchable(true);

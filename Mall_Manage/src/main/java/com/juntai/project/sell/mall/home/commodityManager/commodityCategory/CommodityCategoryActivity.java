@@ -42,7 +42,7 @@ public class CommodityCategoryActivity extends BaseRecyclerviewActivity<ShopPres
     }
 
     private View getHeadView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.add_commodity_category, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.sell_add_commodity_category, null);
         mCategoryNameEt = (EditText) view.findViewById(R.id.category_name_et);
         mAddCategoryTv = (TextView) view.findViewById(R.id.add_category_tv);
         mAddCategoryTv.setOnClickListener(this);
@@ -91,7 +91,7 @@ public class CommodityCategoryActivity extends BaseRecyclerviewActivity<ShopPres
      * @return
      */
     private View getEditCategoryLayout(AlertDialog alertDialog, ShopCommodityCategoryListBean.DataBean dataBean) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.edit_category, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.sell_edit_category, null);
         view.findViewById(R.id.close_dialog_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,7 +140,7 @@ public class CommodityCategoryActivity extends BaseRecyclerviewActivity<ShopPres
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new ShopCommodityCategoryAdapter(R.layout.shop_commodity_category_item);
+        return new ShopCommodityCategoryAdapter(R.layout.sell_shop_commodity_category_item);
     }
 
     @Override

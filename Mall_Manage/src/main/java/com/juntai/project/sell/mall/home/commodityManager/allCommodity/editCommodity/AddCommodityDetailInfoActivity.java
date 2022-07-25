@@ -64,7 +64,7 @@ private boolean  isEdit = false;
 
     @Override
     public int getLayoutView() {
-        return R.layout.add_commodity_detail_activity;
+        return R.layout.sell_add_commodity_detail_activity;
     }
 
     @Override

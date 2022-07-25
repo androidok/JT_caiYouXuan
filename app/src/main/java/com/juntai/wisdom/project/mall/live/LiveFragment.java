@@ -30,7 +30,7 @@ public class LiveFragment extends BaseAppFragment<CommodityPresent> implements H
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.live_fg;
+        return R.layout.sell_live_fg;
     }
 
     @Override

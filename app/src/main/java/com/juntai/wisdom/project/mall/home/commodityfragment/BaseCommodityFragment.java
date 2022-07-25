@@ -6,7 +6,9 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.app_basemodule.base.customview.CustomViewPager;
 import com.example.app_basemodule.bean.IdNameBean;
+import com.example.app_basemodule.bean.LiveTypeListBean;
 import com.example.app_basemodule.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
@@ -15,7 +17,6 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
-import com.juntai.wisdom.project.mall.base.customview.CustomViewPager;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.shop.ShopActivity;
 import com.orhanobut.hawk.Hawk;
@@ -40,7 +41,7 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.homepage_commidity_fg;
+        return R.layout.sell_homepage_commidity_fg;
     }
 
     @Override

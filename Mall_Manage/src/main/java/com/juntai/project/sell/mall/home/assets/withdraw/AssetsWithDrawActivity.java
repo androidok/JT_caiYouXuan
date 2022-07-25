@@ -40,7 +40,7 @@ public class AssetsWithDrawActivity extends BaseAppActivity<HomePagePresent> imp
 
     @Override
     public int getLayoutView() {
-        return R.layout.assets_withdraw_activity;
+        return R.layout.sell_assets_withdraw_activity;
     }
 
     @Override
