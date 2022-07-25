@@ -92,7 +92,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
         mOrderRightTv = (TextView) findViewById(R.id.order_right_tv);
         mOrderRightTv.setOnClickListener(this);
         mOrderDetailTopFl.setVisibility(View.GONE);
-        mOrderCommodityAdapter = new OrderCommodityAdapter(R.layout.sell_);
+        mOrderCommodityAdapter = new OrderCommodityAdapter(R.layout.comfirm_order_commodity_item);
         initRecyclerview(mOrderDetailCommodityRv, mOrderCommodityAdapter, LinearLayoutManager.VERTICAL);
         mOrderBaseInfoAdapter = new OrderBaseInfoAdapter(R.layout.sell_mall_order_baseinfo_item);
         initRecyclerview(mOrderDetailInfoRv, mOrderBaseInfoAdapter, LinearLayoutManager.VERTICAL);
