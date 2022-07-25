@@ -31,8 +31,11 @@ public class LivePresent extends BaseAppPresent<IModel, IView> {
         FormBody.Builder builder = new FormBody.Builder()
                 .add("account", UserInfoManager.getAccount())
                 .add("token",UserInfoManager.getUserToken())
-                .add("typeEnd", "app_buy")
+                .add("typeEnd", UserInfoManager.getDevType())
                 .add("userId", String.valueOf(UserInfoManager.getUserId()));
+        if (UserInfoManager.getShopId()>0) {
+            builder.add("shopId", String.valueOf(UserInfoManager.getShopId()));
+        }
         return builder;
     }
     /**
@@ -42,7 +45,7 @@ public class LivePresent extends BaseAppPresent<IModel, IView> {
      */
     public FormBody.Builder getBaseBuilderWithoutToken() {
         FormBody.Builder builder = new FormBody.Builder()
-                .add("typeEnd", "app_buy")
+                .add("typeEnd", UserInfoManager.getDevType())
                 .add("userId", String.valueOf(UserInfoManager.getUserId()));
         return builder;
     }

@@ -46,4 +46,5 @@ dependencies {
     api project(':chatAudioFile')
     implementation project(':module_Video')
     implementation project(':module_Map')
+    implementation project(':app_base')
 }

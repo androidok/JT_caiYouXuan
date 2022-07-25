@@ -133,7 +133,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     MyChatApp.isReLoadWarn = true;
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, loginBean.getData().getToken());
-                    MyWsManager.getInstance() .setWsUrl(String.format("%s%s/%s",AppHttpPath.BASE_SOCKET,UserInfoManager.getUserId(),UserInfoManager.DEVICE_TYPE));
+                    MyWsManager.getInstance() .setWsUrl(String.format("%s%s/%s",AppHttpPath.BASE_SOCKET,UserInfoManager.getUserId(),UserInfoManager.getDevType()));
                     startActivity(new Intent(mContext, MainActivity.class));
                     finish();
                 }
@@ -164,7 +164,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                 // : 2022/4/28 调用登录的接口
                 if (0 == loginType % 2) {
                     mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
-                            .add("typeEnd", UserInfoManager.DEVICE_TYPE)
+                            .add("typeEnd", UserInfoManager.getDevType())
                             .add("mobileName", RomUtil.getName())
                             .add("regId", HawkProperty.getRegid())
 
@@ -172,7 +172,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                             .build(), AppHttpPath.LOGIN);
                 } else {
                     mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
-                            .add("typeEnd", UserInfoManager.DEVICE_TYPE)
+                            .add("typeEnd", UserInfoManager.getDevType())
                             .add("mobileName", RomUtil.getName())
                             .add("regId", HawkProperty.getRegid())
                             .add("code", password)

@@ -113,7 +113,7 @@ public class AddrPresent extends BaseAppMallPresent {
 
     public void deleteAddr(List<Integer> ids, String tag) {
         AppNetModule.createrRetrofit()
-                .deleteAddr(UserInfoManager.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManager.DEVICE_TYPE,ids)
+                .deleteAddr(UserInfoManager.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManager.getDevType(),ids)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override

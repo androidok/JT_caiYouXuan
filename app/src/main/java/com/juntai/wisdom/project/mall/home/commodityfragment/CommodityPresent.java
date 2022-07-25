@@ -109,7 +109,7 @@ public class CommodityPresent extends BaseAppPresent<IModel, IView> {
 
     public void deleteCartCommodity(List<Integer> ids, String tag) {
         AppNetModule.createrRetrofit()
-                .deleteCartCommodity(UserInfoManager.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManager.DEVICE_TYPE,ids)
+                .deleteCartCommodity(UserInfoManager.getAccount(), Hawk.get(HawkProperty.SP_KEY_TOKEN), UserInfoManager.getDevType(),ids)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override

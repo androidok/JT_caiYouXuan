@@ -110,7 +110,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                         FormBody.Builder builder = new FormBody.Builder()
                                 .add("account", UserInfoManager.getAccount())
                                 .add("token", UserInfoManager.getUserToken())
-                                .add("typeEnd", UserInfoManager.DEVICE_TYPE)
+                                .add("typeEnd", UserInfoManager.getDevType())
                                 .add("userId", String.valueOf(dataBean.getUserId()));
                         mPresenter.getUserInfo(builder.build(), AppHttpPath.GET_USER_INFO);
 

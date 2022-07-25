@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
@@ -114,7 +115,7 @@ public class OperateMsgUtil {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("token", UserInfoManagerChat.getUserToken())
                 .addFormDataPart("account", UserInfoManagerChat.getAccount())
-                .addFormDataPart("typeEnd", "app_buy")
+                .addFormDataPart("typeEnd", UserInfoManager.getDevType())
                 .addFormDataPart("userId", String.valueOf(UserInfoManagerChat.getUserId()))
                 .addFormDataPart("type", "1")
                 .addFormDataPart("fromUserId", String.valueOf(messageBodyBean.getFromUserId()))

@@ -15,13 +15,23 @@ import java.util.Map;
  * @UpdateDate: 2020/12/19 14:04
  */
 public class UserInfoManager {
-    public static String QQ_ID = null;//qqid
+
     /**
-     * 设备登陆类型
+     * 设备类型
      */
-    public static String DEVICE_TYPE = "app_buy";
+    private  String devType;
     public static String WECHAT_ID = null;//wechatid
     public static String OTHER_NICK_NAME = null;//第三方昵称
+
+    // TODO: 2022/7/25 这个地方需要更改逻辑
+
+    public static String getDevType() {
+        if (1>0) {
+            return "app_buy";
+        }
+        return "app_seller";
+    }
+
 
     /**
      * 获取账号的状态  0 代表游客登录 1代表手机号登录 2代表第三方登录（未绑定手机号）
@@ -41,6 +51,15 @@ public class UserInfoManager {
             status = 0;
         }
         return status;
+    }
+
+    /**
+     * 获取getUserId
+     *
+     * @return
+     */
+    public static int getShopId() {
+        return getUser() != null? getUser().getShopId() : 0;
     }
     /**
      * 获取getUserId

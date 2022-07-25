@@ -287,7 +287,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
         FormBody.Builder builder = new FormBody.Builder()
                 .add("account", UserInfoManager.getAccount())
                 .add("token", UserInfoManager.getUserToken())
-                .add("typeEnd", UserInfoManager.DEVICE_TYPE)
+                .add("typeEnd", UserInfoManager.getDevType())
                 .add("userId", String.valueOf(UserInfoManager.getUserId()));
         return builder;
     }
