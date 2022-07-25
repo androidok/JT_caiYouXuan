@@ -134,20 +134,15 @@ public  abstract class AssetsBaseDetailActivity extends BaseRecyclerviewActivity
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.bill_date_tv:
-                PickerManager.getInstance().showTimePickerView(mContext, new boolean[]{true, true, false, false, false, false}, "选择年月", new PickerManager.OnTimePickerTimeSelectedListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {
-                        String time = CalendarUtil.getCurrentTime("yyyy-MM",date);
-                        mBillDateTv.setText(time);
-                        getNetData(time);
-                    }
-                });
-
-                break;
+        if (v.getId() == R.id.bill_date_tv) {
+            PickerManager.getInstance().showTimePickerView(mContext, new boolean[]{true, true, false, false, false, false}, "选择年月", new PickerManager.OnTimePickerTimeSelectedListener() {
+                @Override
+                public void onTimeSelect(Date date, View v) {
+                    String time = CalendarUtil.getCurrentTime("yyyy-MM", date);
+                    mBillDateTv.setText(time);
+                    getNetData(time);
+                }
+            });
         }
     }
 

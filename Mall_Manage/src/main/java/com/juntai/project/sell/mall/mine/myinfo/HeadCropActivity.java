@@ -75,28 +75,21 @@ public class HeadCropActivity extends BaseAppActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.crop_tv:
+        if (v.getId() == R.id.crop_tv) {
+            RxScheduler.doTask(this, new RxTask<String>() {
+                @Override
+                public String doOnIoThread() {
+                    croppedBitmap = mHeadCropCv.getOutput();
+                    return FileCacheUtils.saveBitmap(croppedBitmap);
+                }
 
-                RxScheduler.doTask(this, new RxTask<String>() {
-                    @Override
-                    public String doOnIoThread() {
-                        croppedBitmap = mHeadCropCv.getOutput();
-                        return FileCacheUtils.saveBitmap(croppedBitmap);
-                    }
-
-                    @Override
-                    public void doOnUIThread(String str) {
-                        Intent intent = new Intent().putExtra(CROPED_HEAD_PIC, str);
-                        setResult(BASE_REQUEST_RESULT, intent);
-                        finish();
-                    }
-                });
-
-
-                break;
+                @Override
+                public void doOnUIThread(String str) {
+                    Intent intent = new Intent().putExtra(CROPED_HEAD_PIC, str);
+                    setResult(BASE_REQUEST_RESULT, intent);
+                    finish();
+                }
+            });
         }
     }
 }

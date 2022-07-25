@@ -5,7 +5,6 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.bean.CommodityEvaluationBean;
-import com.example.chat.util.MultipleItem;
 import com.example.app_basemodule.bean.CommodityDetailBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;

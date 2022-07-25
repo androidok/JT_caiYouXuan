@@ -114,20 +114,14 @@ public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> ex
     }
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_video_pic:
-                //选择视频
-                recordVedio();
-                break;
-            case R.id.push_case_delete_vedio_iv:
-                //删除录制得视频
-                videoPath = null;
-                mItemVideoTag.setVisibility(View.GONE);
-                mDeleteVedio.setVisibility(View.GONE);
-                ImageLoadUtil.loadImage(mContext.getApplicationContext(), R.mipmap.add_icons, mItemVideoPic);
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.item_video_pic) {//选择视频
+            recordVedio();
+        } else if (id == R.id.push_case_delete_vedio_iv) {//删除录制得视频
+            videoPath = null;
+            mItemVideoTag.setVisibility(View.GONE);
+            mDeleteVedio.setVisibility(View.GONE);
+            ImageLoadUtil.loadImage(mContext.getApplicationContext(), R.mipmap.add_icons, mItemVideoPic);
         }
     }
 

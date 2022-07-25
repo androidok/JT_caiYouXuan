@@ -152,18 +152,15 @@ public class AddOrEditAddressActivity extends BaseAppActivity<AddrPresent> imple
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.address_add_save_contact://从通讯录选择收货人
-                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                startActivityForResult(intent, BASE_REQUEST_RESULT);
-                break;
-            case R.id.address_add_select://选择收货地址
-                mSelectAddrDialogFragment.show(getSupportFragmentManager(), "selector");
-                mSelectAddrDialogFragment.setList(Hawk.get(HawkProperty.getAllProvinceKey("100000")));
-                break;
-            case R.id.address_add_save://添加收货地址
-                toSave();
-                break;
+        int id = v.getId();
+        if (id == R.id.address_add_save_contact) {//从通讯录选择收货人
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+            startActivityForResult(intent, BASE_REQUEST_RESULT);
+        } else if (id == R.id.address_add_select) {//选择收货地址
+            mSelectAddrDialogFragment.show(getSupportFragmentManager(), "selector");
+            mSelectAddrDialogFragment.setList(Hawk.get(HawkProperty.getAllProvinceKey("100000")));
+        } else if (id == R.id.address_add_save) {//添加收货地址
+            toSave();
         }
     }
 

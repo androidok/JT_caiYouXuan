@@ -159,27 +159,18 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         if (!UserInfoManagerMall.isLogin()) {
             return;
         }
-        switch (v.getId()) {
-            case R.id.login_out:
-                //退出登录
-                DialogUtil.getMessageDialog(mContext, "是否退出登录", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        // : 2022/5/16 调用退出登录的接口
-                        mPresenter.logout(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.LOGOUT);
+        int id = v.getId();
+        if (id == R.id.login_out) {//退出登录
+            DialogUtil.getMessageDialog(mContext, "是否退出登录", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    // : 2022/5/16 调用退出登录的接口
+                    mPresenter.logout(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.LOGOUT);
 
-                    }
-                }).show();
-                break;
-            case R.id.head_cl:
-                //基本信息
-
-
-                break;
-
-            default:
-                break;
+                }
+            }).show();
+        } else if (id == R.id.head_cl) {//基本信息
         }
     }
 

@@ -62,28 +62,23 @@ public class CommodityCategoryActivity extends BaseRecyclerviewActivity<ShopPres
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 ShopCommodityCategoryListBean.DataBean dataBean = (ShopCommodityCategoryListBean.DataBean) adapter.getItem(position);
-                switch (view.getId()) {
-                    case R.id.modify_tv:
-                        AlertDialog alertDialog = new AlertDialog.Builder(mContext)
-                                .setCancelable(false)
-                                .create();
-                        alertDialog.setView(getEditCategoryLayout(alertDialog, dataBean));
-                        setAlertDialogHeightWidth(alertDialog, 0, 0);
-                        alertDialog.show();
-                        break;
-                    case R.id.delete_tv:
-                        // : 2022/6/13 删除类目
-                        showAlertDialogOfOneBt("删除商品类目", "若删除当前类目，此类目下所有商品会一 起删除。", "确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                mPresenter.deleteCommodityCategorys(getBaseBuilder().add("classifyId", String.valueOf(dataBean.getId()))
-                                       .build(), AppHttpPathMall.DELETE_COMMODITY_CATEGORY);
-                            }
-                        });
-                        break;
-                    default:
-                        break;
+                int id = view.getId();
+                if (id == R.id.modify_tv) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(mContext)
+                            .setCancelable(false)
+                            .create();
+                    alertDialog.setView(getEditCategoryLayout(alertDialog, dataBean));
+                    setAlertDialogHeightWidth(alertDialog, 0, 0);
+                    alertDialog.show();
+                } else if (id == R.id.delete_tv) {// : 2022/6/13 删除类目
+                    showAlertDialogOfOneBt("删除商品类目", "若删除当前类目，此类目下所有商品会一 起删除。", "确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            mPresenter.deleteCommodityCategorys(getBaseBuilder().add("classifyId", String.valueOf(dataBean.getId()))
+                                    .build(), AppHttpPathMall.DELETE_COMMODITY_CATEGORY);
+                        }
+                    });
                 }
             }
         });
@@ -186,20 +181,15 @@ public class CommodityCategoryActivity extends BaseRecyclerviewActivity<ShopPres
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.add_category_tv:
-                // : 2022/6/12 添加类目
-                if (TextUtils.isEmpty(getTextViewValue(mCategoryNameEt))) {
-                    ToastUtils.toast(mContext, "请输入类目名称");
-                    return;
-                }
+        if (v.getId() == R.id.add_category_tv) {// : 2022/6/12 添加类目
+            if (TextUtils.isEmpty(getTextViewValue(mCategoryNameEt))) {
+                ToastUtils.toast(mContext, "请输入类目名称");
+                return;
+            }
 
-                mPresenter.addCommodityCategorys(getBaseBuilder()
-                        .add("classifyName", getTextViewValue(mCategoryNameEt))
-                        .build(), AppHttpPathMall.ADD_COMMODITY_CATEGORY);
-                break;
+            mPresenter.addCommodityCategorys(getBaseBuilder()
+                    .add("classifyName", getTextViewValue(mCategoryNameEt))
+                    .build(), AppHttpPathMall.ADD_COMMODITY_CATEGORY);
         }
     }
 }

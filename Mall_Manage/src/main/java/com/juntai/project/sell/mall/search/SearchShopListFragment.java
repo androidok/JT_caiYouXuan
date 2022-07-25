@@ -94,14 +94,9 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
     @Override
     public void onEvent(EventBusObject eventBusObject) {
         super.onEvent(eventBusObject);
-        switch (eventBusObject.getEventKey()) {
-            case EventBusObject.REFRESH_SEARCH_SHOP_LIST:
-                // : 2022/5/20 搜索中的店铺列表
-                String key = (String) eventBusObject.getEventObj();
-                startSearch(key);
-                break;
-            default:
-                break;
+        if (EventBusObject.REFRESH_SEARCH_SHOP_LIST.equals(eventBusObject.getEventKey())) {// : 2022/5/20 搜索中的店铺列表
+            String key = (String) eventBusObject.getEventObj();
+            startSearch(key);
         }
     }
 

@@ -83,80 +83,69 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                 TextView orderLeftTv = (TextView) adapter.getViewByPosition(mRecyclerview, position, R.id.order_left_tv);
                 TextView orderRightTv = (TextView) adapter.getViewByPosition(mRecyclerview, position, R.id.order_right_tv);
 
-                switch (view.getId()) {
+                int id = view.getId();
+                if (id == R.id.shop_bottom_cl) {// : 2022/5/12 跳转到订单详情
+                    getBaseAppActivity().startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
+                } else if (id == R.id.order_shop_name_tv) {
+                    getBaseAppActivity().startToShop(orderDetailBean.getShopId());
+                } else if (id == R.id.order_left_tv) {
+                    switch (orderLeftTv.getText().toString().trim()) {
+                        case HomePageContract.ORDER_REJECT:
+                            // : 2022/6/21 不同意退货
+                            getBaseAppActivity().showAlertDialog("确定不同意退货申请吗?", "确定", "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mPresenter.handlerRefundRequest(getBaseAppActivity().getBaseBuilder()
+                                            .add("type", "1")
+                                            .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.REFUND_REQUEST);
+                                }
+                            });
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (id == R.id.order_right_tv) {
+                    switch (orderRightTv.getText().toString().trim()) {
+                        case HomePageContract.ORDER_CANCEL:
+                            // : 2022/5/12 取消订单
+                            getBaseAppActivity().showAlertDialog("是否取消当前订单?", "确定", "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mPresenter.cancelOrder(getBaseAppActivity().getBaseBuilder()
+                                            .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.CANCEL_ORDER);
+                                }
+                            });
 
-                    case R.id.shop_bottom_cl:
-                        // : 2022/5/12 跳转到订单详情
-                        getBaseAppActivity().startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
-                        break;
-                    case R.id.order_shop_name_tv:
-                        getBaseAppActivity().startToShop(orderDetailBean.getShopId());
-                        break;
+                            break;
+                        case HomePageContract.ORDER_SEND:
+                            // :  立即发货
+                            getBaseAppActivity().startSendActivity(orderDetailBean.getId());
+                            break;
+                        case HomePageContract.ORDER_AGREE:
+                            // :   同意退货
+                            getBaseAppActivity().showAlertDialog("确定同意退货申请吗?", "确定", "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mPresenter.handlerRefundRequest(getBaseAppActivity().getBaseBuilder()
+                                            .add("type", "0")
+                                            .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.REFUND_REQUEST);
+                                }
+                            });
+                            break;
+                        case HomePageContract.ORDER_DELETE:
+                            // : 2022/5/12 删除订单
+                            getBaseActivity().showAlertDialog("确定删除该订单?", "确定", "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mPresenter.deleteCancelOrder(getBaseAppActivity().getBaseBuilder()
+                                            .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.DELETE_CANCEL_ORDER);
+                                }
+                            });
 
-                    case R.id.order_left_tv:
-                        switch (orderLeftTv.getText().toString().trim()) {
-                            case HomePageContract.ORDER_REJECT:
-                                // : 2022/6/21 不同意退货
-                                getBaseAppActivity(). showAlertDialog("确定不同意退货申请吗?", "确定", "取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        mPresenter.handlerRefundRequest(getBaseAppActivity().getBaseBuilder()
-                                                .add("type", "1")
-                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.REFUND_REQUEST);
-                                    }
-                                });
-                                break;
-                            default:
-                                break;
-                        }
-
-                        break;
-                    case R.id.order_right_tv:
-                        switch (orderRightTv.getText().toString().trim()) {
-                            case HomePageContract.ORDER_CANCEL:
-                                // : 2022/5/12 取消订单
-                                getBaseAppActivity().showAlertDialog("是否取消当前订单?", "确定", "取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        mPresenter.cancelOrder(getBaseAppActivity().getBaseBuilder()
-                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.CANCEL_ORDER);
-                                    }
-                                });
-
-                                break;
-                            case HomePageContract.ORDER_SEND:
-                                // :  立即发货
-                                getBaseAppActivity().startSendActivity(orderDetailBean.getId());
-                                break;
-                            case HomePageContract.ORDER_AGREE:
-                                // :   同意退货
-                                getBaseAppActivity().showAlertDialog("确定同意退货申请吗?", "确定", "取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        mPresenter.handlerRefundRequest(getBaseAppActivity().getBaseBuilder()
-                                                .add("type", "0")
-                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.REFUND_REQUEST);
-                                    }
-                                });
-                                break;
-                            case HomePageContract.ORDER_DELETE:
-                                // : 2022/5/12 删除订单
-                                getBaseActivity().showAlertDialog("确定删除该订单?", "确定", "取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        mPresenter.deleteCancelOrder(getBaseAppActivity().getBaseBuilder()
-                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.DELETE_CANCEL_ORDER);
-                                    }
-                                });
-
-                                break;
-                            default:
-                                break;
-                        }
-
-                        break;
-                    default:
-                        break;
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
             }

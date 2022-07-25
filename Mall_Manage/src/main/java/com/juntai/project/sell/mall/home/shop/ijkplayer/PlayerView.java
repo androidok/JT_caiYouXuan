@@ -315,87 +315,69 @@ public class PlayerView implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.app_video_stream:
-                /**选择分辨率*/
-                showStreamSelectView();
-                break;
-            case R.id.ijk_iv_rotation:
-                /**旋转视频方向*/
-                setPlayerRotation();
-                break;
-            case R.id.top_video_pause_play_iv:
-                onPlayPause();
-                break;
-            case R.id.play_icon:
-                //                mTopPausePlayIv.performClick();
-                //掩人耳目
-                if (isOffLine) {
-                    Toast.makeText(mContext, "设备离线,暂无数据", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        int id = v.getId();
+        if (id == R.id.app_video_stream) {/**选择分辨率*/
+            showStreamSelectView();
+        } else if (id == R.id.ijk_iv_rotation) {/**旋转视频方向*/
+            setPlayerRotation();
+        } else if (id == R.id.top_video_pause_play_iv) {
+            onPlayPause();
+        } else if (id == R.id.play_icon) {//                mTopPausePlayIv.performClick();
+            //掩人耳目
+            if (isOffLine) {
+                Toast.makeText(mContext, "设备离线,暂无数据", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                isHideThumb = true;
-                iv_player.setVisibility(View.GONE);
-                if (hasStream) {
-                    mThumIv.setVisibility(View.GONE);
+            isHideThumb = true;
+            iv_player.setVisibility(View.GONE);
+            if (hasStream) {
+                mThumIv.setVisibility(View.GONE);
+            } else {
+                query.id(R.id.app_video_loading).visible();
+            }
+        } else if (id == R.id.top_back_iv) {/**返回*/
+            if (!isOnlyFullScreen && !isPortrait) {
+                mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            } else {
+                if (mPlayerBack != null) {
+                    mPlayerBack.onPlayerBack();
                 } else {
-                    query.id(R.id.app_video_loading).visible();
+                    mActivity.finish();
                 }
-                break;
-            case R.id.top_back_iv:
-                /**返回*/
-                if (!isOnlyFullScreen && !isPortrait) {
-                    mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                } else {
-                    if (mPlayerBack != null) {
-                        mPlayerBack.onPlayerBack();
-                    } else {
-                        mActivity.finish();
-                    }
-                }
-                break;
-            case R.id.app_video_netTie_icon:
-                /**使用移动网络提示继续播放*/
-                isGNetWork = false;
-                //                isShowNetTie = false;
-                //                hideStatusUI();
-                //                startPlay();
-                //                updatePausePlay();
+            }
+        } else if (id == R.id.app_video_netTie_icon) {/**使用移动网络提示继续播放*/
+            isGNetWork = false;
+            //                isShowNetTie = false;
+            //                hideStatusUI();
+            //                startPlay();
+            //                updatePausePlay();
 
 
-                if (isOffLine) {
-                    Toast.makeText(mContext, "设备离线,暂无数据", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                isHideThumb = true;
-                query.id(R.id.app_video_netTie).gone();
-                if (hasStream) {
-                    mThumIv.setVisibility(View.GONE);
-                } else {
-                    query.id(R.id.app_video_loading).visible();
-                }
-                break;
-            case R.id.app_video_replay_icon:
-                /**重新播放*/
-                status = PlayStateParams.STATE_ERROR;
-                hideStatusUI();
-                startPlay();
-                updatePausePlay();
+            if (isOffLine) {
+                Toast.makeText(mContext, "设备离线,暂无数据", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            isHideThumb = true;
+            query.id(R.id.app_video_netTie).gone();
+            if (hasStream) {
+                mThumIv.setVisibility(View.GONE);
+            } else {
+                query.id(R.id.app_video_loading).visible();
+            }
+        } else if (id == R.id.app_video_replay_icon) {/**重新播放*/
+            status = PlayStateParams.STATE_ERROR;
+            hideStatusUI();
+            startPlay();
+            updatePausePlay();
+        } else if (id == R.id.top_sound_iv) {/**音量控制*/
 
-                break;
-            case R.id.top_sound_iv:
-                /**音量控制*/
-
-                hasSound = !hasSound;
-                int sound = hasSound ? mMaxVolume / 2 : 0;
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, sound, 0);
-                // 显示
-                query.id(R.id.top_sound_iv).image(sound == 0 ? R.mipmap.playview_icon_unsound :
-                        R.mipmap.playview_icon_sound_nor);
-                break;
-            default:
-                break;
+            hasSound = !hasSound;
+            int sound = hasSound ? mMaxVolume / 2 : 0;
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, sound, 0);
+            // 显示
+            query.id(R.id.top_sound_iv).image(sound == 0 ? R.mipmap.playview_icon_unsound :
+                    R.mipmap.playview_icon_sound_nor);
         }
     }
 

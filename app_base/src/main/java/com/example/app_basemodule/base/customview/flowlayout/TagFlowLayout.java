@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.base.customview.flowlayout;
+package com.example.app_basemodule.base.customview.flowlayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.juntai.wisdom.project.mall.R;
+import com.example.app_basemodule.R;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -65,11 +65,11 @@ public class TagFlowLayout extends FlowLayout
         int cCount = getChildCount();
         for (int i = 0; i < cCount; i++) {
             TagView tagView = (TagView) getChildAt(i);
-            if (tagView.getVisibility() == View.GONE) {
+            if (tagView.getVisibility() == GONE) {
                 continue;
             }
-            if (tagView.getTagView().getVisibility() == View.GONE) {
-                tagView.setVisibility(View.GONE);
+            if (tagView.getTagView().getVisibility() == GONE) {
+                tagView.setVisibility(GONE);
             }
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

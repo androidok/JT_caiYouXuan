@@ -15,7 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.project.sell.mall.MainActivity;
+import com.juntai.project.sell.mall.SellMainActivity;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseTabViewPageActivity;
 import com.juntai.project.sell.mall.base.SingleTextAdapter;
@@ -167,7 +167,7 @@ public class OrderManagerActivity extends BaseTabViewPageActivity<OrderPresent> 
     public void onBackPressed() {
         if (0 == enterType) {
             // : 2022/5/12   跳到首页
-            startActivity(new Intent(mContext, MainActivity.class));
+            startActivity(new Intent(mContext, SellMainActivity.class));
         } else {
             super.onBackPressed();
         }

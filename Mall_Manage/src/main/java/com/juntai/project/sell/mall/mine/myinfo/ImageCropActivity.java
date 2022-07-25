@@ -86,43 +86,33 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btHorizontalFlip:
-                //水平翻转
-                likeView.horizontalFlip();
-                break;
-            case R.id.btVerticalFlip:
-                //垂直翻转
-                likeView.verticalFlip();
-                break;
-            case R.id.btBoth:
-                //垂直水平翻转
-                likeView.verticalAndHorizontalFlip();
-                break;
-            case R.id.btReset:
-                //重置图片位置
-                likeView.reset();
-                break;
-            case R.id.btClip:
-                //裁剪
-                File file = new File(FileCacheUtils.getAppImagePath(true)+"head.png");//将要保存图片的路径
-                try {
-                    FileOutputStream  bos = new FileOutputStream (file);
+        int id = v.getId();
+        if (id == R.id.btHorizontalFlip) {//水平翻转
+            likeView.horizontalFlip();
+        } else if (id == R.id.btVerticalFlip) {//垂直翻转
+            likeView.verticalFlip();
+        } else if (id == R.id.btBoth) {//垂直水平翻转
+            likeView.verticalAndHorizontalFlip();
+        } else if (id == R.id.btReset) {//重置图片位置
+            likeView.reset();
+        } else if (id == R.id.btClip) {//裁剪
+            File file = new File(FileCacheUtils.getAppImagePath(true) + "head.png");//将要保存图片的路径
+            try {
+                FileOutputStream bos = new FileOutputStream(file);
 //                    Bitmap cropBitmap = likeView.clip();
 //                    Bitmap cropBitmap = getBitmap(likeView.clip());
-                    Bitmap cropBitmap = bitmapZoomByScale(likeView.clip(),110,110);
+                Bitmap cropBitmap = bitmapZoomByScale(likeView.clip(), 110, 110);
 //                    cropBitmap.copy(Bitmap.Config.ARGB_8888, true);
-                    cropBitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
-                    bos.flush();
-                    bos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Intent intent = new Intent();
-                intent.putExtra("path",file.getPath());
-                setResult(RESULT_OK,intent);
-                finish();
-                break;
+                cropBitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                bos.flush();
+                bos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Intent intent = new Intent();
+            intent.putExtra("path", file.getPath());
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
     /**根据指定的宽度比例值和高度比例值进行缩放*/

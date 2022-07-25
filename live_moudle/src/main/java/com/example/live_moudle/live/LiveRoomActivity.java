@@ -19,6 +19,7 @@ import com.example.app_basemodule.bean.LiveDetailBean;
 import com.example.app_basemodule.net.AppHttpPath;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
+import com.example.app_basemodule.bean.LiveListBean;
 import com.example.live_moudle.websocket.SocketManager;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.base.BaseSelectPicsActivity;
@@ -194,7 +195,9 @@ public class LiveRoomActivity extends BaseSelectPicsActivity<LivePresent> implem
                     if (dataBean != null) {
                         mInfoUserName.setText(dataBean.getShopName());
                         ImageLoadUtil.loadHeadCirclePic(mContext, dataBean.getHeadPortrait(), mInfoUserImage);
-                        cameraCommentFragment = CommentFragment.newInstance(dataBean).setCanLike(false)
+                        LiveListBean.DataBean.ListBean  liveListBean = new LiveListBean.DataBean.ListBean(dataBean.getLiveNumber(),dataBean.getTitle(),dataBean.getCoverImg(),"",dataBean.getShareLiveUrl());
+
+                        cameraCommentFragment = CommentFragment.newInstance(liveListBean).setCanLike(false)
                                 .setCanShare(true).setOnLineUsersListener(this).setShareCallBack(true);
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.camera_fl, cameraCommentFragment);
@@ -486,7 +489,7 @@ public class LiveRoomActivity extends BaseSelectPicsActivity<LivePresent> implem
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
+    protected void onPicsAndEmpressed(List<String> icons) {
 
     }
 

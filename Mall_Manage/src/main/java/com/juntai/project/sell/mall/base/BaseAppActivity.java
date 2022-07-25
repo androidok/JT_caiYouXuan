@@ -19,11 +19,12 @@ import android.widget.PopupWindow;
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
+import com.example.app_basemodule.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
-import com.juntai.disabled.basecomponent.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
@@ -76,7 +77,10 @@ import okhttp3.RequestBody;
 public abstract class BaseAppActivity<P extends BasePresenter> extends BaseRequestLocationActivity<P> {
     public static String WX_APPID = "wx5fd6d26f7806a119";
     public UploadUtil mUploadUtil;
+    @Override
+    protected void onPicsAndEmpressed(List<String> icons) {
 
+    }
     private OnFileUploadStatus onFileUploadStatus;
 
     @Override
@@ -371,10 +375,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
         return MD5.md5(String.format("%s#%s", account, pwd));
     }
 
-    @Override
-    protected void onPicsAndEmpressed(List<String> icons) {
-
-    }
 
 
     @Override
@@ -509,8 +509,8 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
                 break;
             case EventBusObject.LIVE_SHARE:
                 LiveListBean.DataBean.ListBean bean = (LiveListBean.DataBean.ListBean) eventBusObject.getEventObj();
-                bean.setHeadPortrait(UserInfoManagerLive.getHeadPic());
-                bean.setShopName(UserInfoManagerLive.getShopName());
+                bean.setHeadPortrait(UserInfoManager.getHeadPic());
+                bean.setShopName(UserInfoManager.getShopName());
                 ShareActivity.startShareActivity(mContext, 2,bean);
 
                 break;

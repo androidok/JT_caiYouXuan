@@ -10,7 +10,7 @@ import android.text.TextUtils;
 
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.project.sell.mall.AppHttpPathMall;
-import com.juntai.project.sell.mall.MainActivity;
+import com.juntai.project.sell.mall.SellMainActivity;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
 import com.juntai.project.sell.mall.beans.UserBeanMall;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
@@ -75,7 +75,7 @@ public class SplashActivity extends BaseAppActivity<HomePagePresent> implements 
                         }
                         if (UserInfoManagerMall.isLogin()) {
                             if (UserInfoManagerMall.getShopStatus() == 2) {
-                                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                                startActivity(new Intent(SplashActivity.this, SellMainActivity.class));
                                 finish();
                             } else {
                                 // : 2022/6/8 获取用户详情
@@ -118,7 +118,7 @@ public class SplashActivity extends BaseAppActivity<HomePagePresent> implements 
                         case 1:
                         case 2:
                             // : 2022/6/8 审核通过
-                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                            startActivity(new Intent(SplashActivity.this, SellMainActivity.class));
                             finish();
                             break;
                         case 3:

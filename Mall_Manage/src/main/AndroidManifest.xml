@@ -121,7 +121,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".SellMainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"

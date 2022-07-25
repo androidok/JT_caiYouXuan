@@ -413,7 +413,7 @@ public abstract class BaseChatAppActivity<P extends BasePresenter> extends BaseC
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
+    protected void onPicsAndEmpressed(List<String> icons) {
 
     }
 

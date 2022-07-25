@@ -30,7 +30,7 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.SoundPlayer;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.project.sell.mall.MainActivity;
+import com.juntai.project.sell.mall.SellMainActivity;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.PlayUrlBean;
 
@@ -326,25 +326,17 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-
-            case R.id.cut_pic_iv:
-                mVerCaptureIv.performClick();
-                break;
-            case R.id.zoom_shrink_iv:
-                //切换到竖屏模式
-               finish();
-                break;
-            case R.id.record_iv:
-                ToastUtils.toast(mContext, "暂未开放");
-                break;
-            case R.id.top_yuntai_iv:
-                mDrawerlayout.openDrawer(mFullScreenRightLl);
-                mFullScreenRightControlLl.setVisibility(View.VISIBLE);
-                mFullScreenRightMoreCl.setVisibility(View.GONE);
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.cut_pic_iv) {
+            mVerCaptureIv.performClick();
+        } else if (id == R.id.zoom_shrink_iv) {//切换到竖屏模式
+            finish();
+        } else if (id == R.id.record_iv) {
+            ToastUtils.toast(mContext, "暂未开放");
+        } else if (id == R.id.top_yuntai_iv) {
+            mDrawerlayout.openDrawer(mFullScreenRightLl);
+            mFullScreenRightControlLl.setVisibility(View.VISIBLE);
+            mFullScreenRightMoreCl.setVisibility(View.GONE);
         }
     }
 
@@ -391,7 +383,7 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
             return;
         }
         if (0 == enterType) {
-            startActivity(new Intent(mContext, MainActivity.class));
+            startActivity(new Intent(mContext, SellMainActivity.class));
         }
 
         super.onBackPressed();

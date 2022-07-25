@@ -8,6 +8,9 @@ package com.juntai.disabled.basecomponent.utils.eventbus;
  * @UpdateDate: 2022/5/6 14:10
  */
 public class EventBusObject {
+
+    public final static String REFRESH_SEARCH_SHOP_LIST = "REFRESH_SEARCH_SHOP_LIST";
+
     /**
      * 处理接收到的消息
      */
@@ -84,6 +87,37 @@ public class EventBusObject {
 //     * 进入订单详情
 //     */
 //    public final static  String START_TO_ORDER_INFO = "START_TO_ORDER_INFO";
+
+
+    /**
+     * 待处理订单
+     *
+     */
+    public final static String UNHANDLER_ORDER_AMOUNT = "UNHANDLER_ORDER_AMOUNT";
+
+    /**
+     * 更新规格数据
+     */
+    public final static String REFRESH_COMMODITY_FORMAT_DATA = "REFRESH_COMMODITY_FORMAT_DATA";
+
+    /**
+     * 刷新商品列表
+     */
+    public final static String REFRESH_COMMODITY_LIST = "REFRESH_COMMODITY_LIST";
+
+    /**
+     * 待处理订单  待发货或者售后
+     */
+    public final static String TO_HANDLER_ORDER = "TO_HANDLER_ORDER";
+
+
+
+
+
+
+
+
+
 
 
     private String eventKey;

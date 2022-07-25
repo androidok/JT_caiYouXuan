@@ -159,90 +159,77 @@ private boolean  isEdit = false;
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.action_img:
-                //图片选择
-                choseImage(0, AddCommodityDetailInfoActivity.this, 9);
-                break;
-            case R.id.action_bold:
-                re.setBold();
-                if (re.isBold()) {
-                    changeIconColor(mActionBold, iconSelectColor);
-                } else {
-                    changeIconColor(mActionBold, iconDefaultColor);
-                }
-                break;
-            case R.id.action_italic:
-                re.setItalic();
-                if (re.isItalic()) {
-                    changeIconColor(mActionItalic, iconSelectColor);
-                } else {
-                    changeIconColor(mActionItalic, iconDefaultColor);
-                }
-                break;
-            case R.id.action_underline:
-                re.setUnderLine();
-                if (re.isUnderline()) {
-                    changeIconColor(mActionUnderline, iconSelectColor);
-                } else {
-                    changeIconColor(mActionUnderline, iconDefaultColor);
-                }
-                break;
-            case R.id.action_align_left:
-                if (re.getTextAlign() == 1) {
-                    return;
-                }
-                re.setAlignLeft();
-                changeIconColor(mActionAlignLeft, iconSelectColor);
-                changeIconColor(mActionAlignCenter, iconDefaultColor);
-                changeIconColor(mActionAlignRight, iconDefaultColor);
-                break;
-            case R.id.action_align_center:
-                if (re.getTextAlign() == 2) {
-                    return;
-                }
-                re.setAlignCenter();
-                changeIconColor(mActionAlignLeft, iconDefaultColor);
-                changeIconColor(mActionAlignCenter, iconSelectColor);
-                changeIconColor(mActionAlignRight, iconDefaultColor);
-                break;
-            case R.id.action_align_right:
-                if (re.getTextAlign() == 3) {
-                    return;
-                }
-                re.setAlignRight();
-                changeIconColor(mActionAlignLeft, iconDefaultColor);
-                changeIconColor(mActionAlignCenter, iconDefaultColor);
-                changeIconColor(mActionAlignRight, iconSelectColor);
-                break;
-            case R.id.action_undo:
-                re.undo();
-                break;
-            case R.id.action_redo:
-                re.redo();
-                break;
-            case R.id.commit_tv:
-                String des = re.getHtml().replaceAll("\n", "</br>");
-                if (TextUtils.isEmpty(des)) {
-                    ToastUtils.toast(mContext, "请输入商品详情");
-                    return;
-                }
+        int id = v.getId();
+        if (id == R.id.action_img) {//图片选择
+            choseImage(0, AddCommodityDetailInfoActivity.this, 9);
+        } else if (id == R.id.action_bold) {
+            re.setBold();
+            if (re.isBold()) {
+                changeIconColor(mActionBold, iconSelectColor);
+            } else {
+                changeIconColor(mActionBold, iconDefaultColor);
+            }
+        } else if (id == R.id.action_italic) {
+            re.setItalic();
+            if (re.isItalic()) {
+                changeIconColor(mActionItalic, iconSelectColor);
+            } else {
+                changeIconColor(mActionItalic, iconDefaultColor);
+            }
+        } else if (id == R.id.action_underline) {
+            re.setUnderLine();
+            if (re.isUnderline()) {
+                changeIconColor(mActionUnderline, iconSelectColor);
+            } else {
+                changeIconColor(mActionUnderline, iconDefaultColor);
+            }
+        } else if (id == R.id.action_align_left) {
+            if (re.getTextAlign() == 1) {
+                return;
+            }
+            re.setAlignLeft();
+            changeIconColor(mActionAlignLeft, iconSelectColor);
+            changeIconColor(mActionAlignCenter, iconDefaultColor);
+            changeIconColor(mActionAlignRight, iconDefaultColor);
+        } else if (id == R.id.action_align_center) {
+            if (re.getTextAlign() == 2) {
+                return;
+            }
+            re.setAlignCenter();
+            changeIconColor(mActionAlignLeft, iconDefaultColor);
+            changeIconColor(mActionAlignCenter, iconSelectColor);
+            changeIconColor(mActionAlignRight, iconDefaultColor);
+        } else if (id == R.id.action_align_right) {
+            if (re.getTextAlign() == 3) {
+                return;
+            }
+            re.setAlignRight();
+            changeIconColor(mActionAlignLeft, iconDefaultColor);
+            changeIconColor(mActionAlignCenter, iconDefaultColor);
+            changeIconColor(mActionAlignRight, iconSelectColor);
+        } else if (id == R.id.action_undo) {
+            re.undo();
+        } else if (id == R.id.action_redo) {
+            re.redo();
+        } else if (id == R.id.commit_tv) {
+            String des = re.getHtml().replaceAll("\n", "</br>");
+            if (TextUtils.isEmpty(des)) {
+                ToastUtils.toast(mContext, "请输入商品详情");
+                return;
+            }
 
-                commodityDetailBean.setDescription(des);
-                commodityDetailBean.setAccount(UserInfoManagerMall.getAccount());
-                commodityDetailBean.setToken(UserInfoManagerMall.getUserToken());
-                commodityDetailBean.setShopId(UserInfoManagerMall.getShopId());
-                commodityDetailBean.setTypeEnd("app_seller");
-                if (isEdit) {
-                    mPresenter.updateCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.UPDATE_COMMODITY_BASE_INFO);
+            commodityDetailBean.setDescription(des);
+            commodityDetailBean.setAccount(UserInfoManagerMall.getAccount());
+            commodityDetailBean.setToken(UserInfoManagerMall.getUserToken());
+            commodityDetailBean.setShopId(UserInfoManagerMall.getShopId());
+            commodityDetailBean.setTypeEnd("app_seller");
+            if (isEdit) {
+                mPresenter.updateCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.UPDATE_COMMODITY_BASE_INFO);
 
-                }else {
-                    mPresenter.addCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.ADD_COMMODITY_BASE_INFO);
+            } else {
+                mPresenter.addCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.ADD_COMMODITY_BASE_INFO);
 
-                }
-                break;
+            }
         }
     }
 

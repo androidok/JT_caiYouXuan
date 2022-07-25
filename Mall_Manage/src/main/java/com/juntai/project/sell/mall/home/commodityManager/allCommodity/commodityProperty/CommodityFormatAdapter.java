@@ -74,14 +74,9 @@ public class CommodityFormatAdapter extends BaseQuickAdapter<CommodityFormatBean
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 StringBean stringBean = (StringBean) adapter.getItem(position);
-                switch (view.getId()) {
-                    case R.id.delete_property_iv:
-                        adapter.remove(position);
-                        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_FORMAT_DATA,stringBean.getPresentPosition()));
-
-                        break;
-                    default:
-                        break;
+                if (view.getId() == R.id.delete_property_iv) {
+                    adapter.remove(position);
+                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_FORMAT_DATA, stringBean.getPresentPosition()));
                 }
             }
         });

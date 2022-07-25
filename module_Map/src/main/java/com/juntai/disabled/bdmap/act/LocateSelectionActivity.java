@@ -47,6 +47,7 @@ import java.util.List;
  */
 public class LocateSelectionActivity extends BaseRequestLocationActivity implements BaiduMap.OnMapClickListener, BaiduMap.SnapshotReadyCallback,
         OnGetGeoCoderResultListener {
+    public static int SELECT_ADDR = 998;
 
     public static String RIGHT_CONTENT = "right_content";
     public static String LAT = "lat";
@@ -306,7 +307,7 @@ public class LocateSelectionActivity extends BaseRequestLocationActivity impleme
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List icons) {
+    protected void onPicsAndEmpressed(List icons) {
 
     }
 }

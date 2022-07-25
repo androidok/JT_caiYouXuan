@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import com.example.app_basemodule.bean.IdNameBean;
 import com.example.app_basemodule.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
-import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
 import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;

@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.net.AppHttpPath;
-import com.example.chat.util.MultipleItem;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchActivity;
 import com.juntai.disabled.basecomponent.bean.CommodityBean;
 import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;

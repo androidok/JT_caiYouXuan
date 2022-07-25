@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.base.customview.flowlayout;
+package com.example.app_basemodule.base.customview.flowlayout;
 
 import android.content.Context;
 import android.view.View;

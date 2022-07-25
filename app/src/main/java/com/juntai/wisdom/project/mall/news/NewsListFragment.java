@@ -6,7 +6,6 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.bean.NewsListBean;
 import com.example.app_basemodule.net.AppHttpPath;
-import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;

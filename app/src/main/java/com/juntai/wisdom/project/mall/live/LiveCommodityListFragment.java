@@ -11,7 +11,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.live_moudle.live.LiveRoomActivity;
-import com.juntai.disabled.basecomponent.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;

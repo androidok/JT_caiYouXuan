@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.live_moudle.live.LiveRoomActivity;
 import com.juntai.disabled.basecomponent.base.BaseResult;
-import com.juntai.disabled.basecomponent.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;

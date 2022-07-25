@@ -116,72 +116,62 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            //用户协议
-            case R.id.regist_protoca_user_tv:
-                startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url",
-                        getString(R.string.user_xieyi_url)));
-                break;
+        int id = v.getId();//用户协议
+        if (id == R.id.regist_protoca_user_tv) {
+            startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url",
+                    getString(R.string.user_xieyi_url)));
             //隐私协议
-            case R.id.regist_protocal_secrecy_tv:
-                startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url",
-                        getString(R.string.secret_xieyi_url)));
-                break;
-            case R.id.get_code_tv:
-                sendCheckCode(getTextViewValue(mRegistPhoneEt));
-                break;
-            case R.id.regist_tv:
-                String account = getTextViewValue(mRegistPhoneEt);
-                if (!mPresenter.checkMobile(account)) {
-                    return;
-                }
-                if (!StringTools.isStringValueOk(getTextViewValue(mCodeEt))) {
-                    ToastUtils.warning(mContext, "验证码不能为空");
-                    return;
-                }
-                String pwd = getTextViewValue(mPasswordEt);
-                if (!StringTools.isStringValueOk(pwd)) {
-                    ToastUtils.warning(mContext, "登录密码不能为空");
+        } else if (id == R.id.regist_protocal_secrecy_tv) {
+            startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url",
+                    getString(R.string.secret_xieyi_url)));
+        } else if (id == R.id.get_code_tv) {
+            sendCheckCode(getTextViewValue(mRegistPhoneEt));
+        } else if (id == R.id.regist_tv) {
+            String account = getTextViewValue(mRegistPhoneEt);
+            if (!mPresenter.checkMobile(account)) {
+                return;
+            }
+            if (!StringTools.isStringValueOk(getTextViewValue(mCodeEt))) {
+                ToastUtils.warning(mContext, "验证码不能为空");
+                return;
+            }
+            String pwd = getTextViewValue(mPasswordEt);
+            if (!StringTools.isStringValueOk(pwd)) {
+                ToastUtils.warning(mContext, "登录密码不能为空");
+                return;
+            } else {
+                if (!PubUtil.checkPwdMark(pwd)) {
+                    ToastUtils.warning(mContext, "登录密码仅支持最少6位(字母数字下划线）");
                     return;
                 } else {
-                    if (!PubUtil.checkPwdMark(pwd)) {
-                        ToastUtils.warning(mContext, "登录密码仅支持最少6位(字母数字下划线）");
+                    //查看确认密码
+                    if (!pwd.equals(getTextViewValue(mRePasswordEt))) {
+                        ToastUtils.warning(mContext, "两次输入的密码不一致");
                         return;
-                    } else {
-                        //查看确认密码
-                        if (!pwd.equals(getTextViewValue(mRePasswordEt))) {
-                            ToastUtils.warning(mContext, "两次输入的密码不一致");
-                            return;
-                        }
                     }
                 }
-                if (!isAgreeProtocal) {
-                    ToastUtils.toast(mContext, "请阅读并同意相关协议");
-                    return;
-                }
+            }
+            if (!isAgreeProtocal) {
+                ToastUtils.toast(mContext, "请阅读并同意相关协议");
+                return;
+            }
 
-                // : 2022/4/29 调用注册的接口
-                FormBody.Builder builder = new FormBody.Builder();
-                builder.add("phoneNumber", account);
-                builder.add("password", MD5.md5(String.format("%s#%s", account, getTextViewValue(mPasswordEt))));
-                builder.add("code", getTextViewValue(mCodeEt));
-                mPresenter.regist(AppHttpPathMall.REGIST, builder.build());
-
-                break;
-            case R.id.regist_agree_protocal_rb:
-                if (isAgreeProtocal) {
-                    mRegistAgreeProtocalRb.setChecked(false);
-                    isAgreeProtocal = false;
-                } else {
-                    mRegistAgreeProtocalRb.setChecked(true);
-                    isAgreeProtocal = true;
-                }
-                break;
-            case R.id.login_tv:
-                startActivity(new Intent(mContext, LoginActivity.class));
-                break;
+            // : 2022/4/29 调用注册的接口
+            FormBody.Builder builder = new FormBody.Builder();
+            builder.add("phoneNumber", account);
+            builder.add("password", MD5.md5(String.format("%s#%s", account, getTextViewValue(mPasswordEt))));
+            builder.add("code", getTextViewValue(mCodeEt));
+            mPresenter.regist(AppHttpPathMall.REGIST, builder.build());
+        } else if (id == R.id.regist_agree_protocal_rb) {
+            if (isAgreeProtocal) {
+                mRegistAgreeProtocalRb.setChecked(false);
+                isAgreeProtocal = false;
+            } else {
+                mRegistAgreeProtocalRb.setChecked(true);
+                isAgreeProtocal = true;
+            }
+        } else if (id == R.id.login_tv) {
+            startActivity(new Intent(mContext, LoginActivity.class));
         }
     }
 }

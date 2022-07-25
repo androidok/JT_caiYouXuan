@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.live_moudle.bean.LiveListBean;
+import com.example.app_basemodule.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ScreenUtils;
@@ -239,12 +239,8 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.cancel_share_tv:
-                finish();
-                break;
+        if (v.getId() == R.id.cancel_share_tv) {
+            finish();
         }
     }
 }

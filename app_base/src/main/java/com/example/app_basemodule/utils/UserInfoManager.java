@@ -42,7 +42,17 @@ public class UserInfoManager {
         }
         return status;
     }
-
+    /**
+     * 获取getUserId
+     *
+     * @return
+     */
+    public static String getShopName() {
+        if (Hawk.contains(HawkProperty.SHOP_NAME)) {
+            return Hawk.get(HawkProperty.SHOP_NAME);
+        }
+        return "";
+    }
     /**
      * 获取所有联系人信息
      *

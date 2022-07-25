@@ -184,12 +184,8 @@ public class SelectAddressDialogFragment extends BaseBottomSheetFragment impleme
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.selector_close:
-                dismiss();
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.selector_close) {
+            dismiss();
         }
     }
 }

@@ -19,11 +19,11 @@ import com.example.app_basemodule.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
+import com.example.app_basemodule.bean.LiveListBean;
 import com.example.live_moudle.util.ObjectBoxUtil;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
-import com.juntai.disabled.basecomponent.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
@@ -380,7 +380,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
+    protected void onPicsAndEmpressed(List<String> icons) {
 
     }
 

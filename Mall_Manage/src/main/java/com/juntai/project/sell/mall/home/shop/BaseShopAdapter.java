@@ -164,21 +164,14 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
 //                            radioCheckedCallBack.radioChecked(group, checkedId);
 //                        }
                         RadioBean radioBean = (RadioBean) group.getTag();
-                        switch (checkedId) {
-                            case R.id.radio_zero_rb:
-                                radioBean.setDefaultSelectedIndex(0);
-                                break;
-                            case R.id.radio_first_rb:
-                                radioBean.setDefaultSelectedIndex(1);
-                                break;
-                            case R.id.radio_second_rb:
-                                radioBean.setDefaultSelectedIndex(2);
-                                break;
-                            case R.id.radio_third_rb:
-                                radioBean.setDefaultSelectedIndex(3);
-                                break;
-                            default:
-                                break;
+                        if (checkedId == R.id.radio_zero_rb) {
+                            radioBean.setDefaultSelectedIndex(0);
+                        } else if (checkedId == R.id.radio_first_rb) {
+                            radioBean.setDefaultSelectedIndex(1);
+                        } else if (checkedId == R.id.radio_second_rb) {
+                            radioBean.setDefaultSelectedIndex(2);
+                        } else if (checkedId == R.id.radio_third_rb) {
+                            radioBean.setDefaultSelectedIndex(3);
                         }
                     }
                 });
@@ -479,13 +472,9 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
             @Override
             public void afterTextChanged(Editable s) {
 
-                switch (editText.getId()) {
-                    case R.id.value_et:
-                        TextKeyValueBean editBean = (TextKeyValueBean) editText.getTag();
-                        editBean.setValue(s.toString().trim());
-                        break;
-                    default:
-                        break;
+                if (editText.getId() == R.id.value_et) {
+                    TextKeyValueBean editBean = (TextKeyValueBean) editText.getTag();
+                    editBean.setValue(s.toString().trim());
                 }
             }
         });

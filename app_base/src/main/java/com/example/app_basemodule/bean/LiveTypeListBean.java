@@ -1,4 +1,4 @@
-package com.juntai.disabled.basecomponent.bean;
+package com.example.app_basemodule.bean;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 

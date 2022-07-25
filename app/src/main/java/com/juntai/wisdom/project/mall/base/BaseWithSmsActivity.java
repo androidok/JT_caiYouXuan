@@ -9,13 +9,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.app_basemodule.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.utils.RuleTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.juntai.project.sell.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.mall.mine.myinfo.HeadCropActivity;
 
 import java.util.List;
@@ -146,8 +146,7 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
-        super.selectedPicsAndEmpressed(icons);
+    protected void onPicsAndEmpressed(List<String> icons) {
         if (icons.size() > 0) {
             String path = icons.get(0);
             //跳转到裁剪头像的界面

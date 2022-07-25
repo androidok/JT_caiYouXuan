@@ -67,30 +67,24 @@ public class ModifyPriceStockFragment extends BaseBottomSheetFragment implements
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.cancel_tv:
-            case R.id.selector_close:
+        int id = v.getId();
+        if (id == R.id.cancel_tv || id == R.id.selector_close) {
+            dismiss();
+        } else if (id == R.id.confirm_tv) {
+            String price = mCommodityPriceEt.getText().toString().trim();
+            if (TextUtils.isEmpty(price)) {
+                ToastUtils.toast(getContext(), "请输入价格");
+                return;
+            }
+            String stock = mCommodityStockEt.getText().toString().trim();
+            if (TextUtils.isEmpty(stock)) {
+                ToastUtils.toast(getContext(), "请输入库存");
+                return;
+            }
+            if (onConfirmCallBack != null) {
+                onConfirmCallBack.confirm(Double.parseDouble(price), Integer.parseInt(stock), position);
                 dismiss();
-                break;
-            case R.id.confirm_tv:
-                String price = mCommodityPriceEt.getText().toString().trim();
-                if (TextUtils.isEmpty(price)) {
-                    ToastUtils.toast(getContext(), "请输入价格");
-                    return;
-                }
-                String stock = mCommodityStockEt.getText().toString().trim();
-                if (TextUtils.isEmpty(stock)) {
-                    ToastUtils.toast(getContext(), "请输入库存");
-                    return;
-                }
-                if (onConfirmCallBack != null) {
-                    onConfirmCallBack.confirm(Double.parseDouble(price), Integer.parseInt(stock), position);
-                    dismiss();
-                }
-
-                break;
-            default:
-                break;
+            }
         }
     }
 

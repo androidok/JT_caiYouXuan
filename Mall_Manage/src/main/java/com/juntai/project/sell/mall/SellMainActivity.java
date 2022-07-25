@@ -25,7 +25,7 @@ import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.juntai.project.sell.mall.webSocket.MyWsManager;
 import com.mob.MobSDK;
 
-public class MainActivity extends BaseAppActivity<MainPagePresent> implements
+public class SellMainActivity extends BaseAppActivity<MainPagePresent> implements
         View.OnClickListener, MainPageContract.IMainPageView {
     private MainPagerAdapter adapter;
     private LinearLayout mainLayout;
@@ -172,7 +172,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     @Override
     protected void onDestroy() {
         Log.e("EEEEEEEEEE", " = ChatMainActivity  onDestroy");
-        stopService(new Intent(MainActivity.this, LocateAndUpload.class));
+        stopService(new Intent(SellMainActivity.this, LocateAndUpload.class));
         MyWsManager.getInstance().disconnect();
 
         super.onDestroy();

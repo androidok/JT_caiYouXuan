@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.base.customview;
+package com.example.app_basemodule.base.customview;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.juntai.wisdom.project.mall.R;
+import com.example.app_basemodule.R;
 
 
 /**

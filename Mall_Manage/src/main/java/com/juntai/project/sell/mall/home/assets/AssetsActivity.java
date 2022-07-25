@@ -233,47 +233,43 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.assets_type_tv:
-                List<String> arrays = new ArrayList<>();
-                arrays.add("普通商城");
-                arrays.add("对公财务管理");
-                View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_recycler, null);
-                if (popupWindow == null) {
-                    popupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 120), WindowManager.LayoutParams.WRAP_CONTENT,
-                            false);
-                    popupWindow.setOutsideTouchable(true);
-                    SingleTextAdapter singleTextAdapter = new SingleTextAdapter(R.layout.pop_text_item);
-                    RecyclerView mRecyclerview = (RecyclerView) popView.findViewById(R.id.pop_rv);
-                    mRecyclerview.setAdapter(singleTextAdapter);
-                    LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
-                    mRecyclerview.setLayoutManager(manager);
-                    singleTextAdapter.setNewData(arrays);
-                    singleTextAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            mAssetsTypeTv.setText((String) adapter.getItem(position));
-                            popupWindow.dismiss();
-                            switch (position) {
-                                case 0:
-                                    getData("1");
-                                    break;
-                                case 1:
-                                    getData("2");
-                                    break;
-                                default:
-                                    break;
-                            }
-
+        if (v.getId() == R.id.assets_type_tv) {
+            List<String> arrays = new ArrayList<>();
+            arrays.add("普通商城");
+            arrays.add("对公财务管理");
+            View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_recycler, null);
+            if (popupWindow == null) {
+                popupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 120), WindowManager.LayoutParams.WRAP_CONTENT,
+                        false);
+                popupWindow.setOutsideTouchable(true);
+                SingleTextAdapter singleTextAdapter = new SingleTextAdapter(R.layout.pop_text_item);
+                RecyclerView mRecyclerview = (RecyclerView) popView.findViewById(R.id.pop_rv);
+                mRecyclerview.setAdapter(singleTextAdapter);
+                LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+                mRecyclerview.setLayoutManager(manager);
+                singleTextAdapter.setNewData(arrays);
+                singleTextAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        mAssetsTypeTv.setText((String) adapter.getItem(position));
+                        popupWindow.dismiss();
+                        switch (position) {
+                            case 0:
+                                getData("1");
+                                break;
+                            case 1:
+                                getData("2");
+                                break;
+                            default:
+                                break;
                         }
-                    });
-                }
+
+                    }
+                });
+            }
 
 
-                popupWindow.showAsDropDown(v, DisplayUtil.dp2px(mContext, 15), 0);
-                break;
+            popupWindow.showAsDropDown(v, DisplayUtil.dp2px(mContext, 15), 0);
         }
     }
 

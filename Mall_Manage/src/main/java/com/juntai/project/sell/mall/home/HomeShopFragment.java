@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.live_moudle.live.LivePrepareActivity;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
@@ -337,23 +338,13 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.share_shop_iv:
-                // : 2022/6/7 分享店铺
-                ShareActivity.startShareActivity(mContext, 0, dataBean.getHeadPortrait(), dataBean.getIntroduction(), dataBean.getShareUrl());
-
-                break;
-            case R.id.search_ll:
-                // TODO: 2022/7/9 搜索
-                startActivity(new Intent(mContext, SearchActivity.class));
-                break;
-            case R.id.scan_iv:
-                // : 2022/5/31 扫码
-                startActivity(new Intent(mContext, QRScanActivity.class));
-
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.share_shop_iv) {// : 2022/6/7 分享店铺
+            ShareActivity.startShareActivity(mContext, 0, dataBean.getHeadPortrait(), dataBean.getIntroduction(), dataBean.getShareUrl());
+        } else if (id == R.id.search_ll) {// TODO: 2022/7/9 搜索
+            startActivity(new Intent(mContext, SearchActivity.class));
+        } else if (id == R.id.scan_iv) {// : 2022/5/31 扫码
+            startActivity(new Intent(mContext, QRScanActivity.class));
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.live_moudle.bean;
+package com.example.app_basemodule.bean;
 
 import android.os.Parcel;
 

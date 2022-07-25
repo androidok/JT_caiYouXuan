@@ -2,7 +2,6 @@ package com.juntai.wisdom.project.mall.search;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.disabled.basecomponent.bean.CommodityBean;

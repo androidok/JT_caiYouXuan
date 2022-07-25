@@ -184,16 +184,11 @@ public class VerifiedActivity extends SmsCheckCodeActivity implements View.OnCli
                 ArrayList<String> arrayList = new ArrayList<>();
                 arrayList.add(String.valueOf(dataBean.getSampleRes()));
                 currentPosition = position;
-                switch (view.getId()) {
-                    case R.id.info_img_old_iv:
-                        // : 2022/6/6 展示图片大图
-                        DisPlayPicsActivity.startDisplayPics(mContext,arrayList,0);
-                        break;
-                    case R.id.info_img_new_iv:
-                        choseImage(0, VerifiedActivity.this, 1);
-                        break;
-                    default:
-                        break;
+                int id = view.getId();
+                if (id == R.id.info_img_old_iv) {// : 2022/6/6 展示图片大图
+                    DisPlayPicsActivity.startDisplayPics(mContext, arrayList, 0);
+                } else if (id == R.id.info_img_new_iv) {
+                    choseImage(0, VerifiedActivity.this, 1);
                 }
             }
         });
@@ -223,43 +218,38 @@ public class VerifiedActivity extends SmsCheckCodeActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.verified_succeed_confirm_tv:
-                //提醒审核后  关闭当前活动
-                onBackPressed();
-                break;
-            case R.id.verified_confirm_tv:
+        int id = v.getId();
+        if (id == R.id.verified_succeed_confirm_tv) {//提醒审核后  关闭当前活动
+            onBackPressed();
+        } else if (id == R.id.verified_confirm_tv) {
+            if (!StringTools.isStringValueOk(getTextViewValue(mNameEt))) {
+                ToastUtils.warning(mContext, "真实姓名不能为空");
+                return;
+            }
+            //填写完信息后提交
+            String idCard = getTextViewValue(mIdCardTv);
+            if (!PubUtil.checkIdCard(idCard)) {
+                ToastUtils.error(mContext, "身份证号格式输入有误");
+                return;
+            }
 
-                if (!StringTools.isStringValueOk(getTextViewValue(mNameEt))) {
-                    ToastUtils.warning(mContext, "真实姓名不能为空");
-                    return;
-                }
-                //填写完信息后提交
-                String idCard = getTextViewValue(mIdCardTv);
-                if (!PubUtil.checkIdCard(idCard)) {
-                    ToastUtils.error(mContext, "身份证号格式输入有误");
-                    return;
-                }
-
-                if (!checkSelectedPics()) {
-                    return;
-                }
-                MultipartBody.Builder builder = new MultipartBody.Builder()
-                        .setType(MultipartBody.FORM)
-                        .addFormDataPart("account", UserInfoManagerMall.getAccount())
-                        .addFormDataPart("userId", String.valueOf(UserInfoManagerMall.getUserId()))
-                        .addFormDataPart("realName", getTextViewValue(mNameEt))
-                        .addFormDataPart("idNumber", getTextViewValue(mIdCardTv))
-                        .addFormDataPart("IDCardHead", "IDCardHead",
-                                RequestBody.create(MediaType.parse("file"),
-                                        positiveIvsfile))
-                        .addFormDataPart("IDCardNationalEmblem", "IDCardNationalEmblem",
-                                RequestBody.create(MediaType.parse("file"), obverseIvsfile))
-                        .addFormDataPart("IDCardinHand", "IDCardinHand",
-                                RequestBody.create(MediaType.parse("file"),
-                                        handIvsfile));
+            if (!checkSelectedPics()) {
+                return;
+            }
+            MultipartBody.Builder builder = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("account", UserInfoManagerMall.getAccount())
+                    .addFormDataPart("userId", String.valueOf(UserInfoManagerMall.getUserId()))
+                    .addFormDataPart("realName", getTextViewValue(mNameEt))
+                    .addFormDataPart("idNumber", getTextViewValue(mIdCardTv))
+                    .addFormDataPart("IDCardHead", "IDCardHead",
+                            RequestBody.create(MediaType.parse("file"),
+                                    positiveIvsfile))
+                    .addFormDataPart("IDCardNationalEmblem", "IDCardNationalEmblem",
+                            RequestBody.create(MediaType.parse("file"), obverseIvsfile))
+                    .addFormDataPart("IDCardinHand", "IDCardinHand",
+                            RequestBody.create(MediaType.parse("file"),
+                                    handIvsfile));
 //                if (UserInfoManager.getAccountStatus() != 1) {
 //                    if (!mPresenter.checkMobile(getTextViewValue(mPhoneEt))) {
 //                        return;
@@ -272,11 +262,9 @@ public class VerifiedActivity extends SmsCheckCodeActivity implements View.OnCli
 //                    builder.addFormDataPart("phoneNumber", getTextViewValue(mPhoneEt))
 //                            .addFormDataPart("code", getTextViewValue(mCheckCodeEt));
 //                }
-                mPresenter.userAuth(AppHttpPathMall.USER_AUTH, builder.build());
-                break;
-            case R.id.send_check_code_tv:
-                sendCheckCode(getTextViewValue(mPhoneEt));
-                break;
+            mPresenter.userAuth(AppHttpPathMall.USER_AUTH, builder.build());
+        } else if (id == R.id.send_check_code_tv) {
+            sendCheckCode(getTextViewValue(mPhoneEt));
         }
     }
 

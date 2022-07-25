@@ -156,43 +156,33 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                 currentPosition = position;
                 MultipleItem multipleItem = (MultipleItem) adapter.getData().get(position);
 
-                switch (view.getId()) {
-                    case R.id.form_pic_src_iv:
-                    case R.id.form_head_pic_iv:
-                        choseImage(0, BaseShopActivity.this, 1);
-                        break;
-                    case R.id.action_img:
-                        choseImage(0, BaseShopActivity.this, 9);
-                        break;
-                    case R.id.location_ll:
-                        //跳转到选择位置类
-                        startActivityForResult(new Intent(mContext, LocateSelectionActivity.class),
-                                LocateSelectionActivity.SELECT_ADDR);
-                        break;
-                    case R.id.select_value_tv:
-                        mSelectTv = (TextView) adapter.getViewByPosition(mRecyclerview, position,
-                                R.id.select_value_tv);
-                        selectBean = (TextKeyValueBean) multipleItem.getObject();
-                        switch (selectBean.getKey()) {
-                            case HomePageContract.SHOP_CATEGORY:
-                                startActivityForResult(new Intent(mContext, ChoseCategoryActivity.class)
-                                        .putExtra(BASE_ID, 1), ChoseCategoryActivity.ACTIVITY_RESULT);
-                                break;
-                            case HomePageContract.COMMODITY_CATEGORY_NAME:
-                                // : 2022/6/10 选择店铺主营类目
-                                startActivityForResult(new Intent(mContext, ChoseCategoryActivity.class)
-                                        .putExtra(BASE_ID, 0), ChoseCategoryActivity.ACTIVITY_RESULT);
-                                break;
-                            case HomePageContract.COMMODITY_SORT:
-                                // : 2022/6/10 选择商品类目
-                                mPresenter.getCommodityCategorys(getBaseBuilder().build(), AppHttpPathMall.ALL_COMMODITY_CATEGORY);
-                                break;
-                        }
-                        break;
-
-
-                    default:
-                        break;
+                int id = view.getId();
+                if (id == R.id.form_pic_src_iv || id == R.id.form_head_pic_iv) {
+                    choseImage(0, BaseShopActivity.this, 1);
+                } else if (id == R.id.action_img) {
+                    choseImage(0, BaseShopActivity.this, 9);
+                } else if (id == R.id.location_ll) {//跳转到选择位置类
+                    startActivityForResult(new Intent(mContext, LocateSelectionActivity.class),
+                            LocateSelectionActivity.SELECT_ADDR);
+                } else if (id == R.id.select_value_tv) {
+                    mSelectTv = (TextView) adapter.getViewByPosition(mRecyclerview, position,
+                            R.id.select_value_tv);
+                    selectBean = (TextKeyValueBean) multipleItem.getObject();
+                    switch (selectBean.getKey()) {
+                        case HomePageContract.SHOP_CATEGORY:
+                            startActivityForResult(new Intent(mContext, ChoseCategoryActivity.class)
+                                    .putExtra(BASE_ID, 1), ChoseCategoryActivity.ACTIVITY_RESULT);
+                            break;
+                        case HomePageContract.COMMODITY_CATEGORY_NAME:
+                            // : 2022/6/10 选择店铺主营类目
+                            startActivityForResult(new Intent(mContext, ChoseCategoryActivity.class)
+                                    .putExtra(BASE_ID, 0), ChoseCategoryActivity.ACTIVITY_RESULT);
+                            break;
+                        case HomePageContract.COMMODITY_SORT:
+                            // : 2022/6/10 选择商品类目
+                            mPresenter.getCommodityCategorys(getBaseBuilder().build(), AppHttpPathMall.ALL_COMMODITY_CATEGORY);
+                            break;
+                    }
                 }
             }
         });

@@ -85,47 +85,37 @@ public class ShopManagerActivity extends BaseShopActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.commit_tv:
-                // : 2022/6/9 提交店铺申请
-                BaseAdapterDataBean baseAdapterDataBean = getBaseOfAdapterData();
-                if (baseAdapterDataBean == null) {
-                    return;
-                }
-                FormBody.Builder builder = baseAdapterDataBean.getBuilder();
+        int id = v.getId();
+        if (id == R.id.commit_tv) {// : 2022/6/9 提交店铺申请
+            BaseAdapterDataBean baseAdapterDataBean = getBaseOfAdapterData();
+            if (baseAdapterDataBean == null) {
+                return;
+            }
+            FormBody.Builder builder = baseAdapterDataBean.getBuilder();
 
-                if (!isAgree) {
-                    ToastUtils.toast(mContext, "请同意开店协议之后再提交");
-                    return;
-                }
-                builder.add("isAgreement", "1");
-                if (dataBean != null) {
-                    builder.add("id", String.valueOf(UserInfoManagerMall.getShopId()));
-                    mPresenter.eidtShopApply(builder.build(), AppHttpPathMall.SHOP_APPLY);
+            if (!isAgree) {
+                ToastUtils.toast(mContext, "请同意开店协议之后再提交");
+                return;
+            }
+            builder.add("isAgreement", "1");
+            if (dataBean != null) {
+                builder.add("id", String.valueOf(UserInfoManagerMall.getShopId()));
+                mPresenter.eidtShopApply(builder.build(), AppHttpPathMall.SHOP_APPLY);
 
-                } else {
-                    mPresenter.shopApply(builder.build(), AppHttpPathMall.SHOP_APPLY);
+            } else {
+                mPresenter.shopApply(builder.build(), AppHttpPathMall.SHOP_APPLY);
 
-                }
-
-                break;
-            case R.id.shop_protocal_rb:
-                // : 2022/6/9 协议
-                if (isAgree) {
-                    mShopProtocalRb.setChecked(false);
-                } else {
-                    mShopProtocalRb.setChecked(true);
-                }
-                isAgree = !isAgree;
-                break;
-            case R.id.open_shop_protocal_tv:
-                // :  todo 2022/7/9 查看开店协议 内容需要更改
-                startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url",
-                        getString(R.string.open_shop_protocal)));
-
-                break;
-            default:
-                break;
+            }
+        } else if (id == R.id.shop_protocal_rb) {// : 2022/6/9 协议
+            if (isAgree) {
+                mShopProtocalRb.setChecked(false);
+            } else {
+                mShopProtocalRb.setChecked(true);
+            }
+            isAgree = !isAgree;
+        } else if (id == R.id.open_shop_protocal_tv) {// :  todo 2022/7/9 查看开店协议 内容需要更改
+            startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url",
+                    getString(R.string.open_shop_protocal)));
         }
     }
 

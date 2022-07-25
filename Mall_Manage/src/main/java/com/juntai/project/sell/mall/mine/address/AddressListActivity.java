@@ -50,27 +50,19 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 AddressListBean.DataBean dataBean = (AddressListBean.DataBean) adapter.getItem(position);
 
-                switch (view.getId()) {
-                    case R.id.item_address_edit:
-                        // : 2022/5/8 编辑地址
-                        startToAddAddress(dataBean);
-                        break;
-                    case R.id.delete_addr_tv:
-                        // 删除地址
-                        deleteAddr(dataBean);
-
-                        break;
-                    case R.id.default_addr_cb:
-                        CheckBox defaultAddrCb = (CheckBox) adapter.getViewByPosition(mRecyclerview, position, R.id.default_addr_cb);
-                        if (defaultAddrCb.isChecked()) {
-                            // : 2022/5/8 设为默认地址
-                            mPresenter.setDefaultAdddr(getBaseBuilder().add("id", String.valueOf(dataBean.getId())).build(), AppHttpPathMall.SET_DEFAULT_ADDR);
-                        } else {
-                            getRvAdapterData();
-                        }
-                        break;
-                    default:
-                        break;
+                int id = view.getId();
+                if (id == R.id.item_address_edit) {// : 2022/5/8 编辑地址
+                    startToAddAddress(dataBean);
+                } else if (id == R.id.delete_addr_tv) {// 删除地址
+                    deleteAddr(dataBean);
+                } else if (id == R.id.default_addr_cb) {
+                    CheckBox defaultAddrCb = (CheckBox) adapter.getViewByPosition(mRecyclerview, position, R.id.default_addr_cb);
+                    if (defaultAddrCb.isChecked()) {
+                        // : 2022/5/8 设为默认地址
+                        mPresenter.setDefaultAdddr(getBaseBuilder().add("id", String.valueOf(dataBean.getId())).build(), AppHttpPathMall.SET_DEFAULT_ADDR);
+                    } else {
+                        getRvAdapterData();
+                    }
                 }
             }
         });
@@ -158,12 +150,8 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.add_receive_addr_tv:
-                startToAddAddress(null);
-                break;
+        if (v.getId() == R.id.add_receive_addr_tv) {
+            startToAddAddress(null);
         }
     }
 

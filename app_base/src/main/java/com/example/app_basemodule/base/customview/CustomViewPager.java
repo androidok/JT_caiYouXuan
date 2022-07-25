@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.base.customview;
+package com.example.app_basemodule.base.customview;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

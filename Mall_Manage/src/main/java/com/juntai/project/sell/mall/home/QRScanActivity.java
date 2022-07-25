@@ -90,19 +90,14 @@ public class QRScanActivity extends BaseAppActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.zxing_pic:
-                choseImage(0, this, 1);
-                break;
-            case R.id.zxing_back_btn:
-                finish();
-                break;
-            case R.id.ivTorch:
-                mIvTorch.setSelected(!mIvTorch.isSelected());
-                mCaptureHelper.getCameraManager().setTorch(mIvTorch.isSelected());
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.zxing_pic) {
+            choseImage(0, this, 1);
+        } else if (id == R.id.zxing_back_btn) {
+            finish();
+        } else if (id == R.id.ivTorch) {
+            mIvTorch.setSelected(!mIvTorch.isSelected());
+            mCaptureHelper.getCameraManager().setTorch(mIvTorch.isSelected());
         }
     }
 

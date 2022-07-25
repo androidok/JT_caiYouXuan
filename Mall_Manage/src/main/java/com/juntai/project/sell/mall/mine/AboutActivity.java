@@ -56,15 +56,11 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.user_xieyi:
-                startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url", getString(R.string.user_xieyi_url)));
-                break;
-            case R.id.secret_xieyi:
-                startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url", getString(R.string.secret_xieyi_url)));
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.user_xieyi) {
+            startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url", getString(R.string.user_xieyi_url)));
+        } else if (id == R.id.secret_xieyi) {
+            startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url", getString(R.string.secret_xieyi_url)));
         }
     }
 }

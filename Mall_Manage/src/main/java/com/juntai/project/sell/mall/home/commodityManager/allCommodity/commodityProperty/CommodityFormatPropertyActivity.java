@@ -159,19 +159,11 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.add_format_tv:
-                // : 2022/6/15 添加规格
-                baseQuickAdapter.addData(new CommodityFormatBean.ResultBean());
-                break;
-            case R.id.commit_tv:
-                // : 2022/6/15 提交更改
-                commit(AppHttpPathMall.EDIT_COMMODITY_FORMAT);
-
-
-                break;
-            default:
-                break;
+        int id = view.getId();
+        if (id == R.id.add_format_tv) {// : 2022/6/15 添加规格
+            baseQuickAdapter.addData(new CommodityFormatBean.ResultBean());
+        } else if (id == R.id.commit_tv) {// : 2022/6/15 提交更改
+            commit(AppHttpPathMall.EDIT_COMMODITY_FORMAT);
         }
     }
 
@@ -196,18 +188,13 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()) {
-                    case R.id.delete_iv:
-                        adapter.remove(position);
-                        break;
-                    case R.id.add_property_tv:
-                        // : 2022/6/16 添加属性
-                        TextView addPropertyTv = (TextView) adapter.getViewByPosition(mRecyclerview, position, R.id.add_property_tv);
-                        CommodityPropertyAdapter propertyAdapter = (CommodityPropertyAdapter) addPropertyTv.getTag();
-                        propertyAdapter.addData(new StringBean("", position));
-                        break;
-                    default:
-                        break;
+                int id = view.getId();
+                if (id == R.id.delete_iv) {
+                    adapter.remove(position);
+                } else if (id == R.id.add_property_tv) {// : 2022/6/16 添加属性
+                    TextView addPropertyTv = (TextView) adapter.getViewByPosition(mRecyclerview, position, R.id.add_property_tv);
+                    CommodityPropertyAdapter propertyAdapter = (CommodityPropertyAdapter) addPropertyTv.getTag();
+                    propertyAdapter.addData(new StringBean("", position));
                 }
             }
         });

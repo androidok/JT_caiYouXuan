@@ -187,63 +187,58 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.order_shop_name_tv:
-                startToShop(orderDetailBean.getShopId());
-                break;
-            case R.id.order_negative_tv:
-                switch (getTextViewValue(mOrderNegativeTv)) {
-                    case HomePageContract.ORDER_CANCEL:
-                        // : 2022/5/14 取消订单
-                        showAlertDialog("是否取消当前订单?", "确定", "取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mPresenter.cancelOrder(getBaseBuilder()
-                                        .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.CANCEL_ORDER);
-                            }
-                        });
+        int id = v.getId();
+        if (id == R.id.order_shop_name_tv) {
+            startToShop(orderDetailBean.getShopId());
+        } else if (id == R.id.order_negative_tv) {
+            switch (getTextViewValue(mOrderNegativeTv)) {
+                case HomePageContract.ORDER_CANCEL:
+                    // : 2022/5/14 取消订单
+                    showAlertDialog("是否取消当前订单?", "确定", "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mPresenter.cancelOrder(getBaseBuilder()
+                                    .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.CANCEL_ORDER);
+                        }
+                    });
 
-                        break;
+                    break;
 
-                    case HomePageContract.ORDER_REJECT:
-                        // : 2022/6/21 不同意退货
-                        showAlertDialog("确定不同意退货申请吗?", "确定", "取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mPresenter.handlerRefundRequest(getBaseBuilder()
-                                        .add("type", "1")
-                                        .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.REFUND_REQUEST);
-                            }
-                        });
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case R.id.order_positive_tv:
-                switch (getTextViewValue(mOrderPositiveTv)) {
+                case HomePageContract.ORDER_REJECT:
+                    // : 2022/6/21 不同意退货
+                    showAlertDialog("确定不同意退货申请吗?", "确定", "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mPresenter.handlerRefundRequest(getBaseBuilder()
+                                    .add("type", "1")
+                                    .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.REFUND_REQUEST);
+                        }
+                    });
+                    break;
+                default:
+                    break;
+            }
+        } else if (id == R.id.order_positive_tv) {
+            switch (getTextViewValue(mOrderPositiveTv)) {
 
-                    case HomePageContract.ORDER_SEND:
-                        // : 立即发货
-                        startSendActivity(orderId);
-                        break;
-                    case HomePageContract.ORDER_AGREE:
-                        // :   同意退货
-                        showAlertDialog("确定同意退货申请吗?", "确定", "取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mPresenter.handlerRefundRequest(getBaseBuilder()
-                                        .add("type", "0")
-                                        .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.REFUND_REQUEST);
-                            }
-                        });
-                        break;
-                    default:
-                        break;
-                }
-                break;
+                case HomePageContract.ORDER_SEND:
+                    // : 立即发货
+                    startSendActivity(orderId);
+                    break;
+                case HomePageContract.ORDER_AGREE:
+                    // :   同意退货
+                    showAlertDialog("确定同意退货申请吗?", "确定", "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mPresenter.handlerRefundRequest(getBaseBuilder()
+                                    .add("type", "0")
+                                    .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.REFUND_REQUEST);
+                        }
+                    });
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

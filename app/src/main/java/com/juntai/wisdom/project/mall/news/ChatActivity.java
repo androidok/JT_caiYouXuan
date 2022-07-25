@@ -40,7 +40,6 @@ import com.example.chat.chatmodule.ChatAdapter;
 import com.example.chat.chatmodule.ChatMoreActionAdapter;
 import com.example.chat.chatmodule.ChatPresent;
 import com.example.chat.chatmodule.EditChatMsgAdapter;
-import com.example.chat.util.MultipleItem;
 import com.example.chat.util.OperateMsgUtil;
 import com.example.live_moudle.util.ObjectBoxUtil;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
@@ -457,8 +456,8 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
-        super.selectedPicsAndEmpressed(icons);
+    protected void onPicsAndEmpressed(List<String> icons) {
+        super.onPicsAndEmpressed(icons);
         if (icons.size() > 0) {
             if (fileSizeIsOk(icons)) {
                 // : 2022-03-09 发送图片或者视频文件

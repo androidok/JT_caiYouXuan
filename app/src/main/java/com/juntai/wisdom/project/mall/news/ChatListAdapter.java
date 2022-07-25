@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.app_basemodule.bean.NewsListBean;
-import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.CalendarUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;

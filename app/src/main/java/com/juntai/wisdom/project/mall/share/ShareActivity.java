@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.bean.PicTextBean;
-import com.juntai.disabled.basecomponent.bean.LiveListBean;
+import com.example.app_basemodule.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ScreenUtils;

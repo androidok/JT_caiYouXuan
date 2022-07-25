@@ -91,18 +91,11 @@ public class RefundRequestActivity extends BaseRecyclerviewActivity<OrderPresent
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.refund_cl:
-                // : 2022/5/15 退款
-                startToRefundActivity(orderDetailBean,1);
-                break;
-            case R.id.refund_goods_cl:
-                // : 2022/5/15 退货退款
-                startToRefundActivity(orderDetailBean,2);
-
-                break;
+        int id = v.getId();
+        if (id == R.id.refund_cl) {// : 2022/5/15 退款
+            startToRefundActivity(orderDetailBean, 1);
+        } else if (id == R.id.refund_goods_cl) {// : 2022/5/15 退货退款
+            startToRefundActivity(orderDetailBean, 2);
         }
     }
 }

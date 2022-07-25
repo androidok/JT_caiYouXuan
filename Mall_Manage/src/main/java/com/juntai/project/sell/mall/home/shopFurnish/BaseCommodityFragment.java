@@ -180,13 +180,7 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<ShopPresent>
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.more_menu_btn:
-                // TODO: 2022/5/4 编辑标签
-
-                break;
+        if (v.getId() == R.id.more_menu_btn) {// TODO: 2022/5/4 编辑标签
         }
     }
 }

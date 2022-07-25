@@ -2,14 +2,14 @@ package com.example.app_basemodule.base;
 
 import com.example.app_basemodule.bean.CommodityDesListBean;
 import com.example.app_basemodule.bean.CommodityDetailBean;
+import com.example.app_basemodule.bean.LiveListBean;
+import com.example.app_basemodule.bean.LiveTypeListBean;
 import com.example.app_basemodule.bean.ShopListDataBean;
 import com.example.app_basemodule.bean.UserBeanMall;
 import com.example.app_basemodule.bean.order.CreatOrderBean;
 import com.example.app_basemodule.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
-import com.juntai.disabled.basecomponent.bean.LiveListBean;
-import com.juntai.disabled.basecomponent.bean.LiveTypeListBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;

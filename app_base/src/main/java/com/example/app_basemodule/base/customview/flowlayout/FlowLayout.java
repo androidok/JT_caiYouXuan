@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.base.customview.flowlayout;
+package com.example.app_basemodule.base.customview.flowlayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,7 +8,7 @@ import android.util.LayoutDirection;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.juntai.wisdom.project.mall.R;
+import com.example.app_basemodule.R;
 
 import java.util.ArrayList;
 import java.util.Collections;

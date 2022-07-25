@@ -15,12 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.app_basemodule.bean.LiveDetailBean;
 import com.example.app_basemodule.bean.LiveMsgBean;
 import com.example.app_basemodule.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.live_moudle.R;
 import com.example.live_moudle.base.InputTextMsgDialog;
+import com.example.app_basemodule.bean.LiveListBean;
 import com.example.live_moudle.live.commodity.BaseLiveCommoditiesFragment;
 import com.example.live_moudle.websocket.IEvent;
 import com.example.live_moudle.websocket.SocketManager;
@@ -60,9 +60,9 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
     private final Handler handler = new Handler(Looper.getMainLooper());
     private int shopId;
 
-  private   LiveDetailBean.DataBean  bean ;
+  private   LiveListBean.DataBean.ListBean  bean ;
 
-    public static CommentFragment newInstance(LiveDetailBean.DataBean dataBean) {
+    public static CommentFragment newInstance(LiveListBean.DataBean.ListBean dataBean) {
         Bundle args = new Bundle();
         args.putParcelable("liveBean", dataBean);
         CommentFragment fragment = new CommentFragment();

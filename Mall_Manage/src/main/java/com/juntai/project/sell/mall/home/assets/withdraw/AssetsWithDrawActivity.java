@@ -82,30 +82,26 @@ public class AssetsWithDrawActivity extends BaseAppActivity<HomePagePresent> imp
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.commit_tv:
-                if (TextUtils.isEmpty(getTextViewValue(mWithDrawEt)) || Double.parseDouble(getTextViewValue(mWithDrawEt)) == 0) {
-                    ToastUtils.toast(mContext, "请输入非0的提现金额");
-                    return;
-                }
-                if (Double.parseDouble(getTextViewValue(mWithDrawEt)) > dataBean.getWithdrawalCash()) {
-                    ToastUtils.toast(mContext, "超出最大提现金额");
-                    return;
-                }
-                FormBody.Builder builder = getBaseBuilder();
-                builder
-                        .add("type", String.valueOf(assetType))
-                        .add("bankCode", dataBean.getBankCode())
-                        .add("phoneNumber", dataBean.getPhoneNumber())
-                        .add("realName", dataBean.getRealName())
-                        .add("idCode", dataBean.getIdCode())
-                        .add("bankName", dataBean.getBankName())
-                        .add("bankAddress", dataBean.getBankAddress())
-                        .add("price", getTextViewValue(mWithDrawEt));
-                mPresenter.withDraw(builder.build(), AppHttpPathMall.WITHDRAW);
-                break;
+        if (v.getId() == R.id.commit_tv) {
+            if (TextUtils.isEmpty(getTextViewValue(mWithDrawEt)) || Double.parseDouble(getTextViewValue(mWithDrawEt)) == 0) {
+                ToastUtils.toast(mContext, "请输入非0的提现金额");
+                return;
+            }
+            if (Double.parseDouble(getTextViewValue(mWithDrawEt)) > dataBean.getWithdrawalCash()) {
+                ToastUtils.toast(mContext, "超出最大提现金额");
+                return;
+            }
+            FormBody.Builder builder = getBaseBuilder();
+            builder
+                    .add("type", String.valueOf(assetType))
+                    .add("bankCode", dataBean.getBankCode())
+                    .add("phoneNumber", dataBean.getPhoneNumber())
+                    .add("realName", dataBean.getRealName())
+                    .add("idCode", dataBean.getIdCode())
+                    .add("bankName", dataBean.getBankName())
+                    .add("bankAddress", dataBean.getBankAddress())
+                    .add("price", getTextViewValue(mWithDrawEt));
+            mPresenter.withDraw(builder.build(), AppHttpPathMall.WITHDRAW);
         }
     }
 }

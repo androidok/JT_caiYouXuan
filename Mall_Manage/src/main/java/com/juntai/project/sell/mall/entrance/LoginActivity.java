@@ -18,8 +18,8 @@ import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.RomUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
-import com.juntai.project.sell.mall.MainActivity;
 import com.juntai.project.sell.mall.R;
+import com.juntai.project.sell.mall.SellMainActivity;
 import com.juntai.project.sell.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.project.sell.mall.beans.UserBeanMall;
 import com.juntai.project.sell.mall.mine.modifyPwd.BackPwdActivity;
@@ -81,6 +81,8 @@ public class LoginActivity extends SmsCheckCodeActivity implements
     //默认是密码登录
     private int loginType = 0;
 
+
+
     static class MyHandler extends Handler {
         private WeakReference<Activity> mActivity;//弱引用
 
@@ -134,7 +136,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, loginBean.getData().getToken());
                     MyWsManager.getInstance() .setWsUrl(String.format("%s%s/%s",AppHttpPathMall.BASE_SOCKET,UserInfoManagerMall.getUserId(),UserInfoManagerMall.DEVICE_TYPE));
-                    startActivity(new Intent(mContext, MainActivity.class));
+                    startActivity(new Intent(mContext, SellMainActivity.class));
                     finish();
                 }
                 break;
@@ -147,68 +149,53 @@ public class LoginActivity extends SmsCheckCodeActivity implements
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.login_tv:
-                account = mRegistPhoneEt.getText().toString();
-                password = mPasswordEt.getText().toString();
+        int id = v.getId();
+        if (id == R.id.login_tv) {
+            account = mRegistPhoneEt.getText().toString();
+            password = mPasswordEt.getText().toString();
 
-                if (!mPresenter.checkMobile(account)) {
-                    return;
-                }
-                if (password.isEmpty()) {
-                    ToastUtils.toast(mContext, loginType % 2 == 0 ? "登录密码不能为空" : "验证码不能为空");
-                    return;
-                }
-                // : 2022/4/28 调用登录的接口
-                if (0 == loginType % 2) {
-                    mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
-                            .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
-                            .add("mobileName", RomUtil.getName())
-                            .add("regId", HawkProperty.getRegid())
-                            .add("password", MD5.md5(String.format("%s#%s", account, password)))
-                            .build(), AppHttpPathMall.LOGIN);
-                } else {
-                    mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
-                            .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
-                            .add("mobileName", RomUtil.getName())
-                            .add("regId", HawkProperty.getRegid())
-                            .add("code", password)
-                            .build(), AppHttpPathMall.LOGIN);
-                }
-                break;
-            case R.id.reback_pwd_tv:
-                // : 2022/4/28 跳转到找回密码的界面
-                startActivity(new Intent(this, BackPwdActivity.class));
-                break;
-            case R.id.login_by_wchat_iv:
-                // TODO: 2022/4/28 微信登录
-                loginForQQWeChat(Wechat.NAME);
-                break;
-            case R.id.login_by_zfb_iv:
-                // TODO: 2022/4/28 支付宝登录
+            if (!mPresenter.checkMobile(account)) {
+                return;
+            }
+            if (password.isEmpty()) {
+                ToastUtils.toast(mContext, loginType % 2 == 0 ? "登录密码不能为空" : "验证码不能为空");
+                return;
+            }
+            // : 2022/4/28 调用登录的接口
+            if (0 == loginType % 2) {
+                mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
+                        .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
+                        .add("mobileName", RomUtil.getName())
+                        .add("regId", HawkProperty.getRegid())
+                        .add("password", MD5.md5(String.format("%s#%s", account, password)))
+                        .build(), AppHttpPathMall.LOGIN);
+            } else {
+                mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
+                        .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
+                        .add("mobileName", RomUtil.getName())
+                        .add("regId", HawkProperty.getRegid())
+                        .add("code", password)
+                        .build(), AppHttpPathMall.LOGIN);
+            }
+        } else if (id == R.id.reback_pwd_tv) {// : 2022/4/28 跳转到找回密码的界面
+            startActivity(new Intent(this, BackPwdActivity.class));
+        } else if (id == R.id.login_by_wchat_iv) {// TODO: 2022/4/28 微信登录
+            loginForQQWeChat(Wechat.NAME);
+        } else if (id == R.id.login_by_zfb_iv) {// TODO: 2022/4/28 支付宝登录
 //                loginForQQWeChat(QQ.NAME);
-                break;
-            case R.id.regist_tv:
-                // : 2022/4/28 跳转到注册的界面
-                startActivity(new Intent(this, RegistActivity.class));
-                break;
-            case R.id.get_code_tv:
-                sendCheckCode(getTextViewValue(mRegistPhoneEt));
-                break;
-            case R.id.switch_login_type_tv:
-                //切换登录方式
-                loginType++;
-                switchLoginType();
-                if (0 == loginType % 2) {
-                    mLoginTypeTv.setText("手机号登录");
-                }else {
-                    mLoginTypeTv.setText("验证码登录");
+        } else if (id == R.id.regist_tv) {// : 2022/4/28 跳转到注册的界面
+            startActivity(new Intent(this, RegistActivity.class));
+        } else if (id == R.id.get_code_tv) {
+            sendCheckCode(getTextViewValue(mRegistPhoneEt));
+        } else if (id == R.id.switch_login_type_tv) {//切换登录方式
+            loginType++;
+            switchLoginType();
+            if (0 == loginType % 2) {
+                mLoginTypeTv.setText("手机号登录");
+            } else {
+                mLoginTypeTv.setText("验证码登录");
 
-                }
-
-                break;
+            }
         }
     }
 
