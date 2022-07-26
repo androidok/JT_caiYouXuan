@@ -9,7 +9,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.OrderDetailItemBean;
+import com.juntai.project.sell.mall.beans.order.OrderDetailItemBean;
 import com.juntai.project.sell.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.project.sell.mall.base.selectPics.ShowSelectedPicsAdapter;
 import com.juntai.project.sell.mall.utils.bannerImageLoader.BannerObject;

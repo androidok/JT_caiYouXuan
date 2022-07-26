@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.base;
+package com.juntai.project.sell.mall.beans.order;
 
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 
