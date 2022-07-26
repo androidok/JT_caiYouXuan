@@ -15,12 +15,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.app_basemodule.bean.LiveDetailBean;
-import com.example.net.AppHttpPath;
+import com.example.appbase.bean.LiveDetailBean;
+import com.example.appbase.bean.LiveListBean;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
-import com.example.app_basemodule.bean.LiveListBean;
 import com.example.live_moudle.websocket.SocketManager;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.base.BaseSelectPicsActivity;
 import com.juntai.disabled.basecomponent.base.WarnDialog;

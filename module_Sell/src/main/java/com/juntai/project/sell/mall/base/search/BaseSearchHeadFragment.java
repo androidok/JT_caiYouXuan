@@ -19,9 +19,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.app_basemodule.base.customview.flowlayout.FlowLayout;
-import com.example.app_basemodule.base.customview.flowlayout.TagAdapter;
-import com.example.app_basemodule.base.customview.flowlayout.TagFlowLayout;
+import com.example.appbase.base.customview.flowlayout.FlowLayout;
+import com.example.appbase.base.customview.flowlayout.TagAdapter;
+import com.example.appbase.base.customview.flowlayout.TagFlowLayout;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.R;

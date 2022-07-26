@@ -8,7 +8,6 @@ import com.example.appbase.bean.CollectDataBean;
 import com.example.appbase.bean.CommodityDesListBean;
 import com.example.appbase.bean.CommodityDetailBean;
 import com.example.appbase.bean.CommodityEvaluationBean;
-import com.example.appbase.bean.IdNameBean;
 import com.example.appbase.bean.LiveDetailBean;
 import com.example.appbase.bean.LiveListBean;
 import com.example.appbase.bean.LiveResultBean;
@@ -30,11 +29,12 @@ import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
-import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
+import com.example.appbase.bean.ShopCommodityListBean;
 import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
+import com.juntai.project.sell.mall.beans.IdNameBean;
 
 import java.util.List;
 

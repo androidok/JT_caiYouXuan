@@ -1,14 +1,14 @@
 package com.juntai.project.sell.mall.mine.address;
 
+import com.example.appbase.bean.CitysBean;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.base.BaseAppMallPresent;
-import com.juntai.project.sell.mall.beans.CitysBean;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
-import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.List;

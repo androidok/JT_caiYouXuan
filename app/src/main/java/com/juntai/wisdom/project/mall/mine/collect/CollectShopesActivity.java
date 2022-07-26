@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.app_basemodule.bean.CollectDataBean;
+import com.example.appbase.bean.CollectDataBean;
 import com.example.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchAndListActivity;

@@ -5,9 +5,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.bean.PicTextBean;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
-import com.juntai.project.sell.mall.beans.PicTextBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.commodityManager.commodityCategory.CommodityCategoryActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;

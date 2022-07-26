@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 
-import com.example.app_basemodule.base.customview.CustomViewPager;
-import com.example.app_basemodule.base.customview.MainPagerAdapter;
+import com.example.appbase.base.customview.CustomViewPager;
+import com.example.appbase.base.customview.MainPagerAdapter;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;

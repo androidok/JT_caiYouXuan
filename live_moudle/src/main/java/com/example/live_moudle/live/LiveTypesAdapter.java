@@ -4,8 +4,8 @@ import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.appbase.bean.LiveTypeListBean;
 import com.example.live_moudle.R;
-import com.example.app_basemodule.bean.LiveTypeListBean;
 
 import java.util.List;
 

@@ -24,7 +24,7 @@ import android.widget.TextView;
 import com.dou361.ijkplayer.listener.OnShowThumbnailListener;
 import com.dou361.ijkplayer.utils.MediaUtils;
 import com.dou361.ijkplayer.widget.PlayStateParams;
-import com.example.app_basemodule.bean.PlayUrlBean;
+import com.example.appbase.bean.PlayUrlBean;
 import com.juntai.disabled.basecomponent.base.BaseDownLoadActivity;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;

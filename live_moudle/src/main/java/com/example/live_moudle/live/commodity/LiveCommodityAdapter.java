@@ -2,8 +2,8 @@ package com.example.live_moudle.live.commodity;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.appbase.bean.CommodityBean;
 import com.example.live_moudle.R;
-import com.juntai.disabled.basecomponent.bean.CommodityBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 
 /**

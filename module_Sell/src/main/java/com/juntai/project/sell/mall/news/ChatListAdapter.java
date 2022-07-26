@@ -6,12 +6,12 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.appbase.bean.NewsListBean;
 import com.juntai.disabled.basecomponent.utils.CalendarUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.NewsListBean;
 import com.negier.emojifragment.util.EmojiUtils;
 
 import java.util.List;

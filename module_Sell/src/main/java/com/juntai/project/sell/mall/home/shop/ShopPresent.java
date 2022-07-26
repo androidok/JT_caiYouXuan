@@ -2,10 +2,11 @@ package com.juntai.project.sell.mall.home.shop;
 
 import android.text.TextUtils;
 
-import com.juntai.disabled.basecomponent.utils.MultipleItem;
+import com.example.appbase.bean.ShopCommodityListBean;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.base.BaseAppMallPresent;
@@ -13,7 +14,6 @@ import com.juntai.project.sell.mall.beans.CommodityFormatDataBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
 import com.juntai.project.sell.mall.beans.ItemFragmentBean;
 import com.juntai.project.sell.mall.beans.RadioBean;
-import com.juntai.project.sell.mall.beans.ShopCommodityListBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailDataBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;

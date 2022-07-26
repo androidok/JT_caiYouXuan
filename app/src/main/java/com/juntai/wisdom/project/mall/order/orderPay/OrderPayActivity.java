@@ -12,14 +12,14 @@ import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.app_basemodule.bean.PicTextBean;
+import com.example.appbase.bean.PicTextBean;
 import com.example.appbase.bean.order.ConfirmOrderBean;
 import com.example.appbase.bean.order.OrderDetailBean;
 import com.example.appbase.bean.order.OrderListBean;
 import com.example.appbase.bean.order.OrderPayWxBean;
 import com.example.appbase.bean.order.OrderPayZfbBean;
+import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppHttpPath;
-import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;

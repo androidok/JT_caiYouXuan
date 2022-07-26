@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.app_basemodule.base.customview.DragFloatActionButton;
 import com.example.live_moudle.live.LiveRoomActivity;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;

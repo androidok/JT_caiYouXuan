@@ -31,8 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.net.AppHttpPath;
-import com.example.app_basemodule.utils.UserInfoManager;
+import com.example.appbase.util.UserInfoManager;
 import com.example.chat.MainContract;
 import com.example.chat.R;
 import com.example.chat.bean.HomePageMenuBean;
@@ -42,6 +41,7 @@ import com.example.chat.chatmodule.ChatPresent;
 import com.example.chat.chatmodule.EditChatMsgAdapter;
 import com.example.chat.util.OperateMsgUtil;
 import com.example.live_moudle.util.ObjectBoxUtil;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;

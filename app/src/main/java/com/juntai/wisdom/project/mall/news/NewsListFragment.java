@@ -4,7 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.app_basemodule.bean.NewsListBean;
+import com.example.appbase.bean.NewsListBean;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;

@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.app_basemodule.bean.CitysBean;
+import com.example.appbase.bean.CitysBean;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;

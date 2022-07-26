@@ -4,7 +4,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.CommodityBean;
+import com.example.appbase.bean.CommodityBean;
 
 /**
  * @Author: tobato

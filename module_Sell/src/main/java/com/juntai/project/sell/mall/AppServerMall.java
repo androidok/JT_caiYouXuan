@@ -1,27 +1,27 @@
 package com.juntai.project.sell.mall;
 
 
-import com.juntai.disabled.basecomponent.bean.UploadFileBean;
+import com.example.appbase.bean.AroundShopBean;
+import com.example.appbase.bean.CitysBean;
+import com.example.appbase.bean.NewsListBean;
+import com.example.appbase.bean.PlayUrlBean;
+import com.example.appbase.bean.ShopCommodityListBean;
+import com.example.appbase.bean.ShopListDataBean;
+import com.example.appbase.bean.UserBeanMall;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
+import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
-import com.juntai.project.sell.mall.beans.AroundShopBean;
 import com.juntai.project.sell.mall.beans.BillBaseInfoBean;
 import com.juntai.project.sell.mall.beans.BillListBean;
-import com.juntai.project.sell.mall.beans.CitysBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatDataBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
 import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
-import com.juntai.project.sell.mall.beans.NewsListBean;
-import com.juntai.project.sell.mall.beans.PlayUrlBean;
-import com.juntai.project.sell.mall.beans.ShopCommodityListBean;
-import com.juntai.project.sell.mall.beans.ShopListDataBean;
-import com.juntai.project.sell.mall.beans.UserBeanMall;
 import com.juntai.project.sell.mall.beans.WithDrawListBean;
 import com.juntai.project.sell.mall.beans.order.ConfirmOrderBean;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;

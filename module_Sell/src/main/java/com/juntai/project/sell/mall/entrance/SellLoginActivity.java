@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.appbase.bean.UserBeanMall;
 import com.example.chat.MyChatApp;
 import com.example.chat.util.UserInfoManagerChat;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
@@ -21,7 +22,6 @@ import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.SellMainActivity;
 import com.juntai.project.sell.mall.base.sendcode.SmsCheckCodeActivity;
-import com.juntai.project.sell.mall.beans.UserBeanMall;
 import com.juntai.project.sell.mall.mine.modifyPwd.BackPwdActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.juntai.project.sell.mall.webSocket.MyWsManager;

@@ -1,9 +1,9 @@
 package com.juntai.wisdom.project.mall.mine.modifyPwd;
 
-import com.example.app_basemodule.utils.UserInfoManager;
+import com.example.appbase.util.UserInfoManager;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.example.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.base.BaseWithSmsActivity;
 
 /**

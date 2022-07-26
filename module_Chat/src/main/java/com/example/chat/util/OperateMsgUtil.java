@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.example.app_basemodule.utils.UserInfoManager;
+import com.example.appbase.util.UserInfoManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.juntai.disabled.basecomponent.base.BaseActivity;

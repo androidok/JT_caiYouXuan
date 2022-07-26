@@ -1,6 +1,7 @@
 package com.juntai.wisdom.project.mall.mine.address;
 
-import com.example.app_basemodule.bean.CitysBean;
+import com.example.appbase.bean.CitysBean;
+import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
@@ -8,7 +9,6 @@ import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.mall.base.BaseAppMallPresent;
-import com.example.app_basemodule.utils.UserInfoManager;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.List;

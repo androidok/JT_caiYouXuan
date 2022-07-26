@@ -1,5 +1,6 @@
 package com.juntai.project.sell.mall.news;
 
+import com.example.appbase.bean.NewsListBean;
 import com.example.chat.MainContract;
 import com.example.chat.bean.HomePageMenuBean;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
@@ -13,7 +14,6 @@ import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppMallPresent;
-import com.juntai.project.sell.mall.beans.NewsListBean;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
 import java.util.ArrayList;

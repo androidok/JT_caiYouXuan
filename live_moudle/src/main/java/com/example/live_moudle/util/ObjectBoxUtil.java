@@ -1,7 +1,7 @@
 package com.example.live_moudle.util;
 
-import com.example.app_basemodule.bean.CommodityDetailBean;
-import com.example.app_basemodule.utils.UserInfoManager;
+import com.example.appbase.bean.CommodityDetailBean;
+import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean_;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;

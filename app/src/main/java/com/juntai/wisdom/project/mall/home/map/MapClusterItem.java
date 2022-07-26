@@ -3,7 +3,7 @@ package com.juntai.wisdom.project.mall.home.map;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.model.LatLng;
-import com.example.app_basemodule.bean.AroundShopBean;
+import com.example.appbase.bean.AroundShopBean;
 import com.juntai.disabled.bdmap.utils.clusterutil.clustering.ClusterItem;
 import com.juntai.wisdom.project.mall.R;
 

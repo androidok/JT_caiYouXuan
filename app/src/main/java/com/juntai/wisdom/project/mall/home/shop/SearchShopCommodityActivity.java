@@ -3,9 +3,9 @@ package com.juntai.wisdom.project.mall.home.shop;
 import android.os.Bundle;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.bean.CommodityBean;
+import com.example.appbase.bean.ShopCommodityListBean;
 import com.example.net.AppHttpPath;
-import com.juntai.disabled.basecomponent.bean.CommodityBean;
-import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;

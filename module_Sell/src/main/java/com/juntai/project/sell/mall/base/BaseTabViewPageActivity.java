@@ -10,8 +10,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.app_basemodule.base.customview.CustomViewPager;
-import com.example.app_basemodule.base.customview.MainPagerAdapter;
+import com.example.appbase.base.customview.CustomViewPager;
+import com.example.appbase.base.customview.MainPagerAdapter;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.project.sell.mall.R;

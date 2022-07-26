@@ -1,7 +1,9 @@
 package com.juntai.wisdom.project.mall.home;
 
-import com.example.app_basemodule.bean.AroundShopBean;
-import com.example.app_basemodule.bean.PicTextBean;
+
+import com.example.appbase.base.BaseAppPresent;
+import com.example.appbase.bean.AroundShopBean;
+import com.example.appbase.bean.PicTextBean;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
@@ -10,7 +12,6 @@ import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.mall.R;
-import com.example.app_basemodule.base.BaseAppPresent;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,12 +7,12 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.bean.CommodityBean;
+import com.example.appbase.bean.CommodityDesListBean;
+import com.example.appbase.bean.ShopCommodityListBean;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
-import com.juntai.project.sell.mall.beans.CommodityBean;
-import com.juntai.project.sell.mall.beans.CommodityDesListBean;
-import com.juntai.project.sell.mall.beans.ShopCommodityListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;

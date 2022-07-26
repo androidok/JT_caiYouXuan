@@ -1,19 +1,19 @@
 package com.juntai.wisdom.project.mall.home.commodityfragment;
 
-import com.example.app_basemodule.base.BaseAppPresent;
-import com.example.app_basemodule.bean.CartListBean;
-import com.example.app_basemodule.bean.CommodityDesListBean;
-import com.example.app_basemodule.bean.CommodityEvaluationBean;
-import com.example.app_basemodule.bean.IdNameBean;
-import com.example.app_basemodule.bean.PicTextBean;
+import com.example.appbase.base.BaseAppPresent;
+import com.example.appbase.bean.CartListBean;
+import com.example.appbase.bean.CommodityDesListBean;
+import com.example.appbase.bean.CommodityEvaluationBean;
+import com.example.appbase.bean.PicTextBean;
+import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppNetModule;
-import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
+import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.orhanobut.hawk.Hawk;

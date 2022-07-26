@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.bean.CommodityBean;
 import com.example.live_moudle.R;
-import com.juntai.disabled.basecomponent.bean.CommodityBean;
 
 import java.util.List;
 

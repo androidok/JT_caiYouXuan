@@ -13,14 +13,14 @@ import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
+import com.example.appbase.bean.LiveListBean;
 import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.appbase.bean.order.OrderDetailBean;
-import com.example.net.AppHttpPath;
-import com.example.app_basemodule.utils.UserInfoManager;
+import com.example.appbase.util.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
-import com.example.app_basemodule.bean.LiveListBean;
 import com.example.live_moudle.util.ObjectBoxUtil;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;

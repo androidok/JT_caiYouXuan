@@ -1,10 +1,10 @@
 package com.juntai.wisdom.project.mall.news;
 
-import com.example.app_basemodule.bean.NewsListBean;
-import com.example.net.AppNetModule;
-import com.example.app_basemodule.utils.UserInfoManager;
+import com.example.appbase.bean.NewsListBean;
+import com.example.appbase.util.UserInfoManager;
 import com.example.chat.MainContract;
 import com.example.chat.bean.HomePageMenuBean;
+import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;

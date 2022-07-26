@@ -1,11 +1,11 @@
 package com.juntai.wisdom.project.mall.base.sendcode;
 
 
+import com.example.appbase.base.BaseAppPresent;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.example.app_basemodule.base.BaseAppPresent;
 
 /**
  * @Author: tobato

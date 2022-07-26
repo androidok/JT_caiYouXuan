@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.app_basemodule.bean.LiveListBean;
-import com.example.app_basemodule.bean.LiveResultBean;
+import com.example.appbase.bean.LiveListBean;
+import com.example.appbase.bean.LiveResultBean;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
 import com.example.live_moudle.websocket.SocketManager;

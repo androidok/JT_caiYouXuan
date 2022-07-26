@@ -37,6 +37,10 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         this.titles = title;
     }
 
+    public void setTitles(String[] titles) {
+        this.titles = titles;
+    }
+
     @Override
     public Fragment getItem(int position) {
         return mFragments.get(position);
@@ -65,14 +69,40 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         return v;
     }
     /**
-     * 自定义顶部消息tab
+     * 自定义底部消息tab
      * @param position
      * @return
      */
-    public View getTabView(int position) {
-        View v = LayoutInflater.from(mContext.getApplicationContext()).inflate(R.layout.custom_top_tabitem, null);
+    public View getCustomTabView(int position) {
+        View v = LayoutInflater.from(mContext).inflate(R.layout.chat_home_shop_tabitem, null);
+        msgUnReadCountTv = v.findViewById(R.id.tabitem_count);
+        TextView title = v.findViewById(R.id.tabitem_text);
+        title.setTextSize(14);
+        title.setText(titles[position]);
+        return v;
+    }
+    /**
+     * 自定义底部消息tab
+     * @param position
+     * @return
+     */
+    public View getTabViewOfEvaluate(int position) {
+        View v = LayoutInflater.from(mContext).inflate(R.layout.chat_home_shop_tabitem, null);
         TextView title = v.findViewById(R.id.tabitem_text);
         title.setText(titles[position]);
         return v;
     }
+    /**
+     * 设置未读消息数量
+     * @param count
+     */
+    public void setUnReadMsg(int count){
+        if (msgUnReadCountTv == null)
+            return;
+        msgUnReadCountTv.setText(count > 99 ? "99+" :String.valueOf(count));
+        msgUnReadCountTv.setVisibility((count > 0)?View.VISIBLE:View.GONE);
+    }
+
+
+
 }

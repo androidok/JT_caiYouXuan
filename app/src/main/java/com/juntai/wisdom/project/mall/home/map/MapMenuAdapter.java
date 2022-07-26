@@ -2,7 +2,7 @@ package com.juntai.wisdom.project.mall.home.map;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.app_basemodule.bean.PicTextBean;
+import com.example.appbase.bean.PicTextBean;
 import com.juntai.wisdom.project.mall.R;
 
 /**

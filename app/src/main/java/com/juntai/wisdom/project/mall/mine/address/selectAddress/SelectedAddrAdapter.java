@@ -5,7 +5,7 @@ import android.support.v4.content.ContextCompat;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.app_basemodule.bean.CitysBean;
+import com.example.appbase.bean.CitysBean;
 import com.juntai.wisdom.project.mall.R;
 
 /**

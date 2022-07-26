@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.baidu.location.BDLocation;
-import com.example.app_basemodule.base.customview.CustomViewPager;
-import com.example.app_basemodule.base.customview.MainPagerAdapter;
+import com.example.appbase.base.customview.CustomViewPager;
+import com.example.appbase.base.customview.MainPagerAdapter;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;

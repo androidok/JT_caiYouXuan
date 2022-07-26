@@ -91,7 +91,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
         for (int i = 0; i < mTabTb.getTabCount(); i++) {
             TabLayout.Tab tab = mTabTb.getTabAt(i);
             if (tab != null) {
-                tab.setCustomView(adapter.getTabView(i));
+                tab.setCustomView(adapter.getTabView(i,false));
             }
         }
         /*viewpager切换默认第一个*/

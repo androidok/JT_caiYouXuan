@@ -1,5 +1,7 @@
 package com.juntai.project.sell.mall.home;
 
+import com.example.appbase.bean.AroundShopBean;
+import com.example.appbase.bean.PicTextBean;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
@@ -9,11 +11,9 @@ import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppPresent;
-import com.juntai.project.sell.mall.beans.AroundShopBean;
 import com.juntai.project.sell.mall.beans.BillBaseInfoBean;
 import com.juntai.project.sell.mall.beans.BillListBean;
 import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
-import com.juntai.project.sell.mall.beans.PicTextBean;
 import com.juntai.project.sell.mall.beans.WithDrawListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeBean;

@@ -10,10 +10,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.app_basemodule.bean.UserBeanMall;
-import com.example.net.AppHttpPath;
+import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.util.UserInfoManager;
 import com.example.chat.MyChatApp;
 import com.example.chat.util.UserInfoManagerChat;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.MD5;
@@ -23,7 +24,6 @@ import com.juntai.wisdom.project.mall.MainActivity;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.mall.mine.modifyPwd.BackPwdActivity;
-import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 import com.orhanobut.hawk.Hawk;
 
@@ -133,7 +133,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     MyChatApp.isReLoadWarn = true;
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, loginBean.getData().getToken());
-                    MyWsManager.getInstance() .setWsUrl(String.format("%s%s/%s",AppHttpPath.BASE_SOCKET,UserInfoManager.getUserId(),UserInfoManager.getDevType()));
+                    MyWsManager.getInstance() .setWsUrl(String.format("%s%s/%s",AppHttpPath.BASE_SOCKET, UserInfoManager.getUserId(),UserInfoManager.getDevType()));
                     startActivity(new Intent(mContext, MainActivity.class));
                     finish();
                 }

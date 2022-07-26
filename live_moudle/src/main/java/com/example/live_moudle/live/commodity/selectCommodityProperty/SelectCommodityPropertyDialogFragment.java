@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.app_basemodule.bean.CommodityDetailBean;
-import com.example.app_basemodule.bean.CommodityPropertyListBean;
+import com.example.appbase.bean.CommodityDetailBean;
+import com.example.appbase.bean.CommodityPropertyListBean;
 import com.example.live_moudle.R;
 import com.example.live_moudle.util.ObjectBoxUtil;
 import com.juntai.disabled.basecomponent.base.BaseBottomSheetFragment;

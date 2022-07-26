@@ -1,10 +1,10 @@
 package com.juntai.wisdom.project.mall;
 
 
-import com.example.net.AppHttpPath;
+import com.example.appbase.util.UserInfoManager;
 import com.example.chat.MyChatApp;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.video.ModuleVideo_Init;
-import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 import com.mob.MobSDK;
 

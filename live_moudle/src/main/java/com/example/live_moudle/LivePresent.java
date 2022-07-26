@@ -1,12 +1,13 @@
 package com.example.live_moudle;
 
 
+import com.example.appbase.base.BaseAppPresent;
 import com.example.appbase.bean.LiveDetailBean;
 import com.example.appbase.bean.LiveResultBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
-import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
+import com.example.appbase.bean.ShopCommodityListBean;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;

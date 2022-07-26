@@ -1,6 +1,6 @@
 package com.juntai.wisdom.project.mall.search;
 
-import com.example.app_basemodule.utils.UserInfoManager;
+import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchHeadFragment;
 

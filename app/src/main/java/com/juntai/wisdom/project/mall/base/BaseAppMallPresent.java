@@ -1,6 +1,6 @@
 package com.juntai.wisdom.project.mall.base;
 
-import com.example.app_basemodule.base.BaseAppPresent;
+import com.example.appbase.base.BaseAppPresent;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 

@@ -3,7 +3,7 @@ package com.example.live_moudle.websocket;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
-import com.example.app_basemodule.bean.LiveMsgBean;
+import com.example.appbase.bean.LiveMsgBean;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 
 import org.java_websocket.client.WebSocketClient;

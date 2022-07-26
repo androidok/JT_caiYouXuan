@@ -5,8 +5,8 @@ import android.support.v4.content.ContextCompat;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.appbase.bean.CitysBean;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.CitysBean;
 
 /**
  * @aouther tobato 被选中的地址

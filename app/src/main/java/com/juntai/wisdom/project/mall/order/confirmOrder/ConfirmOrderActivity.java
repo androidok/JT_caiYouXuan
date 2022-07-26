@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.example.appbase.bean.order.ConfirmOrderBean;
 import com.example.appbase.bean.order.CreatOrderBean;
+import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppHttpPath;
-import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;

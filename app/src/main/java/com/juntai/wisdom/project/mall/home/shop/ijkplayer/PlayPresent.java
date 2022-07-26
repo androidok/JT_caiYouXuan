@@ -4,13 +4,13 @@ import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 
-import com.example.app_basemodule.bean.PlayUrlBean;
+import com.example.appbase.bean.PlayUrlBean;
+import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.example.net.AppNetModule;
 
 import okhttp3.RequestBody;
 

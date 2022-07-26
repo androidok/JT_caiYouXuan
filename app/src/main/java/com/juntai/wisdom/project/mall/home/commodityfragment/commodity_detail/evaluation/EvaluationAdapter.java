@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.app_basemodule.bean.CommodityEvaluationBean;
+import com.example.appbase.bean.CommodityEvaluationBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;

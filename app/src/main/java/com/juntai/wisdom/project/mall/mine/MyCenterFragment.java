@@ -10,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.app_basemodule.bean.PicTextBean;
-import com.example.app_basemodule.bean.UserBeanMall;
+import com.example.appbase.bean.PicTextBean;
+import com.example.appbase.bean.UserBeanMall;
 import com.example.appbase.bean.order.OrderStatusAmountBean;
+import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppHttpPath;
-import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.utils.DialogUtil;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;

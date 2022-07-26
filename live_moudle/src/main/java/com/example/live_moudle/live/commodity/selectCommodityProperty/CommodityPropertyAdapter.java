@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.app_basemodule.bean.CommodityPropertyListBean;
+import com.example.appbase.bean.CommodityPropertyListBean;
 import com.example.live_moudle.R;
 
 import java.util.List;
