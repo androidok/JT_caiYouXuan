@@ -47,9 +47,7 @@ public class SplashActivity extends RxAppCompatActivity {
 //                        }else {
 //                            startActivity(new Intent(SplashActivity.this, SellLoginActivity.class));
 //                        }
-//                        startActivity(new Intent(SplashActivity.this, SellLoginActivity.class));
                         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-
                         finish();
                     }
                 }, new Consumer<Throwable>() {

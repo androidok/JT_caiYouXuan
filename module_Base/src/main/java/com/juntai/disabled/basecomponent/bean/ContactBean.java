@@ -33,6 +33,9 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
     private int realNameStatus;
     private int shopId;
     private int shopState;
+    private int type;
+    private int schoolId;
+    private int schoolNumber;
     private String account;
     private String phoneNumber;
     private String nickname;
@@ -43,6 +46,30 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
     private String stateContent;
     private String schoolName;
     private int paymentType;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
+    }
+
+    public int getSchoolNumber() {
+        return schoolNumber;
+    }
+
+    public void setSchoolNumber(int schoolNumber) {
+        this.schoolNumber = schoolNumber;
+    }
 
     private MessageBodyBean messageBodyBean;
 

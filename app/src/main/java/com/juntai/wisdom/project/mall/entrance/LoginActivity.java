@@ -1,5 +1,6 @@
 package com.juntai.wisdom.project.mall.entrance;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,13 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.appbase.bean.UserBean;
-import com.example.appbase.util.UserInfoManager;
 import com.example.chat.MyChatApp;
 import com.example.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.MD5;
-import com.juntai.disabled.basecomponent.utils.RomUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.project.sell.mall.AppHttpPathMall;
+import com.juntai.project.sell.mall.SellMainActivity;
+import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
+import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
+import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mall.MainActivity;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
@@ -95,15 +100,75 @@ public class LoginActivity extends SmsCheckCodeActivity implements
             case AppHttpPath.LOGIN:
                 UserBean loginBean = (UserBean) o;
                 if (loginBean != null) {
+                    ContactBean contactBean = loginBean.getData();
+
                     ToastUtils.success(mContext, "登录成功");
                     MyChatApp.isReLoadWarn = true;
-                    Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
-                    Hawk.put(HawkProperty.SP_KEY_TOKEN, loginBean.getData().getToken());
-                    startActivity(new Intent(mContext, MainActivity.class));
-                    finish();
+                    Hawk.put(HawkProperty.SP_KEY_USER, contactBean);
+                    Hawk.put(HawkProperty.SP_KEY_TOKEN, contactBean.getToken());
+                    //账号类型（1学校人员；2商户人员；3农发人员）
+                    int type = contactBean.getType();
+                    switch (type) {
+                        case 1:
+                            //买家
+                            startActivity(new Intent(mContext, MainActivity.class));
+                            finish();
+                            break;
+                        case 2:
+                            //卖家
+                            int shopStatus = contactBean.getShopState();
+                            switch (shopStatus) {
+                                case 0:
+                                    // : 2022/6/8 跳转到店铺提交页面
+                                    // : 2022/6/8 进入到店铺认证界面
+                                    startActivity(new Intent(mContext, ShopManagerActivity.class));
+                                    finish();
+                                    break;
+                                case 1:
+                                case 2:
+                                    // : 2022/6/8 审核通过
+                                    startActivity(new Intent(mContext, SellMainActivity.class));
+                                    finish();
+                                    break;
+                                case 3:
+                                    // : 2022/6/8 审核失败  是否需要加上原因
+                                    showAlertDialog(String.format("%s,请重新提交", UserInfoManagerMall.getUser().getStateContent()), "去认证", "", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // : 2022/6/10 获取店铺信息 跳转到店铺管理页面
+                                            mPresenter.getShopDetail(getBaseBuilder().add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPathMall.SHOP_DETAIL);
+                                        }
+                                    });
+
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case 3:
+                            //todo 管理端
+                            break;
+                        default:
+                            break;
+                    }
+
+
+
+
                 }
                 break;
-            case EntranceContract.OTHER_REGIST:
+
+            case AppHttpPathMall.SHOP_DETAIL:
+                ShopDetailBean shopDetailBean = (ShopDetailBean) o;
+                if (shopDetailBean != null) {
+                    ShopDetailBean.DataBean dataBean = shopDetailBean.getData();
+                    if (dataBean != null) {
+                        // : 2022/6/8 进入到店铺认证界面
+                        startActivity(new Intent(mContext, ShopManagerActivity.class)
+                                .putExtra(BASE_PARCELABLE,dataBean));
+                        finish();
+                    }
+                }
                 break;
             default:
                 break;
@@ -126,23 +191,9 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     ToastUtils.toast(mContext, loginType % 2 == 0 ? "登录密码不能为空" : "验证码不能为空");
                     return;
                 }
-                // : 2022/4/28 调用登录的接口
-                if (0 == loginType % 2) {
-                    mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
-                            .add("typeEnd", UserInfoManager.getDevType())
-                            .add("mobileName", RomUtil.getName())
-                            .add("regId", HawkProperty.getRegid())
-
-                            .add("password", MD5.md5(String.format("%s#%s", account, password)))
-                            .build(), AppHttpPath.LOGIN);
-                } else {
-                    mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
-                            .add("typeEnd", UserInfoManager.getDevType())
-                            .add("mobileName", RomUtil.getName())
-                            .add("regId", HawkProperty.getRegid())
-                            .add("code", password)
-                            .build(), AppHttpPath.LOGIN);
-                }
+                mPresenter.login(new FormBody.Builder().add("account", account)
+                        .add("password", MD5.md5(String.format("%s#%s", account, password)))
+                        .build(), AppHttpPath.LOGIN);
                 break;
             case R.id.reback_pwd_tv:
                 // : 2022/4/28 跳转到找回密码的界面
