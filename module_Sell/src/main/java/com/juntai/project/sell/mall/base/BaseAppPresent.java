@@ -1,7 +1,7 @@
 package com.juntai.project.sell.mall.base;
 
 import com.example.appbase.bean.ShopListDataBean;
-import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.bean.UserBean;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
@@ -201,9 +201,9 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
         AppNetModuleMall.createrRetrofit()
                 .login(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<UserBeanMall>(getView()) {
+                .subscribe(new BaseObserver<UserBean>(getView()) {
                     @Override
-                    public void onSuccess(UserBeanMall o) {
+                    public void onSuccess(UserBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -358,9 +358,9 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
         AppNetModuleMall.createrRetrofit()
                 .getUserInfo(body)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<UserBeanMall>(null) {
+                .subscribe(new BaseObserver<UserBean>(null) {
                     @Override
-                    public void onSuccess(UserBeanMall o) {
+                    public void onSuccess(UserBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

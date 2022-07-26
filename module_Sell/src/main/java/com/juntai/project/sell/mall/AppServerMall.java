@@ -7,7 +7,7 @@ import com.example.appbase.bean.NewsListBean;
 import com.example.appbase.bean.PlayUrlBean;
 import com.example.appbase.bean.ShopCommodityListBean;
 import com.example.appbase.bean.ShopListDataBean;
-import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.bean.UserBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
@@ -164,7 +164,7 @@ public interface AppServerMall {
      * @return
      */
     @POST(AppHttpPathMall.LOGIN)
-    Observable<UserBeanMall> login(@Body RequestBody requestBody);
+    Observable<UserBean> login(@Body RequestBody requestBody);
 
 
     /**
@@ -173,7 +173,7 @@ public interface AppServerMall {
      * @return
      */
     @POST(AppHttpPathMall.REGIST)
-    Observable<UserBeanMall> regist(@Body RequestBody requestBody);
+    Observable<UserBean> regist(@Body RequestBody requestBody);
 
     /**
      * 上传文件
@@ -211,7 +211,7 @@ public interface AppServerMall {
      * @return
      */
     @POST(AppHttpPathMall.GET_USER_INFO)
-    Observable<UserBeanMall> getUserInfo(@Body RequestBody requestBody);
+    Observable<UserBean> getUserInfo(@Body RequestBody requestBody);
 
     /**
      * 修改账户

@@ -3,8 +3,6 @@ package com.juntai.project.sell.mall;
 
 import com.example.chat.MyChatApp;
 import com.juntai.disabled.video.ModuleVideo_Init;
-import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
-import com.juntai.project.sell.mall.webSocket.MyWsManager;
 import com.mob.MobSDK;
 
 /**
@@ -25,14 +23,6 @@ public class MyApp extends MyChatApp {
         MobSDK.init(this);
         //Video模块初始化
         ModuleVideo_Init.init();
-        if (UserInfoManagerMall.isLogin()) {
-            MyWsManager.getInstance()
-                    .init(getApplicationContext())
-                    .setWsUrl(String.format("%s%s/%s",AppHttpPathMall.BASE_SOCKET,UserInfoManagerMall.getUserId(),UserInfoManagerMall.DEVICE_TYPE));
-        } else {
-            MyWsManager.getInstance()
-                    .init(getApplicationContext());
-        }
     }
 
 

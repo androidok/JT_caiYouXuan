@@ -5,7 +5,8 @@ import com.example.appbase.bean.CommodityDetailBean;
 import com.example.appbase.bean.LiveListBean;
 import com.example.appbase.bean.LiveTypeListBean;
 import com.example.appbase.bean.ShopListDataBean;
-import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.bean.UserBean;
+import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
 import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
@@ -137,9 +138,9 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
         AppNetModule.createrRetrofit()
                 .login(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<UserBeanMall>(getView()) {
+                .subscribe(new BaseObserver<UserBean>(getView()) {
                     @Override
-                    public void onSuccess(UserBeanMall o) {
+                    public void onSuccess(UserBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -274,9 +275,9 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
         AppNetModule.createrRetrofit()
                 .getUserInfo(body)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<UserBeanMall>(null) {
+                .subscribe(new BaseObserver<UserBean>(null) {
                     @Override
-                    public void onSuccess(UserBeanMall o) {
+                    public void onSuccess(UserBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -424,6 +425,32 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
                 .subscribe(new BaseObserver<LiveTypeListBean>(null) {
                     @Override
                     public void onSuccess(LiveTypeListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+
+
+
+        /*====================================================    农发管理端   ==============================================================*/
+
+    public void getSchoolList(String tag) {
+        AppNetModule.createrRetrofit()
+                .getSchoolList()
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<SchoolListBean>(null) {
+                    @Override
+                    public void onSuccess(SchoolListBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.bean.UserBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.SellMainActivity;
@@ -106,7 +106,7 @@ public class SplashActivity extends BaseAppActivity<HomePagePresent> implements 
 
         switch (tag) {
             case AppHttpPathMall.GET_USER_INFO:
-                UserBeanMall loginBean = (UserBeanMall) o;
+                UserBean loginBean = (UserBean) o;
                 if (loginBean != null) {
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     switch (UserInfoManagerMall.getShopStatus()) {

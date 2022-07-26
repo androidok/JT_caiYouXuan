@@ -3,12 +3,12 @@ package com.example.net;
 public class AppHttpPath {
 
 
-//        public static final String BASE = "http://192.168.124.148:8080/jt-mall";
-    public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
-//        public static final String BASE_SOCKET = "ws://192.168.124.148:8080/jt-mall/buyersSocket/";
-    public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21970/jt-mall/buyersSocket/";
-    //    public static final String BASE_IMAGE = "http://192.168.124.148:9598";
-    public static final String BASE_IMAGE = "http://www.juntaikeji.com:19170";
+        public static final String BASE = "http://192.168.124.148:8080/jt-mall";
+//    public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
+        public static final String BASE_SOCKET = "ws://192.168.124.148:8080/jt-mall/buyersSocket/";
+//    public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21970/jt-mall/buyersSocket/";
+        public static final String BASE_IMAGE = "http://192.168.124.148:9598";
+//    public static final String BASE_IMAGE = "http://www.juntaikeji.com:19170";
 
     public static final String ALL_CITYS = "https://restapi.amap.com/v3/config/district?";
     /*==============================================  流媒体相关  =============================================*/
@@ -30,7 +30,7 @@ public class AppHttpPath {
      */
     public static final String LOGIN = BASE + "/member/buyersLogin";
     /**
-     * 登录
+     * 注册
      */
     public static final String REGIST = BASE + "/member/register";
 
@@ -364,5 +364,18 @@ public class AppHttpPath {
 
     public static final String SHOP_COLLECT_FINISH = BASE + "/buyers/addCollectShop///finish";
     public static final String SHOP_UNCOLLECT = BASE + "/buyers/unCollectShop";
+
+
+
+
+
+        /*====================================================    农发管理端   ==============================================================*/
+
+
+    /**
+     * 学校列表
+     */
+    public static final String SCHOOL_LIST = BASE + "/manage/selectSchoolList";
+
 
 }

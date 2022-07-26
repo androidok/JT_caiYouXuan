@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.bean.UserBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.PubUtil;
@@ -205,7 +205,7 @@ public class VerifiedActivity extends SmsCheckCodeActivity implements View.OnCli
         super.onSuccess(tag, o);
         if (AppHttpPathMall.USER_AUTH.equals(tag)) {
             ToastUtils.success(mContext, ((BaseResult) o).message);
-            UserBeanMall loginBean = (UserBeanMall) o;
+            UserBean loginBean = (UserBean) o;
             if (loginBean != null) {
                 Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                 mVerifiedInfoFillingG.setVisibility(View.GONE);

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.bean.UserBean;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;
 import com.juntai.disabled.basecomponent.utils.DialogUtil;
@@ -190,7 +190,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
                 break;
             case AppHttpPathMall.GET_USER_INFO:
-                UserBeanMall loginBean = (UserBeanMall) o;
+                UserBean loginBean = (UserBean) o;
                 if (loginBean != null) {
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage);

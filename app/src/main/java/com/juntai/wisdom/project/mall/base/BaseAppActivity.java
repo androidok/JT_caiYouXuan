@@ -144,7 +144,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
     public void reLogin(String regPhone) {
         UserInfoManager.clearUserData();//清理数据
         //ws退出连接
-        MyWsManager.getInstance().disconnect();
         HawkProperty.clearRedPoint(mContext.getApplicationContext());
         ActivityManagerTool.getInstance().finishApp();
         startActivity(new Intent(this, LoginActivity.class).putExtra(BaseActivity.BASE_STRING, regPhone

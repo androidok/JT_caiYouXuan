@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,14 +16,12 @@ import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.home.HomeFragment;
 import com.juntai.wisdom.project.mall.live.LiveFragment;
 import com.juntai.wisdom.project.mall.mine.MyCenterFragment;
 import com.juntai.wisdom.project.mall.news.NewsListFragment;
 import com.juntai.wisdom.project.mall.shoppingCart.ShoppingCartFragment;
-import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 import com.mob.MobSDK;
 
 public class MainActivity extends BaseAppActivity<MainPagePresent> implements
@@ -174,21 +171,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         return true;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MyWsManager.getInstance().startConnect();
 
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.e("EEEEEEEEEE", " = ChatMainActivity  onDestroy");
-        stopService(new Intent(MainActivity.this, LocateAndUpload.class));
-        MyWsManager.getInstance().disconnect();
-        super.onDestroy();
-    }
 
     @Override
     public void onBackPressed() {

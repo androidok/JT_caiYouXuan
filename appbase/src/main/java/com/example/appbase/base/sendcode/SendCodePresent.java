@@ -3,7 +3,7 @@ package com.example.appbase.base.sendcode;
 
 import android.text.TextUtils;
 
-import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.bean.UserBean;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
@@ -28,9 +28,9 @@ public class SendCodePresent extends BasePresenter<SendCodeModel, SendCodeContra
         AppNetModule.createrRetrofit()
                 .login(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<UserBeanMall>(getView()) {
+                .subscribe(new BaseObserver<UserBean>(getView()) {
                     @Override
-                    public void onSuccess(UserBeanMall o) {
+                    public void onSuccess(UserBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

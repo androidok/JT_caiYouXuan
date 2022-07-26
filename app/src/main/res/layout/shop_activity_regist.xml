@@ -4,55 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
-    tools:context=".mall.entrance.LoginActivity">
+    android:background="@drawable/bg_white_only_bottom_gray_shape_1px">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center_vertical"
             android:paddingBottom="5dp"
-            android:text="注册"
+            android:text="用户注册"
             android:textColor="@color/black"
-            android:textSize="26dp"></TextView>
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/regist_tag_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="你好,欢迎来到"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="商城!"
-                android:textColor="@color/colorAccent"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="@+id/regist_tag_tv"
-                app:layout_constraintLeft_toRightOf="@+id/regist_tag_tv"
-                app:layout_constraintTop_toTopOf="@+id/regist_tag_tv"></TextView>
-        </android.support.constraint.ConstraintLayout>
+            android:textSize="22dp"></TextView>
 
 
         <LinearLayout
@@ -144,49 +115,87 @@
                 android:inputType="textPassword"
                 android:maxLength="16" />
 
-
         </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/account_rb"
+
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/account_school_rb"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorAccent"
+                android:checked="true"
+                android:text="学校" />
+
+            <RadioButton
+                android:id="@+id/account_seller_rb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="@color/colorAccent"
+                android:text="商户" />
+        </RadioGroup>
+        <TextView
+            android:id="@+id/belong_school_tv"
+            style="@style/shop_login_edit_tv_style"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:drawableRight="@mipmap/arrow_down_2"
+            android:paddingRight="25dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/sp_filled_gray_circle"
+            android:gravity="center_vertical"
+            android:hint="所属学校"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:gravity="center">
 
             <RadioButton
                 android:id="@+id/regist_agree_protocal_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/colorAccent"
-                 />
+                android:buttonTint="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/regist_protocal_secrecy_tv"
                 android:layout_width="wrap_content"
-                android:textSize="12sp"
                 android:layout_height="wrap_content"
-                android:text="@string/protocal_notice1" />
+                android:text="@string/protocal_notice1"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/regist_protoca_user_tv"
                 android:layout_width="wrap_content"
-                android:textSize="12sp"
                 android:layout_height="wrap_content"
-                android:text="@string/protocal_notice2" />
+                android:text="@string/protocal_notice2"
+                android:textSize="12sp" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/regist_tv"
             style="@style/bt_bg_style"
             android:layout_marginTop="20dp"
             android:text="注册" />
+
         <TextView
             android:id="@+id/login_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:layout_gravity="center_horizontal"
+            android:padding="10dp"
             android:text="立即登录"
-            android:textSize="16dp"
-             />
+            android:textSize="16dp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

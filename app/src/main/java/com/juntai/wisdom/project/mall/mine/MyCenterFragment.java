@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.bean.PicTextBean;
-import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.bean.UserBean;
 import com.example.appbase.bean.order.OrderStatusAmountBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppHttpPath;
@@ -259,7 +259,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
                 break;
             case AppHttpPath.GET_USER_INFO:
-                UserBeanMall loginBean = (UserBeanMall) o;
+                UserBean loginBean = (UserBean) o;
                 if (loginBean != null) {
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManager.getHeadPic(), mHeadImage);

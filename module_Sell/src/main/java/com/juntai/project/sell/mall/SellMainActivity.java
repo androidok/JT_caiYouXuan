@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -16,14 +15,11 @@ import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
 import com.juntai.project.sell.mall.home.HomeShopFragment;
 import com.juntai.project.sell.mall.mine.MyCenterFragment;
 import com.juntai.project.sell.mall.news.NewsListFragment;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
-import com.juntai.project.sell.mall.webSocket.MyWsManager;
-import com.mob.MobSDK;
 
 public class SellMainActivity extends BaseAppActivity<MainPagePresent> implements
         View.OnClickListener, MainPageContract.IMainPageView {
@@ -161,22 +157,6 @@ public class SellMainActivity extends BaseAppActivity<MainPagePresent> implement
         return true;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MyWsManager.getInstance().startConnect();
-        // : 2022/7/13 mob的隐私授权 不能删
-        MobSDK.submitPolicyGrantResult(true);
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.e("EEEEEEEEEE", " = ChatMainActivity  onDestroy");
-        stopService(new Intent(SellMainActivity.this, LocateAndUpload.class));
-        MyWsManager.getInstance().disconnect();
-
-        super.onDestroy();
-    }
 
     @Override
     public void onBackPressed() {

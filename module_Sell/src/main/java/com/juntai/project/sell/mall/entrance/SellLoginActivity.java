@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.bean.UserBean;
 import com.example.chat.MyChatApp;
 import com.example.chat.util.UserInfoManagerChat;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
@@ -24,7 +24,6 @@ import com.juntai.project.sell.mall.SellMainActivity;
 import com.juntai.project.sell.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.project.sell.mall.mine.modifyPwd.BackPwdActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
-import com.juntai.project.sell.mall.webSocket.MyWsManager;
 import com.orhanobut.hawk.Hawk;
 
 import java.lang.ref.WeakReference;
@@ -129,13 +128,12 @@ public class SellLoginActivity extends SmsCheckCodeActivity implements
         switch (tag) {
             //登录成功
             case AppHttpPathMall.LOGIN:
-                UserBeanMall loginBean = (UserBeanMall) o;
+                UserBean loginBean = (UserBean) o;
                 if (loginBean != null) {
                     ToastUtils.success(mContext, "登录成功");
                     MyChatApp.isReLoadWarn = true;
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, loginBean.getData().getToken());
-                    MyWsManager.getInstance() .setWsUrl(String.format("%s%s/%s",AppHttpPathMall.BASE_SOCKET,UserInfoManagerMall.getUserId(),UserInfoManagerMall.DEVICE_TYPE));
                     startActivity(new Intent(mContext, SellMainActivity.class));
                     finish();
                 }

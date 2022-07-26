@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.bean.CommodityDetailBean;
 import com.example.appbase.bean.CommodityEvaluationBean;
 import com.example.appbase.bean.PicTextBean;
-import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.bean.UserBean;
 import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
@@ -334,7 +334,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                 break;
 
             case AppHttpPath.GET_USER_INFO:
-                UserBeanMall loginBean = (UserBeanMall) o;
+                UserBean loginBean = (UserBean) o;
                 if (loginBean != null) {
                     // : 2022/5/19 进入到聊天的界面
                     startToChatActivity(loginBean.getData());

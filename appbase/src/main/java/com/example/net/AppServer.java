@@ -14,8 +14,10 @@ import com.example.appbase.bean.LiveResultBean;
 import com.example.appbase.bean.LiveTypeListBean;
 import com.example.appbase.bean.NewsListBean;
 import com.example.appbase.bean.PlayUrlBean;
+import com.example.appbase.bean.ShopCommodityListBean;
 import com.example.appbase.bean.ShopListDataBean;
-import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.bean.UserBean;
+import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
 import com.example.appbase.bean.order.ConfirmOrderBean;
 import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.appbase.bean.order.OrderDetailDataBean;
@@ -29,7 +31,6 @@ import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
-import com.example.appbase.bean.ShopCommodityListBean;
 import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
@@ -181,7 +182,7 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.LOGIN)
-    Observable<UserBeanMall> login(@Body RequestBody requestBody);
+    Observable<UserBean> login(@Body RequestBody requestBody);
 
 
     /**
@@ -190,7 +191,7 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.REGIST)
-    Observable<UserBeanMall> regist(@Body RequestBody requestBody);
+    Observable<UserBean> regist(@Body RequestBody requestBody);
 
     /**
      * 上传文件
@@ -225,7 +226,7 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.GET_USER_INFO)
-    Observable<UserBeanMall> getUserInfo(@Body RequestBody requestBody);
+    Observable<UserBean> getUserInfo(@Body RequestBody requestBody);
 
     /**
      * 修改账户
@@ -369,4 +370,11 @@ public interface AppServer {
 
 
 
+
+
+
+
+        /*====================================================    农发管理端   ==============================================================*/
+        @POST(AppHttpPath.SCHOOL_LIST)
+        Observable<SchoolListBean> getSchoolList();
 }

@@ -1,22 +1,17 @@
 package com.juntai.wisdom.project.mall.entrance;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.appbase.bean.UserBeanMall;
+import com.example.appbase.bean.UserBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.chat.MyChatApp;
-import com.example.chat.util.UserInfoManagerChat;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
-import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.RomUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -24,17 +19,8 @@ import com.juntai.wisdom.project.mall.MainActivity;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.mall.mine.modifyPwd.BackPwdActivity;
-import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 import com.orhanobut.hawk.Hawk;
 
-import java.lang.ref.WeakReference;
-import java.util.HashMap;
-
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.PlatformDb;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.wechat.friends.Wechat;
 import okhttp3.FormBody;
 
 /**
@@ -44,7 +30,6 @@ import okhttp3.FormBody;
  */
 public class LoginActivity extends SmsCheckCodeActivity implements
         View.OnClickListener {
-    public String otherHeadIcon = "";
     /**
      * 登录
      */
@@ -61,7 +46,6 @@ public class LoginActivity extends SmsCheckCodeActivity implements
     private ImageView mLoginByWchatIv;
     private ImageView mLoginByZfbIv;
 
-    private MyHandler myHandler = new MyHandler(this);
     /**
      * 注册
      */
@@ -81,24 +65,6 @@ public class LoginActivity extends SmsCheckCodeActivity implements
     //默认是密码登录
     private int loginType = 0;
 
-    static class MyHandler extends Handler {
-        private WeakReference<Activity> mActivity;//弱引用
-
-        MyHandler(Activity activity) {
-            mActivity = new WeakReference<Activity>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            LoginActivity theActivity = (LoginActivity) mActivity.get();
-            switch (msg.what) {
-                //此处可以根据what的值处理多条信息
-                case 1:
-                    theActivity.otherLogin();
-                    break;
-            }
-        }
-    }
 
     @Override
     public int getLayoutView() {
@@ -127,13 +93,12 @@ public class LoginActivity extends SmsCheckCodeActivity implements
         switch (tag) {
             //登录成功
             case AppHttpPath.LOGIN:
-                UserBeanMall loginBean = (UserBeanMall) o;
+                UserBean loginBean = (UserBean) o;
                 if (loginBean != null) {
                     ToastUtils.success(mContext, "登录成功");
                     MyChatApp.isReLoadWarn = true;
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, loginBean.getData().getToken());
-                    MyWsManager.getInstance() .setWsUrl(String.format("%s%s/%s",AppHttpPath.BASE_SOCKET, UserInfoManager.getUserId(),UserInfoManager.getDevType()));
                     startActivity(new Intent(mContext, MainActivity.class));
                     finish();
                 }
@@ -182,14 +147,6 @@ public class LoginActivity extends SmsCheckCodeActivity implements
             case R.id.reback_pwd_tv:
                 // : 2022/4/28 跳转到找回密码的界面
                 startActivity(new Intent(this, BackPwdActivity.class));
-                break;
-            case R.id.login_by_wchat_iv:
-                // TODO: 2022/4/28 微信登录
-                loginForQQWeChat(Wechat.NAME);
-                break;
-            case R.id.login_by_zfb_iv:
-                // TODO: 2022/4/28 支付宝登录
-//                loginForQQWeChat(QQ.NAME);
                 break;
             case R.id.regist_tv:
                 // : 2022/4/28 跳转到注册的界面
@@ -259,93 +216,9 @@ public class LoginActivity extends SmsCheckCodeActivity implements
         }
     }
 
-    PlatformDb platDB;
-
-    /**
-     * 第三方数据
-     *
-     * @param name
-     */
-    public void loginForQQWeChat(String name) {
-        UserInfoManagerChat.QQ_ID = null;
-        UserInfoManagerChat.WECHAT_ID = null;
-        otherHeadIcon = null;
-
-        Platform plat = ShareSDK.getPlatform(name);
-        if (!plat.isClientValid()) {
-            //判断是否存在授权凭条的客户端，true是有客户端，false是无
-//            if (name.equals(QQ.NAME)) {
-//                ToastUtils.warning(mContext, "未安装QQ");
-//            } else {
-//                ToastUtils.warning(mContext, "未安装微信");
-//            }
-        }
-
-        plat.removeAccount(true); //移除授权状态和本地缓存，下次授权会重新授权
-        plat.SSOSetting(false); //SSO授权，传false默认是客户端授权，没有客户端授权或者不支持客户端授权会跳web授权
-        //        ShareSDK.setActivity(this);//抖音登录适配安卓9.0
-        plat.setPlatformActionListener(new PlatformActionListener() {
-            @Override
-            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                //通过打印res数据看看有哪些数据是你想要的
-                if (i == Platform.ACTION_USER_INFOR) {
-                    platDB = platform.getDb();//获取数平台数据DB
-                    //通过DB获取各种数据
-                    LogUtil.e("id=" + platDB.getUserId());
-                    UserInfoManagerChat.OTHER_NICK_NAME = platDB.getUserName();
-                    otherHeadIcon = platDB.getUserIcon();
-//                    if (platform.getName().equals(QQ.NAME)) {
-//                        String params = "access_token=" + platform.getDb().getToken() + "&unionid=1&fmt=json";
-//                        HttpUtil.sendGet("https://graph.qq.com/oauth2.0/me", params, new HttpUtil.NetCallBack() {
-//                            @Override
-//                            public void onSuccess(String str) {
-//                                if (!TextUtils.isEmpty(str)) {
-//                                    UnionidBean unionidBean = GsonTools.changeGsonToBean(str, UnionidBean.class);
-//                                    UserInfoManagerChat.QQ_ID = unionidBean.getUnionid();
-//                                    myHandler.sendEmptyMessage(1);
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onError(String str) {
-//                            }
-//                        });
-//
-//                    } else {
-//                        UserInfoManagerChat.WECHAT_ID = platform.getDb().get("unionid");
-//                        myHandler.sendEmptyMessage(1);
-//                    }
-
-                }
-            }
 
 
-            @Override
-            public void onError(Platform platform, int i, Throwable throwable) {
-                LogUtil.e(throwable.toString());
-                //                plat.removeAccount(true); //移除授权状态和本地缓存，下次授权会重新授权
-            }
 
-            @Override
-            public void onCancel(Platform platform, int i) {
-
-            }
-        });
-        plat.showUser(null);    //要数据不要功能，主要体现在不会重复出现授权界面
-    }
-
-    /**
-     * 第三方登录
-     */
-    public void otherLogin() {
-//        mPresenter.login(null, null, UserInfoManagerChat.WECHAT_ID, UserInfoManagerChat.QQ_ID, EntranceContract.LOGIN_TAG);
-    }
-
-    @Override
-    protected void onDestroy() {
-        myHandler.removeCallbacksAndMessages(null);
-        super.onDestroy();
-    }
 
     @Override
     protected boolean canCancelLoadingDialog() {

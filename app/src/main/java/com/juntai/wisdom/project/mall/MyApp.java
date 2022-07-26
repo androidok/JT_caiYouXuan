@@ -28,14 +28,6 @@ public class MyApp extends MyChatApp {
         MobSDK.init(this);
         //Video模块初始化
         ModuleVideo_Init.init();
-        if (UserInfoManager.isLogin()) {
-            MyWsManager.getInstance()
-                    .init(getApplicationContext())
-                    .setWsUrl(String.format("%s%s/%s",AppHttpPath.BASE_SOCKET,UserInfoManager.getUserId(),UserInfoManager.getDevType()));
-        } else {
-            MyWsManager.getInstance()
-                    .init(getApplicationContext());
-        }
     }
 
 

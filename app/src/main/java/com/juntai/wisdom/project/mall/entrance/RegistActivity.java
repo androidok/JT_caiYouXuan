@@ -4,16 +4,21 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.utils.MD5;
+import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.example.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.mall.utils.StringTools;
+
+import java.util.List;
 
 import okhttp3.FormBody;
 
@@ -57,6 +62,20 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
     private TextView mLoginTv;
     //是否同意协议
     private boolean isAgreeProtocal = false;
+    /**
+     * 学校
+     */
+    private RadioButton mAccountSchoolRb;
+    /**
+     * 商户
+     */
+    private RadioButton mAccountSellerRb;
+    private RadioGroup mAccountRg;
+    /**
+     * 所属学校
+     */
+    private TextView mBelongSchoolTv;
+    private SchoolListBean.DataBean schoolBean;
 
     @Override
     public int getLayoutView() {
@@ -65,7 +84,7 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
 
     @Override
     public void initView() {
-
+        initToolbarAndStatusBar(false);
         mRegistPhoneEt = (EditText) findViewById(R.id.regist_phone_et);
         mCodeEt = (EditText) findViewById(R.id.code_et);
         mGetCodeTv = (TextView) findViewById(R.id.get_code_tv);
@@ -82,6 +101,27 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
         mRegistTv.setOnClickListener(this);
         mLoginTv = (TextView) findViewById(R.id.login_tv);
         mLoginTv.setOnClickListener(this);
+        mAccountSchoolRb = (RadioButton) findViewById(R.id.account_school_rb);
+        mAccountSellerRb = (RadioButton) findViewById(R.id.account_seller_rb);
+        mAccountRg = (RadioGroup) findViewById(R.id.account_rb);
+        mBelongSchoolTv = (TextView) findViewById(R.id.belong_school_tv);
+        mBelongSchoolTv.setOnClickListener(this);
+        mAccountRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.account_school_rb:
+                        mBelongSchoolTv.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.account_seller_rb:
+                        mBelongSchoolTv.setVisibility(View.GONE);
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -107,6 +147,22 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
             case AppHttpPath.REGIST:
                 ToastUtils.toast(mContext, "注册成功");
                 startActivity(new Intent(mContext, LoginActivity.class));
+                break;
+            case AppHttpPath.SCHOOL_LIST:
+                SchoolListBean schoolListBean = (SchoolListBean) o;
+                if (schoolListBean != null) {
+                    List<SchoolListBean.DataBean> schoolListBeans = schoolListBean.getData();
+                    if (schoolListBeans != null) {
+                        PickerManager.getInstance().showOptionPicker(mContext, schoolListBeans, new PickerManager.OnOptionPickerSelectedListener() {
+                            @Override
+                            public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                                schoolBean = schoolListBeans.get(options1);
+                                mBelongSchoolTv.setText(schoolBean.getPickerViewText());
+
+                            }
+                        });
+                    }
+                }
                 break;
             default:
                 break;
@@ -157,6 +213,12 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
                         }
                     }
                 }
+                if (mAccountSchoolRb.isChecked()) {
+                    if (schoolBean == null) {
+                        ToastUtils.toast(mContext, "请选择所属学校");
+                        return;
+                    }
+                }
                 if (!isAgreeProtocal) {
                     ToastUtils.toast(mContext, "请阅读并同意相关协议");
                     return;
@@ -167,6 +229,12 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
                 builder.add("phoneNumber", account);
                 builder.add("password", MD5.md5(String.format("%s#%s", account, getTextViewValue(mPasswordEt))));
                 builder.add("code", getTextViewValue(mCodeEt));
+                if (mAccountSchoolRb.isChecked()) {
+                    builder.add("type", "1")
+                            .add("schoolId",String.valueOf(schoolBean.getId()));
+                }else {
+                    builder.add("type", "2");
+                }
                 mPresenter.regist(AppHttpPath.REGIST, builder.build());
 
                 break;
@@ -182,6 +250,10 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
             case R.id.login_tv:
                 startActivity(new Intent(mContext, LoginActivity.class));
                 break;
+            case R.id.belong_school_tv:
+                mPresenter.getSchoolList(AppHttpPath.SCHOOL_LIST);
+                break;
         }
     }
+
 }
