@@ -45,7 +45,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_base_tab_page_layout;
+        return R.layout.base_tab_page_layout;
     }
 
     @Override

@@ -109,7 +109,7 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.sell_news_list_fg;
+        return R.layout.news_list_fg;
     }
 
     @Override

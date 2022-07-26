@@ -112,7 +112,7 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
 
     @Override
     protected int getTabHeadLayout() {
-        return R.layout.sell_fragment_search_head;
+        return R.layout.fragment_search_head;
     }
 
     @Override

@@ -33,7 +33,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_activity_about;
+        return R.layout.activity_about;
     }
 
     @Override

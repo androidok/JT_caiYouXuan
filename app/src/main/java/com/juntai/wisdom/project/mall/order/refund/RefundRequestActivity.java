@@ -33,7 +33,7 @@ public class RefundRequestActivity extends BaseRecyclerviewActivity<OrderPresent
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_activity_refund_request;
+        return R.layout.activity_refund_request;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class RefundRequestActivity extends BaseRecyclerviewActivity<OrderPresent
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new RefundCommodityAdapter(R.layout.sell_mall_refund_commodity_item);
+        return new RefundCommodityAdapter(R.layout.mall_refund_commodity_item);
     }
 
 

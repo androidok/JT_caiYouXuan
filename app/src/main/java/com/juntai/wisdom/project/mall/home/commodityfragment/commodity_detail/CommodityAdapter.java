@@ -117,7 +117,7 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
                 RecyclerView evaluationRv = helper.getView(R.id.evaluation_rv);
                 LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
                 evaluationRv.setLayoutManager(manager);
-                EvaluationAdapter evaluationAdapter = new EvaluationAdapter(R.layout.sell_shop_commodity_evaluta_child_item);
+                EvaluationAdapter evaluationAdapter = new EvaluationAdapter(R.layout.shop_commodity_evaluta_child_item);
                 evaluationRv.setAdapter(evaluationAdapter);
                 if (arrays.size() > 2) {
                     // TODO: 2022/5/4 暂定只显示2行评价

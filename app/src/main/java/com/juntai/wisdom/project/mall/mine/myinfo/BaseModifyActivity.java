@@ -32,7 +32,7 @@ public abstract class BaseModifyActivity extends BaseAppActivity<MyCenterPresent
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_activity_modify_nick_name;
+        return R.layout.activity_modify_nick_name;
     }
 
     @Override

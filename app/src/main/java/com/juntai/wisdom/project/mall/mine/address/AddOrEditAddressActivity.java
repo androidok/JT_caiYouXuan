@@ -53,7 +53,7 @@ public class AddOrEditAddressActivity extends BaseAppActivity<AddrPresent> imple
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_activity_address;
+        return R.layout.activity_address;
     }
 
     @Override

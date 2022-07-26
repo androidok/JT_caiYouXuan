@@ -44,7 +44,7 @@ public class SelectLocationForWeatherActivity extends BaseAppActivity<HomePagePr
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_activity_select_location2;
+        return R.layout.activity_select_location2;
     }
 
     @Override
@@ -173,7 +173,7 @@ public class SelectLocationForWeatherActivity extends BaseAppActivity<HomePagePr
                 for (int i = 0; i < bean.getData().size(); i++) {
                     a[i] = bean.getData().get(i).getName();
                 }
-                firstAdapter = new ArrayAdapter<>(mContext, R.layout.sell_item_spinner_text, a);
+                firstAdapter = new ArrayAdapter<>(mContext, R.layout.item_spinner_text, a);
                 first.setAdapter(firstAdapter);
                 first.setOnItemSelectedListener(SelectLocationForWeatherActivity.this);
                 break;
@@ -184,7 +184,7 @@ public class SelectLocationForWeatherActivity extends BaseAppActivity<HomePagePr
                 for (int i = 0; i < bean.getData().size(); i++) {
                     c[i] = bean.getData().get(i).getName();
                 }
-                secondAdapter = new ArrayAdapter<>(getContext(), R.layout.sell_item_spinner_text, c);
+                secondAdapter = new ArrayAdapter<>(getContext(), R.layout.item_spinner_text, c);
                 second.setAdapter(secondAdapter);
                 second.setVisibility(View.VISIBLE);
                 second.setOnItemSelectedListener(SelectLocationForWeatherActivity.this);
@@ -195,7 +195,7 @@ public class SelectLocationForWeatherActivity extends BaseAppActivity<HomePagePr
                 for (int i = 0; i < bean.getData().size(); i++) {
                     t[i] = bean.getData().get(i).getName();
                 }
-                thirdAdapter = new ArrayAdapter<>(getContext(), R.layout.sell_item_spinner_text, t);
+                thirdAdapter = new ArrayAdapter<>(getContext(), R.layout.item_spinner_text, t);
                 third.setAdapter(thirdAdapter);
                 if (t.length == 0 || t[0].equals("无")) {
                     third.setVisibility(View.GONE);
@@ -213,7 +213,7 @@ public class SelectLocationForWeatherActivity extends BaseAppActivity<HomePagePr
                 for (int i = 0; i < bean.getData().size(); i++) {
                     d[i] = bean.getData().get(i).getName();
                 }
-                fourAdapter = new ArrayAdapter<>(getContext(), R.layout.sell_item_spinner_text, d);
+                fourAdapter = new ArrayAdapter<>(getContext(), R.layout.item_spinner_text, d);
                 four.setAdapter(fourAdapter);
                 if (d.length == 0 || d[0].equals("无")) {
                     four.setVisibility(View.GONE);

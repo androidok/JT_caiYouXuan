@@ -130,7 +130,7 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_simple_player_view_player;
+        return R.layout.simple_player_view_player;
     }
 
     @Override

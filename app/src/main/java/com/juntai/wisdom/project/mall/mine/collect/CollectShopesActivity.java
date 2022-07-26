@@ -61,7 +61,7 @@ public class CollectShopesActivity extends BaseSearchAndListActivity<MyCenterPre
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new CollectShopAdapter(R.layout.sell_mall_collect_shop_item);
+        return new CollectShopAdapter(R.layout.mall_collect_shop_item);
     }
 
     @Override

@@ -94,7 +94,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_activity_share;
+        return R.layout.activity_share;
     }
 
     @Override
@@ -206,7 +206,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new PicTextAdapter(R.layout.sell_share_item);
+        return new PicTextAdapter(R.layout.share_item);
     }
 
     public List<PicTextBean> getShareMenus() {

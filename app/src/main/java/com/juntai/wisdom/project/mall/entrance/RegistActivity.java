@@ -60,7 +60,7 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_shop_activity_regist;
+        return R.layout.shop_activity_regist;
     }
 
     @Override

@@ -41,7 +41,7 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new CommodityListAdapter(R.layout.sell_shop_commodity_list);
+        return new CommodityListAdapter(R.layout.shop_commodity_list);
     }
 
     @Override

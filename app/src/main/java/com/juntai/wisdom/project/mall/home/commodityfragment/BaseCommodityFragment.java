@@ -41,7 +41,7 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.sell_homepage_commidity_fg;
+        return R.layout.homepage_commidity_fg;
     }
 
     @Override

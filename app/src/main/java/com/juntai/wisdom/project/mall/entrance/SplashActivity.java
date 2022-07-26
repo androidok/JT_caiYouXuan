@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.juntai.project.sell.mall.entrance.SellLoginActivity;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -47,8 +48,8 @@ public class SplashActivity extends RxAppCompatActivity {
 //                        }else {
 //                            startActivity(new Intent(SplashActivity.this, SellLoginActivity.class));
 //                        }
-//                        startActivity(new Intent(SplashActivity.this, SellLoginActivity.class));
-                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                        startActivity(new Intent(SplashActivity.this, SellLoginActivity.class));
+//                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
 
                         finish();
                     }

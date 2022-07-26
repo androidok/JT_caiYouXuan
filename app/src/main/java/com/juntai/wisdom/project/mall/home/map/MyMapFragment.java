@@ -389,7 +389,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
      * 初始化菜单适配器
      */
     private void initMenuAdapter() {
-        menuAdapter = new MapMenuAdapter(R.layout.sell_may_menu_layout);
+        menuAdapter = new MapMenuAdapter(R.layout.may_menu_layout);
         getBaseActivity().initRecyclerview(mHomePageRightMenuRv, menuAdapter, LinearLayoutManager.VERTICAL);
         menuAdapter.setNewData(mPresenter.getMenus());
         menuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -543,10 +543,10 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
         List<MapClusterItem> items = new ArrayList<MapClusterItem>(cluster.getItems());
         if (mapBottomDialog == null) {
             mapBottomDialog = new BottomSheetDialog(mContext);
-            View view = LayoutInflater.from(mContext).inflate(R.layout.sell_bottom_list_layout, null);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.bottom_list_layout, null);
             mapBottomDialog.setContentView(view);
             RecyclerView bottomRv = view.findViewById(R.id.map_bottom_list_rv);
-            clusterClickAdapter = new ClusterClickAdapter(R.layout.sell_mall_collect_shop_item);
+            clusterClickAdapter = new ClusterClickAdapter(R.layout.mall_collect_shop_item);
             getBaseActivity().initRecyclerview(bottomRv, clusterClickAdapter, LinearLayoutManager.VERTICAL);
             clusterClickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override

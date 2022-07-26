@@ -53,7 +53,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_activity_main;
+        return R.layout.activity_main;
     }
 
     @Override

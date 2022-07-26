@@ -122,9 +122,6 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" /> <!-- 百度地图 -->
         <!-- Ma - debug-Release-key : A2hxzsrCO3VOXGXBzVjP3zKKYBsNhi1A -->
-        <activity
-            android:name=".mine.AboutActivity"
-            android:launchMode="singleTop" /> <!-- 百度地图 -->
         <!--  -->
         <activity
             android:name=".mine.myinfo.ImageCropActivity"
@@ -139,9 +136,6 @@
 
         <service android:name=".home.shop.ijkplayer.KeepAliveService" />
 
-        <activity
-            android:name=".mine.setting.MyInformationActivity"
-            android:launchMode="singleTop" />
         <activity
             android:name=".mine.modifyPwd.ModifyPwdActivity"
             android:launchMode="singleTop" /> <!-- 关于 -->

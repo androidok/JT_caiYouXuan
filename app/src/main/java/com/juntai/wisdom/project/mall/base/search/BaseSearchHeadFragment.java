@@ -81,7 +81,7 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.sell_fragment_search_head_layout, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search_head_layout, null);
         initView(view);
         return view;
     }
@@ -149,7 +149,7 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
 
             @Override
             public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.sell_search_item_textview,
+                TextView tv = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.search_item_textview,
                         tagFlowLayout, false);
                 //为标签设置对应的内容
                 tv.setText(s);

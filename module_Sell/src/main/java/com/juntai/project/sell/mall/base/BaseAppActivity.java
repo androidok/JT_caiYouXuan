@@ -26,7 +26,6 @@ import com.example.chat.base.uploadFile.listener.OnUploadListener;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
-import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
@@ -49,8 +48,6 @@ import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommod
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
-import com.juntai.project.sell.mall.mine.address.AddOrEditAddressActivity;
-import com.juntai.project.sell.mall.mine.address.AddressListActivity;
 import com.juntai.project.sell.mall.news.ChatActivity;
 import com.juntai.project.sell.mall.order.allOrder.OrderManagerActivity;
 import com.juntai.project.sell.mall.order.evaluate.EvaluateActivity;
@@ -429,23 +426,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
     public void startToConfirmOrder(CreatOrderBean.DataBean dataBean) {
 //        startActivity(new Intent(mContext, ConfirmOrderActivity.class).putExtra(BASE_PARCELABLE, dataBean));
 
-    }
-
-    /**
-     * 跳转到地址列表
-     * type  1是选择地址  0是地址管理
-     */
-    public void startToAddressListActivity(int type) {
-        startActivityForResult(new Intent(mContext, AddressListActivity.class).putExtra(BASE_ID, type), BASE_REQUEST_RESULT);
-
-
-    }
-
-    /**
-     * 添加(编辑地址)
-     */
-    public void startToAddAddress(AddressListBean.DataBean dataBean) {
-        startActivityForResult(new Intent(mContext, AddOrEditAddressActivity.class).putExtra(BASE_PARCELABLE, dataBean), BASE_REQUEST_RESULT);
     }
 
     /**

@@ -25,7 +25,7 @@ public class HomeFragment extends BaseMvpFragment<HomePagePresent> implements Ho
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.sell_home_fg;
+        return R.layout.home_fg;
     }
 
     @Override

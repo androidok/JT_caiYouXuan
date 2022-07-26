@@ -102,7 +102,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_activity_login;
+        return R.layout.activity_login;
     }
 
     @Override

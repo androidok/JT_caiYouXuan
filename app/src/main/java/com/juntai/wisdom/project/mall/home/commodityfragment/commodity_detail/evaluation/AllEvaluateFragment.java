@@ -34,7 +34,7 @@ public class AllEvaluateFragment extends BaseAppFragment<CommodityPresent> imple
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.sell_shop_commodity_evaluate_fg;
+        return R.layout.shop_commodity_evaluate_fg;
     }
 
     @Override

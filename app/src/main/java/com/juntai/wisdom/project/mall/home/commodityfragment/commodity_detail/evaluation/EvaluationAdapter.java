@@ -53,7 +53,7 @@ public class EvaluationAdapter extends BaseQuickAdapter<CommodityEvaluationBean.
 
         RecyclerView picVideoRv = helper.getView(R.id.evaluate_pic_video_rv);
         GridLayoutManager manager = new GridLayoutManager(mContext, 4);
-        EvaluatePicVideoAdapter picVideoAdapter = new EvaluatePicVideoAdapter(R.layout.sell_show_selected_pic_video_item);
+        EvaluatePicVideoAdapter picVideoAdapter = new EvaluatePicVideoAdapter(R.layout.show_selected_pic_video_item);
         picVideoRv.setAdapter(picVideoAdapter);
         picVideoRv.setLayoutManager(manager);
         picVideoAdapter.setNewData(picVideos);

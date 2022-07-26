@@ -86,8 +86,8 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         mOrderManagerRv = (RecyclerView) getView(R.id.order_manager_rv);
         mLoginOutTv = (TextView) getView(R.id.login_out_tv);
         mLoginOutTv.setOnClickListener(this);
-        PicTextAdapter topMenuAdapter = new PicTextAdapter(R.layout.sell_custom_tabitem);
-        orderMenuAdapter = new PicTextAdapter(R.layout.sell_my_center_order_menu);
+        PicTextAdapter topMenuAdapter = new PicTextAdapter(R.layout.custom_tabitem);
+        orderMenuAdapter = new PicTextAdapter(R.layout.my_center_order_menu);
         GridLayoutManager topManager = new GridLayoutManager(mContext, 3);
         mCollectRv.setLayoutManager(topManager);
         mCollectRv.setAdapter(topMenuAdapter);
