@@ -63,7 +63,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_activity_commodity_detail;
+        return R.layout.activity_commodity_detail;
     }
 
 

@@ -1,9 +1,9 @@
 package com.juntai.project.sell.mall.home.systemNotice;
 
+import com.example.appbase.base.web.BaseWebviewFragment;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-import com.juntai.project.sell.mall.base.web.BaseWebviewFragment;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.HomePagePresent;

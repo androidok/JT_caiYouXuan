@@ -188,7 +188,7 @@
         </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>
 
-    <com.juntai.wisdom.project.mall.base.customview.DragFloatActionButton
+    <com.example.appbase.base.customview.DragFloatActionButton
         android:id="@+id/live_tag_iv"
         android:layout_width="48dp"
         android:layout_height="48dp"

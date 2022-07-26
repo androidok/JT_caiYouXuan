@@ -8,12 +8,12 @@ import android.text.TextUtils;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.appbase.base.web.BaseWebviewFragment;
 import com.example.appbase.bean.CommodityDetailBean;
 import com.example.appbase.bean.CommodityEvaluationBean;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
-import com.juntai.wisdom.project.mall.base.web.BaseWebviewFragment;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.evaluation.EvaluationAdapter;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 import com.juntai.wisdom.project.mall.utils.bannerImageLoader.GlideImageLoader;
@@ -43,9 +43,9 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
      */
     public CommodityAdapter(FragmentManager fragmentManager,List<MultipleItem> data) {
         super(data);
-        addItemType(MultipleItem.ITEM_COMMODITY_BASE_INFO, R.layout.sell_shop_commodity_base_info);
-        addItemType(MultipleItem.ITEM_COMMODITY_EVALUTA, R.layout.sell_shop_commodity_evaluta_item);
-        addItemType(MultipleItem.ITEM_COMMODITY_DETAIL, R.layout.sell_shop_commodity_detail_item);
+        addItemType(MultipleItem.ITEM_COMMODITY_BASE_INFO, R.layout.shop_commodity_base_info);
+        addItemType(MultipleItem.ITEM_COMMODITY_EVALUTA, R.layout.shop_commodity_evaluta_item);
+        addItemType(MultipleItem.ITEM_COMMODITY_DETAIL, R.layout.shop_commodity_detail_item);
         this.fragmentManager = fragmentManager;
     }
 

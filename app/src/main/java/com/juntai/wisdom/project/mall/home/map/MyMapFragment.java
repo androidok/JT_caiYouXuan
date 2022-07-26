@@ -186,7 +186,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.sell_my_map_fg;
+        return R.layout.my_map_fg;
     }
 
     @Override
