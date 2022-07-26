@@ -3,7 +3,7 @@ package com.juntai.wisdom.project.mall.search;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.home.commodityfragment.BaseCommodityListFragment;
 
 /**

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.bean.LiveResultBean;
 import com.example.app_basemodule.bean.LiveTypeListBean;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
 import com.juntai.disabled.basecomponent.base.BaseActivity;

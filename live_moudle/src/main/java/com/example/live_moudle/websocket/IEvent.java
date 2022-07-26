@@ -1,7 +1,7 @@
 package com.example.live_moudle.websocket;
 
 
-import com.example.app_basemodule.bean.LiveMsgBean;
+import com.example.appbase.bean.LiveMsgBean;
 
 /**
  * Created by dds on 2019/7/26.

@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
-import com.example.app_basemodule.net.AppNetModule;
+import com.example.net.AppNetModule;
 import com.juntai.wisdom.project.mall.base.OnBaseCallBack;
 
 import java.util.concurrent.TimeUnit;

@@ -6,7 +6,7 @@ import com.example.app_basemodule.bean.CommodityDesListBean;
 import com.example.app_basemodule.bean.CommodityEvaluationBean;
 import com.example.app_basemodule.bean.IdNameBean;
 import com.example.app_basemodule.bean.PicTextBean;
-import com.example.app_basemodule.net.AppNetModule;
+import com.example.net.AppNetModule;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;

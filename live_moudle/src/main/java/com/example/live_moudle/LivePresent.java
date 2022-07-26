@@ -1,11 +1,10 @@
 package com.example.live_moudle;
 
 
-import com.example.app_basemodule.base.BaseAppPresent;
-import com.example.app_basemodule.bean.LiveDetailBean;
-import com.example.app_basemodule.bean.LiveResultBean;
-import com.example.app_basemodule.net.AppNetModule;
-import com.example.app_basemodule.utils.UserInfoManager;
+import com.example.appbase.bean.LiveDetailBean;
+import com.example.appbase.bean.LiveResultBean;
+import com.example.appbase.util.UserInfoManager;
+import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.shop.ShopCommodityListBean;
 import com.juntai.disabled.basecomponent.mvp.IModel;

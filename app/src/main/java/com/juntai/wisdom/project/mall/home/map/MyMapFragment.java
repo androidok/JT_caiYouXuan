@@ -44,7 +44,7 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.disabled.bdmap.utils.MapUtil;
 import com.juntai.disabled.bdmap.utils.clusterutil.clustering.Cluster;
 import com.juntai.disabled.bdmap.utils.clusterutil.clustering.ClusterManager;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;

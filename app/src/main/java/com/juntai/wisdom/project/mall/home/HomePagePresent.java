@@ -2,7 +2,7 @@ package com.juntai.wisdom.project.mall.home;
 
 import com.example.app_basemodule.bean.AroundShopBean;
 import com.example.app_basemodule.bean.PicTextBean;
-import com.example.app_basemodule.net.AppNetModule;
+import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;

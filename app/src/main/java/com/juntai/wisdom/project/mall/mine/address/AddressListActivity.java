@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;

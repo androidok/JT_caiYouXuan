@@ -90,7 +90,7 @@ dependencies {
     implementation project(':module_Base')
     implementation project(':banner')
     implementation project(':live_moudle')
-    implementation project(':app_base')
+    implementation project(':appbase')
 
 
     implementation project(':module_Video')

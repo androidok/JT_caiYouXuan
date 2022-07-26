@@ -7,9 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.app_basemodule.bean.order.ConfirmOrderBean;
-import com.example.app_basemodule.bean.order.CreatOrderBean;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.appbase.bean.order.ConfirmOrderBean;
+import com.example.appbase.bean.order.CreatOrderBean;
+import com.example.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.utils.GsonTools;

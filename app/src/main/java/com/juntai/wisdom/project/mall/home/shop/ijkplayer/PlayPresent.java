@@ -10,7 +10,7 @@ import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.example.app_basemodule.net.AppNetModule;
+import com.example.net.AppNetModule;
 
 import okhttp3.RequestBody;
 

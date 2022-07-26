@@ -31,7 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.chat.MainContract;
 import com.example.chat.R;

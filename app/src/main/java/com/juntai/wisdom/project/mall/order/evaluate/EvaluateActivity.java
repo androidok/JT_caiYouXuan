@@ -8,13 +8,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.example.chat.MainContract;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.selectPics.BaseSelectPicsAndVedioActivity;
 import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
-import com.example.app_basemodule.bean.order.OrderDetailBean;
+import com.example.appbase.bean.order.OrderDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 import com.juntai.wisdom.project.mall.order.refund.RefundCommodityAdapter;

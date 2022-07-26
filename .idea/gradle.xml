@@ -11,9 +11,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/EmojiLib" />
-            <option value="$PROJECT_DIR$/Mall_Manage" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/app_base" />
+            <option value="$PROJECT_DIR$/appbase" />
             <option value="$PROJECT_DIR$/banner" />
             <option value="$PROJECT_DIR$/charts" />
             <option value="$PROJECT_DIR$/chatAudioFile" />
@@ -24,6 +23,7 @@
             <option value="$PROJECT_DIR$/module_Base" />
             <option value="$PROJECT_DIR$/module_Chat" />
             <option value="$PROJECT_DIR$/module_Map" />
+            <option value="$PROJECT_DIR$/module_Sell" />
             <option value="$PROJECT_DIR$/module_Video" />
             <option value="$PROJECT_DIR$/oscvpush" />
             <option value="$PROJECT_DIR$/richeditor" />

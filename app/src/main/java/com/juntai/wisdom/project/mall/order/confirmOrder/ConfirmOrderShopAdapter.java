@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.app_basemodule.bean.order.CreatOrderBean;
+import com.example.appbase.bean.order.CreatOrderBean;
 import com.juntai.wisdom.project.mall.R;
 
 

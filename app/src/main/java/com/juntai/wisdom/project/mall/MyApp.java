@@ -1,7 +1,7 @@
 package com.juntai.wisdom.project.mall;
 
 
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.example.chat.MyChatApp;
 import com.juntai.disabled.video.ModuleVideo_Init;
 import com.example.app_basemodule.utils.UserInfoManager;

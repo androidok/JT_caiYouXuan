@@ -1,7 +1,7 @@
 package com.juntai.wisdom.project.mall.mine.address;
 
 import com.example.app_basemodule.bean.CitysBean;
-import com.example.app_basemodule.net.AppNetModule;
+import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;

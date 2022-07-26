@@ -1,3 +1,2 @@
 include ':module_Map', ':module_Video',
-        ':app', ':banner', ':zXingLiteLib', ':EmojiLib', ':chatAudioFile', ':indexlib', ':zhihu_matisse', ':rtc-chat', ':module_Base', ':module_Chat', ':jjdxm-ijkplayer', ':libWSLive', ':live_moudle', ':oscvpush',  ':Mall_Manage', ':richeditor', ':charts'
-include ':app_base'
+        ':app', ':banner', ':zXingLiteLib', ':EmojiLib', ':chatAudioFile', ':indexlib', ':zhihu_matisse', ':rtc-chat', ':module_Base', ':module_Chat', ':jjdxm-ijkplayer', ':libWSLive', ':live_moudle', ':oscvpush', ':module_Sell', ':richeditor', ':charts', ':appbase'

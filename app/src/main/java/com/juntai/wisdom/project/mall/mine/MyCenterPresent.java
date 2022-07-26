@@ -3,8 +3,8 @@ package com.juntai.wisdom.project.mall.mine;
 
 import com.example.app_basemodule.bean.CollectDataBean;
 import com.example.app_basemodule.bean.PicTextBean;
-import com.example.app_basemodule.bean.order.OrderStatusAmountBean;
-import com.example.app_basemodule.net.AppNetModule;
+import com.example.appbase.bean.order.OrderStatusAmountBean;
+import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.IModel;

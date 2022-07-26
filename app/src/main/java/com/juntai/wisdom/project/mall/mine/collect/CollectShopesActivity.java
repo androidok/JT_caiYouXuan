@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.bean.CollectDataBean;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchAndListActivity;
 import com.juntai.wisdom.project.mall.mine.MyCenterContract;

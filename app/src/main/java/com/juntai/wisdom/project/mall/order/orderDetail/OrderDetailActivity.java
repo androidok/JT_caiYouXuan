@@ -10,10 +10,10 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.app_basemodule.bean.order.OrderDetailBean;
-import com.example.app_basemodule.bean.order.OrderDetailDataBean;
-import com.example.app_basemodule.bean.order.OrderListBean;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.appbase.bean.order.OrderDetailBean;
+import com.example.appbase.bean.order.OrderDetailDataBean;
+import com.example.appbase.bean.order.OrderListBean;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;

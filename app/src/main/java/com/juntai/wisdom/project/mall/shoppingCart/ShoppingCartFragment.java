@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.bean.CartListBean;
-import com.example.app_basemodule.bean.order.CreatOrderBean;
-import com.example.app_basemodule.bean.order.ToCommitSelectedCommoditiesBean;
+import com.example.appbase.bean.order.CreatOrderBean;
+import com.example.appbase.bean.order.ToCommitSelectedCommoditiesBean;
 import com.example.app_basemodule.bean.CommodityDetailBean;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
 import com.example.live_moudle.util.ObjectBoxUtil;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;

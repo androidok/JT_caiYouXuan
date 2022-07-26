@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
-import com.example.app_basemodule.bean.order.OrderDetailBean;
+import com.example.appbase.bean.order.OrderDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 
 import java.util.List;

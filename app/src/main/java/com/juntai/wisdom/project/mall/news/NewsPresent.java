@@ -1,7 +1,7 @@
 package com.juntai.wisdom.project.mall.news;
 
 import com.example.app_basemodule.bean.NewsListBean;
-import com.example.app_basemodule.net.AppNetModule;
+import com.example.net.AppNetModule;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.chat.MainContract;
 import com.example.chat.bean.HomePageMenuBean;

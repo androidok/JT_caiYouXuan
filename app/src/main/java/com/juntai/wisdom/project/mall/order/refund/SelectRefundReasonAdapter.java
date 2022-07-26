@@ -3,7 +3,7 @@ package com.juntai.wisdom.project.mall.order.refund;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.wisdom.project.mall.R;
-import com.example.app_basemodule.bean.order.RefundReasonBean;
+import com.example.appbase.bean.order.RefundReasonBean;
 
 /**
  * @Author: tobato

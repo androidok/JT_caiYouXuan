@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.app_basemodule.bean.LiveDetailBean;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
 import com.example.app_basemodule.bean.LiveListBean;

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.app_basemodule.bean.UserBeanMall;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.example.chat.MyChatApp;
 import com.example.chat.util.UserInfoManagerChat;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;

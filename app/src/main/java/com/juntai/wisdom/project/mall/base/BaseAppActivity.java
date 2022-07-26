@@ -13,9 +13,9 @@ import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
-import com.example.app_basemodule.bean.order.CreatOrderBean;
-import com.example.app_basemodule.bean.order.OrderDetailBean;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.appbase.bean.order.CreatOrderBean;
+import com.example.appbase.bean.order.OrderDetailBean;
+import com.example.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;

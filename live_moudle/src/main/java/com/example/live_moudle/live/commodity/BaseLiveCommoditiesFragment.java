@@ -3,13 +3,13 @@ package com.example.live_moudle.live.commodity;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.app_basemodule.bean.CommodityDetailBean;
-import com.example.app_basemodule.bean.order.CreatOrderBean;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.appbase.bean.CommodityDetailBean;
+import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
 import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
 import com.example.live_moudle.util.ObjectBoxUtil;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.bean.CommodityBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;

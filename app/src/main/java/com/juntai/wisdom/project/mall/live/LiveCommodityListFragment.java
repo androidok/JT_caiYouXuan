@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.app_basemodule.bean.LiveListBean;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.example.live_moudle.live.LiveRoomActivity;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;

@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import com.example.app_basemodule.base.customview.CustomViewPager;
 import com.example.app_basemodule.bean.IdNameBean;
 import com.example.app_basemodule.bean.LiveTypeListBean;
-import com.example.app_basemodule.net.AppHttpPath;
+import com.example.net.AppHttpPath;
 import com.example.app_basemodule.utils.UserInfoManager;
 import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
