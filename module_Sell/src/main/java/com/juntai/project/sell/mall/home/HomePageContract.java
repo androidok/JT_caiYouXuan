@@ -53,6 +53,7 @@ public interface HomePageContract {
     String SHOP_MANAGER_ASSENT = "收入资产";
     String SHOP_MANAGER_FURNISH = "店铺装修";
     String SHOP_MANAGER_SHOP = "店铺管理";
+    String SHOP_MANAGER_CENTER = "个人中心";
 
 
     String COMMODITY_MANAGER_CATEGORY = "商品类目管理";

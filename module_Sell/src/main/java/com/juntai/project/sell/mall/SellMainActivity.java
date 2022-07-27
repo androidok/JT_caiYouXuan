@@ -16,9 +16,6 @@ import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-import com.juntai.project.sell.mall.home.HomeShopFragment;
-import com.juntai.project.sell.mall.mine.MyCenterFragment;
-import com.juntai.project.sell.mall.news.NewsListFragment;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
 public class SellMainActivity extends BaseAppActivity<MainPagePresent> implements
@@ -52,15 +49,15 @@ public class SellMainActivity extends BaseAppActivity<MainPagePresent> implement
         HawkProperty.clearRedPoint(mContext.getApplicationContext());
 
         initToolbarAndStatusBar(false);
-        mainViewpager = findViewById(R.id.main_viewpager);
-        mainTablayout = findViewById(R.id.main_tablayout);
-        mainLayout = findViewById(R.id.main_layout);
-        mainViewpager.setScanScroll(false);
-        mFragments.append(0, new HomeShopFragment());//
-        mFragments.append(1, new NewsListFragment());//
-        mFragments.append(2, new MyCenterFragment());//
-        mainViewpager.setOffscreenPageLimit(5);
-        initTab();
+//        mainViewpager = findViewById(R.id.main_viewpager);
+//        mainTablayout = findViewById(R.id.main_tablayout);
+//        mainLayout = findViewById(R.id.main_layout);
+//        mainViewpager.setScanScroll(false);
+//        mFragments.append(0, new HomeShopFragment());//
+//        mFragments.append(1, new NewsListFragment());//
+//        mFragments.append(2, new MyCenterFragment());//
+//        mainViewpager.setOffscreenPageLimit(5);
+//        initTab();
     }
 
 

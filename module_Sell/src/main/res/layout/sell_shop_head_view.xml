@@ -98,7 +98,6 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="店铺得分"
                 android:textSize="12sp" />
 
         </LinearLayout>

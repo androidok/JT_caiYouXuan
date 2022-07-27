@@ -1,6 +1,5 @@
 package com.juntai.project.sell.mall.home;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +18,6 @@ import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
-import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
@@ -30,7 +28,7 @@ import com.juntai.project.sell.mall.home.commodityManager.CommodityManagerActivi
 import com.juntai.project.sell.mall.home.shop.ShopFlowAdapter;
 import com.juntai.project.sell.mall.home.shopFurnish.ShopFurnishActivity;
 import com.juntai.project.sell.mall.home.systemNotice.SystemNoticeActivity;
-import com.juntai.project.sell.mall.mine.verified.VerifiedActivity;
+import com.juntai.project.sell.mall.mine.MyCenterActivity;
 import com.juntai.project.sell.mall.search.SearchActivity;
 import com.juntai.project.sell.mall.share.ShareActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
@@ -101,11 +99,11 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (UserInfoManagerMall.getShopStatus() == 1) {
-                    // : 2022/6/8 审核中
-                    getBaseAppActivity().showAlertDialogOfKnown("店铺认证审核中,请耐心等待");
-                    return;
-                }
+//                if (UserInfoManagerMall.getShopStatus() == 1) {
+//                    // : 2022/6/8 审核中
+//                    getBaseAppActivity().showAlertDialogOfKnown("店铺认证审核中,请耐心等待");
+//                    return;
+//                }
                 PicTextBean picTextBean = (PicTextBean) adapter.getItem(position);
                 switch (picTextBean.getTextName()) {
                     case HomePageContract.SHOP_MANAGER_COMMODITY:
@@ -118,27 +116,8 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         break;
                     case HomePageContract.SHOP_MANAGER_LIVE:
                         // : 2022/6/7 直播
-                        if (UserInfoManagerMall.getRealNameStatus() == 2) {
-                            //初始化直播
-                            startActivity(new Intent(mContext, LivePrepareActivity.class));
-                        } else if (UserInfoManagerMall.getRealNameStatus() == 1) {
-                            ToastUtils.warning(mContext, "实名认证审核中！");
-                        } else {
-
-                            getBaseAppActivity().showAlertDialog("需要完成身份认证，才可以发布直播内容", "去认证"
-                                    , "取消", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            startActivity(new Intent(mContext, VerifiedActivity.class));
-
-                                        }
-                                    }, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-
-                                        }
-                                    });
-                        }
+                        //初始化直播
+                        startActivity(new Intent(mContext, LivePrepareActivity.class));
                         break;
                     case HomePageContract.SHOP_MANAGER_ASSENT:
                         // : 2022/6/7 收入资产
@@ -154,6 +133,12 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         // : 2022/6/7 店铺管理
                         mPresenter.getShopDetail(getBaseAppActivity().getBaseBuilder().add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPath.SHOP_DETAIL);
 
+
+                        break;
+                    case HomePageContract.SHOP_MANAGER_CENTER:
+                        // : 2022/6/7 个人中心
+// : 2022/7/27 跳转到个人中心
+                        startActivity(new Intent(mContext, MyCenterActivity.class));
 
                         break;
                     default:
@@ -224,6 +209,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         arrays.add(new PicTextBean(R.mipmap.homemenu_assent, HomePageContract.SHOP_MANAGER_ASSENT));
         arrays.add(new PicTextBean(R.mipmap.homemenu_furnish, HomePageContract.SHOP_MANAGER_FURNISH));
         arrays.add(new PicTextBean(R.mipmap.homemenu_shop_manager, HomePageContract.SHOP_MANAGER_SHOP));
+        arrays.add(new PicTextBean(R.mipmap.homemenu_personal_center, HomePageContract.SHOP_MANAGER_CENTER));
         return arrays;
     }
 
@@ -262,7 +248,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         int shipmentsOrder = dataBean.getShipmentsOrder();
                         int afterOrder = dataBean.getAfterOrder();
                         int orderAmount = shipmentsOrder + afterOrder;
-                        if (orderAmount>0) {
+                        if (orderAmount > 0) {
                             PicTextBean picTextBean = (PicTextBean) baseQuickAdapter.getItem(1);
                             picTextBean.setUnReadAmount(orderAmount);
                             baseQuickAdapter.notifyDataSetChanged();
@@ -272,7 +258,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         Hawk.put(HawkProperty.SHOP_NAME, dataBean.getName());
                         mShopCreatTimeTv.setText(String.format("开店时间：%s", dataBean.getCreateTime()));
                         mShopDesTv.setText(String.format("店铺简介：%s", dataBean.getIntroduction()));
-                        mShopScoreTv.setText(String.format("店铺得分：%s", dataBean.getShopFraction()));
+                        mShopScoreTv.setText(String.format("在售商品：%s", dataBean.getCommodityCount()));
                         ImageLoadUtil.loadHeadCirclePic(mContext, dataBean.getHeadPortrait(), mShopOwnerHeadIv);
                         List<ShopHomeInfoBean.DataBean.CategoryListBean> categoryListBeans = dataBean.getCategoryList();
                         if (categoryListBeans == null || categoryListBeans.isEmpty()) {
@@ -328,13 +314,13 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
 
     @Override
     public void onEvent(EventBusObject eventBusObject) {
-       switch (eventBusObject.getEventKey()) {
-           case EventBusObject.TO_HANDLER_ORDER:
-               lazyLoad();
-               break;
-           default:
-               break;
-       }
+        switch (eventBusObject.getEventKey()) {
+            case EventBusObject.TO_HANDLER_ORDER:
+                lazyLoad();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

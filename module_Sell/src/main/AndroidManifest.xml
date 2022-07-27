@@ -98,13 +98,14 @@
             android:name=".mine.modifyPwd.BackPwdActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".mine.MyCenterActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".search.SearchActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".home.QRScanActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".mine.address.AddressListActivity" />
-        <activity android:name=".mine.address.AddOrEditAddressActivity" />
         <activity
             android:name=".SellMainActivity"
             android:exported="true"
