@@ -18,7 +18,7 @@ import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailDataBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
-import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
+import com.example.appbase.bean.ShopDetailSellBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
@@ -184,7 +184,7 @@ public class ShopPresent extends BaseAppMallPresent {
      *
      * @return
      */
-    public List<MultipleItem> getShopManagerData(ShopDetailBean.DataBean bean, boolean isDetail) {
+    public List<MultipleItem> getShopManagerData(ShopDetailSellBean.DataBean bean, boolean isDetail) {
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.SHOP_PIC, true)));

@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.appbase.base.customview.CustomViewPager;
+import com.example.appbase.bean.ShopDetailSellBean;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
-import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppFragment;
 import com.juntai.project.sell.mall.beans.IdNameBean;
-import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
@@ -109,11 +109,11 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<ShopPresent>
     private List<IdNameBean.DataBean> getLabels() {
         List<IdNameBean.DataBean> arrays = new ArrayList<>();
         //店铺
-        ShopDetailBean.DataBean shopBean = Hawk.get(HawkProperty.getShopKey((UserInfoManagerMall.getShopId())));
+        ShopDetailSellBean.DataBean shopBean = Hawk.get(HawkProperty.getShopKey((UserInfoManagerMall.getShopId())));
         if (shopBean != null) {
-            List<ShopDetailBean.DataBean.ClassifyListBean> classifyListBeans = shopBean.getClassifyList();
+            List<ShopDetailSellBean.DataBean.ClassifyListBean> classifyListBeans = shopBean.getClassifyList();
             if (classifyListBeans != null && !classifyListBeans.isEmpty()) {
-                for (ShopDetailBean.DataBean.ClassifyListBean classifyListBean : classifyListBeans) {
+                for (ShopDetailSellBean.DataBean.ClassifyListBean classifyListBean : classifyListBeans) {
                     arrays.add(new IdNameBean.DataBean(classifyListBean.getId(), classifyListBean.getShopClassifyName()));
                 }
             }
@@ -137,7 +137,7 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<ShopPresent>
 
     @Override
     protected void lazyLoad() {
-        mPresenter.getShopDetail(getBaseAppActivity().getBaseBuilder().add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPathMall.SHOP_DETAIL);
+        mPresenter.getShopDetail(getBaseAppActivity().getBaseBuilder().add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPath.SHOP_DETAIL);
 
     }
 
@@ -160,10 +160,10 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<ShopPresent>
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
-            case AppHttpPathMall.SHOP_DETAIL:
-                ShopDetailBean shopDetailBean = (ShopDetailBean) o;
+            case AppHttpPath.SHOP_DETAIL:
+                ShopDetailSellBean shopDetailBean = (ShopDetailSellBean) o;
                 if (shopDetailBean != null) {
-                    ShopDetailBean.DataBean shopBean = shopDetailBean.getData();
+                    ShopDetailSellBean.DataBean shopBean = shopDetailBean.getData();
                     if (shopBean != null) {
                         Hawk.put(HawkProperty.getShopKey(UserInfoManagerMall.getShopId()), shopBean);
                         initTabData();

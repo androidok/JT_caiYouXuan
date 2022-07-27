@@ -4,6 +4,7 @@ import com.example.appbase.bean.CommodityDesListBean;
 import com.example.appbase.bean.CommodityDetailBean;
 import com.example.appbase.bean.LiveListBean;
 import com.example.appbase.bean.LiveTypeListBean;
+import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.bean.ShopListDataBean;
 import com.example.appbase.bean.UserBean;
 import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
@@ -12,7 +13,7 @@ import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
-import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBuyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
@@ -297,9 +298,30 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
         AppNetModule.createrRetrofit()
                 .getShopDetail(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<ShopDetailBean>(getView()) {
+                .subscribe(new BaseObserver<ShopDetailBuyBean>(getView()) {
                     @Override
-                    public void onSuccess(ShopDetailBean o) {
+                    public void onSuccess(ShopDetailBuyBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getSellShopDetail(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .getSellShopDetail(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ShopDetailSellBean>(getView()) {
+                    @Override
+                    public void onSuccess(ShopDetailSellBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

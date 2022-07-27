@@ -43,7 +43,7 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
     /**
      * 开店申请不通过的原因
      */
-    private String stateContent;
+    private String shopContent;
     private String schoolName;
     private int paymentType;
 
@@ -89,12 +89,12 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
         return shopId;
     }
 
-    public String getStateContent() {
-        return stateContent == null ? "" : stateContent;
+    public String getShopContent() {
+        return shopContent == null ? "" : shopContent;
     }
 
-    public void setStateContent(String stateContent) {
-        this.stateContent = stateContent == null ? "" : stateContent;
+    public void setShopContent(String shopContent) {
+        this.shopContent = shopContent == null ? "" : shopContent;
     }
 
     public void setShopId(int shopId) {
@@ -201,7 +201,7 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
         dest.writeString(this.phoneNumber);
         dest.writeString(this.nickname);
         dest.writeString(this.headPortrait);
-        dest.writeString(this.stateContent);
+        dest.writeString(this.shopContent);
         dest.writeString(this.schoolName);
         dest.writeInt(this.paymentType);
         dest.writeParcelable(this.messageBodyBean, flags);
@@ -217,7 +217,7 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
         this.phoneNumber = in.readString();
         this.nickname = in.readString();
         this.headPortrait = in.readString();
-        this.stateContent = in.readString();
+        this.shopContent = in.readString();
         this.schoolName = in.readString();
         this.paymentType = in.readInt();
         this.messageBodyBean = in.readParcelable(MessageBodyBean.class.getClassLoader());

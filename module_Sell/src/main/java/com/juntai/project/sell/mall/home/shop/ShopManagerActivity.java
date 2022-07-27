@@ -12,7 +12,7 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
-import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
+import com.example.appbase.bean.ShopDetailSellBean;
 import com.juntai.project.sell.mall.utils.StringTools;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
@@ -28,7 +28,7 @@ public class ShopManagerActivity extends BaseShopActivity {
 
     private RadioButton mShopProtocalRb;
     private boolean isAgree = false;
-    private ShopDetailBean.DataBean dataBean;
+    private ShopDetailSellBean.DataBean dataBean;
     private TextView shopPtTv;
 
     @Override

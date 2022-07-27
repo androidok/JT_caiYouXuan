@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.bean.PicTextBean;
+import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.live_moudle.live.LivePrepareActivity;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
@@ -22,7 +24,6 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
-import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.home.assets.AssetsActivity;
 import com.juntai.project.sell.mall.home.commodityManager.CommodityManagerActivity;
@@ -151,7 +152,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         break;
                     case HomePageContract.SHOP_MANAGER_SHOP:
                         // : 2022/6/7 店铺管理
-                        mPresenter.getShopDetail(getBaseAppActivity().getBaseBuilder().add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPathMall.SHOP_DETAIL);
+                        mPresenter.getShopDetail(getBaseAppActivity().getBaseBuilder().add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPath.SHOP_DETAIL);
 
 
                         break;
@@ -244,10 +245,10 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
-            case AppHttpPathMall.SHOP_DETAIL:
-                ShopDetailBean shopDetailBean = (ShopDetailBean) o;
+            case AppHttpPath.SHOP_DETAIL:
+                ShopDetailSellBean shopDetailBean = (ShopDetailSellBean) o;
                 if (shopDetailBean != null) {
-                    ShopDetailBean.DataBean dataBean = shopDetailBean.getData();
+                    ShopDetailSellBean.DataBean dataBean = shopDetailBean.getData();
                     if (dataBean != null) {
                         getBaseAppActivity().startToShopAuthActivity(dataBean);
                     }

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.appbase.base.customview.DragFloatActionButton;
 import com.example.live_moudle.live.LiveRoomActivity;
 import com.juntai.disabled.basecomponent.base.BaseResult;
-import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBuyBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
@@ -58,7 +58,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
     public int shopId;
     private int collectId = 0;
 
-    private ShopDetailBean.DataBean shopBean;
+    private ShopDetailBuyBean.DataBean shopBean;
     private List<BannerObject> bannerPics;
     private GlideImageLoader imageLoader;
     private String liveNum;
@@ -97,7 +97,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         mShopBanner = (Banner) findViewById(R.id.shop_banner);
     }
 
-    private void initBanner(ShopDetailBean.DataBean shopBean) {
+    private void initBanner(ShopDetailBuyBean.DataBean shopBean) {
         collectId = shopBean.getIsCollect();
         List<BannerObject> bannerObjects = new ArrayList<>();
         bannerPics = new ArrayList<>();
@@ -178,7 +178,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
      *
      * @param shopBean
      */
-    public void initOwnerBaseInfo(ShopDetailBean.DataBean shopBean) {
+    public void initOwnerBaseInfo(ShopDetailBuyBean.DataBean shopBean) {
         this.shopBean = shopBean;
         if (TextUtils.isEmpty(shopBean.getLiveNumber())) {
             mLiveTagIv.setVisibility(View.GONE);

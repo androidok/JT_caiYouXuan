@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.utils.RuleTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.sendcode.SmsCheckCodeActivity;
@@ -165,7 +167,8 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
             case AppHttpPathMall.MODIFY_PWD:
             case AppHttpPathMall.MODIFY_PHONE:
                 ToastUtils.toast(mContext,"修改成功");
-                reLogin(getTextViewValue(mRegistPhoneEt));
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.RE_LOAD,getTextViewValue(mRegistPhoneEt)));
+
                 break;
             default:
                 break;

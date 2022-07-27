@@ -130,7 +130,7 @@ public class SellMainActivity extends BaseAppActivity<MainPagePresent> implement
         super.onEvent(eventBusObject);
         switch (eventBusObject.getEventKey()) {
             case EventBusObject.RE_LOAD:
-                reLogin(UserInfoManagerMall.getPhoneNumber());
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.RE_LOAD,UserInfoManagerMall.getPhoneNumber()));
                 break;
             case EventBusObject.UNREAD_MSG_AMOUNT:
                 int amount = (int) eventBusObject.getEventObj();

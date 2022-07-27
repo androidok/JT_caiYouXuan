@@ -10,7 +10,7 @@ import com.example.appbase.base.customview.CustomViewPager;
 import com.example.appbase.bean.LiveTypeListBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppHttpPath;
-import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBuyBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
@@ -144,11 +144,11 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
                 break;
             case 2:
                 //店铺
-                ShopDetailBean.DataBean shopBean = Hawk.get(HawkProperty.getShopKey(((ShopActivity) getActivity()).shopId));
+                ShopDetailBuyBean.DataBean shopBean = Hawk.get(HawkProperty.getShopKey(((ShopActivity) getActivity()).shopId));
                 if (shopBean != null) {
-                    List<ShopDetailBean.DataBean.ClassifyListBean> classifyListBeans = shopBean.getClassifyList();
+                    List<ShopDetailBuyBean.DataBean.ClassifyListBean> classifyListBeans = shopBean.getClassifyList();
                     if (classifyListBeans != null && !classifyListBeans.isEmpty()) {
-                        for (ShopDetailBean.DataBean.ClassifyListBean classifyListBean : classifyListBeans) {
+                        for (ShopDetailBuyBean.DataBean.ClassifyListBean classifyListBean : classifyListBeans) {
                             arrays.add(new IdNameBean.DataBean(classifyListBean.getId(), classifyListBean.getShopClassifyName()));
                         }
                     }
@@ -231,9 +231,9 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
                 }
                 break;
             case AppHttpPath.SHOP_DETAIL:
-                ShopDetailBean shopDetailBean = (ShopDetailBean) o;
+                ShopDetailBuyBean shopDetailBean = (ShopDetailBuyBean) o;
                 if (shopDetailBean != null) {
-                    ShopDetailBean.DataBean shopBean = shopDetailBean.getData();
+                    ShopDetailBuyBean.DataBean shopBean = shopDetailBean.getData();
                     if (shopBean != null) {
                         Hawk.put(HawkProperty.getShopKey(((ShopActivity) getActivity()).shopId), shopBean);
                         initTabData();

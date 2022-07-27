@@ -20,6 +20,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.bean.LiveListBean;
+import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
@@ -28,9 +29,7 @@ import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
-import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
-import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -42,8 +41,6 @@ import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
-import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
-import com.juntai.project.sell.mall.entrance.SellLoginActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
@@ -146,43 +143,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
 
     }
 
-    /**
-     * 重新登录
-     */
-    public void reLogin(String regPhone) {
-        UserInfoManagerMall.clearUserData();//清理数据
-        HawkProperty.clearRedPoint(mContext.getApplicationContext());
-        ActivityManagerTool.getInstance().finishApp();
-        startActivity(new Intent(this, SellLoginActivity.class).putExtra(BASE_STRING, regPhone
-        ));
-    }
-
-    /**
-     * 第三方分享
-     *
-     * @return
-     */
-    public boolean initThirdShareLogic(Intent intent, Context context, Class cls) {
-        if (intent != null) {
-            String shareTitle = intent.getStringExtra("title");
-            String shareUrl = intent.getStringExtra("shareUrl");
-            String sharePic = intent.getStringExtra("picPath");
-            String shareContent = intent.getStringExtra("content");
-            String shareFromApp = intent.getStringExtra("shareFromApp");
-            if (!TextUtils.isEmpty(shareUrl) && !TextUtils.isEmpty(shareTitle)) {
-                Intent toIntent = new Intent();
-                toIntent.putExtra("title", shareTitle);
-                toIntent.putExtra("shareUrl", shareUrl);
-                toIntent.putExtra("picPath", sharePic);
-                toIntent.putExtra("content", shareContent);
-                toIntent.putExtra("shareFromApp", shareFromApp);
-                toIntent.setClass(context, cls);
-                startActivity(toIntent);
-                return true;
-            }
-        }
-        return false;
-    }
 
 
     /**
@@ -560,7 +520,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
     /**
      * 进入店铺认证
      */
-    public void startToShopAuthActivity(ShopDetailBean.DataBean dataBean) {
+    public void startToShopAuthActivity(ShopDetailSellBean.DataBean dataBean) {
         // : 2022/6/8 进入到店铺认证界面
         startActivity(new Intent(mContext, ShopManagerActivity.class)
         .putExtra(BASE_PARCELABLE,dataBean));

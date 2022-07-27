@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.bean.CommodityBean;
-import com.example.appbase.bean.CommodityDesListBean;
 import com.example.appbase.bean.ShopCommodityListBean;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
@@ -128,17 +127,6 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
         super.onSuccess(tag, o);
 
         switch (tag) {
-            case AppHttpPathMall.COMMODIFY_RECOMMEND:
-                CommodityDesListBean desListBean = (CommodityDesListBean) o;
-                if (desListBean != null) {
-                    CommodityDesListBean.DataBean dataBean = desListBean.getData();
-                    if (dataBean != null) {
-                        List<CommodityBean> data = dataBean.getList();
-                        setData(data, dataBean.getTotalCount());
-
-                    }
-                }
-                break;
             case AppHttpPathMall.SHOP_COMMODITY_LIST:
 
                 ShopCommodityListBean shopCommodityListBean = (ShopCommodityListBean) o;

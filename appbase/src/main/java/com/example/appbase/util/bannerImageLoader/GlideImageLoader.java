@@ -49,7 +49,7 @@ public class GlideImageLoader implements ImageLoaderInterface<View> {
         } else if (BannerObject.BANNER_TYPE_RTMP.equals(eventKey)) {
 //            ImageView imageView = (ImageView) view;
 //
-//            ShopDetailBean.DataBean shopBean  = (ShopDetailBean.DataBean) bannerObject.getEventObj();
+//            ShopDetailBuyBean.DataBean shopBean  = (ShopDetailBuyBean.DataBean) bannerObject.getEventObj();
 //            ImageLoadUtil.loadImageCache(context, shopBean.getCameraCover(),imageView);
         }
 

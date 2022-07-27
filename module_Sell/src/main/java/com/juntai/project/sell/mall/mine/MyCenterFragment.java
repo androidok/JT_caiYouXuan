@@ -20,6 +20,8 @@ import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppFragment;
@@ -186,7 +188,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     public void onSuccess(String tag, Object o) {
         switch (tag) {
             case AppHttpPathMall.LOGOUT:
-                getBaseAppActivity().reLogin(UserInfoManagerMall.getPhoneNumber());
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.RE_LOAD,UserInfoManagerMall.getPhoneNumber()));
 
                 break;
             case AppHttpPathMall.GET_USER_INFO:

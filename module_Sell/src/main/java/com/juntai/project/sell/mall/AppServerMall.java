@@ -1,8 +1,6 @@
 package com.juntai.project.sell.mall;
 
 
-import com.example.appbase.bean.AroundShopBean;
-import com.example.appbase.bean.CitysBean;
 import com.example.appbase.bean.NewsListBean;
 import com.example.appbase.bean.PlayUrlBean;
 import com.example.appbase.bean.ShopCommodityListBean;
@@ -11,11 +9,7 @@ import com.example.appbase.bean.UserBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
-import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
-import com.juntai.disabled.basecomponent.bean.weather.CityBean;
-import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
-import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
 import com.juntai.project.sell.mall.beans.BillBaseInfoBean;
 import com.juntai.project.sell.mall.beans.BillListBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatDataBean;
@@ -24,17 +18,14 @@ import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
 import com.juntai.project.sell.mall.beans.WithDrawListBean;
 import com.juntai.project.sell.mall.beans.order.ConfirmOrderBean;
-import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailDataBean;
 import com.juntai.project.sell.mall.beans.order.OrderListBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayWxBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayZfbBean;
-import com.juntai.project.sell.mall.beans.order.OrderStatusAmountBean;
 import com.juntai.project.sell.mall.beans.order.RefundReasonBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailDataBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
-import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeBean;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeListBean;
@@ -71,48 +62,10 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.STREAM_OPE_ADDR)
     Observable<PlayUrlBean> openStream(@Body RequestBody requestBody);
 
-    @POST(AppHttpPathMall.GET_SHOPES_AROUND)
-    Observable<AroundShopBean> getAroundShopes(@Body RequestBody requestBody);
-
-
-    /*====================================================    地址管理   ==============================================================*/
-    @POST(AppHttpPathMall.ADDR_LIST)
-    Observable<AddressListBean> getAddrList(@Body RequestBody requestBody);
-
-    @POST(AppHttpPathMall.SET_DEFAULT_ADDR)
-    Observable<BaseResult> setDefaultAdddr(@Body RequestBody requestBody);
-
-    @POST(AppHttpPathMall.ADD_OR_EDIT_ADDR)
-    Observable<BaseResult> addOrEditAddrList(@Body RequestBody requestBody);
-
-    @POST(AppHttpPathMall.DELETE_ADDR)
-    Observable<BaseResult> deleteAddr(@Query("account") String account, @Query("token") String token, @Query("typeEnd") String typeEnd, @Query("id") List<Integer> ids);
 
 
 
 
-    /*====================================================    天气   ==============================================================*/
-
-
-    //实时天气
-    @POST(AppHttpPathMall.REALTIME_WEATHER)
-    Observable<ResponseRealTimeWeather> getWeatherRealtime(@Query("longitude") String longitude, @Query("latitude") String latitude);
-
-    //天气预报
-    @POST(AppHttpPathMall.FORCAST_WEATHER)
-    Observable<ResponseForcastWeather> getForcast(@Query("longitude") String longitude, @Query("latitude") String latitude);
-
-    @POST(AppHttpPathMall.PROVINCE)
-    Observable<CityBean> getProvince();
-
-    @POST(AppHttpPathMall.CITY)
-    Observable<CityBean> getCity(@Query("cityNum") int cityNum);
-
-    @POST(AppHttpPathMall.AREA)
-    Observable<CityBean> getArea(@Query("cityNum") int cityNum);
-
-    @POST(AppHttpPathMall.STREET)
-    Observable<CityBean> getStreet(@Query("cityName") int townNum);
 
 
 
@@ -124,8 +77,7 @@ public interface AppServerMall {
     /*====================================================    店铺详情   ==============================================================*/
 
 
-    @POST(AppHttpPathMall.SHOP_DETAIL)
-    Observable<ShopDetailBean> getShopDetail(@Body RequestBody requestBody);
+
 
     @POST(AppHttpPathMall.SHOP_APPLY)
     Observable<BaseResult> shopApply(@Body RequestBody requestBody);
@@ -146,34 +98,7 @@ public interface AppServerMall {
     Observable<IdNameBean> getAllCategory(@Body RequestBody requestBody);
 
 
-    @POST(AppHttpPathMall.SHOP_COLLECT)
-    Observable<BaseResult> collectShop(@Body RequestBody requestBody);
 
-
-    @POST(AppHttpPathMall.COMMODITY_COLLECT)
-    Observable<BaseResult> collectCommodity(@Body RequestBody requestBody);
-
-
-    @GET(AppHttpPathMall.ALL_CITYS)
-    Observable<CitysBean> getAllCitys(@Query("keywords") String keywords, @Query("subdistrict") String subdistrict, @Query("key") String key);
-
-
-    /**
-     * 商城登录
-     *
-     * @return
-     */
-    @POST(AppHttpPathMall.LOGIN)
-    Observable<UserBean> login(@Body RequestBody requestBody);
-
-
-    /**
-     * 登录
-     *
-     * @return
-     */
-    @POST(AppHttpPathMall.REGIST)
-    Observable<UserBean> regist(@Body RequestBody requestBody);
 
     /**
      * 上传文件
@@ -214,19 +139,6 @@ public interface AppServerMall {
     Observable<UserBean> getUserInfo(@Body RequestBody requestBody);
 
     /**
-     * 修改账户
-     *
-     * @param requestBody
-     * @return
-     */
-    @POST(AppHttpPathMall.MODIFY_USER_ACCOUNT)
-    Observable<BaseResult> modifyAccount(@Body RequestBody requestBody);
-
-
-    @POST(AppHttpPathMall.COMMIT_SUGGESTION)
-    Observable<BaseResult> commitSuggestion(@Body RequestBody requestBody);
-
-    /**
      * 用户认证
      */
     @POST(AppHttpPathMall.USER_AUTH)
@@ -247,12 +159,6 @@ public interface AppServerMall {
 
 
     /*====================================================    订单部分   ==============================================================*/
-
-    @POST(AppHttpPathMall.CREAT_ORDER_CART)
-    Observable<CreatOrderBean> creatOrderCart(@Body RequestBody requestBody);
-
-    @POST(AppHttpPathMall.CREAT_ORDER_BUY)
-    Observable<CreatOrderBean> creatOrderBuy(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.COMMIT_ORDER)
     Observable<ConfirmOrderBean> commitOrder(@Body RequestBody requestBody);
@@ -286,8 +192,6 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.ORDER_DETAIL)
     Observable<OrderDetailDataBean> getOrderDetail(@Body RequestBody requestBody);
 
-    @POST(AppHttpPathMall.ORDER_STATUS_AMOUNT)
-    Observable<OrderStatusAmountBean> getOrderStatusAmount(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.GET_REFUND_REASON)
     Observable<RefundReasonBean> getRefundReasons(@Body RequestBody requestBody);

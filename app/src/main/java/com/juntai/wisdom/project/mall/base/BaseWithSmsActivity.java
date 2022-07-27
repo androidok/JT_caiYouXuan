@@ -14,8 +14,10 @@ import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.utils.RuleTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.project.sell.mall.base.sendcode.SmsCheckCodeActivity;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
+import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.mall.mine.myinfo.HeadCropActivity;
 
 import java.util.List;
@@ -87,43 +89,35 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.regist_tv:
+        int id = v.getId();
+        if (id == R.id.regist_tv) {
+            if (checkMobileNo()) return;
 
-                if (checkMobileNo()) return;
-
-                if (TextUtils.isEmpty(getTextViewValue(mRegistCheckCodeEt))) {
-                    ToastUtils.warning(mContext, "请输入验证码");
-                    return;
-                }
-                if (TextUtils.isEmpty(getTextViewValue(mPasswordEt))) {
-                    ToastUtils.warning(mContext, "请输入密码");
-                    return;
-                }
-                commit();
-
-                break;
-            case R.id.regist_send_check_code_tv:
-                // 注册界面发送验证码
-                if (checkMobileNo()) return;
-                sendCheckCode(getTextViewValue(mRegistPhoneEt));
-                break;
-            case R.id.hide_show_iv:
-                if (isHide) {
-                    isHide = false;
-                    //设置EditText的密码为可见的
-                    mHideShowIv.setImageResource(R.mipmap.show_icon);
-                    mPasswordEt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                } else {
-                    isHide = true;
-                    //设置EditText的密码为隐藏
-                    mHideShowIv.setImageResource(R.mipmap.hide_icon);
-                    mPasswordEt.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
-                mPasswordEt.setSelection(mPasswordEt.getText().length());
-                break;
+            if (TextUtils.isEmpty(getTextViewValue(mRegistCheckCodeEt))) {
+                ToastUtils.warning(mContext, "请输入验证码");
+                return;
+            }
+            if (TextUtils.isEmpty(getTextViewValue(mPasswordEt))) {
+                ToastUtils.warning(mContext, "请输入密码");
+                return;
+            }
+            commit();
+        } else if (id == R.id.regist_send_check_code_tv) {// 注册界面发送验证码
+            if (checkMobileNo()) return;
+            sendCheckCode(getTextViewValue(mRegistPhoneEt));
+        } else if (id == R.id.hide_show_iv) {
+            if (isHide) {
+                isHide = false;
+                //设置EditText的密码为可见的
+                mHideShowIv.setImageResource(R.mipmap.show_icon);
+                mPasswordEt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else {
+                isHide = true;
+                //设置EditText的密码为隐藏
+                mHideShowIv.setImageResource(R.mipmap.hide_icon);
+                mPasswordEt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+            mPasswordEt.setSelection(mPasswordEt.getText().length());
         }
     }
 
@@ -169,7 +163,8 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
         switch (tag) {
             case AppHttpPath.MODIFY_PWD:
                 ToastUtils.toast(mContext,"修改成功");
-                reLogin(getTextViewValue(mRegistPhoneEt));
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.RE_LOAD, getTextViewValue(mRegistPhoneEt)));
+
                 break;
             default:
                 break;

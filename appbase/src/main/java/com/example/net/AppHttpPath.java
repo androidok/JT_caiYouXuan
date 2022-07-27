@@ -141,6 +141,10 @@ public class AppHttpPath {
      */
     public static final String SHOP_DETAIL = BASE + "/buyers/selectShopInfo";
     /**
+     * 店铺详情
+     */
+    public static final String SELL_SHOP_DETAIL = BASE + "/seller/selectShopInfo";
+    /**
      * 店铺商品列表
      */
     public static final String SHOP_COMMODITY_LIST = BASE + "/buyers/selectShopCommodityList";

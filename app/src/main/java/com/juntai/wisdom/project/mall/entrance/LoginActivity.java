@@ -8,17 +8,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.bean.UserBean;
-import com.example.appbase.util.UserInfoManager;
 import com.example.chat.MyChatApp;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.SellMainActivity;
-import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mall.MainActivity;
@@ -140,11 +138,11 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                                     break;
                                 case 3:
                                     // : 2022/6/8 审核失败  是否需要加上原因
-                                    showAlertDialog(String.format("%s,请重新提交", UserInfoManagerMall.getUser().getStateContent()), "去认证", "", new DialogInterface.OnClickListener() {
+                                    showAlertDialog(String.format("%s,请重新提交", UserInfoManagerMall.getUser().getShopContent()), "去认证", "", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             // : 2022/6/10 获取店铺信息 跳转到店铺管理页面
-                                            mPresenter.getShopDetail(getBaseBuilder().add("shopId", String.valueOf(UserInfoManager.getShopId())).build(), AppHttpPathMall.SHOP_DETAIL);
+                                            mPresenter.getSellShopDetail(getBaseBuilder().add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPath.SHOP_DETAIL);
                                         }
                                     });
 
@@ -167,10 +165,10 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                 }
                 break;
 
-            case AppHttpPathMall.SHOP_DETAIL:
-                ShopDetailBean shopDetailBean = (ShopDetailBean) o;
+            case AppHttpPath.SHOP_DETAIL:
+                ShopDetailSellBean shopDetailBean = (ShopDetailSellBean) o;
                 if (shopDetailBean != null) {
-                    ShopDetailBean.DataBean dataBean = shopDetailBean.getData();
+                    ShopDetailSellBean.DataBean dataBean = shopDetailBean.getData();
                     if (dataBean != null) {
                         // : 2022/6/8 进入到店铺认证界面
                         startActivity(new Intent(mContext, ShopManagerActivity.class)

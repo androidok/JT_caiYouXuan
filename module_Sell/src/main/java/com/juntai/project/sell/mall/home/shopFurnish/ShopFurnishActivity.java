@@ -11,7 +11,7 @@ import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
 import com.juntai.project.sell.mall.base.displayPicVideo.PicVideoDisplayActivity;
-import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
+import com.example.appbase.bean.ShopDetailSellBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 import com.juntai.project.sell.mall.home.shop.ijkplayer.PlayerLiveActivity;
@@ -46,7 +46,7 @@ public class ShopFurnishActivity extends BaseAppActivity<ShopPresent> implements
     private TextView mShopDesTv;
     private Banner mShopBanner;
 
-    private ShopDetailBean.DataBean shopBean;
+    private ShopDetailSellBean.DataBean shopBean;
     private List<BannerObject> bannerPics;
     private GlideImageLoader imageLoader;
     private ShopCommodityFragment shopCommodityFragment;
@@ -75,7 +75,7 @@ public class ShopFurnishActivity extends BaseAppActivity<ShopPresent> implements
         shopCommodityFragment = (ShopCommodityFragment) getSupportFragmentManager().findFragmentById(R.id.shop_commodity_ft);
     }
 
-    private void initBanner(ShopDetailBean.DataBean shopBean) {
+    private void initBanner(ShopDetailSellBean.DataBean shopBean) {
         List<BannerObject> bannerObjects = new ArrayList<>();
         if (bannerPics == null) {
             bannerPics = new ArrayList<>();
@@ -159,7 +159,7 @@ public class ShopFurnishActivity extends BaseAppActivity<ShopPresent> implements
      *
      * @param shopBean
      */
-    public void initOwnerBaseInfo(ShopDetailBean.DataBean shopBean) {
+    public void initOwnerBaseInfo(ShopDetailSellBean.DataBean shopBean) {
         this.shopBean = shopBean;
         ImageLoadUtil.loadSquareImageHasCorner(mContext, shopBean.getHeadPortrait(), mShopOwnerHeadIv);
         mShopNameTv.setText(shopBean.getName());

@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.beans.sell;
+package com.example.appbase.bean;
 
 import android.os.Parcel;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/8 14:03
  */
-public class ShopDetailBean extends BaseResult {
+public class ShopDetailSellBean extends BaseResult {
 
 
     /**
@@ -526,23 +526,23 @@ public class ShopDetailBean extends BaseResult {
         dest.writeParcelable(this.data, flags);
     }
 
-    public ShopDetailBean() {
+    public ShopDetailSellBean() {
     }
 
-    protected ShopDetailBean(Parcel in) {
+    protected ShopDetailSellBean(Parcel in) {
         super(in);
         this.data = in.readParcelable(DataBean.class.getClassLoader());
     }
 
-    public static final Creator<ShopDetailBean> CREATOR = new Creator<ShopDetailBean>() {
+    public static final Creator<ShopDetailSellBean> CREATOR = new Creator<ShopDetailSellBean>() {
         @Override
-        public ShopDetailBean createFromParcel(Parcel source) {
-            return new ShopDetailBean(source);
+        public ShopDetailSellBean createFromParcel(Parcel source) {
+            return new ShopDetailSellBean(source);
         }
 
         @Override
-        public ShopDetailBean[] newArray(int size) {
-            return new ShopDetailBean[size];
+        public ShopDetailSellBean[] newArray(int size) {
+            return new ShopDetailSellBean[size];
         }
     };
 }

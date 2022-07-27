@@ -1,16 +1,12 @@
 package com.juntai.project.sell.mall;
 
+import com.example.net.AppHttpPath;
+
 public class AppHttpPathMall {
 
 
-    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
-//        public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
-        public static final String BASE_SOCKET = "ws://192.168.124.148:8080/jt-mall/sellerSocket/";
-//    public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21970/jt-mall/sellerSocket/";
-        public static final String BASE_IMAGE = "http://192.168.124.148:9598";
-//    public static final String BASE_IMAGE = "http://www.juntaikeji.com:19170";
+    public static final String BASE = AppHttpPath.BASE;
 
-    public static final String ALL_CITYS = "https://restapi.amap.com/v3/config/district?";
     /*==============================================  流媒体相关  =============================================*/
 
 
@@ -27,14 +23,6 @@ public class AppHttpPathMall {
     public static final String UPLOAD_FILES = BASE + "/uploadFile/upload";
     public static final String UPLOAD_ONE_PIC = "/uploadFile/uploadonepic";
     public static final String UPLOAD_MORE_PIC = "/uploadFile/uploadmorepic";
-    /**
-     * 登录
-     */
-    public static final String LOGIN = BASE + "/member/sellerLogin";
-    /**
-     * 登录
-     */
-    public static final String REGIST = BASE + "/member/register";
 
 
     /**
@@ -49,11 +37,6 @@ public class AppHttpPathMall {
     public static final String GET_SMS_CODE = BASE + "/member/getSMSCode";
 
 
-    /**
-     * 查找周边商铺
-     */
-    public static final String GET_SHOPES_AROUND = BASE + "/seller/selectPeripheryShopList";
-
 
 
 
@@ -67,10 +50,6 @@ public class AppHttpPathMall {
      * 个人详情
      */
     public static final String GET_USER_INFO = BASE + "/member/getUserInfo";
-    /**
-     * 提交意见反馈
-     */
-    public static final String COMMIT_SUGGESTION = BASE + "/opinion/save";
     /**
      * 退出登录
      */
@@ -101,43 +80,9 @@ public class AppHttpPathMall {
     public static final String USER_AUTH = "https://www.dgjpcs.cn/server/dongGuanPoliceStation/u/webConnector/realNameAuthentication.shtml";
 
 
-    /*====================================================    天气   ==============================================================*/
-
-    //实时天气
-    public static final String REALTIME_WEATHER = BASE + "/u/appConnector/getRealTimeWeather.shtml";
-    //天气预报
-    public static final String FORCAST_WEATHER = BASE + "/u/appConnector/weatherForecast.shtml";
-    //获取省份
-    public static final String PROVINCE = BASE + "/u/appConnector/getProvince.shtml";
-    //获取城市 u/apiAppAlarm/getProvince.shtml
-    public static final String CITY = BASE + "/u/appConnector/getCity.shtml";
-    //获取地区 u/apiAppAlarm/getProvince.shtml
-    public static final String AREA = BASE + "/u/appConnector/getArea.shtml";
-    //获取街道
-    public static final String STREET = BASE + "/u/appConnector/getStreet.shtml";
 
 
 
-
-
-
-    /*====================================================    商品   ==============================================================*/
-
-
-    //商品类目
-    public static final String COMMODIFY_LABELS = BASE + "/seller/selectShopCategoryList";
-    /**
-     * 商品推荐
-     */
-    public static final String COMMODIFY_RECOMMEND = BASE + "/seller/selectRecommendList";
-    /**
-     * 商品详情
-     */
-    public static final String COMMODIFY_DETAIL = BASE + "/seller/selectCommodityInfo";
-    /**
-     * 商品评价
-     */
-    public static final String COMMODIFY_EVALUATION = BASE + "/seller/selectCommodityEvaluateList";
 
 
 
@@ -150,22 +95,6 @@ public class AppHttpPathMall {
      * 店铺商品列表
      */
     public static final String SHOP_COMMODITY_LIST = BASE + "/buyers/selectShopCommodityList";
-    /**
-     * 店铺收藏或取消
-     */
-    public static final String SHOP_COLLECT = BASE + "/seller/addCollectShop";
-    /**
-     * 店铺收藏列表
-     */
-    public static final String SHOP_COLLECT_LIST = BASE + "/seller/getShopCollectList";
-    /**
-     * 商品收藏或取消
-     */
-    public static final String COMMODITY_COLLECT = BASE + "/seller/addCollectCommodity";
-    /**
-     * 商品收藏列表
-     */
-    public static final String COMMODITY_COLLECT_LIST = BASE + "/seller/getCommodityCollectList";
 
 
 
@@ -173,44 +102,7 @@ public class AppHttpPathMall {
 
 
 
-    /*====================================================    购物车   ==============================================================*/
 
-    /**
-     * 加入修改购物车
-     */
-    public static final String EDIT_CART = BASE + "/seller/addShoppingTrolley";
-    /**
-     * 购物车列表
-     */
-    public static final String CART_LIST = BASE + "/seller/selectShoppingTrolleyList";
-    /**
-     * 删除购物车商品
-     */
-    public static final String DELETE_CART_COMMODITY = BASE + "/seller/deleteShoppingTrolley";
-
-
-
-
-
-    /*====================================================    地址管理   ==============================================================*/
-
-
-    /**
-     * 地址列表
-     */
-    public static final String ADDR_LIST = BASE + "/seller/selectShippingAddressList";
-    /**
-     * 添加（修改）用户收货地址
-     */
-    public static final String ADD_OR_EDIT_ADDR = BASE + "/seller/addShippingAddress";
-    /**
-     * 删除用户收货地址
-     */
-    public static final String DELETE_ADDR = BASE + "/seller/deleteShippingAddress";
-    /**
-     * 设置默认地址
-     */
-    public static final String SET_DEFAULT_ADDR = BASE + "/seller/defaultShippingAddress";
 
 
 
@@ -220,16 +112,6 @@ public class AppHttpPathMall {
 
     /*====================================================    订单相关   ==============================================================*/
 
-
-    /**
-     * 购物车生成订单
-     */
-    public static final String CREAT_ORDER_CART = BASE + "/seller/createTrolleyOrderForm";
-
-    /**
-     * 购物车生成订单
-     */
-    public static final String CREAT_ORDER_BUY = BASE + "/seller/createOrderForm";
     /**
      * 提交订单
      */
@@ -275,10 +157,6 @@ public class AppHttpPathMall {
      * 支付宝支付
      */
     public static final String ORDER_PAY_ZHIFUBAO = BASE + "/seller/aliPay/aliPayTradeAppPayRequest";
-    /**
-     * 订单状态数量
-     */
-    public static final String ORDER_STATUS_AMOUNT = BASE + "/seller/getOrderFormStateNum";
 
     /**
      * 退货原因
@@ -359,10 +237,6 @@ public class AppHttpPathMall {
     /*====================================================    卖家店铺   ==============================================================*/
 
 
-    /**
-     * 店铺详情
-     */
-    public static final String SHOP_DETAIL = BASE + "/seller/selectShopInfo";
     /**
      * 店铺申请
      */

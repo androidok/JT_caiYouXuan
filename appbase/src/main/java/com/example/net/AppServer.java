@@ -15,6 +15,7 @@ import com.example.appbase.bean.LiveTypeListBean;
 import com.example.appbase.bean.NewsListBean;
 import com.example.appbase.bean.PlayUrlBean;
 import com.example.appbase.bean.ShopCommodityListBean;
+import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.bean.ShopListDataBean;
 import com.example.appbase.bean.UserBean;
 import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
@@ -31,7 +32,7 @@ import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageListBean;
-import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBean;
+import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBuyBean;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
@@ -137,7 +138,12 @@ public interface AppServer {
 
 
     @POST(AppHttpPath.SHOP_DETAIL)
-    Observable<ShopDetailBean> getShopDetail(@Body RequestBody requestBody);
+    Observable<ShopDetailBuyBean> getShopDetail(@Body RequestBody requestBody);
+
+
+
+    @POST(AppHttpPath.SELL_SHOP_DETAIL)
+    Observable<ShopDetailSellBean> getSellShopDetail(@Body RequestBody requestBody);
 
     @POST(AppHttpPath.SHOP_COMMODITY_LIST)
     Observable<ShopCommodityListBean> getShopCommodityList(@Body RequestBody requestBody);
