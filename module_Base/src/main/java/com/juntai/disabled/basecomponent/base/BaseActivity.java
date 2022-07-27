@@ -222,6 +222,13 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
 
         setAlertDialogHeightWidth(alertDialog,-1,0);
     }
+    public void showAlertDialogOfKnown(String msg,DialogInterface.OnClickListener listener) {
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext)
+                .setMessage(msg)
+                .setPositiveButton("知道了",listener).show();
+
+        setAlertDialogHeightWidth(alertDialog,-1,0);
+    }
     /**
      * 展示对话框
      * @param msg

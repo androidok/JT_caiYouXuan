@@ -395,6 +395,13 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                 }
                                 builder.add("idSide", picPath);
                                 break;
+                            case HomePageContract.ID_CARD_HAND:
+                                if (!StringTools.isStringValueOk(picPath)) {
+                                    ToastUtils.toast(mContext, "请选择法人身份证手持照");
+                                    return null;
+                                }
+                                builder.add("handPicture", picPath);
+                                break;
                             case HomePageContract.SHOP_INNER_PICS:
                                 if (!StringTools.isStringValueOk(picPath)) {
                                     ToastUtils.toast(mContext, "请选择店铺实景相片");

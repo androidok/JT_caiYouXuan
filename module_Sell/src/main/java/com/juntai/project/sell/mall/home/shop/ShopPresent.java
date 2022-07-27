@@ -204,6 +204,14 @@ public class ShopPresent extends BaseAppMallPresent {
                         bean.getPhoneNumber()
                 , true, 0, isDetail);
         initTextSelectType(arrays, HomePageContract.SHOP_CATEGORY, bean == null ? "" : TextUtils.join(",", bean.getCategoryList()), bean == null ? "" : bean.getCategory(), true);
+
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_REAL_NAME, bean == null ? "" :
+                        bean.getRealName()
+                , true, 0, isDetail);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_IDCARD, bean == null ? "" :
+                        bean.getIdCode()
+                , true, 0, isDetail);
+
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_BIG, "店铺证件"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
                 new PicBean(HomePageContract.SHOP_LICENSE, 1, bean == null ? "" :
@@ -215,7 +223,10 @@ public class ShopPresent extends BaseAppMallPresent {
                 new PicBean(HomePageContract.ID_CARD_BACK, 3, bean == null ? "" :
                         bean.getIdSide())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
-                new PicBean(HomePageContract.SHOP_INNER_PICS, 4, bean == null ? "" :
+                new PicBean(HomePageContract.ID_CARD_HAND, 4, bean == null ? "" :
+                        bean.getHandPicture())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
+                new PicBean(HomePageContract.SHOP_INNER_PICS, 5, bean == null ? "" :
                         bean.getShopRealScene())));
         return arrays;
     }

@@ -163,6 +163,14 @@ public class UserInfoManager {
     public static String getSchoolName() {
         return getUser() != null && getUser() != null ? getUser().getSchoolName() : "";
     }
+    /**
+     * 获取用户信息
+     *
+     * @return
+     */
+    public static int getSchoolId() {
+        return getUser() != null && getUser() != null ? getUser().getSchoolId() : 0;
+    }
 
 
     public static String getHeadPic() {

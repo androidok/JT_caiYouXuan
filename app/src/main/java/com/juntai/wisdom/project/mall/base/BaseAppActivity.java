@@ -53,7 +53,6 @@ import com.juntai.wisdom.project.mall.order.refund.RefundRequestActivity;
 import com.juntai.wisdom.project.mall.search.SearchActivity;
 import com.juntai.wisdom.project.mall.share.ShareActivity;
 import com.juntai.wisdom.project.mall.utils.StringTools;
-import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -287,7 +286,10 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
                 .add("account", UserInfoManager.getAccount())
                 .add("token", UserInfoManager.getUserToken())
                 .add("typeEnd", UserInfoManager.getDevType())
-                .add("userId", String.valueOf(UserInfoManager.getUserId()));
+                .add("userId", String.valueOf(UserInfoManager.getUserId()))
+                .add("schoolId", String.valueOf(UserInfoManager.getSchoolId()));
+
+
         return builder;
     }
 

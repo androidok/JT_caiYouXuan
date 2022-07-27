@@ -81,12 +81,39 @@ public class ShopDetailBean extends BaseResult {
         private String idPositive;
         private String idSide;
         private String shopRealScene;
+        private String handPicture;
+        private String realName;
+        private String idCode;
         private int isAgreement;
         private int state;
         private String createTime;
         private List<String> shopImgList;
         private List<Integer> categoryList;
         private List<ClassifyListBean> classifyList;
+
+        public String getHandPicture() {
+            return handPicture == null ? "" : handPicture;
+        }
+
+        public void setHandPicture(String handPicture) {
+            this.handPicture = handPicture == null ? "" : handPicture;
+        }
+
+        public String getRealName() {
+            return realName == null ? "" : realName;
+        }
+
+        public void setRealName(String realName) {
+            this.realName = realName == null ? "" : realName;
+        }
+
+        public String getIdCode() {
+            return idCode == null ? "" : idCode;
+        }
+
+        public void setIdCode(String idCode) {
+            this.idCode = idCode == null ? "" : idCode;
+        }
 
         public int getId() {
             return id;
@@ -431,12 +458,15 @@ public class ShopDetailBean extends BaseResult {
             dest.writeString(this.idPositive);
             dest.writeString(this.idSide);
             dest.writeString(this.shopRealScene);
+            dest.writeString(this.handPicture);
+            dest.writeString(this.realName);
+            dest.writeString(this.idCode);
             dest.writeInt(this.isAgreement);
             dest.writeInt(this.state);
             dest.writeString(this.createTime);
             dest.writeStringList(this.shopImgList);
             dest.writeList(this.categoryList);
-            dest.writeList(this.classifyList);
+            dest.writeTypedList(this.classifyList);
         }
 
         protected DataBean(Parcel in) {
@@ -460,14 +490,16 @@ public class ShopDetailBean extends BaseResult {
             this.idPositive = in.readString();
             this.idSide = in.readString();
             this.shopRealScene = in.readString();
+            this.handPicture = in.readString();
+            this.realName = in.readString();
+            this.idCode = in.readString();
             this.isAgreement = in.readInt();
             this.state = in.readInt();
             this.createTime = in.readString();
             this.shopImgList = in.createStringArrayList();
             this.categoryList = new ArrayList<Integer>();
             in.readList(this.categoryList, Integer.class.getClassLoader());
-            this.classifyList = new ArrayList<ClassifyListBean>();
-            in.readList(this.classifyList, ClassifyListBean.class.getClassLoader());
+            this.classifyList = in.createTypedArrayList(ClassifyListBean.CREATOR);
         }
 
         public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {

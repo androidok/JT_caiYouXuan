@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.appbase.bean.UserBean;
+import com.example.appbase.util.UserInfoManager;
 import com.example.chat.MyChatApp;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
@@ -101,8 +102,6 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                 UserBean loginBean = (UserBean) o;
                 if (loginBean != null) {
                     ContactBean contactBean = loginBean.getData();
-
-                    ToastUtils.success(mContext, "登录成功");
                     MyChatApp.isReLoadWarn = true;
                     Hawk.put(HawkProperty.SP_KEY_USER, contactBean);
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, contactBean.getToken());
@@ -125,6 +124,15 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                                     finish();
                                     break;
                                 case 1:
+                                    //审核中
+                                    showAlertDialogOfKnown("店铺正在审核中,请耐心等待", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            finish();
+                                        }
+                                    });
+                                    break;
                                 case 2:
                                     // : 2022/6/8 审核通过
                                     startActivity(new Intent(mContext, SellMainActivity.class));
@@ -136,12 +144,13 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             // : 2022/6/10 获取店铺信息 跳转到店铺管理页面
-                                            mPresenter.getShopDetail(getBaseBuilder().add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPathMall.SHOP_DETAIL);
+                                            mPresenter.getShopDetail(getBaseBuilder().add("shopId", String.valueOf(UserInfoManager.getShopId())).build(), AppHttpPathMall.SHOP_DETAIL);
                                         }
                                     });
 
                                     break;
                                 default:
+
                                     break;
                             }
                             break;
