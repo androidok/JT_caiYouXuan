@@ -470,7 +470,7 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
                 AroundShopBean aroundShopBean = (AroundShopBean) o;
                 if (aroundShopBean != null) {
                     List<AroundShopBean.DataBean> shopes = aroundShopBean.getData();
-                    if (shopes != null) {
+                    if (shopes != null&&!shopes.isEmpty()) {
                         for (AroundShopBean.DataBean shope : shopes) {
                             LatLng latLng = new LatLng(Double.parseDouble(shope.getLatitude()), Double.parseDouble(shope.getLongitude()));
                             MapClusterItem mCItem = new MapClusterItem(
@@ -483,6 +483,9 @@ public class MyMapFragment extends BaseAppFragment<HomePagePresent> implements B
                         clusterManager.cluster();
                         MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLngBounds(builder.build());
                         mBaiduMap.setMapStatus(mapStatusUpdate);
+                    } else {
+                        MapUtil.mapZoom(MapUtil.MAP_ZOOM_TO, mBaiduMap, 16);
+                        MapUtil.mapMoveTo(mBaiduMap, new LatLng(lat, lng));
                     }
                 }
 

@@ -166,7 +166,9 @@
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />
-
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="z6hHCFoqFUYW9rT67MmaFcIUOY7fhPxw" />
         <provider
             android:name=".utils.MyFileProvider"
             android:authorities="${applicationId}.fileProvider"

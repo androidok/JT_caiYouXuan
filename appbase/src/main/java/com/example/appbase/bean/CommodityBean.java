@@ -19,14 +19,22 @@ public class CommodityBean {
      * browse : 0
      */
 
-    private int id;
-    private int shopId;
-    private String name;
     private String coverImg;
     private double price;
     private int sales;
     private int isPostage;
     private int browse;
+
+    private int id;//商家id
+
+    private String name;//商家名称
+
+    private String headPortrait;//店铺logo
+
+    private int commodityCount;//在售商品
+
+    private String createTime;//开店时间
+
 
     public int getId() {
         return id;
@@ -36,13 +44,6 @@ public class CommodityBean {
         this.id = id;
     }
 
-    public int getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(int shopId) {
-        this.shopId = shopId;
-    }
 
     public String getName() {
         return name;
@@ -90,5 +91,29 @@ public class CommodityBean {
 
     public void setBrowse(int browse) {
         this.browse = browse;
+    }
+
+    public String getHeadPortrait() {
+        return headPortrait == null ? "" : headPortrait;
+    }
+
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait == null ? "" : headPortrait;
+    }
+
+    public int getCommodityCount() {
+        return commodityCount;
+    }
+
+    public void setCommodityCount(int commodityCount) {
+        this.commodityCount = commodityCount;
+    }
+
+    public String getCreateTime() {
+        return createTime == null ? "" : createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime == null ? "" : createTime;
     }
 }

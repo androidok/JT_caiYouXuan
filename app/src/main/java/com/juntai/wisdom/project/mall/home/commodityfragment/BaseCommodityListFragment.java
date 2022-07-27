@@ -13,6 +13,7 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
+import com.juntai.wisdom.project.mall.home.shop.ShopListAdapter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new CommodityListAdapter(R.layout.shop_commodity_list);
+        return new ShopListAdapter(R.layout.home_shop_item);
     }
 
     @Override
@@ -72,7 +73,7 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 CommodityBean bean = (CommodityBean) adapter.getItem(position);
-                getBaseAppActivity().startToCommodityDetail(bean.getId());
+                getBaseAppActivity().startToShop(bean.getId());
 
 
             }

@@ -20,7 +20,6 @@ import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.home.HomeFragment;
 import com.juntai.wisdom.project.mall.live.LiveFragment;
 import com.juntai.wisdom.project.mall.mine.MyCenterFragment;
-import com.juntai.wisdom.project.mall.news.NewsListFragment;
 import com.juntai.wisdom.project.mall.shoppingCart.ShoppingCartFragment;
 import com.mob.MobSDK;
 
@@ -31,8 +30,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     private CustomViewPager mainViewpager;
 
     private TabLayout mainTablayout;
-    private String[] title = new String[]{"首页", "直播", "消息", "购物车", "个人中心"};
-    private int[] tabDrawables = new int[]{R.drawable.home_index, R.drawable.live_index, R.drawable.notice_index, R.drawable.cart_index, R.drawable.mine_index};
+    private String[] title = new String[]{"首页", "直播",  "购物车", "个人中心"};
+    private int[] tabDrawables = new int[]{R.drawable.home_index, R.drawable.live_index,  R.drawable.cart_index, R.drawable.mine_index};
     private SparseArray<Fragment> mFragments = new SparseArray<>();
     //
 
@@ -66,10 +65,9 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         mainViewpager.setScanScroll(false);
         mFragments.append(0, new HomeFragment());//
         mFragments.append(1, new LiveFragment());//
-        mFragments.append(2, new NewsListFragment());//
-        mFragments.append(3, new ShoppingCartFragment());//
-        mFragments.append(4, new MyCenterFragment());//
-        mainViewpager.setOffscreenPageLimit(5);
+        mFragments.append(2, new ShoppingCartFragment());//
+        mFragments.append(3, new MyCenterFragment());//
+        mainViewpager.setOffscreenPageLimit(4);
         initTab();
     }
 
@@ -83,16 +81,11 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         adapter = new MainPagerAdapter(getSupportFragmentManager(), getApplicationContext(), title, tabDrawables,
                 mFragments);
         mainViewpager.setAdapter(adapter);
-        mainViewpager.setOffscreenPageLimit(5);
         /*viewpager切换监听，包含滑动点击两种*/
         for (int i = 0; i < title.length; i++) {
             TabLayout.Tab tab = mainTablayout.newTab();
             if (tab != null) {
-                if (i == 2) {
-                    tab.setCustomView(adapter.getTabView(i, true));
-                } else {
-                    tab.setCustomView(adapter.getTabView(i, false));
-                }
+                tab.setCustomView(adapter.getTabView(i, false));
                 mainTablayout.addTab(tab);
             }
         }
