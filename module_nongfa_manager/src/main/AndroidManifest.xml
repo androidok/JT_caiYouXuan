@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.module_nongfa_manager">
+
+    <application>
+        <activity android:name=".MainNFManagerActivity" />
+        <activity android:name=".base.NfManagerQRScanActivity" />
+    </application>
+
+</manifest>

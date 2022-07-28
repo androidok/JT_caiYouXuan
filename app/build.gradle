@@ -105,6 +105,7 @@ dependencies {
 
     implementation project(':live_moudle')
     implementation project(':module_Map')
+    implementation project(':module_nongfa_manager')
     implementation project(':module_Chat')
     implementation project(':module_Sell')
     //支付宝支付

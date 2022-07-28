@@ -12,6 +12,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.bean.UserBean;
 import com.example.chat.MyChatApp;
+import com.example.module_nongfa_manager.MainNFManagerActivity;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
@@ -108,6 +109,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, contactBean.getToken());
                     //账号类型（1学校人员；2商户人员；3农发人员）
                     int type = contactBean.getType();
+                    type = 3;
                     switch (type) {
                         case 1:
                             //买家
@@ -157,6 +159,8 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                             break;
                         case 3:
                             //todo 管理端
+                            startActivity(new Intent(mContext, MainNFManagerActivity.class));
+
                             break;
                         default:
                             break;

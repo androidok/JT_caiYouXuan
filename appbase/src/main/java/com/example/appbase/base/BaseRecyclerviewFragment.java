@@ -147,4 +147,9 @@ public abstract class BaseRecyclerviewFragment<P extends IPresenter> extends Bas
         }
 
     }
+
+    @Override
+    protected void lazyloadGone() {
+
+    }
 }
