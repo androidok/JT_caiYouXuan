@@ -436,6 +436,24 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                         adapter = new CommoditySourceAdapter(R.layout.sell_commodity_source_item);
                         List<TextKeyValueBean> arrays = (List<TextKeyValueBean>) baseNormalRecyclerviewBean.getObject();
                         adapter.setNewData(arrays);
+
+                        adapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+                            @Override
+                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+//                                int id = view.getId();
+//                                if (id == R.id.commodity_bill_iv1) {
+//                                } else if (id == R.id.commodity_bill_iv2) {
+//                                } else if (id == R.id.commodity_bill_iv3) {
+//                                } else if (id == R.id.delete_commodity_bill_iv1) {
+//                                } else if (id == R.id.delete_commodity_bill_iv2) {
+//                                } else if (id == R.id.delete_commodity_bill_iv3) {
+//                                } else if (id == R.id.add_item_tv) {
+//                                    CommoditySourceDetailBean.DataBean.PhotoListBean photoListBean = new CommoditySourceDetailBean.DataBean.PhotoListBean();
+//                                    adapter.addData(photoListBean);
+//                                    adapter.notifyDataSetChanged();
+//                                }
+                            }
+                        });
                         break;
                     default:
                         break;

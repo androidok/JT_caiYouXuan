@@ -2,6 +2,7 @@ package com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodit
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.sell.CommoditySourceDetailBean;
 
 /**
@@ -17,5 +18,17 @@ public class CommoditySourceAdapter extends BaseQuickAdapter<CommoditySourceDeta
     @Override
     protected void convert(BaseViewHolder helper, CommoditySourceDetailBean.DataBean.PhotoListBean item) {
 
+        helper.addOnClickListener(R.id.commodity_bill_iv1);
+        helper.addOnClickListener(R.id.commodity_bill_iv2);
+        helper.addOnClickListener(R.id.commodity_bill_iv3);
+        helper.addOnClickListener(R.id.delete_commodity_bill_iv1);
+        helper.addOnClickListener(R.id.delete_commodity_bill_iv2);
+        helper.addOnClickListener(R.id.delete_commodity_bill_iv3);
+        helper.addOnClickListener(R.id.add_item_tv);
+        if (helper.getAdapterPosition()==getData().size()-1) {
+            helper.setGone(R.id.add_item_tv,true);
+        }else {
+            helper.setGone(R.id.add_item_tv,false);
+        }
     }
 }

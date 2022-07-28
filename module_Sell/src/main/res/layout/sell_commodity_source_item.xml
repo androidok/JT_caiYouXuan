@@ -8,14 +8,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+       android:layout_margin="10dp"
+       >
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1">
 
             <ImageView
@@ -29,13 +29,13 @@
 
             <ImageView
                 android:id="@+id/delete_commodity_bill_iv1"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="2dp"
                 android:background="@drawable/bg_btn_red_round"
                 android:src="@mipmap/icon_delete"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintRight_toRightOf="@+id/commodity_bill_iv1"
                 app:layout_constraintTop_toTopOf="@+id/commodity_bill_iv1" />
 
@@ -44,8 +44,8 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1">
 
             <ImageView
@@ -59,13 +59,13 @@
 
             <ImageView
                 android:id="@+id/delete_commodity_bill_iv2"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="2dp"
                 android:background="@drawable/bg_btn_red_round"
                 android:src="@mipmap/icon_delete"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintRight_toRightOf="@+id/commodity_bill_iv2"
                 app:layout_constraintTop_toTopOf="@+id/commodity_bill_iv2" />
 
@@ -74,8 +74,8 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1">
 
             <ImageView
@@ -89,13 +89,13 @@
 
             <ImageView
                 android:id="@+id/delete_commodity_bill_iv3"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="2dp"
                 android:background="@drawable/bg_btn_red_round"
                 android:src="@mipmap/icon_delete"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintRight_toRightOf="@+id/commodity_bill_iv3"
                 app:layout_constraintTop_toTopOf="@+id/commodity_bill_iv3" />
 
@@ -103,25 +103,27 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/value_et"
+        android:id="@+id/bill_des_et"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/sp_filled_gray_lighter"
         android:gravity="left|top"
         android:hint="文字描述..."
         android:padding="10dp"
         android:textColor="@color/black"
-        android:textSize="14dp"></EditText>\
+        android:textSize="14dp" />\
 
     <TextView
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:id="@+id/add_item_tv"
+        android:layout_width="180dp"
+        android:layout_height="35dp"
         android:text="增加更多"
         android:layout_marginTop="15dp"
         android:layout_gravity="center"
         android:background="@drawable/sp_filled_green_lighter"
         android:gravity="center"
         android:textColor="@color/green0"
-        android:textSize="22sp"></TextView>
+        android:textSize="18sp" />
 </LinearLayout>

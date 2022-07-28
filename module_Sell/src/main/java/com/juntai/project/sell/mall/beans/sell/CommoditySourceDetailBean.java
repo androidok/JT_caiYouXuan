@@ -123,35 +123,35 @@ public class CommoditySourceDetailBean extends BaseResult {
             }
 
             public String getPhotoOne() {
-                return photoOne;
+                return photoOne == null ? "" : photoOne;
             }
 
             public void setPhotoOne(String photoOne) {
-                this.photoOne = photoOne;
+                this.photoOne = photoOne == null ? "" : photoOne;
             }
 
             public String getPhotoTwo() {
-                return photoTwo;
+                return photoTwo == null ? "" : photoTwo;
             }
 
             public void setPhotoTwo(String photoTwo) {
-                this.photoTwo = photoTwo;
+                this.photoTwo = photoTwo == null ? "" : photoTwo;
             }
 
             public String getPhotoThree() {
-                return photoThree;
+                return photoThree == null ? "" : photoThree;
             }
 
             public void setPhotoThree(String photoThree) {
-                this.photoThree = photoThree;
+                this.photoThree = photoThree == null ? "" : photoThree;
             }
 
             public String getRemarks() {
-                return remarks;
+                return remarks == null ? "" : remarks;
             }
 
             public void setRemarks(String remarks) {
-                this.remarks = remarks;
+                this.remarks = remarks == null ? "" : remarks;
             }
         }
     }

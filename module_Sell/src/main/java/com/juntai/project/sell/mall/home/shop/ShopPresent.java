@@ -3,6 +3,7 @@ package com.juntai.project.sell.mall.home.shop;
 import android.text.TextUtils;
 
 import com.example.appbase.bean.ShopCommodityListBean;
+import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
@@ -17,9 +18,9 @@ import com.juntai.project.sell.mall.beans.ItemFragmentBean;
 import com.juntai.project.sell.mall.beans.RadioBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailDataBean;
+import com.juntai.project.sell.mall.beans.sell.CommoditySourceDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
-import com.example.appbase.bean.ShopDetailSellBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.BaseNormalRecyclerviewBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
@@ -66,18 +67,27 @@ public class ShopPresent extends BaseAppMallPresent {
      *
      * @return
      */
-    public List<MultipleItem> getCommoditySourceData(CommodityDetailBean bean, boolean isDetail) {
+    public List<MultipleItem> getCommoditySourceData(CommoditySourceDetailBean.DataBean bean, boolean isDetail) {
         List<MultipleItem> arrays = new ArrayList<>();
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PROVIDER, UserInfoManager.getShopName()
                 , true, 0, isDetail);
 
-        initTextSelectType(arrays, HomePageContract.COMMODITY_RESTOC_TIME, bean == null ? "" : String.valueOf(bean.getCategoryId()), bean == null ? "" : bean.getCategoryName(), true);
+        initTextSelectType(arrays, HomePageContract.COMMODITY_RESTOC_TIME, "0", bean == null ? "" : bean.getPurchaseTime(), true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_RESTOC_PERSON, UserInfoManager.getShopName()
                 , true, 0, isDetail);
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.COMMODITY_BILL, true)));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_NORMAL_RECYCLEVIEW,new BaseNormalRecyclerviewBean(HomePageContract.COMMODITY_BILL,null)));
+        List<CommoditySourceDetailBean.DataBean.PhotoListBean> bills = null;
+        if (bean == null) {
+            bills = new ArrayList<>();
+            CommoditySourceDetailBean.DataBean.PhotoListBean photoListBean = new CommoditySourceDetailBean.DataBean.PhotoListBean();
+            bills.add(photoListBean);
+        } else {
+            bills = bean.getPhotoList();
+        }
+
+        arrays.add(new MultipleItem(MultipleItem.ITEM_NORMAL_RECYCLEVIEW, new BaseNormalRecyclerviewBean(HomePageContract.COMMODITY_BILL, bills)));
         return arrays;
     }
 
@@ -86,7 +96,7 @@ public class ShopPresent extends BaseAppMallPresent {
      *
      * @return
      */
-    public List<MultipleItem> getCommodityBaseInfoData(CommodityDetailBean bean, boolean isDetail,boolean isDraft) {
+    public List<MultipleItem> getCommodityBaseInfoData(CommodityDetailBean bean, boolean isDetail, boolean isDraft) {
         List<MultipleItem> arrays = new ArrayList<>();
         initTextSelectType(arrays, HomePageContract.COMMODITY_CATEGORY_NAME, bean == null ? "" : String.valueOf(bean.getCategoryId()), bean == null ? "" : bean.getCategoryName(), true);
         initTextSelectType(arrays, HomePageContract.COMMODITY_SORT, bean == null ? "" : String.valueOf(bean.getShopClassifyId()), bean == null ? "" : bean.getShopClassifyName(), true);
@@ -112,16 +122,16 @@ public class ShopPresent extends BaseAppMallPresent {
         if (bean != null) {
             List<CommodityDetailBean.ImagesBean> imagesBeans = null;
             if (isDraft) {
-                imagesBeans =  bean.getCommodityImg();
-            }else {
-                imagesBeans =  bean.getImages();
+                imagesBeans = bean.getCommodityImg();
+            } else {
+                imagesBeans = bean.getImages();
             }
 
             List<String> pics = new ArrayList<>();
             for (CommodityDetailBean.ImagesBean imagesBean : imagesBeans) {
                 pics.add(imagesBean.getImgUrl());
             }
-            arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT2, new ItemFragmentBean(HomePageContract.COMMODITY_BANNER_PICS, 4, isDetail?pics.size():4,
+            arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT2, new ItemFragmentBean(HomePageContract.COMMODITY_BANNER_PICS, 4, isDetail ? pics.size() : 4,
                     pics.size(), false,
                     pics)));
         } else {
@@ -129,7 +139,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     1, false,
                     new ArrayList<>())));
         }
-        if (bean!=null) {
+        if (bean != null) {
             List<String> videoPaht = new ArrayList<>();
             if (!TextUtils.isEmpty(bean.getVideoUrl())) {
                 arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
@@ -138,7 +148,7 @@ public class ShopPresent extends BaseAppMallPresent {
                 arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT_VIDEO, new ItemFragmentBean(HomePageContract.COMMODITY_VIDEO, 4, 1,
                         1, false,
                         videoPaht)));
-            }else {
+            } else {
                 if (!isDetail) {
                     arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                             (HomePageContract.COMMODITY_VIDEO, false)));
@@ -148,7 +158,7 @@ public class ShopPresent extends BaseAppMallPresent {
                 }
             }
 
-        }else {
+        } else {
             arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                     (HomePageContract.COMMODITY_VIDEO, false)));
             arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT_VIDEO, new ItemFragmentBean(HomePageContract.COMMODITY_VIDEO, 4, 1,
@@ -184,14 +194,15 @@ public class ShopPresent extends BaseAppMallPresent {
         String titleName = null;
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean(typeName,
                 isImportant)));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_RADIO, new RadioBean(typeName, values,"",defaultIndex)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_RADIO, new RadioBean(typeName, values, "", defaultIndex)));
     }
 
     /**
-     *发送货物
+     * 发送货物
+     *
      * @return
      */
-    public List<MultipleItem> sendGoods( ) {
+    public List<MultipleItem> sendGoods() {
         List<MultipleItem> arrays = new ArrayList<>();
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SEND_COMPANY, ""
                 , true, 0, false);
@@ -267,7 +278,6 @@ public class ShopPresent extends BaseAppMallPresent {
                 new TextKeyValueBean(key, value, id, String.format("%s%s", "请选择",
                         key), 0, isImportant)));
     }
-
 
 
     public void addCommodityCategorys(RequestBody requestBody, String tag) {
@@ -379,6 +389,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void getCommodityDetail(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .getCommodityDetail(requestBody)
@@ -400,6 +411,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void addCommodityBaseInfo(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .addCommodityBaseInfo(requestBody)
@@ -421,6 +433,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void updateCommodityBaseInfo(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .updateCommodityBaseInfo(requestBody)
@@ -442,6 +455,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void deleteCommodity(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .deleteCommodity(requestBody)
@@ -463,6 +477,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void editCommodityProperty(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .editCommodityProperty(requestBody)
@@ -484,6 +499,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void onSaleCommodity(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .onSaleCommodity(requestBody)
@@ -505,6 +521,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void sendGoods(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .sendGoods(requestBody)
@@ -548,6 +565,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void getCommodityFormat(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .getCommodityFormat(requestBody)
@@ -569,9 +587,10 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
-    public void addShopBannerPics(RequestBody requestBody,List<String> pics, String tag) {
+
+    public void addShopBannerPics(RequestBody requestBody, List<String> pics, String tag) {
         AppNetModuleMall.createrRetrofit()
-                .addShopBannerPics(requestBody,pics)
+                .addShopBannerPics(requestBody, pics)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<CommodityFormatDataBean>(null) {
                     @Override
