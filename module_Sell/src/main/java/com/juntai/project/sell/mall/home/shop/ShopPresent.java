@@ -3,6 +3,7 @@ package com.juntai.project.sell.mall.home.shop;
 import android.text.TextUtils;
 
 import com.example.appbase.bean.ShopCommodityListBean;
+import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
@@ -19,6 +20,7 @@ import com.juntai.project.sell.mall.beans.sell.CommodityDetailDataBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
 import com.example.appbase.bean.ShopDetailSellBean;
+import com.juntai.project.sell.mall.beans.sell.adapterbean.BaseNormalRecyclerviewBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
@@ -57,6 +59,26 @@ public class ShopPresent extends BaseAppMallPresent {
                         }
                     }
                 });
+    }
+
+    /**
+     * 商品溯源
+     *
+     * @return
+     */
+    public List<MultipleItem> getCommoditySourceData(CommodityDetailBean bean, boolean isDetail) {
+        List<MultipleItem> arrays = new ArrayList<>();
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PROVIDER, UserInfoManager.getShopName()
+                , true, 0, isDetail);
+
+        initTextSelectType(arrays, HomePageContract.COMMODITY_RESTOC_TIME, bean == null ? "" : String.valueOf(bean.getCategoryId()), bean == null ? "" : bean.getCategoryName(), true);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_RESTOC_PERSON, UserInfoManager.getShopName()
+                , true, 0, isDetail);
+
+        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                (HomePageContract.COMMODITY_BILL, true)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_NORMAL_RECYCLEVIEW,new BaseNormalRecyclerviewBean(HomePageContract.COMMODITY_BILL,null)));
+        return arrays;
     }
 
     /**

@@ -7,9 +7,9 @@
 
     <ImageView
         android:id="@+id/commodity_cover_iv"
-        android:layout_width="80dp"
+        android:layout_width="100dp"
         android:layout_marginLeft="10dp"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,13 +40,12 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/edit_commodity_rv"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="@+id/commodity_resove_tv"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commodity_resove_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/commodity_cover_iv" />
 
 </android.support.constraint.ConstraintLayout>

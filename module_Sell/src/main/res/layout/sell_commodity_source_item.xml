@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/commodity_bill_iv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/add_icons"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/delete_commodity_bill_iv1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/bg_btn_red_round"
+                android:src="@mipmap/icon_delete"
+                android:visibility="visible"
+                app:layout_constraintRight_toRightOf="@+id/commodity_bill_iv1"
+                app:layout_constraintTop_toTopOf="@+id/commodity_bill_iv1" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/commodity_bill_iv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/add_icons"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/delete_commodity_bill_iv2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/bg_btn_red_round"
+                android:src="@mipmap/icon_delete"
+                android:visibility="visible"
+                app:layout_constraintRight_toRightOf="@+id/commodity_bill_iv2"
+                app:layout_constraintTop_toTopOf="@+id/commodity_bill_iv2" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/commodity_bill_iv3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/add_icons"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/delete_commodity_bill_iv3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/bg_btn_red_round"
+                android:src="@mipmap/icon_delete"
+                android:visibility="visible"
+                app:layout_constraintRight_toRightOf="@+id/commodity_bill_iv3"
+                app:layout_constraintTop_toTopOf="@+id/commodity_bill_iv3" />
+
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/value_et"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/sp_filled_gray_lighter"
+        android:gravity="left|top"
+        android:hint="文字描述..."
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textSize="14dp"></EditText>\
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="增加更多"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:background="@drawable/sp_filled_green_lighter"
+        android:gravity="center"
+        android:textColor="@color/green0"
+        android:textSize="22sp"></TextView>
+</LinearLayout>

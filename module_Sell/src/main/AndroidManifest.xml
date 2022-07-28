@@ -6,9 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-<!--    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE " />-->
-
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE " /> -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -21,9 +19,8 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <application
-        android:allowBackup="true"
-        >
+    <application android:allowBackup="true">
+        <activity android:name=".home.commodityManager.allCommodity.commoditySource.AddCommoditySourceActivity"></activity>
         <activity android:name=".home.assets.withdraw.AssetsWithDrawRecordActivity" />
         <activity android:name=".home.assets.withdraw.BindBankCardActivity" />
         <activity android:name=".home.assets.withdraw.AssetsWithDrawActivity" />
@@ -47,10 +44,7 @@
         <activity android:name=".home.shop.ShopManagerActivity" />
         <activity android:name=".home.systemNotice.PicTextActivity" />
         <activity android:name=".home.systemNotice.SystemNoticeActivity" />
-
         <activity android:name=".home.commodityManager.CommodityManagerActivity" />
-
-
         <activity
             android:name=".share.ShareActivity"
             android:launchMode="singleTop" />
@@ -89,8 +83,7 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".order.orderDetail.OrderDetailActivity"
-            android:exported="false" >
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".order.allOrder.OrderManagerActivity"
             android:launchMode="singleTask" />

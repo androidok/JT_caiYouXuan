@@ -38,6 +38,7 @@ import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commoditySource.CommoditySourceAdapter;
 
 import java.util.List;
 
@@ -260,7 +261,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
 
                 fragment.setMaxCount(itemFragmentBean.getmMaxCount()).setObject(itemFragmentBean);
                 List<String> pics = itemFragmentBean.getFragmentPics();
-                if (pics.size()>0) {
+                if (pics.size() > 0) {
                     fragment.setIcons(pics);
                 }
                 if (isDetail) {
@@ -428,17 +429,18 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 RecyclerView recyclerView = helper.getView(R.id.item_normal_rv);
                 LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL
                         , false);
-                BaseQuickAdapter adapter = baseNormalRecyclerviewBean.getAdapter();
-                recyclerView.setAdapter(adapter);
+                BaseQuickAdapter adapter = null;
                 recyclerView.setLayoutManager(manager);
-//                switch (baseNormalRecyclerviewBean.getType()) {
-//                    case BaseInspectContract.BASE_RECYCLERVIEW_TYPE_TEXT_VALUE:
-//                        List<TextKeyValueBean> arrays = (List<TextKeyValueBean>) baseNormalRecyclerviewBean.getObject();
-//                        adapter.setNewData(arrays);
-//                        break;
-//                    default:
-//                        break;
-//                }
+                switch (baseNormalRecyclerviewBean.getKey()) {
+                    case HomePageContract.COMMODITY_BILL:
+                        adapter = new CommoditySourceAdapter(R.layout.sell_commodity_source_item);
+                        List<TextKeyValueBean> arrays = (List<TextKeyValueBean>) baseNormalRecyclerviewBean.getObject();
+                        adapter.setNewData(arrays);
+                        break;
+                    default:
+                        break;
+                }
+                recyclerView.setAdapter(adapter);
                 break;
             case MultipleItem.ITEM_LOCATION:
                 LocationBean locationBean = (LocationBean) item.getObject();
@@ -484,6 +486,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
     private void changeIconColor(ImageView imageView, int color) {
         ImageViewCompat.setImageTintList(imageView, ColorStateList.valueOf(color));
     }
+
     private void initEdittextFocuseStatus(EditText editText) {
         if (isDetail) {
             editText.setClickable(false);

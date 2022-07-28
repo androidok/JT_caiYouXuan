@@ -1,8 +1,5 @@
 package com.juntai.project.sell.mall.beans.sell.adapterbean;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-
-
 /**
  * @Author: tobato
  * @Description: 作用描述
@@ -13,27 +10,22 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 public class BaseNormalRecyclerviewBean {
 
 
-    private  int  type = 0;
+    private  String  key ;
     private Object  object ;
-    private BaseQuickAdapter adapter;
 
-    public BaseNormalRecyclerviewBean(int type, Object object, BaseQuickAdapter adapter) {
-        this.type = type;
+    public BaseNormalRecyclerviewBean(String key, Object object) {
+        this.key = key;
         this.object = object;
-        this.adapter = adapter;
     }
 
-    public int getType() {
-        return type;
+    public String getKey() {
+        return key == null ? "" : key;
     }
 
-    public BaseQuickAdapter getAdapter() {
-        return adapter;
+    public void setKey(String key) {
+        this.key = key == null ? "" : key;
     }
 
-    public void setAdapter(BaseQuickAdapter adapter) {
-        this.adapter = adapter;
-    }
 
     public Object getObject() {
         return object;

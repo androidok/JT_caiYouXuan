@@ -14,6 +14,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commoditySource.AddCommoditySourceActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.EditCommodityActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
@@ -79,10 +80,11 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
     @Override
     protected void getRvAdapterData() {
         mPresenter.getAllCommodity(getBaseAppActivity().getBaseBuilder()
-                .add("page",String.valueOf(page))
-                .add("limit",String.valueOf(limit))
+                .add("page", String.valueOf(page))
+                .add("limit", String.valueOf(limit))
                 .add("putAwayStatus", String.valueOf(status)).build(), AppHttpPathMall.GET_ALL_COMMODITY);
     }
+
     @Override
     protected boolean enableRefresh() {
         return true;
@@ -201,6 +203,17 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
                         );
                     }
                 });
+                break;
+
+            case 5:
+                // TODO: 2022/7/28  商品溯源
+                if (0 == status) {
+                    //已上架 查看商品溯源详情
+                } else {
+                    //未上架 添加商品溯源详情
+                    startActivity(new Intent(mContext, AddCommoditySourceActivity.class));
+                }
+
                 break;
             default:
                 break;

@@ -38,7 +38,7 @@ public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityManagerL
 
         RecyclerView recyclerView = helper.getView(R.id.edit_commodity_rv);
         ShopCommodityEditAdapter editAdapter = new ShopCommodityEditAdapter(R.layout.sell_edit_commodity_item);
-        GridLayoutManager manager = new GridLayoutManager(mContext, 4);
+        GridLayoutManager manager = new GridLayoutManager(mContext, 5);
         recyclerView.setAdapter(editAdapter);
         recyclerView.setLayoutManager(manager);
         editAdapter.setNewData(getEditMenus(item));
@@ -83,6 +83,11 @@ public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityManagerL
                             childClickCallBack.onChildClick(4,bean.getListBean());
                         }
                         break;
+                    case "商品溯源":
+                        if (childClickCallBack != null) {
+                            childClickCallBack.onChildClick(5,bean.getListBean());
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -101,6 +106,7 @@ public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityManagerL
         } else {
             arrays.add(new EditShopCommodityBean("上架", item));
         }
+        arrays.add(new EditShopCommodityBean("商品溯源", item));
 
         return arrays;
     }

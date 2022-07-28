@@ -105,6 +105,16 @@ public interface HomePageContract {
     String COMMODITY_POST_FREE = "是否包邮";
 
 
+    String COMMODITY_PROVIDER = "供货商";
+    String COMMODITY_RESTOC_TIME = "进货时间";
+    String COMMODITY_RESTOC_PERSON = "进货人";
+    String COMMODITY_BILL = "上传票据";
+
+
+
+
+
+
     interface IHomePageView extends IView {
 
     }
