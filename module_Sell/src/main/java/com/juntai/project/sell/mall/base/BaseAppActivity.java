@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -24,12 +25,15 @@ import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -134,7 +138,17 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
             }
         });
     }
-
+    /**
+     * 重新登录
+     */
+    public void reLogin(String regPhone) {
+        UserInfoManagerMall.clearUserData();//清理数据
+        HawkProperty.clearRedPoint(mContext.getApplicationContext());
+        ActivityManagerTool.getInstance().finishApp();
+        ARouter.getInstance().build(ARouterPath.activityLogin)
+                .withString(BASE_STRING,regPhone)
+                .navigation();
+    }
 
     public interface OnFileUploadStatus {
         void onUploadProgressChange(UploadFileBean uploadFileBean, int percent);

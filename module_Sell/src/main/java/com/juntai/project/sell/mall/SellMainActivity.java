@@ -11,12 +11,12 @@ import android.widget.LinearLayout;
 import com.baidu.location.BDLocation;
 import com.example.appbase.base.customview.CustomViewPager;
 import com.example.appbase.base.customview.MainPagerAdapter;
+import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
 public class SellMainActivity extends BaseAppActivity<MainPagePresent> implements
         View.OnClickListener, MainPageContract.IMainPageView {
@@ -127,7 +127,7 @@ public class SellMainActivity extends BaseAppActivity<MainPagePresent> implement
         super.onEvent(eventBusObject);
         switch (eventBusObject.getEventKey()) {
             case EventBusObject.RE_LOAD:
-                EventManager.getEventBus().post(new EventBusObject(EventBusObject.RE_LOAD,UserInfoManagerMall.getPhoneNumber()));
+                reLogin(UserInfoManager.getAccount());
                 break;
             case EventBusObject.UNREAD_MSG_AMOUNT:
                 int amount = (int) eventBusObject.getEventObj();

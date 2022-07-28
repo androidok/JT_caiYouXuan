@@ -54,8 +54,7 @@ dependencies {
     //Gson 库
     api librarys["gson"]
     //路由
-    //api librarys["arouter-api"]
-    //annotationProcessor librarys["arouter-compiler"]
+    api librarys["arouter-api"]
     //
     api librarys["rxjava"]
     api librarys["rxandroid"]

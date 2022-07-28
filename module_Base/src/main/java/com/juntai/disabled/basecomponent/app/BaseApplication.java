@@ -7,6 +7,7 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.util.DisplayMetrics;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.juntai.disabled.basecomponent.BuildConfig;
 import com.juntai.disabled.basecomponent.R;
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
@@ -67,8 +68,21 @@ public abstract class BaseApplication extends MultiDexApplication {
         registerActivityLifecycleCallbacks(mCallbacks);
 //是本人的QQ号申请的
         CrashReport.initCrashReport(getApplicationContext(), "0263372a98", false);
+        initArouter();
     }
-
+    /**
+     * 初始化路由
+     */
+    private void initArouter() {
+        // 这两行必须写在init之前，否则这些配置在init过程中将无效
+        if (BuildConfig.DEBUG) {
+            // 打印日志
+            ARouter.openLog();
+            // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+            ARouter.openDebug();
+        }
+        ARouter.init(this);
+    }
 
     @Override
     protected void attachBaseContext(Context base) {

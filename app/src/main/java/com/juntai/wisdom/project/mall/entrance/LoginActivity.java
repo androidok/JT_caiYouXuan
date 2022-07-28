@@ -8,10 +8,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.bean.UserBean;
 import com.example.chat.MyChatApp;
 import com.example.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.MD5;
@@ -32,6 +34,7 @@ import okhttp3.FormBody;
  * @description 描述  登录
  * @date 2020/3/6 9:12
  */
+@Route(path = ARouterPath.activityLogin)
 public class LoginActivity extends SmsCheckCodeActivity implements
         View.OnClickListener {
     /**

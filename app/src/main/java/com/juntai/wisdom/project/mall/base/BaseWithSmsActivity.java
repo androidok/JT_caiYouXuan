@@ -14,8 +14,6 @@ import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.utils.RuleTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
-import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.mall.mine.myinfo.HeadCropActivity;
@@ -163,7 +161,7 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
         switch (tag) {
             case AppHttpPath.MODIFY_PWD:
                 ToastUtils.toast(mContext,"修改成功");
-                EventManager.getEventBus().post(new EventBusObject(EventBusObject.RE_LOAD, getTextViewValue(mRegistPhoneEt)));
+                reLogin(getTextViewValue(mRegistPhoneEt));
 
                 break;
             default:
