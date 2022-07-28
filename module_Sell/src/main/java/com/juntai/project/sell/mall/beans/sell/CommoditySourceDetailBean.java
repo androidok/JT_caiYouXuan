@@ -108,19 +108,11 @@ public class CommoditySourceDetailBean extends BaseResult {
              * remarks : 测试111
              */
 
-            private int commodityId;
             private String photoOne;
             private String photoTwo;
             private String photoThree;
             private String remarks;
 
-            public int getCommodityId() {
-                return commodityId;
-            }
-
-            public void setCommodityId(int commodityId) {
-                this.commodityId = commodityId;
-            }
 
             public String getPhotoOne() {
                 return photoOne == null ? "" : photoOne;

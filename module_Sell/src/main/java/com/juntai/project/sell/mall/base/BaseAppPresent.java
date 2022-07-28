@@ -131,6 +131,26 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
                     }
                 });
     }
+    public void addCommoditySource(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .addCommoditySource(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
     public void userAuth(String tag, RequestBody requestBody) {
         AppNetModuleMall.createrRetrofit()
                 .userAuth(requestBody)

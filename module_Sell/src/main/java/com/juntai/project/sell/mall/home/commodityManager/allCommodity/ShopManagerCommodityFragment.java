@@ -206,14 +206,14 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
                 break;
 
             case 5:
-                // TODO: 2022/7/28  商品溯源
-                if (0 == status) {
-                    //已上架 查看商品溯源详情
-                } else {
-                    //未上架 添加商品溯源详情
-                    startActivity(new Intent(mContext, AddCommoditySourceActivity.class));
-                }
-
+                // : 2022/7/28  商品溯源
+//                if (0 == status) {
+//                    //已上架 查看商品溯源详情
+//                } else {
+//                    //未上架 添加商品溯源详情
+//
+//                }
+                startActivity(new Intent(mContext, AddCommoditySourceActivity.class).putExtra(BASE_ID,item.getId()));
                 break;
             default:
                 break;

@@ -373,10 +373,15 @@ public class AppHttpPathMall {
     public static final String BIND_BANK_CARD = BASE + "/seller/bindingBankCard";
 
 
+    /**
+     * 添加商品溯源
+     */
+    public static final String ADD_COMMODITY_SOURCE = BASE + "/seller/addCommodityTraceability";
 
 
 
-        /*====================================================    live   ==============================================================*/
+
+
 
 
 

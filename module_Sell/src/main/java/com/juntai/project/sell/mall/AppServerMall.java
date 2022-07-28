@@ -319,6 +319,9 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.BIND_BANK_CARD)
     Observable<BaseResult> bindBankCard(@Body RequestBody requestBody);
 
+    @POST(AppHttpPathMall.ADD_COMMODITY_SOURCE)
+    Observable<BaseResult> addCommoditySource(@Body RequestBody requestBody);
+
 
 
 

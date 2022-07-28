@@ -1,6 +1,7 @@
 package com.juntai.project.sell.mall.beans;
 
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
+import com.juntai.project.sell.mall.beans.sell.CommoditySourceDetailBean;
 
 import okhttp3.FormBody;
 
@@ -15,6 +16,15 @@ public class BaseAdapterDataBean {
 
     private FormBody.Builder builder;
     private CommodityDetailBean commodityDetailBean;
+    private CommoditySourceDetailBean.DataBean sourceBean;
+
+    public CommoditySourceDetailBean.DataBean getSourceBean() {
+        return sourceBean;
+    }
+
+    public void setSourceBean(CommoditySourceDetailBean.DataBean sourceBean) {
+        this.sourceBean = sourceBean;
+    }
 
     public FormBody.Builder getBuilder() {
         return builder;

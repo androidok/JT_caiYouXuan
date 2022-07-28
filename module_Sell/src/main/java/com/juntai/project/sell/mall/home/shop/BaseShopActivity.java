@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
@@ -25,12 +26,14 @@ import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
 import com.juntai.project.sell.mall.beans.ItemFragmentBean;
 import com.juntai.project.sell.mall.beans.RadioBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
+import com.juntai.project.sell.mall.beans.sell.CommoditySourceDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.shopCategory.ChoseCategoryActivity;
 import com.juntai.project.sell.mall.mine.myinfo.HeadCropActivity;
+import com.juntai.project.sell.mall.utils.CalendarUtil;
 import com.juntai.project.sell.mall.utils.StringTools;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.juntai.project.sell.mall.utils.bannerImageLoader.BannerObject;
@@ -39,6 +42,7 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -173,6 +177,16 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                             startActivityForResult(new Intent(mContext, ChoseCategoryActivity.class)
                                     .putExtra(BASE_ID, 1), ChoseCategoryActivity.ACTIVITY_RESULT);
                             break;
+                        case HomePageContract.COMMODITY_RESTOC_TIME:
+                            PickerManager.getInstance().showTimePickerView(mContext, new boolean[]{true, true, true, false, false, false}, "选择年月日", new PickerManager.OnTimePickerTimeSelectedListener() {
+                                @Override
+                                public void onTimeSelect(Date date, View v) {
+                                    String time = CalendarUtil.getCurrentTime("yyyy-MM-dd", date);
+                                    mSelectTv.setText(time);
+                                    selectBean.setValue(time);
+                                }
+                            });
+                            break;
                         case HomePageContract.COMMODITY_CATEGORY_NAME:
                             // : 2022/6/10 选择店铺主营类目
                             startActivityForResult(new Intent(mContext, ChoseCategoryActivity.class)
@@ -295,6 +309,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     protected BaseAdapterDataBean getBaseOfAdapterData() {
         BaseAdapterDataBean baseAdapterDataBean = new BaseAdapterDataBean();
         CommodityDetailBean commodityDetailBean = new CommodityDetailBean();
+        CommoditySourceDetailBean.DataBean sourceBean = new CommoditySourceDetailBean.DataBean();
         FormBody.Builder builder = getBaseBuilder();
         builder.add("userAccount", UserInfoManagerMall.getAccount());
         List<MultipleItem> arrays = baseQuickAdapter.getData();
@@ -431,6 +446,12 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         case HomePageContract.SEND_NO:
                             builder.add("logisticsNumber", textValue);
                             break;
+                        case HomePageContract.COMMODITY_PROVIDER:
+                           sourceBean.setSupplier(UserInfoManager.getShopId());
+                            break;
+                        case HomePageContract.COMMODITY_RESTOC_PERSON:
+                           sourceBean.setPurchaseName(textValue);
+                            break;
                         case HomePageContract.SEND_LINK:
                             builder.add("logisticsLink", textValue);
                             break;
@@ -480,6 +501,9 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         case HomePageContract.SHOP_CATEGORY:
                             builder.add("category", textSelectValue);
                             break;
+                        case HomePageContract.COMMODITY_RESTOC_TIME:
+                            sourceBean.setPurchaseTime(textValueSelectBean.getValue());
+                            break;
                         case HomePageContract.COMMODITY_CATEGORY_NAME:
                             commodityDetailBean.setCategoryId(Integer.parseInt(textValueSelectBean.getIds()));
                             commodityDetailBean.setCategoryName(textSelectValue);
@@ -494,6 +518,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
             }
         }
         baseAdapterDataBean.setBuilder(builder);
+        baseAdapterDataBean.setSourceBean(sourceBean);
         baseAdapterDataBean.setCommodityDetailBean(commodityDetailBean);
         return baseAdapterDataBean;
     }
