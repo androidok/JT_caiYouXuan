@@ -113,6 +113,10 @@ public class EventBusObject {
 
 
 
+        /*====================================================    农发管理端   ==============================================================*/
+
+    public final static String REFRESH_COMMODITY_MANAGER_LIST = "REFRESH_COMMODITY_MANAGER_LIST";
+
 
 
 

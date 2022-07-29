@@ -68,22 +68,22 @@ public class CommoditiesFragment extends BaseRecyclerviewFragment<HomePresent> i
     protected void initView() {
         super.initView();
         baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个商品也没有-_-", -1));
-        baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 currentPosition =position;
                 CommodityManagerListBean.DataBean.ListBean listBean = (CommodityManagerListBean.DataBean.ListBean) adapter.getItem(position);
                 switch (labelId) {
                     case 1:
                         //待审核
-                                ToastUtils.toast(mContext,"待审核");
+                        ToastUtils.toast(mContext,"待审核");
                         break;
                     case 2:
                         //已审核  下架
-                       mPresenter.updateCommodityStatus(getBaseAppActivity().getBaseBuilder()
-                               .add("commodityId",String.valueOf(listBean.getId()))
-                               .add("state","3").build(),AppHttpPath.UPDATE_COMMODITY_STATUS_DOWN
-                       );
+                        mPresenter.updateCommodityStatus(getBaseAppActivity().getBaseBuilder()
+                                .add("commodityId",String.valueOf(listBean.getId()))
+                                .add("state","3").build(),AppHttpPath.UPDATE_COMMODITY_STATUS_DOWN
+                        );
 
                         break;
                     default:
@@ -109,7 +109,9 @@ public class CommoditiesFragment extends BaseRecyclerviewFragment<HomePresent> i
         super.onEvent(eventBusObject);
 
         switch (eventBusObject.getEventKey()) {
-            case EventBusObject.REFRESH_ORDER_LIST:
+            case EventBusObject.REFRESH_COMMODITY_MANAGER_LIST:
+                String keyword = (String) eventBusObject.getEventObj();
+                getList(keyword);
                 break;
             default:
                 break;

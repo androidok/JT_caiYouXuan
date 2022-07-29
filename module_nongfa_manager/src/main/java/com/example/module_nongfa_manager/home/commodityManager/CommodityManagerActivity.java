@@ -7,6 +7,8 @@ import android.util.SparseArray;
 import com.example.appbase.base.BaseTabViewPageActivity;
 import com.example.module_nongfa_manager.home.HomePresent;
 import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 
 /**
  * @aouther tobato
@@ -32,6 +34,7 @@ public class CommodityManagerActivity extends BaseTabViewPageActivity<HomePresen
 
     @Override
     protected void commitSearch(String s) {
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_MANAGER_LIST, mSearchContentSv.getQuery().toString().trim()));
 
     }
 

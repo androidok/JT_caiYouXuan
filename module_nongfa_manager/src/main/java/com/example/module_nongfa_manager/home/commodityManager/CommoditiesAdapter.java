@@ -29,7 +29,6 @@ public class CommoditiesAdapter extends BaseQuickAdapter<CommodityManagerListBea
         helper.setText(R.id.commodity_name_tv, item.getName());
         helper.setText(R.id.commodity_prise_tv, String.format("￥:%s", item.getPrice()));
         helper.setGone(R.id.commodity_operate_tv, false);
-        helper.addOnClickListener(R.id.commodity_operate_tv);
         switch (status) {
             case 1:
                 helper.setGone(R.id.commodity_operate_tv, true);
