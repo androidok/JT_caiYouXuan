@@ -7,6 +7,7 @@ import android.util.SparseArray;
 import com.example.appbase.base.BaseTabViewPageActivity;
 import com.example.module_nongfa_manager.home.HomePresent;
 import com.juntai.disabled.basecomponent.mvp.IView;
+
 /**
  * @aouther tobato
  * @description 描述 店铺管理
@@ -30,9 +31,19 @@ public class ShopManagerActivity extends BaseTabViewPageActivity<HomePresent> im
     }
 
     @Override
-    protected String gettitleName() {
-        return "店铺管理";
+    protected void commitSearch(String s) {
+
     }
+
+    @Override
+    protected String getTitleName() {
+            return "店铺管理";
+        }
+    @Override
+    protected void onTabSelected(int i) {
+
+    }
+
 
     @Override
     protected SparseArray<Fragment> getFragments() {

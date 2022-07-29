@@ -382,4 +382,15 @@ public class AppHttpPath {
     public static final String SCHOOL_LIST = BASE + "/manage/selectSchoolList";
 
 
+    /**
+     * 商品列表
+     *
+     */
+
+    public static final String MANAGER_COMMODITY_LIST = BASE + "/manage/selectCommodityList";
+    /**
+     * 更新商品的状态
+     */
+    public static final String UPDATE_COMMODITY_STATUS = BASE + "/manage/updateCommodityState";
+    public static final String UPDATE_COMMODITY_STATUS_DOWN = BASE + "UPDATE_COMMODITY_STATUS_DOWN";
 }

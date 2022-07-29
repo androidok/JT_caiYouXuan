@@ -4,10 +4,11 @@
     xmlns:qinc="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
     android:orientation="vertical"
-    android:paddingTop="3dp"
-    android:paddingBottom="3dp">
+    android:layout_marginLeft="15dp"
+    android:paddingTop="5dp"
+    android:layout_marginRight="15dp"
+    >
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,10 +16,11 @@
 
         <android.support.v7.widget.CardView
             android:id="@+id/commodity_pic_cv"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="5dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             app:cardElevation="3dp"
+            android:layout_margin="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -26,9 +28,9 @@
                 android:id="@+id/commodity_pic_iv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="3dp"
 
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 android:src="@mipmap/ic_launcher_round" />
 
         </android.support.v7.widget.CardView>
@@ -64,24 +66,13 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/commodity_bt_ll"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:paddingRight="20dp"
-        android:gravity="right|center"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commodity_pic_cv">
-
-        <TextView
-            android:id="@+id/order_right_tv"
-            style="@style/app_normal_bt"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="审核"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/final_payment_tv" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/commodity_operate_tv"
+        style="@style/app_normal_bt"
+        android:text="审核"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:textSize="12sp"
+        />
 
 </LinearLayout>

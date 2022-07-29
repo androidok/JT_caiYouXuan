@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
+import com.example.appbase.base.BaseAppModuleActivity;
 import com.example.appbase.bean.LiveListBean;
 import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.appbase.bean.order.OrderDetailBean;
@@ -35,7 +36,6 @@ import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.wisdom.project.mall.entrance.LoginActivity;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.CommodityDetailActivity;
@@ -64,7 +64,7 @@ import okhttp3.FormBody;
  * @description 描述
  * @date 2020/4/27 8:48  app的基类
  */
-public abstract class BaseAppActivity<P extends BasePresenter> extends BaseRequestLocationActivity<P> {
+public abstract class BaseAppActivity<P extends BasePresenter> extends BaseAppModuleActivity<P> {
     public static String WX_APPID = "wx5fd6d26f7806a119";
     public UploadUtil mUploadUtil;
 
@@ -276,22 +276,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
         sendBroadcast(intent);
     }
 
-    /**
-     * 获取builder
-     *
-     * @return
-     */
-    public FormBody.Builder getBaseBuilder() {
-        FormBody.Builder builder = new FormBody.Builder()
-                .add("account", UserInfoManager.getAccount())
-                .add("token", UserInfoManager.getUserToken())
-                .add("typeEnd", UserInfoManager.getDevType())
-                .add("userId", String.valueOf(UserInfoManager.getUserId()))
-                .add("schoolId", String.valueOf(UserInfoManager.getSchoolId()));
 
-
-        return builder;
-    }
 
     /**
      * 获取builder

@@ -11,11 +11,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.appbase.R;
 import com.example.appbase.base.customview.CustomViewPager;
 import com.example.appbase.base.customview.MainPagerAdapter;
+import com.example.appbase.util.StringTools;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
-import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.utils.StringTools;
+
+import java.util.List;
 
 /**
  * @aouther tobato
@@ -47,7 +49,20 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     public int getLayoutView() {
         return R.layout.base_tab_page_layout;
     }
+    @Override
+    protected void onPicsAndEmpressed(List<String> icons) {
 
+    }
+
+    @Override
+    protected String getDownloadTitleRightName() {
+        return null;
+    }
+
+    @Override
+    protected String getDownLoadPath() {
+        return null;
+    }
     @Override
     public void initView() {
 

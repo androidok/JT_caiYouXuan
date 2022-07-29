@@ -6,11 +6,15 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.BaseRecyclerviewFragment;
+import com.example.appbase.bean.nong_fa_manager.CommodityManagerListBean;
 import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.HomePresent;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+
+import java.util.List;
 
 /**
  * @Author: tobato
@@ -22,6 +26,7 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 public class CommoditiesFragment extends BaseRecyclerviewFragment<HomePresent> implements IView {
 
     private int labelId;
+    private int currentPosition;
 
     public static CommoditiesFragment newInstance(int labelId) {
         Bundle args = new Bundle();
@@ -36,6 +41,10 @@ public class CommoditiesFragment extends BaseRecyclerviewFragment<HomePresent> i
     protected void lazyLoad() {
         labelId = getArguments().getInt("label");
         super.lazyLoad();
+        if (baseQuickAdapter != null) {
+            ((CommoditiesAdapter) baseQuickAdapter).setStatus(labelId);
+        }
+
     }
 
 
@@ -58,11 +67,28 @@ public class CommoditiesFragment extends BaseRecyclerviewFragment<HomePresent> i
     @Override
     protected void initView() {
         super.initView();
-        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个商品也没有-_-",-1));
+        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个商品也没有-_-", -1));
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                currentPosition =position;
+                CommodityManagerListBean.DataBean.ListBean listBean = (CommodityManagerListBean.DataBean.ListBean) adapter.getItem(position);
+                switch (labelId) {
+                    case 1:
+                        //待审核
+                                ToastUtils.toast(mContext,"待审核");
+                        break;
+                    case 2:
+                        //已审核  下架
+                       mPresenter.updateCommodityStatus(getBaseAppActivity().getBaseBuilder()
+                               .add("commodityId",String.valueOf(listBean.getId()))
+                               .add("state","3").build(),AppHttpPath.UPDATE_COMMODITY_STATUS_DOWN
+                       );
 
+                        break;
+                    default:
+                        break;
+                }
             }
         });
     }
@@ -97,9 +123,17 @@ public class CommoditiesFragment extends BaseRecyclerviewFragment<HomePresent> i
 
     @Override
     protected void getRvAdapterData() {
-
+        getList(((CommodityManagerActivity) getActivity()).mSearchContentSv.getQuery().toString().trim());
     }
 
+    private void getList(String key) {
+        mPresenter.getManagerCommodityList(getBaseAppActivity().getBaseBuilder()
+                .add("page", String.valueOf(page))
+                .add("keyword", key)
+                .add("limit", String.valueOf(limit))
+                .add("state", String.valueOf(labelId)).build(), AppHttpPath.MANAGER_COMMODITY_LIST
+        );
+    }
 
     @Override
     protected boolean enableRefresh() {
@@ -111,7 +145,20 @@ public class CommoditiesFragment extends BaseRecyclerviewFragment<HomePresent> i
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag, o);
         switch (tag) {
-            case AppHttpPath.CANCEL_ORDER:
+            case AppHttpPath.MANAGER_COMMODITY_LIST:
+                CommodityManagerListBean commodityManagerListBean = (CommodityManagerListBean) o;
+                if (commodityManagerListBean != null) {
+                    CommodityManagerListBean.DataBean dataBean = commodityManagerListBean.getData();
+                    if (dataBean != null) {
+                        List<CommodityManagerListBean.DataBean.ListBean> arrays = dataBean.getList();
+                        setData(arrays, dataBean.getTotalCount());
+                    }
+                }
+                break;
+
+            case AppHttpPath.UPDATE_COMMODITY_STATUS_DOWN:
+                baseQuickAdapter.remove(currentPosition);
+                        ToastUtils.toast(mContext,"下架成功");
                 break;
             default:
                 break;

@@ -9,7 +9,7 @@ import android.util.SparseArray;
 import android.view.View;
 
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.base.BaseTabViewPageActivity;
+import com.example.appbase.base.BaseTabViewPageActivity;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchHeadFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.HomePagePresent;

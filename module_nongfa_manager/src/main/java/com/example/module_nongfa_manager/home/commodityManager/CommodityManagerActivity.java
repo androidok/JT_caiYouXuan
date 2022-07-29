@@ -31,9 +31,20 @@ public class CommodityManagerActivity extends BaseTabViewPageActivity<HomePresen
     }
 
     @Override
-    protected String gettitleName() {
+    protected void commitSearch(String s) {
+
+    }
+
+    @Override
+    protected String getTitleName() {
         return "商品管理";
     }
+
+    @Override
+    protected void onTabSelected(int i) {
+
+    }
+
 
     @Override
     protected SparseArray<Fragment> getFragments() {
@@ -59,4 +70,6 @@ public class CommodityManagerActivity extends BaseTabViewPageActivity<HomePresen
     public void onSuccess(String tag, Object o) {
 
     }
+
+
 }

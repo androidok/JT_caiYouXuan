@@ -18,6 +18,7 @@ import com.example.appbase.bean.ShopCommodityListBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.bean.ShopListDataBean;
 import com.example.appbase.bean.UserBean;
+import com.example.appbase.bean.nong_fa_manager.CommodityManagerListBean;
 import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
 import com.example.appbase.bean.order.ConfirmOrderBean;
 import com.example.appbase.bean.order.CreatOrderBean;
@@ -139,7 +140,6 @@ public interface AppServer {
 
     @POST(AppHttpPath.SHOP_DETAIL)
     Observable<ShopDetailBuyBean> getShopDetail(@Body RequestBody requestBody);
-
 
 
     @POST(AppHttpPath.SELL_SHOP_DETAIL)
@@ -357,6 +357,7 @@ public interface AppServer {
 
     /**
      * 开启直播
+     *
      * @param requestBody
      * @return
      */
@@ -375,12 +376,13 @@ public interface AppServer {
     Observable<ShopCommodityListBean> getLiveRoomCommodities(@Body RequestBody requestBody);
 
 
+    /*====================================================    农发管理端   ==============================================================*/
+    @POST(AppHttpPath.SCHOOL_LIST)
+    Observable<SchoolListBean> getSchoolList();
 
+    @POST(AppHttpPath.MANAGER_COMMODITY_LIST)
+    Observable<CommodityManagerListBean> getManagerCommodityList(@Body RequestBody requestBody);
 
-
-
-
-        /*====================================================    农发管理端   ==============================================================*/
-        @POST(AppHttpPath.SCHOOL_LIST)
-        Observable<SchoolListBean> getSchoolList();
+    @POST(AppHttpPath.UPDATE_COMMODITY_STATUS)
+    Observable<BaseResult> updateCommodityStatus(@Body RequestBody requestBody);
 }

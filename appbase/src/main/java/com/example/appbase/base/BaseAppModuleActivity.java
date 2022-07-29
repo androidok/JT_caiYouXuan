@@ -4,9 +4,12 @@ import android.os.Bundle;
 
 import com.baidu.location.BDLocation;
 import com.example.appbase.base.selectPics.BaseSelectPicsActivity;
+import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 
 import java.util.List;
+
+import okhttp3.FormBody;
 
 /**
  * @aouther tobato
@@ -29,7 +32,22 @@ public abstract class BaseAppModuleActivity<P extends BasePresenter> extends Bas
         return false;
     }
 
+    /**
+     * 获取builder
+     *
+     * @return
+     */
+    public FormBody.Builder getBaseBuilder() {
+        FormBody.Builder builder = new FormBody.Builder()
+                .add("account", UserInfoManager.getAccount())
+                .add("token", UserInfoManager.getUserToken())
+                .add("typeEnd", UserInfoManager.getDevType())
+                .add("userId", String.valueOf(UserInfoManager.getUserId()))
+                .add("schoolId", String.valueOf(UserInfoManager.getSchoolId()));
 
+
+        return builder;
+    }
 
 
     @Override

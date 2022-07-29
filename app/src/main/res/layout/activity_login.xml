@@ -55,21 +55,14 @@
                 android:background="@drawable/sp_filled_gray_circle"
                 android:gravity="center">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:text="+86"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"></TextView>
 
                 <EditText
                     android:id="@+id/regist_phone_et"
                     style="@style/shop_login_edit_tv_style"
                     android:layout_width="match_parent"
                     android:background="@null"
-                    android:hint="输入手机号"
-                    android:text="15311810032"
+                    android:hint="输入账号"
+                    android:text="admin"
                     android:maxLength="11"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -90,7 +83,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="输入密码"
-                    android:text="123456a"
+                    android:text="admin"
                     android:inputType="textPassword"
                     android:maxLength="16"
                     app:layout_constraintLeft_toLeftOf="parent"

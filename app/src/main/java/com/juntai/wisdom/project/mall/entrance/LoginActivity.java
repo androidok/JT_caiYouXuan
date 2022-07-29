@@ -109,7 +109,6 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, contactBean.getToken());
                     //账号类型（1学校人员；2商户人员；3农发人员）
                     int type = contactBean.getType();
-                    type = 3;
                     switch (type) {
                         case 1:
                             //买家
@@ -198,9 +197,9 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                 account = mRegistPhoneEt.getText().toString();
                 password = mPasswordEt.getText().toString();
 
-                if (!mPresenter.checkMobile(account)) {
-                    return;
-                }
+//                if (!mPresenter.checkMobile(account)) {
+//                    return;
+//                }
                 if (password.isEmpty()) {
                     ToastUtils.toast(mContext, loginType % 2 == 0 ? "登录密码不能为空" : "验证码不能为空");
                     return;
