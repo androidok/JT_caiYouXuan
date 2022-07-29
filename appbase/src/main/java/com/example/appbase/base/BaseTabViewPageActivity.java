@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.appbase.R;
-import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.example.appbase.base.customview.CustomViewPager;
 import com.example.appbase.base.customview.MainPagerAdapter;
+import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+
+import java.util.List;
 
 
 /**
@@ -91,7 +93,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
         for (int i = 0; i < mTabTb.getTabCount(); i++) {
             TabLayout.Tab tab = mTabTb.getTabAt(i);
             if (tab != null) {
-                tab.setCustomView(adapter.getTabView(i,false));
+                tab.setCustomView(adapter.getCustomTabView(i));
             }
         }
         /*viewpager切换默认第一个*/
@@ -101,5 +103,18 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     protected abstract SparseArray<Fragment> getFragments();
 
     protected abstract String[] getTabTitles();
+    @Override
+    protected void onPicsAndEmpressed(List icons) {
 
+    }
+
+    @Override
+    protected String getDownloadTitleRightName() {
+        return null;
+    }
+
+    @Override
+    protected String getDownLoadPath() {
+        return null;
+    }
 }

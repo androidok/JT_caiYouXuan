@@ -13,6 +13,8 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_tb"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabBackground="@color/transparent"

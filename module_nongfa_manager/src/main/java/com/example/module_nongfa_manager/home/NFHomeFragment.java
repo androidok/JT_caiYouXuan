@@ -1,5 +1,6 @@
 package com.example.module_nongfa_manager.home;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.BaseRecyclerviewFragment;
 import com.example.appbase.bean.PicTextBean;
 import com.example.module_nongfa_manager.R;
+import com.example.module_nongfa_manager.home.commodityManager.CommodityManagerActivity;
+import com.example.module_nongfa_manager.home.shopManager.ShopManagerActivity;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 
 import java.util.ArrayList;
@@ -26,8 +29,6 @@ public class NFHomeFragment extends BaseRecyclerviewFragment {
     }
 
 
-
-
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {
         return null;
@@ -42,6 +43,15 @@ public class NFHomeFragment extends BaseRecyclerviewFragment {
                 PicTextBean picTextBean = (PicTextBean) adapter.getItem(position);
                 switch (picTextBean.getTextName()) {
                     case NfHomeContact.SHOP_MANAGER:
+                        // TODO: 2022/7/29 店铺管理
+                        startActivity(new Intent(mContext, ShopManagerActivity.class));
+                        break;
+                    case NfHomeContact.COMMODITY_MANAGER:
+                        // : 2022/7/29 商品管理
+                        startActivity(new Intent(mContext, CommodityManagerActivity.class));
+                        break;
+                    case NfHomeContact.ORDER_MANAGER:
+                        // TODO: 2022/7/29 订单管理
                         break;
                     default:
                         break;

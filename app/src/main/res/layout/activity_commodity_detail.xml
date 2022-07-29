@@ -30,12 +30,12 @@
 
         <TextView
             android:id="@+id/add_to_cart_tv"
-            style="@style/shop_normal_bt"
+            style="@style/app_normal_bt"
             android:text="加入购物车"></TextView>
 
         <TextView
             android:id="@+id/buy_now_tv"
-            style="@style/shop_normal_bt"
+            style="@style/app_normal_bt"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
             android:text="立即购买"></TextView>

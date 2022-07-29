@@ -44,7 +44,7 @@
 
     <TextView
         android:id="@+id/confirm_edit_tv"
-        style="@style/shop_normal_bt"
+        style="@style/app_normal_bt"
         android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"

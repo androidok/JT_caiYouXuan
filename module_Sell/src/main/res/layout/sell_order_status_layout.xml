@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/order_negative_tv"
-        style="@style/shop_normal_bt"
+        style="@style/app_normal_bt"
         android:layout_marginRight="10dp"
         android:text="消极的"
         android:textSize="12dp"
@@ -43,7 +43,7 @@
 
     <TextView
         android:id="@+id/order_positive_tv"
-        style="@style/shop_normal_bt"
+        style="@style/app_normal_bt"
         android:text="关闭原因"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"

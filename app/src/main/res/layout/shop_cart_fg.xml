@@ -80,7 +80,7 @@
 
         <TextView
             android:id="@+id/settle_tv"
-            style="@style/shop_normal_bt"
+            style="@style/app_normal_bt"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="结算"

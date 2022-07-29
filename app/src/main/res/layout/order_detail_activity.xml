@@ -72,7 +72,7 @@
 
         <TextView
             android:id="@+id/order_left_tv"
-            style="@style/shop_normal_bt"
+            style="@style/app_normal_bt"
             android:layout_marginRight="10dp"
             android:background="@drawable/app_bt_bg_white"
             android:text="配送服务"
@@ -83,7 +83,7 @@
 
         <TextView
             android:id="@+id/order_right_tv"
-            style="@style/shop_normal_bt"
+            style="@style/app_normal_bt"
             android:layout_marginTop="10dp"
             android:text="快递包邮"
             android:visibility="gone"

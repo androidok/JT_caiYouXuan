@@ -3,6 +3,8 @@
     package="com.example.module_nongfa_manager">
 
     <application>
+        <activity android:name=".home.shopManager.ShopManagerActivity"></activity>
+        <activity android:name=".home.commodityManager.CommodityManagerActivity" />
         <activity android:name=".MainNFManagerActivity" />
         <activity android:name=".base.NfManagerQRScanActivity" />
     </application>

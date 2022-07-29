@@ -27,7 +27,7 @@
         android:layout_weight="1">
 
         <TextView
-            style="@style/shop_normal_bt"
+            style="@style/app_normal_bt"
             android:background="@drawable/app_bt_bg_red"
             android:text="重新提交"></TextView>
     </LinearLayout>
