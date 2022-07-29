@@ -27,7 +27,7 @@ import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.bdmap.utils.DateUtil;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppFragment;
-import com.juntai.project.sell.mall.beans.ItemFragmentBean;
+import com.example.appbase.bean.multiBean.ItemFragmentBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.utils.StringTools;
 import com.tbruyelle.rxpermissions2.RxPermissions;

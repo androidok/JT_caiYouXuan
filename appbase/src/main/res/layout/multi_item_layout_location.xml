@@ -9,7 +9,7 @@
     android:paddingBottom="3dp"
     android:layout_height="wrap_content">
     <TextView
-        style="@style/shop_item_title_style"
+        style="@style/item_title_style"
         android:textSize="16dp"
         android:text="定位："
         android:textColor="@color/black"

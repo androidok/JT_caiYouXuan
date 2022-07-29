@@ -15,7 +15,7 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.sendcode.SmsCheckCodeActivity;
-import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
+import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
 import com.juntai.project.sell.mall.beans.BillBaseInfoBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.BaseShopAdapter;

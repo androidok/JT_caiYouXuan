@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.sell.CommoditySourceDetailBean;
+import com.example.appbase.bean.CommoditySourceDetailBean;
 
 /**
  * @Author: tobato

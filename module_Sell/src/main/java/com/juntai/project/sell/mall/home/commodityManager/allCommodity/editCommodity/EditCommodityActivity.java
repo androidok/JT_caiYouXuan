@@ -7,8 +7,8 @@ import android.widget.TextView;
 
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
-import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
+import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
+import com.example.appbase.bean.SellCommodityDetailBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailDataBean;
 import com.juntai.project.sell.mall.home.shop.BaseShopActivity;
 
@@ -19,7 +19,7 @@ import com.juntai.project.sell.mall.home.shop.BaseShopActivity;
  */
 public class EditCommodityActivity extends BaseShopActivity {
 
-    private CommodityDetailBean detailBean;
+    private SellCommodityDetailBean detailBean;
 
     @Override
     public void initData() {
@@ -58,7 +58,7 @@ public class EditCommodityActivity extends BaseShopActivity {
             public void onClick(View v) {
                 BaseAdapterDataBean baseAdapterDataBean = getBaseOfAdapterData();
                 if (baseAdapterDataBean != null) {
-                    CommodityDetailBean commodityDetailBean = baseAdapterDataBean.getCommodityDetailBean();
+                    SellCommodityDetailBean commodityDetailBean = baseAdapterDataBean.getSellCommodityDetailBean();
                     commodityDetailBean.setId(detailBean.getId());
                     commodityDetailBean.setDescription(detailBean.getDescription());
                     startActivity(new Intent(mContext, AddCommodityDetailInfoActivity.class)

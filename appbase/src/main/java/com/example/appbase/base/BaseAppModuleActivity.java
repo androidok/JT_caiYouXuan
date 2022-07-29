@@ -68,6 +68,19 @@ public abstract class BaseAppModuleActivity<P extends BasePresenter> extends Bas
     protected void selectedPicsAndEmpressed(List<String> icons) {
 
     }
+    @Override
+    protected void onPicsAndEmpressed(List<String> icons) {
 
+    }
+
+    @Override
+    protected String getDownloadTitleRightName() {
+        return null;
+    }
+
+    @Override
+    protected String getDownLoadPath() {
+        return null;
+    }
 
 }

@@ -1,13 +1,10 @@
-package com.juntai.project.sell.mall.home.shop;
+package com.example.appbase.base.multi;
 
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.ImageViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -22,98 +19,49 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.appbase.base.web.BaseWebviewFragment;
+import com.example.appbase.R;
+import com.example.appbase.bean.multiBean.BaseNormalRecyclerviewBean;
+import com.example.appbase.bean.multiBean.ImportantTagBean;
+import com.example.appbase.bean.multiBean.ItemFragmentBean;
+import com.example.appbase.bean.multiBean.LocationBean;
+import com.example.appbase.bean.multiBean.MultiPicBean;
+import com.example.appbase.bean.multiBean.MultiRadioBean;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
-import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
-import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
-import com.example.appbase.bean.multiBean.ItemFragmentBean;
-import com.example.appbase.bean.multiBean.MultiRadioBean;
-import com.example.appbase.bean.multiBean.BaseNormalRecyclerviewBean;
-import com.example.appbase.bean.multiBean.ImportantTagBean;
-import com.example.appbase.bean.multiBean.LocationBean;
-import com.example.appbase.bean.multiBean.MultiPicBean;
-import com.juntai.project.sell.mall.home.HomePageContract;
 
 import java.util.List;
-
-import cn.qzb.richeditor.RE;
-import cn.qzb.richeditor.RichEditor;
 
 /**
  * @Author: tobato
  * @Description: 作用描述
- * @CreateDate: 2021/4/22 11:11
  * @UpdateUser: 更新者
- * @UpdateDate: 2021/4/22 11:11
  */
-public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
-    public static String SDCARD_TAG = "/storage/emulated";
-    private int iconDefaultColor = Color.parseColor("#CDCDCD");
-    private int iconSelectColor = Color.BLACK;
-
-    private boolean isDetail = false;//是否是详情模式
-    private FragmentManager mFragmentManager;
-    private OnCheckEdittextValueFormatCallBack checkEdittextValueFormatCallBack;
-    private OnPicVideoLoadSuccessCallBack onPicVideoLoadSuccessCallBack;
-    private RichEditor mEditor;
-    private RE re;
-
-
-    public void setCheckEdittextValueFormatCallBack(OnCheckEdittextValueFormatCallBack checkEdittextValueFormatCallBack) {
-        this.checkEdittextValueFormatCallBack = checkEdittextValueFormatCallBack;
-    }
-
-
-    public void setDetail(boolean detail) {
-        isDetail = detail;
-    }
-
+public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
+    private boolean isDetail;
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
      * some initialization data.
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public BaseShopAdapter(List<MultipleItem> data, boolean isDetail, FragmentManager mFragmentManager, OnPicVideoLoadSuccessCallBack onPicVideoLoadSuccessCallBack) {
+    public BaseMultiRecyclerAdapter(List<MultipleItem> data,boolean isDetail) {
         super(data);
-        addItemType(MultipleItem.ITEM_HEAD_PIC, R.layout.sell_item_layout_type_head_pic);
-        addItemType(MultipleItem.ITEM_TITILE_BIG, R.layout.sell_item_layout_type_title_big);
         addItemType(MultipleItem.ITEM_TITILE_SMALL, R.layout.multi_item_layout_type_title_small);
-        addItemType(MultipleItem.ITEM_NOTICE, R.layout.sell_item_layout_type_notice);
         addItemType(MultipleItem.ITEM_EDIT, R.layout.multi_item_layout_type_edit);
-        addItemType(MultipleItem.ITEM_EDIT2, R.layout.sell_item_layout_type_edit2);
-        addItemType(MultipleItem.ITEM_SELECT, R.layout.multi_item_layout_type_select);
-        addItemType(MultipleItem.ITEM_NORMAL_RECYCLEVIEW, R.layout.multi_item_layout_type_recyclerview);
-        addItemType(MultipleItem.ITEM_LOCATION, R.layout.multi_item_layout_location);
-        addItemType(MultipleItem.ITEM_TEXT, R.layout.sell_item_text);
         addItemType(MultipleItem.ITEM_PIC, R.layout.multi_item_pic);
         addItemType(MultipleItem.ITEM_RADIO, R.layout.multi_item_layout_type_radio);
-        addItemType(MultipleItem.ITEM_FRAGMENT, R.layout.sell_item_pic_fragment);
-        addItemType(MultipleItem.ITEM_FRAGMENT2, R.layout.sell_item_pic_fragment2);
-        addItemType(MultipleItem.ITEM_FRAGMENT_VIDEO, R.layout.sell_item_pic_fragment3);
-        addItemType(MultipleItem.ITEM_RICH_TEXT, R.layout.sell_item_rich_text);
-        this.isDetail = isDetail;
-        this.mFragmentManager = mFragmentManager;
-        this.onPicVideoLoadSuccessCallBack = onPicVideoLoadSuccessCallBack;
-    }
+        addItemType(MultipleItem.ITEM_NORMAL_RECYCLEVIEW, R.layout.multi_item_layout_type_recyclerview);
+        addItemType(MultipleItem.ITEM_SELECT, R.layout.multi_item_layout_type_select);
 
+        this.isDetail = isDetail;
+    }
 
     @Override
     protected void convert(BaseViewHolder helper, MultipleItem item) {
-        switch (item.getItemType()) {
 
-            case MultipleItem.ITEM_NOTICE:
-                helper.setText(R.id.item_notice_tv, (String) item.getObject());
-                break;
-            case MultipleItem.ITEM_RICH_TEXT:
-                String richText = (String) item.getObject();
-                BaseWebviewFragment webviewFragment = (BaseWebviewFragment) mFragmentManager.findFragmentById(R.id.base_webview_fg);
-                webviewFragment.setWebData(richText);
-                break;
+        switch (item.getItemType()) {
             case MultipleItem.ITEM_RADIO:
                 MultiRadioBean radioBean = (MultiRadioBean) item.getObject();
                 RadioGroup radioGroup = helper.getView(R.id.item_radio_g);
@@ -235,84 +183,59 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 break;
             case MultipleItem.ITEM_FRAGMENT:
             case MultipleItem.ITEM_FRAGMENT2:
-            case MultipleItem.ITEM_FRAGMENT_VIDEO:
-                //上传材料时 多选照片
-                ItemFragmentBean itemFragmentBean = (ItemFragmentBean) item.getObject();
-                SelectPhotosFragment fragment = null;
-                switch (itemFragmentBean.getKey()) {
-                    case HomePageContract.COMMODITY_PRIMARY_PIC:
-                        fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg);
-
-                        break;
-                    case HomePageContract.COMMODITY_BANNER_PICS:
-                        fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg2);
-
-                        break;
-                    case HomePageContract.COMMODITY_VIDEO:
-                        fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg3);
-                        break;
-                    default:
-                        break;
-                }
-
-                fragment.setMaxCount(itemFragmentBean.getmMaxCount()).setObject(itemFragmentBean);
-                List<String> pics = itemFragmentBean.getFragmentPics();
-                if (pics.size() > 0) {
-                    fragment.setIcons(pics);
-                }
-                if (isDetail) {
-                    fragment.setPhotoDelateable(false).setMaxCount(itemFragmentBean.getFragmentPics().size());
-                    if (!itemFragmentBean.getFragmentPics().isEmpty()) {
-                        fragment.setIcons(itemFragmentBean.getFragmentPics());
-                    }
-                } else {
-                    fragment.setPhotoDelateable(true).setMaxCount(itemFragmentBean.getmMaxCount());
-                }
-
-                SelectPhotosFragment finalFragment = fragment;
-                fragment.setSpanCount(itemFragmentBean.getmSpanCount()).setOnPicLoadSuccessCallBack(new SelectPhotosFragment.OnPicLoadSuccessCallBack() {
-                    @Override
-                    public void loadSuccess(List<String> icons) {
-
-                        ItemFragmentBean itemFragmentBean = (ItemFragmentBean) finalFragment.getObject();
-                        if (onPicVideoLoadSuccessCallBack != null) {
-                            onPicVideoLoadSuccessCallBack.uploadPicVideo(itemFragmentBean, icons);
-                        }
-
-                    }
-                });
-                break;
+//            case MultipleItem.ITEM_FRAGMENT_VIDEO:
+//                //上传材料时 多选照片
+//                ItemFragmentBean itemFragmentBean = (ItemFragmentBean) item.getObject();
+//                SelectPhotosFragment fragment = null;
+//                switch (itemFragmentBean.getKey()) {
+//                    case HomePageContract.COMMODITY_PRIMARY_PIC:
+//                        fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg);
+//
+//                        break;
+//                    case HomePageContract.COMMODITY_BANNER_PICS:
+//                        fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg2);
+//
+//                        break;
+//                    case HomePageContract.COMMODITY_VIDEO:
+//                        fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg3);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//
+//                fragment.setMaxCount(itemFragmentBean.getmMaxCount()).setObject(itemFragmentBean);
+//                List<String> pics = itemFragmentBean.getFragmentPics();
+//                if (pics.size() > 0) {
+//                    fragment.setIcons(pics);
+//                }
+//                if (isDetail) {
+//                    fragment.setPhotoDelateable(false).setMaxCount(itemFragmentBean.getFragmentPics().size());
+//                    if (!itemFragmentBean.getFragmentPics().isEmpty()) {
+//                        fragment.setIcons(itemFragmentBean.getFragmentPics());
+//                    }
+//                } else {
+//                    fragment.setPhotoDelateable(true).setMaxCount(itemFragmentBean.getmMaxCount());
+//                }
+//
+//                SelectPhotosFragment finalFragment = fragment;
+//                fragment.setSpanCount(itemFragmentBean.getmSpanCount()).setOnPicLoadSuccessCallBack(new SelectPhotosFragment.OnPicLoadSuccessCallBack() {
+//                    @Override
+//                    public void loadSuccess(List<String> icons) {
+//
+//                        ItemFragmentBean itemFragmentBean = (ItemFragmentBean) finalFragment.getObject();
+//                        if (onPicVideoLoadSuccessCallBack != null) {
+//                            onPicVideoLoadSuccessCallBack.uploadPicVideo(itemFragmentBean, icons);
+//                        }
+//
+//                    }
+//                });
+//                break;
             case MultipleItem.ITEM_TEXT:
 //                BaseStringBean baseStringBean = (BaseStringBean) item.getObject();
 ////                String des = mContext.getString(R.string.test);
 //                TextView textView = helper.getView(R.id.single_text_tv);
 //                helper.setText(R.id.single_text_tv, baseStringBean.getContent());
 //                textView.setGravity(baseStringBean.getGrivityType());
-                break;
-            case MultipleItem.ITEM_HEAD_PIC:
-                helper.addOnClickListener(R.id.form_head_pic_iv);
-                MultiPicBean headPicBean = (MultiPicBean) item.getObject();
-                ImageView headIv = helper.getView(R.id.form_head_pic_iv);
-                if (!isDetail) {
-                    helper.addOnClickListener(R.id.form_head_pic_iv);
-                }
-                String headPicPath = headPicBean.getPicPath();
-                if (!TextUtils.isEmpty(headPicPath)) {
-                    if (headPicPath.contains(SDCARD_TAG)) {
-                        //本地照片
-                        ImageLoadUtil.loadImageNoCache(mContext, headPicPath, headIv);
-                    } else {
-                        //网络照片
-                        ImageLoadUtil.loadImageNoCache(mContext, UrlFormatUtil.getImageOriginalUrl(headPicPath),
-                                headIv, R.mipmap.ic_error);
-                    }
-
-                } else {
-                    ImageLoadUtil.loadImage(mContext, R.mipmap.two_inch_pic, headIv);
-                }
-                break;
-            case MultipleItem.ITEM_TITILE_BIG:
-                helper.setText(R.id.item_big_title_tv, (String) item.getObject());
                 break;
             case MultipleItem.ITEM_TITILE_SMALL:
                 ImportantTagBean importantTagBean = (ImportantTagBean) item.getObject();
@@ -346,59 +269,42 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 }
                 editText.setLayoutParams(lp);
                 editText.setTag(textValueEditBean);
-                editText.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        TextKeyValueBean editBean = (TextKeyValueBean) editText.getTag();
-                        String str = s.toString().trim();
-                        editBean.setValue(str);
-                    }
-                });
-                editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        TextKeyValueBean editBean = (TextKeyValueBean) editText.getTag();
-                        if (!hasFocus) {
-                            if (checkEdittextValueFormatCallBack != null) {
-                                checkEdittextValueFormatCallBack.checkEdittextValueFormat(editBean);
-                            }
-                        }
-                    }
-                });
+                addTextChange(editText);
+//                editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                    @Override
+//                    public void onFocusChange(View v, boolean hasFocus) {
+//                        TextKeyValueBean editBean = (TextKeyValueBean) editText.getTag();
+//                        if (!hasFocus) {
+//                            if (checkEdittextValueFormatCallBack != null) {
+//                                checkEdittextValueFormatCallBack.checkEdittextValueFormat(editBean);
+//                            }
+//                        }
+//                    }
+//                });
                 editText.setHint(textValueEditBean.getHint());
                 editText.setText(textValueEditBean.getValue());
                 String editKey = ((TextKeyValueBean) editText.getTag()).getKey();
                 //正则
-                switch (editKey) {
-                    case HomePageContract.SHOP_TEL:
-                        //联系方式
-                        editText.setInputType(InputType.TYPE_CLASS_PHONE);
-                        break;
-                    default:
-                        //输入类型为普通文本
-                        editText.setInputType(InputType.TYPE_CLASS_TEXT);
-                        break;
-                }
+//                switch (editKey) {
+//                    case HomePageContract.SHOP_TEL:
+//                        //联系方式
+//                        editText.setInputType(InputType.TYPE_CLASS_PHONE);
+//                        break;
+//                    default:
+//                        //输入类型为普通文本
+//                        editText.setInputType(InputType.TYPE_CLASS_TEXT);
+//                        break;
+//                }
                 break;
-            case MultipleItem.ITEM_EDIT2:
-                TextKeyValueBean textValueEditBean2 = (TextKeyValueBean) item.getObject();
-                EditText editText2 = helper.getView(R.id.value_et);
-                initEdittextFocuseStatus(editText2);
-                TextView textView2 = helper.getView(R.id.key_tv);
-                editText2.setTag(textValueEditBean2);
-                addTextChange(editText2);
-                editText2.setText(textValueEditBean2.getValue());
-                break;
+//            case MultipleItem.ITEM_EDIT2:
+//                TextKeyValueBean textValueEditBean2 = (TextKeyValueBean) item.getObject();
+//                EditText editText2 = helper.getView(R.id.value_et);
+//                initEdittextFocuseStatus(editText2);
+//                TextView textView2 = helper.getView(R.id.key_tv);
+//                editText2.setTag(textValueEditBean2);
+//                addTextChange(editText2);
+//                editText2.setText(textValueEditBean2.getValue());
+//                break;
             case MultipleItem.ITEM_SELECT:
                 TextKeyValueBean textValueSelectBean = (TextKeyValueBean) item.getObject();
                 TextView textViewTv = helper.getView(R.id.select_value_tv);
@@ -427,12 +333,12 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                         , false);
                 BaseQuickAdapter adapter = null;
                 recyclerView.setLayoutManager(manager);
-                switch (baseNormalRecyclerviewBean.getKey()) {
-                    case HomePageContract.COMMODITY_BILL:
-                        break;
-                    default:
-                        break;
-                }
+//                switch (baseNormalRecyclerviewBean.getKey()) {
+//                    case HomePageContract.COMMODITY_BILL:
+//                        break;
+//                    default:
+//                        break;
+//                }
                 recyclerView.setAdapter(adapter);
                 break;
             case MultipleItem.ITEM_LOCATION:
@@ -467,7 +373,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
             @Override
             public void afterTextChanged(Editable s) {
 
-                if (editText.getId() == R.id.value_et) {
+                if (editText.getId() == R.id.edit_value_et) {
                     TextKeyValueBean editBean = (TextKeyValueBean) editText.getTag();
                     editBean.setValue(s.toString().trim());
                 }

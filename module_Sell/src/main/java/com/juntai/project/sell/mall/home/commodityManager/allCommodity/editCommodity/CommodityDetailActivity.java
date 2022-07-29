@@ -3,7 +3,7 @@ package com.juntai.project.sell.mall.home.commodityManager.allCommodity.editComm
 import android.view.View;
 
 import com.juntai.project.sell.mall.AppHttpPathMall;
-import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
+import com.example.appbase.bean.SellCommodityDetailBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailDataBean;
 import com.juntai.project.sell.mall.home.shop.BaseShopActivity;
 
@@ -45,7 +45,7 @@ public class CommodityDetailActivity extends BaseShopActivity {
             case AppHttpPathMall.GET_COMMODITY_DETAIL:
                 CommodityDetailDataBean detailDataBean = (CommodityDetailDataBean) o;
                 if (detailDataBean != null) {
-                    CommodityDetailBean commodityDetailBean = detailDataBean.getData();
+                    SellCommodityDetailBean commodityDetailBean = detailDataBean.getData();
                     baseQuickAdapter.setNewData(mPresenter.getCommodityBaseInfoData(commodityDetailBean, true,false));
                 }
                 break;

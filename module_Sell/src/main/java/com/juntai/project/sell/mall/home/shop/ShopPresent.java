@@ -14,16 +14,16 @@ import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.base.BaseAppMallPresent;
 import com.juntai.project.sell.mall.beans.CommodityFormatDataBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
-import com.juntai.project.sell.mall.beans.ItemFragmentBean;
-import com.juntai.project.sell.mall.beans.RadioBean;
-import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
+import com.example.appbase.bean.multiBean.ItemFragmentBean;
+import com.example.appbase.bean.multiBean.MultiRadioBean;
+import com.example.appbase.bean.SellCommodityDetailBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailDataBean;
-import com.juntai.project.sell.mall.beans.sell.CommoditySourceDetailBean;
+import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
-import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
-import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
-import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
+import com.example.appbase.bean.multiBean.ImportantTagBean;
+import com.example.appbase.bean.multiBean.LocationBean;
+import com.example.appbase.bean.multiBean.MultiPicBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class ShopPresent extends BaseAppMallPresent {
      *
      * @return
      */
-    public List<MultipleItem> getCommodityBaseInfoData(CommodityDetailBean bean, boolean isDetail, boolean isDraft) {
+    public List<MultipleItem> getCommodityBaseInfoData(SellCommodityDetailBean bean, boolean isDetail, boolean isDraft) {
         List<MultipleItem> arrays = new ArrayList<>();
         initTextSelectType(arrays, HomePageContract.COMMODITY_CATEGORY_NAME, bean == null ? "" : String.valueOf(bean.getCategoryId()), bean == null ? "" : bean.getCategoryName(), true);
         initTextSelectType(arrays, HomePageContract.COMMODITY_SORT, bean == null ? "" : String.valueOf(bean.getShopClassifyId()), bean == null ? "" : bean.getShopClassifyName(), true);
@@ -109,7 +109,7 @@ public class ShopPresent extends BaseAppMallPresent {
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.COMMODITY_BANNER_PICS, true)));
         if (bean != null) {
-            List<CommodityDetailBean.ImagesBean> imagesBeans = null;
+            List<SellCommodityDetailBean.ImagesBean> imagesBeans = null;
             if (isDraft) {
                 imagesBeans = bean.getCommodityImg();
             } else {
@@ -117,7 +117,7 @@ public class ShopPresent extends BaseAppMallPresent {
             }
 
             List<String> pics = new ArrayList<>();
-            for (CommodityDetailBean.ImagesBean imagesBean : imagesBeans) {
+            for (SellCommodityDetailBean.ImagesBean imagesBean : imagesBeans) {
                 pics.add(imagesBean.getImgUrl());
             }
             arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT2, new ItemFragmentBean(HomePageContract.COMMODITY_BANNER_PICS, 4, isDetail ? pics.size() : 4,
@@ -183,7 +183,7 @@ public class ShopPresent extends BaseAppMallPresent {
         String titleName = null;
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean(typeName,
                 isImportant)));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_RADIO, new RadioBean(typeName, values, "", defaultIndex)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_RADIO, new MultiRadioBean(typeName, values,  defaultIndex)));
     }
 
     /**
@@ -211,7 +211,7 @@ public class ShopPresent extends BaseAppMallPresent {
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.SHOP_PIC, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_HEAD_PIC,
-                new PicBean(HomePageContract.SHOP_PIC, -1,
+                new MultiPicBean(HomePageContract.SHOP_PIC, -1,
                         bean == null ? "" : bean.getHeadPortrait())));
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SHOP_NAME, bean == null ? "" :
                         bean.getName()
@@ -236,19 +236,19 @@ public class ShopPresent extends BaseAppMallPresent {
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_BIG, "店铺证件"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
-                new PicBean(HomePageContract.SHOP_LICENSE, 1, bean == null ? "" :
+                new MultiPicBean(HomePageContract.SHOP_LICENSE, 1, bean == null ? "" :
                         bean.getBusinessLicense())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
-                new PicBean(HomePageContract.ID_CARD_FRONT, 2, bean == null ? "" :
+                new MultiPicBean(HomePageContract.ID_CARD_FRONT, 2, bean == null ? "" :
                         bean.getIdPositive())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
-                new PicBean(HomePageContract.ID_CARD_BACK, 3, bean == null ? "" :
+                new MultiPicBean(HomePageContract.ID_CARD_BACK, 3, bean == null ? "" :
                         bean.getIdSide())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
-                new PicBean(HomePageContract.ID_CARD_HAND, 4, bean == null ? "" :
+                new MultiPicBean(HomePageContract.ID_CARD_HAND, 4, bean == null ? "" :
                         bean.getHandPicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
-                new PicBean(HomePageContract.SHOP_INNER_PICS, 5, bean == null ? "" :
+                new MultiPicBean(HomePageContract.SHOP_INNER_PICS, 5, bean == null ? "" :
                         bean.getShopRealScene())));
         return arrays;
     }

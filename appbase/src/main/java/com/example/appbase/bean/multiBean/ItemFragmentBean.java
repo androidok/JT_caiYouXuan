@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.beans;
+package com.example.appbase.bean.multiBean;
 
 import java.util.ArrayList;
 import java.util.List;

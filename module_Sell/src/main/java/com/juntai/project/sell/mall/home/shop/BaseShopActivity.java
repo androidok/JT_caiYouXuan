@@ -22,14 +22,14 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
 import com.juntai.project.sell.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
-import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
-import com.juntai.project.sell.mall.beans.ItemFragmentBean;
-import com.juntai.project.sell.mall.beans.RadioBean;
-import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
-import com.juntai.project.sell.mall.beans.sell.CommoditySourceDetailBean;
+import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
+import com.example.appbase.bean.multiBean.ItemFragmentBean;
+import com.example.appbase.bean.multiBean.MultiRadioBean;
+import com.example.appbase.bean.SellCommodityDetailBean;
+import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
-import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
-import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
+import com.example.appbase.bean.multiBean.LocationBean;
+import com.example.appbase.bean.multiBean.MultiPicBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.shopCategory.ChoseCategoryActivity;
 import com.juntai.project.sell.mall.mine.myinfo.HeadCropActivity;
@@ -62,7 +62,7 @@ import okhttp3.RequestBody;
 public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPresent> implements HomePageContract.IHomePageView, SelectPhotosFragment.OnPhotoItemClick, View.OnClickListener, BaseShopAdapter.OnPicVideoLoadSuccessCallBack {
 
     private int currentPosition;
-    private PicBean picBean;
+    private MultiPicBean picBean;
     private String address;
     private TextView mSelectTv;
     private TextKeyValueBean selectBean;
@@ -211,7 +211,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
             MultipleItem multipleItem = (MultipleItem) baseQuickAdapter.getItem(currentPosition);
             switch (multipleItem.getItemType()) {
                 default:
-                    picBean = (PicBean) multipleItem.getObject();
+                    picBean = (MultiPicBean) multipleItem.getObject();
                     if (HomePageContract.SHOP_PIC.equals(picBean.getPicName())) {
                         //跳转到裁剪头像的界面
                         startActivityForResult(new Intent(this, HeadCropActivity.class).putExtra(HeadCropActivity.HEAD_PIC,
@@ -308,7 +308,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
      */
     protected BaseAdapterDataBean getBaseOfAdapterData() {
         BaseAdapterDataBean baseAdapterDataBean = new BaseAdapterDataBean();
-        CommodityDetailBean commodityDetailBean = new CommodityDetailBean();
+        SellCommodityDetailBean commodityDetailBean = new SellCommodityDetailBean();
         CommoditySourceDetailBean.DataBean sourceBean = new CommoditySourceDetailBean.DataBean();
         FormBody.Builder builder = getBaseBuilder();
         builder.add("userAccount", UserInfoManagerMall.getAccount());
@@ -317,7 +317,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
             switch (array.getItemType()) {
                 case MultipleItem.ITEM_RADIO:
                     //户口类别 家庭经济状况 项目级别 这几个上传的字段对应的是从1开始的 所以需要从默认的索引+1  相反的 获取到详情展示的时候 就需要-1了
-                    RadioBean radioBean = (RadioBean) array.getObject();
+                    MultiRadioBean radioBean = (MultiRadioBean) array.getObject();
                     switch (radioBean.getKey()) {
                         case HomePageContract.COMMODITY_POST_FREE:
                             commodityDetailBean.setIsPostage(radioBean.getDefaultSelectedIndex());
@@ -327,7 +327,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                     }
                     break;
                 case MultipleItem.ITEM_HEAD_PIC:
-                    PicBean headPicBean = (PicBean) array.getObject();
+                    MultiPicBean headPicBean = (MultiPicBean) array.getObject();
                     if (TextUtils.isEmpty(headPicBean.getPicPath())) {
                         ToastUtils.toast(mContext, "请选择店铺照片");
                         return null;
@@ -367,10 +367,10 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                 commodityDetailBean.setVideoUrl(path);
                                 break;
                             case HomePageContract.COMMODITY_BANNER_PICS:
-                                List<CommodityDetailBean.ImagesBean> imagesBeans = new ArrayList<>();
+                                List<SellCommodityDetailBean.ImagesBean> imagesBeans = new ArrayList<>();
 
                                 for (String photo : photos) {
-                                    imagesBeans.add(new CommodityDetailBean.ImagesBean(photo));
+                                    imagesBeans.add(new SellCommodityDetailBean.ImagesBean(photo));
                                 }
                                 commodityDetailBean.setImages(imagesBeans);
                                 commodityDetailBean.setCommodityImg(imagesBeans);
@@ -384,7 +384,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
                     break;
                 case MultipleItem.ITEM_PIC:
-                    PicBean picBean = (PicBean) array.getObject();
+                    MultiPicBean picBean = (MultiPicBean) array.getObject();
                     String picKey = picBean.getPicName();
                     String picPath = picBean.getPicPath();
                     if (picKey != null) {
@@ -519,7 +519,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
         }
         baseAdapterDataBean.setBuilder(builder);
         baseAdapterDataBean.setSourceBean(sourceBean);
-        baseAdapterDataBean.setCommodityDetailBean(commodityDetailBean);
+        baseAdapterDataBean.setSellCommodityDetailBean(commodityDetailBean);
         return baseAdapterDataBean;
     }
 

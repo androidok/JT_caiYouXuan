@@ -11,7 +11,7 @@ import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
+import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.juntai.project.sell.mall.utils.StringTools;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;

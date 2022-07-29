@@ -15,7 +15,7 @@ import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.beans.IdNameBean;
-import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
+import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 
 import java.io.File;

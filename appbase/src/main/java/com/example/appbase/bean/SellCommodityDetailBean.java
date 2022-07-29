@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.beans.sell;
+package com.example.appbase.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,7 +13,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/6/12 15:54
  */
-public class CommodityDetailBean implements Parcelable {
+public class SellCommodityDetailBean implements Parcelable {
 
     private String account;
     private String token;
@@ -350,7 +350,7 @@ public class CommodityDetailBean implements Parcelable {
         };
     }
 
-    public CommodityDetailBean() {
+    public SellCommodityDetailBean() {
     }
 
     @Override
@@ -389,7 +389,7 @@ public class CommodityDetailBean implements Parcelable {
         dest.writeTypedList(this.commodityImg);
     }
 
-    protected CommodityDetailBean(Parcel in) {
+    protected SellCommodityDetailBean(Parcel in) {
         this.account = in.readString();
         this.token = in.readString();
         this.typeEnd = in.readString();
@@ -419,15 +419,15 @@ public class CommodityDetailBean implements Parcelable {
         this.commodityImg = in.createTypedArrayList(ImagesBean.CREATOR);
     }
 
-    public static final Creator<CommodityDetailBean> CREATOR = new Creator<CommodityDetailBean>() {
+    public static final Creator<SellCommodityDetailBean> CREATOR = new Creator<SellCommodityDetailBean>() {
         @Override
-        public CommodityDetailBean createFromParcel(Parcel source) {
-            return new CommodityDetailBean(source);
+        public SellCommodityDetailBean createFromParcel(Parcel source) {
+            return new SellCommodityDetailBean(source);
         }
 
         @Override
-        public CommodityDetailBean[] newArray(int size) {
-            return new CommodityDetailBean[size];
+        public SellCommodityDetailBean[] newArray(int size) {
+            return new SellCommodityDetailBean[size];
         }
     };
 }

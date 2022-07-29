@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.beans.sell.adapterbean;
+package com.example.appbase.bean.multiBean;
 
 /**
  * Describe:本地位置缓存

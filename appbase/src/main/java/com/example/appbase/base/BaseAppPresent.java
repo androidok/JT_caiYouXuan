@@ -7,16 +7,20 @@ import com.example.appbase.bean.LiveTypeListBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.bean.ShopListDataBean;
 import com.example.appbase.bean.UserBean;
+import com.example.appbase.bean.multiBean.ImportantTagBean;
+import com.example.appbase.bean.multiBean.MultiRadioBean;
 import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
 import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBuyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 
 import java.io.File;
@@ -37,6 +41,72 @@ import okhttp3.RequestBody;
  * @UpdateDate: 2020/6/3 8:38
  */
 public abstract class BaseAppPresent<M extends IModel, V extends IView> extends BasePresenter<M, V> {
+
+    /**
+     * @param arrays
+     * @param typeName
+     */
+    public void initRadioType(List<MultipleItem> arrays, String typeName, String[] values, int defaultIndex,
+                               boolean isImportant) {
+        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean(typeName,
+                isImportant)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_RADIO, new MultiRadioBean(typeName, values,defaultIndex)));
+    }
+
+
+
+    /**
+     * initTextType
+     *
+     * @param arrays
+     * @param key
+     */
+    public void initTextSelectType(List<MultipleItem> arrays, String key, String id, String value,
+                                    boolean isImportant) {
+        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                (key, isImportant)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_SELECT,
+                new TextKeyValueBean(key, value, id, String.format("%s%s", "请选择",
+                        key), 0, isImportant)));
+    }
+    /**
+     * initTextType
+     *
+     * @param arrays
+     * @param typeName
+     * @param editHeightType 0代表高度固定 1代表不固定
+     */
+    public void initTextType(List<MultipleItem> arrays, int layoutType, String typeName, String value,
+                             boolean isImportant, int editHeightType, boolean isDetail) {
+        switch (layoutType) {
+            case MultipleItem.ITEM_SELECT:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                        (typeName, isImportant)));
+                arrays.add(new MultipleItem(MultipleItem.ITEM_SELECT,
+                        new TextKeyValueBean(typeName, value, String.format("%s%s", "请选择",
+                                typeName), 0, isImportant, isDetail)));
+                break;
+            case MultipleItem.ITEM_EDIT:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean(typeName,
+                        isImportant)));
+                arrays.add(new MultipleItem(MultipleItem.ITEM_EDIT,
+                        new TextKeyValueBean(typeName, value,
+                                String.format("%s%s", "请输入", typeName), editHeightType, isImportant, isDetail)));
+
+                break;
+            case MultipleItem.ITEM_EDIT2:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_EDIT2,
+                        new TextKeyValueBean(typeName, value,
+                                String.format("%s%s", "请输入", typeName), editHeightType, isImportant, isDetail)));
+                break;
+            default:
+                break;
+        }
+
+    }
+
+
+
 
 
         /*====================================================    商城   ==============================================================*/

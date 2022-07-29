@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.beans;
+package com.example.appbase.bean.multiBean;
 
 /**
  * @Author: tobato
@@ -7,17 +7,15 @@ package com.juntai.project.sell.mall.beans;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/1/16 15:22
  */
-public class RadioBean {
+public class MultiRadioBean {
 
     private String key;
     private String[] values;
-    private String title;
     private int  defaultSelectedIndex ;
 
-    public RadioBean(String key, String[] values, String title, int defaultSelectedIndex) {
+    public MultiRadioBean(String key, String[] values,  int defaultSelectedIndex) {
         this.key = key;
         this.values = values;
-        this.title = title;
         this.defaultSelectedIndex = defaultSelectedIndex;
     }
 

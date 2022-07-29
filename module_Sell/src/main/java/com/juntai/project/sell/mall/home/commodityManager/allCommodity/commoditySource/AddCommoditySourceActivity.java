@@ -12,8 +12,8 @@ import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
-import com.juntai.project.sell.mall.beans.sell.CommoditySourceDetailBean;
+import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
+import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.juntai.project.sell.mall.home.shop.BaseShopActivity;
 
 import java.util.List;

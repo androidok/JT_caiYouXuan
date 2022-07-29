@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
-import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
+import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
+import com.example.appbase.bean.SellCommodityDetailBean;
 import com.juntai.project.sell.mall.home.shop.BaseShopActivity;
 import com.orhanobut.hawk.Hawk;
 
@@ -20,7 +20,7 @@ import com.orhanobut.hawk.Hawk;
  */
 public class AddCommodityActivity extends BaseShopActivity {
 
-    private CommodityDetailBean detailBean;
+    private SellCommodityDetailBean detailBean;
 
     @Override
     public void initData() {
@@ -67,7 +67,7 @@ public class AddCommodityActivity extends BaseShopActivity {
             public void onClick(View v) {
                 BaseAdapterDataBean baseAdapterDataBean = getBaseOfAdapterData();
                 if (baseAdapterDataBean != null) {
-                    CommodityDetailBean commodityDetailBean = baseAdapterDataBean.getCommodityDetailBean();
+                    SellCommodityDetailBean commodityDetailBean = baseAdapterDataBean.getSellCommodityDetailBean();
                     Hawk.put(HawkProperty.COMMODITY_DETAIL,commodityDetailBean);
                     startActivity(new Intent(mContext, AddCommodityDetailInfoActivity.class)
                             .putExtra(BASE_PARCELABLE, commodityDetailBean));

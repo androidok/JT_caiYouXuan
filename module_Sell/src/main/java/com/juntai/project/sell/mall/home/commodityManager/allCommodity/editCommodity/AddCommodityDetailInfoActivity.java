@@ -19,7 +19,7 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
+import com.example.appbase.bean.SellCommodityDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
@@ -55,7 +55,7 @@ public class AddCommodityDetailInfoActivity extends BaseAppActivity<ShopPresent>
 
     private RichEditor mEditor;//
     public RE re;
-    private CommodityDetailBean commodityDetailBean;
+    private SellCommodityDetailBean commodityDetailBean;
 private boolean  isEdit = false;
     @Override
     protected ShopPresent createPresenter() {

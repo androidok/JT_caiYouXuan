@@ -9,7 +9,7 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
+import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.BaseShopActivity;
 

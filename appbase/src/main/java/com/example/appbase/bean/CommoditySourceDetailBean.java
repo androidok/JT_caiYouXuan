@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.beans.sell;
+package com.example.appbase.bean;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
