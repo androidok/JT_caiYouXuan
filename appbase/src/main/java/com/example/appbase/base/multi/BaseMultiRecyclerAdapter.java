@@ -1,6 +1,7 @@
 package com.example.appbase.base.multi;
 
 import android.content.res.ColorStateList;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.ImageViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.appbase.R;
+import com.example.appbase.base.selectPics.SelectPhotosFragment;
 import com.example.appbase.bean.multiBean.BaseNormalRecyclerviewBean;
 import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.example.appbase.bean.multiBean.ItemFragmentBean;
@@ -40,28 +42,37 @@ import java.util.List;
  */
 public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
     private boolean isDetail;
+    private FragmentManager mFragmentManager;
+
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
      * some initialization data.
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public BaseMultiRecyclerAdapter(List<MultipleItem> data,boolean isDetail) {
+    public BaseMultiRecyclerAdapter(List<MultipleItem> data,boolean isDetail, FragmentManager mFragmentManager) {
         super(data);
         addItemType(MultipleItem.ITEM_TITILE_SMALL, R.layout.multi_item_layout_type_title_small);
+        addItemType(MultipleItem.ITEM_TITILE_BIG, R.layout.multi_item_layout_type_title_big);
         addItemType(MultipleItem.ITEM_EDIT, R.layout.multi_item_layout_type_edit);
         addItemType(MultipleItem.ITEM_PIC, R.layout.multi_item_pic);
         addItemType(MultipleItem.ITEM_RADIO, R.layout.multi_item_layout_type_radio);
         addItemType(MultipleItem.ITEM_NORMAL_RECYCLEVIEW, R.layout.multi_item_layout_type_recyclerview);
         addItemType(MultipleItem.ITEM_SELECT, R.layout.multi_item_layout_type_select);
+        addItemType(MultipleItem.ITEM_FRAGMENT, R.layout.multi_item_pic_fragment);
 
         this.isDetail = isDetail;
+        this.mFragmentManager = mFragmentManager;
+
     }
 
     @Override
     protected void convert(BaseViewHolder helper, MultipleItem item) {
 
         switch (item.getItemType()) {
+            case MultipleItem.ITEM_TITILE_BIG:
+                helper.setText(R.id.item_big_title_tv, (String) item.getObject());
+                break;
             case MultipleItem.ITEM_RADIO:
                 MultiRadioBean radioBean = (MultiRadioBean) item.getObject();
                 RadioGroup radioGroup = helper.getView(R.id.item_radio_g);
@@ -183,13 +194,13 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
                 break;
             case MultipleItem.ITEM_FRAGMENT:
             case MultipleItem.ITEM_FRAGMENT2:
-//            case MultipleItem.ITEM_FRAGMENT_VIDEO:
-//                //上传材料时 多选照片
-//                ItemFragmentBean itemFragmentBean = (ItemFragmentBean) item.getObject();
-//                SelectPhotosFragment fragment = null;
+                //上传材料时 多选照片
+                ItemFragmentBean itemFragmentBean = (ItemFragmentBean) item.getObject();
+                SelectPhotosFragment fragment = null;
+                fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg);
 //                switch (itemFragmentBean.getKey()) {
 //                    case HomePageContract.COMMODITY_PRIMARY_PIC:
-//                        fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg);
+//
 //
 //                        break;
 //                    case HomePageContract.COMMODITY_BANNER_PICS:
@@ -202,34 +213,37 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
 //                    default:
 //                        break;
 //                }
-//
-//                fragment.setMaxCount(itemFragmentBean.getmMaxCount()).setObject(itemFragmentBean);
-//                List<String> pics = itemFragmentBean.getFragmentPics();
-//                if (pics.size() > 0) {
-//                    fragment.setIcons(pics);
-//                }
-//                if (isDetail) {
-//                    fragment.setPhotoDelateable(false).setMaxCount(itemFragmentBean.getFragmentPics().size());
-//                    if (!itemFragmentBean.getFragmentPics().isEmpty()) {
-//                        fragment.setIcons(itemFragmentBean.getFragmentPics());
-//                    }
-//                } else {
-//                    fragment.setPhotoDelateable(true).setMaxCount(itemFragmentBean.getmMaxCount());
-//                }
-//
-//                SelectPhotosFragment finalFragment = fragment;
-//                fragment.setSpanCount(itemFragmentBean.getmSpanCount()).setOnPicLoadSuccessCallBack(new SelectPhotosFragment.OnPicLoadSuccessCallBack() {
-//                    @Override
-//                    public void loadSuccess(List<String> icons) {
-//
-//                        ItemFragmentBean itemFragmentBean = (ItemFragmentBean) finalFragment.getObject();
+
+
+                fragment.setPhotoDelateable(false)
+                        .setShowTag(itemFragmentBean.isShowTag())
+                        .setSpanCount(itemFragmentBean.getmSpanCount())
+                        .setMaxCount(itemFragmentBean.getFragmentPics().size())
+                        .setObject(itemFragmentBean);
+                if (isDetail) {
+                    if (!itemFragmentBean.getFragmentPics().isEmpty()) {
+                        fragment.setIcons(itemFragmentBean.getFragmentPics());
+                    }
+                }
+
+                SelectPhotosFragment finalFragment = fragment;
+                fragment.setOnPicLoadSuccessCallBack(new SelectPhotosFragment.OnPicLoadSuccessCallBack() {
+                    @Override
+                    public void loadSuccess(List<String> icons) {
+
+                        ItemFragmentBean itemFragmentBean = (ItemFragmentBean) finalFragment.getObject();
 //                        if (onPicVideoLoadSuccessCallBack != null) {
 //                            onPicVideoLoadSuccessCallBack.uploadPicVideo(itemFragmentBean, icons);
 //                        }
-//
-//                    }
-//                });
-//                break;
+
+                    }
+                });
+                itemFragmentBean = (ItemFragmentBean) finalFragment.getObject();
+                List<String> pics = itemFragmentBean.getFragmentPics();
+                if (pics.size() > 0) {
+                    fragment.setIcons(pics);
+                }
+                break;
             case MultipleItem.ITEM_TEXT:
 //                BaseStringBean baseStringBean = (BaseStringBean) item.getObject();
 ////                String des = mContext.getString(R.string.test);
@@ -245,7 +259,7 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
             case MultipleItem.ITEM_EDIT:
                 TextKeyValueBean textValueEditBean = (TextKeyValueBean) item.getObject();
                 EditText editText = helper.getView(R.id.edit_value_et);
-                if (isDetail) {
+                if (textValueEditBean.isDetail()) {
                     editText.setClickable(false);
                     editText.setFocusable(false);
                     helper.setBackgroundRes(R.id.edit_value_et, R.drawable.sp_filled_gray_lighter);
@@ -309,7 +323,7 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
                 TextKeyValueBean textValueSelectBean = (TextKeyValueBean) item.getObject();
                 TextView textViewTv = helper.getView(R.id.select_value_tv);
                 String selectTextValue = textValueSelectBean.getValue();
-                if (!isDetail) {
+                if (!textValueSelectBean.isDetail()) {
                     helper.addOnClickListener(R.id.select_value_tv);
                     helper.addOnClickListener(R.id.tool_pic_iv);
                     helper.setBackgroundRes(R.id.select_value_tv, R.drawable.stroke_gray_square_bg);

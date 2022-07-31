@@ -8,7 +8,8 @@ package com.example.appbase.base.multi;
 public interface MultiContact {
 
 
-    String  SHOP_NAME = "商家名称";
+    String  SHOP_NAME = "店铺名称";
+    String  USER_ACCOUNT = "用户账号";
     String  CLASSIFY_NAME = "分类名称";
     String  CATEGORY_NAME = "类目名称";
     String  COMMODITY_NAME = "商品名称";
@@ -23,4 +24,19 @@ public interface MultiContact {
     String COMMODITY_RESTOC_PERSON = "进货人";
     String COMMODITY_BILL = "上传票据";
     String IS_AGREE = "是否同意";
+
+
+    String REAL_NAME = "真实姓名";
+    String IDCARD = "身份证号";
+    String ID_CARD_FRONT = "身份证正面";
+    String ID_CARD_BACK = "身份证反面";
+    String ID_CARD_HAND = "手持身份证照片";
+
+
+    String SHOP_TEL = "店铺联系方式";
+    String SHOP_CATEGORY = "店铺主营类目";
+    String SHOP_ADDR = "店铺地址";
+    String SHOP_CREAT_TIME = "开店时间";
+
+
 }

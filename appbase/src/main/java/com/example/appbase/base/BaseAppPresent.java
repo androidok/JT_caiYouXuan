@@ -10,6 +10,7 @@ import com.example.appbase.bean.UserBean;
 import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.example.appbase.bean.multiBean.MultiRadioBean;
 import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
+import com.example.appbase.bean.nong_fa_manager.ShopManagerDetailBean;
 import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
@@ -62,12 +63,12 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
      * @param key
      */
     public void initTextSelectType(List<MultipleItem> arrays, String key, String id, String value,
-                                    boolean isImportant) {
+                                    boolean isImportant,boolean isDetail) {
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (key, isImportant)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_SELECT,
                 new TextKeyValueBean(key, value, id, String.format("%s%s", "请选择",
-                        key), 0, isImportant)));
+                        key), 0, isImportant,isDetail)));
     }
     /**
      * initTextType
@@ -546,6 +547,50 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    public void getManagerShopDetail(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .getManagerShopDetail(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ShopManagerDetailBean>(getView()) {
+                    @Override
+                    public void onSuccess(ShopManagerDetailBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    public void commitShopCheck(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .commitShopCheck(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
                     }
 
                     @Override

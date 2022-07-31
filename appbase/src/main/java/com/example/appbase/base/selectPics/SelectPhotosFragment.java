@@ -90,6 +90,7 @@ public class SelectPhotosFragment<T> extends BaseAppModuleFragment implements Vi
     private OnPhotoItemClick onPhotoItemClick;
     private OnPicCalculateed onPicCalculateed;
     private int type;//0拍照照片，1拍照
+    private boolean isShowTag = false;//是否显示底部标记
 
     public String cameraPath;
     private GridLayoutManager manager;
@@ -231,21 +232,7 @@ public class SelectPhotosFragment<T> extends BaseAppModuleFragment implements Vi
     public void setIcons(List<String> arrays) {
         this.icons = arrays;
         if (selectedPicsAdapter != null) {
-            selectedPicsAdapter.setNewData(icons);
-            if (arrays != null && arrays.size() > 0) {
-                //传入的图片数量大于等于最大值，截取最大值对应数
-                if (arrays.size() >= mMaxCount) {
-                    for (int i = 0; i < mMaxCount; i++) {
-                        icons.add(arrays.get(i));
-                    }
-                } else {
-                    for (String array : arrays) {
-                        icons.add(array);
-                    }
-                    icons.add("-1");
-                }
-                selectedPicsAdapter.setNewData(icons);
-            }
+            selectedPicsAdapter.setNewData(reSortIconList());
         }
 
     }
@@ -376,6 +363,18 @@ public class SelectPhotosFragment<T> extends BaseAppModuleFragment implements Vi
             throw new RuntimeException(context.toString() + " must implement SelectPhotosFragment.OnPhotoItemClick");
         }
     }
+    /**
+     * 是否显示底部标识
+     * @param showTag
+     * @return
+     */
+    public SelectPhotosFragment setShowTag(boolean showTag) {
+        this.isShowTag = showTag;
+        if (selectedPicsAdapter != null) {
+            selectedPicsAdapter.setShowTag(isShowTag);
+        }
+        return this;
+    }
 
     @Override
     protected boolean canCancelLoadingDialog() {
@@ -473,12 +472,15 @@ public class SelectPhotosFragment<T> extends BaseAppModuleFragment implements Vi
      */
     private List<String> reSortIconList() {
         List<String> icons_new = new ArrayList<>();
+        if (icons.size() > mMaxCount) {
+            icons =  icons.subList(0,mMaxCount);
+        }
         for (String icon : icons) {
             if (!"-1".equals(icon)) {
                 icons_new.add(icon);
             }
         }
-        if (icons.size() <= mMaxCount) {
+        if (icons.size() < mMaxCount) {
             icons_new.add("-1");
         }
         return icons_new;

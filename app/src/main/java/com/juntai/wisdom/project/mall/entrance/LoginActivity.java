@@ -157,15 +157,13 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                             }
                             break;
                         case 3:
-                            //todo 管理端
+                            //农发 管理端
                             startActivity(new Intent(mContext, MainNFManagerActivity.class));
-
+                            finish();
                             break;
                         default:
                             break;
                     }
-
-
 
 
                 }
@@ -178,7 +176,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     if (dataBean != null) {
                         // : 2022/6/8 进入到店铺认证界面
                         startActivity(new Intent(mContext, ShopManagerActivity.class)
-                                .putExtra(BASE_PARCELABLE,dataBean));
+                                .putExtra(BASE_PARCELABLE, dataBean));
                         finish();
                     }
                 }
@@ -279,9 +277,6 @@ public class LoginActivity extends SmsCheckCodeActivity implements
             mRegistPhoneEt.setText(phoneNum);
         }
     }
-
-
-
 
 
     @Override

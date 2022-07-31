@@ -13,14 +13,11 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
  */
 public class CommoditiesAdapter extends BaseQuickAdapter<CommodityManagerListBean.DataBean.ListBean, BaseViewHolder> {
     private int status;
-
-    public CommoditiesAdapter(int layoutResId) {
-        super(layoutResId);
-    }
-
-
     public void setStatus(int status) {
         this.status = status;
+    }
+    public CommoditiesAdapter(int layoutResId) {
+        super(layoutResId);
     }
 
     @Override

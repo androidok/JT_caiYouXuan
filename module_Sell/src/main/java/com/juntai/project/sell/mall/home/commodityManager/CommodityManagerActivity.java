@@ -39,8 +39,8 @@ public class CommodityManagerActivity extends BaseRecyclerviewActivity<ShopPrese
 
     private List<PicTextBean> getAdapterDate() {
         List<PicTextBean>  arrays = new ArrayList<>();
-        arrays.add(new PicTextBean(R.mipmap.commodity_category,R.mipmap.commodity_category_bg,HomePageContract.COMMODITY_MANAGER_CATEGORY,"Category management"));
-        arrays.add(new PicTextBean(R.mipmap.commodity_managere_icon,R.mipmap.commodity_manager_bg,HomePageContract.COMMODITY_MANAGER_TOTAL,"Commodity management"));
+        arrays.add(new PicTextBean(R.mipmap.commodity_category,R.mipmap.menu_blue_bg,HomePageContract.COMMODITY_MANAGER_CATEGORY,"Category management"));
+        arrays.add(new PicTextBean(R.mipmap.commodity_managere_icon,R.mipmap.menu_green_bg,HomePageContract.COMMODITY_MANAGER_TOTAL,"Commodity management"));
         return arrays;
     }
 

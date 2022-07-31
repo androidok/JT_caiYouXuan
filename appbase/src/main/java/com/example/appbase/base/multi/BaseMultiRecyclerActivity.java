@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.R;
 import com.example.appbase.base.BaseRecyclerviewActivity;
+import com.example.appbase.base.selectPics.SelectPhotosFragment;
 import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
 import com.example.appbase.bean.multiBean.ItemFragmentBean;
@@ -32,7 +33,7 @@ import okhttp3.FormBody;
  * @Description: 作用描述
  * @UpdateUser: 更新者
  */
-public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity<MultiPresent> implements IView {
+public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity<MultiPresent> implements IView, SelectPhotosFragment.OnPhotoItemClick{
 
     private int currentPosition;
     private TextView mSelectTv;
@@ -253,7 +254,7 @@ public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new BaseMultiRecyclerAdapter(null,isDetail());
+        return new BaseMultiRecyclerAdapter(null,isDetail(),getSupportFragmentManager());
     }
 
 
@@ -261,5 +262,16 @@ public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity
     @Override
     protected MultiPresent createPresenter() {
         return new MultiPresent();
+    }
+
+
+    @Override
+    public void onVedioPicClick(BaseQuickAdapter adapter, int position) {
+
+    }
+
+    @Override
+    public void onPicClick(BaseQuickAdapter adapter, int position) {
+
     }
 }

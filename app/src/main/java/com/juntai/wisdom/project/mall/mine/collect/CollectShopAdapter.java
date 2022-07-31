@@ -21,7 +21,6 @@ public class CollectShopAdapter extends BaseQuickAdapter<CollectDataBean.DataDTO
     @Override
     protected void convert(BaseViewHolder helper, CollectDataBean.DataDTO item) {
         ImageLoadUtil.loadHeadCirclePic(mContext,item.getPhoto(), helper.getView(R.id.commodity_cover_iv));
-
         helper.setText(R.id.linearlayout_commodity_des_tv,item.getName());
     }
 }

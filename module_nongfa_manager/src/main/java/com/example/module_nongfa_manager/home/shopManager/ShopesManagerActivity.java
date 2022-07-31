@@ -7,13 +7,15 @@ import android.util.SparseArray;
 import com.example.appbase.base.BaseTabViewPageActivity;
 import com.example.module_nongfa_manager.home.HomePresent;
 import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 
 /**
  * @aouther tobato
  * @description 描述 店铺管理
  * @date 2022/7/29 9:45
  */
-public class ShopManagerActivity extends BaseTabViewPageActivity<HomePresent> implements IView {
+public class ShopesManagerActivity extends BaseTabViewPageActivity<HomePresent> implements IView {
 
     @Override
     protected int getTabMode() {
@@ -32,6 +34,7 @@ public class ShopManagerActivity extends BaseTabViewPageActivity<HomePresent> im
 
     @Override
     protected void commitSearch(String s) {
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_SHOP_MANAGER_LIST, mSearchContentSv.getQuery().toString().trim()));
 
     }
 

@@ -20,6 +20,13 @@ public class TextKeyValueBean {
     private boolean isDetail;//是否必填
     private boolean valueGravityToRight;//value靠右
 
+    public boolean isDetail() {
+        return isDetail;
+    }
+
+    public void setDetail(boolean detail) {
+        isDetail = detail;
+    }
 
     public TextKeyValueBean(String key, String value) {
         this.key = key;
@@ -35,6 +42,14 @@ public class TextKeyValueBean {
         this.isDetail = isDetail;
     }
     public TextKeyValueBean(String key, String value, String ids, String hint, int type, boolean isImportant) {
+        this.key = key;
+        this.value = value;
+        this.ids = ids;
+        this.hint = hint;
+        this.type = type;
+        this.isImportant = isImportant;
+    }
+    public TextKeyValueBean(String key, String value, String ids, String hint, int type, boolean isImportant,boolean isDetail) {
         this.key = key;
         this.value = value;
         this.ids = ids;

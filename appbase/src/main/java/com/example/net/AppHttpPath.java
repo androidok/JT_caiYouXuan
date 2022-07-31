@@ -9,6 +9,7 @@ public class AppHttpPath {
 //    public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21970/jt-mall/buyersSocket/";
         public static final String BASE_IMAGE = "http://192.168.124.148:9598";
 //    public static final String BASE_IMAGE = "http://www.juntaikeji.com:19170";
+public static final String BASE_IMAGE_THUM = "http://www.juntaikeji.com:19298/thumbnail";
 
     public static final String ALL_CITYS = "https://restapi.amap.com/v3/config/district?";
     /*==============================================  流媒体相关  =============================================*/
@@ -393,4 +394,20 @@ public class AppHttpPath {
      */
     public static final String UPDATE_COMMODITY_STATUS = BASE + "/manage/updateCommodityState";
     public static final String UPDATE_COMMODITY_STATUS_DOWN = BASE + "UPDATE_COMMODITY_STATUS_DOWN";
+    /**
+     * 店铺管理列表
+     */
+    public static final String MANAGER_SHOP_LIST = BASE + "/manage/selectShopList";
+    public static final String MANAGER_SHOP_DETAIL = BASE + "/manage/selectShopInfo";
+    /**
+     * 提交店铺审核
+     */
+    public static final String COMMIT_SHOP_CHECK = BASE + "/manage/updateShopState";
+
+
+
+
+
+
+
 }

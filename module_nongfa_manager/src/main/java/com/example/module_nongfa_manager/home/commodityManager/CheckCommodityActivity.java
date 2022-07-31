@@ -35,7 +35,7 @@ public class CheckCommodityActivity extends BaseMultiRecyclerActivity {
 
     @Override
     protected View getAdapterFootView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.nf_manager_footview_commit, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.nf_manager_check_footview_commit, null);
         TextView commitTv = view.findViewById(R.id.commit_tv);
         commitTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,4 +45,6 @@ public class CheckCommodityActivity extends BaseMultiRecyclerActivity {
         });
         return view;
     }
+
+
 }

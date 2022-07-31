@@ -2,6 +2,7 @@ package com.example.module_nongfa_manager.home;
 
 import com.example.appbase.base.BaseAppPresent;
 import com.example.appbase.bean.nong_fa_manager.CommodityManagerListBean;
+import com.example.appbase.bean.nong_fa_manager.ShopManagerListBean;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
@@ -44,6 +45,29 @@ public class HomePresent extends BaseAppPresent<IModel, IView> {
                     }
                 });
     }
+    public void getManagerShopList(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .getManagerShopList(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ShopManagerListBean>(getView()) {
+                    @Override
+                    public void onSuccess(ShopManagerListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+
     public void updateCommodityStatus(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
                 .updateCommodityStatus(requestBody)
@@ -65,4 +89,5 @@ public class HomePresent extends BaseAppPresent<IModel, IView> {
                     }
                 });
     }
+
 }

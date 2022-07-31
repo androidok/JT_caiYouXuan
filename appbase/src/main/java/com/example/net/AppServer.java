@@ -20,6 +20,8 @@ import com.example.appbase.bean.ShopListDataBean;
 import com.example.appbase.bean.UserBean;
 import com.example.appbase.bean.nong_fa_manager.CommodityManagerListBean;
 import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
+import com.example.appbase.bean.nong_fa_manager.ShopManagerDetailBean;
+import com.example.appbase.bean.nong_fa_manager.ShopManagerListBean;
 import com.example.appbase.bean.order.ConfirmOrderBean;
 import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.appbase.bean.order.OrderDetailDataBean;
@@ -383,6 +385,13 @@ public interface AppServer {
     @POST(AppHttpPath.MANAGER_COMMODITY_LIST)
     Observable<CommodityManagerListBean> getManagerCommodityList(@Body RequestBody requestBody);
 
+    @POST(AppHttpPath.MANAGER_SHOP_LIST)
+    Observable<ShopManagerListBean> getManagerShopList(@Body RequestBody requestBody);
+    @POST(AppHttpPath.MANAGER_SHOP_DETAIL)
+    Observable<ShopManagerDetailBean> getManagerShopDetail(@Body RequestBody requestBody);
+
     @POST(AppHttpPath.UPDATE_COMMODITY_STATUS)
     Observable<BaseResult> updateCommodityStatus(@Body RequestBody requestBody);
+    @POST(AppHttpPath.COMMIT_SHOP_CHECK)
+    Observable<BaseResult> commitShopCheck(@Body RequestBody requestBody);
 }

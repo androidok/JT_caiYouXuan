@@ -10,7 +10,7 @@ import com.example.appbase.base.BaseRecyclerviewFragment;
 import com.example.appbase.bean.PicTextBean;
 import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.commodityManager.CommodityManagerActivity;
-import com.example.module_nongfa_manager.home.shopManager.ShopManagerActivity;
+import com.example.module_nongfa_manager.home.shopManager.ShopesManagerActivity;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 
 import java.util.ArrayList;
@@ -43,8 +43,8 @@ public class NFHomeFragment extends BaseRecyclerviewFragment {
                 PicTextBean picTextBean = (PicTextBean) adapter.getItem(position);
                 switch (picTextBean.getTextName()) {
                     case NfHomeContact.SHOP_MANAGER:
-                        // TODO: 2022/7/29 店铺管理
-                        startActivity(new Intent(mContext, ShopManagerActivity.class));
+                        // : 2022/7/29 店铺管理
+                        startActivity(new Intent(mContext, ShopesManagerActivity.class));
                         break;
                     case NfHomeContact.COMMODITY_MANAGER:
                         // : 2022/7/29 商品管理
@@ -77,9 +77,9 @@ public class NFHomeFragment extends BaseRecyclerviewFragment {
 
     private List<PicTextBean> getAdapterDate() {
         List<PicTextBean> arrays = new ArrayList<>();
-        arrays.add(new PicTextBean(R.mipmap.ic_launcher_round, R.mipmap.commodity_category_bg, NfHomeContact.SHOP_MANAGER, "DianPu"));
-        arrays.add(new PicTextBean(R.mipmap.ic_launcher_round, R.mipmap.commodity_manager_bg, NfHomeContact.COMMODITY_MANAGER, "ShangPin"));
-        arrays.add(new PicTextBean(R.mipmap.ic_launcher_round, R.mipmap.commodity_manager_bg, NfHomeContact.ORDER_MANAGER, "DingDan"));
+        arrays.add(new PicTextBean(R.mipmap.nf_home_menu_shop_icon, R.mipmap.menu_blue_bg, NfHomeContact.SHOP_MANAGER, "DianPu"));
+        arrays.add(new PicTextBean(R.mipmap.nf_home_menu_commodity_icon, R.mipmap.menu_green_bg, NfHomeContact.COMMODITY_MANAGER, "ShangPin"));
+        arrays.add(new PicTextBean(R.mipmap.nf_home_menu_order_icon, R.mipmap.menu_yellow_bg, NfHomeContact.ORDER_MANAGER, "DingDan"));
         return arrays;
     }
 

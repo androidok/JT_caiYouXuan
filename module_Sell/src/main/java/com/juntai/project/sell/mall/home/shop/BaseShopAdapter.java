@@ -81,7 +81,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
     public BaseShopAdapter(List<MultipleItem> data, boolean isDetail, FragmentManager mFragmentManager, OnPicVideoLoadSuccessCallBack onPicVideoLoadSuccessCallBack) {
         super(data);
         addItemType(MultipleItem.ITEM_HEAD_PIC, R.layout.sell_item_layout_type_head_pic);
-        addItemType(MultipleItem.ITEM_TITILE_BIG, R.layout.sell_item_layout_type_title_big);
+        addItemType(MultipleItem.ITEM_TITILE_BIG, R.layout.multi_item_layout_type_title_big);
         addItemType(MultipleItem.ITEM_TITILE_SMALL, R.layout.multi_item_layout_type_title_small);
         addItemType(MultipleItem.ITEM_NOTICE, R.layout.sell_item_layout_type_notice);
         addItemType(MultipleItem.ITEM_EDIT, R.layout.multi_item_layout_type_edit);
