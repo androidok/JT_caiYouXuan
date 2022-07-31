@@ -1,10 +1,10 @@
-package com.juntai.project.sell.mall.mine.guide;
+package com.example.module_nongfa_manager.mine.guide;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
-import com.juntai.project.sell.mall.R;
 import com.example.appbase.bean.GuideMenuBean;
+import com.example.module_nongfa_manager.R;
+import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 
 /**
  * @Author: tobato

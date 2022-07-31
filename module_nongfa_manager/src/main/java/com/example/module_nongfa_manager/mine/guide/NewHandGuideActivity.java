@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.mine.guide;
+package com.example.module_nongfa_manager.mine.guide;
 
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
@@ -6,12 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.BaseRecyclerviewActivity;
+import com.example.appbase.bean.GuideMenuBean;
+import com.example.module_nongfa_manager.R;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
-import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
-import com.example.appbase.bean.GuideMenuBean;
-import com.juntai.project.sell.mall.home.HomePageContract;
 
 import java.util.ArrayList;
 import java.util.List;

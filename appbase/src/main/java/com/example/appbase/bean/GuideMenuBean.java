@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.beans;
+package com.example.appbase.bean;
 
 import android.text.TextUtils;
 

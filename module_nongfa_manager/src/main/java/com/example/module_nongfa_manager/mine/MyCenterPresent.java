@@ -1,16 +1,15 @@
-package com.juntai.project.sell.mall.mine;
+package com.example.module_nongfa_manager.mine;
 
 
-import com.juntai.disabled.basecomponent.utils.MultipleItem;
+import com.example.appbase.base.BaseAppPresent;
+import com.example.module_nongfa_manager.R;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.project.sell.mall.AppNetModuleMall;
-import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.BaseAppPresent;
 
 import java.util.ArrayList;
 import java.util.List;
