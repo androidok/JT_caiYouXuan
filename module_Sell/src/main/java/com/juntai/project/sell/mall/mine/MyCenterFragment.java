@@ -57,6 +57,12 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     private AlertDialog dialog;
     private String headUrl = "";
     private ConstraintLayout mBaseInfoCl;
+    private  boolean showGuide = true;
+
+
+    public void setShowGuide(boolean showGuide) {
+        this.showGuide = showGuide;
+    }
 
     @Override
     protected int getLayoutRes() {
@@ -75,7 +81,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         mMenuRecycler = getView(R.id.menu_recycler);
         mLoginOut = getView(R.id.login_out);
         mLoginOut.setOnClickListener(this);
-        myMenuAdapter = new MyMenuAdapter(mPresenter.getMenuBeans());
+        myMenuAdapter = new MyMenuAdapter(mPresenter.getMenuBeans( showGuide));
         getBaseActivity().initRecyclerview(mMenuRecycler, myMenuAdapter, LinearLayoutManager.VERTICAL);
         mStatusTopTitle.setText("个人中心");
 
@@ -164,6 +170,9 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
     @Override
     protected void lazyLoad() {
+
+
+
     }
 
     @Override

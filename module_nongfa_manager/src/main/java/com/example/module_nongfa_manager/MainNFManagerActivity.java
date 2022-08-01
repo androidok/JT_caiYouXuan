@@ -81,6 +81,7 @@ public class MainNFManagerActivity extends BaseNFActivity implements View.OnClic
         }
         if (mineFragment == null) {
             mineFragment = new MyCenterFragment();
+            mineFragment.setShowGuide(false);
         }
     }
 
