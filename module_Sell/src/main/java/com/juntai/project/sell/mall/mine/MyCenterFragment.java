@@ -11,10 +11,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.bean.UserBean;
+import com.example.appbase.util.UserInfoManager;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;
+import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.DialogUtil;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
@@ -25,9 +29,9 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppFragment;
 import com.juntai.project.sell.mall.mine.guide.NewHandGuideActivity;
 import com.juntai.project.sell.mall.mine.modifyPwd.ModifyPwdActivity;
-import com.juntai.project.sell.mall.mine.verified.VerifiedActivity;
-import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
+
+import okhttp3.FormBody;
 
 /**
  * @aouther tobato
@@ -92,16 +96,16 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                             case MyCenterContract.MENU_MODIFY_PWD:
                                 startActivity(new Intent(mContext, ModifyPwdActivity.class));
                                 break;
-                            case MyCenterContract.MENU_MODIFY_AUTH:
-                                // : 2022/6/6 实名认证
-                                startActivity(new Intent(mContext, VerifiedActivity.class).putExtra(VerifiedActivity.VERIFIED_STATUS, UserInfoManagerMall.getRealNameStatus()));
-                                break;
-//                            case MyCenterContract.MENU_MODIFY_SUGGESTION:
-//                                // : 2022/6/12 投诉建议
+//                            case MyCenterContract.MENU_MODIFY_AUTH:
+//                                // : 2022/6/6 实名认证
+//                                startActivity(new Intent(mContext, VerifiedActivity.class).putExtra(VerifiedActivity.VERIFIED_STATUS, UserInfoManager.getRealNameStatus()));
 //                                break;
-                            case MyCenterContract.MENU_MODIFY_BIND:
-                                // TODO: 2022/6/12 绑定第三方
-                                break;
+////                            case MyCenterContract.MENU_MODIFY_SUGGESTION:
+////                                // : 2022/6/12 投诉建议
+////                                break;
+//                            case MyCenterContract.MENU_MODIFY_BIND:
+//                                // TODO: 2022/6/12 绑定第三方
+//                                break;
                             case MyCenterContract.MENU_MODIFY_GUIDE:
                                 // : 2022/6/12 新手教程
                                 startActivity(new Intent(mContext, NewHandGuideActivity.class));
@@ -136,12 +140,26 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     @Override
     public void onResume() {
         super.onResume();
-        if (UserInfoManagerMall.isLogin()) {
+        if (UserInfoManager.isLogin()) {
             mLoginOut.setVisibility(View.VISIBLE);
-            mPresenter.getUserInfo(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.GET_USER_INFO);
+            mPresenter.getUserInfo(getBuilder().build(), AppHttpPathMall.GET_USER_INFO);
         } else {
             mLoginOut.setVisibility(View.GONE);
         }
+    }
+
+
+    /**
+     * 获取builder
+     *
+     * @return
+     */
+    public FormBody.Builder getBuilder() {
+        FormBody.Builder builder = new FormBody.Builder()
+                .add("account", UserInfoManager.getAccount())
+                .add("token", UserInfoManager.getUserToken())
+                .add("userId", String.valueOf(UserInfoManager.getUserId()));
+        return builder;
     }
 
     @Override
@@ -156,7 +174,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
     @Override
     public void onClick(View v) {
-        if (!UserInfoManagerMall.isLogin()) {
+        if (!UserInfoManager.isLogin()) {
             return;
         }
         int id = v.getId();
@@ -166,7 +184,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                     // : 2022/5/16 调用退出登录的接口
-                    mPresenter.logout(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.LOGOUT);
+                    mPresenter.logout(getBuilder().build(), AppHttpPathMall.LOGOUT);
 
                 }
             }).show();
@@ -181,20 +199,30 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         }
 
     }
-
+    /**
+     * 重新登录
+     */
+    public void reLogin(String regPhone) {
+        UserInfoManager.clearUserData();//清理数据
+        HawkProperty.clearRedPoint(mContext.getApplicationContext());
+        ActivityManagerTool.getInstance().finishApp();
+        ARouter.getInstance().build(ARouterPath.activityLogin)
+                .withString(BASE_STRING,regPhone)
+                .navigation();
+    }
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
             case AppHttpPathMall.LOGOUT:
-                getBaseAppActivity().reLogin(UserInfoManagerMall.getAccount());
+                reLogin(UserInfoManager.getAccount());
                 break;
             case AppHttpPathMall.GET_USER_INFO:
                 UserBean loginBean = (UserBean) o;
                 if (loginBean != null) {
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
-                    ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage);
-                    mNickname.setText(UserInfoManagerMall.getUserNickName());
-                    mInfoDesTv.setText(UserInfoManagerMall.getPhoneNumber());
+                    ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManager.getHeadPic(), mHeadImage);
+                    mNickname.setText(UserInfoManager.getUserNickName());
+                    mInfoDesTv.setText(UserInfoManager.getPhoneNumber());
                 }
                 break;
             default:

@@ -36,4 +36,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':module_Base')
     implementation project(':appbase')
+    api project(':module_Sell')
 }

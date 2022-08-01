@@ -107,7 +107,6 @@ dependencies {
     implementation project(':module_Map')
     implementation project(':module_nongfa_manager')
     implementation project(':module_Chat')
-    implementation project(':module_Sell')
     //支付宝支付
     api 'com.alipay.sdk:alipaysdk-android:+@aar'
     //微信支付

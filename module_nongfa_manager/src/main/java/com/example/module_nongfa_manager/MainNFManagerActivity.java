@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.example.module_nongfa_manager.base.BaseNFActivity;
 import com.example.module_nongfa_manager.base.NfManagerQRScanActivity;
 import com.example.module_nongfa_manager.home.NFHomeFragment;
-import com.example.module_nongfa_manager.mine.NFMineFragment;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.project.sell.mall.mine.MyCenterFragment;
 
 /**
  * @aouther tobato
@@ -38,7 +38,7 @@ public class MainNFManagerActivity extends BaseNFActivity implements View.OnClic
     private TextView mNavigationMineTv;
     private LinearLayout mNavigationMineLl;
     private NFHomeFragment nfHomeFragment;
-    private NFMineFragment mineFragment;
+    private MyCenterFragment mineFragment;
 
     @Override
     protected BasePresenter createPresenter() {
@@ -80,7 +80,7 @@ public class MainNFManagerActivity extends BaseNFActivity implements View.OnClic
             nfHomeFragment = new NFHomeFragment();
         }
         if (mineFragment == null) {
-            mineFragment = new NFMineFragment();
+            mineFragment = new MyCenterFragment();
         }
     }
 
