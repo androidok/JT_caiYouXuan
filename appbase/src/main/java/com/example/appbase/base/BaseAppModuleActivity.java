@@ -65,10 +65,6 @@ public abstract class BaseAppModuleActivity<P extends BasePresenter> extends Bas
 
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
-
-    }
-    @Override
     protected void onPicsAndEmpressed(List<String> icons) {
 
     }

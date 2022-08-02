@@ -1,5 +1,6 @@
 package com.example.module_nongfa_manager.home.orderManager;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.BaseRecyclerviewActivity;
 import com.example.appbase.bean.nong_fa_manager.SortDetailBean;
+import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.HomePresent;
 import com.example.net.AppHttpPath;
@@ -17,6 +19,7 @@ import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ScreenUtils;
+import com.juntai.project.sell.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.king.zxing.util.CodeUtils;
 
 import java.util.ArrayList;
@@ -31,7 +34,7 @@ import okhttp3.FormBody;
  */
 public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent> implements IView {
 
-    private String  qrCodeDir = "orderQrImage";
+    private String qrCodeImg = "orderQrImage.png";
     /**
      * 订单状态
      */
@@ -102,9 +105,10 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
         mOrderQrIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                List<BannerObject> bannerObjects = new ArrayList<>();
-//                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE,  FileCacheUtils.getAppImagePath(qrCodeDir,true)));
-//                PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,bannerObjects,0);
+                List<BannerObject> bannerObjects = new ArrayList<>();
+                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE,  FileCacheUtils.getAppImagePath(true)+ qrCodeImg));
+                startActivity(new Intent(mContext, PicVideoDisplayActivity.class).putParcelableArrayListExtra(BASE_PARCELABLE, (ArrayList<BannerObject>) bannerObjects)
+                        .putExtra(PicVideoDisplayActivity.IMAGEITEM, 0));
             }
         });
         mClientInfoRv = (RecyclerView) findViewById(R.id.client_info_rv);
@@ -127,7 +131,7 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
                 if (dataBean != null) {
                     mOrderStatusTv.setText(String.format("订单状态:%s", getOrderStatus(dataBean.getState())));
                     Bitmap bitmap = CodeUtils.createQRCode(dataBean.getQrCodeUrl(), ScreenUtils.getInstance(mContext).getScreenWidth());
-                    FileCacheUtils.saveBitmap(bitmap, FileCacheUtils.getAppImagePath(qrCodeDir,true), true);
+                    FileCacheUtils.saveBitmap(bitmap, qrCodeImg, true);
                     mOrderQrIv.setImageBitmap(bitmap);
                     List<TextKeyValueBean> arraysClient = new ArrayList<>();
                     arraysClient.add(new TextKeyValueBean("学校名称：", dataBean.getSchoolName()));

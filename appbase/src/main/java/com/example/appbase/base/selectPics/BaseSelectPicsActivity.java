@@ -14,13 +14,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
-import com.example.appbase.util.CalendarUtil;
-import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
+import com.baidu.location.BDLocation;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
+import com.juntai.disabled.basecomponent.utils.CalendarUtil;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.GlideEngine4;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
+import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -46,14 +47,14 @@ import top.zibin.luban.OnCompressListener;
 public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends BaseRequestLocationActivity<P> {
 
 
-    private int SELECT_PIC_RESULT = 1000;
-    private int TAKE_PICTURE = 1001;
+    private int SELECT_PIC_RESULT = 10101;
+    private int TAKE_PICTURE = 10102;
     public String cameraPath;
     private int compressedSize = 0;//被压缩的图片个数
     private List<String> icons = new ArrayList<>();
 
 
-    protected abstract void selectedPicsAndEmpressed(List<String> icons);
+    protected abstract void onPicsAndEmpressed(List<String> icons);
 
     /**
      * 图片选择
@@ -63,7 +64,7 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
      * @param maxSelectable 最大图片选择数
      */
     @SuppressLint("CheckResult")
-    public void choseImage(int type, final Activity activity, int maxSelectable) {
+    public void choseImage(int type, Activity activity, int maxSelectable) {
         icons.clear();
         new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA).compose(this.bindToLife()).subscribe(new Consumer<Boolean>() {
@@ -72,6 +73,44 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
                 if (aBoolean) {
                     if (type == 0) {
                         Matisse.from(activity).choose(MimeType.ofImage()).showSingleMediaType(true)
+                                //是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
+                                .countable(true).maxSelectable(maxSelectable).capture(true).captureStrategy(new CaptureStrategy(true, BaseAppUtils.getFileprovider()))
+                                //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED).thumbnailScale(0.85f).imageEngine(new GlideEngine4()).forResult(SELECT_PIC_RESULT);
+                        //包括裁剪和压缩后的缓存，要在上传成功后调用，注意：需要系统sd卡权限
+                    } else {
+                        //打开照相机
+                        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        Uri imageUri = getOutputMediaFileUri(mContext.getApplicationContext());
+                        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                        //Android7.0添加临时权限标记，此步千万别忘了
+                        openCameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        startActivityForResult(openCameraIntent, TAKE_PICTURE);
+                    }
+                } else {
+                    Toasty.info(mContext, "请给与相应权限").show();
+                }
+            }
+        });
+    }
+
+    /**
+     * 图片选择
+     *
+     * @param type          选择类型 0 可选可拍 1 拍照
+     * @param activity
+     * @param maxSelectable 最大图片选择数
+     */
+    @SuppressLint("CheckResult")
+    public void choseImageAndVideo(int type, Activity activity, int maxSelectable) {
+        icons.clear();
+        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA).compose(this.bindToLife()).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                if (aBoolean) {
+                    if (type == 0) {
+                        Matisse.from(activity).choose(MimeType.ofAll()).showSingleMediaType(true)
                                 //是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
                                 .countable(true).maxSelectable(maxSelectable).capture(true).captureStrategy(new CaptureStrategy(true, BaseAppUtils.getFileprovider()))
                                 //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
@@ -159,7 +198,8 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         if (requestCode == SELECT_PIC_RESULT && resultCode == RESULT_OK) {
-            imageCompress(Matisse.obtainPathResult(data));
+//            imageCompress(Matisse.obtainPathResult(data));
+            imageCompressContainVideo(Matisse.obtainPathResult(data));
         } else if (requestCode == TAKE_PICTURE && resultCode == RESULT_OK) {
             imageCompress(cameraPath);
         } else {
@@ -172,7 +212,7 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
      */
     private void imageCompress(List<String> paths) {
         compressedSize = 0;
-        showLoadingDialog(mContext,false);
+        showLoadingDialog(mContext, false);
         Luban.with(mContext).load(paths).ignoreBy(100).setTargetDir(FileCacheUtils.getAppImagePath(true)).filter(new CompressionPredicate() {
             @Override
             public boolean apply(String path) {
@@ -191,7 +231,7 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
                 //  压缩成功后调用，返回压缩后的图片文件
                 icons.clear();
                 icons.add(file.getPath());
-                selectedPicsAndEmpressed(icons);
+                onPicsAndEmpressed(icons);
                 if (compressedSize == paths.size()) {
                     stopLoadingDialog();
                 }
@@ -214,8 +254,29 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
     /**
      * 图片压缩
      */
+    private void imageCompressContainVideo(List<String> paths) {
+        compressedSize = 0;
+        showLoadingDialog(mContext, false);
+        List<String> pics = new ArrayList<>();
+        for (String path : paths) {
+            if (1 == FileCacheUtils.getFileType(path)) {
+                imageCompress(path);
+            } else if (2 == FileCacheUtils.getFileType(path)) {
+                stopLoadingDialog();
+                pics.add(path);
+            } else {
+
+            }
+
+        }
+        onPicsAndEmpressed(pics);
+    }
+
+    /**
+     * 图片压缩
+     */
     private void imageCompress(String path) {
-        showLoadingDialog(mContext,false);
+        showLoadingDialog(mContext, false);
         Luban.with(mContext).load(path).ignoreBy(100).setTargetDir(FileCacheUtils.getAppImagePath(true)).filter(new CompressionPredicate() {
             @Override
             public boolean apply(String path) {
@@ -231,8 +292,9 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
             @Override
             public void onSuccess(File file) {
                 //  压缩成功后调用，返回压缩后的图片文件
-                icons.add(file.getPath());
-                selectedPicsAndEmpressed(icons);
+                List<String> pics = new ArrayList<>();
+                pics.add(file.getPath());
+                onPicsAndEmpressed(pics);
                 stopLoadingDialog();
             }
 
@@ -243,5 +305,13 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
             }
         }).launch();
     }
+    @Override
+    public void onLocationReceived(BDLocation bdLocation) {
 
+    }
+
+    @Override
+    public boolean requestLocation() {
+        return false;
+    }
 }

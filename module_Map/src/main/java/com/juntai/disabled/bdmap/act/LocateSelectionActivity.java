@@ -306,8 +306,4 @@ public class LocateSelectionActivity extends BaseRequestLocationActivity impleme
         },500);
     }
 
-    @Override
-    protected void onPicsAndEmpressed(List icons) {
-
-    }
 }

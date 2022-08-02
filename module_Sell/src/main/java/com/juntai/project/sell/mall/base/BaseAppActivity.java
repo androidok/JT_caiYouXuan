@@ -20,7 +20,9 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.selectPics.BaseSelectPicsActivity;
 import com.example.appbase.bean.LiveListBean;
+import com.example.appbase.bean.SellOrderDetailBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
@@ -39,12 +41,10 @@ import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
-import com.example.appbase.bean.SellOrderDetailBean;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
@@ -72,7 +72,7 @@ import okhttp3.RequestBody;
  * @description 描述
  * @date 2020/4/27 8:48  app的基类
  */
-public abstract class BaseAppActivity<P extends BasePresenter> extends BaseRequestLocationActivity<P> {
+public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> {
     public static String WX_APPID = "wx5fd6d26f7806a119";
     public UploadUtil mUploadUtil;
     @Override

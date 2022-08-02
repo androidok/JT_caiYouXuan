@@ -11,14 +11,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.selectPics.BaseSelectPicsActivity;
 import com.example.appbase.bean.LiveResultBean;
 import com.example.appbase.bean.LiveTypeListBean;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
-import com.juntai.disabled.basecomponent.base.BaseSelectPicsActivity;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -199,4 +200,7 @@ public class LivePrepareActivity extends BaseSelectPicsActivity<LivePresent> imp
     protected String getDownLoadPath() {
         return null;
     }
+
+
+
 }

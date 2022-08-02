@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.appbase.base.selectPics.BaseSelectPicsActivity;
 import com.example.appbase.bean.LiveDetailBean;
 import com.example.appbase.bean.LiveListBean;
 import com.example.live_moudle.LivePresent;
@@ -22,7 +23,6 @@ import com.example.live_moudle.R;
 import com.example.live_moudle.websocket.SocketManager;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.base.BaseResult;
-import com.juntai.disabled.basecomponent.base.BaseSelectPicsActivity;
 import com.juntai.disabled.basecomponent.base.WarnDialog;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
