@@ -19,6 +19,9 @@ public interface MultiContact {
     String  COMMODITY_PIC_VIDEO= "上传资料";
 
 
+
+
+
     String COMMODITY_PROVIDER = "供货商";
     String COMMODITY_RESTOC_TIME = "进货时间";
     String COMMODITY_RESTOC_PERSON = "进货人";

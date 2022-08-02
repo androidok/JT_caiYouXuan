@@ -87,13 +87,31 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
     private ReturnOrderFormInfoBean returnOrderFormInfo;
     private CommodityEvaluateBean commodityEvaluateVo;
     private List<CommodityListBean> commodityList;
+    private Integer sorting;//分拣状态（1未分拣；2分拣完成）
 
+    private Integer delivery;//配送状态（1为配送；2已配送）
     public CommodityEvaluateBean getCommodityEvaluateVo() {
         return commodityEvaluateVo;
     }
 
     public void setCommodityEvaluateVo(CommodityEvaluateBean commodityEvaluateVo) {
         this.commodityEvaluateVo = commodityEvaluateVo;
+    }
+
+    public Integer getSorting() {
+        return sorting;
+    }
+
+    public void setSorting(Integer sorting) {
+        this.sorting = sorting;
+    }
+
+    public Integer getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Integer delivery) {
+        this.delivery = delivery;
     }
 
     public int getId() {
@@ -968,6 +986,8 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         dest.writeParcelable(this.returnOrderFormInfo, flags);
         dest.writeParcelable(this.commodityEvaluateVo, flags);
         dest.writeTypedList(this.commodityList);
+        dest.writeValue(this.sorting);
+        dest.writeValue(this.delivery);
     }
 
     protected OrderDetailBean(Parcel in) {
@@ -1004,6 +1024,8 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         this.returnOrderFormInfo = in.readParcelable(ReturnOrderFormInfoBean.class.getClassLoader());
         this.commodityEvaluateVo = in.readParcelable(CommodityEvaluateBean.class.getClassLoader());
         this.commodityList = in.createTypedArrayList(CommodityListBean.CREATOR);
+        this.sorting = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.delivery = (Integer) in.readValue(Integer.class.getClassLoader());
     }
 
     public static final Creator<OrderDetailBean> CREATOR = new Creator<OrderDetailBean>() {

@@ -31,10 +31,10 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/play_button"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/select_pic_icon_iv"
+        app:layout_constraintLeft_toLeftOf="@+id/select_pic_icon_iv"
+        app:layout_constraintRight_toRightOf="@+id/select_pic_icon_iv"
+        app:layout_constraintTop_toTopOf="@+id/select_pic_icon_iv"
         />
     <TextView
         android:id="@+id/item_tag"

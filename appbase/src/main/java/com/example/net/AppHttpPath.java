@@ -3,13 +3,13 @@ package com.example.net;
 public class AppHttpPath {
 
 
-        public static final String BASE = "http://192.168.124.148:8080/jt-mall";
-//    public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
-        public static final String BASE_SOCKET = "ws://192.168.124.148:8080/jt-mall/buyersSocket/";
-//    public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21970/jt-mall/buyersSocket/";
-        public static final String BASE_IMAGE = "http://192.168.124.148:9598";
-//    public static final String BASE_IMAGE = "http://www.juntaikeji.com:19170";
-public static final String BASE_IMAGE_THUM = "http://www.juntaikeji.com:19298/thumbnail";
+    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
+    //    public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
+    public static final String BASE_SOCKET = "ws://192.168.124.148:8080/jt-mall/buyersSocket/";
+    //    public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21970/jt-mall/buyersSocket/";
+    public static final String BASE_IMAGE = "http://192.168.124.148:9598";
+    //    public static final String BASE_IMAGE = "http://www.juntaikeji.com:19170";
+    public static final String BASE_IMAGE_THUM = "http://www.juntaikeji.com:19298/thumbnail";
 
     public static final String ALL_CITYS = "https://restapi.amap.com/v3/config/district?";
     /*==============================================  流媒体相关  =============================================*/
@@ -343,9 +343,7 @@ public static final String BASE_IMAGE_THUM = "http://www.juntaikeji.com:19298/th
     public static final String GET_LIVE_LIST = BASE + "/live/getLiveRoomList";
 
 
-
-
-    public static final String BASE_LIVE_URL ="ws://www.juntaikeji.com:21970/jt-mall/liveSocket";
+    public static final String BASE_LIVE_URL = "ws://www.juntaikeji.com:21970/jt-mall/liveSocket";
 //    public static final String BASE_LIVE_URL ="ws://42.192.40.58:5000/ws";
 
     /**
@@ -361,11 +359,11 @@ public static final String BASE_IMAGE_THUM = "http://www.juntaikeji.com:19298/th
     /**
      * 上传图片
      */
-    public static final String UPLOAD_PICS =BASE + "/uploadFile/upload";
+    public static final String UPLOAD_PICS = BASE + "/uploadFile/upload";
     /**
      * 直播间商品列表
      */
-    public static final String LIVE_ROOM_COMMODITIES =BASE + "/buyers/selectLiveCommodityList";
+    public static final String LIVE_ROOM_COMMODITIES = BASE + "/buyers/selectLiveCommodityList";
 
     public static final String SHOP_COLLECT_FINISH = BASE + "/buyers/addCollectShop///finish";
     public static final String SHOP_UNCOLLECT = BASE + "/buyers/unCollectShop";
@@ -374,7 +372,7 @@ public static final String BASE_IMAGE_THUM = "http://www.juntaikeji.com:19298/th
 
 
 
-        /*====================================================    农发管理端   ==============================================================*/
+    /*====================================================    农发管理端   ==============================================================*/
 
 
     /**
@@ -385,10 +383,10 @@ public static final String BASE_IMAGE_THUM = "http://www.juntaikeji.com:19298/th
 
     /**
      * 商品列表
-     *
      */
 
     public static final String MANAGER_COMMODITY_LIST = BASE + "/manage/selectCommodityList";
+    public static final String MANAGER_COMMODITY_DETAIL = BASE + "/manage/selectCommodityInfo";
     /**
      * 更新商品的状态
      */
@@ -408,6 +406,21 @@ public static final String BASE_IMAGE_THUM = "http://www.juntaikeji.com:19298/th
 
 
 
+
+    /*====================================================    农发订单管理   ==============================================================*/
+
+    /**
+     * 分拣详情
+     */
+    public static final String SORT_ORDER_DETAIL = BASE + "/manage/selectSortingOrderInfo";
+    /**
+     * 分拣状态
+     */
+    public static final String UPDATE_SORT_STATUS = BASE + "/manage/updateSorting";
+    /**
+     * 分配状态
+     */
+    public static final String UPDATE_DELIVERY_STATUS = BASE + "/manage/updateDelivery";
 
 
 }

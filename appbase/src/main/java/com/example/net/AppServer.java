@@ -18,6 +18,7 @@ import com.example.appbase.bean.ShopCommodityListBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.bean.ShopListDataBean;
 import com.example.appbase.bean.UserBean;
+import com.example.appbase.bean.nong_fa_manager.CommodityManagerDetailBean;
 import com.example.appbase.bean.nong_fa_manager.CommodityManagerListBean;
 import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
 import com.example.appbase.bean.nong_fa_manager.ShopManagerDetailBean;
@@ -385,13 +386,27 @@ public interface AppServer {
     @POST(AppHttpPath.MANAGER_COMMODITY_LIST)
     Observable<CommodityManagerListBean> getManagerCommodityList(@Body RequestBody requestBody);
 
+    @POST(AppHttpPath.MANAGER_COMMODITY_DETAIL)
+    Observable<CommodityManagerDetailBean> getManagerCommodityDetail(@Body RequestBody requestBody);
+
     @POST(AppHttpPath.MANAGER_SHOP_LIST)
     Observable<ShopManagerListBean> getManagerShopList(@Body RequestBody requestBody);
+
     @POST(AppHttpPath.MANAGER_SHOP_DETAIL)
     Observable<ShopManagerDetailBean> getManagerShopDetail(@Body RequestBody requestBody);
 
     @POST(AppHttpPath.UPDATE_COMMODITY_STATUS)
     Observable<BaseResult> updateCommodityStatus(@Body RequestBody requestBody);
+
     @POST(AppHttpPath.COMMIT_SHOP_CHECK)
     Observable<BaseResult> commitShopCheck(@Body RequestBody requestBody);
+
+    @POST(AppHttpPath.UPDATE_SORT_STATUS)
+    Observable<BaseResult> updateSortStatus(@Body RequestBody requestBody);
+
+    @POST(AppHttpPath.SORT_ORDER_DETAIL)
+    Observable<BaseResult> getSortOrderDetail(@Body RequestBody requestBody);
+
+    @POST(AppHttpPath.UPDATE_DELIVERY_STATUS)
+    Observable<BaseResult> updateDeliveryStatus(@Body RequestBody requestBody);
 }

@@ -55,7 +55,6 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
     @Override
     public void initData() {
         super.initData();
-        baseQuickAdapter.setNewData(mPresenter.checkShop(null, false));
         shopId = getIntent().getIntExtra(BASE_ID, 0);
         mPresenter.getManagerShopDetail(getBaseBuilder().add("shopId", String.valueOf(shopId)).build(), AppHttpPath.MANAGER_SHOP_DETAIL);
     }

@@ -12,6 +12,7 @@ import com.example.appbase.bean.nong_fa_manager.CommodityManagerListBean;
 import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.HomePresent;
 import com.example.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
@@ -78,13 +79,13 @@ public class CommoditiesFragment extends BaseRecyclerviewFragment<HomePresent> i
                 switch (labelId) {
                     case 1:
                         //待审核
-                       startActivity(new Intent(mContext,CheckCommodityActivity.class));
+                       startActivityForResult(new Intent(mContext,CheckCommodityActivity.class).putExtra(BASE_ID,listBean.getId()),BaseActivity.BASE_RSULT);
                         break;
                     case 2:
                         //已审核  下架
 
                         // : 2022/6/13 删除商品
-                        getBaseAppActivity().showAlertDialog("是否删除当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
+                        getBaseAppActivity().showAlertDialog("是否下架当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mPresenter.updateCommodityStatus(getBaseAppActivity().getBaseBuilder()
@@ -127,7 +128,14 @@ public class CommoditiesFragment extends BaseRecyclerviewFragment<HomePresent> i
                 break;
         }
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode== BaseActivity.BASE_RSULT) {
+            baseQuickAdapter.remove(currentPosition);
+        }
 
+    }
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {
         return null;

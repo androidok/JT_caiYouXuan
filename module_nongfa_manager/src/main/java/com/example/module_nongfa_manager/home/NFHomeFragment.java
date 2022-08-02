@@ -10,6 +10,7 @@ import com.example.appbase.base.BaseRecyclerviewFragment;
 import com.example.appbase.bean.PicTextBean;
 import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.commodityManager.CommodityManagerActivity;
+import com.example.module_nongfa_manager.home.orderManager.NFOrderManagerActivity;
 import com.example.module_nongfa_manager.home.shopManager.ShopesManagerActivity;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 
@@ -51,7 +52,9 @@ public class NFHomeFragment extends BaseRecyclerviewFragment {
                         startActivity(new Intent(mContext, CommodityManagerActivity.class));
                         break;
                     case NfHomeContact.ORDER_MANAGER:
-                        // TODO: 2022/7/29 订单管理
+                        // : 2022/7/29 订单管理
+                        startActivity(new Intent(mContext, NFOrderManagerActivity.class));
+
                         break;
                     default:
                         break;

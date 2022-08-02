@@ -16,20 +16,20 @@ import java.util.Map;
  */
 public class UserInfoManager {
 
-    /**
-     * 设备类型
-     */
-    private  String devType;
     public static String WECHAT_ID = null;//wechatid
     public static String OTHER_NICK_NAME = null;//第三方昵称
 
-    // TODO: 2022/7/25 这个地方需要更改逻辑
+    // : 2022/7/25 这个地方需要更改逻辑
 
     public static String getDevType() {
-        if (1>0) {
+        int accoutType = getAccoutType();
+        if (accoutType == 1) {
             return "app_buy";
+        } else if (accoutType == 2) {
+            return "app_seller";
         }
-        return "app_seller";
+        return "";
+
     }
 
 
@@ -59,8 +59,9 @@ public class UserInfoManager {
      * @return
      */
     public static int getShopId() {
-        return getUser() != null? getUser().getShopId() : 0;
+        return getUser() != null ? getUser().getShopId() : 0;
     }
+
     /**
      * 获取getUserId
      *
@@ -72,13 +73,14 @@ public class UserInfoManager {
         }
         return "";
     }
+
     /**
      * 获取所有联系人信息
      *
      * @return
      */
     public static Map<Integer, ContactBean> getAllContacts() {
-        Map<Integer,ContactBean> contactBeans = Hawk.get(HawkProperty.All_CONTACT);
+        Map<Integer, ContactBean> contactBeans = Hawk.get(HawkProperty.All_CONTACT);
         if (contactBeans == null) {
             return new HashMap<>();
         }
@@ -87,17 +89,18 @@ public class UserInfoManager {
 
     /**
      * 添加联系人
+     *
      * @param contactBean
      */
     public static void initContacts(ContactBean contactBean) {
-        Map<Integer,ContactBean> contactBeans = getAllContacts();
+        Map<Integer, ContactBean> contactBeans = getAllContacts();
 
         if (contactBean != null) {
             if (!contactBeans.containsKey(contactBean.getUserId())) {
-                contactBeans.put(contactBean.getUserId(),contactBean);
+                contactBeans.put(contactBean.getUserId(), contactBean);
             }
         }
-        Hawk.put(HawkProperty.All_CONTACT,contactBeans);
+        Hawk.put(HawkProperty.All_CONTACT, contactBeans);
 
     }
 
@@ -163,6 +166,7 @@ public class UserInfoManager {
     public static String getSchoolName() {
         return getUser() != null && getUser() != null ? getUser().getSchoolName() : "";
     }
+
     /**
      * 获取用户信息
      *
@@ -196,7 +200,7 @@ public class UserInfoManager {
         if (Hawk.contains(HawkProperty.SP_KEY_TOKEN)) {
             return Hawk.get(HawkProperty.SP_KEY_TOKEN);
         }
-       return "";
+        return "";
     }
 
     /**
@@ -206,6 +210,16 @@ public class UserInfoManager {
      */
     public static int getUserId() {
         return getUser() != null && getUser() != null ? getUser().getUserId() : -1;
+    }
+
+    /**
+     * getAccoutType
+     * type;//账号类型（1学校人员；2商户人员；3农发人员）
+     *
+     * @return
+     */
+    public static int getAccoutType() {
+        return getUser() != null && getUser() != null ? getUser().getType() : 1;
     }
 
 

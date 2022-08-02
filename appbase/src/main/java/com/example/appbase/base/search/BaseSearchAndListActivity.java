@@ -3,7 +3,6 @@ package com.example.appbase.base.search;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.example.appbase.R;
@@ -78,9 +77,9 @@ public abstract class BaseSearchAndListActivity<P extends BasePresenter> extends
 
             @Override
             public boolean onQueryTextChange(String s) {
-                if (!TextUtils.isEmpty(s)) {
-                    startSearch(mSearchContentSv.getQuery().toString().trim());
-                }
+//                if (!TextUtils.isEmpty(s)) {
+//                    startSearch(mSearchContentSv.getQuery().toString().trim());
+//                }
                 return false;
             }
         });

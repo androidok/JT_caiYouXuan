@@ -3,8 +3,9 @@
     package="com.example.module_nongfa_manager">
 
     <application>
-        <activity android:name=".home.commodityManager.CheckCommodityActivity"></activity>
-        <activity android:name=".home.shopManager.CheckShopActivity"></activity>
+        <activity android:name=".home.orderManager.NFOrderManagerActivity"></activity>
+        <activity android:name=".home.commodityManager.CheckCommodityActivity" />
+        <activity android:name=".home.shopManager.CheckShopActivity" />
         <activity android:name=".home.shopManager.ShopesManagerActivity" />
         <activity android:name=".home.commodityManager.CommodityManagerActivity" />
         <activity android:name=".MainNFManagerActivity" />
