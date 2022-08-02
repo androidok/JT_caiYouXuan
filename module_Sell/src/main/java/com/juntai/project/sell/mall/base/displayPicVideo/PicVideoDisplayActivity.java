@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
+import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.example.chat.MainContract;
 import com.juntai.disabled.PicVideoViewPagerAdapter;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
@@ -12,7 +13,6 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-import com.juntai.project.sell.mall.utils.bannerImageLoader.BannerObject;
 
 import java.util.ArrayList;
 import java.util.List;

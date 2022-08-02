@@ -15,6 +15,7 @@ import com.example.module_nongfa_manager.home.HomePresent;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ScreenUtils;
 import com.king.zxing.util.CodeUtils;
 
@@ -30,6 +31,7 @@ import okhttp3.FormBody;
  */
 public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent> implements IView {
 
+    private String  qrCodeDir = "orderQrImage";
     /**
      * 订单状态
      */
@@ -101,7 +103,7 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
             @Override
             public void onClick(View v) {
 //                List<BannerObject> bannerObjects = new ArrayList<>();
-//                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
+//                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE,  FileCacheUtils.getAppImagePath(qrCodeDir,true)));
 //                PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,bannerObjects,0);
             }
         });
@@ -125,6 +127,7 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
                 if (dataBean != null) {
                     mOrderStatusTv.setText(String.format("订单状态:%s", getOrderStatus(dataBean.getState())));
                     Bitmap bitmap = CodeUtils.createQRCode(dataBean.getQrCodeUrl(), ScreenUtils.getInstance(mContext).getScreenWidth());
+                    FileCacheUtils.saveBitmap(bitmap, FileCacheUtils.getAppImagePath(qrCodeDir,true), true);
                     mOrderQrIv.setImageBitmap(bitmap);
                     List<TextKeyValueBean> arraysClient = new ArrayList<>();
                     arraysClient.add(new TextKeyValueBean("学校名称：", dataBean.getSchoolName()));

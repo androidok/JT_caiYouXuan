@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.example.chat.MainContract;
 import com.example.chat.chatmodule.ChatPresent;
 import com.juntai.disabled.basecomponent.bean.BaseMenuBean;
@@ -18,7 +19,6 @@ import com.juntai.disabled.video.CustomStandardGSYVideoPlayer;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppFragment;
 import com.juntai.project.sell.mall.utils.ToolShare;
-import com.juntai.project.sell.mall.utils.bannerImageLoader.BannerObject;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 
