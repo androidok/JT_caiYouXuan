@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.beans.order;
+package com.example.appbase.bean;
 
 
 import android.os.Parcel;
@@ -15,7 +15,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/11 15:12
  */
-public class OrderListBean extends BaseResult implements Parcelable {
+public class SellOrderListBean extends BaseResult implements Parcelable {
 
     private double totalPrice;
     private int totalCommodityNum;
@@ -63,7 +63,7 @@ public class OrderListBean extends BaseResult implements Parcelable {
         private int pageSize;
         private int totalPage;
         private int currPage;
-        private List<OrderDetailBean> list;
+        private List<SellOrderDetailBean> list;
 
         public int getTotalCount() {
             return totalCount;
@@ -97,11 +97,11 @@ public class OrderListBean extends BaseResult implements Parcelable {
             this.currPage = currPage;
         }
 
-        public List<OrderDetailBean> getList() {
+        public List<SellOrderDetailBean> getList() {
             return list;
         }
 
-        public void setList(List<OrderDetailBean> list) {
+        public void setList(List<SellOrderDetailBean> list) {
             this.list = list;
         }
 
@@ -127,7 +127,7 @@ public class OrderListBean extends BaseResult implements Parcelable {
             this.pageSize = in.readInt();
             this.totalPage = in.readInt();
             this.currPage = in.readInt();
-            this.list = in.createTypedArrayList(OrderDetailBean.CREATOR);
+            this.list = in.createTypedArrayList(SellOrderDetailBean.CREATOR);
         }
 
         public static final Parcelable.Creator<DataBean> CREATOR = new Parcelable.Creator<DataBean>() {
@@ -143,7 +143,7 @@ public class OrderListBean extends BaseResult implements Parcelable {
         };
     }
 
-    public OrderListBean() {
+    public SellOrderListBean() {
     }
 
     @Override
@@ -158,21 +158,21 @@ public class OrderListBean extends BaseResult implements Parcelable {
         dest.writeParcelable(this.data, flags);
     }
 
-    protected OrderListBean(Parcel in) {
+    protected SellOrderListBean(Parcel in) {
         this.totalPrice = in.readDouble();
         this.totalCommodityNum = in.readInt();
         this.data = in.readParcelable(DataBean.class.getClassLoader());
     }
 
-    public static final Creator<OrderListBean> CREATOR = new Creator<OrderListBean>() {
+    public static final Creator<SellOrderListBean> CREATOR = new Creator<SellOrderListBean>() {
         @Override
-        public OrderListBean createFromParcel(Parcel source) {
-            return new OrderListBean(source);
+        public SellOrderListBean createFromParcel(Parcel source) {
+            return new SellOrderListBean(source);
         }
 
         @Override
-        public OrderListBean[] newArray(int size) {
-            return new OrderListBean[size];
+        public SellOrderListBean[] newArray(int size) {
+            return new SellOrderListBean[size];
         }
     };
 }

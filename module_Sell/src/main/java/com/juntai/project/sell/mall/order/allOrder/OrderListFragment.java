@@ -13,8 +13,8 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
-import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
-import com.juntai.project.sell.mall.beans.order.OrderListBean;
+import com.example.appbase.bean.SellOrderDetailBean;
+import com.example.appbase.bean.SellOrderListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.order.OrderPresent;
 
@@ -71,7 +71,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                OrderDetailBean orderDetailBean = (OrderDetailBean) adapter.getItem(position);
+                SellOrderDetailBean orderDetailBean = (SellOrderDetailBean) adapter.getItem(position);
                 getBaseAppActivity().startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
 
             }
@@ -79,7 +79,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                OrderDetailBean orderDetailBean = (OrderDetailBean) adapter.getItem(position);
+                SellOrderDetailBean orderDetailBean = (SellOrderDetailBean) adapter.getItem(position);
                 TextView orderLeftTv = (TextView) adapter.getViewByPosition(mRecyclerview, position, R.id.order_left_tv);
                 TextView orderRightTv = (TextView) adapter.getViewByPosition(mRecyclerview, position, R.id.order_right_tv);
 
@@ -228,11 +228,11 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
         super.onSuccess(tag, o);
         switch (tag) {
             case AppHttpPathMall.ORDER_LIST:
-                OrderListBean orderListBean = (OrderListBean) o;
+                SellOrderListBean orderListBean = (SellOrderListBean) o;
                 if (orderListBean != null) {
-                    OrderListBean.DataBean dataBean = orderListBean.getData();
+                    SellOrderListBean.DataBean dataBean = orderListBean.getData();
                     if (dataBean != null) {
-                        List<OrderDetailBean> arrays = dataBean.getList();
+                        List<SellOrderDetailBean> arrays = dataBean.getList();
                         setData(arrays, dataBean.getTotalCount());
                     }
                 }

@@ -3,6 +3,7 @@ package com.juntai.project.sell.mall.beans.order;
 import android.os.Parcel;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.example.appbase.bean.SellOrderDetailBean;
 
 import java.util.List;
 
@@ -16,9 +17,9 @@ import java.util.List;
 public class ConfirmOrderBean extends BaseResult {
     private double totalPrice;
     private int totalCommodityNum;
-    private List<OrderDetailBean> data;
+    private List<SellOrderDetailBean> data;
 
-    public List<OrderDetailBean> getData() {
+    public List<SellOrderDetailBean> getData() {
         return data;
     }
 
@@ -38,7 +39,7 @@ public class ConfirmOrderBean extends BaseResult {
         this.totalCommodityNum = totalCommodityNum;
     }
 
-    public void setData(List<OrderDetailBean> data) {
+    public void setData(List<SellOrderDetailBean> data) {
         this.data = data;
     }
 
@@ -62,7 +63,7 @@ public class ConfirmOrderBean extends BaseResult {
         super(in);
         this.totalPrice = in.readDouble();
         this.totalCommodityNum = in.readInt();
-        this.data = in.createTypedArrayList(OrderDetailBean.CREATOR);
+        this.data = in.createTypedArrayList(SellOrderDetailBean.CREATOR);
     }
 
     public static final Creator<ConfirmOrderBean> CREATOR = new Creator<ConfirmOrderBean>() {

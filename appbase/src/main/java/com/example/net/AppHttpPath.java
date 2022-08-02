@@ -413,6 +413,8 @@ public class AppHttpPath {
      * 分拣详情
      */
     public static final String SORT_ORDER_DETAIL = BASE + "/manage/selectSortingOrderInfo";
+    public static final String NF_ORDER_LIST = BASE + "/manage/selectOrderFormList";
+
     /**
      * 分拣状态
      */

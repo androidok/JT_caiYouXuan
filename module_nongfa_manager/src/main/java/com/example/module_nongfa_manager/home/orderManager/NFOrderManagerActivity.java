@@ -1,6 +1,7 @@
 package com.example.module_nongfa_manager.home.orderManager;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -9,9 +10,8 @@ import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.HomePresent;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.mvp.IView;
-import com.juntai.project.sell.mall.AppHttpPathMall;
-import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
-import com.juntai.project.sell.mall.beans.order.OrderListBean;
+import com.example.appbase.bean.SellOrderDetailBean;
+import com.example.appbase.bean.SellOrderListBean;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import okhttp3.FormBody;
  */
 public class NFOrderManagerActivity extends BaseSearchAndListActivity<HomePresent> implements IView {
 
-    private OrderDetailBean orderDetailBean;
+    private SellOrderDetailBean orderDetailBean;
     private int currentPosition;
 
     @Override
@@ -64,7 +64,7 @@ public class NFOrderManagerActivity extends BaseSearchAndListActivity<HomePresen
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                orderDetailBean = (OrderDetailBean) adapter.getItem(position);
+                orderDetailBean = (SellOrderDetailBean) adapter.getItem(position);
                 currentPosition = position;
                 int id = view.getId();
                 if (id == R.id.order_left_tv) {// : 2022/8/2 分拣
@@ -83,6 +83,9 @@ public class NFOrderManagerActivity extends BaseSearchAndListActivity<HomePresen
                             );
                         }
                     });
+                }else if (id == R.id.shop_bottom_cl) {
+                    //订单详情
+                    startActivity(new Intent(mContext,NFOrderDetailActivity.class).putExtra(BASE_ID,orderDetailBean.getId()));
                 }
             }
         });
@@ -94,8 +97,8 @@ public class NFOrderManagerActivity extends BaseSearchAndListActivity<HomePresen
                 .add("keyword", mSearchContentSv.getQuery().toString().trim())
                 .add("payType", "0")
                 .add("limit", String.valueOf(limit));
-        mPresenter.getOrderList(builder
-                .build(), AppHttpPathMall.ORDER_LIST
+        mPresenter.getNfOrderList(builder
+                .build(), AppHttpPath.NF_ORDER_LIST
         );
     }
 
@@ -113,12 +116,12 @@ public class NFOrderManagerActivity extends BaseSearchAndListActivity<HomePresen
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag, o);
         switch (tag) {
-            case AppHttpPathMall.ORDER_LIST:
-                OrderListBean orderListBean = (OrderListBean) o;
+            case AppHttpPath.NF_ORDER_LIST:
+                SellOrderListBean orderListBean = (SellOrderListBean) o;
                 if (orderListBean != null) {
-                    OrderListBean.DataBean dataBean = orderListBean.getData();
+                    SellOrderListBean.DataBean dataBean = orderListBean.getData();
                     if (dataBean != null) {
-                        List<OrderDetailBean> arrays = dataBean.getList();
+                        List<SellOrderDetailBean> arrays = dataBean.getList();
                         setData(arrays, dataBean.getTotalCount());
                     }
                 }

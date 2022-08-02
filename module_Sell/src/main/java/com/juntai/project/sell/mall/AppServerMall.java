@@ -19,7 +19,7 @@ import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
 import com.juntai.project.sell.mall.beans.WithDrawListBean;
 import com.juntai.project.sell.mall.beans.order.ConfirmOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailDataBean;
-import com.juntai.project.sell.mall.beans.order.OrderListBean;
+import com.example.appbase.bean.SellOrderListBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayWxBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayZfbBean;
 import com.juntai.project.sell.mall.beans.order.RefundReasonBean;
@@ -187,7 +187,7 @@ public interface AppServerMall {
 
 
     @POST(AppHttpPathMall.ORDER_LIST)
-    Observable<OrderListBean> getOrderList(@Body RequestBody requestBody);
+    Observable<SellOrderListBean> getOrderList(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.ORDER_DETAIL)
     Observable<OrderDetailDataBean> getOrderDetail(@Body RequestBody requestBody);

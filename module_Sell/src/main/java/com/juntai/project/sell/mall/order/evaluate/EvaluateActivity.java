@@ -15,7 +15,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.selectPics.BaseSelectPhotosFragment;
 import com.juntai.project.sell.mall.base.selectPics.BaseSelectPicsAndVedioActivity;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
-import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
+import com.example.appbase.bean.SellOrderDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.order.OrderPresent;
 import com.juntai.project.sell.mall.order.refund.RefundCommodityAdapter;
@@ -40,9 +40,9 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
     private TextView mEvaluateShopNameTv;
     private RatingBar mCommodityEvaluateRatingBar;
     private RatingBar mShopEvaluateRatingBar;
-    OrderDetailBean orderDetailBean;
+    SellOrderDetailBean orderDetailBean;
 
-    OrderDetailBean.CommodityListBean commodityBean;
+    SellOrderDetailBean.CommodityListBean commodityBean;
     /**
      * 从多个角度评价宝贝，帮助更多更想买的人吧
      */
@@ -136,7 +136,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
         if (orderDetailBean == null) {
             finish();
         }
-        List<OrderDetailBean.CommodityListBean> commodityListBeans = orderDetailBean.getCommodityList();
+        List<SellOrderDetailBean.CommodityListBean> commodityListBeans = orderDetailBean.getCommodityList();
         baseQuickAdapter.setNewData(commodityListBeans);
     }
 

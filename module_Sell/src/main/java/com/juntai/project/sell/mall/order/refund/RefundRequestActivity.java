@@ -7,7 +7,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
-import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
+import com.example.appbase.bean.SellOrderDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.order.OrderPresent;
 
@@ -24,7 +24,7 @@ public class RefundRequestActivity extends BaseRecyclerviewActivity<OrderPresent
 
     private ConstraintLayout mRefundCl;
     private ConstraintLayout mRefundGoodsCl;
-    private OrderDetailBean orderDetailBean;
+    private SellOrderDetailBean orderDetailBean;
 
     @Override
     protected OrderPresent createPresenter() {
@@ -48,7 +48,7 @@ public class RefundRequestActivity extends BaseRecyclerviewActivity<OrderPresent
         if (orderDetailBean == null) {
             finish();
         }
-        List<OrderDetailBean.CommodityListBean> commodityListBeans = orderDetailBean.getCommodityList();
+        List<SellOrderDetailBean.CommodityListBean> commodityListBeans = orderDetailBean.getCommodityList();
         baseQuickAdapter.setNewData(commodityListBeans);
 
     }

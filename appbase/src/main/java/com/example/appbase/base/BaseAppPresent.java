@@ -12,6 +12,7 @@ import com.example.appbase.bean.multiBean.MultiRadioBean;
 import com.example.appbase.bean.nong_fa_manager.CommodityManagerDetailBean;
 import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
 import com.example.appbase.bean.nong_fa_manager.ShopManagerDetailBean;
+import com.example.appbase.bean.nong_fa_manager.SortDetailBean;
 import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
@@ -637,9 +638,9 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
         AppNetModule.createrRetrofit()
                 .getSortOrderDetail(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                .subscribe(new BaseObserver<SortDetailBean>(getView()) {
                     @Override
-                    public void onSuccess(BaseResult o) {
+                    public void onSuccess(SortDetailBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

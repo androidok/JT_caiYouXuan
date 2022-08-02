@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.beans.order;
+package com.example.appbase.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -14,7 +14,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/11 15:25
  */
-public class OrderDetailBean extends BaseResult implements Parcelable {
+public class SellOrderDetailBean extends BaseResult implements Parcelable {
 
 
     /**
@@ -87,9 +87,9 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
     private ReturnOrderFormInfoBean returnOrderFormInfo;
     private CommodityEvaluateBean commodityEvaluateVo;
     private List<CommodityListBean> commodityList;
-    private Integer sorting;//分拣状态（1未分拣；2分拣完成）
+    private int sorting;//分拣状态（1未分拣；2分拣完成）
 
-    private Integer delivery;//配送状态（1为配送；2已配送）
+    private int delivery;//配送状态（1为配送；2已配送）
     public CommodityEvaluateBean getCommodityEvaluateVo() {
         return commodityEvaluateVo;
     }
@@ -98,19 +98,19 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         this.commodityEvaluateVo = commodityEvaluateVo;
     }
 
-    public Integer getSorting() {
+    public int getSorting() {
         return sorting;
     }
 
-    public void setSorting(Integer sorting) {
+    public void setSorting(int sorting) {
         this.sorting = sorting;
     }
 
-    public Integer getDelivery() {
+    public int getDelivery() {
         return delivery;
     }
 
-    public void setDelivery(Integer delivery) {
+    public void setDelivery(int delivery) {
         this.delivery = delivery;
     }
 
@@ -849,7 +849,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         };
     }
 
-    public OrderDetailBean() {
+    public SellOrderDetailBean() {
     }
 
 
@@ -990,7 +990,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         dest.writeValue(this.delivery);
     }
 
-    protected OrderDetailBean(Parcel in) {
+    protected SellOrderDetailBean(Parcel in) {
         super(in);
         this.id = in.readInt();
         this.orderFormNumber = in.readString();
@@ -1028,15 +1028,15 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         this.delivery = (Integer) in.readValue(Integer.class.getClassLoader());
     }
 
-    public static final Creator<OrderDetailBean> CREATOR = new Creator<OrderDetailBean>() {
+    public static final Creator<SellOrderDetailBean> CREATOR = new Creator<SellOrderDetailBean>() {
         @Override
-        public OrderDetailBean createFromParcel(Parcel source) {
-            return new OrderDetailBean(source);
+        public SellOrderDetailBean createFromParcel(Parcel source) {
+            return new SellOrderDetailBean(source);
         }
 
         @Override
-        public OrderDetailBean[] newArray(int size) {
-            return new OrderDetailBean[size];
+        public SellOrderDetailBean[] newArray(int size) {
+            return new SellOrderDetailBean[size];
         }
     };
 }

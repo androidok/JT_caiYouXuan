@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.order.allOrder;
+package com.example.module_nongfa_manager.home.orderManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -13,8 +13,8 @@ import com.example.appbase.bean.SellOrderDetailBean;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/11 10:38
  */
-public class OrderCommodityAdapter extends BaseQuickAdapter<SellOrderDetailBean.CommodityListBean, BaseViewHolder> {
-    public OrderCommodityAdapter(int layoutResId) {
+public class NFOrderDetailCommodityAdapter extends BaseQuickAdapter<SellOrderDetailBean.CommodityListBean, BaseViewHolder> {
+    public NFOrderDetailCommodityAdapter(int layoutResId) {
         super(layoutResId);
     }
 

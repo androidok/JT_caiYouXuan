@@ -44,7 +44,7 @@ import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
-import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
+import com.example.appbase.bean.SellOrderDetailBean;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
@@ -425,7 +425,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
     /**
      * 跳入 申请退款界面
      */
-    public void startToOrderRefundRequestActivity(OrderDetailBean orderDetailBean) {
+    public void startToOrderRefundRequestActivity(SellOrderDetailBean orderDetailBean) {
         startActivity(new Intent(mContext, RefundRequestActivity.class)
                 .putExtra(BASE_PARCELABLE, orderDetailBean)
         );
@@ -438,7 +438,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
         switch (eventBusObject.getEventKey()) {
             case EventBusObject.EVALUATE:
                 if (this instanceof OrderManagerActivity) {
-                    OrderDetailBean.CommodityListBean commodityBean = (OrderDetailBean.CommodityListBean) eventBusObject.getEventObj();
+                    SellOrderDetailBean.CommodityListBean commodityBean = (SellOrderDetailBean.CommodityListBean) eventBusObject.getEventObj();
                     startToEvaluateActivity(commodityBean);
                 }
                 break;
@@ -475,9 +475,9 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
     /**
      * 跳入 评价
      */
-    public void startToEvaluateActivity(OrderDetailBean.CommodityListBean commodityBean) {
-        OrderDetailBean orderDetailBean = new OrderDetailBean();
-        List<OrderDetailBean.CommodityListBean> listBeans = new ArrayList<>();
+    public void startToEvaluateActivity(SellOrderDetailBean.CommodityListBean commodityBean) {
+        SellOrderDetailBean orderDetailBean = new SellOrderDetailBean();
+        List<SellOrderDetailBean.CommodityListBean> listBeans = new ArrayList<>();
         listBeans.add(commodityBean);
         orderDetailBean.setShopName(commodityBean.getShopName());
         orderDetailBean.setCommodityList(listBeans);
@@ -491,7 +491,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      * 跳入 评价
      * receivedStatus 是否收到货物  1未收到 2 收到
      */
-    public void startToRefundActivity(OrderDetailBean orderDetailBean, int receivedStatus) {
+    public void startToRefundActivity(SellOrderDetailBean orderDetailBean, int receivedStatus) {
         startActivity(new Intent(mContext, RefundActivity.class)
                 .putExtra(BASE_ID, receivedStatus)
                 .putExtra(BASE_PARCELABLE, orderDetailBean));

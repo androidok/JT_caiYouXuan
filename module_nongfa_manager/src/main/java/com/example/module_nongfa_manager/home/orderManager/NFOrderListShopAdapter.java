@@ -8,7 +8,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.module_nongfa_manager.R;
-import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
+import com.example.appbase.bean.SellOrderDetailBean;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
 import java.util.List;
@@ -20,25 +20,25 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/12 14:32
  */
-public class NFOrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, BaseViewHolder> {
+public class NFOrderListShopAdapter extends BaseQuickAdapter<SellOrderDetailBean, BaseViewHolder> {
     public NFOrderListShopAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, OrderDetailBean item) {
+    protected void convert(BaseViewHolder helper, SellOrderDetailBean item) {
 
         helper.setText(R.id.order_shop_name_tv, UserInfoManagerMall.getShopName());
         helper.addOnClickListener(R.id.shop_bottom_cl);
 
         RecyclerView recyclerView = helper.getView(R.id.order_commodities_rv);
-        NFOrderCommodityAdapter orderCommodityAdapter = new NFOrderCommodityAdapter(R.layout.nf_manager_order_commodity_item);
+        NFOrderListCommodityAdapter orderCommodityAdapter = new NFOrderListCommodityAdapter(R.layout.nf_manager_order_commodity_item);
         LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         recyclerView.setAdapter(orderCommodityAdapter);
         recyclerView.setLayoutManager(manager);
-        List<OrderDetailBean.CommodityListBean> arrays = item.getCommodityList();
+        List<SellOrderDetailBean.CommodityListBean> arrays = item.getCommodityList();
         if (!arrays.isEmpty()) {
-            for (OrderDetailBean.CommodityListBean array : arrays) {
+            for (SellOrderDetailBean.CommodityListBean array : arrays) {
                 array.setOrderStatus(item.getState());
             }
         }
