@@ -215,7 +215,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         UserInfoManager.clearUserData();//清理数据
         HawkProperty.clearRedPoint(mContext.getApplicationContext());
         ActivityManagerTool.getInstance().finishApp();
-        ARouter.getInstance().build(ARouterPath.activityLogin)
+        ARouter.getInstance().build(ARouterPath.appLogin)
                 .withString(BASE_STRING,regPhone)
                 .navigation();
     }

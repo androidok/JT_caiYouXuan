@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.appbase.scan.QRScanActivity;
 import com.example.module_nongfa_manager.base.BaseNFActivity;
-import com.example.module_nongfa_manager.base.NfManagerQRScanActivity;
 import com.example.module_nongfa_manager.home.NFHomeFragment;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.project.sell.mall.mine.MyCenterFragment;
@@ -164,8 +164,8 @@ public class MainNFManagerActivity extends BaseNFActivity implements View.OnClic
         if (id == R.id.navigation_home_cl) {
             initBottomViewStatus(0);
         } else if (id == R.id.navigation_scan_iv) {
-            // TODO: 2022/7/28 扫描
-            startActivity(new Intent(mContext, NfManagerQRScanActivity.class));
+            // : 2022/7/28 扫描
+            startActivity(new Intent(mContext, QRScanActivity.class));
         } else if (id == R.id.navigation_mine_ll) {
             initBottomViewStatus(1);
         }

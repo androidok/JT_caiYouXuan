@@ -1,5 +1,6 @@
-package com.juntai.project.sell.mall.home;
+package com.example.appbase.scan;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -8,16 +9,15 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.appbase.R;
+import com.example.appbase.base.BaseAppModuleActivity;
 import com.huawei.hms.hmsscankit.ScanUtil;
 import com.huawei.hms.ml.scan.HmsScan;
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
-import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.JsonUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.BaseAppActivity;
 import com.king.zxing.CaptureHelper;
 import com.king.zxing.OnCaptureCallback;
 import com.king.zxing.ViewfinderView;
@@ -29,11 +29,10 @@ import java.util.List;
 /**
  * 扫码
  *
- * @aouther ZhangZhenlong
  * @date 2020-3-18
  * @update 2020-06-08 tobato
  */
-public class QRScanActivity extends BaseAppActivity implements View.OnClickListener, OnCaptureCallback {
+public class QRScanActivity extends BaseAppModuleActivity implements View.OnClickListener, OnCaptureCallback {
     private SurfaceView mSurfaceView;
     private ViewfinderView mViewfinderView;
     private ImageView mZxingPic;
@@ -47,7 +46,7 @@ public class QRScanActivity extends BaseAppActivity implements View.OnClickListe
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_activity_qrscan;
+        return R.layout.activity_qrscan;
     }
 
     @Override
@@ -104,7 +103,7 @@ public class QRScanActivity extends BaseAppActivity implements View.OnClickListe
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SELECT_PIC_RESULT && resultCode == RESULT_OK) {
+        if (requestCode == SELECT_PIC_RESULT && resultCode == Activity.RESULT_OK) {
             String content = CodeUtils.parseCode(Matisse.obtainPathResult(data).get(0));
             resolveQrcode(content);
         }
@@ -125,37 +124,15 @@ public class QRScanActivity extends BaseAppActivity implements View.OnClickListe
             if (hmsScans != null && hmsScans.length > 0) {
                 result = hmsScans[0].showResult;
                 resolveQrcode(result);
-            }else {
-                    ToastUtils.toast(mContext,"没有检测到有效的二维码");
-            }
-
-        }
-
-    }
-
-    /**
-     * 解析二维码
-     *
-     * @param result
-     */
-    public void resolveQrcode(String result) {
-        /**
-         *  21960 菜优选的端口号
-         */
-        if (result.contains("juntaikeji") && result.contains("21960")) {
-            //内部二维码
-            String id = result.substring(result.lastIndexOf("=") + 1, result.length());
-            if (result.contains("shopShare")) {
-                //店铺分享
-                startToShop(Integer.parseInt(id));
             } else {
-                // todo: 2022/5/31 商品分享
+                ToastUtils.toast(mContext, "没有检测到有效的二维码");
             }
-        } else {
-            startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url", result));
+
         }
-        finish();
+
     }
+
+
 
     @Override
     public void onResume() {
@@ -198,7 +175,6 @@ public class QRScanActivity extends BaseAppActivity implements View.OnClickListe
         }
         return true;
     }
-
 
 
     @Override

@@ -7,7 +7,7 @@ import com.example.appbase.bean.SellCommodityDetailBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailDataBean;
 import com.juntai.project.sell.mall.home.shop.BaseShopActivity;
 
-public class CommodityDetailActivity extends BaseShopActivity {
+public class SellCommodityDetailActivity extends BaseShopActivity {
 
     @Override
     public void initData() {

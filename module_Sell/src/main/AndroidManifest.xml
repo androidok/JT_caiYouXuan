@@ -32,7 +32,7 @@
         <activity android:name=".mine.guide.NewHandGuideActivity" />
         <activity android:name=".order.send.SendActivity" />
         <activity android:name=".home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity" />
-        <activity android:name=".home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity" />
+        <activity android:name=".home.commodityManager.allCommodity.editCommodity.SellCommodityDetailActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.AddCommodityDetailInfoActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.AddCommodityActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.EditCommodityActivity" />
@@ -76,9 +76,6 @@
             android:name=".order.refund.RefundActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".order.evaluate.EvaluateActivity"
             android:launchMode="singleTop" />
         <activity
@@ -95,9 +92,6 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".search.SearchActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".home.QRScanActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".SellMainActivity"

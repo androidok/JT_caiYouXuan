@@ -19,7 +19,7 @@ import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-@Route(path = ARouterPath.activitySellMain)
+@Route(path = ARouterPath.sellMain)
 public class SellMainActivity extends BaseAppActivity<MainPagePresent> implements
         View.OnClickListener, MainPageContract.IMainPageView {
     private MainPagerAdapter adapter;

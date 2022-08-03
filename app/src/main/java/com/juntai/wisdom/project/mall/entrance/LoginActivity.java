@@ -34,7 +34,7 @@ import okhttp3.FormBody;
  * @description 描述  登录
  * @date 2020/3/6 9:12
  */
-@Route(path = ARouterPath.activityLogin)
+@Route(path = ARouterPath.appLogin)
 public class LoginActivity extends SmsCheckCodeActivity implements
         View.OnClickListener {
     /**
@@ -121,7 +121,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                                 case 0:
                                     // : 2022/6/8 跳转到店铺提交页面
                                     // : 2022/6/8 进入到店铺认证界面
-                                    ARouter.getInstance().build(ARouterPath.activitySellShopManager)
+                                    ARouter.getInstance().build(ARouterPath.sellShopManager)
                                             .navigation();
                                     finish();
                                     break;
@@ -137,7 +137,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                                     break;
                                 case 2:
                                     // : 2022/6/8 审核通过
-                                    ARouter.getInstance().build(ARouterPath.activitySellMain)
+                                    ARouter.getInstance().build(ARouterPath.sellMain)
                                             .navigation();
                                     finish();
                                     break;
@@ -176,7 +176,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     ShopDetailSellBean.DataBean dataBean = shopDetailBean.getData();
                     if (dataBean != null) {
                         // : 2022/6/8 进入到店铺认证界面
-                        ARouter.getInstance().build(ARouterPath.activitySellShopManager)
+                        ARouter.getInstance().build(ARouterPath.sellShopManager)
                                 .withParcelable(BASE_PARCELABLE,dataBean)
                                 .navigation();
                         finish();

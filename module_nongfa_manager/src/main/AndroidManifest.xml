@@ -10,7 +10,6 @@
         <activity android:name=".home.shopManager.ShopesManagerActivity" />
         <activity android:name=".home.commodityManager.CommodityManagerActivity" />
         <activity android:name=".MainNFManagerActivity" />
-        <activity android:name=".base.NfManagerQRScanActivity" />
     </application>
 
 </manifest>

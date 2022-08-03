@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.appbase.base.selectPics.BaseSelectPicsActivity;
 import com.example.appbase.bean.LiveDetailBean;
 import com.example.appbase.bean.LiveListBean;
@@ -22,6 +23,7 @@ import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
 import com.example.live_moudle.websocket.SocketManager;
 import com.example.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.base.WarnDialog;
 import com.juntai.disabled.basecomponent.mvp.IView;
@@ -42,6 +44,7 @@ import java.util.List;
  * @description 描述  进入直播间
  * @date 2022/7/4 17:12
  */
+@Route(path = ARouterPath.live_LiveRoomActivity)
 public class LiveRoomActivity extends BaseSelectPicsActivity<LivePresent> implements IView,
         View.OnClickListener, CommentFragment.OnLineUsersListener {
 

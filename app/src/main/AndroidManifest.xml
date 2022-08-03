@@ -63,9 +63,6 @@
             android:name=".order.refund.RefundActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".base.displayPicVideo.PicVideoDisplayActivity"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".order.evaluate.EvaluateActivity"
             android:launchMode="singleTop" />
         <activity
@@ -104,9 +101,6 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".entrance.RegistActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".home.QRScanActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".entrance.LoginActivity"

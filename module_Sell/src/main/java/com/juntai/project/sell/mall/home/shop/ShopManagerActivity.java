@@ -26,7 +26,7 @@ import okhttp3.FormBody;
  * @date 2022/6/9 14:15
  */
 
-@Route(path = ARouterPath.activitySellShopManager)
+@Route(path = ARouterPath.sellShopManager)
 public class ShopManagerActivity extends BaseShopActivity {
 
 

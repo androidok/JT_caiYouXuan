@@ -47,7 +47,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity;
-import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.SellCommodityDetailActivity;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
 import com.juntai.project.sell.mall.news.ChatActivity;
 import com.juntai.project.sell.mall.order.allOrder.OrderManagerActivity;
@@ -145,7 +145,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
         UserInfoManagerMall.clearUserData();//清理数据
         HawkProperty.clearRedPoint(mContext.getApplicationContext());
         ActivityManagerTool.getInstance().finishApp();
-        ARouter.getInstance().build(ARouterPath.activityLogin)
+        ARouter.getInstance().build(ARouterPath.appLogin)
                 .withString(BASE_STRING,regPhone)
                 .navigation();
     }
@@ -528,7 +528,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      * @param commodityId
      */
     public void startToCommodityDetail(int commodityId) {
-        startActivityForResult(new Intent(mContext, CommodityDetailActivity.class)
+        startActivityForResult(new Intent(mContext, SellCommodityDetailActivity.class)
                 .putExtra(BASE_ID, commodityId), BASE_REQUEST_RESULT);
     }
     /**
