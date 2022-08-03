@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.search.BaseSearchAndListActivity;
 import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.HomePresent;
+import com.example.module_nongfa_manager.home.orderManager.orderDetail.NFOrderDetailActivity;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.example.appbase.bean.SellOrderDetailBean;
@@ -85,7 +86,7 @@ public class NFOrderManagerActivity extends BaseSearchAndListActivity<HomePresen
                     });
                 }else if (id == R.id.shop_bottom_cl) {
                     //订单详情
-                    startActivity(new Intent(mContext,NFOrderDetailActivity.class).putExtra(BASE_ID,orderDetailBean.getId()));
+                    startActivity(new Intent(mContext, NFOrderDetailActivity.class).putExtra(BASE_ID,orderDetailBean.getId()));
                 }
             }
         });

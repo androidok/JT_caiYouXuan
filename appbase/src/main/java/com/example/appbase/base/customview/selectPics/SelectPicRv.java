@@ -23,18 +23,57 @@ import java.util.List;
  */
 public class SelectPicRv extends RecyclerView {
 
-    private int mSpanCount = 4;//一行的个数，默认4
-    private int mMaxCount = 9;//最大个数，默认9个
-    private boolean isDetail = false;//不是详情 可删除
+
     private SelectPhotosFragment.OnPhotoItemClick onPhotoItemClick;
+    private Builder builder = new Builder();
 
 
-    private GridLayoutManager gridLayoutManager;
+    public void setBuilder(Builder builder) {
+        this.builder = builder;
+    }
+
+    public static class Builder {
+
+        private int mSpanCount = 4;//一行的个数，默认4
+        private int mMaxCount = 9;//最大个数，默认9个
+        private boolean isDetail = false;//不是详情 可删除
+
+
+        public int getmSpanCount() {
+            return mSpanCount;
+        }
+
+        public Builder setmSpanCount(int mSpanCount) {
+            this.mSpanCount = mSpanCount;
+            return this;
+        }
+
+        public int getmMaxCount() {
+            return mMaxCount;
+        }
+
+        public Builder setmMaxCount(int mMaxCount) {
+            this.mMaxCount = mMaxCount;
+            return this;
+        }
+
+        public boolean isDetail() {
+            return isDetail;
+        }
+
+        public Builder setDetail(boolean detail) {
+            isDetail = detail;
+            return this;
+        }
+    }
+
     private SelectedPicsAdapter selectedPicsAdapter;
+
 
 
     public SelectPicRv(Context context) {
         super(context);
+        setBuilder(builder);
         initView(context);
     }
 
@@ -52,10 +91,16 @@ public class SelectPicRv extends RecyclerView {
 
 
     private void initView(Context context) {
-        gridLayoutManager = new GridLayoutManager(context, mSpanCount);
+        GridLayoutManager layoutManager = new GridLayoutManager(context, builder.getmSpanCount()){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         selectedPicsAdapter = new SelectedPicsAdapter(R.layout.selected_pic_item);
-        selectedPicsAdapter.setDetail(isDetail);
-        setLayoutManager(gridLayoutManager);
+        selectedPicsAdapter.setDetail(builder.isDetail());
+        setLayoutManager(layoutManager);
         setAdapter(selectedPicsAdapter);
         selectedPicsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -89,6 +134,7 @@ public class SelectPicRv extends RecyclerView {
                 }
             }
         });
+        setData(null);
     }
 
     public void setData(List<String> arrays) {
@@ -96,14 +142,13 @@ public class SelectPicRv extends RecyclerView {
             if (arrays == null) {
                 arrays = new ArrayList<>();
             }
-            if (arrays.size() < mMaxCount + 1 && !isDetail) {
-                arrays.add("-1");
-                arrays.add("-1");
+            if (arrays.size() < builder.getmMaxCount() + 1 && !builder.isDetail()) {
                 arrays.add("-1");
             }
             selectedPicsAdapter.setNewData(arrays);
         }
     }
+
     /**
      * 视频图片和普通图片的点击事件
      */

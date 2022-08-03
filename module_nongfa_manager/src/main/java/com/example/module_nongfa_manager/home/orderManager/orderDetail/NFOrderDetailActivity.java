@@ -1,4 +1,4 @@
-package com.example.module_nongfa_manager.home.orderManager;
+package com.example.module_nongfa_manager.home.orderManager.orderDetail;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +15,7 @@ import com.example.appbase.bean.nong_fa_manager.SortDetailBean;
 import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.HomePresent;
+import com.example.module_nongfa_manager.home.orderManager.NfOrderTextValueAdapter;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;

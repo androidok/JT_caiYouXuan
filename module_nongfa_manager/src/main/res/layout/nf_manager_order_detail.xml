@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_lighter">
-
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartrefreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,17 +64,12 @@
 
         </LinearLayout>
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/smartrefreshlayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,4 +96,6 @@
 
         </LinearLayout>
     </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 </android.support.v4.widget.NestedScrollView>

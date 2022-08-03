@@ -19,6 +19,5 @@ public class TestActivity extends AppCompatActivity {
 
     private void initView() {
         mCustomSpr = (SelectPicRv) findViewById(R.id.custom_spr);
-        mCustomSpr.setData(null);
     }
 }

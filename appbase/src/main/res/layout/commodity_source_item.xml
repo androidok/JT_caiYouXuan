@@ -119,7 +119,7 @@
         android:hint="文字描述..."
         android:padding="10dp"
         android:textColor="@color/black"
-        android:textSize="14dp" />\
+        android:textSize="14dp" />
 
     <TextView
         android:id="@+id/add_item_tv"

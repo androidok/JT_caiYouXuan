@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".home.orderManager.NFOrderDetailActivity"
+            android:name=".home.orderManager.orderDetail.NFOrderDetailActivity"
             android:launchMode="singleTask" />
         <activity android:name=".home.orderManager.NFOrderManagerActivity" />
         <activity android:name=".home.commodityManager.CheckCommodityActivity" />

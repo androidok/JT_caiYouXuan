@@ -49,9 +49,9 @@ public class SelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHolder
         }
         helper.addOnClickListener(R.id.select_pic_icon_iv);
         helper.addOnClickListener(R.id.delete_pushed_news_iv);
-        ImageView imageView = helper.getView(R.id.select_pic_icon_iv);
+//        ImageView imageView = helper.getView(R.id.select_pic_icon_iv);
 //        ConstraintLayout.LayoutParams linearParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
-//        linearParams.height = linearParams.width;
+//        linearParams.height = imageView.getWidth();
 //        imageView.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
     }
 }

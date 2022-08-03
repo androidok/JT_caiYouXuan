@@ -1,4 +1,4 @@
-package com.example.module_nongfa_manager.home.orderManager;
+package com.example.module_nongfa_manager.home.orderManager.orderDetail;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.appbase.bean.nong_fa_manager.SortDetailBean;
 import com.example.module_nongfa_manager.R;
+import com.example.module_nongfa_manager.home.orderManager.NfOrderTextValueAdapter;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 
@@ -54,6 +55,25 @@ public class NFOrderDetailCommodityAdapter extends BaseQuickAdapter<SortDetailBe
         arraysSource.add(new TextKeyValueBean("进货时间：", item.getPurchaseTime()));
         arraysSource.add(new TextKeyValueBean("进货人\u3000：", item.getPurchaseName()));
         sourceAdapter.setNewData(arraysSource);
+
+        RecyclerView sourcePicRv = helper.getView(R.id.source_info_pics_rv);
+        OrderCommoditySourceAdapter sourcePicAdapter = new OrderCommoditySourceAdapter(R.layout.nf_manager_source_pic_item);
+        LinearLayoutManager sourcePicmanager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+        };
+        sourcePicRv.setLayoutManager(sourcePicmanager);
+        sourcePicRv.setAdapter(sourcePicAdapter);
+        List<SortDetailBean.DataBean.CommodityListBean.TraceabilityListBean> traceabilityListBeanList = item.getTraceabilityList();
+        sourcePicAdapter.setNewData(traceabilityListBeanList);
+
 
     }
 }

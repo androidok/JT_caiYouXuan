@@ -155,7 +155,7 @@ public class UserInfoManager {
     }
 
     public static boolean canUsePubAccount() {
-        return (getUser() != null && getUser() != null) && getUser().getPaymentType() == 1;
+        return (getUser() != null && getUser() != null) && getUser().getType() == 1;
     }
 
     /**
