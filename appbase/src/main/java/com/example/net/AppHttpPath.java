@@ -3,8 +3,8 @@ package com.example.net;
 public class AppHttpPath {
 
 
-    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
-    //    public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
+//    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
+        public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
     public static final String BASE_SOCKET = "ws://192.168.124.148:8080/jt-mall/buyersSocket/";
     //    public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21970/jt-mall/buyersSocket/";
     public static final String BASE_IMAGE = "http://192.168.124.148:9598";
@@ -40,7 +40,7 @@ public class AppHttpPath {
      * /**
      * 检查更新
      */
-    public static final String APP_UPDATE = BASE + "/member/detectionAppVersions/1";
+    public static final String APP_UPDATE = BASE + "/member/detectionAppVersions";
 
     /**
      * 获取短信验证码

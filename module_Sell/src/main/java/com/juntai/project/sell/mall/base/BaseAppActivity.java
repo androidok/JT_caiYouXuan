@@ -27,6 +27,7 @@ import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
@@ -42,7 +43,6 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
-import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
@@ -213,7 +213,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
 
     @Override
     protected String getUpdateHttpUrl() {
-        return AppHttpPathMall.APP_UPDATE;
+        return AppHttpPath.APP_UPDATE;
     }
 
     /**

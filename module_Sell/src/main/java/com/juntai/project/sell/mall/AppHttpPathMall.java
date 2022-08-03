@@ -26,12 +26,6 @@ public class AppHttpPathMall {
 
 
     /**
-     * /**
-     * 检查更新
-     */
-    public static final String APP_UPDATE = BASE + "/member/detectionAppVersions/2";
-
-    /**
      * 获取短信验证码
      */
     public static final String GET_SMS_CODE = BASE + "/member/getSMSCode";
