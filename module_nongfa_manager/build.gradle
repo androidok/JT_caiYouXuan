@@ -10,6 +10,11 @@ android {
         versionName configs.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -37,4 +42,6 @@ dependencies {
     implementation project(':module_Base')
     implementation project(':appbase')
     implementation project(':module_Sell')
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+
 }

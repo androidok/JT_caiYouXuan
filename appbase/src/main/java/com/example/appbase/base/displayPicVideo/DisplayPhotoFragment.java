@@ -1,6 +1,5 @@
 package com.example.appbase.base.displayPicVideo;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import com.example.appbase.base.BaseAppModuleFragment;
 import com.huawei.hms.hmsscankit.ScanUtil;
 import com.huawei.hms.ml.scan.HmsScan;
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
-import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.bean.BaseMenuBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
@@ -195,7 +193,7 @@ public class DisplayPhotoFragment extends BaseAppModuleFragment<DisplayPresent> 
 
                                 case BaseMenuBean.PIC_MENU_SPOT_QRCODE:
                                     // : 2022/4/6 识别二维码
-                                    resolveQrcode(finalResult);
+                                    getBaseAppActivity().resolveQrcode(finalResult);
 
 
                                     break;
@@ -213,13 +211,6 @@ public class DisplayPhotoFragment extends BaseAppModuleFragment<DisplayPresent> 
         }
     }
 
-    /**
-     * 解析二维码
-     * @param result
-     */
-    public void resolveQrcode(String result) {
-        startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url", result));
-    }
 
     private void downloadImage() {
         String oldFilePath = null;

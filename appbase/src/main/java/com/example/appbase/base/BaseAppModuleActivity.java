@@ -75,7 +75,10 @@ public abstract class BaseAppModuleActivity<P extends BasePresenter> extends Bas
 
                     break;
                 case "4":
-                    //todo 农发 订单详情
+                    // 农发 订单详情
+                    ARouter.getInstance().build(ARouterPath.nf_NFOrderDetailActivity)
+                            .withInt(BaseActivity.BASE_ID,Integer.parseInt(id))
+                            .navigation();
                     break;
                 default:
                     break;

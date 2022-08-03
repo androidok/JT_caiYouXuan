@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.BaseRecyclerviewActivity;
 import com.example.appbase.bean.nong_fa_manager.SortDetailBean;
@@ -15,6 +16,7 @@ import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.HomePresent;
 import com.example.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
@@ -32,6 +34,8 @@ import okhttp3.FormBody;
  * @description 描述  农发 订单管理
  * @date 2022/8/2 10:43
  */
+
+@Route(path = ARouterPath.nf_NFOrderDetailActivity)
 public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent> implements IView {
 
     private String qrCodeImg = "orderQrImage.png";

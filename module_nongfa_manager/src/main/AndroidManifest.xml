@@ -3,7 +3,9 @@
     package="com.example.module_nongfa_manager">
 
     <application>
-        <activity android:name=".home.orderManager.NFOrderDetailActivity"></activity>
+        <activity
+            android:name=".home.orderManager.NFOrderDetailActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".home.orderManager.NFOrderManagerActivity" />
         <activity android:name=".home.commodityManager.CheckCommodityActivity" />
         <activity android:name=".home.shopManager.CheckShopActivity" />

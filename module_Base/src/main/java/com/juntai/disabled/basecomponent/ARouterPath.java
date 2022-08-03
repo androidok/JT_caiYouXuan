@@ -11,4 +11,5 @@ public class ARouterPath {
     public static final String sellShopManager = "/sell/ShopManagerActivity";
     public static final String sellMain = "/sell/SellMainActivity";
     public static final String live_LiveRoomActivity = "/live/LiveRoomActivity";
+    public static final String nf_NFOrderDetailActivity = "/nf_manager/NFOrderDetailActivity";
 }
