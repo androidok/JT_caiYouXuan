@@ -8,15 +8,15 @@ import android.text.TextUtils;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.example.appbase.base.web.BaseWebviewFragment;
 import com.example.appbase.bean.CommodityDetailBean;
 import com.example.appbase.bean.CommodityEvaluationBean;
+import com.example.appbase.util.bannerImageLoader.BannerObject;
+import com.example.appbase.util.bannerImageLoader.GlideImageLoader;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.evaluation.EvaluationAdapter;
-import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
-import com.juntai.wisdom.project.mall.utils.bannerImageLoader.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -62,7 +62,7 @@ public class CommodityAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Ba
                     public void OnBannerClick(int position) {
                         // : 2022/5/4 查看图片大图
 
-                        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,bannerObjects,position);
+                        DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext,bannerObjects,position);
                     }
                 });
                 banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

@@ -2,9 +2,9 @@ package com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.e
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 
 /**
  * @Author: tobato

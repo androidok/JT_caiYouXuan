@@ -137,8 +137,8 @@ public class DisplayVideoFragment extends BaseAppModuleFragment<DisplayPresent> 
                 MoreActionAdapter actionAdapter = new MoreActionAdapter(R.layout.more_action);
 
                 ((DisplayPicAndVideosActivity) getActivity()).initBottomDialog(getBaseActivity().getBaseBottomDialogMenus(
-                        new BaseMenuBean("分享", R.mipmap.share_pic_video_icon)
-                        , new BaseMenuBean("保存到本地", R.mipmap.save_icon)
+//                        new BaseMenuBean("分享", R.mipmap.share_pic_video_icon)
+                         new BaseMenuBean("保存到本地", R.mipmap.save_icon)
                         ), actionAdapter
                         , new GridLayoutManager(mContext, 5), new BaseBottomDialog.OnItemClick() {
                             @Override

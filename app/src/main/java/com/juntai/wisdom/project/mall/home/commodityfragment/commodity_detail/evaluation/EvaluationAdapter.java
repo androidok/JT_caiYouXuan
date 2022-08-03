@@ -7,11 +7,11 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.example.appbase.bean.CommodityEvaluationBean;
+import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
-import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +62,7 @@ public class EvaluationAdapter extends BaseQuickAdapter<CommodityEvaluationBean.
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 List<BannerObject> arrays = adapter.getData();
-                PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,arrays,position);
+                DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext,arrays,position);
 
 
             }

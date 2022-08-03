@@ -25,7 +25,6 @@ public class BannerObject implements Parcelable {
      */
     public final static String BANNER_TYPE_RTMP = "BANNER_TYPE_RTMP";
 
-
     private String eventKey;
     /**
      * 图片

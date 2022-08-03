@@ -8,10 +8,10 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
+import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.wisdom.project.mall.base.selectPics.ShowSelectedPicsAdapter;
-import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class OrderBaseInfoAdapter extends BaseQuickAdapter<OrderDetailItemBean, 
             refundPicAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
                 @Override
                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                    PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,bannerObjects,position);
+                    DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext,bannerObjects,position);
 
                 }
             });

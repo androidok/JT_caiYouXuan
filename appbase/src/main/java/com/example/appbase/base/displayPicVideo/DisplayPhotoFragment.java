@@ -149,8 +149,8 @@ public class DisplayPhotoFragment extends BaseAppModuleFragment<DisplayPresent> 
         int id = v.getId();
         if (id == R.id.display_pic_action_more_iv) {
             List<BaseMenuBean> menuBeans = getBaseActivity().getBaseBottomDialogMenus(
-                     new BaseMenuBean(BaseMenuBean.PIC_MENU_SHARE, R.mipmap.share_pic_video_icon)
-                    , new BaseMenuBean(BaseMenuBean.PIC_MENU_SAVE, R.mipmap.save_icon)
+//                     new BaseMenuBean(BaseMenuBean.PIC_MENU_SHARE, R.mipmap.share_pic_video_icon)
+                     new BaseMenuBean(BaseMenuBean.PIC_MENU_SAVE, R.mipmap.save_icon)
             );
             Bitmap bitmap = null;
             String result = null;
