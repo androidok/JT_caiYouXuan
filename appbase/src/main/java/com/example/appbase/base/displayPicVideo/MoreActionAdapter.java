@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.base.displayPicVideo;
+package com.example.appbase.base.displayPicVideo;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

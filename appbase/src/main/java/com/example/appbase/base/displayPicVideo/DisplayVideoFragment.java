@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.base.displayPicVideo;
+package com.example.appbase.base.displayPicVideo;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -7,18 +7,16 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.R;
+import com.example.appbase.base.BaseAppModuleFragment;
 import com.example.appbase.util.bannerImageLoader.BannerObject;
-import com.example.chat.MainContract;
-import com.example.chat.chatmodule.ChatPresent;
 import com.juntai.disabled.basecomponent.bean.BaseMenuBean;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.video.CustomStandardGSYVideoPlayer;
-import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.BaseAppFragment;
-import com.juntai.project.sell.mall.utils.ToolShare;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 
@@ -34,7 +32,7 @@ import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022-02-27 11:48
  */
-public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implements MainContract.IBaseView {
+public class DisplayVideoFragment extends BaseAppModuleFragment<DisplayPresent> implements IView {
 
 
     private CustomStandardGSYVideoPlayer videoPlayer;
@@ -42,8 +40,8 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
     private String videoCover,videoPath;
 
     @Override
-    protected ChatPresent createPresenter() {
-        return new ChatPresent();
+    protected DisplayPresent createPresenter() {
+        return new DisplayPresent();
     }
 
 
@@ -138,7 +136,7 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
             public void onClick(View v) {
                 MoreActionAdapter actionAdapter = new MoreActionAdapter(R.layout.more_action);
 
-                ((PicVideoDisplayActivity) getActivity()).initBottomDialog(getBaseActivity().getBaseBottomDialogMenus(
+                ((DisplayPicAndVideosActivity) getActivity()).initBottomDialog(getBaseActivity().getBaseBottomDialogMenus(
                         new BaseMenuBean("分享", R.mipmap.share_pic_video_icon)
                         , new BaseMenuBean("保存到本地", R.mipmap.save_icon)
                         ), actionAdapter
@@ -148,7 +146,7 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
                                 switch (position) {
                                     case 1:
                                         // TODO: 2022-02-28 分享
-                                        ToolShare.share(mContext, ToolShare.SHARE_WECHAT, "视频分享", "视频分享", videoCover, videoPath);
+//                                        ToolShare.share(mContext, ToolShare.SHARE_WECHAT, "视频分享", "视频分享", videoCover, videoPath);
 
                                         break;
                                     case 3:
@@ -166,13 +164,20 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
 
     }
 
+    @Override
+    protected void lazyloadGone() {
+        if (videoPlayer != null) {
+            videoPlayer.onVideoPause();
+        }
+    }
+
     private void downloadVideoFile() {
         String oldFilePath = null;
         oldFilePath = FileCacheUtils.isVideoFileExistsInDir(getSavedFileNameWithoutSuffix(videoPath), true);
 
         if (!TextUtils.isEmpty(oldFilePath)) {
             File file = new File(oldFilePath);
-            FileCacheUtils.copyFile((PicVideoDisplayActivity) getActivity(), oldFilePath, FileCacheUtils.getAppVideoPath(false) + getSavedFileNameWithoutSuffix(videoPath) + ".mp4", false);
+            FileCacheUtils.copyFile((DisplayPicAndVideosActivity) getActivity(), oldFilePath, FileCacheUtils.getAppVideoPath(false) + getSavedFileNameWithoutSuffix(videoPath) + ".mp4", false);
         } else {
             ToastUtils.toast(mContext, "视频缓存完成之后才可保存到本地");
         }
@@ -190,14 +195,6 @@ public class DisplayVideoFragment extends BaseAppFragment<ChatPresent> implement
         }
     }
 
-
-    @Override
-    protected void lazyloadGone() {
-        super.lazyloadGone();
-        if (videoPlayer != null) {
-            videoPlayer.onVideoPause();
-        }
-    }
 
     @Override
     protected int getLayoutRes() {

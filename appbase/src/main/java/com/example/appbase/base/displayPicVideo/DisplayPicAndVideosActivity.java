@@ -1,18 +1,17 @@
-package com.juntai.project.sell.mall.base.displayPicVideo;
+package com.example.appbase.base.displayPicVideo;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
+import com.example.appbase.R;
+import com.example.appbase.base.BaseAppModuleActivity;
 import com.example.appbase.util.bannerImageLoader.BannerObject;
-import com.example.chat.MainContract;
 import com.juntai.disabled.PicVideoViewPagerAdapter;
-import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
-import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.BaseAppActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
  * @description 描述  图片和视频全屏展示
  * @date 2022-02-25 16:04
  */
-public class PicVideoDisplayActivity extends BaseAppActivity implements MainContract.IBaseView {
+public class DisplayPicAndVideosActivity extends BaseAppModuleActivity<DisplayPresent> implements IView {
     PicVideoViewPagerAdapter myViewPagerAdapter;
     ViewPager viewPager;
     List<Fragment> fragmentList = new ArrayList<>();
@@ -33,7 +32,7 @@ public class PicVideoDisplayActivity extends BaseAppActivity implements MainCont
 
 
     public static void startPicVideoPlayActivity(Context mContext, List<BannerObject> bannerObjects, int position) {
-        Intent intent = new Intent(mContext,PicVideoDisplayActivity.class);
+        Intent intent = new Intent(mContext, DisplayPicAndVideosActivity.class);
         intent.putParcelableArrayListExtra(BASE_PARCELABLE, (ArrayList<BannerObject>) bannerObjects)
                 .putExtra(IMAGEITEM, position);
         mContext.startActivity(intent);
@@ -118,7 +117,7 @@ public class PicVideoDisplayActivity extends BaseAppActivity implements MainCont
     }
 
     @Override
-    protected BasePresenter createPresenter() {
+    protected DisplayPresent createPresenter() {
         return null;
     }
 

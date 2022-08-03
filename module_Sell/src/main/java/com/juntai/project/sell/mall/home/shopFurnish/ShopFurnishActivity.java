@@ -13,7 +13,7 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-import com.juntai.project.sell.mall.base.displayPicVideo.PicVideoDisplayActivity;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 import com.juntai.project.sell.mall.home.shop.ijkplayer.PlayerLiveActivity;
@@ -91,7 +91,7 @@ public class ShopFurnishActivity extends BaseAppActivity<ShopPresent> implements
                     case BannerObject.BANNER_TYPE_IMAGE:
                     case BannerObject.BANNER_TYPE_VIDEO:
                         // : 2022/5/21 展示图片大图
-                        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext, bannerPics, bannerPics.size() == bannerObjects.size() ? position : position - 1);
+                        DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext, bannerPics, bannerPics.size() == bannerObjects.size() ? position : position - 1);
                         break;
                     case BannerObject.BANNER_TYPE_RTMP:
                         BannerObject.StreamBean streamBean = bannerObject.getStreamBean();

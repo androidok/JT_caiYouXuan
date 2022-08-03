@@ -63,7 +63,7 @@ import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-import com.juntai.project.sell.mall.base.displayPicVideo.PicVideoDisplayActivity;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.utils.ObjectBoxMallUtil;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
@@ -439,7 +439,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
             }
 
         }
-        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,allPicVideoPath,position);
+        DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext,allPicVideoPath,position);
 
 
     }

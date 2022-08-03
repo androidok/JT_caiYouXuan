@@ -19,7 +19,7 @@ import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ScreenUtils;
-import com.juntai.project.sell.mall.base.displayPicVideo.PicVideoDisplayActivity;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.king.zxing.util.CodeUtils;
 
 import java.util.ArrayList;
@@ -107,8 +107,8 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
             public void onClick(View v) {
                 List<BannerObject> bannerObjects = new ArrayList<>();
                 bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, FileCacheUtils.getAppImagePath(true) + qrCodeImg));
-                startActivity(new Intent(mContext, PicVideoDisplayActivity.class).putParcelableArrayListExtra(BASE_PARCELABLE, (ArrayList<BannerObject>) bannerObjects)
-                        .putExtra(PicVideoDisplayActivity.IMAGEITEM, 0));
+                startActivity(new Intent(mContext, DisplayPicAndVideosActivity.class).putParcelableArrayListExtra(BASE_PARCELABLE, (ArrayList<BannerObject>) bannerObjects)
+                        .putExtra(DisplayPicAndVideosActivity.IMAGEITEM, 0));
             }
         });
         mClientInfoRv = (RecyclerView) findViewById(R.id.client_info_rv);

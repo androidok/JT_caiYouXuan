@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.base.displayPicVideo;
+package com.example.appbase.base.displayPicVideo;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,17 +9,15 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.chat.MainContract;
-import com.example.chat.chatmodule.ChatPresent;
+import com.example.appbase.R;
+import com.example.appbase.base.BaseAppModuleFragment;
 import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.bean.BaseMenuBean;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.video.img.PhotoView;
-import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.BaseAppFragment;
-import com.juntai.project.sell.mall.utils.ToolShare;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -34,7 +32,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022-02-27 11:48
  */
-public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implements View.OnClickListener, MainContract.IBaseView {
+public class DisplayPhotoFragment extends BaseAppModuleFragment<DisplayPresent> implements View.OnClickListener, IView {
 
 
     private PhotoView mPhotoDisplayPv;
@@ -46,8 +44,8 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
     private String picPath;
 
     @Override
-    protected ChatPresent createPresenter() {
-        return new ChatPresent();
+    protected DisplayPresent createPresenter() {
+        return new DisplayPresent();
     }
 
 
@@ -67,6 +65,11 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
 
     @Override
     protected void lazyLoad() {
+
+    }
+
+    @Override
+    protected void lazyloadGone() {
 
     }
 
@@ -101,7 +104,7 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
         if (!FileCacheUtils.isFileExists(FileCacheUtils.getAppImagePath(true) + getSavedFileName(picPath))) {
             //本地没有缓存
             ImageLoadUtil.loadImageCache(getActivity(), picPath, mPhotoDisplayPv);
-            ImageLoadUtil.setGlideDownloadFileToLocal((PicVideoDisplayActivity) getActivity(), mContext, picPath, true);
+            ImageLoadUtil.setGlideDownloadFileToLocal((DisplayPicAndVideosActivity) getActivity(), mContext, picPath, true);
 //            ToastUtils.toast(getBaseActivity(), "对方发送的   本地没有缓存");
 
         } else {
@@ -168,17 +171,17 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
 
 
             String finalResult = result;
-            ((PicVideoDisplayActivity) getActivity()).initBottomDialog(menuBeans
+            ((DisplayPicAndVideosActivity) getActivity()).initBottomDialog(menuBeans
                     , actionAdapter
                     , new GridLayoutManager(mContext, 5), new BaseBottomDialog.OnItemClick() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                             BaseMenuBean menuBean = (BaseMenuBean) adapter.getItem(position);
-                            ((PicVideoDisplayActivity) getActivity()).releaseBottomSheetDialog();
+                            ((DisplayPicAndVideosActivity) getActivity()).releaseBottomSheetDialog();
                             switch (menuBean.getName()) {
                                 case BaseMenuBean.PIC_MENU_SHARE:
                                     // TODO: 2022-02-28 分享
-                                    ToolShare.share(mContext, ToolShare.SHARE_WECHAT, "图片分享", "图片分享", picPath, picPath);
+//                                    ToolShare.share(mContext, ToolShare.SHARE_WECHAT, "图片分享", "图片分享", picPath, picPath);
 
                                     break;
                                 case BaseMenuBean.PIC_MENU_SAVE:
@@ -202,7 +205,7 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
             // : 2022-02-28 图片下载
             downloadImage();
         } else if (id == R.id.photo_display_pv) {
-            ((PicVideoDisplayActivity) getActivity()).onBackPressed();
+            ((DisplayPicAndVideosActivity) getActivity()).onBackPressed();
         }
     }
 
@@ -219,7 +222,7 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
         String newFilePath = null;
         oldFilePath = FileCacheUtils.getAppImagePath(true) + getSavedFileName(picPath);
         newFilePath = FileCacheUtils.getAppImagePath(false) + getSavedFileName(picPath);
-        FileCacheUtils.copyFile((PicVideoDisplayActivity) getActivity(), oldFilePath, newFilePath, false);
+        FileCacheUtils.copyFile((DisplayPicAndVideosActivity) getActivity(), oldFilePath, newFilePath, false);
 
     }
 

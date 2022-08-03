@@ -28,7 +28,7 @@ import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
-import com.juntai.project.sell.mall.base.displayPicVideo.PicVideoDisplayActivity;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
@@ -555,7 +555,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                 bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
             }
         }
-        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,bannerObjects,position);
+        DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext,bannerObjects,position);
     }
 
     @Override

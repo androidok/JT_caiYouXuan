@@ -76,7 +76,7 @@
             android:name=".order.refund.RefundActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".base.displayPicVideo.PicVideoDisplayActivity"
+            android:name="com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".order.evaluate.EvaluateActivity"
