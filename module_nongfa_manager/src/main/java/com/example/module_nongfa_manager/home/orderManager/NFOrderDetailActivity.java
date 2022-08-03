@@ -106,7 +106,7 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
             @Override
             public void onClick(View v) {
                 List<BannerObject> bannerObjects = new ArrayList<>();
-                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE,  FileCacheUtils.getAppImagePath(true)+ qrCodeImg));
+                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, FileCacheUtils.getAppImagePath(true) + qrCodeImg));
                 startActivity(new Intent(mContext, PicVideoDisplayActivity.class).putParcelableArrayListExtra(BASE_PARCELABLE, (ArrayList<BannerObject>) bannerObjects)
                         .putExtra(PicVideoDisplayActivity.IMAGEITEM, 0));
             }
@@ -135,7 +135,7 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
                     mOrderQrIv.setImageBitmap(bitmap);
                     List<TextKeyValueBean> arraysClient = new ArrayList<>();
                     arraysClient.add(new TextKeyValueBean("学校名称：", dataBean.getSchoolName()));
-                    arraysClient.add(new TextKeyValueBean("学校编码：", dataBean.getSchoolName()));
+                    arraysClient.add(new TextKeyValueBean("学校编码：", dataBean.getSchoolNumber()));
                     arraysClient.add(new TextKeyValueBean("收货人\u3000：", dataBean.getName()));
                     arraysClient.add(new TextKeyValueBean("联系电话：", dataBean.getPhone()));
                     arraysClient.add(new TextKeyValueBean("收货地址：", dataBean.getAddress()));
@@ -148,7 +148,8 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
                     arraysTrade.add(new TextKeyValueBean("付款时间：", dataBean.getPaymentTime()));
                     tradeAdapter.setNewData(arraysTrade);
 
-
+                    List<SortDetailBean.DataBean.CommodityListBean> commodityListBeans = dataBean.getCommodityList();
+                    baseQuickAdapter.setNewData(commodityListBeans);
 
 
                 }
@@ -158,6 +159,7 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
                 break;
         }
     }
+
     /**
      * 获取支付方式
      *
@@ -179,6 +181,7 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
         }
         return "";
     }
+
     /**
      * 订单状态(0：待付款）（1：待发货）（2：待收货）（3：待评价）（4：退款中）（5：完成）（6:订单取消）（7：退款完成）
      *

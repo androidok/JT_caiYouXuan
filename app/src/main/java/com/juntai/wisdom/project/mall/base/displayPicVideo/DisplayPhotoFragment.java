@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.MainContract;
 import com.example.chat.chatmodule.ChatPresent;
+import com.huawei.hms.hmsscankit.ScanUtil;
+import com.huawei.hms.ml.scan.HmsScan;
+import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.bean.BaseMenuBean;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
@@ -156,15 +159,15 @@ public class DisplayPhotoFragment extends BaseAppFragment<ChatPresent> implement
 //            } else {
 //                bitmap = getImageBitmap(FileCacheUtils.getAppImagePath(true) + getSavedFileName(messageBodyBean));
 //            }
-//            //“QRCODE_SCAN_TYPE ”和“ DATAMATRIX_SCAN_TYPE表示只扫描QR和Data Matrix的码
-//            HmsScanAnalyzerOptions options = new HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE, HmsScan.DATAMATRIX_SCAN_TYPE).setPhotoMode(true).create();
-//            HmsScan[] hmsScans = ScanUtil.decodeWithBitmap(mContext, bitmap, options);
-//            //处理扫码结果
-//            if (hmsScans != null && hmsScans.length > 0) {
-//                result = hmsScans[0].showResult;
-//                //展示扫码结果
-//                menuBeans.add(new BaseMenuBean(BaseMenuBean.PIC_MENU_SPOT_QRCODE, R.mipmap.create_qrcode_icon));
-//            }
+            //“QRCODE_SCAN_TYPE ”和“ DATAMATRIX_SCAN_TYPE表示只扫描QR和Data Matrix的码
+            HmsScanAnalyzerOptions options = new HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE, HmsScan.DATAMATRIX_SCAN_TYPE).setPhotoMode(true).create();
+            HmsScan[] hmsScans = ScanUtil.decodeWithBitmap(mContext, bitmap, options);
+            //处理扫码结果
+            if (hmsScans != null && hmsScans.length > 0) {
+                result = hmsScans[0].showResult;
+                //展示扫码结果
+                menuBeans.add(new BaseMenuBean(BaseMenuBean.PIC_MENU_SPOT_QRCODE, R.mipmap.create_qrcode_icon));
+            }
 
 
             String finalResult = result;
