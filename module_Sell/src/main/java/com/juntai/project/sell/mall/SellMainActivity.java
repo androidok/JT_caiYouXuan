@@ -8,16 +8,18 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.baidu.location.BDLocation;
 import com.example.appbase.base.customview.CustomViewPager;
 import com.example.appbase.base.customview.MainPagerAdapter;
 import com.example.appbase.util.UserInfoManager;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-
+@Route(path = ARouterPath.activitySellMain)
 public class SellMainActivity extends BaseAppActivity<MainPagePresent> implements
         View.OnClickListener, MainPageContract.IMainPageView {
     private MainPagerAdapter adapter;

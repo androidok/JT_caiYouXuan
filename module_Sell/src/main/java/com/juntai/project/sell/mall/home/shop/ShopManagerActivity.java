@@ -7,12 +7,14 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.appbase.bean.ShopDetailSellBean;
+import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
-import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
-import com.example.appbase.bean.ShopDetailSellBean;
 import com.juntai.project.sell.mall.utils.StringTools;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
@@ -23,6 +25,8 @@ import okhttp3.FormBody;
  * @description 描述 店铺管理
  * @date 2022/6/9 14:15
  */
+
+@Route(path = ARouterPath.activitySellShopManager)
 public class ShopManagerActivity extends BaseShopActivity {
 
 
