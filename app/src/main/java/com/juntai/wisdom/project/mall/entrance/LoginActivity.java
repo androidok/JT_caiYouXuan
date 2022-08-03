@@ -1,6 +1,5 @@
 package com.juntai.wisdom.project.mall.entrance;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,21 +10,13 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.appbase.bean.ShopDetailSellBean;
-import com.example.appbase.bean.UserBean;
-import com.example.appbase.util.UserInfoManager;
-import com.example.chat.MyChatApp;
-import com.example.module_nongfa_manager.MainNFManagerActivity;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.ARouterPath;
-import com.juntai.disabled.basecomponent.bean.ContactBean;
-import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.MainActivity;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.mall.mine.modifyPwd.BackPwdActivity;
-import com.orhanobut.hawk.Hawk;
 
 import okhttp3.FormBody;
 
@@ -100,74 +91,78 @@ public class LoginActivity extends SmsCheckCodeActivity implements
         switch (tag) {
             //登录成功
             case AppHttpPath.LOGIN:
-                UserBean loginBean = (UserBean) o;
-                if (loginBean != null) {
-                    ContactBean contactBean = loginBean.getData();
-                    MyChatApp.isReLoadWarn = true;
-                    Hawk.put(HawkProperty.SP_KEY_USER, contactBean);
-                    Hawk.put(HawkProperty.SP_KEY_TOKEN, contactBean.getToken());
-                    //账号类型（1学校人员；2商户人员；3农发人员）
-                    int type = contactBean.getType();
-                    switch (type) {
-                        case 1:
-                            //买家
-                            startActivity(new Intent(mContext, MainActivity.class));
-                            finish();
-                            break;
-                        case 2:
-                            //卖家
-                            int shopStatus = contactBean.getShopState();
-                            switch (shopStatus) {
-                                case 0:
-                                    // : 2022/6/8 跳转到店铺提交页面
-                                    // : 2022/6/8 进入到店铺认证界面
-                                    ARouter.getInstance().build(ARouterPath.sellShopManager)
-                                            .navigation();
-                                    finish();
-                                    break;
-                                case 1:
-                                    //审核中
-                                    showAlertDialogOfKnown("店铺正在审核中,请耐心等待", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                            finish();
-                                        }
-                                    });
-                                    break;
-                                case 2:
-                                    // : 2022/6/8 审核通过
-                                    ARouter.getInstance().build(ARouterPath.sellMain)
-                                            .navigation();
-                                    finish();
-                                    break;
-                                case 3:
-                                    // : 2022/6/8 审核失败  是否需要加上原因
-                                    showAlertDialog(String.format("%s,请重新提交", UserInfoManager.getUser().getShopContent()), "去认证", "", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            // : 2022/6/10 获取店铺信息 跳转到店铺管理页面
-                                            mPresenter.getSellShopDetail(getBaseBuilder().add("shopId", String.valueOf(UserInfoManager.getShopId())).build(), AppHttpPath.SHOP_DETAIL);
-                                        }
-                                    });
+                startActivity(new Intent(mContext, TestActivity.class));
+                finish();
 
-                                    break;
-                                default:
-
-                                    break;
-                            }
-                            break;
-                        case 3:
-                            //农发 管理端
-                            startActivity(new Intent(mContext, MainNFManagerActivity.class));
-                            finish();
-                            break;
-                        default:
-                            break;
-                    }
-
-
-                }
+//
+//                UserBean loginBean = (UserBean) o;
+//                if (loginBean != null) {
+//                    ContactBean contactBean = loginBean.getData();
+//                    MyChatApp.isReLoadWarn = true;
+//                    Hawk.put(HawkProperty.SP_KEY_USER, contactBean);
+//                    Hawk.put(HawkProperty.SP_KEY_TOKEN, contactBean.getToken());
+//                    //账号类型（1学校人员；2商户人员；3农发人员）
+//                    int type = contactBean.getType();
+//                    switch (type) {
+//                        case 1:
+//                            //买家
+//                            startActivity(new Intent(mContext, MainActivity.class));
+//                            finish();
+//                            break;
+//                        case 2:
+//                            //卖家
+//                            int shopStatus = contactBean.getShopState();
+//                            switch (shopStatus) {
+//                                case 0:
+//                                    // : 2022/6/8 跳转到店铺提交页面
+//                                    // : 2022/6/8 进入到店铺认证界面
+//                                    ARouter.getInstance().build(ARouterPath.sellShopManager)
+//                                            .navigation();
+//                                    finish();
+//                                    break;
+//                                case 1:
+//                                    //审核中
+//                                    showAlertDialogOfKnown("店铺正在审核中,请耐心等待", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            dialog.dismiss();
+//                                            finish();
+//                                        }
+//                                    });
+//                                    break;
+//                                case 2:
+//                                    // : 2022/6/8 审核通过
+//                                    ARouter.getInstance().build(ARouterPath.sellMain)
+//                                            .navigation();
+//                                    finish();
+//                                    break;
+//                                case 3:
+//                                    // : 2022/6/8 审核失败  是否需要加上原因
+//                                    showAlertDialog(String.format("%s,请重新提交", UserInfoManager.getUser().getShopContent()), "去认证", "", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            // : 2022/6/10 获取店铺信息 跳转到店铺管理页面
+//                                            mPresenter.getSellShopDetail(getBaseBuilder().add("shopId", String.valueOf(UserInfoManager.getShopId())).build(), AppHttpPath.SHOP_DETAIL);
+//                                        }
+//                                    });
+//
+//                                    break;
+//                                default:
+//
+//                                    break;
+//                            }
+//                            break;
+//                        case 3:
+//                            //农发 管理端
+//                            startActivity(new Intent(mContext, MainNFManagerActivity.class));
+//                            finish();
+//                            break;
+//                        default:
+//                            break;
+//                    }
+//
+//
+//                }
                 break;
 
             case AppHttpPath.SHOP_DETAIL:
@@ -177,7 +172,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     if (dataBean != null) {
                         // : 2022/6/8 进入到店铺认证界面
                         ARouter.getInstance().build(ARouterPath.sellShopManager)
-                                .withParcelable(BASE_PARCELABLE,dataBean)
+                                .withParcelable(BASE_PARCELABLE, dataBean)
                                 .navigation();
                         finish();
                     }

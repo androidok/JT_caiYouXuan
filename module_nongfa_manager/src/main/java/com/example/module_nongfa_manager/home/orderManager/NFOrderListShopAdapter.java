@@ -7,9 +7,8 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.module_nongfa_manager.R;
 import com.example.appbase.bean.SellOrderDetailBean;
-import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
+import com.example.module_nongfa_manager.R;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class NFOrderListShopAdapter extends BaseQuickAdapter<SellOrderDetailBean
     @Override
     protected void convert(BaseViewHolder helper, SellOrderDetailBean item) {
 
-        helper.setText(R.id.order_shop_name_tv, UserInfoManagerMall.getShopName());
+        helper.setText(R.id.order_shop_name_tv, item.getShopName());
         helper.addOnClickListener(R.id.shop_bottom_cl);
 
         RecyclerView recyclerView = helper.getView(R.id.order_commodities_rv);
