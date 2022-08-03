@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.example.appbase.R;
 import com.example.appbase.base.BaseAppPresent;
-import com.example.appbase.base.multi.adapters.CommodityManagerSourceAdapter;
+import com.example.appbase.base.multi.adapters.CommodityManagerSourceDetailAdapter;
 import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.example.appbase.bean.multiBean.ItemFragmentBean;
 import com.example.appbase.bean.multiBean.MultiNormalRecyclerviewBean;
@@ -87,7 +87,7 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
         if (traceabilityBean != null) {
             arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                     (MultiContact.COMMODITY_BILL, false)));
-            arrays.add(new MultipleItem(MultipleItem.ITEM_NORMAL_RECYCLEVIEW,new MultiNormalRecyclerviewBean(MultiContact.COMMODITY_BILL,traceabilityBean.getTraceabilityFile(),new CommodityManagerSourceAdapter(R.layout.commodity_source_item))));
+            arrays.add(new MultipleItem(MultipleItem.ITEM_NORMAL_RECYCLEVIEW,new MultiNormalRecyclerviewBean(MultiContact.COMMODITY_SOURCE,traceabilityBean.getTraceabilityFile(),new CommodityManagerSourceDetailAdapter(R.layout.commodity_source_detail_item))));
         }
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean

@@ -359,6 +359,7 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
 
                 switch (baseNormalRecyclerviewBean.getKey()) {
                     case MultiContact.COMMODITY_BILL:
+                    case MultiContact.COMMODITY_SOURCE:
                         List<CommodityManagerDetailBean.DataBean.TraceabilityBean.TraceabilityFileBean> arrays = (List<CommodityManagerDetailBean.DataBean.TraceabilityBean.TraceabilityFileBean>) baseNormalRecyclerviewBean.getObject();
                         adapter.setNewData(arrays);
                         break;
