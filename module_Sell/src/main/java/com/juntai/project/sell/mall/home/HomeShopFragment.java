@@ -261,7 +261,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         Hawk.put(HawkProperty.SHOP_NAME, dataBean.getName());
                         mShopCreatTimeTv.setText(String.format("开店时间：%s", dataBean.getCreateTime()));
                         mShopDesTv.setText(String.format("店铺简介：%s", dataBean.getIntroduction()));
-                        mShopScoreTv.setText(String.format("在售商品：%s", dataBean.getCommodityCount()));
+                        mShopScoreTv.setText(String.format("在售商品：%s", dataBean.getCommodityNum()));
                         ImageLoadUtil.loadHeadCirclePic(mContext, dataBean.getHeadPortrait(), mShopOwnerHeadIv);
                         List<ShopHomeInfoBean.DataBean.CategoryListBean> categoryListBeans = dataBean.getCategoryList();
                         if (categoryListBeans == null || categoryListBeans.isEmpty()) {

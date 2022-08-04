@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.example.appbase.base.customview.CustomViewPager;
 import com.example.appbase.bean.ShopDetailSellBean;
+import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.project.sell.mall.R;
@@ -109,7 +110,7 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<ShopPresent>
     private List<IdNameBean.DataBean> getLabels() {
         List<IdNameBean.DataBean> arrays = new ArrayList<>();
         //店铺
-        ShopDetailSellBean.DataBean shopBean = Hawk.get(HawkProperty.getShopKey((UserInfoManagerMall.getShopId())));
+        ShopDetailSellBean.DataBean shopBean = Hawk.get(HawkProperty.getShopSellKey((UserInfoManager.getShopId())));
         if (shopBean != null) {
             List<ShopDetailSellBean.DataBean.ClassifyListBean> classifyListBeans = shopBean.getClassifyList();
             if (classifyListBeans != null && !classifyListBeans.isEmpty()) {
@@ -165,7 +166,7 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<ShopPresent>
                 if (shopDetailBean != null) {
                     ShopDetailSellBean.DataBean shopBean = shopDetailBean.getData();
                     if (shopBean != null) {
-                        Hawk.put(HawkProperty.getShopKey(UserInfoManagerMall.getShopId()), shopBean);
+                        Hawk.put(HawkProperty.getShopSellKey(UserInfoManagerMall.getShopId()), shopBean);
                         initTabData();
                         ((ShopFurnishActivity) getActivity()).initOwnerBaseInfo(shopBean);
                     }

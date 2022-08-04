@@ -78,6 +78,13 @@ android {
     packagingOptions {//解决so文件重复问题，使用第一个
         pickFirst "**/libsqlite.so"
     }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src/main/assets', 'src/main/assets/js'
+            }
+        }
+    }
 //    viewBinding {
 //        enabled true
 //    }

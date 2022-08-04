@@ -117,9 +117,9 @@ public class ShopManagerActivity extends BaseShopActivity {
                 mShopProtocalRb.setChecked(true);
             }
             isAgree = !isAgree;
-        } else if (id == R.id.open_shop_protocal_tv) {// :  todo 2022/7/9 查看开店协议 内容需要更改
+        } else if (id == R.id.open_shop_protocal_tv) {
             startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url",
-                    getString(R.string.open_shop_protocal)));
+                    "file:///android_asset/kaidianxieyi.html"));
         }
     }
 

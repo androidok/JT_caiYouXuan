@@ -30,6 +30,7 @@ public class BaseWebViewActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        initToolbarAndStatusBar(false);
         mAgreementWeb = (WebView) findViewById(R.id.agreement_web);
         mAgreementLayout = (LinearLayout) findViewById(R.id.agreement_layout);
         urlString = getIntent().getStringExtra("url");

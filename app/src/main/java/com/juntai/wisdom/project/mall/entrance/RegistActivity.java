@@ -178,12 +178,12 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
             //用户协议
             case R.id.regist_protoca_user_tv:
                 startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url",
-                        getString(R.string.user_xieyi_url)));
+                        "file:///android_asset/user.html"));
                 break;
             //隐私协议
             case R.id.regist_protocal_secrecy_tv:
                 startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url",
-                        getString(R.string.secret_xieyi_url)));
+                        "file:///android_asset/yinsi.html"));
                 break;
             case R.id.get_code_tv:
                 sendCheckCode(getTextViewValue(mRegistPhoneEt));

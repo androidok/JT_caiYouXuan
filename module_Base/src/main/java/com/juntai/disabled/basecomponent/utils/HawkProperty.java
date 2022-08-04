@@ -47,8 +47,16 @@ public class HawkProperty {
      *
      * @return
      */
+    public static String getShopSellKey(int shopId) {
+        return SHOP_DETAIL +"sell"+ shopId;
+    }
+    /**
+     * 获取商铺的key
+     *
+     * @return
+     */
     public static String getShopKey(int shopId) {
-        return SHOP_DETAIL + shopId;
+        return SHOP_DETAIL +"buy"+ shopId;
     }
 
     /**
