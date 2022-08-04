@@ -21,6 +21,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.selectPics.BaseSelectPicsActivity;
+import com.example.appbase.base.share.ShareActivity;
 import com.example.appbase.bean.LiveListBean;
 import com.example.appbase.bean.SellOrderDetailBean;
 import com.example.appbase.bean.ShopDetailSellBean;
@@ -56,7 +57,6 @@ import com.juntai.project.sell.mall.order.orderDetail.OrderDetailActivity;
 import com.juntai.project.sell.mall.order.refund.RefundActivity;
 import com.juntai.project.sell.mall.order.refund.RefundRequestActivity;
 import com.juntai.project.sell.mall.order.send.SendActivity;
-import com.juntai.project.sell.mall.share.ShareActivity;
 import com.juntai.project.sell.mall.utils.ObjectBoxMallUtil;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.share.ShareActivity;
 import com.example.appbase.bean.PicTextBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.scan.QRScanActivity;
@@ -31,7 +32,6 @@ import com.juntai.project.sell.mall.home.shopFurnish.ShopFurnishActivity;
 import com.juntai.project.sell.mall.home.systemNotice.SystemNoticeActivity;
 import com.juntai.project.sell.mall.mine.MyCenterActivity;
 import com.juntai.project.sell.mall.search.SearchActivity;
-import com.juntai.project.sell.mall.share.ShareActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
 import com.sunfusheng.marqueeview.MarqueeView;

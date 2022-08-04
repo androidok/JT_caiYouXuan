@@ -1,10 +1,17 @@
 package com.juntai.wisdom.project.mall.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.bean.CommodityBean;
 import com.example.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.home.commodityfragment.BaseCommodityListFragment;
+import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityListAdapter;
+import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.CommodityDetailActivity;
 
 /**
  * @Author: tobato
@@ -23,6 +30,17 @@ public class SearchCommodityFragment extends BaseCommodityListFragment {
         SearchCommodityFragment fragment = new SearchCommodityFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+    @Override
+    protected BaseQuickAdapter getBaseQuickAdapter() {
+        return new CommodityListAdapter(R.layout.shop_commodity_list);
+    }
+
+    @Override
+    protected void itemClick(BaseQuickAdapter adapter, int position) {
+        CommodityBean bean = (CommodityBean) adapter.getItem(position);
+        startActivityForResult(new Intent(mContext, CommodityDetailActivity.class).putExtra(BaseActivity.BASE_ID, bean.getId()), BaseActivity.BASE_REQUEST_RESULT);
+
     }
 
     @Override

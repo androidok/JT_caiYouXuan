@@ -1,7 +1,10 @@
 package com.example.appbase.base;
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.location.BDLocation;
@@ -11,6 +14,8 @@ import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.mob.MobSDK;
 
 import java.util.List;
 
@@ -23,7 +28,17 @@ import okhttp3.FormBody;
  */
 public abstract class BaseAppModuleActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> {
 
-
+    /**
+     * 实现文本复制功能
+     *
+     * @param content
+     */
+    public void copy(String content) {
+// 得到剪贴板管理器
+        ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(content.trim());
+        ToastUtils.toast(mContext,"已复制");
+    }
     @Override
     protected String getUpdateHttpUrl() {
         return null;
@@ -31,6 +46,7 @@ public abstract class BaseAppModuleActivity<P extends BasePresenter> extends Bas
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
     @Override
     protected boolean canCancelLoadingDialog() {
@@ -87,6 +103,21 @@ public abstract class BaseAppModuleActivity<P extends BasePresenter> extends Bas
             startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url", result));
         }
         finish();
+    }
+
+    /**
+     * 获取文件名称
+     *
+     * @return
+     */
+    public String getSavedFileName(String content) {
+        if (TextUtils.isEmpty(content)) {
+            return null;
+        }
+        if (content.contains("/")) {
+            content = content.substring(content.lastIndexOf("/") + 1, content.length());
+        }
+        return content;
     }
     /**
      * 获取builder

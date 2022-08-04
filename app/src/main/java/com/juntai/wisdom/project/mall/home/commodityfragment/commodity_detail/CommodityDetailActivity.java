@@ -1,5 +1,6 @@
 package com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail;
 
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.PicTextAdapter;
 import com.example.appbase.bean.CommodityDetailBean;
 import com.example.appbase.bean.CommodityEvaluationBean;
 import com.example.appbase.bean.PicTextBean;
@@ -28,7 +30,7 @@ import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.evaluation.AllEvaluateFragment;
-import com.juntai.wisdom.project.mall.share.ShareActivity;
+import com.example.appbase.base.share.ShareActivity;
 
 import java.util.List;
 
@@ -123,18 +125,31 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                         // : 2022/5/3 收藏商品
                         if (collectId > 0) {
                             //取消收藏
-                            mPresenter.collectCommodity(getBaseBuilder()
-                                    .add("isCollect", "1")
-                                    .add("id", String.valueOf(collectId))
-                                    .add("commodityId", String.valueOf(commodityId)).build(), HomePageContract.UN_COLLECT_COMMODITY_SHOP
-                            );
+
+                            showAlertDialog("确定移除收藏？", "确定", "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mPresenter.collectCommodity(getBaseBuilder()
+                                            .add("isCollect", "1")
+                                            .add("id", String.valueOf(collectId))
+                                            .add("commodityId", String.valueOf(commodityId)).build(), HomePageContract.UN_COLLECT_COMMODITY_SHOP
+                                    );
+                                }
+                            });
+
 
                         } else {
                             //收藏
-                            mPresenter.collectCommodity(getBaseBuilder()
-                                    .add("isCollect", "0")
-                                    .add("commodityId", String.valueOf(commodityId)).build(), HomePageContract.COLLECT_COMMODITY_SHOP
-                            );
+                            showAlertDialog("确定添加到收藏？", "确定", "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mPresenter.collectCommodity(getBaseBuilder()
+                                            .add("isCollect", "0")
+                                            .add("commodityId", String.valueOf(commodityId)).build(), HomePageContract.COLLECT_COMMODITY_SHOP
+                                    );
+                                }
+                            });
+
 
                         }
 

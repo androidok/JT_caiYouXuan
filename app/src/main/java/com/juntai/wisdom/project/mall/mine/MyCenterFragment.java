@@ -21,7 +21,7 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
-import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.PicTextAdapter;
+import com.example.appbase.PicTextAdapter;
 import com.juntai.wisdom.project.mall.mine.collect.CollectCommoditiesActivity;
 import com.juntai.wisdom.project.mall.mine.collect.CollectShopesActivity;
 import com.juntai.wisdom.project.mall.mine.setting.MyInformationActivity;

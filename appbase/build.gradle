@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 def configs = rootProject.ext.android
-
+apply from: 'mob_share.gradle'
 android {
     compileSdkVersion configs.compileSdkVersion
 

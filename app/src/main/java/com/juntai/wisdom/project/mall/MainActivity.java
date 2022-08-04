@@ -21,7 +21,6 @@ import com.juntai.wisdom.project.mall.home.HomeFragment;
 import com.juntai.wisdom.project.mall.live.LiveFragment;
 import com.juntai.wisdom.project.mall.mine.MyCenterFragment;
 import com.juntai.wisdom.project.mall.shoppingCart.ShoppingCartFragment;
-import com.mob.MobSDK;
 
 public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         View.OnClickListener, MainPageContract.IMainPageView {
@@ -55,7 +54,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     @Override
     public void initView() {
         // : 2022/7/13 mob的隐私授权 不能删
-        MobSDK.submitPolicyGrantResult(true);
         HawkProperty.clearRedPoint(mContext.getApplicationContext());
 
         initToolbarAndStatusBar(false);

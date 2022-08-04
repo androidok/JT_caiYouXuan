@@ -1,6 +1,5 @@
 package com.juntai.wisdom.project.mall.home.commodityfragment;
 
-import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -10,12 +9,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.bean.CommodityBean;
 import com.example.appbase.bean.CommodityDesListBean;
 import com.example.net.AppHttpPath;
-import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
-import com.juntai.wisdom.project.mall.home.shop.ShopActivity;
 import com.juntai.wisdom.project.mall.home.shop.ShopListAdapter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
@@ -75,13 +72,14 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CommodityBean bean = (CommodityBean) adapter.getItem(position);
-                startActivityForResult(new Intent(mContext, ShopActivity.class).putExtra(BaseActivity.BASE_ID, bean.getId()), BaseActivity.BASE_REQUEST_RESULT);
+                itemClick(adapter,position);
 
             }
         });
 
     }
+
+    protected abstract void itemClick(BaseQuickAdapter adapter, int position);
 
 
     @Override

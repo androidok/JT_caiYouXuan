@@ -1,5 +1,6 @@
 package com.juntai.wisdom.project.mall.home.shop;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewPager;
@@ -24,7 +25,7 @@ import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.shop.ijkplayer.PlayerLiveActivity;
-import com.juntai.wisdom.project.mall.share.ShareActivity;
+import com.example.appbase.base.share.ShareActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -251,18 +252,30 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                 break;
             case R.id.shop_collect_iv:
                 if (collectId > 0) {
-                    mPresenter.collectShop(getBaseBuilder()
-                            .add("isCollect", "1")
-                            .add("id", String.valueOf(collectId))
-                            .add("shopId", String.valueOf(shopId)).build(), HomePageContract.UN_COLLECT_COMMODITY_SHOP
-                    );
+
+                    showAlertDialog("确定移除收藏？", "确定", "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mPresenter.collectShop(getBaseBuilder()
+                                    .add("isCollect", "1")
+                                    .add("id", String.valueOf(collectId))
+                                    .add("shopId", String.valueOf(shopId)).build(), HomePageContract.UN_COLLECT_COMMODITY_SHOP
+                            );
+                        }
+                    });
 
                 } else {
                     //收藏
-                    mPresenter.collectShop(getBaseBuilder()
-                            .add("isCollect", "0")
-                            .add("shopId", String.valueOf(shopId)).build(), HomePageContract.COLLECT_COMMODITY_SHOP
-                    );
+                    showAlertDialog("确定添加到收藏？", "确定", "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mPresenter.collectShop(getBaseBuilder()
+                                    .add("isCollect", "0")
+                                    .add("shopId", String.valueOf(shopId)).build(), HomePageContract.COLLECT_COMMODITY_SHOP
+                            );
+                        }
+                    });
+
                 }
                 break;
             case R.id.shop_share_iv:

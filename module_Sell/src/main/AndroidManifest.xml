@@ -103,9 +103,6 @@
         <!-- Ma - debug-Release-key : A2hxzsrCO3VOXGXBzVjP3zKKYBsNhi1A -->
         <!--  -->
         <activity
-            android:name=".mine.myinfo.ImageCropActivity"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".home.shop.ijkplayer.PlayerLiveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />

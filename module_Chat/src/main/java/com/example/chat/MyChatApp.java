@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
-import com.juntai.disabled.basecomponent.app.BaseApplication;
+import com.example.appbase.BaseMyApplication;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
@@ -37,7 +37,7 @@ import java.util.HashMap;
  * @aouther Ma
  * @date 2019/3/12
  */
-public abstract class MyChatApp extends BaseApplication {
+public abstract class MyChatApp extends BaseMyApplication {
     public static MyChatApp app;
     public boolean isFinish = false;
     public static long lastClickTime;//上次点击按钮时间

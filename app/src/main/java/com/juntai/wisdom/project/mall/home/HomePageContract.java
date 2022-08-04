@@ -24,12 +24,7 @@ public interface HomePageContract {
     String MENUE_WEATHER = "天气";//天气
 
 
-    String  SHARE_WEIXIN = "微信";
-    String  SHARE_WEIXIN_FRIENDS = "朋友圈";
-    String  SHARE_QQ = "QQ";
-    String  SHARE_QQ_SPACE = "空间";
-    String  SHARE_SAVE_PIC = "保存图片";
-    String  SHARE_COPY_LINK = "复制链接";
+
 
 
 

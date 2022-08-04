@@ -1,4 +1,5 @@
-package com.juntai.project.sell.mall.share;
+package com.example.appbase.base.share;
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,18 +12,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.PicTextAdapter;
+import com.example.appbase.R;
+import com.example.appbase.base.BaseRecyclerviewActivity;
 import com.example.appbase.bean.LiveListBean;
 import com.example.appbase.bean.PicTextBean;
+import com.example.appbase.util.ToolShare;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
+import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ScreenUtils;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
-import com.juntai.project.sell.mall.home.HomePageContract;
-import com.juntai.project.sell.mall.home.HomePagePresent;
-import com.juntai.project.sell.mall.home.PicTextAdapter;
-import com.juntai.project.sell.mall.utils.ToolShare;
 import com.king.zxing.util.CodeUtils;
 
 import java.util.ArrayList;
@@ -35,8 +36,13 @@ import static android.graphics.BitmapFactory.decodeFile;
  * @description 描述 分享
  * @date 2022/5/21 10:41
  */
-public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> implements View.OnClickListener, HomePageContract.IHomePageView {
-
+public class ShareActivity extends BaseRecyclerviewActivity implements View.OnClickListener {
+   public static final String  SHARE_WEIXIN = "微信";
+    public static final String  SHARE_WEIXIN_FRIENDS = "朋友圈";
+    public static final String  SHARE_QQ = "QQ";
+    public static final String  SHARE_QQ_SPACE = "空间";
+    public static final String  SHARE_SAVE_PIC = "保存图片";
+    public static final String  SHARE_COPY_LINK = "复制链接";
     private ImageView mShareLiveShopIv;
     /**
      * dfadsfa
@@ -68,10 +74,10 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
      */
     public static void startShareActivity(Context mContext, int type, String pic, String des, String shareUrl) {
         Intent intent = new Intent(mContext, ShareActivity.class);
-        intent.putExtra(BASE_ID, type)
-                .putExtra(BASE_STRING, pic)
-                .putExtra(BASE_STRING3, shareUrl)
-                .putExtra(BASE_STRING2, des);
+        intent.putExtra(BaseActivity.BASE_ID, type)
+                .putExtra(BaseActivity.BASE_STRING, pic)
+                .putExtra(BaseActivity.BASE_STRING3, shareUrl)
+                .putExtra(BaseActivity.BASE_STRING2, des);
         mContext.startActivity(intent);
 
     }
@@ -81,20 +87,16 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
      */
     public static void startShareActivity(Context mContext, int type, LiveListBean.DataBean.ListBean bean) {
         Intent intent = new Intent(mContext, ShareActivity.class);
-        intent.putExtra(BASE_ID, type)
-                .putExtra(BASE_PARCELABLE, bean);
+        intent.putExtra(BaseActivity.BASE_ID, type)
+                .putExtra(BaseActivity.BASE_PARCELABLE, bean);
         mContext.startActivity(intent);
 
     }
 
-    @Override
-    protected HomePagePresent createPresenter() {
-        return new HomePagePresent();
-    }
 
     @Override
     public int getLayoutView() {
-        return R.layout.sell_activity_share;
+        return R.layout.activity_share;
     }
 
     @Override
@@ -120,29 +122,29 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 PicTextBean picTextBean = (PicTextBean) adapter.getItem(position);
                 switch (picTextBean.getTextName()) {
-                    case HomePageContract.SHARE_WEIXIN:
+                    case SHARE_WEIXIN:
                         // : 2022/5/21 分享到微信
                         ToolShare.share(mContext, ToolShare.SHARE_WECHAT, shareDes, shareDes, sharePic, shareUrl);
                         break;
-                    case HomePageContract.SHARE_WEIXIN_FRIENDS:
+                    case SHARE_WEIXIN_FRIENDS:
                         // : 2022/5/21 分享到微信 朋友圈
 
                         ToolShare.share(mContext, ToolShare.SHARE_WECHAT_CIRCLE, shareDes, shareDes, sharePic, shareUrl);
 
                         break;
-                    case HomePageContract.SHARE_QQ:
+                    case SHARE_QQ:
                         // : 2022/5/21 分享到QQ
                         ToolShare.share(mContext, ToolShare.SHARE_QQ, shareDes, shareDes, sharePic, shareUrl);
 
                         break;
-                    case HomePageContract.SHARE_QQ_SPACE:
+                    case SHARE_QQ_SPACE:
                         // TODO: 2022/5/21 分享到QQ空间
                         break;
-                    case HomePageContract.SHARE_SAVE_PIC:
+                    case SHARE_SAVE_PIC:
                         // : 2022/5/21 保存到本地
                         FileCacheUtils.saveBitmapByView(ShareActivity.this, mContext, mRootLl, shareDes + ".png");
                         break;
-                    case HomePageContract.SHARE_COPY_LINK:
+                    case SHARE_COPY_LINK:
                         copy(shareUrl);
 
                         break;
@@ -167,18 +169,18 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
 
     @Override
     public void initData() {
-        int type = getIntent().getIntExtra(BASE_ID, 0);
+        int type = getIntent().getIntExtra(BaseActivity.BASE_ID, 0);
         if (2==type) {
-            bean = getIntent().getParcelableExtra(BASE_PARCELABLE);
+            bean = getIntent().getParcelableExtra(BaseActivity.BASE_PARCELABLE);
             sharePic = bean.getCoverImg();
             shareDes = bean.getTitle();
             shareUrl = bean.getShareLiveUrl();
             ImageLoadUtil.loadHeadCirclePic(mContext,bean.getHeadPortrait(),mShareLiveShopIv);
             mShopNameTv.setText(bean.getShopName());
         }else {
-            sharePic = getIntent().getStringExtra(BASE_STRING);
-            shareDes = getIntent().getStringExtra(BASE_STRING2);
-            shareUrl = getIntent().getStringExtra(BASE_STRING3);
+            sharePic = getIntent().getStringExtra(BaseActivity.BASE_STRING);
+            shareDes = getIntent().getStringExtra(BaseActivity.BASE_STRING2);
+            shareUrl = getIntent().getStringExtra(BaseActivity.BASE_STRING3);
         }
 
         ImageLoadUtil.loadImage(mContext, sharePic, mShareCoverIv);
@@ -216,18 +218,18 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new PicTextAdapter(R.layout.sell_share_item);
+        return new PicTextAdapter(R.layout.share_item);
     }
 
     public List<PicTextBean> getShareMenus() {
 // : 2022/5/21 这个地方需要添加功能图片
         List<PicTextBean> arrays = new ArrayList<>();
-        arrays.add(new PicTextBean(R.mipmap.weixin_icon, HomePageContract.SHARE_WEIXIN));
-        arrays.add(new PicTextBean(R.mipmap.weixin_friends, HomePageContract.SHARE_WEIXIN_FRIENDS));
-        arrays.add(new PicTextBean(R.mipmap.qq_icon, HomePageContract.SHARE_QQ));
-//        arrays.add(new PicTextBean(R.mipmap.share_qq_space, HomePageContract.SHARE_QQ_SPACE));
-        arrays.add(new PicTextBean(R.mipmap.share_save_img, HomePageContract.SHARE_SAVE_PIC));
-        arrays.add(new PicTextBean(R.mipmap.share_copy_link, HomePageContract.SHARE_COPY_LINK));
+        arrays.add(new PicTextBean(R.mipmap.weixin_icon, SHARE_WEIXIN));
+        arrays.add(new PicTextBean(R.mipmap.weixin_friends, SHARE_WEIXIN_FRIENDS));
+        arrays.add(new PicTextBean(R.mipmap.qq_icon, SHARE_QQ));
+//        arrays.add(new PicTextBean(R.mipmap.share_qq_space, SHARE_QQ_SPACE));
+        arrays.add(new PicTextBean(R.mipmap.share_save_img, SHARE_SAVE_PIC));
+        arrays.add(new PicTextBean(R.mipmap.share_copy_link, SHARE_COPY_LINK));
         return arrays;
     }
 
@@ -242,5 +244,10 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
         if (v.getId() == R.id.cancel_share_tv) {
             finish();
         }
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 }

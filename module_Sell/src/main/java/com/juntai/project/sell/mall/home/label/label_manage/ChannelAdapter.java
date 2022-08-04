@@ -17,7 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.juntai.project.sell.mall.MyApp;
+import com.juntai.disabled.basecomponent.app.BaseApplication;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.home.label.helper.OnDragVHListener;
 import com.juntai.project.sell.mall.home.label.helper.OnItemMoveListener;
@@ -288,7 +288,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             myHolder.textView.setText(mMyChannelItems.get(position - COUNT_PRE_MY_HEADER).getName());
             myHolder.isResident = mMyChannelItems.get(position - COUNT_PRE_MY_HEADER).isResident;
             if (myHolder.isResident){
-                myHolder.textView.setTextColor(MyApp.app.getResources().getColor(R.color.colorAccent));
+                myHolder.textView.setTextColor(BaseApplication.app.getResources().getColor(R.color.colorAccent));
             }
             if (isEditMode) {
                 myHolder.imgEdit.setVisibility(View.VISIBLE);

@@ -51,7 +51,7 @@ import com.juntai.wisdom.project.mall.order.orderPay.OrderPayActivity;
 import com.juntai.wisdom.project.mall.order.refund.RefundActivity;
 import com.juntai.wisdom.project.mall.order.refund.RefundRequestActivity;
 import com.juntai.wisdom.project.mall.search.SearchActivity;
-import com.juntai.wisdom.project.mall.share.ShareActivity;
+import com.example.appbase.base.share.ShareActivity;
 import com.juntai.wisdom.project.mall.utils.StringTools;
 
 import java.util.ArrayList;
@@ -81,17 +81,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseAppMo
     public void setOnFileUploadStatus(OnFileUploadStatus onFileUploadStatus) {
         this.onFileUploadStatus = onFileUploadStatus;
     }
-    /**
-     * 实现文本复制功能
-     *
-     * @param content
-     */
-    public void copy(String content) {
-// 得到剪贴板管理器
-        ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        cmb.setText(content.trim());
-        ToastUtils.toast(mContext,"已复制");
-    }
+
     protected void initUploadUtil() {
         //上传文件工具类
         mUploadUtil = new UploadUtil();
@@ -188,20 +178,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseAppMo
         return getSavedFileName(content);
     }
 
-    /**
-     * 获取文件名称
-     *
-     * @return
-     */
-    public String getSavedFileName(String content) {
-        if (TextUtils.isEmpty(content)) {
-            return null;
-        }
-        if (content.contains("/")) {
-            content = content.substring(content.lastIndexOf("/") + 1, content.length());
-        }
-        return content;
-    }
+
 
     /**
      * 获取文件名称  后缀

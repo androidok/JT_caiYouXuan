@@ -1,4 +1,4 @@
-package com.juntai.wisdom.project.mall.utils;
+package com.example.appbase.util;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,8 +7,8 @@ import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.appbase.R;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.mall.R;
 
 import java.util.HashMap;
 

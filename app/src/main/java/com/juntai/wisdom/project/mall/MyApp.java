@@ -1,12 +1,8 @@
 package com.juntai.wisdom.project.mall;
 
 
-import com.example.appbase.util.UserInfoManager;
 import com.example.chat.MyChatApp;
-import com.example.net.AppHttpPath;
 import com.juntai.disabled.video.ModuleVideo_Init;
-import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
-import com.mob.MobSDK;
 
 /**
  * @aouther Ma
@@ -25,7 +21,6 @@ public class MyApp extends MyChatApp {
     public void onCreate() {
         super.onCreate();
         app = this;
-        MobSDK.init(this);
         //Video模块初始化
         ModuleVideo_Init.init();
     }
