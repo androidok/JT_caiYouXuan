@@ -34,7 +34,7 @@
         <activity android:name=".entrance.TestActivity"></activity>
         <activity android:name=".home.shop.SearchShopCommodityActivity" />
         <activity
-            android:name="com.example.appbase.base.share.ShareActivity"
+            android:name=".share.ShareActivity"
             android:launchMode="singleTask" />
         <activity
             android:name=".search.SearchActivity"

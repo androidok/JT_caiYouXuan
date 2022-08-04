@@ -30,7 +30,7 @@ import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 import com.juntai.wisdom.project.mall.home.commodityfragment.commodity_detail.evaluation.AllEvaluateFragment;
-import com.example.appbase.base.share.ShareActivity;
+import com.juntai.wisdom.project.mall.share.ShareActivity;
 
 import java.util.List;
 

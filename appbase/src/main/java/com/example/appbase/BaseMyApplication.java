@@ -3,7 +3,6 @@ package com.example.appbase;
 import android.app.Activity;
 
 import com.juntai.disabled.basecomponent.app.BaseApplication;
-import com.mob.MobSDK;
 
 /**
  * @Author: tobato
@@ -19,8 +18,7 @@ public class BaseMyApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        MobSDK.init(this);
-        MobSDK.submitPolicyGrantResult(true);
+
 
     }
 }

@@ -25,7 +25,7 @@ import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.shop.ijkplayer.PlayerLiveActivity;
-import com.example.appbase.base.share.ShareActivity;
+import com.juntai.wisdom.project.mall.share.ShareActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 

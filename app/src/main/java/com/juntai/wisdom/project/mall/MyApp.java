@@ -3,6 +3,7 @@ package com.juntai.wisdom.project.mall;
 
 import com.example.chat.MyChatApp;
 import com.juntai.disabled.video.ModuleVideo_Init;
+import com.mob.MobSDK;
 
 /**
  * @aouther Ma
@@ -23,6 +24,8 @@ public class MyApp extends MyChatApp {
         app = this;
         //Video模块初始化
         ModuleVideo_Init.init();
+        MobSDK.init(this);
+        MobSDK.submitPolicyGrantResult(true);
     }
 
 

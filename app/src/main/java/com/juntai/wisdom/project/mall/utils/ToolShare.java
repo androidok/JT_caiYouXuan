@@ -1,4 +1,4 @@
-package com.example.appbase.util;
+package com.juntai.wisdom.project.mall.utils;
 
 import android.content.Context;
 import android.content.Intent;

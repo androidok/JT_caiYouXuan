@@ -1,4 +1,4 @@
-package com.example.appbase.base.share;
+package com.juntai.wisdom.project.mall.share;
 
 
 import android.content.Context;
@@ -11,19 +11,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.PicTextAdapter;
 import com.example.appbase.R;
 import com.example.appbase.base.BaseRecyclerviewActivity;
 import com.example.appbase.bean.LiveListBean;
 import com.example.appbase.bean.PicTextBean;
-import com.example.appbase.util.ToolShare;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ScreenUtils;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.wisdom.project.mall.utils.ToolShare;
 import com.king.zxing.util.CodeUtils;
 
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ import static android.graphics.BitmapFactory.decodeFile;
  * @description 描述 分享
  * @date 2022/5/21 10:41
  */
+@Route(path = ARouterPath.appShare)
 public class ShareActivity extends BaseRecyclerviewActivity implements View.OnClickListener {
    public static final String  SHARE_WEIXIN = "微信";
     public static final String  SHARE_WEIXIN_FRIENDS = "朋友圈";

@@ -51,7 +51,7 @@ import com.juntai.wisdom.project.mall.order.orderPay.OrderPayActivity;
 import com.juntai.wisdom.project.mall.order.refund.RefundActivity;
 import com.juntai.wisdom.project.mall.order.refund.RefundRequestActivity;
 import com.juntai.wisdom.project.mall.search.SearchActivity;
-import com.example.appbase.base.share.ShareActivity;
+import com.juntai.wisdom.project.mall.share.ShareActivity;
 import com.juntai.wisdom.project.mall.utils.StringTools;
 
 import java.util.ArrayList;

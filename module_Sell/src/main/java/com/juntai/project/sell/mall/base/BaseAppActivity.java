@@ -21,7 +21,6 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.selectPics.BaseSelectPicsActivity;
-import com.example.appbase.base.share.ShareActivity;
 import com.example.appbase.bean.LiveListBean;
 import com.example.appbase.bean.SellOrderDetailBean;
 import com.example.appbase.bean.ShopDetailSellBean;
@@ -465,8 +464,10 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
                 LiveListBean.DataBean.ListBean bean = (LiveListBean.DataBean.ListBean) eventBusObject.getEventObj();
                 bean.setHeadPortrait(UserInfoManager.getHeadPic());
                 bean.setShopName(UserInfoManager.getShopName());
-                ShareActivity.startShareActivity(mContext, 2,bean);
-
+                ARouter.getInstance().build(ARouterPath.appShare)
+                        .withInt(BASE_ID,2)
+                        .withParcelable(BASE_PARCELABLE,bean)
+                        .navigation();
                 break;
             default:
                 break;

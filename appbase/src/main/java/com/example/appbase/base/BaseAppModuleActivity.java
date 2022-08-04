@@ -15,7 +15,6 @@ import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.mob.MobSDK;
 
 import java.util.List;
 

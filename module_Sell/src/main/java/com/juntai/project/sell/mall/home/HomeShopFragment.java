@@ -10,13 +10,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.appbase.base.share.ShareActivity;
 import com.example.appbase.bean.PicTextBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.scan.QRScanActivity;
 import com.example.live_moudle.live.LivePrepareActivity;
 import com.example.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.ARouterPath;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
@@ -328,7 +330,13 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.share_shop_iv) {// : 2022/6/7 分享店铺
-            ShareActivity.startShareActivity(mContext, 0, dataBean.getHeadPortrait(), dataBean.getIntroduction(), dataBean.getShareUrl());
+            ARouter.getInstance().build(ARouterPath.appShare)
+                    .withInt(BASE_ID,0)
+                    .withString(BaseActivity.BASE_STRING,dataBean.getHeadPortrait())
+                    .withString(BaseActivity.BASE_STRING3,dataBean.getIntroduction())
+                    .withString(BaseActivity.BASE_STRING2,dataBean.getShareUrl())
+                    .navigation();
+
         } else if (id == R.id.search_ll) {// : 2022/7/9 搜索
             startActivity(new Intent(mContext, SearchActivity.class));
         } else if (id == R.id.scan_iv) {// : 2022/5/31 扫码
