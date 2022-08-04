@@ -11,6 +11,7 @@ import com.example.appbase.bean.GuideMenuBean;
 import com.example.module_nongfa_manager.R;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
+import com.juntai.project.sell.mall.home.HomePageContract;
 
 import java.util.ArrayList;
 import java.util.List;

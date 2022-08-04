@@ -5,6 +5,7 @@ import com.example.module_nongfa_manager.base.BaseNFActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.video.img.PhotoView;
+import com.juntai.project.sell.mall.home.HomePageContract;
 
 /**
  * @aouther tobato

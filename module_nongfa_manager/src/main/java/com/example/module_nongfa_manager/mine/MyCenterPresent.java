@@ -10,6 +10,7 @@ import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
+import com.juntai.project.sell.mall.AppNetModuleMall;
 
 import java.util.ArrayList;
 import java.util.List;
