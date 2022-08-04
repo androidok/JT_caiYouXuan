@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.R;
-import com.example.appbase.base.selectPics.SelectPhotosFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +23,13 @@ import java.util.List;
 public class SelectPicRv extends RecyclerView {
 
 
-    private SelectPhotosFragment.OnPhotoItemClick onPhotoItemClick;
+    private OnPhotoItemClick onPhotoItemClick;
     private Builder builder = new Builder();
 
+
+    public void setOnPhotoItemClick(OnPhotoItemClick onPhotoItemClick) {
+        this.onPhotoItemClick = onPhotoItemClick;
+    }
 
     public void setBuilder(Builder builder) {
         this.builder = builder;
@@ -114,8 +117,9 @@ public class SelectPicRv extends RecyclerView {
                 int id = view.getId();
                 if (id == R.id.select_pic_icon_iv) {
                     if ("-1".equals(icon_path)) {
-//                        int count = mMaxCount - (icons.size() - 1);
-//                        choseImageFromFragment(type, SelectPhotosFragment.this, count, SELECT_PIC_RESULT);
+                        if (onPhotoItemClick != null) {
+                            onPhotoItemClick.onSelectPic();
+                        }
                     } else {
                         if (icon_path.contains(".mp4")) {
                             //视频路径
@@ -156,6 +160,8 @@ public class SelectPicRv extends RecyclerView {
         void onVedioPicClick(BaseQuickAdapter adapter, int position);
 
         void onPicClick(BaseQuickAdapter adapter, int position);
+        void onSelectPic();
+
     }
 
 
