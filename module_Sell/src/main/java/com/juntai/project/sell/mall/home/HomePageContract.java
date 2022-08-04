@@ -56,7 +56,7 @@ public interface HomePageContract {
     String SHOP_MANAGER_CENTER = "个人中心";
 
 
-    String COMMODITY_MANAGER_CATEGORY = "商品类目管理";
+    String COMMODITY_MANAGER_CATEGORY = "商品分类管理";
     String COMMODITY_MANAGER_TOTAL = "商品管理";
 
 

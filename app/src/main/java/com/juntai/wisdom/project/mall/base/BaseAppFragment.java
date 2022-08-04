@@ -8,6 +8,8 @@ import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 
+import okhttp3.FormBody;
+
 /**
  * @aouther tobato
  * @description 描述  app的fragment的基类
@@ -23,6 +25,17 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
     @Override
     protected void lazyloadGone() {
 
+    }
+
+
+    /**
+     * 获取builder
+     *
+     * @return
+     */
+    public FormBody.Builder getBaseBuilderWithoutParama() {
+        FormBody.Builder builder = new FormBody.Builder();
+        return builder;
     }
     /**
      * 获取文件名称  后缀

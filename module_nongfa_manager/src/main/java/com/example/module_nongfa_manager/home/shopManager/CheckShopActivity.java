@@ -43,7 +43,7 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
 
     @Override
     protected boolean isDetail() {
-        return false;
+        return true;
     }
 
     @Override
@@ -56,6 +56,7 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
     public void initData() {
         super.initData();
         shopId = getIntent().getIntExtra(BASE_ID, 0);
+        baseQuickAdapter.setNewData(mPresenter.checkShop(null, true));
         mPresenter.getManagerShopDetail(getBaseBuilder().add("shopId", String.valueOf(shopId)).build(), AppHttpPath.MANAGER_SHOP_DETAIL);
     }
 

@@ -1,5 +1,6 @@
 package com.juntai.wisdom.project.mall.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -8,10 +9,12 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.bean.ShopListDataBean;
 import com.example.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.HomePagePresent;
+import com.juntai.wisdom.project.mall.home.shop.ShopActivity;
 
 import java.util.List;
 
@@ -60,13 +63,13 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
     @Override
     protected void initView() {
         super.initView();
-        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个店铺也没有-_-",-1));
+        baseQuickAdapter.setEmptyView(getBaseActivity().getAdapterEmptyView("一个店铺也没有-_-",-1));
 
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ShopListDataBean.DataBean.ListBean bean = (ShopListDataBean.DataBean.ListBean) adapter.getItem(position);
-                getBaseAppActivity().startToShop(bean.getId());
+                startActivityForResult(new Intent(mContext, ShopActivity.class).putExtra(BaseActivity.BASE_ID, bean.getId()), BaseActivity.BASE_REQUEST_RESULT);
 
             }
         });
@@ -90,7 +93,7 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
             mSmartrefreshlayout.finishRefresh();
             return;
         }
-        mPresenter.startSearchShop(getBaseAppActivity().getBaseBuilderWithoutParama()
+        mPresenter.startSearchShop(getBaseBuilderWithoutParama()
                 .add("key", key)
                 .add("type", "2").build(), AppHttpPath.SEARCH_COMMODITY
         );

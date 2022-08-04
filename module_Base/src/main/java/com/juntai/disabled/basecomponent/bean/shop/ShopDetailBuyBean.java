@@ -64,8 +64,17 @@ public class ShopDetailBuyBean extends BaseResult {
         private String cameraUrl;
         private String cameraNumber;
         private String cameraCover;
+        private int commodityCount;//在售商品个数
         private String shopImg;
         private List<ClassifyListBean> classifyList;
+
+        public int getCommodityCount() {
+            return commodityCount;
+        }
+
+        public void setCommodityCount(int commodityCount) {
+            this.commodityCount = commodityCount;
+        }
 
         public String getCoverImg() {
             return coverImg == null ? "" : coverImg;

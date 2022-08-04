@@ -188,11 +188,7 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
                 }
                 ImageView picIv = helper.getView(R.id.form_pic_src_iv);
                 helper.setGone(R.id.pic_form_notice_tv, false);
-                //详情时 图片不可点击  示例图不可点击
-                if (!isDetail) {
-                    helper.addOnClickListener(R.id.form_pic_src_iv);
-                }
-
+                helper.addOnClickListener(R.id.form_pic_src_iv);
                 if (!TextUtils.isEmpty(picPath)) {
                     ImageLoadUtil.loadImage(mContext, picPath, picIv);
 

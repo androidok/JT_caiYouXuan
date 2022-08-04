@@ -1,5 +1,6 @@
 package com.juntai.project.sell.mall.home.shop;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.example.appbase.bean.SellCommodityDetailBean;
 import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
@@ -28,10 +30,10 @@ import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
-import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
+import com.juntai.project.sell.mall.home.commodityManager.commodityCategory.CommodityCategoryActivity;
 import com.juntai.project.sell.mall.home.shop.shopCategory.ChoseCategoryActivity;
 import com.juntai.project.sell.mall.mine.myinfo.HeadCropActivity;
 import com.juntai.project.sell.mall.utils.CalendarUtil;
@@ -356,7 +358,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                             return null;
                         }
                     }
-                    if (photos != null&&photos.size()>0) {
+                    if (photos != null && photos.size() > 0) {
                         String path = photos.get(0);
                         switch (name) {
                             case HomePageContract.COMMODITY_PRIMARY_PIC:
@@ -447,10 +449,10 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                             builder.add("logisticsNumber", textValue);
                             break;
                         case HomePageContract.COMMODITY_PROVIDER:
-                           sourceBean.setSupplier(UserInfoManager.getShopId());
+                            sourceBean.setSupplier(UserInfoManager.getShopId());
                             break;
                         case HomePageContract.COMMODITY_RESTOC_PERSON:
-                           sourceBean.setPurchaseName(textValue);
+                            sourceBean.setPurchaseName(textValue);
                             break;
                         case HomePageContract.SEND_LINK:
                             builder.add("logisticsLink", textValue);
@@ -551,11 +553,11 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
         for (String pic : arrays) {
             if (pic.endsWith(".mp4")) {
                 bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, new BannerObject.VideoBean(pic, "")));
-            }else {
+            } else {
                 bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
             }
         }
-        DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext,bannerObjects,position);
+        DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext, bannerObjects, position);
     }
 
     @Override
@@ -577,15 +579,25 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                 ShopCommodityCategoryListBean categoryListBean = (ShopCommodityCategoryListBean) o;
                 if (categoryListBean != null) {
                     List<ShopCommodityCategoryListBean.DataBean> arrays = categoryListBean.getData();
-                    PickerManager.getInstance().showOptionPicker(mContext, arrays, new PickerManager.OnOptionPickerSelectedListener() {
-                        @Override
-                        public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                            String name = arrays.get(options1).getShopClassifyName();
-                            selectBean.setValue(name);
-                            selectBean.setIds(String.valueOf(arrays.get(options1).getId()));
-                            mSelectTv.setText(name);
-                        }
-                    });
+                    if (arrays != null && !arrays.isEmpty()) {
+                        PickerManager.getInstance().showOptionPicker(mContext, arrays, new PickerManager.OnOptionPickerSelectedListener() {
+                            @Override
+                            public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                                String name = arrays.get(options1).getShopClassifyName();
+                                selectBean.setValue(name);
+                                selectBean.setIds(String.valueOf(arrays.get(options1).getId()));
+                                mSelectTv.setText(name);
+                            }
+                        });
+                    } else {
+                        showAlertDialogOfKnown("您还没有创建商品分类,请先添加商品分类", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(mContext, CommodityCategoryActivity.class));
+                            }
+                        });
+                    }
+
 
                 }
 

@@ -294,13 +294,14 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                     collectId = dataBean.getIsCollect();
                     picTextAdapter.setNewData(mPresenter.getCommodityBottomMenus(dataBean.getIsCollect() > 0));
                     commodityDetailFragment.initAdapterData(dataBean);
-                    //获取商品评价
-                    mPresenter.getCommodityEvaluation(getBaseBuilderWithoutParama()
-                            .add("type", "8")
-                            .add("commodityId", String.valueOf(commodityId)).build(), AppHttpPath.COMMODIFY_EVALUATION);
+//                    //todo 暂时去掉获取商品评价
+//                    mPresenter.getCommodityEvaluation(getBaseBuilderWithoutParama()
+//                            .add("type", "8")
+//                            .add("commodityId", String.valueOf(commodityId)).build(), AppHttpPath.COMMODIFY_EVALUATION);
 
                     List<CommodityPropertyBean> commodityPropertyBeans = dataBean.getValue();
                     ObjectBoxUtil.addCommodityProperty(dataBean, commodityPropertyBeans);
+                    commodityDetailFragment.addDetailData(dataBean.getDescription());
 
                 }
                 break;

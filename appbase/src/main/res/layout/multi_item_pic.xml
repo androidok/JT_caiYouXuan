@@ -19,7 +19,6 @@
         android:id="@+id/select_pic_icon_gv"
         android:layout_width="210dp"
         android:layout_height="150dp"
-        android:background="@mipmap/business_pic_bg"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"

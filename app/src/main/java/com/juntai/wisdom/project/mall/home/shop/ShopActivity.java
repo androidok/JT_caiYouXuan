@@ -192,7 +192,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         ImageLoadUtil.loadSquareImageHasCorner(mContext, shopBean.getHeadPortrait(), mShopOwnerHeadIv);
         mShopNameTv.setText(shopBean.getName());
         mShopCreatTimeTv.setText("开店时间:" + shopBean.getCreateTime());
-        mScoreTv.setText("店铺得分:" + shopBean.getShopFraction());
+        mScoreTv.setText("在售商品:" + shopBean.getCommodityCount());
         mShopDesTv.setText(shopBean.getIntroduction());
         mShopCollectIv.setImageResource(shopBean.getIsCollect() > 0 ? R.mipmap.collected_icon : R.mipmap.un_collect_icon);
         initBanner(shopBean);

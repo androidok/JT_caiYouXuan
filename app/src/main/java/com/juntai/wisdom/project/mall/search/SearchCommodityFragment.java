@@ -39,7 +39,7 @@ public class SearchCommodityFragment extends BaseCommodityListFragment {
             return;
         }
         if (mPresenter != null) {
-            mPresenter.startSearchCommodity(getBaseAppActivity().getBaseBuilderWithoutParama()
+            mPresenter.startSearchCommodity(getBaseBuilderWithoutParama()
                     .add("key", key)
                     .add("type", "1").build(), AppHttpPath.SEARCH_COMMODITY
             );

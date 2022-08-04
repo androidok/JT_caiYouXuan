@@ -85,7 +85,7 @@ public class LiveCommodityListFragment extends BaseRecyclerviewFragment<Commodit
 
             }
         });
-        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个直播也没有-_-", -1));
+        baseQuickAdapter.setEmptyView(getBaseActivity().getAdapterEmptyView("一个直播也没有-_-", -1));
 
 
     }
