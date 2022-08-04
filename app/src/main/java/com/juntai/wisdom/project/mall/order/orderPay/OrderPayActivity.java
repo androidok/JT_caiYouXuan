@@ -72,7 +72,7 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
 //     *  2. 在待支付订单进入
     private int enterType;
     //0 代表支付宝  1代表 微信 2代表 公户
-    private int payType = 1;
+    private int payType = 2;
 
 
     private long minute = 15;//这是分钟
@@ -293,11 +293,11 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
     @Override
     protected void getRvAdapterData() {
         List<PicTextBean> arrays = new ArrayList<>();
-        arrays.add(new PicTextBean(R.mipmap.zhifubao_icon, PicTextBean.PAY_TYPE_ZHIFUBAO, false));
-        arrays.add(new PicTextBean(R.mipmap.weixin_icon, PicTextBean.PAY_TYPE_WEIXIN, true));
-        if (UserInfoManager.canUsePubAccount()) {
+//        arrays.add(new PicTextBean(R.mipmap.zhifubao_icon, PicTextBean.PAY_TYPE_ZHIFUBAO, false));
+//        arrays.add(new PicTextBean(R.mipmap.weixin_icon, PicTextBean.PAY_TYPE_WEIXIN, true));
+//        if (UserInfoManager.canUsePubAccount()) {
             arrays.add(new PicTextBean(R.mipmap.bank_icon, PicTextBean.PAY_TYPE_PUB_ACCOUNT + UserInfoManager.getSchoolName(), false));
-        }
+//        }
         baseQuickAdapter.setNewData(arrays);
     }
 
@@ -375,27 +375,29 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
             default:
                 break;
             case R.id.pay_tv:
-                switch (payType) {
+                mPresenter.payByPubAccount(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_PUB_ACCOUNT);
 
-                    case 0:
-                        // : 2022/5/11 支付宝支付
-                        mPresenter.payByZhifubao(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_ZHIFUBAO);
-
-                        break;
-                    case 1:
-                        // : 2022/5/11 微信支付
-                        mPresenter.payByWeixin(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_PUB_WEIXIN);
-
-
-                        break;
-                    case 2:
-                        // : 2022/5/11 公户支付
-
-                        mPresenter.payByPubAccount(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_PUB_ACCOUNT);
-                        break;
-                    default:
-                        break;
-                }
+//                switch (payType) {
+//
+//                    case 0:
+//                        // : 2022/5/11 支付宝支付
+//                        mPresenter.payByZhifubao(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_ZHIFUBAO);
+//
+//                        break;
+//                    case 1:
+//                        // : 2022/5/11 微信支付
+//                        mPresenter.payByWeixin(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_PUB_WEIXIN);
+//
+//
+//                        break;
+//                    case 2:
+//                        // : 2022/5/11 公户支付
+//
+//                        mPresenter.payByPubAccount(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_PUB_ACCOUNT);
+//                        break;
+//                    default:
+//                        break;
+//                }
 
                 break;
         }

@@ -1,12 +1,16 @@
 package com.example.appbase.base.multi;
 
+import android.text.TextUtils;
+
+import com.example.appbase.R;
 import com.example.appbase.base.BaseAppPresent;
-import com.example.appbase.bean.CommoditySourceDetailBean;
+import com.example.appbase.base.multi.adapters.CommodityManagerSourceDetailAdapter;
 import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.example.appbase.bean.multiBean.ItemFragmentBean;
+import com.example.appbase.bean.multiBean.MultiNormalRecyclerviewBean;
 import com.example.appbase.bean.multiBean.MultiPicBean;
+import com.example.appbase.bean.nong_fa_manager.CommodityManagerDetailBean;
 import com.example.appbase.bean.nong_fa_manager.ShopManagerDetailBean;
-import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
@@ -30,40 +34,67 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
      *
      * @return
      */
-    public List<MultipleItem> checkCommodity(CommoditySourceDetailBean.DataBean bean, boolean isDetail) {
+    public List<MultipleItem> checkCommodity(CommodityManagerDetailBean.DataBean bean, boolean isDetail) {
+        CommodityManagerDetailBean.DataBean.TraceabilityBean traceabilityBean = null;
+        if (bean != null) {
+            traceabilityBean = bean.getTraceability();
+
+        }
         List<MultipleItem> arrays = new ArrayList<>();
-        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.SHOP_NAME, UserInfoManager.getShopName()
+        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.SHOP_NAME, bean == null ? "暂无" : bean.getShopName()
                 , true, 0, isDetail);
 
-        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.CLASSIFY_NAME, ""
+        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.CLASSIFY_NAME, bean == null ? "暂无" : bean.getClassifyName()
                 , true, 0, isDetail);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.CATEGORY_NAME, ""
+        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.CATEGORY_NAME, bean == null ? "暂无" : bean.getCategoryName()
                 , true, 0, isDetail);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_NAME, ""
+        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_NAME, bean == null ? "暂无" : bean.getName()
                 , true, 0, isDetail);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_PRICE, ""
+        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_PRICE, bean == null ? "暂无" : String.valueOf(bean.getPrice())
                 , true, 0, isDetail);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.CREAT_TIME, ""
+        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.CREAT_TIME, bean == null ? "暂无" : bean.getCreateTime()
                 , true, 0, isDetail);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_DES, ""
-                , true, 1, isDetail);
+        if (bean!=null&& !TextUtils.isEmpty(bean.getDescription())) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                    (MultiContact.COMMODITY_DES, true)));
+            arrays.add(new MultipleItem(MultipleItem.ITEM_RICH_TEXT, bean.getDescription()));
+        }
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (MultiContact.COMMODITY_PIC_VIDEO, false)));
-        // TODO: 2022/7/29 fragment
-        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_PROVIDER, UserInfoManager.getShopName()
+
+        List<String> fragmentPics = new ArrayList<>();
+        if (bean != null) {
+            if (!TextUtils.isEmpty(bean.getCoverImg())) {
+                addFragmentPics(bean.getCoverImg(), fragmentPics);
+            }
+            if (!TextUtils.isEmpty(bean.getVideoUrl())) {
+                addFragmentPics(bean.getVideoUrl(), fragmentPics);
+            }
+        }
+        arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT, new ItemFragmentBean(3, isDetail ?
+                fragmentPics.size() : 3,
+                2, 1, false,
+                fragmentPics)));
+
+
+        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_PROVIDER, traceabilityBean == null ? "" : traceabilityBean.getPurchaseName()
                 , true, 0, isDetail);
 
-        initTextSelectType(arrays, MultiContact.COMMODITY_RESTOC_TIME, "0", bean == null ? "" : bean.getPurchaseTime(), true,true);
+        initTextSelectType(arrays, MultiContact.COMMODITY_RESTOC_TIME, "0", traceabilityBean == null ? "" : traceabilityBean.getPurchaseTime(), true, true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_RESTOC_PERSON, ""
                 , true, 0, isDetail);
+        if (traceabilityBean != null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                    (MultiContact.COMMODITY_BILL, false)));
+            arrays.add(new MultipleItem(MultipleItem.ITEM_NORMAL_RECYCLEVIEW,new MultiNormalRecyclerviewBean(MultiContact.COMMODITY_SOURCE,traceabilityBean.getTraceabilityFile(),new CommodityManagerSourceDetailAdapter(R.layout.commodity_source_detail_item))));
+        }
 
-        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
-                (MultiContact.COMMODITY_BILL, false)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (MultiContact.IS_AGREE, false)));
         return arrays;
     }
+
     /**
      * 审核店铺
      *
@@ -87,7 +118,6 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
                 new MultiPicBean(MultiContact.ID_CARD_HAND, 3, bean == null ? "" :
                         bean.getIdSide())));
-
 
 
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.USER_ACCOUNT, bean == null ? "" :
@@ -127,6 +157,7 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
                 (MultiContact.IS_AGREE, false)));
         return arrays;
     }
+
     private void addFragmentPics(String picPath, List<String> fragmentPics) {
         fragmentPics.add(picPath);
 //        if (!TextUtils.isEmpty(picPath)) {

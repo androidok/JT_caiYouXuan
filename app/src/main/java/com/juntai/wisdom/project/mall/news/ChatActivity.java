@@ -31,7 +31,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.example.appbase.util.UserInfoManager;
+import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.example.chat.MainContract;
 import com.example.chat.R;
 import com.example.chat.bean.HomePageMenuBean;
@@ -64,9 +66,7 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
-import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
-import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
 import com.negier.emojifragment.bean.Emoji;
 import com.negier.emojifragment.fragment.EmojiFragment;
 import com.negier.emojifragment.util.EmojiUtils;
@@ -439,7 +439,7 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
             }
 
         }
-        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,allPicVideoPath,position);
+        DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext,allPicVideoPath,position);
 
 
     }

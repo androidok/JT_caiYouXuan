@@ -17,8 +17,6 @@ import com.example.appbase.base.customview.MainPagerAdapter;
 import com.example.appbase.util.StringTools;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 
-import java.util.List;
-
 /**
  * @aouther tobato
  * @description 描述  tab+viewpage
@@ -48,10 +46,6 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     @Override
     public int getLayoutView() {
         return R.layout.base_tab_page_layout;
-    }
-    @Override
-    protected void onPicsAndEmpressed(List<String> icons) {
-
     }
 
     @Override

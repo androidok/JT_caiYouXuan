@@ -6,6 +6,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
+import com.example.appbase.R;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 
@@ -47,7 +48,7 @@ public class BaseWebviewFragment extends BaseMvpFragment {
 
     @Override
     protected int getLayoutRes() {
-        return com.juntai.disabled.basecomponent.R.layout.activity_user_agreement;
+        return R.layout.activity_user_agreement;
     }
 
     @Override

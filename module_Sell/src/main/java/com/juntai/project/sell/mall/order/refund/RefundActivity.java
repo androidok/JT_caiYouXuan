@@ -14,7 +14,7 @@ import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
-import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
+import com.example.appbase.bean.SellOrderDetailBean;
 import com.juntai.project.sell.mall.beans.order.RefundReasonBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.order.OrderPresent;
@@ -47,7 +47,7 @@ public class RefundActivity extends BaseAppActivity<OrderPresent> implements Hom
      */
     private TextView mCommitRefundTv;
     private SelectPhotosFragment selectPhotosFragment;
-    private OrderDetailBean orderDetailBean;
+    private SellOrderDetailBean orderDetailBean;
 
     private int reasonId = 0;
     private int receivedStatus;

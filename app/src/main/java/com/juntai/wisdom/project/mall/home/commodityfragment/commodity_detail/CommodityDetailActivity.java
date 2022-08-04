@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.bean.CommodityDetailBean;
 import com.example.appbase.bean.CommodityEvaluationBean;
@@ -16,6 +17,7 @@ import com.example.appbase.util.UserInfoManager;
 import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectCommodityPropertyDialogFragment;
 import com.example.live_moudle.util.ObjectBoxUtil;
 import com.example.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
@@ -37,6 +39,8 @@ import okhttp3.FormBody;
  * @description 描述  商品详情
  * @date 2022/5/3 15:55
  */
+
+@Route(path = ARouterPath.appCommodityDetailActivity)
 public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> implements IView, View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
 
     public int commodityId;
@@ -290,13 +294,14 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                     collectId = dataBean.getIsCollect();
                     picTextAdapter.setNewData(mPresenter.getCommodityBottomMenus(dataBean.getIsCollect() > 0));
                     commodityDetailFragment.initAdapterData(dataBean);
-                    //获取商品评价
-                    mPresenter.getCommodityEvaluation(getBaseBuilderWithoutParama()
-                            .add("type", "8")
-                            .add("commodityId", String.valueOf(commodityId)).build(), AppHttpPath.COMMODIFY_EVALUATION);
+//                    //todo 暂时去掉获取商品评价
+//                    mPresenter.getCommodityEvaluation(getBaseBuilderWithoutParama()
+//                            .add("type", "8")
+//                            .add("commodityId", String.valueOf(commodityId)).build(), AppHttpPath.COMMODIFY_EVALUATION);
 
                     List<CommodityPropertyBean> commodityPropertyBeans = dataBean.getValue();
                     ObjectBoxUtil.addCommodityProperty(dataBean, commodityPropertyBeans);
+                    commodityDetailFragment.addDetailData(dataBean.getDescription());
 
                 }
                 break;

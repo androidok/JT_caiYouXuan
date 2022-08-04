@@ -22,7 +22,7 @@ public abstract class BaseSearchActivity<P extends BasePresenter> extends BaseRe
     /**
      * 取消
      */
-    private TextView mBackTv;
+    public TextView mBackTv;
 
 
     @Override
@@ -78,15 +78,9 @@ public abstract class BaseSearchActivity<P extends BasePresenter> extends BaseRe
 
 
 
-    /**
-     * chatType  聊天类型（1：搜索私聊信息；2搜索公聊信息； 3搜索联系人  4首页搜索  搜索各种类型数据  5消息转发的时候跳转的界面  里面包含群组和通讯录  6 收藏的内容
-     *
-     * @return
-     */
-    protected abstract int getSearchType();
-
     @Override
     public void initData() {
+        super.initData();
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

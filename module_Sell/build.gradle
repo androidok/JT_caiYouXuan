@@ -20,6 +20,11 @@ android {
         ndk {
             abiFilters "armeabi-v7a"//,"x86"//,"armeabi"////,"arm64-v8a","x86_64"
         }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
     signingConfigs {
         release {
@@ -106,7 +111,7 @@ dependencies {
  * 图表
  */
     implementation project(':charts')
-
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
 }
 
 configurations.all {

@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
+import com.example.appbase.bean.SellOrderDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
@@ -22,13 +22,13 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/12 14:32
  */
-public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, BaseViewHolder> {
+public class OrderListShopAdapter extends BaseQuickAdapter<SellOrderDetailBean, BaseViewHolder> {
     public OrderListShopAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, OrderDetailBean item) {
+    protected void convert(BaseViewHolder helper, SellOrderDetailBean item) {
 
         helper.setText(R.id.order_shop_name_tv, UserInfoManagerMall.getShopName());
         helper.addOnClickListener(R.id.shop_bottom_cl);
@@ -43,9 +43,9 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
         LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         recyclerView.setAdapter(orderCommodityAdapter);
         recyclerView.setLayoutManager(manager);
-        List<OrderDetailBean.CommodityListBean> arrays = item.getCommodityList();
+        List<SellOrderDetailBean.CommodityListBean> arrays = item.getCommodityList();
         if (!arrays.isEmpty()) {
-            for (OrderDetailBean.CommodityListBean array : arrays) {
+            for (SellOrderDetailBean.CommodityListBean array : arrays) {
                 array.setOrderStatus(item.getState());
             }
         }
@@ -59,14 +59,14 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
         orderCommodityAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                OrderDetailBean.CommodityListBean commodityListBean = (OrderDetailBean.CommodityListBean) adapter.getItem(position);
+                SellOrderDetailBean.CommodityListBean commodityListBean = (SellOrderDetailBean.CommodityListBean) adapter.getItem(position);
                 // : 2022/5/16 立即评价
                 EventManager.getEventBus().post(new EventBusObject(EventBusObject.EVALUATE, commodityListBean));
             }
         });
     }
 
-    private void initBottomButton(BaseViewHolder helper, OrderDetailBean item) {
+    private void initBottomButton(BaseViewHolder helper, SellOrderDetailBean item) {
         helper.addOnClickListener(R.id.order_left_tv);
         helper.addOnClickListener(R.id.order_right_tv);
         helper.setGone(R.id.order_left_tv,false);

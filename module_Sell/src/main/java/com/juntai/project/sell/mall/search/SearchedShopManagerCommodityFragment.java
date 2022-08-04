@@ -16,7 +16,7 @@ import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.ShopCommodityAdapter;
-import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.SellCommodityDetailActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.EditCommodityActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 
@@ -161,7 +161,7 @@ public class SearchedShopManagerCommodityFragment extends BaseRecyclerviewFragme
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ShopCommodityManagerListBean.DataBean.ListBean listBean = (ShopCommodityManagerListBean.DataBean.ListBean) adapter.getItem(position);
-                startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(BASE_ID, listBean.getId()));
+                startActivity(new Intent(mContext, SellCommodityDetailActivity.class).putExtra(BASE_ID, listBean.getId()));
             }
         });
         baseQuickAdapter.setEmptyView(getBaseActivity().getAdapterEmptyView("没有搜索到相关商品",-1));

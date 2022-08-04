@@ -31,6 +31,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
+        <activity android:name=".entrance.TestActivity"></activity>
         <activity android:name=".home.shop.SearchShopCommodityActivity" />
         <activity
             android:name=".share.ShareActivity"
@@ -61,9 +62,6 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".order.refund.RefundActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".base.displayPicVideo.PicVideoDisplayActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".order.evaluate.EvaluateActivity"
@@ -104,9 +102,6 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".entrance.RegistActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".home.QRScanActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".entrance.LoginActivity"
@@ -166,9 +161,6 @@
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="z6hHCFoqFUYW9rT67MmaFcIUOY7fhPxw" />
 
         <provider
             android:name=".utils.MyFileProvider"

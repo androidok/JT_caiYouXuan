@@ -1,10 +1,7 @@
 package com.juntai.project.sell.mall.mine;
 
 
-import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.mvp.IView;
-
-import java.util.List;
 
 /**
  * Describe: 个人信息接口类
@@ -26,6 +23,5 @@ public interface MyCenterContract {
 
     interface ICenterPresent {
 
-        List<MultipleItem> getMenuBeans();
     }
 }

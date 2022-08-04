@@ -1,11 +1,11 @@
 package com.example.module_nongfa_manager.home;
 
 import com.example.appbase.base.BaseAppPresent;
+import com.example.appbase.bean.SellOrderListBean;
 import com.example.appbase.bean.nong_fa_manager.CommodityManagerListBean;
 import com.example.appbase.bean.nong_fa_manager.ShopManagerListBean;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
-import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
@@ -23,7 +23,27 @@ public class HomePresent extends BaseAppPresent<IModel, IView> {
         return null;
     }
 
+    public void getNfOrderList(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .getNfOrderList(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<SellOrderListBean>(getView()) {
+                    @Override
+                    public void onSuccess(SellOrderListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
 
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
     public void getManagerCommodityList(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
                 .getManagerCommodityList(requestBody)
@@ -68,26 +88,5 @@ public class HomePresent extends BaseAppPresent<IModel, IView> {
     }
 
 
-    public void updateCommodityStatus(RequestBody requestBody, String tag) {
-        AppNetModule.createrRetrofit()
-                .updateCommodityStatus(requestBody)
-                .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(getView()) {
-                    @Override
-                    public void onSuccess(BaseResult o) {
-                        if (getView() != null) {
-                            getView().onSuccess(tag, o);
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (getView() != null) {
-                            getView().onError(tag, msg);
-                        }
-                    }
-                });
-    }
 
 }

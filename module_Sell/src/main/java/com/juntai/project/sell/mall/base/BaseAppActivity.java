@@ -20,11 +20,14 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.selectPics.BaseSelectPicsActivity;
 import com.example.appbase.bean.LiveListBean;
+import com.example.appbase.bean.SellOrderDetailBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
@@ -39,15 +42,12 @@ import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
-import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
-import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity;
-import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.SellCommodityDetailActivity;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
 import com.juntai.project.sell.mall.news.ChatActivity;
 import com.juntai.project.sell.mall.order.allOrder.OrderManagerActivity;
@@ -72,7 +72,7 @@ import okhttp3.RequestBody;
  * @description 描述
  * @date 2020/4/27 8:48  app的基类
  */
-public abstract class BaseAppActivity<P extends BasePresenter> extends BaseRequestLocationActivity<P> {
+public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> {
     public static String WX_APPID = "wx5fd6d26f7806a119";
     public UploadUtil mUploadUtil;
     @Override
@@ -145,7 +145,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
         UserInfoManagerMall.clearUserData();//清理数据
         HawkProperty.clearRedPoint(mContext.getApplicationContext());
         ActivityManagerTool.getInstance().finishApp();
-        ARouter.getInstance().build(ARouterPath.activityLogin)
+        ARouter.getInstance().build(ARouterPath.appLogin)
                 .withString(BASE_STRING,regPhone)
                 .navigation();
     }
@@ -213,7 +213,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
 
     @Override
     protected String getUpdateHttpUrl() {
-        return AppHttpPathMall.APP_UPDATE;
+        return AppHttpPath.APP_UPDATE;
     }
 
     /**
@@ -425,7 +425,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
     /**
      * 跳入 申请退款界面
      */
-    public void startToOrderRefundRequestActivity(OrderDetailBean orderDetailBean) {
+    public void startToOrderRefundRequestActivity(SellOrderDetailBean orderDetailBean) {
         startActivity(new Intent(mContext, RefundRequestActivity.class)
                 .putExtra(BASE_PARCELABLE, orderDetailBean)
         );
@@ -438,7 +438,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
         switch (eventBusObject.getEventKey()) {
             case EventBusObject.EVALUATE:
                 if (this instanceof OrderManagerActivity) {
-                    OrderDetailBean.CommodityListBean commodityBean = (OrderDetailBean.CommodityListBean) eventBusObject.getEventObj();
+                    SellOrderDetailBean.CommodityListBean commodityBean = (SellOrderDetailBean.CommodityListBean) eventBusObject.getEventObj();
                     startToEvaluateActivity(commodityBean);
                 }
                 break;
@@ -475,9 +475,9 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
     /**
      * 跳入 评价
      */
-    public void startToEvaluateActivity(OrderDetailBean.CommodityListBean commodityBean) {
-        OrderDetailBean orderDetailBean = new OrderDetailBean();
-        List<OrderDetailBean.CommodityListBean> listBeans = new ArrayList<>();
+    public void startToEvaluateActivity(SellOrderDetailBean.CommodityListBean commodityBean) {
+        SellOrderDetailBean orderDetailBean = new SellOrderDetailBean();
+        List<SellOrderDetailBean.CommodityListBean> listBeans = new ArrayList<>();
         listBeans.add(commodityBean);
         orderDetailBean.setShopName(commodityBean.getShopName());
         orderDetailBean.setCommodityList(listBeans);
@@ -491,7 +491,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      * 跳入 评价
      * receivedStatus 是否收到货物  1未收到 2 收到
      */
-    public void startToRefundActivity(OrderDetailBean orderDetailBean, int receivedStatus) {
+    public void startToRefundActivity(SellOrderDetailBean orderDetailBean, int receivedStatus) {
         startActivity(new Intent(mContext, RefundActivity.class)
                 .putExtra(BASE_ID, receivedStatus)
                 .putExtra(BASE_PARCELABLE, orderDetailBean));
@@ -528,7 +528,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
      * @param commodityId
      */
     public void startToCommodityDetail(int commodityId) {
-        startActivityForResult(new Intent(mContext, CommodityDetailActivity.class)
+        startActivityForResult(new Intent(mContext, SellCommodityDetailActivity.class)
                 .putExtra(BASE_ID, commodityId), BASE_REQUEST_RESULT);
     }
     /**

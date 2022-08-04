@@ -1,6 +1,5 @@
 package com.example.appbase.base.multi;
 
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.R;
 import com.example.appbase.base.BaseRecyclerviewActivity;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.example.appbase.base.selectPics.SelectPhotosFragment;
 import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
@@ -18,12 +18,13 @@ import com.example.appbase.bean.multiBean.MultiPicBean;
 import com.example.appbase.bean.multiBean.MultiRadioBean;
 import com.example.appbase.util.StringTools;
 import com.example.appbase.util.UserInfoManager;
+import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -33,7 +34,7 @@ import okhttp3.FormBody;
  * @Description: 作用描述
  * @UpdateUser: 更新者
  */
-public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity<MultiPresent> implements IView, SelectPhotosFragment.OnPhotoItemClick{
+public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity<MultiPresent> implements IView, SelectPhotosFragment.OnPhotoItemClick {
 
     private int currentPosition;
     private TextView mSelectTv;
@@ -65,6 +66,7 @@ public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity
         setTitleName(getTitleName());
         initAdapterClick();
     }
+
     private void initAdapterClick() {
 
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -74,23 +76,26 @@ public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 currentPosition = position;
                 MultipleItem multipleItem = (MultipleItem) adapter.getData().get(position);
+                switch (multipleItem.getItemType()) {
+                    case MultipleItem.ITEM_PIC:
+                        MultiPicBean businessPicBean = (MultiPicBean) multipleItem.getObject();
+                        List<BannerObject> bannerObjects = new ArrayList<>();
+                        String picPath = businessPicBean.getPicPath();
+                        bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, picPath));
+                        if (isDetail()) {
+                            DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext, bannerObjects, 0);
+                        } else {
+                            choseImage(0, BaseMultiRecyclerActivity.this, 1);
 
-                int id = view.getId();
-//                if (id == R.id.form_pic_src_iv || id == R.id.form_head_pic_iv) {
-//                    choseImage(0, BaseMultiRecyclerActivity.this, 1);
-//                } else if (id == R.id.action_img) {
-//                    choseImage(0, BaseMultiRecyclerActivity.this, 9);
-//                } else
-
-                    if (id == R.id.location_ll) {//跳转到选择位置类
-                    startActivityForResult(new Intent(mContext, LocateSelectionActivity.class),
-                            LocateSelectionActivity.SELECT_ADDR);
-                } else if (id == R.id.select_value_tv) {
-                    mSelectTv = (TextView) adapter.getViewByPosition(mRecyclerview, position,
-                            R.id.select_value_tv);
-                    selectBean = (TextKeyValueBean) multipleItem.getObject();
-                    switch (selectBean.getKey()) {
-                    }
+                        }
+                        break;
+                    case MultipleItem.ITEM_SELECT:
+                        mSelectTv = (TextView) adapter.getViewByPosition(mRecyclerview, position,
+                                R.id.select_value_tv);
+                        selectBean = (TextKeyValueBean) multipleItem.getObject();
+                        break;
+                    default:
+                        break;
                 }
             }
         });
@@ -147,7 +152,7 @@ public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity
                     List<String> photos = fragmentPicBean.getFragmentPics();
                     String name = fragmentPicBean.getKey();
                     String msg = String.format("请选择%s", name);
-                    if (photos != null&&photos.size()>0) {
+                    if (photos != null && photos.size() > 0) {
                         String path = photos.get(0);
                         switch (name) {
 //                            case HomePageContract.COMMODITY_PRIMARY_PIC:
@@ -229,9 +234,6 @@ public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity
     }
 
 
-
-
-
     /**
      * 是否是详情
      *
@@ -254,9 +256,8 @@ public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new BaseMultiRecyclerAdapter(null,isDetail(),getSupportFragmentManager());
+        return new BaseMultiRecyclerAdapter(null, isDetail(), getSupportFragmentManager());
     }
-
 
 
     @Override
@@ -272,6 +273,11 @@ public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity
 
     @Override
     public void onPicClick(BaseQuickAdapter adapter, int position) {
-
+        List<BannerObject> bannerObjects = new ArrayList<>();
+        List<String> pics = adapter.getData();
+        for (String pic : pics) {
+            bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
+        }
+        DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext, bannerObjects, position);
     }
 }

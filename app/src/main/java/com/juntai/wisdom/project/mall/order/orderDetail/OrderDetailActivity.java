@@ -359,7 +359,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                             case 8:
                                 mOrderLeftTv.setVisibility(View.GONE);
                                 mOrderRightTv.setVisibility(View.GONE);
-                                mCustomTv.setVisibility(View.VISIBLE);
+                                mCustomTv.setVisibility(View.GONE);
                                 // : 2022/5/15 这些字段现在没有
                                 OrderDetailBean.ReturnOrderFormInfoBean returnOrderFormInfoBean = orderDetailBean.getReturnOrderFormInfo();
                                 if (returnOrderFormInfoBean != null) {

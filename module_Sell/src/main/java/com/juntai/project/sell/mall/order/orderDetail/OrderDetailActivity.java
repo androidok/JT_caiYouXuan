@@ -19,7 +19,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
 import com.juntai.project.sell.mall.beans.order.OrderDetailItemBean;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
-import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
+import com.example.appbase.bean.SellOrderDetailBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailDataBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.order.OrderPresent;
@@ -49,7 +49,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
      */
     private TextView mFinalPaymentTv;
     private RecyclerView mOrderInfoRv;
-    private OrderDetailBean orderDetailBean;
+    private SellOrderDetailBean orderDetailBean;
     private OrderCommodityAdapter mOrderCommodityAdapter;
     private OrderBaseInfoAdapter mOrderInfoAdapter;
     private TextView mOrderStatusTv;
@@ -90,13 +90,13 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
         mOrderCommodityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                OrderDetailBean.CommodityListBean commodityListBean = (OrderDetailBean.CommodityListBean) adapter.getItem(position);
+                SellOrderDetailBean.CommodityListBean commodityListBean = (SellOrderDetailBean.CommodityListBean) adapter.getItem(position);
             }
         });
         mOrderCommodityAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                OrderDetailBean.CommodityListBean commodityListBean = (OrderDetailBean.CommodityListBean) adapter.getItem(position);
+                SellOrderDetailBean.CommodityListBean commodityListBean = (SellOrderDetailBean.CommodityListBean) adapter.getItem(position);
                 // : 2022/5/16 立即评价
                 EventManager.getEventBus().post(new EventBusObject(EventBusObject.EVALUATE, commodityListBean));
             }
@@ -257,9 +257,9 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                 if (orderDetailDataBean != null) {
                     orderDetailBean = orderDetailDataBean.getData();
                     if (orderDetailBean != null) {
-                        List<OrderDetailBean.CommodityListBean> list = orderDetailBean.getCommodityList();
+                        List<SellOrderDetailBean.CommodityListBean> list = orderDetailBean.getCommodityList();
                         if (list != null) {
-                            for (OrderDetailBean.CommodityListBean commodityListBean : list) {
+                            for (SellOrderDetailBean.CommodityListBean commodityListBean : list) {
                                 commodityListBean.setOrderStatus(orderDetailBean.getState());
                             }
                         }
@@ -326,7 +326,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                                 if (!TextUtils.isEmpty(orderDetailBean.getShipmentsTime())) {
                                     arrays.add(new TextKeyValueBean("发货时间:", orderDetailBean.getShipmentsTime()));
                                 }
-                                OrderDetailBean.ReturnOrderFormInfoBean fefundBean = orderDetailBean.getReturnOrderFormInfo();
+                                SellOrderDetailBean.ReturnOrderFormInfoBean fefundBean = orderDetailBean.getReturnOrderFormInfo();
                                 if (fefundBean != null) {
                                     List<TextKeyValueBean> refunds = new ArrayList<>();
                                     refunds.add(new TextKeyValueBean("退款原因:", fefundBean.getCauseName()));
@@ -394,7 +394,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
         arraysBuyer.add(new TextKeyValueBean("联系电话", orderDetailBean.getPhone()));
         arraysBuyer.add(new TextKeyValueBean("收货地址", orderDetailBean.getAddress()));
 
-        OrderDetailBean.CommodityEvaluateBean commodityEvaluateBean = orderDetailBean.getCommodityEvaluateVo();
+        SellOrderDetailBean.CommodityEvaluateBean commodityEvaluateBean = orderDetailBean.getCommodityEvaluateVo();
         if (commodityEvaluateBean != null) {
             List<TextKeyValueBean> buyerEvalute = new ArrayList<>();
             buyerEvalute.add(new TextKeyValueBean("评价内容", commodityEvaluateBean.getEvaluate()));

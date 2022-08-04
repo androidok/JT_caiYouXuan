@@ -45,7 +45,6 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
      */
     private String shopContent;
     private String schoolName;
-    private int paymentType;
 
     public int getType() {
         return type;
@@ -169,13 +168,6 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
         this.schoolName = schoolName;
     }
 
-    public int getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(int paymentType) {
-        this.paymentType = paymentType;
-    }
 
     @Override
     public String getTarget() {
@@ -203,7 +195,6 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
         dest.writeString(this.headPortrait);
         dest.writeString(this.shopContent);
         dest.writeString(this.schoolName);
-        dest.writeInt(this.paymentType);
         dest.writeParcelable(this.messageBodyBean, flags);
     }
 
@@ -219,7 +210,6 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
         this.headPortrait = in.readString();
         this.shopContent = in.readString();
         this.schoolName = in.readString();
-        this.paymentType = in.readInt();
         this.messageBodyBean = in.readParcelable(MessageBodyBean.class.getClassLoader());
     }
 

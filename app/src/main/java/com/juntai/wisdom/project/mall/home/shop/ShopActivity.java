@@ -8,21 +8,23 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.appbase.base.customview.DragFloatActionButton;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
+import com.example.appbase.scan.QRScanActivity;
+import com.example.appbase.util.bannerImageLoader.BannerObject;
+import com.example.appbase.util.bannerImageLoader.GlideImageLoader;
 import com.example.live_moudle.live.LiveRoomActivity;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBuyBean;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
-import com.juntai.wisdom.project.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
-import com.juntai.wisdom.project.mall.home.QRScanActivity;
 import com.juntai.wisdom.project.mall.home.shop.ijkplayer.PlayerLiveActivity;
 import com.juntai.wisdom.project.mall.share.ShareActivity;
-import com.juntai.wisdom.project.mall.utils.bannerImageLoader.BannerObject;
-import com.juntai.wisdom.project.mall.utils.bannerImageLoader.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -34,6 +36,7 @@ import java.util.List;
  * @description 描述  店铺首页
  * @date 2022/5/8 8:50
  */
+@Route(path = ARouterPath.appShopActivity)
 public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePageContract.IHomePageView, View.OnClickListener {
 
     private ImageView mShopBackIv;
@@ -112,9 +115,9 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
                     case BannerObject.BANNER_TYPE_IMAGE:
                     case BannerObject.BANNER_TYPE_VIDEO:
                         // : 2022/5/21 展示图片大图
-                        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext, bannerPics, bannerPics.size() == bannerObjects.size() ? position : position - 1);
+                        DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext, bannerPics, bannerPics.size() == bannerObjects.size() ? position : position - 1);
                         break;
-                    case BannerObject.BANNER_TYPE_CAMERA:
+                    case BannerObject.BANNER_TYPE_RTMP:
                         BannerObject.StreamBean streamBean = bannerObject.getStreamBean();
                         PlayerLiveActivity.startPlayerLiveActivity(mContext, streamBean.getCameraNum(), streamBean.getCameraCover(), streamBean.getRtmpUrl());
 
@@ -153,7 +156,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         });
 
         if (!TextUtils.isEmpty(shopBean.getCameraCover()) && !TextUtils.isEmpty(shopBean.getCameraNumber())) {
-            bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_CAMERA, new BannerObject.StreamBean(shopBean.getCameraNumber(), shopBean.getCameraCover(), shopBean.getCameraUrl())));
+            bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_RTMP, new BannerObject.StreamBean(shopBean.getCameraNumber(), shopBean.getCameraCover(), shopBean.getCameraUrl())));
         }
 
         String bannerPic = shopBean.getShopImg();
@@ -189,7 +192,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         ImageLoadUtil.loadSquareImageHasCorner(mContext, shopBean.getHeadPortrait(), mShopOwnerHeadIv);
         mShopNameTv.setText(shopBean.getName());
         mShopCreatTimeTv.setText("开店时间:" + shopBean.getCreateTime());
-        mScoreTv.setText("店铺得分:" + shopBean.getShopFraction());
+        mScoreTv.setText("在售商品:" + shopBean.getCommodityCount());
         mShopDesTv.setText(shopBean.getIntroduction());
         mShopCollectIv.setImageResource(shopBean.getIsCollect() > 0 ? R.mipmap.collected_icon : R.mipmap.un_collect_icon);
         initBanner(shopBean);

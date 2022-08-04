@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.bean.UserBean;
+import com.example.appbase.util.UserInfoManager;
 import com.example.chat.MyChatApp;
 import com.example.module_nongfa_manager.MainNFManagerActivity;
 import com.example.net.AppHttpPath;
@@ -19,9 +21,6 @@ import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.project.sell.mall.SellMainActivity;
-import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
-import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mall.MainActivity;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
@@ -35,7 +34,7 @@ import okhttp3.FormBody;
  * @description 描述  登录
  * @date 2020/3/6 9:12
  */
-@Route(path = ARouterPath.activityLogin)
+@Route(path = ARouterPath.appLogin)
 public class LoginActivity extends SmsCheckCodeActivity implements
         View.OnClickListener {
     /**
@@ -122,7 +121,8 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                                 case 0:
                                     // : 2022/6/8 跳转到店铺提交页面
                                     // : 2022/6/8 进入到店铺认证界面
-                                    startActivity(new Intent(mContext, ShopManagerActivity.class));
+                                    ARouter.getInstance().build(ARouterPath.sellShopManager)
+                                            .navigation();
                                     finish();
                                     break;
                                 case 1:
@@ -137,16 +137,17 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                                     break;
                                 case 2:
                                     // : 2022/6/8 审核通过
-                                    startActivity(new Intent(mContext, SellMainActivity.class));
+                                    ARouter.getInstance().build(ARouterPath.sellMain)
+                                            .navigation();
                                     finish();
                                     break;
                                 case 3:
                                     // : 2022/6/8 审核失败  是否需要加上原因
-                                    showAlertDialog(String.format("%s,请重新提交", UserInfoManagerMall.getUser().getShopContent()), "去认证", "", new DialogInterface.OnClickListener() {
+                                    showAlertDialog(String.format("%s,请重新提交", UserInfoManager.getUser().getShopContent()), "去认证", "", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             // : 2022/6/10 获取店铺信息 跳转到店铺管理页面
-                                            mPresenter.getSellShopDetail(getBaseBuilder().add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPath.SHOP_DETAIL);
+                                            mPresenter.getSellShopDetail(getBaseBuilder().add("shopId", String.valueOf(UserInfoManager.getShopId())).build(), AppHttpPath.SHOP_DETAIL);
                                         }
                                     });
 
@@ -175,8 +176,9 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     ShopDetailSellBean.DataBean dataBean = shopDetailBean.getData();
                     if (dataBean != null) {
                         // : 2022/6/8 进入到店铺认证界面
-                        startActivity(new Intent(mContext, ShopManagerActivity.class)
-                                .putExtra(BASE_PARCELABLE, dataBean));
+                        ARouter.getInstance().build(ARouterPath.sellShopManager)
+                                .withParcelable(BASE_PARCELABLE, dataBean)
+                                .navigation();
                         finish();
                     }
                 }

@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * @aouther tobato
- * @description 描述 商品类目管理
+ * @description 描述 商品分类管理
  * @date 2022/6/12 11:13
  */
 public class CommodityCategoryActivity extends BaseRecyclerviewActivity<ShopPresent> implements HomePageContract.IHomePageView, View.OnClickListener {
@@ -57,7 +57,7 @@ public class CommodityCategoryActivity extends BaseRecyclerviewActivity<ShopPres
     @Override
     public void initData() {
         super.initData();
-        setTitleName("商品类目");
+        setTitleName("商品分类");
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -71,7 +71,7 @@ public class CommodityCategoryActivity extends BaseRecyclerviewActivity<ShopPres
                     setAlertDialogHeightWidth(alertDialog, 0, 0);
                     alertDialog.show();
                 } else if (id == R.id.delete_tv) {// : 2022/6/13 删除类目
-                    showAlertDialogOfOneBt("删除商品类目", "若删除当前类目，此类目下所有商品会一 起删除。", "确定", new DialogInterface.OnClickListener() {
+                    showAlertDialogOfOneBt("删除商品分类", "若删除当前类目，此类目下所有商品会一 起删除。", "确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();

@@ -1,5 +1,6 @@
 package com.example.module_nongfa_manager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentTransaction;
@@ -10,11 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.appbase.scan.QRScanActivity;
 import com.example.module_nongfa_manager.base.BaseNFActivity;
-import com.example.module_nongfa_manager.base.NfManagerQRScanActivity;
 import com.example.module_nongfa_manager.home.NFHomeFragment;
-import com.example.module_nongfa_manager.mine.NFMineFragment;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
+import com.juntai.project.sell.mall.mine.MyCenterFragment;
 
 /**
  * @aouther tobato
@@ -38,7 +40,7 @@ public class MainNFManagerActivity extends BaseNFActivity implements View.OnClic
     private TextView mNavigationMineTv;
     private LinearLayout mNavigationMineLl;
     private NFHomeFragment nfHomeFragment;
-    private NFMineFragment mineFragment;
+    private MyCenterFragment mineFragment;
 
     @Override
     protected BasePresenter createPresenter() {
@@ -80,7 +82,8 @@ public class MainNFManagerActivity extends BaseNFActivity implements View.OnClic
             nfHomeFragment = new NFHomeFragment();
         }
         if (mineFragment == null) {
-            mineFragment = new NFMineFragment();
+            mineFragment = new MyCenterFragment();
+            mineFragment.setShowGuide(false);
         }
     }
 
@@ -155,7 +158,27 @@ public class MainNFManagerActivity extends BaseNFActivity implements View.OnClic
                 break;
         }
     }
+    @Override
+    public void onBackPressed() {
+        showAlertDialog("请选择退出方式", "退出", "挂起", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ActivityManagerTool.getInstance().finishApp();
+            }
+        }, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //模拟home键,发送广播
+                //sendBroadcast(new Intent().setAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
+                // .putExtra("reason","homekey"));
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+            }
+        });
 
+    }
 
     @Override
     public void onClick(View v) {
@@ -163,8 +186,8 @@ public class MainNFManagerActivity extends BaseNFActivity implements View.OnClic
         if (id == R.id.navigation_home_cl) {
             initBottomViewStatus(0);
         } else if (id == R.id.navigation_scan_iv) {
-            // TODO: 2022/7/28 扫描
-            startActivity(new Intent(mContext, NfManagerQRScanActivity.class));
+            // : 2022/7/28 扫描
+            startActivity(new Intent(mContext, QRScanActivity.class));
         } else if (id == R.id.navigation_mine_ll) {
             initBottomViewStatus(1);
         }

@@ -12,7 +12,7 @@ import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.base.BaseAppMallPresent;
 import com.juntai.project.sell.mall.beans.order.ConfirmOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailDataBean;
-import com.juntai.project.sell.mall.beans.order.OrderListBean;
+import com.example.appbase.bean.SellOrderListBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayWxBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayZfbBean;
 import com.juntai.project.sell.mall.beans.order.RefundReasonBean;
@@ -248,9 +248,9 @@ public class OrderPresent extends BaseAppMallPresent {
         AppNetModuleMall.createrRetrofit()
                 .getOrderList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<OrderListBean>(getView()) {
+                .subscribe(new BaseObserver<SellOrderListBean>(getView()) {
                     @Override
-                    public void onSuccess(OrderListBean o) {
+                    public void onSuccess(SellOrderListBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

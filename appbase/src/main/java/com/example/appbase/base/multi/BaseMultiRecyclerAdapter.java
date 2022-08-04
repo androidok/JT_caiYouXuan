@@ -22,12 +22,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.appbase.R;
 import com.example.appbase.base.selectPics.SelectPhotosFragment;
-import com.example.appbase.bean.multiBean.BaseNormalRecyclerviewBean;
+import com.example.appbase.base.web.BaseWebviewFragment;
+import com.example.appbase.bean.multiBean.MultiNormalRecyclerviewBean;
 import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.example.appbase.bean.multiBean.ItemFragmentBean;
 import com.example.appbase.bean.multiBean.LocationBean;
 import com.example.appbase.bean.multiBean.MultiPicBean;
 import com.example.appbase.bean.multiBean.MultiRadioBean;
+import com.example.appbase.bean.nong_fa_manager.CommodityManagerDetailBean;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
@@ -50,7 +52,7 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public BaseMultiRecyclerAdapter(List<MultipleItem> data,boolean isDetail, FragmentManager mFragmentManager) {
+    public BaseMultiRecyclerAdapter(List<MultipleItem> data, boolean isDetail, FragmentManager mFragmentManager) {
         super(data);
         addItemType(MultipleItem.ITEM_TITILE_SMALL, R.layout.multi_item_layout_type_title_small);
         addItemType(MultipleItem.ITEM_TITILE_BIG, R.layout.multi_item_layout_type_title_big);
@@ -60,6 +62,7 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
         addItemType(MultipleItem.ITEM_NORMAL_RECYCLEVIEW, R.layout.multi_item_layout_type_recyclerview);
         addItemType(MultipleItem.ITEM_SELECT, R.layout.multi_item_layout_type_select);
         addItemType(MultipleItem.ITEM_FRAGMENT, R.layout.multi_item_pic_fragment);
+        addItemType(MultipleItem.ITEM_RICH_TEXT, R.layout.multi_item_rich_text);
 
         this.isDetail = isDetail;
         this.mFragmentManager = mFragmentManager;
@@ -70,6 +73,11 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
     protected void convert(BaseViewHolder helper, MultipleItem item) {
 
         switch (item.getItemType()) {
+            case MultipleItem.ITEM_RICH_TEXT:
+                String richText = (String) item.getObject();
+                BaseWebviewFragment webviewFragment = (BaseWebviewFragment) mFragmentManager.findFragmentById(R.id.base_webview_fg);
+                webviewFragment.setWebData(richText);
+                break;
             case MultipleItem.ITEM_TITILE_BIG:
                 helper.setText(R.id.item_big_title_tv, (String) item.getObject());
                 break;
@@ -180,11 +188,7 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
                 }
                 ImageView picIv = helper.getView(R.id.form_pic_src_iv);
                 helper.setGone(R.id.pic_form_notice_tv, false);
-                //详情时 图片不可点击  示例图不可点击
-                if (!isDetail) {
-                    helper.addOnClickListener(R.id.form_pic_src_iv);
-                }
-
+                helper.addOnClickListener(R.id.form_pic_src_iv);
                 if (!TextUtils.isEmpty(picPath)) {
                     ImageLoadUtil.loadImage(mContext, picPath, picIv);
 
@@ -341,19 +345,23 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
                 break;
             case MultipleItem.ITEM_NORMAL_RECYCLEVIEW:
                 //recycleview
-                BaseNormalRecyclerviewBean baseNormalRecyclerviewBean = (BaseNormalRecyclerviewBean) item.getObject();
+                MultiNormalRecyclerviewBean baseNormalRecyclerviewBean = (MultiNormalRecyclerviewBean) item.getObject();
                 RecyclerView recyclerView = helper.getView(R.id.item_normal_rv);
                 LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL
                         , false);
-                BaseQuickAdapter adapter = null;
+                BaseQuickAdapter adapter = baseNormalRecyclerviewBean.getBaseQuickAdapter();
                 recyclerView.setLayoutManager(manager);
-//                switch (baseNormalRecyclerviewBean.getKey()) {
-//                    case HomePageContract.COMMODITY_BILL:
-//                        break;
-//                    default:
-//                        break;
-//                }
                 recyclerView.setAdapter(adapter);
+
+                switch (baseNormalRecyclerviewBean.getKey()) {
+                    case MultiContact.COMMODITY_BILL:
+                    case MultiContact.COMMODITY_SOURCE:
+                        List<CommodityManagerDetailBean.DataBean.TraceabilityBean.TraceabilityFileBean> arrays = (List<CommodityManagerDetailBean.DataBean.TraceabilityBean.TraceabilityFileBean>) baseNormalRecyclerviewBean.getObject();
+                        adapter.setNewData(arrays);
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case MultipleItem.ITEM_LOCATION:
                 LocationBean locationBean = (LocationBean) item.getObject();

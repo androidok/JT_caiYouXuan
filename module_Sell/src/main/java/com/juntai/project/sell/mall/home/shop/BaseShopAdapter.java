@@ -32,7 +32,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
 import com.example.appbase.bean.multiBean.ItemFragmentBean;
 import com.example.appbase.bean.multiBean.MultiRadioBean;
-import com.example.appbase.bean.multiBean.BaseNormalRecyclerviewBean;
+import com.example.appbase.bean.multiBean.MultiNormalRecyclerviewBean;
 import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.example.appbase.bean.multiBean.LocationBean;
 import com.example.appbase.bean.multiBean.MultiPicBean;
@@ -421,7 +421,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 break;
             case MultipleItem.ITEM_NORMAL_RECYCLEVIEW:
                 //recycleview
-                BaseNormalRecyclerviewBean baseNormalRecyclerviewBean = (BaseNormalRecyclerviewBean) item.getObject();
+                MultiNormalRecyclerviewBean baseNormalRecyclerviewBean = (MultiNormalRecyclerviewBean) item.getObject();
                 RecyclerView recyclerView = helper.getView(R.id.item_normal_rv);
                 LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL
                         , false);

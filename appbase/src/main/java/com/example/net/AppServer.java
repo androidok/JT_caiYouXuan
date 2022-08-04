@@ -14,14 +14,17 @@ import com.example.appbase.bean.LiveResultBean;
 import com.example.appbase.bean.LiveTypeListBean;
 import com.example.appbase.bean.NewsListBean;
 import com.example.appbase.bean.PlayUrlBean;
+import com.example.appbase.bean.SellOrderListBean;
 import com.example.appbase.bean.ShopCommodityListBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.bean.ShopListDataBean;
 import com.example.appbase.bean.UserBean;
+import com.example.appbase.bean.nong_fa_manager.CommodityManagerDetailBean;
 import com.example.appbase.bean.nong_fa_manager.CommodityManagerListBean;
 import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
 import com.example.appbase.bean.nong_fa_manager.ShopManagerDetailBean;
 import com.example.appbase.bean.nong_fa_manager.ShopManagerListBean;
+import com.example.appbase.bean.nong_fa_manager.SortDetailBean;
 import com.example.appbase.bean.order.ConfirmOrderBean;
 import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.appbase.bean.order.OrderDetailDataBean;
@@ -385,13 +388,29 @@ public interface AppServer {
     @POST(AppHttpPath.MANAGER_COMMODITY_LIST)
     Observable<CommodityManagerListBean> getManagerCommodityList(@Body RequestBody requestBody);
 
+    @POST(AppHttpPath.MANAGER_COMMODITY_DETAIL)
+    Observable<CommodityManagerDetailBean> getManagerCommodityDetail(@Body RequestBody requestBody);
+
     @POST(AppHttpPath.MANAGER_SHOP_LIST)
     Observable<ShopManagerListBean> getManagerShopList(@Body RequestBody requestBody);
+
     @POST(AppHttpPath.MANAGER_SHOP_DETAIL)
     Observable<ShopManagerDetailBean> getManagerShopDetail(@Body RequestBody requestBody);
 
     @POST(AppHttpPath.UPDATE_COMMODITY_STATUS)
     Observable<BaseResult> updateCommodityStatus(@Body RequestBody requestBody);
+
     @POST(AppHttpPath.COMMIT_SHOP_CHECK)
     Observable<BaseResult> commitShopCheck(@Body RequestBody requestBody);
+
+    @POST(AppHttpPath.UPDATE_SORT_STATUS)
+    Observable<BaseResult> updateSortStatus(@Body RequestBody requestBody);
+
+    @POST(AppHttpPath.SORT_ORDER_DETAIL)
+    Observable<SortDetailBean> getSortOrderDetail(@Body RequestBody requestBody);
+    @POST(AppHttpPath.NF_ORDER_LIST)
+    Observable<SellOrderListBean> getNfOrderList(@Body RequestBody requestBody);
+
+    @POST(AppHttpPath.UPDATE_DELIVERY_STATUS)
+    Observable<BaseResult> updateDeliveryStatus(@Body RequestBody requestBody);
 }

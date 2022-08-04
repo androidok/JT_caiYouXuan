@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.bean.PicTextBean;
 import com.example.appbase.bean.ShopDetailSellBean;
+import com.example.appbase.scan.QRScanActivity;
 import com.example.live_moudle.live.LivePrepareActivity;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
@@ -328,7 +329,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         int id = v.getId();
         if (id == R.id.share_shop_iv) {// : 2022/6/7 分享店铺
             ShareActivity.startShareActivity(mContext, 0, dataBean.getHeadPortrait(), dataBean.getIntroduction(), dataBean.getShareUrl());
-        } else if (id == R.id.search_ll) {// TODO: 2022/7/9 搜索
+        } else if (id == R.id.search_ll) {// : 2022/7/9 搜索
             startActivity(new Intent(mContext, SearchActivity.class));
         } else if (id == R.id.scan_iv) {// : 2022/5/31 扫码
             startActivity(new Intent(mContext, QRScanActivity.class));

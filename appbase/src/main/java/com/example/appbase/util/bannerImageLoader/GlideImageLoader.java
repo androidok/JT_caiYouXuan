@@ -1,10 +1,13 @@
 package com.example.appbase.util.bannerImageLoader;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.appbase.R;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
@@ -17,8 +20,8 @@ import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 public class GlideImageLoader implements ImageLoaderInterface<View> {
     StandardGSYVideoPlayer videoPlayer;
     long seek = 0;
-    String  pathV;
     private OnFullScreenListener onFullScreenListener;
+    private BannerObject.VideoBean videoBean;
 
     public GlideImageLoader setOnFullScreenCallBack(OnFullScreenListener onFullScreenListener) {
         this.onFullScreenListener = onFullScreenListener;
@@ -42,15 +45,17 @@ public class GlideImageLoader implements ImageLoaderInterface<View> {
         if (BannerObject.BANNER_TYPE_IMAGE.equals(eventKey)) {
             ImageView imageView = (ImageView) view;
             //Glide 加载图片简单用法
-            ImageLoadUtil.loadImageCache(context, (String) bannerObject.getEventObj(),imageView);
+            ImageLoadUtil.loadSquareImage(context,(String) bannerObject.getPicPath(), imageView);
         } else if (BannerObject.BANNER_TYPE_VIDEO.equals(eventKey)) {
-            pathV = (String) bannerObject.getEventObj();
+            videoBean = bannerObject.getVideoBean();
             startVideo(context);
         } else if (BannerObject.BANNER_TYPE_RTMP.equals(eventKey)) {
-//            ImageView imageView = (ImageView) view;
-//
-//            ShopDetailBuyBean.DataBean shopBean  = (ShopDetailBuyBean.DataBean) bannerObject.getEventObj();
-//            ImageLoadUtil.loadImageCache(context, shopBean.getCameraCover(),imageView);
+            ImageView imageView = (ImageView) view.findViewById(R.id.rtmp_iv);
+            ImageView imageView1 = (ImageView) view.findViewById(R.id.item_top_iv);
+            BannerObject.StreamBean streamBean = (BannerObject.StreamBean) bannerObject.getStreamBean();
+            ImageLoadUtil.loadImageCache(context, streamBean.getCameraCover(), imageView);
+            Glide.with(context).load(R.mipmap.live_going).into(imageView1);
+
         }
 
 
@@ -70,21 +75,29 @@ public class GlideImageLoader implements ImageLoaderInterface<View> {
             return videoPlayer;
         } else if (BannerObject.BANNER_TYPE_RTMP.equals(eventKey)) {
             // 流的封面图
-            ImageView rtmpView = new ImageView(context);
-            return rtmpView;
+            return getRtmpView(context);
         }
 
         return null;
 
     }
 
+    /**
+     *
+     * @param context
+     * @return
+     */
+    private View getRtmpView(Context context) {
+        return LayoutInflater.from(context).inflate(R.layout.rtmp_view, null);
+    }
+
     private ImageView startVideo(Context mContext) {
         //RTMP播放需切换至exo播放
         PlayerFactory.setPlayManager(Exo2PlayerManager.class);
-        videoPlayer.setUp(pathV, false, "");
+        videoPlayer.setUp(videoBean.getVideoPath(), false, "");
         //增加封面
         ImageView imageView = new ImageView(mContext);
-        Glide.with(mContext).asBitmap().load(pathV).into(imageView);
+        Glide.with(mContext).asBitmap().load(TextUtils.isEmpty(videoBean.getVideoCover())?videoBean.getVideoPath():videoBean.getVideoCover()).into(imageView);
         videoPlayer.setThumbImageView(imageView);
         //增加title
         videoPlayer.getTitleTextView().setVisibility(View.GONE);
@@ -109,20 +122,21 @@ public class GlideImageLoader implements ImageLoaderInterface<View> {
         return imageView;
     }
 
-    public void pause(){
-        if (videoPlayer != null){
+    public void pause() {
+        if (videoPlayer != null) {
             GSYVideoManager.onPause();
         }
     }
+
     //释放所有
-    public void release(){
+    public void release() {
         GSYVideoManager.releaseAllVideos();
     }
 
     /**
      * 全屏得点击事件
      */
-    public interface OnFullScreenListener{
+    public interface OnFullScreenListener {
         void onFullScreen();
     }
 }
