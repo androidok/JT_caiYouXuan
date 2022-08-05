@@ -145,7 +145,7 @@ public class AddCommoditySourceActivity extends BaseShopActivity {
                 if (currentViewId == R.id.select_pics_spr) {
                     selectPicRv = (SelectPicRv) view;
                     billBean = (CommoditySourceDetailBean.DataBean.PhotoListBean) selectPicRv.getTag();
-                    choseImage(0, AddCommoditySourceActivity.this, selectPicRv.getBuilder().getmMaxCount()+1-adapter.getData().size());
+                    choseImage(0, AddCommoditySourceActivity.this, selectPicRv.getmMaxCount()+1-adapter.getData().size());
                 } else if (currentViewId == R.id.add_item_tv) {
                     CommoditySourceDetailBean.DataBean.PhotoListBean photoListBean = new CommoditySourceDetailBean.DataBean.PhotoListBean();
                     adapter.addData(photoListBean);

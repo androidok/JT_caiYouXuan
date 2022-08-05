@@ -24,59 +24,45 @@ public class SelectPicRv extends RecyclerView {
 
 
     private OnPhotoItemClick onPhotoItemClick;
-    private Builder builder;
+    private int mSpanCount = 4;//一行的个数，默认4
+    private int mMaxCount = 9;//最大个数，默认9个
+    private boolean isDetail = false;//不是详情 可删除
+    private GridLayoutManager layoutManager;
 
-    public Builder getBuilder() {
-        return builder;
-    }
 
-    public void setBuilder(Builder builder) {
-        if (builder == null) {
-            builder = new Builder();
+    public SelectPicRv setmSpanCount(int mSpanCount) {
+        this.mSpanCount = mSpanCount;
+        if (layoutManager != null) {
+            layoutManager.setSpanCount(mSpanCount);
         }
-        this.builder = builder;
+        return  this;
     }
 
-    public void setOnPhotoItemClick(OnPhotoItemClick onPhotoItemClick) {
+
+    public int getmMaxCount() {
+        return mMaxCount;
+    }
+
+    public SelectPicRv setmMaxCount(int mMaxCount) {
+        this.mMaxCount = mMaxCount;
+        return  this;
+    }
+
+    public SelectPicRv setDetail(boolean detail) {
+        isDetail = detail;
+        if (selectedPicsAdapter != null) {
+            selectedPicsAdapter.setDetail(isDetail);
+        }
+        return  this;
+    }
+
+    public SelectPicRv setOnPhotoItemClick(OnPhotoItemClick onPhotoItemClick) {
         this.onPhotoItemClick = onPhotoItemClick;
+        return this;
     }
 
 
 
-    public static class Builder {
-
-        private int mSpanCount = 4;//一行的个数，默认4
-        private int mMaxCount = 9;//最大个数，默认9个
-        private boolean isDetail = false;//不是详情 可删除
-
-
-        public int getmSpanCount() {
-            return mSpanCount;
-        }
-
-        public Builder setmSpanCount(int mSpanCount) {
-            this.mSpanCount = mSpanCount;
-            return this;
-        }
-
-        public int getmMaxCount() {
-            return mMaxCount;
-        }
-
-        public Builder setmMaxCount(int mMaxCount) {
-            this.mMaxCount = mMaxCount;
-            return this;
-        }
-
-        public boolean isDetail() {
-            return isDetail;
-        }
-
-        public Builder setDetail(boolean detail) {
-            isDetail = detail;
-            return this;
-        }
-    }
 
     private SelectedPicsAdapter selectedPicsAdapter;
 
@@ -100,16 +86,14 @@ public class SelectPicRv extends RecyclerView {
 
 
     private void initView(Context context) {
-        setBuilder(builder);
-        GridLayoutManager layoutManager = new GridLayoutManager(context, builder.getmSpanCount()) {
+        layoutManager = new GridLayoutManager(context, mSpanCount) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         };
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         selectedPicsAdapter = new SelectedPicsAdapter(R.layout.selected_pic_item);
-        selectedPicsAdapter.setDetail(builder.isDetail());
+        selectedPicsAdapter.setDetail(isDetail);
         setLayoutManager(layoutManager);
         setAdapter(selectedPicsAdapter);
         selectedPicsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -154,7 +138,7 @@ public class SelectPicRv extends RecyclerView {
             if (arrays == null) {
                 arrays = new ArrayList<>();
             }
-            if (arrays.size() < builder.getmMaxCount() + 1 && !builder.isDetail()) {
+            if (arrays.size() < mMaxCount + 1 && !isDetail) {
                 arrays.add("-1");
             }
             selectedPicsAdapter.setNewData(arrays);
@@ -169,7 +153,7 @@ public class SelectPicRv extends RecyclerView {
                     pics.add(array);
                 }
             }
-            if (pics.size() < builder.getmMaxCount() && !builder.isDetail()) {
+            if (pics.size() < mMaxCount && !isDetail) {
                 pics.add("-1");
             }
             selectedPicsAdapter.setNewData(pics);

@@ -54,6 +54,7 @@ public class CheckCommodityActivity extends BaseMultiRecyclerActivity {
     public void initData() {
         super.initData();
         commodityId = getIntent().getIntExtra(BASE_ID, 0);
+//        baseQuickAdapter.setNewData(mPresenter.checkCommodity(null, true));
         mPresenter.getManagerCommodityDetail(getBaseBuilder().add("commodityId",String.valueOf(commodityId)).build(), AppHttpPath.MANAGER_COMMODITY_DETAIL);
 
     }

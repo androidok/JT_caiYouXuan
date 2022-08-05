@@ -31,10 +31,8 @@ public class CommoditySourceAdapter extends BaseQuickAdapter<CommoditySourceDeta
     protected void convert(BaseViewHolder helper, CommoditySourceDetailBean.DataBean.PhotoListBean item) {
 
         SelectPicRv selectPicRv = helper.getView(R.id.select_pics_spr);
-        SelectPicRv.Builder builder = new SelectPicRv.Builder()
-                .setDetail(false)
+        selectPicRv.setDetail(false)
                 .setmMaxCount(3);
-        selectPicRv.setBuilder(builder);
         selectPicRv.setTag(item);
         selectPicRv.setOnPhotoItemClick(new SelectPicRv.OnPhotoItemClick() {
             @Override
