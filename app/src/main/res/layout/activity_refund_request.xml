@@ -1,111 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="10dp"
     android:paddingLeft="15dp"
-    android:paddingRight="15dp"
->
+    android:paddingTop="10dp"
+    android:paddingRight="15dp">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="退款商品"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
-
-    <include
-        layout="@layout/recycleview_layout"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartrefreshlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="选择服务类型"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/refund_cl"
-        android:paddingTop="5dp"
-        android:paddingBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/refund_iv"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/refund_goods_icon"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/refund_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="我要退款（无需退货"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/refund_iv"
-            app:layout_constraintLeft_toRightOf="@+id/refund_iv"
-            app:layout_constraintTop_toTopOf="@+id/refund_iv" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="没收到货，或与卖家协商同意不用退货只退款"
-            app:layout_constraintLeft_toLeftOf="@+id/refund_tv"
-            app:layout_constraintTop_toBottomOf="@+id/refund_tv" />
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/refund_goods_cl"
-        android:layout_width="match_parent"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_height="wrap_content"
-        >
-
-        <ImageView
-            android:id="@+id/refund_goods_iv"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/refund_icon"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/refund_goods_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="我要退货退款"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/refund_goods_iv"
-            app:layout_constraintLeft_toRightOf="@+id/refund_goods_iv"
-            app:layout_constraintTop_toTopOf="@+id/refund_goods_iv" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="货已收到，需要退还收到的货物"
-            app:layout_constraintLeft_toLeftOf="@+id/refund_goods_tv"
-            app:layout_constraintTop_toBottomOf="@+id/refund_goods_tv" />
-    </android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="退款商品"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="选择服务类型"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/refund_cl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/refund_iv"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/refund_goods_icon"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/refund_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="我要退款（无需退货"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/refund_iv"
+                    app:layout_constraintLeft_toRightOf="@+id/refund_iv"
+                    app:layout_constraintTop_toTopOf="@+id/refund_iv" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="没收到货，或与卖家协商同意不用退货只退款"
+                    app:layout_constraintLeft_toLeftOf="@+id/refund_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/refund_tv" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/refund_goods_cl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/refund_goods_iv"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/refund_icon"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/refund_goods_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="我要退货退款"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/refund_goods_iv"
+                    app:layout_constraintLeft_toRightOf="@+id/refund_goods_iv"
+                    app:layout_constraintTop_toTopOf="@+id/refund_goods_iv" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="货已收到，需要退还收到的货物"
+                    app:layout_constraintLeft_toLeftOf="@+id/refund_goods_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/refund_goods_tv" />
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</android.support.v4.widget.NestedScrollView>

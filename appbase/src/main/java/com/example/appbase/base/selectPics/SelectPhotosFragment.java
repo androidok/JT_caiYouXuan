@@ -604,7 +604,7 @@ public class SelectPhotosFragment<T> extends BaseAppModuleFragment implements Vi
     /**
      * 视频图片和普通图片的点击事件
      */
-    private interface OnPhotoItemClick {
+    public interface OnPhotoItemClick {
         void onVedioPicClick(BaseQuickAdapter adapter, int position);
 
         void onPicClick(BaseQuickAdapter adapter, int position);

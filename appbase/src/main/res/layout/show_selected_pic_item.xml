@@ -45,6 +45,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/select_pic_icon_iv"
         app:layout_constraintRight_toRightOf="@+id/select_pic_icon_iv"
         android:paddingTop="5dp"
+        android:visibility="gone"
         android:textSize="12sp"
         android:paddingBottom="1dp"
         android:layout_height="wrap_content"

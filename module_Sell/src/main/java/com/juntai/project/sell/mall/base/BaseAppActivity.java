@@ -22,14 +22,12 @@ import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.selectPics.BaseSelectPicsActivity;
 import com.example.appbase.bean.LiveListBean;
-import com.example.appbase.bean.SellOrderDetailBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.ARouterPath;
-import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
@@ -44,17 +42,13 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.SellCommodityDetailActivity;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
 import com.juntai.project.sell.mall.news.ChatActivity;
 import com.juntai.project.sell.mall.order.allOrder.OrderManagerActivity;
-import com.juntai.project.sell.mall.order.evaluate.EvaluateActivity;
 import com.juntai.project.sell.mall.order.orderDetail.OrderDetailActivity;
-import com.juntai.project.sell.mall.order.refund.RefundActivity;
-import com.juntai.project.sell.mall.order.refund.RefundRequestActivity;
 import com.juntai.project.sell.mall.order.send.SendActivity;
 import com.juntai.project.sell.mall.utils.ObjectBoxMallUtil;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
@@ -380,26 +374,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
 
     }
 
-    /**
-     * 跳转到支付界面
-     * enterType 0 代表直接购买的时候
-     * 1 代表购物车结算的时候
-     * 2. 在待支付订单进入
-     */
-    public void startToOrderPayActivity(BaseResult orderListBean, int enterType) {
-//        startActivity(new Intent(mContext, OrderPayActivity.class)
-//                .putExtra(BASE_STRING, enterType)
-//                .putExtra(BASE_PARCELABLE, orderListBean));
-
-    }
-
-    /**
-     * 跳转到确认订单
-     */
-    public void startToConfirmOrder(CreatOrderBean.DataBean dataBean) {
-//        startActivity(new Intent(mContext, ConfirmOrderActivity.class).putExtra(BASE_PARCELABLE, dataBean));
-
-    }
 
     /**
      * 所有订单
@@ -421,26 +395,11 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
                 .putExtra(BASE_ID2, orderStatus));
     }
 
-    /**
-     * 跳入 申请退款界面
-     */
-    public void startToOrderRefundRequestActivity(SellOrderDetailBean orderDetailBean) {
-        startActivity(new Intent(mContext, RefundRequestActivity.class)
-                .putExtra(BASE_PARCELABLE, orderDetailBean)
-        );
-
-    }
 
     @Override
     public void onEvent(EventBusObject eventBusObject) {
         super.onEvent(eventBusObject);
         switch (eventBusObject.getEventKey()) {
-            case EventBusObject.EVALUATE:
-                if (this instanceof OrderManagerActivity) {
-                    SellOrderDetailBean.CommodityListBean commodityBean = (SellOrderDetailBean.CommodityListBean) eventBusObject.getEventObj();
-                    startToEvaluateActivity(commodityBean);
-                }
-                break;
             case EventBusObject.HANDLER_MESSAGE:
                 MessageBodyBean messageBody = (MessageBodyBean) eventBusObject.getEventObj();
                 if (mContext instanceof ChatActivity) {
@@ -473,30 +432,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
                 break;
         }
     }
-    /**
-     * 跳入 评价
-     */
-    public void startToEvaluateActivity(SellOrderDetailBean.CommodityListBean commodityBean) {
-        SellOrderDetailBean orderDetailBean = new SellOrderDetailBean();
-        List<SellOrderDetailBean.CommodityListBean> listBeans = new ArrayList<>();
-        listBeans.add(commodityBean);
-        orderDetailBean.setShopName(commodityBean.getShopName());
-        orderDetailBean.setCommodityList(listBeans);
-        startActivity(new Intent(mContext, EvaluateActivity.class)
-                .putExtra(BASE_PARCELABLE, orderDetailBean)
-        );
 
-    }
-
-    /**
-     * 跳入 评价
-     * receivedStatus 是否收到货物  1未收到 2 收到
-     */
-    public void startToRefundActivity(SellOrderDetailBean orderDetailBean, int receivedStatus) {
-        startActivity(new Intent(mContext, RefundActivity.class)
-                .putExtra(BASE_ID, receivedStatus)
-                .putExtra(BASE_PARCELABLE, orderDetailBean));
-    }
 
     /**
      * 进入聊天界面

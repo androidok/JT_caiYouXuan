@@ -71,15 +71,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".order.refund.RefundRequestActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".order.refund.RefundActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".order.evaluate.EvaluateActivity"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".order.orderDetail.OrderDetailActivity"
             android:exported="false"></activity>
         <activity
