@@ -198,10 +198,10 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         if (requestCode == SELECT_PIC_RESULT && resultCode == RESULT_OK) {
-//            imageCompress(Matisse.obtainPathResult(data));
-            imageCompressContainVideo(Matisse.obtainPathResult(data));
+            imageCompress(Matisse.obtainPathResult(data));
+
         } else if (requestCode == TAKE_PICTURE && resultCode == RESULT_OK) {
-            imageCompress(cameraPath);
+            imageCompressOfTake(cameraPath);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -212,7 +212,7 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
      */
     private void imageCompress(List<String> paths) {
         compressedSize = 0;
-        showLoadingDialog(mContext, false);
+        showLoadingDialog(mContext,false);
         Luban.with(mContext).load(paths).ignoreBy(100).setTargetDir(FileCacheUtils.getAppImagePath(true)).filter(new CompressionPredicate() {
             @Override
             public boolean apply(String path) {
@@ -229,11 +229,10 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
             public void onSuccess(File file) {
                 compressedSize++;
                 //  压缩成功后调用，返回压缩后的图片文件
-                icons.clear();
                 icons.add(file.getPath());
-                onPicsAndEmpressed(icons);
                 if (compressedSize == paths.size()) {
                     stopLoadingDialog();
+                    onPicsAndEmpressed(icons);
                 }
 
             }
@@ -251,31 +250,11 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
         }).launch();
     }
 
-    /**
-     * 图片压缩
-     */
-    private void imageCompressContainVideo(List<String> paths) {
-        compressedSize = 0;
-        showLoadingDialog(mContext, false);
-        List<String> pics = new ArrayList<>();
-        for (String path : paths) {
-            if (1 == FileCacheUtils.getFileType(path)) {
-                imageCompress(path);
-            } else if (2 == FileCacheUtils.getFileType(path)) {
-                stopLoadingDialog();
-                pics.add(path);
-            } else {
-
-            }
-
-        }
-        onPicsAndEmpressed(pics);
-    }
 
     /**
      * 图片压缩
      */
-    private void imageCompress(String path) {
+    private void imageCompressOfTake(String path) {
         showLoadingDialog(mContext, false);
         Luban.with(mContext).load(path).ignoreBy(100).setTargetDir(FileCacheUtils.getAppImagePath(true)).filter(new CompressionPredicate() {
             @Override

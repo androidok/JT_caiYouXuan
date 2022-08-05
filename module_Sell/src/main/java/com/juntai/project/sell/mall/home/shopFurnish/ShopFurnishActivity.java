@@ -164,7 +164,7 @@ public class ShopFurnishActivity extends BaseAppActivity<ShopPresent> implements
         ImageLoadUtil.loadSquareImageHasCorner(mContext, shopBean.getHeadPortrait(), mShopOwnerHeadIv);
         mShopNameTv.setText(shopBean.getName());
         mShopCreatTimeTv.setText("开店时间:" + shopBean.getCreateTime());
-        mScoreTv.setText("店铺得分:" + shopBean.getShopFraction());
+        mScoreTv.setText("在售商品:" + shopBean.getCommodityCount());
         mShopDesTv.setText("店铺简介:" + shopBean.getIntroduction());
         initBanner(shopBean);
 

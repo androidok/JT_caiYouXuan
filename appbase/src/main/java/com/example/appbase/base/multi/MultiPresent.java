@@ -78,11 +78,11 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
                 fragmentPics)));
 
 
-        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_PROVIDER, traceabilityBean == null ? "" : traceabilityBean.getPurchaseName()
+        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_PROVIDER, bean == null ? "" : bean.getShopName()
                 , true, 0, isDetail);
 
         initTextSelectType(arrays, MultiContact.COMMODITY_RESTOC_TIME, "0", traceabilityBean == null ? "" : traceabilityBean.getPurchaseTime(), true, true);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_RESTOC_PERSON, ""
+        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_RESTOC_PERSON, traceabilityBean == null ? "" : traceabilityBean.getPurchaseName()
                 , true, 0, isDetail);
         if (traceabilityBean != null) {
             arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean

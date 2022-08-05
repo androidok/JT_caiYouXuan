@@ -65,6 +65,7 @@ public class ShopDetailSellBean extends BaseResult {
         private int userId;
         private String userAccount;
         private String name;
+        private int commodityCount;//在售商品个数
         private String headPortrait;
         private String introduction;
         private double shopFraction;
@@ -90,6 +91,14 @@ public class ShopDetailSellBean extends BaseResult {
         private List<String> shopImgList;
         private List<Integer> categoryList;
         private List<ClassifyListBean> classifyList;
+
+        public int getCommodityCount() {
+            return commodityCount;
+        }
+
+        public void setCommodityCount(int commodityCount) {
+            this.commodityCount = commodityCount;
+        }
 
         public String getHandPicture() {
             return handPicture == null ? "" : handPicture;
@@ -442,6 +451,7 @@ public class ShopDetailSellBean extends BaseResult {
             dest.writeInt(this.userId);
             dest.writeString(this.userAccount);
             dest.writeString(this.name);
+            dest.writeInt(this.commodityCount);
             dest.writeString(this.headPortrait);
             dest.writeString(this.introduction);
             dest.writeDouble(this.shopFraction);
@@ -474,6 +484,7 @@ public class ShopDetailSellBean extends BaseResult {
             this.userId = in.readInt();
             this.userAccount = in.readString();
             this.name = in.readString();
+            this.commodityCount = in.readInt();
             this.headPortrait = in.readString();
             this.introduction = in.readString();
             this.shopFraction = in.readDouble();

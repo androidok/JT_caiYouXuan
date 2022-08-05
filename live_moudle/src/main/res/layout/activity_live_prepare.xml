@@ -49,7 +49,6 @@
         android:layout_height="60dp"
         android:hint="请输入直播标题"
         android:textSize="14dp"
-        android:text="测试"
         android:textColor="@color/black1"
         android:background="@null"
         android:singleLine="true"
