@@ -24,16 +24,24 @@ public class SelectPicRv extends RecyclerView {
 
 
     private OnPhotoItemClick onPhotoItemClick;
-    private Builder builder = new Builder();
+    private Builder builder;
 
+    public Builder getBuilder() {
+        return builder;
+    }
+
+    public void setBuilder(Builder builder) {
+        if (builder == null) {
+            builder = new Builder();
+        }
+        this.builder = builder;
+    }
 
     public void setOnPhotoItemClick(OnPhotoItemClick onPhotoItemClick) {
         this.onPhotoItemClick = onPhotoItemClick;
     }
 
-    public void setBuilder(Builder builder) {
-        this.builder = builder;
-    }
+
 
     public static class Builder {
 
@@ -73,10 +81,8 @@ public class SelectPicRv extends RecyclerView {
     private SelectedPicsAdapter selectedPicsAdapter;
 
 
-
     public SelectPicRv(Context context) {
         super(context);
-        setBuilder(builder);
         initView(context);
     }
 
@@ -94,7 +100,8 @@ public class SelectPicRv extends RecyclerView {
 
 
     private void initView(Context context) {
-        GridLayoutManager layoutManager = new GridLayoutManager(context, builder.getmSpanCount()){
+        setBuilder(builder);
+        GridLayoutManager layoutManager = new GridLayoutManager(context, builder.getmSpanCount()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -118,23 +125,24 @@ public class SelectPicRv extends RecyclerView {
                 if (id == R.id.select_pic_icon_iv) {
                     if ("-1".equals(icon_path)) {
                         if (onPhotoItemClick != null) {
-                            onPhotoItemClick.onSelectPic();
+                            onPhotoItemClick.onSelectPic(adapter,view, position);
                         }
                     } else {
                         if (icon_path.contains(".mp4")) {
                             //视频路径
                             if (onPhotoItemClick != null) {
-                                onPhotoItemClick.onVedioPicClick(adapter, position);
+                                onPhotoItemClick.onVedioPicClick(adapter,view, position);
                             }
                         } else {
                             //图片路径
                             if (onPhotoItemClick != null) {
-                                onPhotoItemClick.onPicClick(adapter, position);
+                                onPhotoItemClick.onPicClick(adapter,view, position);
                             }
                         }
                     }
                 } else if (id == R.id.delete_pushed_news_iv) {
                     adapter.remove(position);
+                    addData(selectedPicsAdapter.getData());
                 }
             }
         });
@@ -153,14 +161,33 @@ public class SelectPicRv extends RecyclerView {
         }
     }
 
+    public void addData(List<String> arrays) {
+        if (selectedPicsAdapter != null) {
+            List<String> pics = new ArrayList<>();
+            for (String array : arrays) {
+                if (!"-1".equals(array)) {
+                    pics.add(array);
+                }
+            }
+            if (pics.size() < builder.getmMaxCount() && !builder.isDetail()) {
+                pics.add("-1");
+            }
+            selectedPicsAdapter.setNewData(pics);
+        }
+    }
+    public List<String> getAdapterData() {
+        return selectedPicsAdapter.getData();
+    }
+
     /**
      * 视频图片和普通图片的点击事件
      */
     public interface OnPhotoItemClick {
-        void onVedioPicClick(BaseQuickAdapter adapter, int position);
+        void onVedioPicClick(BaseQuickAdapter adapter,View view, int position);
 
-        void onPicClick(BaseQuickAdapter adapter, int position);
-        void onSelectPic();
+        void onPicClick(BaseQuickAdapter adapter, View view,int position);
+
+        void onSelectPic(BaseQuickAdapter adapter,View view, int position);
 
     }
 

@@ -35,7 +35,7 @@ public class SelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHolder
             helper.setGone(R.id.delete_pushed_news_iv, false);
         } else {
             ImageLoadUtil.loadImageNoCache(mContext, item, (ImageView) helper.getView(R.id.select_pic_icon_iv));
-            if (isDetail) {
+            if (!isDetail) {
                 helper.setGone(R.id.delete_pushed_news_iv, true);
             } else {
                 helper.setGone(R.id.delete_pushed_news_iv, false);

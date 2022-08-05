@@ -7,13 +7,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.customview.selectPics.SelectPicRv;
+import com.example.appbase.bean.CommoditySourceDetailBean;
+import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
 import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
-import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
-import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.juntai.project.sell.mall.home.shop.BaseShopActivity;
 
 import java.util.List;
@@ -25,11 +26,11 @@ import java.util.List;
  */
 public class AddCommoditySourceActivity extends BaseShopActivity {
 
-
     private CommoditySourceAdapter sourceAdapter;
     private CommoditySourceDetailBean.DataBean.PhotoListBean billBean;
     private int currentViewId;
     private int commodityId;
+    private SelectPicRv selectPicRv;
 
     @Override
     protected String getTitleName() {
@@ -92,16 +93,29 @@ public class AddCommoditySourceActivity extends BaseShopActivity {
         }else if(AppHttpPathMall.UPLOAD_ONE_PIC.equals(tag)){
             List<String> paths = (List<String>) o;
             if (paths != null && !paths.isEmpty()) {
-                String path = paths.get(0);
-                if (currentViewId == R.id.commodity_bill_iv1) {
-                    billBean.setPhotoOne(path);
-                    sourceAdapter.notifyDataSetChanged();
-                } else if (currentViewId == R.id.commodity_bill_iv2) {
-                    billBean.setPhotoTwo(path);
-                    sourceAdapter.notifyDataSetChanged();
-                } else if (currentViewId == R.id.commodity_bill_iv3) {
-                    billBean.setPhotoThree(path);
-                    sourceAdapter.notifyDataSetChanged();
+                List<String> pics = selectPicRv.getAdapterData();
+                pics.addAll(paths);
+                selectPicRv.addData(pics);
+                List<String> data = selectPicRv.getAdapterData();
+                for (int i = 0; i < data.size(); i++) {
+                    String pic = data.get(i);
+                    if (!"-1".equals(pic)) {
+                        switch (i) {
+                            case 0:
+                                billBean.setPhotoOne(pic);
+                                break;
+                            case 1:
+                                billBean.setPhotoTwo(pic);
+                                break;
+                            case 2:
+                                billBean.setPhotoThree(pic);
+                                break;
+                            default:
+                                break;
+                        }
+                        sourceAdapter.notifyDataSetChanged();
+                    }
+
                 }
             }
         }
@@ -127,19 +141,11 @@ public class AddCommoditySourceActivity extends BaseShopActivity {
         sourceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                billBean = (CommoditySourceDetailBean.DataBean.PhotoListBean) adapter.getItem(position);
                 currentViewId = view.getId();
-                if (currentViewId == R.id.commodity_bill_iv1 || currentViewId == R.id.commodity_bill_iv2 || currentViewId == R.id.commodity_bill_iv3) {
-                    choseImage(0, AddCommoditySourceActivity.this, 1);
-                } else if (currentViewId == R.id.delete_commodity_bill_iv1) {
-                    billBean.setPhotoOne("");
-                    adapter.notifyItemChanged(position);
-                } else if (currentViewId == R.id.delete_commodity_bill_iv2) {
-                    billBean.setPhotoTwo("");
-                    adapter.notifyItemChanged(position);
-                } else if (currentViewId == R.id.delete_commodity_bill_iv3) {
-                    billBean.setPhotoThree("");
-                    adapter.notifyItemChanged(position);
+                if (currentViewId == R.id.select_pics_spr) {
+                    selectPicRv = (SelectPicRv) view;
+                    billBean = (CommoditySourceDetailBean.DataBean.PhotoListBean) selectPicRv.getTag();
+                    choseImage(0, AddCommoditySourceActivity.this, selectPicRv.getBuilder().getmMaxCount()+1-adapter.getData().size());
                 } else if (currentViewId == R.id.add_item_tv) {
                     CommoditySourceDetailBean.DataBean.PhotoListBean photoListBean = new CommoditySourceDetailBean.DataBean.PhotoListBean();
                     adapter.addData(photoListBean);
