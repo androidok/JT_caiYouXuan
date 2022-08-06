@@ -26,6 +26,9 @@ import java.util.List;
  */
 public class ShopesFragment extends BaseRecyclerviewFragment<HomePresent> implements IView {
 
+    /**
+     * 1 待审核 2 已审核 3 未通过
+     */
     private int labelId;
     private int currentPosition;
 
@@ -77,7 +80,21 @@ public class ShopesFragment extends BaseRecyclerviewFragment<HomePresent> implem
                 switch (labelId) {
                     case 1:
                         //待审核
-                        startActivityForResult(new Intent(mContext, CheckShopActivity.class).putExtra(BASE_ID, listBean.getId()), BaseActivity.BASE_RSULT);
+                        startActivityForResult(new Intent(mContext, CheckShopActivity.class)
+                                .putExtra(BASE_ID,1)
+                                .putExtra(BASE_ID2, listBean.getId()), BaseActivity.BASE_RSULT);
+                        break;
+                    case 2:
+                        //已通过
+                        startActivityForResult(new Intent(mContext, CheckShopActivity.class)
+                                .putExtra(BASE_ID,2)
+                                .putExtra(BASE_ID2, listBean.getId()), BaseActivity.BASE_RSULT);
+                        break;
+                    case 3:
+                        //未通过
+                        startActivityForResult(new Intent(mContext, CheckShopActivity.class)
+                                .putExtra(BASE_ID,3)
+                                .putExtra(BASE_ID2, listBean.getId()), BaseActivity.BASE_RSULT);
                         break;
                     default:
                         break;

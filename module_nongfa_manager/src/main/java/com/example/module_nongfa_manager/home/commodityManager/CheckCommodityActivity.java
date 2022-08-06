@@ -41,7 +41,7 @@ public class CheckCommodityActivity extends BaseMultiRecyclerActivity {
     private int checkStatus = 2;
     @Override
     protected boolean isDetail() {
-        return false;
+        return true;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class CheckCommodityActivity extends BaseMultiRecyclerActivity {
     public void initData() {
         super.initData();
         commodityId = getIntent().getIntExtra(BASE_ID, 0);
-//        baseQuickAdapter.setNewData(mPresenter.checkCommodity(null, true));
+        baseQuickAdapter.setNewData(mPresenter.checkCommodity(null, isDetail()));
         mPresenter.getManagerCommodityDetail(getBaseBuilder().add("commodityId",String.valueOf(commodityId)).build(), AppHttpPath.MANAGER_COMMODITY_DETAIL);
 
     }
@@ -105,7 +105,7 @@ public class CheckCommodityActivity extends BaseMultiRecyclerActivity {
                 if (detailBean != null) {
                     CommodityManagerDetailBean.DataBean bean = detailBean.getData();
                     if (bean != null) {
-                        baseQuickAdapter.setNewData(mPresenter.checkCommodity(bean, true));
+                        baseQuickAdapter.setNewData(mPresenter.checkCommodity(bean, isDetail()));
                     }
                 }
                 break;

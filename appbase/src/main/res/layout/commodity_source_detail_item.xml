@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.example.appbase.base.customview.selectPics.SelectPicRv
+    <com.example.appbase.base.customview.selectPics.SelectPicVideoRv
         android:id="@+id/source_spr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

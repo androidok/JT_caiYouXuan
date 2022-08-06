@@ -69,7 +69,7 @@ public class ShopManagerActivity extends BaseShopActivity {
     public void initData() {
         super.initData();
         dataBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
-        baseQuickAdapter.setNewData(mPresenter.getShopManagerData(dataBean, false));
+        baseQuickAdapter.setNewData(mPresenter.getShopManagerData(dataBean, isDetail()));
         String openShopPt = getString(R.string.open_shop_protocal_notice);
         StringTools.setTextPartColor(shopPtTv, openShopPt, openShopPt.indexOf("《"), openShopPt.length()-2,
                 "#00c750");

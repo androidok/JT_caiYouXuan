@@ -39,7 +39,8 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
     private TextView mCommitTv;
     private int shopId;
     //（2审核通过；3审核失败）
-    private int checkStatus = 2;
+    private int agreeStatus = 2;
+    private int checkStatus;
 
     @Override
     protected boolean isDetail() {
@@ -51,11 +52,16 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
         return "店铺审核";
     }
 
+    @Override
+    public void initView() {
+        checkStatus = getIntent().getIntExtra(BASE_ID, 0);
+        shopId = getIntent().getIntExtra(BASE_ID2, 0);
+        super.initView();
+    }
 
     @Override
     public void initData() {
         super.initData();
-        shopId = getIntent().getIntExtra(BASE_ID, 0);
         baseQuickAdapter.setNewData(mPresenter.checkShop(null, true));
         mPresenter.getManagerShopDetail(getBaseBuilder().add("shopId", String.valueOf(shopId)).build(), AppHttpPath.MANAGER_SHOP_DETAIL);
     }
@@ -66,6 +72,9 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
         mAgreeRb = (RadioButton) view.findViewById(R.id.agree_rb);
         mDisagreeRb = (RadioButton) view.findViewById(R.id.disagree_rb);
         mItemRadioG = (RadioGroup) view.findViewById(R.id.item_radio_g);
+
+
+
         mRejectReasonEt = (EditText) view.findViewById(R.id.reject_reason_et);
         LinearLayout rejectLl = (LinearLayout) view.findViewById(R.id.reject_ll);
         rejectLl.setVisibility(View.GONE);
@@ -75,7 +84,7 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
             public void onClick(View v) {
 
                 mPresenter.commitShopCheck(getBaseBuilder()
-                        .add("state", String.valueOf(checkStatus))
+                        .add("state", String.valueOf(agreeStatus))
                         .add("content", getTextViewValue(mRejectReasonEt))
                         .add("shopId", String.valueOf(shopId)).build(), AppHttpPath.COMMIT_SHOP_CHECK);
 
@@ -86,13 +95,30 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.agree_rb) {
                     rejectLl.setVisibility(View.GONE);
-                    checkStatus = 2;
+                    agreeStatus = 2;
                 } else if (checkedId == R.id.disagree_rb) {
                     rejectLl.setVisibility(View.VISIBLE);
-                    checkStatus = 3;
+                    agreeStatus = 3;
                 }
             }
         });
+
+        if (1==checkStatus) {
+            mCommitTv.setVisibility(View.VISIBLE);
+            for (int i = 0; i < mItemRadioG.getChildCount(); i++) {
+                mItemRadioG.getChildAt(i).setEnabled(true);
+            }
+        }else {
+            mCommitTv.setVisibility(View.GONE);
+            for (int i = 0; i < mItemRadioG.getChildCount(); i++) {
+                mItemRadioG.getChildAt(i).setEnabled(false);
+            }
+            if (2==checkStatus) {
+                mAgreeRb.setChecked(true);
+            }else {
+                mDisagreeRb.setChecked(true);
+            }
+        }
         return view;
     }
 
@@ -107,6 +133,10 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
                     ShopManagerDetailBean.DataBean bean = detailBean.getData();
                     if (bean != null) {
                         baseQuickAdapter.setNewData(mPresenter.checkShop(bean, true));
+                        // TODO: 2022/8/6  展示失败原因
+                        if (2==checkStatus) {
+                            mRejectReasonEt.setText("接口无返回数据 待处理");
+                        }
                     }
                 }
                 break;

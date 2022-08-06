@@ -348,7 +348,17 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
                 MultiNormalRecyclerviewBean baseNormalRecyclerviewBean = (MultiNormalRecyclerviewBean) item.getObject();
                 RecyclerView recyclerView = helper.getView(R.id.item_normal_rv);
                 LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL
-                        , false);
+                        , false){
+                    @Override
+                    public boolean canScrollHorizontally() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
+                };
                 BaseQuickAdapter adapter = baseNormalRecyclerviewBean.getBaseQuickAdapter();
                 recyclerView.setLayoutManager(manager);
                 recyclerView.setAdapter(adapter);

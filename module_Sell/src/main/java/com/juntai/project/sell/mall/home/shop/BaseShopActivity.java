@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
@@ -96,6 +97,12 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
+        if (isDetail()) {
+            mSmartrefreshlayout.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+        }else {
+            mSmartrefreshlayout.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+        }
+
         return new BaseShopAdapter(null, isDetail(), getSupportFragmentManager(), this);
     }
 

@@ -60,7 +60,7 @@ public class ShopesManagerActivity extends BaseTabViewPageActivity<HomePresent> 
 
     @Override
     protected String[] getTabTitles() {
-        return new String[]{"待审核", "已审核", "未通过"};
+        return new String[]{"待审核", "已通过", "未通过"};
     }
 
 

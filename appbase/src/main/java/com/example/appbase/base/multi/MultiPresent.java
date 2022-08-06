@@ -92,6 +92,8 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (MultiContact.IS_AGREE, false)));
+
+
         return arrays;
     }
 

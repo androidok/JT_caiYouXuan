@@ -20,7 +20,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/6/12 16:30
  */
-public class SelectPicRv extends RecyclerView {
+public class SelectPicVideoRv extends RecyclerView {
 
 
     private OnPhotoItemClick onPhotoItemClick;
@@ -30,7 +30,7 @@ public class SelectPicRv extends RecyclerView {
     private GridLayoutManager layoutManager;
 
 
-    public SelectPicRv setmSpanCount(int mSpanCount) {
+    public SelectPicVideoRv setmSpanCount(int mSpanCount) {
         this.mSpanCount = mSpanCount;
         if (layoutManager != null) {
             layoutManager.setSpanCount(mSpanCount);
@@ -43,12 +43,12 @@ public class SelectPicRv extends RecyclerView {
         return mMaxCount;
     }
 
-    public SelectPicRv setmMaxCount(int mMaxCount) {
+    public SelectPicVideoRv setmMaxCount(int mMaxCount) {
         this.mMaxCount = mMaxCount;
         return  this;
     }
 
-    public SelectPicRv setDetail(boolean detail) {
+    public SelectPicVideoRv setDetail(boolean detail) {
         isDetail = detail;
         if (selectedPicsAdapter != null) {
             selectedPicsAdapter.setDetail(isDetail);
@@ -56,7 +56,7 @@ public class SelectPicRv extends RecyclerView {
         return  this;
     }
 
-    public SelectPicRv setOnPhotoItemClick(OnPhotoItemClick onPhotoItemClick) {
+    public SelectPicVideoRv setOnPhotoItemClick(OnPhotoItemClick onPhotoItemClick) {
         this.onPhotoItemClick = onPhotoItemClick;
         return this;
     }
@@ -64,21 +64,21 @@ public class SelectPicRv extends RecyclerView {
 
 
 
-    private SelectedPicsAdapter selectedPicsAdapter;
+    private SelectedPicVideoAdapter selectedPicsAdapter;
 
 
-    public SelectPicRv(Context context) {
+    public SelectPicVideoRv(Context context) {
         super(context);
         initView(context);
     }
 
-    public SelectPicRv(Context context, AttributeSet attrs) {
+    public SelectPicVideoRv(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
 
     }
 
-    public SelectPicRv(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SelectPicVideoRv(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
 
@@ -91,8 +91,13 @@ public class SelectPicRv extends RecyclerView {
             public boolean canScrollVertically() {
                 return false;
             }
+
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
         };
-        selectedPicsAdapter = new SelectedPicsAdapter(R.layout.selected_pic_item);
+        selectedPicsAdapter = new SelectedPicVideoAdapter(R.layout.selected_pic_item);
         selectedPicsAdapter.setDetail(isDetail);
         setLayoutManager(layoutManager);
         setAdapter(selectedPicsAdapter);
@@ -104,26 +109,31 @@ public class SelectPicRv extends RecyclerView {
         selectedPicsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                String icon_path = (String) adapter.getItem(position);
+                SelectPicVideoBean selectPicVideoBean = (SelectPicVideoBean) adapter.getItem(position);
                 int id = view.getId();
                 if (id == R.id.select_pic_icon_iv) {
-                    if ("-1".equals(icon_path)) {
-                        if (onPhotoItemClick != null) {
-                            onPhotoItemClick.onSelectPic(adapter,view, position);
-                        }
-                    } else {
-                        if (icon_path.contains(".mp4")) {
-                            //视频路径
+                    switch (selectPicVideoBean.getType()) {
+                        case SelectPicVideoBean.TYPE_NULL:
                             if (onPhotoItemClick != null) {
-                                onPhotoItemClick.onVedioPicClick(adapter,view, position);
+                                onPhotoItemClick.onSelectPic(adapter,view, position);
                             }
-                        } else {
+                            break;
+                        case SelectPicVideoBean.TYPE_IMAGE:
                             //图片路径
                             if (onPhotoItemClick != null) {
                                 onPhotoItemClick.onPicClick(adapter,view, position);
                             }
-                        }
+                            break;
+                        case SelectPicVideoBean.TYPE_VIDEO:
+                            //视频路径
+                            if (onPhotoItemClick != null) {
+                                onPhotoItemClick.onVedioPicClick(adapter,view, position);
+                            }
+                            break;
+                        default:
+                            break;
                     }
+
                 } else if (id == R.id.delete_pushed_news_iv) {
                     adapter.remove(position);
                     addData(selectedPicsAdapter.getData());
@@ -133,33 +143,33 @@ public class SelectPicRv extends RecyclerView {
         setData(null);
     }
 
-    public void setData(List<String> arrays) {
+    public void setData(List<SelectPicVideoBean> arrays) {
         if (selectedPicsAdapter != null) {
             if (arrays == null) {
                 arrays = new ArrayList<>();
             }
             if (arrays.size() < mMaxCount + 1 && !isDetail) {
-                arrays.add("-1");
+                arrays.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_NULL,""));
             }
             selectedPicsAdapter.setNewData(arrays);
         }
     }
 
-    public void addData(List<String> arrays) {
+    public void addData(List<SelectPicVideoBean> arrays) {
         if (selectedPicsAdapter != null) {
-            List<String> pics = new ArrayList<>();
-            for (String array : arrays) {
-                if (!"-1".equals(array)) {
+            List<SelectPicVideoBean> pics = new ArrayList<>();
+            for (SelectPicVideoBean array : arrays) {
+                if (SelectPicVideoBean.TYPE_NULL!=array.getType()) {
                     pics.add(array);
                 }
             }
             if (pics.size() < mMaxCount && !isDetail) {
-                pics.add("-1");
+                pics.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_NULL,""));
             }
             selectedPicsAdapter.setNewData(pics);
         }
     }
-    public List<String> getAdapterData() {
+    public List<SelectPicVideoBean> getAdapterData() {
         return selectedPicsAdapter.getData();
     }
 
@@ -167,11 +177,11 @@ public class SelectPicRv extends RecyclerView {
      * 视频图片和普通图片的点击事件
      */
     public interface OnPhotoItemClick {
-        void onVedioPicClick(BaseQuickAdapter adapter,View view, int position);
+        void onVedioPicClick(BaseQuickAdapter adapter, View view, int position);
 
-        void onPicClick(BaseQuickAdapter adapter, View view,int position);
+        void onPicClick(BaseQuickAdapter adapter, View view, int position);
 
-        void onSelectPic(BaseQuickAdapter adapter,View view, int position);
+        void onSelectPic(BaseQuickAdapter adapter, View view, int position);
 
     }
 

@@ -7,10 +7,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.appbase.base.customview.selectPics.SelectPicRv;
+import com.example.appbase.base.customview.selectPics.SelectPicVideoBean;
+import com.example.appbase.base.customview.selectPics.SelectPicVideoRv;
 import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
 import com.example.appbase.util.UserInfoManager;
+import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
@@ -30,7 +32,7 @@ public class AddCommoditySourceActivity extends BaseShopActivity {
     private CommoditySourceDetailBean.DataBean.PhotoListBean billBean;
     private int currentViewId;
     private int commodityId;
-    private SelectPicRv selectPicRv;
+    private SelectPicVideoRv selectPicVideoRv;
 
     @Override
     protected String getTitleName() {
@@ -93,22 +95,29 @@ public class AddCommoditySourceActivity extends BaseShopActivity {
         }else if(AppHttpPathMall.UPLOAD_ONE_PIC.equals(tag)){
             List<String> paths = (List<String>) o;
             if (paths != null && !paths.isEmpty()) {
-                List<String> pics = selectPicRv.getAdapterData();
-                pics.addAll(paths);
-                selectPicRv.addData(pics);
-                List<String> data = selectPicRv.getAdapterData();
+                List<SelectPicVideoBean> pics = selectPicVideoRv.getAdapterData();
+                for (String path : paths) {
+                    if (1== FileCacheUtils.getFileType(path)) {
+                        pics.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_IMAGE,path));
+                    }else if(2==FileCacheUtils.getFileType(path)) {
+                        pics.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_VIDEO,path));
+                    }
+                }
+
+                selectPicVideoRv.addData(pics);
+                List<SelectPicVideoBean> data = selectPicVideoRv.getAdapterData();
                 for (int i = 0; i < data.size(); i++) {
-                    String pic = data.get(i);
-                    if (!"-1".equals(pic)) {
+                    SelectPicVideoBean selectPicVideoBean = data.get(i);
+                    if (SelectPicVideoBean.TYPE_NULL!=selectPicVideoBean.getType()) {
                         switch (i) {
                             case 0:
-                                billBean.setPhotoOne(pic);
+                                billBean.setPhotoOne(selectPicVideoBean.getPath());
                                 break;
                             case 1:
-                                billBean.setPhotoTwo(pic);
+                                billBean.setPhotoTwo(selectPicVideoBean.getPath());
                                 break;
                             case 2:
-                                billBean.setPhotoThree(pic);
+                                billBean.setPhotoThree(selectPicVideoBean.getPath());
                                 break;
                             default:
                                 break;
@@ -143,9 +152,9 @@ public class AddCommoditySourceActivity extends BaseShopActivity {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 currentViewId = view.getId();
                 if (currentViewId == R.id.select_pics_spr) {
-                    selectPicRv = (SelectPicRv) view;
-                    billBean = (CommoditySourceDetailBean.DataBean.PhotoListBean) selectPicRv.getTag();
-                    choseImage(0, AddCommoditySourceActivity.this, selectPicRv.getmMaxCount()+1-adapter.getData().size());
+                    selectPicVideoRv = (SelectPicVideoRv) view;
+                    billBean = (CommoditySourceDetailBean.DataBean.PhotoListBean) selectPicVideoRv.getTag();
+                    choseImage(0, AddCommoditySourceActivity.this, selectPicVideoRv.getmMaxCount()+1-adapter.getData().size());
                 } else if (currentViewId == R.id.add_item_tv) {
                     CommoditySourceDetailBean.DataBean.PhotoListBean photoListBean = new CommoditySourceDetailBean.DataBean.PhotoListBean();
                     adapter.addData(photoListBean);

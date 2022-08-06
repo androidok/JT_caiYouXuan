@@ -3,6 +3,7 @@ package com.example.appbase.base.multi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -256,7 +257,14 @@ public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new BaseMultiRecyclerAdapter(null, isDetail(), getSupportFragmentManager());
+        BaseMultiRecyclerAdapter  baseMultiRecyclerAdapter = new BaseMultiRecyclerAdapter(null, isDetail(), getSupportFragmentManager());
+
+        if (isDetail()) {
+            mSmartrefreshlayout.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+        }else {
+            mSmartrefreshlayout.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+        }
+        return baseMultiRecyclerAdapter;
     }
 
 

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".entrance.TestActivity">
 
-    <com.example.appbase.base.customview.selectPics.SelectPicRv
+    <com.example.appbase.base.customview.selectPics.SelectPicVideoRv
         android:layout_width="match_parent"
         android:id="@+id/custom_spr"
         android:layout_marginLeft="10dp"

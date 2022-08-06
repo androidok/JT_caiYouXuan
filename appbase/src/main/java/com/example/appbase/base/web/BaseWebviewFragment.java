@@ -91,6 +91,7 @@ public class BaseWebviewFragment extends BaseMvpFragment {
     }
 
 
+
     public  class  CustomWebViewClient extends WebViewClient{
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

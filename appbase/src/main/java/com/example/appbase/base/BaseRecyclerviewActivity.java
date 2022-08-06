@@ -42,7 +42,17 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
         mSmartrefreshlayout.setEnableRefresh(enableRefresh());
         mSmartrefreshlayout.setEnableLoadMore(enableLoadMore());
         baseQuickAdapter = getBaseQuickAdapter();
-        linearLayoutManager = getBaseAdapterManager() == null ? new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false) : getBaseAdapterManager();
+        linearLayoutManager = getBaseAdapterManager() == null ? new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false){
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        } : getBaseAdapterManager();
         if (baseQuickAdapter != null) {
             if (getAdapterHeadView() != null) {
                 baseQuickAdapter.addHeaderView(getAdapterHeadView());
