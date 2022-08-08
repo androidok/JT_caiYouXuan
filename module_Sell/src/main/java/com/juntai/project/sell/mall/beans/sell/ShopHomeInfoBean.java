@@ -59,7 +59,7 @@ public class ShopHomeInfoBean extends BaseResult {
         private String shareUrl;
         private double shopFraction;
         private int todayOrderNum;
-        private double todayMoney;
+        private String todayMoney;
         private int todayVisitor;
         private int commodityCount;
         private int commodityNum;
@@ -150,12 +150,12 @@ public class ShopHomeInfoBean extends BaseResult {
             this.todayOrderNum = todayOrderNum;
         }
 
-        public double getTodayMoney() {
-            return todayMoney;
+        public String getTodayMoney() {
+            return todayMoney == null ? "" : todayMoney;
         }
 
-        public void setTodayMoney(double todayMoney) {
-            this.todayMoney = todayMoney;
+        public void setTodayMoney(String todayMoney) {
+            this.todayMoney = todayMoney == null ? "" : todayMoney;
         }
 
         public int getTodayVisitor() {

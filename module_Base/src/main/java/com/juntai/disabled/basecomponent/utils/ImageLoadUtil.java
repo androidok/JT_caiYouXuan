@@ -268,11 +268,11 @@ public class ImageLoadUtil {
     }
 
     private static void loadSquareImage(Context mContext, String url, ImageView imageView, int defaultRes) {
-        loadPicForLocalCatch(mContext, url, imageView, defaultRes, false, false);
+        loadPicToLocalCatch(mContext, url, imageView, defaultRes, false, false);
     }
 
     public static void loadSquareImage(Context mContext, String url, ImageView imageView) {
-        loadPicForLocalCatch(mContext, url, imageView, R.drawable.empty_pic, false, false);
+        loadPicToLocalCatch(mContext, url, imageView, R.drawable.empty_pic, false, false);
     }
 
     /**
@@ -283,7 +283,7 @@ public class ImageLoadUtil {
      * @param imageView
      */
     public static void loadSquareImageHasCorner(Context mContext, String url, ImageView imageView) {
-        loadPicForLocalCatch(mContext, url, imageView, R.drawable.empty_pic, false, true);
+        loadPicToLocalCatch(mContext, url, imageView, R.drawable.empty_pic, false, true);
     }
 
     /**
@@ -294,7 +294,7 @@ public class ImageLoadUtil {
      * @param imageView
      */
     public static void loadHeadSquareImageHasCorner(Context mContext, String url, ImageView imageView) {
-        loadPicForLocalCatch(mContext, url, imageView, R.mipmap.default_user_head_icon, false, true);
+        loadPicToLocalCatch(mContext, url, imageView, R.mipmap.default_user_head_icon, false, true);
     }
 
     /**
@@ -307,7 +307,7 @@ public class ImageLoadUtil {
      * @param isCircle
      * @param hasCorner
      */
-    private static void loadPicForLocalCatch(Context mContext, String picUrl, ImageView imageView, int defaultRes, boolean isCircle, boolean hasCorner) {
+    private static void loadPicToLocalCatch(Context mContext, String picUrl, ImageView imageView, int defaultRes, boolean isCircle, boolean hasCorner) {
         String content = null;
         if (TextUtils.isEmpty(picUrl)) {
             return;
@@ -357,7 +357,7 @@ public class ImageLoadUtil {
      */
     public static void loadHeadCirclePic(Context mContext, String headUrl, ImageView imageView) {
 
-        loadPicForLocalCatch(mContext, headUrl, imageView, R.mipmap.default_user_head_icon, true, true);
+        loadPicToLocalCatch(mContext, headUrl, imageView, R.mipmap.default_user_head_icon, true, true);
 
     }
 

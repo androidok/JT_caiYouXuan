@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:background="@null"
                     android:hint="输入账号"
-                    android:text="admin"
+                    android:text="15610678315"
                     android:maxLength="11"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -83,7 +83,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="输入密码"
-                    android:text="admin"
+                    android:text="123123"
                     android:inputType="textPassword"
                     android:maxLength="16"
                     app:layout_constraintLeft_toLeftOf="parent"
