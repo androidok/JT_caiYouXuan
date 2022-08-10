@@ -36,7 +36,7 @@ public class NFOrderManagerActivity extends BaseSearchAndListActivity<HomePresen
 
     @Override
     protected String getTitleName() {
-        return "订单管理";
+        return "分拣管理";
     }
 
 

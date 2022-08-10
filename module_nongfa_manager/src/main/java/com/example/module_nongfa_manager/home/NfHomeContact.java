@@ -9,6 +9,6 @@ public interface NfHomeContact {
 
     String SHOP_MANAGER = "店铺管理";
     String COMMODITY_MANAGER = "商品管理";
-    String ORDER_MANAGER = "订单管理";
+    String ORDER_MANAGER = "分拣管理";
 
 }

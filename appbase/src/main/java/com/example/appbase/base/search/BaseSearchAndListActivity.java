@@ -29,15 +29,6 @@ public abstract class BaseSearchAndListActivity<P extends BasePresenter> extends
         return null;
     }
 
-    @Override
-    protected boolean enableRefresh() {
-        return false;
-    }
-
-    @Override
-    protected boolean enableLoadMore() {
-        return false;
-    }
 
     @Override
     public int getLayoutView() {
@@ -48,7 +39,6 @@ public abstract class BaseSearchAndListActivity<P extends BasePresenter> extends
     public void initView() {
         super.initView();
         setTitleName(getTitleName());
-        mSmartrefreshlayout.setEnableLoadMore(false);
         mSearchContentSv = (SearchView) findViewById(R.id.search_content_sv);
         SearchView.SearchAutoComplete textView = (SearchView.SearchAutoComplete) mSearchContentSv.findViewById(com.juntai.disabled.basecomponent.R.id.search_src_text);
         textView.setTextSize(14);
