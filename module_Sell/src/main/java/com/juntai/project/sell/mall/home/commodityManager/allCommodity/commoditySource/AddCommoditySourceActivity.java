@@ -92,7 +92,7 @@ public class AddCommoditySourceActivity extends BaseShopActivity {
         if (AppHttpPathMall.ADD_COMMODITY_SOURCE.equals(tag)) {
             ToastUtils.toast(mContext, "提交成功");
             finish();
-        }else if(AppHttpPathMall.UPLOAD_ONE_PIC.equals(tag)){
+        }else if(AppHttpPathMall.UPLOAD_FILES.equals(tag)){
             List<String> paths = (List<String>) o;
             if (paths != null && !paths.isEmpty()) {
                 List<SelectPicVideoBean> pics = selectPicVideoRv.getAdapterData();
@@ -108,22 +108,20 @@ public class AddCommoditySourceActivity extends BaseShopActivity {
                 List<SelectPicVideoBean> data = selectPicVideoRv.getAdapterData();
                 for (int i = 0; i < data.size(); i++) {
                     SelectPicVideoBean selectPicVideoBean = data.get(i);
-                    if (SelectPicVideoBean.TYPE_NULL!=selectPicVideoBean.getType()) {
-                        switch (i) {
-                            case 0:
-                                billBean.setPhotoOne(selectPicVideoBean.getPath());
-                                break;
-                            case 1:
-                                billBean.setPhotoTwo(selectPicVideoBean.getPath());
-                                break;
-                            case 2:
-                                billBean.setPhotoThree(selectPicVideoBean.getPath());
-                                break;
-                            default:
-                                break;
-                        }
-                        sourceAdapter.notifyDataSetChanged();
+                    switch (i) {
+                        case 0:
+                            billBean.setPhotoOne(selectPicVideoBean.getPath());
+                            break;
+                        case 1:
+                            billBean.setPhotoTwo(selectPicVideoBean.getPath());
+                            break;
+                        case 2:
+                            billBean.setPhotoThree(selectPicVideoBean.getPath());
+                            break;
+                        default:
+                            break;
                     }
+                    sourceAdapter.notifyDataSetChanged();
 
                 }
             }
@@ -133,8 +131,7 @@ public class AddCommoditySourceActivity extends BaseShopActivity {
     @Override
     protected void onPicsAndEmpressed(List<String> icons) {
         if (icons.size() > 0) {
-            String path = icons.get(0);
-            mPresenter.uploadFile(AppHttpPathMall.UPLOAD_ONE_PIC, path);
+            mPresenter.uploadFile(icons,AppHttpPathMall.UPLOAD_FILES);
 
         }
     }

@@ -170,7 +170,14 @@ public class SelectPicVideoRv extends RecyclerView {
         }
     }
     public List<SelectPicVideoBean> getAdapterData() {
-        return selectedPicsAdapter.getData();
+        List<SelectPicVideoBean> arrays = selectedPicsAdapter.getData();
+        List<SelectPicVideoBean> arrays_return = new ArrayList<>();
+        for (SelectPicVideoBean array : arrays) {
+            if (SelectPicVideoBean.TYPE_NULL!=array.getType()) {
+                arrays_return.add(array);
+            }
+        }
+        return arrays_return;
     }
 
     /**
