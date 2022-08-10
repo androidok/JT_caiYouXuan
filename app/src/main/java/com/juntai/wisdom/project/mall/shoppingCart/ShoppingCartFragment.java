@@ -49,7 +49,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
      */
     private CheckBox mSelectAllCb;
     /**
-     * ￥:1016.69
+     * ￥1016.69
      */
     private TextView mAllPriceTv;
     /**

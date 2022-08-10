@@ -118,11 +118,20 @@ public class CreatOrderBean extends BaseResult {
             private int shopId;
             private int id;
             private String shopName;
+            private String remark;
             private double transportCharges;
             private List<CommoditiesBean> commodities;
 
             public int getId() {
                 return id;
+            }
+
+            public String getRemark() {
+                return remark == null ? "" : remark;
+            }
+
+            public void setRemark(String remark) {
+                this.remark = remark == null ? "" : remark;
             }
 
             public void setId(int id) {
@@ -302,6 +311,7 @@ public class CreatOrderBean extends BaseResult {
                 dest.writeInt(this.shopId);
                 dest.writeInt(this.id);
                 dest.writeString(this.shopName);
+                dest.writeString(this.remark);
                 dest.writeDouble(this.transportCharges);
                 dest.writeTypedList(this.commodities);
             }
@@ -310,6 +320,7 @@ public class CreatOrderBean extends BaseResult {
                 this.shopId = in.readInt();
                 this.id = in.readInt();
                 this.shopName = in.readString();
+                this.remark = in.readString();
                 this.transportCharges = in.readDouble();
                 this.commodities = in.createTypedArrayList(CommoditiesBean.CREATOR);
             }

@@ -31,7 +31,7 @@ public class NFOrderDetailCommodityAdapter extends BaseQuickAdapter<SortDetailBe
         ImageLoadUtil.loadSquareImageHasCorner(mContext, item.getCoverImg(), helper.getView(R.id.commodity_pic_iv));
         helper.setText(R.id.commodity_name_tv, item.getCommodityName());
         helper.setText(R.id.commodity_property_tv, item.getCartInfo());
-        helper.setText(R.id.all_price_tv, String.format("￥:%s", item.getPrices()));
+        helper.setText(R.id.all_price_tv, String.format("￥%s", item.getPrices()));
         helper.setText(R.id.amount_tv, String.format("x%s", item.getCommodityNum()));
 
 

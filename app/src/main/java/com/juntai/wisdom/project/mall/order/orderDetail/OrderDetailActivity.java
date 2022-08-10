@@ -42,6 +42,8 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
      * 商铺名称
      */
     private TextView mOrderShopNameTv;
+    private TextView mOrderStatusTv;
+    private TextView mOrderRemarkTv;
     private RecyclerView mOrderDetailCommodityRv;
     /**
      * 实付款:
@@ -82,6 +84,8 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
         orderStatus = getIntent().getIntExtra(BASE_ID2, 0);
         mOrderDetailTopFl = (FrameLayout) findViewById(R.id.order_detail_top_fl);
         mOrderShopNameTv = (TextView) findViewById(R.id.order_shop_name_tv);
+        mOrderStatusTv = (TextView) findViewById(R.id.order_status_tv);
+        mOrderRemarkTv = (TextView) findViewById(R.id.older_remark_tv);
         mOrderShopNameTv.setOnClickListener(this);
         mOrderDetailCommodityRv = (RecyclerView) findViewById(R.id.order_detail_commodity_rv);
         mFinalPaymentTv = (TextView) findViewById(R.id.final_payment_tv);
@@ -302,6 +306,9 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                         }
                         mOrderCommodityAdapter.setNewData(list);
                         mOrderShopNameTv.setText(orderDetailBean.getShopName());
+                        mOrderStatusTv.setText(getOrderStatus(orderDetailBean.getState()));
+                        mOrderRemarkTv.setVisibility(TextUtils.isEmpty(orderDetailBean.getRemark())?View.GONE:View.VISIBLE);
+                        mOrderRemarkTv.setText(String.format("备注信息：%s",orderDetailBean.getRemark()));
                         mFinalPaymentTv.setText(0 == orderStatus ? String.format("需付款:%s", orderDetailBean.getPayPrice()) : String.format("实付款:%s", orderDetailBean.getPayPrice()));
                         List<TextKeyValueBean> arrays = new ArrayList<>();
                         List<OrderDetailItemBean> itemBeans = new ArrayList<>();
@@ -410,7 +417,44 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                 break;
         }
     }
-
+    /**
+     * 订单状态(0：待付款）（1：待发货）（2：待收货）（3：待评价）（4：退款中）（5：完成）（6:订单取消）（7：退款完成）
+     *
+     * @param state
+     * @return
+     */
+    private String getOrderStatus(int state) {
+        String status = null;
+        switch (state) {
+            case 0:
+                status = "待付款";
+                break;
+            case 1:
+                status = "待发货";
+                break;
+            case 2:
+                status = "待收货";
+                break;
+            case 3:
+                status = "待评价";
+                break;
+            case 4:
+                status = "退款中";
+                break;
+            case 5:
+                status = "已完成";
+                break;
+            case 6:
+                status = "交易关闭";
+                break;
+            case 7:
+                status = "退款完成";
+                break;
+            default:
+                break;
+        }
+        return status;
+    }
     private void initEvaluate(List<OrderDetailItemBean> itemBeans) {
         OrderDetailBean.CommodityEvaluateVoBean commodityEvaluateBean = orderDetailBean.getCommodityEvaluateVo();
         if (commodityEvaluateBean != null) {

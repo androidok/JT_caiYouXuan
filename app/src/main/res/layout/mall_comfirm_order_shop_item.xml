@@ -45,4 +45,18 @@
 
 
     </LinearLayout>
+    <EditText
+        android:id="@+id/older_remark_et"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="90dp"
+        android:maxLength="200"
+        android:background="@drawable/sp_filled_gray_lighter"
+        android:gravity="left|top"
+        android:hint="备注信息..."
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        />
 </LinearLayout>

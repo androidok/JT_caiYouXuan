@@ -39,7 +39,7 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
 
     private ImageView mCommodityPicIv;
     /**
-     * ￥:1016.69
+     * ￥1016.69
      */
     private TextView mAllPriceTv;
     private ImageView mCloseDialogIv;

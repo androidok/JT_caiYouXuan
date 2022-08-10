@@ -23,7 +23,7 @@ public class ConfirmOrderCommodityAdapter extends BaseQuickAdapter<CreatOrderBea
         ImageLoadUtil.loadSquareImageHasCorner(mContext, item.getImage(), helper.getView(R.id.commodity_pic_iv));
         helper.setText(R.id.commodity_name_tv, item.getCommodityName());
         helper.setText(R.id.commodity_property_tv, item.getSku());
-        helper.setText(R.id.all_price_tv, String.format("￥:%s",item.getPrice()));
+        helper.setText(R.id.all_price_tv, String.format("￥%s",item.getPrice()));
         helper.setText(R.id.amount_tv, String.format("x%s",item.getCommodityNum()));
 
     }

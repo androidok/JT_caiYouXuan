@@ -45,6 +45,11 @@ public class CheckCommodityActivity extends BaseMultiRecyclerActivity {
     }
 
     @Override
+    public int getLayoutView() {
+        return R.layout.recycleview_scroll_layout;
+    }
+
+    @Override
     protected String getTitleName() {
         return "商品审核";
     }

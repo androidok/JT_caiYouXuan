@@ -24,7 +24,7 @@ public class CommoditiesAdapter extends BaseQuickAdapter<CommodityManagerListBea
     protected void convert(BaseViewHolder helper, CommodityManagerListBean.DataBean.ListBean item) {
         ImageLoadUtil.loadSquareImageHasCorner(mContext, item.getCoverImg(), helper.getView(R.id.commodity_pic_iv));
         helper.setText(R.id.commodity_name_tv, item.getName());
-        helper.setText(R.id.commodity_prise_tv, String.format("￥:%s", item.getPrice()));
+        helper.setText(R.id.commodity_prise_tv, String.format("￥%s", item.getPrice()));
         helper.setGone(R.id.commodity_operate_tv, false);
         switch (status) {
             case 1:

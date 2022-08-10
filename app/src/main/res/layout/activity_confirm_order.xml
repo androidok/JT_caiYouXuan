@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mall.order.confirmOrder.ConfirmOrderActivity">
+    >
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/confirm_order_addr_cl"
@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:text="选择收货地址" />
 
-        <android.support.constraint.ConstraintLayout 
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/default_addr_cl"
             android:padding="15dp"
             android:layout_width="match_parent"

@@ -17,7 +17,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/default_addr_cl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sp_filled_white_5dp"
+                android:padding="10dp">
 
+
+                <TextView
+                    android:id="@+id/order_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="订单状态:"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/order_status_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="描述"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/order_status"
+                    app:layout_constraintLeft_toRightOf="@+id/order_status"
+                    app:layout_constraintTop_toTopOf="@+id/order_status" />
+            </android.support.constraint.ConstraintLayout>
             <FrameLayout
                 android:id="@+id/order_detail_top_fl"
                 android:layout_width="match_parent"
@@ -50,7 +79,18 @@
                 android:textStyle="bold"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
-
+            <TextView
+                android:id="@+id/older_remark_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="200"
+                android:background="@drawable/sp_filled_gray_lighter"
+                android:gravity="left|top"
+                android:hint="备注信息..."
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/order_detail_info_rv"
                 android:layout_width="match_parent"

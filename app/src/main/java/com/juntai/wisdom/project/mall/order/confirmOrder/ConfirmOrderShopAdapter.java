@@ -2,6 +2,9 @@ package com.juntai.wisdom.project.mall.order.confirmOrder;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -24,6 +27,8 @@ public class ConfirmOrderShopAdapter extends BaseQuickAdapter<CreatOrderBean.Dat
     @Override
     protected void convert(BaseViewHolder helper, CreatOrderBean.DataBean.ShopListBean item) {
         helper.setText(R.id.order_shop_name_tv,item.getShopName());
+        EditText remarkEt = helper.getView(R.id.older_remark_et);
+        remarkEt.setTag(item);
         helper.setText(R.id.transport_price_tv,item.getTransportCharges()>0?String.format("快递￥%s",item.getTransportCharges()):"快递(包邮)");
         RecyclerView recyclerView = helper.getView(R.id.order_shop_commodities_rv);
         ConfirmOrderCommodityAdapter orderCommodityAdapter = new ConfirmOrderCommodityAdapter(R.layout.comfirm_order_commodity_item);
@@ -31,5 +36,24 @@ public class ConfirmOrderShopAdapter extends BaseQuickAdapter<CreatOrderBean.Dat
         recyclerView.setAdapter(orderCommodityAdapter);
         recyclerView.setLayoutManager(manager);
         orderCommodityAdapter.setNewData(item.getCommodities());
+        helper.setText(R.id.older_remark_et,item.getRemark());
+        remarkEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                CreatOrderBean.DataBean.ShopListBean bean = (CreatOrderBean.DataBean.ShopListBean) remarkEt.getTag();
+                bean.setRemark(s.toString().trim());
+
+            }
+        });
     }
 }

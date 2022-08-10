@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.appbase.bean.order.ConfirmOrderBean;
 import com.example.appbase.bean.order.CreatOrderBean;
+import com.example.appbase.bean.order.OrderDetailBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
@@ -19,7 +20,10 @@ import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
+import com.juntai.wisdom.project.mall.order.orderPay.PaySuccessActivity;
 import com.orhanobut.hawk.Hawk;
+
+import java.util.List;
 
 /**
  * @aouther tobato
@@ -137,9 +141,20 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
                 if (orderListBean != null) {
                     orderListBean.setTotalPrice(dataBean.getTotalPrice());
                     orderListBean.setTotalCommodityNum(dataBean.getTotalCommodityNum());
-                    startToOrderPayActivity(orderListBean, 1);
-                    finish();
+                    List<OrderDetailBean> orderDetailBeans = orderListBean.getData();
+                    if (orderDetailBeans != null && orderDetailBeans.size() > 0) {
+                        OrderDetailBean orderDetailBe = orderDetailBeans.get(0);
+                        mPresenter.payByPubAccount(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_PUB_ACCOUNT);
+                    } else {
+                        ToastUtils.toast(mContext, "订单提交异常");
+                    }
+
+
                 }
+                break;
+            case AppHttpPath.ORDER_PAY_PUB_ACCOUNT:
+                startActivity(new Intent(mContext, PaySuccessActivity.class));
+                finish();
                 break;
             default:
                 break;
@@ -179,6 +194,8 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
                 dataBean.setPhone(getTextViewValue(mReceiverPhoneTv));
                 dataBean.setDetailedAddress(getTextViewValue(mAddrDesTv));
 
+                List<CreatOrderBean.DataBean.ShopListBean> arrays = orderShopAdapter.getData();
+                dataBean.setShopList(arrays);
                 mPresenter.commitOrder(getBaseBuilder()
                         .add("json", GsonTools.createGsonString(dataBean)).build(), AppHttpPath.COMMIT_ORDER
                 );

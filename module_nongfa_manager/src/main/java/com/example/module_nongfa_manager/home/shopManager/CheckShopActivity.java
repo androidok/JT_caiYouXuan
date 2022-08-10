@@ -46,7 +46,10 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
     protected boolean isDetail() {
         return true;
     }
-
+    @Override
+    public int getLayoutView() {
+        return R.layout.recycleview_scroll_layout;
+    }
     @Override
     protected String getTitleName() {
         return "店铺审核";
