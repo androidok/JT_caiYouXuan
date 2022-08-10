@@ -32,13 +32,21 @@ public class ShopesAdapter extends BaseQuickAdapter<ShopManagerListBean.DataBean
             }
             helper.setText(R.id.shop_property_tv,catagory);
         }
+        helper.setText(R.id.left_tv,"详情");
+        helper.setGone(R.id.right_tv, true);
         switch (status) {
             case 1:
-                helper.setGone(R.id.check_tv, true);
-                helper.setText(R.id.check_tv, "审核");
+                helper.setText(R.id.right_tv, "审核");
+                break;
+            case 2:
+                helper.setText(R.id.right_tv, "关店");
+                break;
+            case 3:
+                helper.setGone(R.id.right_tv, false);
+
                 break;
             default:
-                helper.setGone(R.id.check_tv, false);
+                helper.setGone(R.id.right_tv, false);
                 break;
         }
     }
