@@ -46,6 +46,7 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
         }else {
             mTabTb.setVisibility(View.VISIBLE);
         }
+        mSearchContentSv.setQueryHint("搜索订单编号、商品名称或店铺名称");
     }
 
     @Override

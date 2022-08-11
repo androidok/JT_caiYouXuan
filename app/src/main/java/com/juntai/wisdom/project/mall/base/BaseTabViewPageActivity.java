@@ -70,7 +70,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
         mSearchLl = (LinearLayout) findViewById(R.id.search_ll);
         mFinishTv = (TextView) findViewById(R.id.cancel_tv);
         SearchView.SearchAutoComplete textView = (SearchView.SearchAutoComplete) mSearchContentSv.findViewById(com.juntai.disabled.basecomponent.R.id.search_src_text);
-        textView.setTextSize(14);
+        textView.setTextSize(12);
         mTabTb = (TabLayout) findViewById(R.id.tab_tb);
         mTabTb.setTabMode(getTabMode());
         mViewpageVp = (CustomViewPager) findViewById(R.id.viewpage_vp);

@@ -82,7 +82,7 @@ public class NFHomeFragment extends BaseRecyclerviewFragment {
         List<PicTextBean> arrays = new ArrayList<>();
         arrays.add(new PicTextBean(R.mipmap.nf_home_menu_shop_icon, R.mipmap.menu_blue_bg, NfHomeContact.SHOP_MANAGER, "DianPu"));
         arrays.add(new PicTextBean(R.mipmap.nf_home_menu_commodity_icon, R.mipmap.menu_green_bg, NfHomeContact.COMMODITY_MANAGER, "ShangPin"));
-        arrays.add(new PicTextBean(R.mipmap.nf_home_menu_order_icon, R.mipmap.menu_yellow_bg, NfHomeContact.ORDER_MANAGER, "DingDan"));
+        arrays.add(new PicTextBean(R.mipmap.nf_home_menu_order_icon, R.mipmap.menu_yellow_bg, NfHomeContact.ORDER_MANAGER, "FenJian"));
         return arrays;
     }
 
