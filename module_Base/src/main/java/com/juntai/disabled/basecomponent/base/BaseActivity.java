@@ -270,9 +270,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
      */
     public void setAlertDialogHeightWidth(AlertDialog dialog, int width, int height) {
 
-//        shareMsgDialog.getWindow().setBackgroundDrawableResource(R.drawable.sp_filled_white_10dp);
-//        shareMsgDialog.getWindow().setLayout(ScreenUtils.getInstance(mContext).getScreenWidth() - DisplayUtil.dp2px(mContext, 80), LinearLayout.LayoutParams.WRAP_CONTENT);
-//
         // 设置dialog的宽度
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         if (-1 == width) {

@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.BaseAppModuleActivity;
+import com.example.appbase.base.OnBaseInterface;
 import com.example.appbase.base.BaseRecyclerviewFragment;
 import com.example.appbase.bean.nong_fa_manager.ShopManagerListBean;
 import com.example.module_nongfa_manager.R;
@@ -91,15 +93,22 @@ public class ShopesFragment extends BaseRecyclerviewFragment<HomePresent> implem
                                     .putExtra(BASE_ID2, listBean.getId()), BaseActivity.BASE_RSULT);
                             break;
                         case 2:
-                            //todo 关店
-
+                            // 关店
+                            ((BaseAppModuleActivity) getActivity()).showAlertDialogWithEditText("关店原因", new OnBaseInterface.OnCommitInterface() {
+                                @Override
+                                public void commit(String content) {
+                                    mPresenter.commitShopCheck(getBaseAppActivity().getBaseBuilder()
+                                            .add("state", "3")
+                                            .add("content", content)
+                                            .add("shopId", String.valueOf(listBean.getId())).build(), AppHttpPath.COMMIT_SHOP_CHECK);
+                                }
+                            });
                             break;
                         default:
                             break;
                     }
 
                 }
-
 
 
             }
@@ -180,6 +189,10 @@ public class ShopesFragment extends BaseRecyclerviewFragment<HomePresent> implem
                         setData(arrays, dataBean.getTotalCount());
                     }
                 }
+                break;
+
+            case AppHttpPath.COMMIT_SHOP_CHECK:
+                baseQuickAdapter.remove(currentPosition);
                 break;
             default:
                 break;

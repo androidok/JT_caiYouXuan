@@ -13,6 +13,7 @@
             <enum name="right" value="1" />
         </attr>
     </declare-styleable>
+
     <style name="item_title_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -31,6 +32,7 @@
         <item name="android:textColor">@color/text_main_tab</item>
         <item name="android:textSize">12dp</item>
     </style>
+
     <style name="shop_item_content_text_style_right">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -40,6 +42,7 @@
         <item name="android:textSize">14dp</item>
         <item name="android:layout_weight">1</item>
     </style>
+
     <style name="app_normal_bt">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -52,11 +55,30 @@
         <item name="android:paddingRight">15dp</item>
         <item name="android:paddingBottom">5dp</item>
     </style>
+
     <style name="tab_textview">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textColor">@color/text_main_tab</item>
         <item name="android:textSize">12dp</item>
+    </style>
+
+
+    <style name="custom_alertdialog_style" parent="@android:style/Theme.Dialog">
+
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 </resources>

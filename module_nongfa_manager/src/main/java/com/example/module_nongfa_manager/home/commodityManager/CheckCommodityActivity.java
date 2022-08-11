@@ -43,26 +43,6 @@ public class CheckCommodityActivity extends BaseMultiRecyclerActivity {
     protected boolean isDetail() {
         return true;
     }
-//
-//    @Override
-//    public int getLayoutView() {
-//        return R.layout.recycleview_scroll_layout;
-//    }
-
-//    @Override
-//    protected LinearLayoutManager getBaseAdapterManager() {
-//        return new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false){
-//            @Override
-//            public boolean canScrollHorizontally() {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean canScrollVertically() {
-//                return false;
-//            }
-//        };
-//    }
 
     @Override
     protected String getTitleName() {
