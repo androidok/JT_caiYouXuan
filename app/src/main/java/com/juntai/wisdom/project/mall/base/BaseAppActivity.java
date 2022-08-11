@@ -472,12 +472,12 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseAppMo
 
                 }
                 break;
-            case EventBusObject.EVALUATE:
-                if (this instanceof AllOrderActivity) {
-                    OrderDetailBean.CommodityListBean commodityBean = (OrderDetailBean.CommodityListBean) eventBusObject.getEventObj();
-                    startToEvaluateActivity(commodityBean);
-                }
-                break;
+//            case EventBusObject.EVALUATE:
+//                if (this instanceof AllOrderActivity) {
+//                    OrderDetailBean.CommodityListBean commodityBean = (OrderDetailBean.CommodityListBean) eventBusObject.getEventObj();
+//                    startToEvaluateActivity(commodityBean);
+//                }
+//                break;
             case EventBusObject.CREAT_ORDER:
                 CreatOrderBean.DataBean dataBean  = (CreatOrderBean.DataBean) eventBusObject.getEventObj();
                 startToConfirmOrder(dataBean);

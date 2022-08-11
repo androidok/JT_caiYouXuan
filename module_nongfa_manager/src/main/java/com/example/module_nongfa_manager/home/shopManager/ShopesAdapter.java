@@ -33,6 +33,8 @@ public class ShopesAdapter extends BaseQuickAdapter<ShopManagerListBean.DataBean
             helper.setText(R.id.shop_property_tv,catagory);
         }
         helper.setText(R.id.left_tv,"详情");
+        helper.addOnClickListener(R.id.left_tv);
+        helper.addOnClickListener(R.id.right_tv);
         helper.setGone(R.id.right_tv, true);
         switch (status) {
             case 1:

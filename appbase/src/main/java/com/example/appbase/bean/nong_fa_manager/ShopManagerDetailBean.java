@@ -84,7 +84,7 @@ public class ShopManagerDetailBean extends BaseResult {
         private String shopRealScene;
         private int isAgreement;
         private int state;
-        private Object stateContent;
+        private String stateContent;
         private int status;
         private String createTime;
         private List<String> shopImgList;
@@ -289,12 +289,12 @@ public class ShopManagerDetailBean extends BaseResult {
             this.state = state;
         }
 
-        public Object getStateContent() {
-            return stateContent;
+        public String getStateContent() {
+            return stateContent == null ? "" : stateContent;
         }
 
-        public void setStateContent(Object stateContent) {
-            this.stateContent = stateContent;
+        public void setStateContent(String stateContent) {
+            this.stateContent = stateContent == null ? "" : stateContent;
         }
 
         public int getStatus() {

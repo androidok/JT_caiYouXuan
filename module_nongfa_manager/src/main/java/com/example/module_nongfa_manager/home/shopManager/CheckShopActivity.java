@@ -1,5 +1,6 @@
 package com.example.module_nongfa_manager.home.shopManager;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -40,16 +41,13 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
     private int shopId;
     //（2审核通过；3审核失败）
     private int agreeStatus = 2;
-    private int checkStatus;
 
     @Override
     protected boolean isDetail() {
         return true;
     }
-    @Override
-    public int getLayoutView() {
-        return R.layout.recycleview_scroll_layout;
-    }
+
+
     @Override
     protected String getTitleName() {
         return "店铺审核";
@@ -57,7 +55,6 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
 
     @Override
     public void initView() {
-        checkStatus = getIntent().getIntExtra(BASE_ID, 0);
         shopId = getIntent().getIntExtra(BASE_ID2, 0);
         super.initView();
     }
@@ -77,7 +74,6 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
         mItemRadioG = (RadioGroup) view.findViewById(R.id.item_radio_g);
 
 
-
         mRejectReasonEt = (EditText) view.findViewById(R.id.reject_reason_et);
         LinearLayout rejectLl = (LinearLayout) view.findViewById(R.id.reject_ll);
         rejectLl.setVisibility(View.GONE);
@@ -85,7 +81,12 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
         mCommitTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (mDisagreeRb.isChecked()) {
+                    if (TextUtils.isEmpty(getTextViewValue(mRejectReasonEt))) {
+                        ToastUtils.toast(mContext, "请输入拒绝原因");
+                        return;
+                    }
+                }
                 mPresenter.commitShopCheck(getBaseBuilder()
                         .add("state", String.valueOf(agreeStatus))
                         .add("content", getTextViewValue(mRejectReasonEt))
@@ -106,21 +107,9 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
             }
         });
 
-        if (1==checkStatus) {
-            mCommitTv.setVisibility(View.VISIBLE);
-            for (int i = 0; i < mItemRadioG.getChildCount(); i++) {
-                mItemRadioG.getChildAt(i).setEnabled(true);
-            }
-        }else {
-            mCommitTv.setVisibility(View.GONE);
-            for (int i = 0; i < mItemRadioG.getChildCount(); i++) {
-                mItemRadioG.getChildAt(i).setEnabled(false);
-            }
-            if (2==checkStatus) {
-                mAgreeRb.setChecked(true);
-            }else {
-                mDisagreeRb.setChecked(true);
-            }
+        mCommitTv.setVisibility(View.VISIBLE);
+        for (int i = 0; i < mItemRadioG.getChildCount(); i++) {
+            mItemRadioG.getChildAt(i).setEnabled(true);
         }
         return view;
     }
@@ -136,10 +125,6 @@ public class CheckShopActivity extends BaseMultiRecyclerActivity {
                     ShopManagerDetailBean.DataBean bean = detailBean.getData();
                     if (bean != null) {
                         baseQuickAdapter.setNewData(mPresenter.checkShop(bean, true));
-                        // TODO: 2022/8/6  展示失败原因
-                        if (2==checkStatus) {
-                            mRejectReasonEt.setText("接口无返回数据 待处理");
-                        }
                     }
                 }
                 break;

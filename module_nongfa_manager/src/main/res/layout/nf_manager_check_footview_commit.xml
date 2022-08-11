@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="25dp"
-    android:focusableInTouchMode="true"
     android:background="@color/white"
     android:orientation="vertical"
     android:paddingBottom="30dp">
@@ -88,10 +87,8 @@
             android:id="@+id/reject_reason_et"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_weight="1"
             android:background="@drawable/stroke_gray_square_bg"
             android:gravity="left|top"
-            android:imeOptions="actionDone"
             android:padding="5dp"
             android:textSize="14dp" />
     </LinearLayout>

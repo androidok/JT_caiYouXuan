@@ -8,8 +8,8 @@ import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 
+import com.example.appbase.base.BaseTabViewPageActivity;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.BaseTabViewPageActivity;
 import com.juntai.project.sell.mall.base.search.BaseSearchHeadFragment;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.HomePagePresent;

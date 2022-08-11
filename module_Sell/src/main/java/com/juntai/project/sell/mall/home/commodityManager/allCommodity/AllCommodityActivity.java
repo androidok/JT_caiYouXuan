@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 import android.view.View;
 
-import com.juntai.project.sell.mall.base.BaseTabViewPageActivity;
+import com.example.appbase.base.BaseTabViewPageActivity;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.AddCommodityActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;

@@ -102,14 +102,14 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
      *
      * @return
      */
-    public List<MultipleItem> checkShop(ShopManagerDetailBean.DataBean bean, boolean isDetail) {
+    public List<MultipleItem> checkShop(ShopManagerDetailBean.DataBean bean, boolean showRb) {
         List<MultipleItem> arrays = new ArrayList<>();
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.REAL_NAME, bean == null ? "" :
                         bean.getRealName()
-                , true, 0, isDetail);
+                , true, 0, true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.IDCARD, bean == null ? "" :
                         bean.getIdCode()
-                , true, 0, isDetail);
+                , true, 0, true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_BIG, "店家资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
                 new MultiPicBean(MultiContact.ID_CARD_FRONT, 1, bean == null ? "" :
@@ -124,23 +124,23 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
 
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.USER_ACCOUNT, bean == null ? "" :
                         bean.getUserAccount()
-                , true, 0, isDetail);
+                , true, 0, true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.SHOP_NAME, bean == null ? "" :
                         bean.getName()
-                , true, 0, isDetail);
+                , true, 0, true);
 
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.SHOP_TEL, bean == null ? "" :
                         bean.getPhoneNumber()
-                , true, 0, isDetail);
+                , true, 0, true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.SHOP_CATEGORY, bean == null ? "" :
                         bean.getCategory()
-                , true, 0, isDetail);
+                , true, 0, true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.SHOP_ADDR, bean == null ? "" :
                         bean.getGpsAddress()
-                , true, 0, isDetail);
+                , true, 0, true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.SHOP_CREAT_TIME, bean == null ? "" :
                         bean.getCreateTime()
-                , true, 0, isDetail);
+                , true, 0, true);
 
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_BIG, "店铺资料"));
@@ -151,12 +151,15 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
             addFragmentPics(bean.getBusinessLicense(), fragmentPics);
             addFragmentPics(bean.getShopRealScene(), fragmentPics);
         }
-        arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT, new ItemFragmentBean(3, isDetail ?
+        arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT, new ItemFragmentBean(3, true ?
                 fragmentPics.size() : 3,
                 3, 1, true,
                 fragmentPics)));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
-                (MultiContact.IS_AGREE, false)));
+        if (showRb) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                    (MultiContact.IS_AGREE, false)));
+        }
+
         return arrays;
     }
 

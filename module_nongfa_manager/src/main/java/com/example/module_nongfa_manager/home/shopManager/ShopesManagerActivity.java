@@ -47,6 +47,11 @@ public class ShopesManagerActivity extends BaseTabViewPageActivity<HomePresent> 
 
     }
 
+    @Override
+    public void initView() {
+        super.initView();
+        mSearchContentSv.setQueryHint("请输入店铺名称");
+    }
 
     @Override
     protected SparseArray<Fragment> getFragments() {

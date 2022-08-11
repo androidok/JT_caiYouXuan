@@ -12,12 +12,12 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.BaseTabViewPageActivity;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.project.sell.mall.SellMainActivity;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.BaseTabViewPageActivity;
+import com.juntai.project.sell.mall.SellMainActivity;
 import com.juntai.project.sell.mall.base.SingleTextAdapter;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.order.OrderPresent;

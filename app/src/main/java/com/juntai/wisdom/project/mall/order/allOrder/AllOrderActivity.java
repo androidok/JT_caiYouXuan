@@ -5,10 +5,10 @@ import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 import android.view.View;
 
+import com.example.appbase.base.BaseTabViewPageActivity;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.MainActivity;
-import com.juntai.wisdom.project.mall.base.BaseTabViewPageActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 

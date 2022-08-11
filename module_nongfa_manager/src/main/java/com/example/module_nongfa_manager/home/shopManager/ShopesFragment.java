@@ -72,33 +72,35 @@ public class ShopesFragment extends BaseRecyclerviewFragment<HomePresent> implem
     protected void initView() {
         super.initView();
         baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个店铺也没有-_-", -1));
-        baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 currentPosition = position;
                 ShopManagerListBean.DataBean.ListBean listBean = (ShopManagerListBean.DataBean.ListBean) adapter.getItem(position);
-                switch (labelId) {
-                    case 1:
-                        //待审核
-                        startActivityForResult(new Intent(mContext, CheckShopActivity.class)
-                                .putExtra(BASE_ID,1)
-                                .putExtra(BASE_ID2, listBean.getId()), BaseActivity.BASE_RSULT);
-                        break;
-                    case 2:
-                        //已通过
-                        startActivityForResult(new Intent(mContext, CheckShopActivity.class)
-                                .putExtra(BASE_ID,2)
-                                .putExtra(BASE_ID2, listBean.getId()), BaseActivity.BASE_RSULT);
-                        break;
-                    case 3:
-                        //未通过
-                        startActivityForResult(new Intent(mContext, CheckShopActivity.class)
-                                .putExtra(BASE_ID,3)
-                                .putExtra(BASE_ID2, listBean.getId()), BaseActivity.BASE_RSULT);
-                        break;
-                    default:
-                        break;
+                int id = view.getId();
+                if (id == R.id.left_tv) {// : 2022/8/11 详情
+                    startActivityForResult(new Intent(mContext, NfShopDetailActivity.class)
+                            .putExtra(BASE_ID, labelId)
+                            .putExtra(BASE_ID2, listBean.getId()), BaseActivity.BASE_RSULT);
+                } else if (id == R.id.right_tv) {
+                    switch (labelId) {
+                        case 1:
+                            //审核
+                            startActivityForResult(new Intent(mContext, CheckShopActivity.class)
+                                    .putExtra(BASE_ID2, listBean.getId()), BaseActivity.BASE_RSULT);
+                            break;
+                        case 2:
+                            //todo 关店
+
+                            break;
+                        default:
+                            break;
+                    }
+
                 }
+
+
 
             }
         });
@@ -107,7 +109,7 @@ public class ShopesFragment extends BaseRecyclerviewFragment<HomePresent> implem
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode== BaseActivity.BASE_RSULT) {
+        if (resultCode == BaseActivity.BASE_RSULT) {
             baseQuickAdapter.remove(currentPosition);
         }
 
