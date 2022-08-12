@@ -511,27 +511,7 @@ public class ShopPresent extends BaseAppMallPresent {
                 });
     }
 
-    public void sendGoods(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
-                .sendGoods(requestBody)
-                .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(null) {
-                    @Override
-                    public void onSuccess(BaseResult o) {
-                        if (getView() != null) {
-                            getView().onSuccess(tag, o);
-                        }
 
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (getView() != null) {
-                            getView().onError(tag, msg);
-                        }
-                    }
-                });
-    }
 
     public void createCommodityFormatList(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()

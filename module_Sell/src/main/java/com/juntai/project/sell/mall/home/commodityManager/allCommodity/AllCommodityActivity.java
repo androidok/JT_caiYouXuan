@@ -7,6 +7,8 @@ import android.util.SparseArray;
 import android.view.View;
 
 import com.example.appbase.base.BaseTabViewPageActivity;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.AddCommodityActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
@@ -39,6 +41,7 @@ public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> i
 
     @Override
     protected void commitSearch(String s) {
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_LIST,s));
 
     }
 
@@ -50,8 +53,8 @@ public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> i
     @Override
     public void initData() {
         super.initData();
-        mSearchLl.setVisibility(View.GONE);
         getTitleRightTv().setText("添加商品");
+        mSearchContentSv.setQueryHint("请输入商品名称");
         getTitleRightTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

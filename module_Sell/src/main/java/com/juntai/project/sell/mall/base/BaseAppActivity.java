@@ -46,6 +46,7 @@ import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommod
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.SellCommodityDetailActivity;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
+import com.juntai.project.sell.mall.home.shopFurnish.ShopFurnishActivity;
 import com.juntai.project.sell.mall.news.ChatActivity;
 import com.juntai.project.sell.mall.order.allOrder.OrderManagerActivity;
 import com.juntai.project.sell.mall.order.orderDetail.OrderDetailActivity;
@@ -370,30 +371,10 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      * @param shopId
      */
     public void startToShop(int shopId) {
-//        startActivityForResult(new Intent(mContext, ShopFurnishActivity.class).putExtra(BASE_ID, shopId), BASE_REQUEST_RESULT);
+        startActivityForResult(new Intent(mContext, ShopFurnishActivity.class).putExtra(BASE_ID, shopId), BASE_REQUEST_RESULT);
 
     }
 
-
-    /**
-     * 所有订单
-     * enterType  0代表支付成功之后  1代表个人中心进入
-     */
-    public void startToAllOrderActivity(int enterType, int tabPosition) {
-        startActivity(new Intent(mContext, OrderManagerActivity.class)
-                .putExtra(BASE_ID2, tabPosition)
-                .putExtra(BASE_ID, enterType));
-    }
-
-    /**
-     * @param orderId
-     * @param orderStatus
-     */
-    public void startToOrderDetailActivity(int orderId, int orderStatus) {
-        startActivity(new Intent(mContext, OrderDetailActivity.class)
-                .putExtra(BASE_ID, orderId)
-                .putExtra(BASE_ID2, orderStatus));
-    }
 
 
     @Override
@@ -431,6 +412,26 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
             default:
                 break;
         }
+    }
+
+    /**
+     * 所有订单
+     * enterType  0代表支付成功之后  1代表个人中心进入
+     */
+    public void startToAllOrderActivity(int enterType, int tabPosition) {
+        startActivity(new Intent(mContext, OrderManagerActivity.class)
+                .putExtra(BASE_ID2, tabPosition)
+                .putExtra(BASE_ID, enterType));
+    }
+
+    /**
+     * @param orderId
+     * @param orderStatus
+     */
+    public void startToOrderDetailActivity(int orderId, int orderStatus) {
+        startActivity(new Intent(mContext, OrderDetailActivity.class)
+                .putExtra(BASE_ID, orderId)
+                .putExtra(BASE_ID2, orderStatus));
     }
 
 

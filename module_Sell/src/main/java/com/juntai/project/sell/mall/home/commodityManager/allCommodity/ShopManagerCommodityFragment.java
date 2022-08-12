@@ -70,7 +70,8 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
     public void onEvent(EventBusObject eventBusObject) {
         switch (eventBusObject.getEventKey()) {
             case EventBusObject.REFRESH_COMMODITY_LIST:
-                lazyLoad();
+                String  key = (String) eventBusObject.getEventObj();
+                getData(key);
                 break;
             default:
                 break;
@@ -79,8 +80,13 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
 
     @Override
     protected void getRvAdapterData() {
-        mPresenter.getAllCommodity(getBaseAppActivity().getBaseBuilder()
+        getData(((AllCommodityActivity)getActivity()).mSearchContentSv.getQuery().toString().trim());
+    }
+
+    private void getData(String keyword) {
+        mPresenter.getAllCommodity(getBaseBuilder()
                 .add("page", String.valueOf(page))
+                .add("keyword", keyword)
                 .add("limit", String.valueOf(limit))
                 .add("putAwayStatus", String.valueOf(status)).build(), AppHttpPathMall.GET_ALL_COMMODITY);
     }
@@ -159,7 +165,7 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
         switch (editType) {
             case 0:
                 // : 2022/6/13 修改商品
-                getBaseAppActivity().showAlertDialog("是否修改当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
+                getBaseActivity().showAlertDialog("是否修改当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(mContext, EditCommodityActivity.class).putExtra(BASE_ID, item.getId()));
@@ -170,24 +176,24 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
                 break;
             case 1:
                 // : 2022/6/13 删除商品
-                getBaseAppActivity().showAlertDialog("是否删除当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
+                getBaseActivity().showAlertDialog("是否删除当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.deleteCommodity(getBaseAppActivity().getBaseBuilder().add("id", String.valueOf(item.getId())).build(), AppHttpPathMall.DELETE_COMMODITY
+                        mPresenter.deleteCommodity(getBaseBuilder().add("id", String.valueOf(item.getId())).build(), AppHttpPathMall.DELETE_COMMODITY
                         );
                     }
                 });
                 break;
             case 2:
                 // : 2022/6/15 规格
-                getBaseAppActivity().startCommodityPropertyActivity(item.getId());
+                startCommodityPropertyActivity(item.getId());
                 break;
             case 3:
                 // : 2022/6/15 上架
-                getBaseAppActivity().showAlertDialog("是否上架当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
+                getBaseActivity().showAlertDialog("是否上架当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.onSaleCommodity(getBaseAppActivity().getBaseBuilder().add("id", String.valueOf(item.getId()))
+                        mPresenter.onSaleCommodity(getBaseBuilder().add("id", String.valueOf(item.getId()))
                                 .add("status", "0").build(), AppHttpPathMall.COMMODITY_ON_SALE
                         );
                     }
@@ -195,10 +201,10 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
                 break;
             case 4:
                 // : 2022/6/15 下架
-                getBaseAppActivity().showAlertDialog("是否下架当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
+                getBaseActivity().showAlertDialog("是否下架当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.onSaleCommodity(getBaseAppActivity().getBaseBuilder().add("id", String.valueOf(item.getId()))
+                        mPresenter.onSaleCommodity(getBaseBuilder().add("id", String.valueOf(item.getId()))
                                 .add("status", "1").build(), AppHttpPathMall.COMMODITY_ON_SALE_
                         );
                     }

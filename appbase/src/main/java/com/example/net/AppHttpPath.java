@@ -3,8 +3,8 @@ package com.example.net;
 public class AppHttpPath {
 
 
-//    public static final String BASE = "http://192.168.124.14s8:8080/jt-mall";
-        public static final String BASE = "https://www.juntaikeji.com:21965/jt-mall";
+    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
+//        public static final String BASE = "https://www.juntaikeji.com:21965/jt-mall";
 
     public static final String ALL_CITYS = "https://restapi.amap.com/v3/config/district?";
     /*==============================================  流媒体相关  =============================================*/

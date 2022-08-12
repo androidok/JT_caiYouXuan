@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.bean.SellOrderDetailBean;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
@@ -17,10 +18,9 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-import com.juntai.project.sell.mall.beans.order.OrderDetailItemBean;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
-import com.example.appbase.bean.SellOrderDetailBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailDataBean;
+import com.juntai.project.sell.mall.beans.order.OrderDetailItemBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.order.OrderPresent;
 import com.juntai.project.sell.mall.order.allOrder.OrderCommodityAdapter;
@@ -223,7 +223,8 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
 
                 case HomePageContract.ORDER_SEND:
                     // : 立即发货
-                    startSendActivity(orderId);
+                    mPresenter.sendGoods(getBaseBuilder().add("orderId",String.valueOf(orderId)).build(), AppHttpPathMall.SEND_GOODS);
+
                     break;
                 case HomePageContract.ORDER_AGREE:
                     // :   同意退货
@@ -252,6 +253,11 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
+            case AppHttpPathMall.SEND_GOODS:
+                ToastUtils.toast(mContext, "已提交");
+                startToAllOrderActivity(1, 2);
+                finish();
+                break;
             case AppHttpPathMall.ORDER_DETAIL:
                 OrderDetailDataBean orderDetailDataBean = (OrderDetailDataBean) o;
                 if (orderDetailDataBean != null) {
@@ -270,7 +276,6 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                         getBuyerInfo(itemBeans);
                         initAddrData();
                         List<TextKeyValueBean> arrays = new ArrayList<>();
-                        List<TextKeyValueBean> logistics = new ArrayList<>();
 
                         switch (orderStatus) {
                             case 0:
@@ -292,9 +297,6 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                                 arrays.add(new TextKeyValueBean("支付方式:", getPayTypeName(orderDetailBean.getPayType())));
                                 arrays.add(new TextKeyValueBean("付款时间:", orderDetailBean.getPaymentTime()));
                                 arrays.add(new TextKeyValueBean("发货时间:", orderDetailBean.getShipmentsTime()));
-                                arrays.add(new TextKeyValueBean("物流公司:", orderDetailBean.getLogisticsName()));
-                                logistics.add(new TextKeyValueBean("快递单号:", orderDetailBean.getLogisticsNumber()));
-                                logistics.add(new TextKeyValueBean("快递链接:", orderDetailBean.getLogisticsLink()));
                                 break;
                             case 3:
                             case 5:
@@ -305,9 +307,6 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                                 arrays.add(new TextKeyValueBean("支付方式:", getPayTypeName(orderDetailBean.getPayType())));
                                 arrays.add(new TextKeyValueBean("付款时间:", orderDetailBean.getPaymentTime()));
                                 arrays.add(new TextKeyValueBean("发货时间:", orderDetailBean.getShipmentsTime()));
-                                logistics.add(new TextKeyValueBean("快递公司:", orderDetailBean.getLogisticsName()));
-                                logistics.add(new TextKeyValueBean("快递单号:", orderDetailBean.getLogisticsNumber()));
-                                logistics.add(new TextKeyValueBean("物流信息:", orderDetailBean.getLogisticsLink()));
                                 arrays.add(new TextKeyValueBean("成交时间:", orderDetailBean.getConfirmTime()));
                                 break;
                             case 4:
@@ -360,9 +359,6 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                                 break;
                         }
 
-                        if (logistics.size() > 0) {
-                            itemBeans.add(new OrderDetailItemBean("物流信息", logistics));
-                        }
                         if (arrays.size() > 0) {
                             itemBeans.add(new OrderDetailItemBean("交易信息", arrays));
                         }

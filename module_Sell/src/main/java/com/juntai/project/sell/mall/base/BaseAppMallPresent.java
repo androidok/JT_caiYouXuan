@@ -22,7 +22,27 @@ public abstract class BaseAppMallPresent extends BaseAppPresent<IModel, HomePage
     protected IModel createModel() {
         return null;
     }
+    public void sendGoods(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .sendGoods(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(null) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
 
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
 
     public void handlerRefundRequest(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
