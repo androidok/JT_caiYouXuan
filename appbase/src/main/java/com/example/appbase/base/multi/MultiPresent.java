@@ -34,7 +34,7 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
      *
      * @return
      */
-    public List<MultipleItem> checkCommodity(CommodityManagerDetailBean.DataBean bean, boolean isDetail) {
+    public List<MultipleItem> checkCommodity(CommodityManagerDetailBean.DataBean bean,  boolean showRb) {
         CommodityManagerDetailBean.DataBean.TraceabilityBean traceabilityBean = null;
         if (bean != null) {
             traceabilityBean = bean.getTraceability();
@@ -42,18 +42,18 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
         }
         List<MultipleItem> arrays = new ArrayList<>();
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.SHOP_NAME, bean == null ? "暂无" : bean.getShopName()
-                , true, 0, isDetail);
+                , true, 0, true);
 
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.CLASSIFY_NAME, bean == null ? "暂无" : bean.getClassifyName()
-                , true, 0, isDetail);
+                , true, 0, true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.CATEGORY_NAME, bean == null ? "暂无" : bean.getCategoryName()
-                , true, 0, isDetail);
+                , true, 0, true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_NAME, bean == null ? "暂无" : bean.getName()
-                , true, 0, isDetail);
+                , true, 0, true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_PRICE, bean == null ? "暂无" : String.valueOf(bean.getPrice())
-                , true, 0, isDetail);
+                , true, 0, true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.CREAT_TIME, bean == null ? "暂无" : bean.getCreateTime()
-                , true, 0, isDetail);
+                , true, 0, true);
         if (bean!=null&& !TextUtils.isEmpty(bean.getDescription())) {
             arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                     (MultiContact.COMMODITY_DES, true)));
@@ -72,26 +72,28 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
                 addFragmentPics(bean.getVideoUrl(), fragmentPics);
             }
         }
-        arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT, new ItemFragmentBean(3, isDetail ?
+        arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT, new ItemFragmentBean(3, true ?
                 fragmentPics.size() : 3,
                 2, 1, false,
                 fragmentPics)));
 
 
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_PROVIDER, bean == null ? "" : bean.getShopName()
-                , true, 0, isDetail);
+                , true, 0, true);
 
         initTextSelectType(arrays, MultiContact.COMMODITY_RESTOC_TIME, "0", traceabilityBean == null ? "" : traceabilityBean.getPurchaseTime(), true, true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_RESTOC_PERSON, traceabilityBean == null ? "" : traceabilityBean.getPurchaseName()
-                , true, 0, isDetail);
+                , true, 0, true);
         if (traceabilityBean != null) {
             arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                     (MultiContact.COMMODITY_BILL, false)));
             arrays.add(new MultipleItem(MultipleItem.ITEM_NORMAL_RECYCLEVIEW,new MultiNormalRecyclerviewBean(MultiContact.COMMODITY_SOURCE,traceabilityBean.getTraceabilityFile(),new CommodityManagerSourceDetailAdapter(R.layout.commodity_source_detail_item))));
         }
+        if (showRb) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                    (MultiContact.IS_AGREE, false)));
+        }
 
-        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
-                (MultiContact.IS_AGREE, false)));
 
 
         return arrays;

@@ -3,7 +3,6 @@ package com.example.module_nongfa_manager.home.orderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -42,12 +41,9 @@ public class NFOrderListShopAdapter extends BaseQuickAdapter<SellOrderDetailBean
             }
         }
         orderCommodityAdapter.setNewData(arrays);
-        orderCommodityAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-             helper.getView(R.id.shop_bottom_cl).performClick();
-            }
-        });
+
+        helper.addOnClickListener(R.id.order_detail_tv);
+
         if (1==item.getSorting()) {
             helper.addOnClickListener(R.id.order_left_tv);
             //未分拣

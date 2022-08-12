@@ -25,17 +25,23 @@ public class CommoditiesAdapter extends BaseQuickAdapter<CommodityManagerListBea
         ImageLoadUtil.loadSquareImageHasCorner(mContext, item.getCoverImg(), helper.getView(R.id.commodity_pic_iv));
         helper.setText(R.id.commodity_name_tv, item.getName());
         helper.setText(R.id.commodity_prise_tv, String.format("￥%s", item.getPrice()));
-        helper.setGone(R.id.commodity_operate_tv, false);
+        helper.setText(R.id.left_tv,"详情");
+        helper.addOnClickListener(R.id.left_tv);
+        helper.addOnClickListener(R.id.right_tv);
+        helper.setGone(R.id.right_tv, true);
         switch (status) {
             case 1:
-                helper.setGone(R.id.commodity_operate_tv, true);
-                helper.setText(R.id.commodity_operate_tv, "审核");
+                helper.setText(R.id.right_tv, "审核");
                 break;
             case 2:
-                helper.setGone(R.id.commodity_operate_tv, true);
-                helper.setText(R.id.commodity_operate_tv, "下架");
+                helper.setText(R.id.right_tv, "下架");
+                break;
+            case 3:
+                helper.setGone(R.id.right_tv, false);
+
                 break;
             default:
+                helper.setGone(R.id.right_tv, false);
                 break;
         }
 

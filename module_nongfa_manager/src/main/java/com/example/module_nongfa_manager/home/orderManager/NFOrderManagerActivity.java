@@ -6,13 +6,13 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.search.BaseSearchAndListActivity;
+import com.example.appbase.bean.SellOrderDetailBean;
+import com.example.appbase.bean.SellOrderListBean;
 import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.HomePresent;
 import com.example.module_nongfa_manager.home.orderManager.orderDetail.NFOrderDetailActivity;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.mvp.IView;
-import com.example.appbase.bean.SellOrderDetailBean;
-import com.example.appbase.bean.SellOrderListBean;
 
 import java.util.List;
 
@@ -68,7 +68,12 @@ public class NFOrderManagerActivity extends BaseSearchAndListActivity<HomePresen
                 orderDetailBean = (SellOrderDetailBean) adapter.getItem(position);
                 currentPosition = position;
                 int id = view.getId();
-                if (id == R.id.order_left_tv) {// : 2022/8/2 分拣
+                if (id == R.id.order_detail_tv) {
+                    //订单详情
+                    startActivity(new Intent(mContext, NFOrderDetailActivity.class).putExtra(BASE_ID, orderDetailBean.getId()));
+
+
+                } else if (id == R.id.order_left_tv) {// : 2022/8/2 分拣
                     showAlertDialog("是否确认已分拣完成？?", "是", "否", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -84,9 +89,6 @@ public class NFOrderManagerActivity extends BaseSearchAndListActivity<HomePresen
                             );
                         }
                     });
-                }else if (id == R.id.shop_bottom_cl) {
-                    //订单详情
-                    startActivity(new Intent(mContext, NFOrderDetailActivity.class).putExtra(BASE_ID,orderDetailBean.getId()));
                 }
             }
         });
@@ -130,11 +132,11 @@ public class NFOrderManagerActivity extends BaseSearchAndListActivity<HomePresen
 
             case AppHttpPath.UPDATE_SORT_STATUS:
                 orderDetailBean.setSorting(2);
-                baseQuickAdapter.notifyItemChanged(currentPosition,orderDetailBean);
+                baseQuickAdapter.notifyItemChanged(currentPosition, orderDetailBean);
                 break;
             case AppHttpPath.UPDATE_DELIVERY_STATUS:
                 orderDetailBean.setDelivery(2);
-                baseQuickAdapter.notifyItemChanged(currentPosition,orderDetailBean);
+                baseQuickAdapter.notifyItemChanged(currentPosition, orderDetailBean);
                 break;
             default:
                 break;

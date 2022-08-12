@@ -8,6 +8,7 @@
             android:launchMode="singleTask" />
         <activity android:name=".home.orderManager.NFOrderManagerActivity" />
         <activity android:name=".home.commodityManager.CheckCommodityActivity" />
+        <activity android:name=".home.commodityManager.NfCommodityDetailActivity" />
         <activity android:name=".home.shopManager.CheckShopActivity" />
         <activity android:name=".home.shopManager.NfShopDetailActivity" />
         <activity android:name=".home.shopManager.ShopesManagerActivity" />

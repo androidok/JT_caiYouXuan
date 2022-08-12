@@ -82,9 +82,9 @@ public class ShopesFragment extends BaseRecyclerviewFragment<HomePresent> implem
                 ShopManagerListBean.DataBean.ListBean listBean = (ShopManagerListBean.DataBean.ListBean) adapter.getItem(position);
                 int id = view.getId();
                 if (id == R.id.left_tv) {// : 2022/8/11 详情
-                    startActivityForResult(new Intent(mContext, NfShopDetailActivity.class)
+                    startActivity(new Intent(mContext, NfShopDetailActivity.class)
                             .putExtra(BASE_ID, labelId)
-                            .putExtra(BASE_ID2, listBean.getId()), BaseActivity.BASE_RSULT);
+                            .putExtra(BASE_ID2, listBean.getId()));
                 } else if (id == R.id.right_tv) {
                     switch (labelId) {
                         case 1:

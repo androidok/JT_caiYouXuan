@@ -55,7 +55,7 @@ public class CommodityManagerDetailBean extends BaseResult {
         private String description;
         private double price;
         private int state;
-        private Object stateContent;
+        private String stateContent;
         private String createTime;
         private TraceabilityBean traceability;
 
@@ -139,12 +139,12 @@ public class CommodityManagerDetailBean extends BaseResult {
             this.state = state;
         }
 
-        public Object getStateContent() {
-            return stateContent;
+        public String getStateContent() {
+            return stateContent == null ? "" : stateContent;
         }
 
-        public void setStateContent(Object stateContent) {
-            this.stateContent = stateContent;
+        public void setStateContent(String stateContent) {
+            this.stateContent = stateContent == null ? "" : stateContent;
         }
 
         public String getCreateTime() {

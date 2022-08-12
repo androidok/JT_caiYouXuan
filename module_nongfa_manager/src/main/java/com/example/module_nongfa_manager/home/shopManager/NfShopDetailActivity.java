@@ -39,7 +39,7 @@ public class NfShopDetailActivity extends BaseMultiRecyclerActivity {
     private TextView mCommitTv;
     private int shopId;
     //（2审核通过；3审核失败）
-    private int checkStatus;
+    private int labelId;
 
     @Override
     protected boolean isDetail() {
@@ -52,7 +52,7 @@ public class NfShopDetailActivity extends BaseMultiRecyclerActivity {
 
     @Override
     public void initView() {
-        checkStatus = getIntent().getIntExtra(BASE_ID, 0);
+        labelId = getIntent().getIntExtra(BASE_ID, 0);
         shopId = getIntent().getIntExtra(BASE_ID2, 0);
         super.initView();
     }
@@ -60,13 +60,13 @@ public class NfShopDetailActivity extends BaseMultiRecyclerActivity {
     @Override
     public void initData() {
         super.initData();
-        baseQuickAdapter.setNewData(mPresenter.checkShop(null, 1!=checkStatus));
+        baseQuickAdapter.setNewData(mPresenter.checkShop(null, 1!= labelId));
         mPresenter.getManagerShopDetail(getBaseBuilder().add("shopId", String.valueOf(shopId)).build(), AppHttpPath.MANAGER_SHOP_DETAIL);
     }
 
     @Override
     protected View getAdapterFootView() {
-        if (1==checkStatus) {
+        if (1== labelId) {
             return null;
         }
         View view = LayoutInflater.from(mContext).inflate(R.layout.nf_manager_check_footview_commit, null);
@@ -93,7 +93,7 @@ public class NfShopDetailActivity extends BaseMultiRecyclerActivity {
         for (int i = 0; i < mItemRadioG.getChildCount(); i++) {
             mItemRadioG.getChildAt(i).setEnabled(false);
         }
-        if (2==checkStatus) {
+        if (2== labelId) {
             mAgreeRb.setChecked(true);
         }else {
             mDisagreeRb.setChecked(true);
@@ -111,9 +111,9 @@ public class NfShopDetailActivity extends BaseMultiRecyclerActivity {
                 if (detailBean != null) {
                     ShopManagerDetailBean.DataBean bean = detailBean.getData();
                     if (bean != null) {
-                        baseQuickAdapter.setNewData(mPresenter.checkShop(bean, 1!=checkStatus));
+                        baseQuickAdapter.setNewData(mPresenter.checkShop(bean, 1!= labelId));
                         // : 2022/8/6  展示失败原因
-                        if (3==checkStatus) {
+                        if (3== labelId) {
                             mRejectReasonEt.setText(bean.getStateContent());
                         }
                     }

@@ -1,13 +1,14 @@
 package com.example.module_nongfa_manager.home.commodityManager;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.BaseAppModuleActivity;
 import com.example.appbase.base.BaseRecyclerviewFragment;
+import com.example.appbase.base.OnBaseInterface;
 import com.example.appbase.bean.nong_fa_manager.CommodityManagerListBean;
 import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.HomePresent;
@@ -71,35 +72,46 @@ public class CommoditiesFragment extends BaseRecyclerviewFragment<HomePresent> i
     protected void initView() {
         super.initView();
         baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个商品也没有-_-", -1));
-        baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                currentPosition =position;
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                currentPosition = position;
                 CommodityManagerListBean.DataBean.ListBean listBean = (CommodityManagerListBean.DataBean.ListBean) adapter.getItem(position);
-                switch (labelId) {
-                    case 1:
-                        //待审核
-                       startActivityForResult(new Intent(mContext,CheckCommodityActivity.class).putExtra(BASE_ID,listBean.getId()),BaseActivity.BASE_RSULT);
-                        break;
-                    case 2:
-                        //已审核  下架
+                int id = view.getId();
+                if (id == R.id.left_tv) {// : 2022/8/11 详情
+                    startActivity(new Intent(mContext, NfCommodityDetailActivity.class)
+                            .putExtra(BASE_ID,labelId)
+                            .putExtra(BASE_ID2, listBean.getId()));
 
-                        // : 2022/6/13 删除商品
-                        getBaseAppActivity().showAlertDialog("是否下架当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mPresenter.updateCommodityStatus(getBaseAppActivity().getBaseBuilder()
-                                        .add("commodityId",String.valueOf(listBean.getId()))
-                                        .add("state","3").build(),AppHttpPath.UPDATE_COMMODITY_STATUS_DOWN
-                                );
-                            }
-                        });
+                } else if (id == R.id.right_tv) {
 
+                    switch (labelId) {
+                        case 1:
+                            //待审核
+                            startActivityForResult(new Intent(mContext, CheckCommodityActivity.class).putExtra(BASE_ID, listBean.getId()), BaseActivity.BASE_RSULT);
+                            break;
+                        case 2:
+                            //已审核  下架
 
-                        break;
-                    default:
-                        break;
+                            ((BaseAppModuleActivity) getActivity()).showAlertDialogWithEditText("下架原因", new OnBaseInterface.OnCommitInterface() {
+                                @Override
+                                public void commit(String content) {
+                                    mPresenter.updateCommodityStatus(getBaseAppActivity().getBaseBuilder()
+                                            .add("commodityId", String.valueOf(listBean.getId()))
+                                            .add("content", content)
+                                            .add("state", "3").build(), AppHttpPath.UPDATE_COMMODITY_STATUS_DOWN
+                                    );
+                                }
+                            });
+
+                            break;
+                        default:
+                            break;
+                    }
+
                 }
+
+
             }
         });
     }
@@ -128,14 +140,16 @@ public class CommoditiesFragment extends BaseRecyclerviewFragment<HomePresent> i
                 break;
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode== BaseActivity.BASE_RSULT) {
+        if (resultCode == BaseActivity.BASE_RSULT) {
             baseQuickAdapter.remove(currentPosition);
         }
 
     }
+
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {
         return null;
@@ -178,7 +192,7 @@ public class CommoditiesFragment extends BaseRecyclerviewFragment<HomePresent> i
 
             case AppHttpPath.UPDATE_COMMODITY_STATUS_DOWN:
                 baseQuickAdapter.remove(currentPosition);
-                        ToastUtils.toast(mContext,"下架成功");
+                ToastUtils.toast(mContext, "下架成功");
                 break;
             default:
                 break;
