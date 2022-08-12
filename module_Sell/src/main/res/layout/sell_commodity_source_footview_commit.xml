@@ -8,10 +8,6 @@
     android:orientation="vertical"
     android:paddingBottom="30dp">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/commodity_source_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/commit_tv"

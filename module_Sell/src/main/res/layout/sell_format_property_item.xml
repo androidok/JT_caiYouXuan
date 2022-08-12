@@ -29,12 +29,6 @@
         android:layout_marginLeft="10dp"
         android:textColor="@color/red" />
 
-    <TextView
-        android:id="@+id/commodity_stock_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/red" />
 
     <ImageView
         android:layout_width="15dp"

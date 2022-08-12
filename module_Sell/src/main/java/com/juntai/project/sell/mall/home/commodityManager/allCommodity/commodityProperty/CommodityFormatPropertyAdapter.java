@@ -32,6 +32,5 @@ public class CommodityFormatPropertyAdapter extends BaseQuickAdapter<CommodityFo
         }
         helper.setText(R.id.commodity_property_tv, TextUtils.join("\n",detail));
         helper.setText(R.id.commodity_price_tv,String.format("¥ %s",item.getPrice()));
-        helper.setText(R.id.commodity_stock_tv,String.format("库存:%s",item.getStock()));
     }
 }

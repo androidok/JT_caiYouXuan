@@ -256,7 +256,7 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
             // : 2022/6/15 加载尾布局
             View view = LayoutInflater.from(mContext).inflate(R.layout.sell_set_format_layout, null);
             mSetPriceStockTv = view.findViewById(R.id.item_small_title_tv);
-            mSetPriceStockTv.setText("设置价格库存");
+            mSetPriceStockTv.setText("设置价格");
             RecyclerView mCommodityFormatRv = view.findViewById(R.id.commodity_format_rv);
             formatPropertyAdapter = new CommodityFormatPropertyAdapter(R.layout.sell_format_property_item);
             initRecyclerview(mCommodityFormatRv, formatPropertyAdapter, LinearLayoutManager.VERTICAL);
@@ -275,11 +275,10 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                 modifyPriceStockFragment.setDataBean(dataBean, position);
                 modifyPriceStockFragment.setOnConfirmCallBack(new ModifyPriceStockFragment.OnConfirmCallBack() {
                     @Override
-                    public void confirm(double price, int stock, int positon) {
+                    public void confirm(double price,  int positon) {
                         // : 2022/6/17 更改适配器数据  调用更改接口
                         CommodityFormatListBean.DataBean dataBean = (CommodityFormatListBean.DataBean) formatPropertyAdapter.getItem(position);
                         dataBean.setPrice(price);
-                        dataBean.setStock(stock);
                         formatPropertyAdapter.notifyItemChanged(position);
                         commit(AppHttpPathMall.MODIFY_COMMODITY_PRICE_STOCK);
                     }

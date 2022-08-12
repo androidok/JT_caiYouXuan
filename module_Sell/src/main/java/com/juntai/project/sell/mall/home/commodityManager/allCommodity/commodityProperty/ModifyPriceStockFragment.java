@@ -53,10 +53,6 @@ public class ModifyPriceStockFragment extends BaseBottomSheetFragment implements
      */
     private EditText mCommodityPriceEt;
     /**
-     * 请输入库存
-     */
-    private EditText mCommodityStockEt;
-    /**
      * 取消
      */
     private TextView mCancelTv;
@@ -76,13 +72,8 @@ public class ModifyPriceStockFragment extends BaseBottomSheetFragment implements
                 ToastUtils.toast(getContext(), "请输入价格");
                 return;
             }
-            String stock = mCommodityStockEt.getText().toString().trim();
-            if (TextUtils.isEmpty(stock)) {
-                ToastUtils.toast(getContext(), "请输入库存");
-                return;
-            }
             if (onConfirmCallBack != null) {
-                onConfirmCallBack.confirm(Double.parseDouble(price), Integer.parseInt(stock), position);
+                onConfirmCallBack.confirm(Double.parseDouble(price), position);
                 dismiss();
             }
         }
@@ -117,7 +108,6 @@ public class ModifyPriceStockFragment extends BaseBottomSheetFragment implements
         mCommodityPicIv = (ImageView) view.findViewById(R.id.commodity_pic_iv);
         mFormatTv = (TextView) view.findViewById(R.id.format_tv);
         mCommodityPriceEt = (EditText) view.findViewById(R.id.commodity_price_et);
-        mCommodityStockEt = (EditText) view.findViewById(R.id.commodity_stock_et);
         mCancelTv = (TextView) view.findViewById(R.id.cancel_tv);
         mCancelTv.setOnClickListener(this);
         mConfirmTv = (TextView) view.findViewById(R.id.confirm_tv);
@@ -130,11 +120,10 @@ public class ModifyPriceStockFragment extends BaseBottomSheetFragment implements
         }
         mFormatTv.setText(TextUtils.join("\n", detail));
         mCommodityPriceEt.setText(String.valueOf(dataBean.getPrice()));
-        mCommodityStockEt.setText(String.valueOf(dataBean.getStock()));
     }
 
     public interface OnConfirmCallBack {
 
-        void confirm(double price, int stock, int positon);
+        void confirm(double price, int positon);
     }
 }

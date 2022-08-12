@@ -489,9 +489,6 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         case HomePageContract.COMMODITY_PRICE:
                             commodityDetailBean.setPrice(Double.parseDouble(textValue));
                             break;
-                        case HomePageContract.COMMODITY_STOCK:
-                            commodityDetailBean.setStock(Integer.parseInt(textValue));
-                            break;
                         case HomePageContract.COMMODITY_POSTAGE:
                             commodityDetailBean.setTransportCharges(Double.parseDouble(textValue));
                             break;

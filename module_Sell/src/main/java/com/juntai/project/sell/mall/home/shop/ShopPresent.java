@@ -77,6 +77,11 @@ public class ShopPresent extends BaseAppMallPresent {
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.COMMODITY_BILL, false)));
+
+
+
+
+
         return arrays;
     }
 
@@ -162,9 +167,6 @@ public class ShopPresent extends BaseAppMallPresent {
 
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PRICE, bean == null ? "" :
                         String.valueOf(bean.getPrice())
-                , true, 0, isDetail);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_STOCK, bean == null ? "" :
-                        String.valueOf(bean.getStock())
                 , true, 0, isDetail);
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_POSTAGE, bean == null ? "" :
                         String.valueOf(bean.getTransportCharges())
