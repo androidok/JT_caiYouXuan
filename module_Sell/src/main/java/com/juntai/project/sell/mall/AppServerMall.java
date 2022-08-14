@@ -1,8 +1,10 @@
 package com.juntai.project.sell.mall;
 
 
+import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.example.appbase.bean.NewsListBean;
 import com.example.appbase.bean.PlayUrlBean;
+import com.example.appbase.bean.SellOrderListBean;
 import com.example.appbase.bean.ShopCommodityListBean;
 import com.example.appbase.bean.ShopListDataBean;
 import com.example.appbase.bean.UserBean;
@@ -19,7 +21,6 @@ import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
 import com.juntai.project.sell.mall.beans.WithDrawListBean;
 import com.juntai.project.sell.mall.beans.order.ConfirmOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailDataBean;
-import com.example.appbase.bean.SellOrderListBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayWxBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayZfbBean;
 import com.juntai.project.sell.mall.beans.order.RefundReasonBean;
@@ -261,6 +262,9 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.DELETE_COMMODITY_CATEGORY)
     Observable<BaseResult> deleteCommodityCategorys(@Body RequestBody requestBody);
 
+    @POST(AppHttpPathMall.GET_COMMODITY_SOURCE_DETAIL)
+    Observable<CommoditySourceDetailBean> getCommoditySource(@Body RequestBody requestBody);
+
 
 
     /*====================================================    商品管理   ==============================================================*/
@@ -278,7 +282,7 @@ public interface AppServerMall {
     Observable<BaseResult> updateCommodityBaseInfo(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.DELETE_COMMODITY)
-    Observable<BaseResult> deleteCommodity(@Body RequestBody requestBody);
+    Observable<BaseResult> deleteCommodity(@Body RequestBody requestBody,@Query("ids")List<Integer> ids);
 
     @POST(AppHttpPathMall.EDIT_COMMODITY_FORMAT)
     Observable<BaseResult> editCommodityProperty(@Body RequestBody requestBody);

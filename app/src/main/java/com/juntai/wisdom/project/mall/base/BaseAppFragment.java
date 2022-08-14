@@ -1,12 +1,21 @@
 package com.juntai.wisdom.project.mall.base;
 
 
+import android.content.Intent;
 import android.text.TextUtils;
 
+import com.example.appbase.bean.order.OrderDetailBean;
+import com.example.appbase.util.UserInfoManager;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
+import com.juntai.wisdom.project.mall.home.shop.ShopActivity;
+import com.juntai.wisdom.project.mall.order.orderDetail.OrderDetailActivity;
+import com.juntai.wisdom.project.mall.order.orderPay.OrderPayActivity;
+import com.juntai.wisdom.project.mall.order.refund.RefundRequestActivity;
 
 import okhttp3.FormBody;
 
@@ -35,6 +44,22 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
      */
     public FormBody.Builder getBaseBuilderWithoutParama() {
         FormBody.Builder builder = new FormBody.Builder();
+        return builder;
+    }
+    /**
+     * 获取builder
+     *
+     * @return
+     */
+    public FormBody.Builder getBaseBuilder() {
+        FormBody.Builder builder = new FormBody.Builder()
+                .add("account", UserInfoManager.getAccount())
+                .add("token", UserInfoManager.getUserToken())
+                .add("typeEnd", UserInfoManager.getDevType())
+                .add("userId", String.valueOf(UserInfoManager.getUserId()))
+                .add("schoolId", String.valueOf(UserInfoManager.getSchoolId()));
+
+
         return builder;
     }
     /**
@@ -106,6 +131,48 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
     public BaseAppActivity getBaseAppActivity() {
         return (BaseAppActivity) getActivity();
     }
+
+    /**
+     * 跳入 申请退款界面
+     */
+    public void startToOrderRefundRequestActivity(OrderDetailBean orderDetailBean) {
+        startActivity(new Intent(mContext, RefundRequestActivity.class)
+                .putExtra(BaseActivity.BASE_PARCELABLE, orderDetailBean)
+        );
+
+    }
+    /**
+     * 跳转到支付界面
+     * enterType 0 代表直接购买的时候
+     * 1 代表购物车结算的时候
+     * 2. 在待支付订单进入
+     */
+    public void startToOrderPayActivity(BaseResult orderListBean, int enterType) {
+        startActivity(new Intent(mContext, OrderPayActivity.class)
+                .putExtra(BaseActivity.BASE_STRING, enterType)
+                .putExtra(BaseActivity.BASE_PARCELABLE, orderListBean));
+
+    }
+    /**
+     * @param orderId
+     * @param orderStatus
+     */
+    public void startToOrderDetailActivity(int orderId, int orderStatus) {
+        startActivity(new Intent(mContext, OrderDetailActivity.class)
+                .putExtra(BaseActivity.BASE_ID, orderId)
+                .putExtra(BaseActivity.BASE_ID2, orderStatus));
+    }
+
+    /**
+     * 跳转到店铺首页
+     *
+     * @param shopId
+     */
+    public void startToShop(int shopId) {
+        startActivityForResult(new Intent(mContext, ShopActivity.class).putExtra(BaseActivity.BASE_ID, shopId), BaseActivity.BASE_REQUEST_RESULT);
+
+    }
+
 
 
 

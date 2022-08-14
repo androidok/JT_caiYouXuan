@@ -65,14 +65,6 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
         super.initView();
         baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个店铺也没有-_-",-1));
 
-        baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ShopListDataBean.DataBean.ListBean bean = (ShopListDataBean.DataBean.ListBean) adapter.getItem(position);
-                getBaseAppActivity().startToShop(bean.getId());
-
-            }
-        });
     }
 
     @Override

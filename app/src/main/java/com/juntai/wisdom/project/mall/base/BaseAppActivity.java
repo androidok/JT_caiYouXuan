@@ -126,7 +126,15 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseAppMo
         void onUploadFinish(UploadFileBean uploadFileBean);
 
     }
-
+    /**
+     * @param orderId
+     * @param orderStatus
+     */
+    public void startToOrderDetailActivity(int orderId, int orderStatus) {
+        startActivity(new Intent(mContext, OrderDetailActivity.class)
+                .putExtra(BaseActivity.BASE_ID, orderId)
+                .putExtra(BaseActivity.BASE_ID2, orderStatus));
+    }
     /**
      * 重新登录
      */
@@ -438,15 +446,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseAppMo
                 .putExtra(BaseActivity.BASE_ID, enterType));
     }
 
-    /**
-     * @param orderId
-     * @param orderStatus
-     */
-    public void startToOrderDetailActivity(int orderId, int orderStatus) {
-        startActivity(new Intent(mContext, OrderDetailActivity.class)
-                .putExtra(BaseActivity.BASE_ID, orderId)
-                .putExtra(BaseActivity.BASE_ID2, orderStatus));
-    }
+
 
     /**
      * 跳入 申请退款界面

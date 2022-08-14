@@ -13,7 +13,7 @@ public class CommoditySourceDetailBean extends BaseResult {
 
 
     /**
-     * data : {"commodityId":11,"supplier":2,"purchaseTime":"2022-07-24","purchaseName":"张三","photoList":[{"commodityId":11,"photoOne":"https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg","photoTwo":"https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg","photoThree":"https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg","remarks":"测试111"},{"commodityId":11,"photoOne":"https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg","photoTwo":"https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg","photoThree":"https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg","remarks":"测试222"}]}
+     * data : {"commodityId":54,"supplier":13,"purchaseTime":"2022-08-10","purchaseName":"张安","photoOne":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","photoTwo":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","photoThree":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","photoList":[{"fileUrl":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png"},{"fileUrl":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png"}]}
      */
 
     private DataBean data;
@@ -28,19 +28,25 @@ public class CommoditySourceDetailBean extends BaseResult {
 
     public static class DataBean {
         /**
-         * commodityId : 11
-         * supplier : 2
-         * purchaseTime : 2022-07-24
-         * purchaseName : 张三
-         * photoList : [{"commodityId":11,"photoOne":"https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg","photoTwo":"https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg","photoThree":"https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg","remarks":"测试111"},{"commodityId":11,"photoOne":"https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg","photoTwo":"https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg","photoThree":"https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg","remarks":"测试222"}]
+         * commodityId : 54
+         * supplier : 13
+         * purchaseTime : 2022-08-10
+         * purchaseName : 张安
+         * photoOne : https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
+         * photoTwo : https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
+         * photoThree : https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
+         * photoList : [{"fileUrl":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png"},{"fileUrl":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png"}]
          */
 
         private int commodityId;
         private int supplier;
         private String purchaseTime;
-        private String purchaseName;
         private String account;
         private String token;
+        private String purchaseName;
+        private String photoOne;
+        private String photoTwo;
+        private String photoThree;
         private List<PhotoListBean> photoList;
 
         public int getCommodityId() {
@@ -91,6 +97,30 @@ public class CommoditySourceDetailBean extends BaseResult {
             this.purchaseName = purchaseName;
         }
 
+        public String getPhotoOne() {
+            return photoOne;
+        }
+
+        public void setPhotoOne(String photoOne) {
+            this.photoOne = photoOne;
+        }
+
+        public String getPhotoTwo() {
+            return photoTwo;
+        }
+
+        public void setPhotoTwo(String photoTwo) {
+            this.photoTwo = photoTwo;
+        }
+
+        public String getPhotoThree() {
+            return photoThree;
+        }
+
+        public void setPhotoThree(String photoThree) {
+            this.photoThree = photoThree;
+        }
+
         public List<PhotoListBean> getPhotoList() {
             return photoList;
         }
@@ -100,50 +130,22 @@ public class CommoditySourceDetailBean extends BaseResult {
         }
 
         public static class PhotoListBean {
+            public PhotoListBean(String fileUrl) {
+                this.fileUrl = fileUrl;
+            }
+
             /**
-             * commodityId : 11
-             * photoOne : https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg
-             * photoTwo : https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg
-             * photoThree : https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg
-             * remarks : 测试111
+             * fileUrl : https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
              */
 
-            private String photoOne;
-            private String photoTwo;
-            private String photoThree;
-            private String remarks;
+            private String fileUrl;
 
-
-            public String getPhotoOne() {
-                return photoOne == null ? "" : photoOne;
+            public String getFileUrl() {
+                return fileUrl;
             }
 
-            public void setPhotoOne(String photoOne) {
-                this.photoOne = photoOne == null ? "" : photoOne;
-            }
-
-            public String getPhotoTwo() {
-                return photoTwo == null ? "" : photoTwo;
-            }
-
-            public void setPhotoTwo(String photoTwo) {
-                this.photoTwo = photoTwo == null ? "" : photoTwo;
-            }
-
-            public String getPhotoThree() {
-                return photoThree == null ? "" : photoThree;
-            }
-
-            public void setPhotoThree(String photoThree) {
-                this.photoThree = photoThree == null ? "" : photoThree;
-            }
-
-            public String getRemarks() {
-                return remarks == null ? "" : remarks;
-            }
-
-            public void setRemarks(String remarks) {
-                this.remarks = remarks == null ? "" : remarks;
+            public void setFileUrl(String fileUrl) {
+                this.fileUrl = fileUrl;
             }
         }
     }

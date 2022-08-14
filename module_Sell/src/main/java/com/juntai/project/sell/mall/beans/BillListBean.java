@@ -32,15 +32,15 @@ public class BillListBean extends BaseResult {
          * list : [{"userId":99,"headPortrait":"https://www.juntaikeji.com:17003/head_img/568c81a20742458aaf68390977b16cbe.jpeg","nickname":"王彬","payPrice":23.98,"payType":0,"paymentTime":"05月14 11:53"},{"userId":99,"headPortrait":"https://www.juntaikeji.com:17003/head_img/568c81a20742458aaf68390977b16cbe.jpeg","nickname":"王彬","payPrice":12.99,"payType":4,"paymentTime":"05月14 11:55"}]
          */
 
-        private double revenue;
+        private String revenue;
         private List<ListBean> list;
 
-        public double getRevenue() {
-            return revenue;
+        public String getRevenue() {
+            return revenue == null ? "" : revenue;
         }
 
-        public void setRevenue(double revenue) {
-            this.revenue = revenue;
+        public void setRevenue(String revenue) {
+            this.revenue = revenue == null ? "" : revenue;
         }
 
         public List<ListBean> getList() {

@@ -2,6 +2,7 @@ package com.example.appbase.bean.nong_fa_manager;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -210,7 +211,10 @@ public class SortDetailBean extends BaseResult {
             private String supplierName;
             private String purchaseTime;
             private String purchaseName;
-            private List<TraceabilityListBean> traceabilityList;
+            private String photoOne;
+            private String photoTwo;
+            private String photoThree;
+            private List<PhotoListBean> photoList;
 
             public int getCommodityId() {
                 return commodityId;
@@ -238,6 +242,41 @@ public class SortDetailBean extends BaseResult {
 
             public double getPrices() {
                 return prices;
+            }
+
+            public String getPhotoOne() {
+                return photoOne == null ? "" : photoOne;
+            }
+
+            public void setPhotoOne(String photoOne) {
+                this.photoOne = photoOne == null ? "" : photoOne;
+            }
+
+            public String getPhotoTwo() {
+                return photoTwo == null ? "" : photoTwo;
+            }
+
+            public void setPhotoTwo(String photoTwo) {
+                this.photoTwo = photoTwo == null ? "" : photoTwo;
+            }
+
+            public String getPhotoThree() {
+                return photoThree == null ? "" : photoThree;
+            }
+
+            public void setPhotoThree(String photoThree) {
+                this.photoThree = photoThree == null ? "" : photoThree;
+            }
+
+            public List<PhotoListBean> getPhotoList() {
+                if (photoList == null) {
+                    return new ArrayList<>();
+                }
+                return photoList;
+            }
+
+            public void setPhotoList(List<PhotoListBean> photoList) {
+                this.photoList = photoList;
             }
 
             public void setPrices(double prices) {
@@ -300,15 +339,8 @@ public class SortDetailBean extends BaseResult {
                 this.purchaseName = purchaseName;
             }
 
-            public List<TraceabilityListBean> getTraceabilityList() {
-                return traceabilityList;
-            }
 
-            public void setTraceabilityList(List<TraceabilityListBean> traceabilityList) {
-                this.traceabilityList = traceabilityList;
-            }
-
-            public static class TraceabilityListBean {
+            public static class PhotoListBean {
                 /**
                  * commodityId : 11
                  * photoOne : https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg
@@ -317,50 +349,14 @@ public class SortDetailBean extends BaseResult {
                  * remarks : 测试111
                  */
 
-                private int commodityId;
-                private String photoOne;
-                private String photoTwo;
-                private String photoThree;
-                private String remarks;
+                private String fileUrl;
 
-                public int getCommodityId() {
-                    return commodityId;
+                public String getFileUrl() {
+                    return fileUrl == null ? "" : fileUrl;
                 }
 
-                public void setCommodityId(int commodityId) {
-                    this.commodityId = commodityId;
-                }
-
-                public String getPhotoOne() {
-                    return photoOne;
-                }
-
-                public void setPhotoOne(String photoOne) {
-                    this.photoOne = photoOne;
-                }
-
-                public String getPhotoTwo() {
-                    return photoTwo;
-                }
-
-                public void setPhotoTwo(String photoTwo) {
-                    this.photoTwo = photoTwo;
-                }
-
-                public String getPhotoThree() {
-                    return photoThree;
-                }
-
-                public void setPhotoThree(String photoThree) {
-                    this.photoThree = photoThree;
-                }
-
-                public String getRemarks() {
-                    return remarks;
-                }
-
-                public void setRemarks(String remarks) {
-                    this.remarks = remarks;
+                public void setFileUrl(String fileUrl) {
+                    this.fileUrl = fileUrl == null ? "" : fileUrl;
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.juntai.wisdom.project.mall.order.allOrder;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -67,7 +68,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
     @Override
     protected void initView() {
         super.initView();
-        baseQuickAdapter.setEmptyView(getBaseAppActivity().getAdapterEmptyView("一个订单也没有-_-",-1));
+        baseQuickAdapter.setEmptyView(getBaseActivity().getAdapterEmptyView("一个订单也没有-_-",-1));
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -79,20 +80,20 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
 
                     case R.id.shop_bottom_cl:
                         // : 2022/5/12 跳转到订单详情
-                        getBaseAppActivity().startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
+                        startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
                         break;
                     case R.id.order_shop_name_tv:
-                        getBaseAppActivity().startToShop(orderDetailBean.getShopId());
+                        startToShop(orderDetailBean.getShopId());
                         break;
 
                     case R.id.order_left_tv:
                         switch (orderLeftTv.getText().toString().trim()) {
                             case HomePageContract.ORDER_CANCEL:
                                 // : 2022/5/12 取消订单
-                                getBaseAppActivity().showAlertDialog("是否取消当前订单?", "确定", "取消", new DialogInterface.OnClickListener() {
+                                getBaseActivity().showAlertDialog("是否取消当前订单?", "确定", "取消", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        mPresenter.cancelOrder(getBaseAppActivity().getBaseBuilder()
+                                        mPresenter.cancelOrder(getBaseBuilder()
                                                 .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPath.CANCEL_ORDER);
                                     }
                                 });
@@ -100,7 +101,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                                 break;
                             case HomePageContract.ORDER_REFUND:
                                 // : 2022/5/12 申请退款
-                                getBaseAppActivity().startToOrderRefundRequestActivity(orderDetailBean);
+                                startToOrderRefundRequestActivity(orderDetailBean);
                                 break;
                             default:
                                 break;
@@ -118,12 +119,12 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                                 dataBean.setList(orderDetailBeans);
                                 orderListBean.setTotalPrice(orderDetailBean.getPayPrice());
                                 orderListBean.setData(dataBean);
-                                getBaseAppActivity().startToOrderPayActivity(orderListBean, 2);
+                                startToOrderPayActivity(orderListBean, 2);
 
                                 break;
                             case HomePageContract.ORDER_SEND:
                                 // : 2022/5/12 提醒发货
-                                mPresenter.noticeSend(getBaseAppActivity().getBaseBuilder().add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPath.NOTICE_SEND);
+                                mPresenter.noticeSend(getBaseBuilder().add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPath.NOTICE_SEND);
 
                                 break;
                             case HomePageContract.ORDER_RECEIVE:
@@ -131,7 +132,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                                 getBaseActivity().showAlertDialog("确定收到货物了吗?", "确定", "取消", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        mPresenter.confirmReceived(getBaseAppActivity().getBaseBuilder()
+                                        mPresenter.confirmReceived(getBaseBuilder()
                                                 .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPath.CONFIRM_RECEIVED);
                                     }
                                 });
@@ -142,7 +143,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                                 // : 2022/5/12 查看进度
                             case HomePageContract.ORDER_REFUND_UNAGREE:
                                 // : 2022/5/12 商家不同意
-                                getBaseAppActivity().startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
+                                startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
 
                                 break;
                             case HomePageContract.ORDER_DELETE:
@@ -150,7 +151,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                                 getBaseActivity().showAlertDialog("确定删除该订单?", "确定", "取消", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        mPresenter.deleteCancelOrder(getBaseAppActivity().getBaseBuilder()
+                                        mPresenter.deleteCancelOrder(getBaseBuilder()
                                                 .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPath.DELETE_CANCEL_ORDER);
                                     }
                                 });
@@ -198,9 +199,9 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
     }
 
     private void getList(String key) {
-        mPresenter.getOrderList(getBaseAppActivity().getBaseBuilder()
+        mPresenter.getOrderList(getBaseBuilder()
                 .add("page", String.valueOf(page))
-                .add("key",key)
+                .add("key", TextUtils.isEmpty(key)?"":key)
                 .add("limit", String.valueOf(limit))
                 .add("type", String.valueOf(labelId)).build(), AppHttpPath.ORDER_LIST
         );

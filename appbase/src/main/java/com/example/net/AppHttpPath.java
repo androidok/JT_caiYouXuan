@@ -408,7 +408,9 @@ public class AppHttpPath {
      * 分拣详情
      */
     public static final String SORT_ORDER_DETAIL = BASE + "/manage/selectSortingOrderInfo";
-    public static final String NF_ORDER_LIST = BASE + "/manage/selectOrderFormList";
+
+    // TODO: 2022/8/14 这个地方路径暂时改成卖家端的 
+    public static final String NF_ORDER_LIST = BASE + "/seller/selectOrderFormList";
 
     /**
      * 分拣状态

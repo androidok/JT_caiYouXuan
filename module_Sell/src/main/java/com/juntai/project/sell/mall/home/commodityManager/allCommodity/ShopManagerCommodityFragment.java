@@ -19,6 +19,7 @@ import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommo
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.EditCommodityActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -179,7 +180,9 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
                 getBaseActivity().showAlertDialog("是否删除当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.deleteCommodity(getBaseBuilder().add("id", String.valueOf(item.getId())).build(), AppHttpPathMall.DELETE_COMMODITY
+                        List<Integer> ids = new ArrayList<>();
+                        ids.add(item.getId());
+                        mPresenter.deleteCommodity(getBaseBuilder().build(),ids, AppHttpPathMall.DELETE_COMMODITY
                         );
                     }
                 });

@@ -1,5 +1,6 @@
 package com.juntai.project.sell.mall.base;
 
+import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.IModel;
@@ -22,6 +23,7 @@ public abstract class BaseAppMallPresent extends BaseAppPresent<IModel, HomePage
     protected IModel createModel() {
         return null;
     }
+
     public void sendGoods(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .sendGoods(requestBody)
@@ -29,6 +31,27 @@ public abstract class BaseAppMallPresent extends BaseAppPresent<IModel, HomePage
                 .subscribe(new BaseObserver<BaseResult>(null) {
                     @Override
                     public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getCommoditySource(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getCommoditySource(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<CommoditySourceDetailBean>(null) {
+                    @Override
+                    public void onSuccess(CommoditySourceDetailBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

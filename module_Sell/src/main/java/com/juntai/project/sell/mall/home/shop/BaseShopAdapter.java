@@ -241,10 +241,12 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 SelectPhotosFragment fragment = null;
                 switch (itemFragmentBean.getKey()) {
                     case HomePageContract.COMMODITY_PRIMARY_PIC:
+                    case HomePageContract.SHOP_CARD:
                         fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg);
 
                         break;
                     case HomePageContract.COMMODITY_BANNER_PICS:
+                    case HomePageContract.Q_CARD:
                         fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg2);
 
                         break;
@@ -428,7 +430,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 BaseQuickAdapter adapter = null;
                 recyclerView.setLayoutManager(manager);
                 switch (baseNormalRecyclerviewBean.getKey()) {
-                    case HomePageContract.COMMODITY_BILL:
+                    case HomePageContract.SHOP_CARD:
                         break;
                     default:
                         break;

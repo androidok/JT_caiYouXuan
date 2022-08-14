@@ -40,6 +40,7 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
     protected void lazyloadGone() {
 
     }
+
     /**
      * 获取builder
      *
@@ -50,12 +51,11 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
                 .add("account", UserInfoManagerMall.getAccount())
                 .add("token", UserInfoManagerMall.getUserToken())
                 .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
-                .add("userId", String.valueOf(UserInfoManagerMall.getUserId()));
-        if (UserInfoManagerMall.getShopId()>0) {
-            builder.add("shopId", String.valueOf(UserInfoManagerMall.getShopId()));
-        }
+                .add("userId", String.valueOf(UserInfoManagerMall.getUserId()))
+                .add("shopId", String.valueOf(UserInfoManagerMall.getShopId()));
         return builder;
     }
+
     /**
      * 跳转到店铺首页
      *
@@ -95,24 +95,28 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
         startActivity(new Intent(mContext, ChatActivity.class)
                 .putExtra(BASE_PARCELABLE, contactBean));
     }
+
     /**
      * 进入商品管理列表
      */
     public void startAllCommodityActivity() {
         startActivity(new Intent(mContext, AllCommodityActivity.class));
     }
+
     /**
      * 进入商品管理列表
      */
     public void startSendActivity(int orderId) {
-        startActivity(new Intent(mContext, SendActivity.class).putExtra(BASE_ID,orderId));
+        startActivity(new Intent(mContext, SendActivity.class).putExtra(BASE_ID, orderId));
     }
+
     /**
      * 进入商品规格
      */
     public void startCommodityPropertyActivity(int commodityId) {
-        startActivity(new Intent(mContext, CommodityFormatPropertyActivity.class).putExtra(BASE_ID,commodityId));
+        startActivity(new Intent(mContext, CommodityFormatPropertyActivity.class).putExtra(BASE_ID, commodityId));
     }
+
     /**
      * 跳转到商品详情
      *
@@ -122,70 +126,80 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
         startActivityForResult(new Intent(mContext, SellCommodityDetailActivity.class)
                 .putExtra(BASE_ID, commodityId), BaseActivity.BASE_REQUEST_RESULT);
     }
+
     /**
      * 进入店铺认证
      */
     public void startToShopAuthActivity(ShopDetailSellBean.DataBean dataBean) {
         // : 2022/6/8 进入到店铺认证界面
         startActivity(new Intent(mContext, ShopManagerActivity.class)
-                .putExtra(BASE_PARCELABLE,dataBean));
+                .putExtra(BASE_PARCELABLE, dataBean));
     }
+
     /**
      * 获取文件名称  后缀
+     *
      * @param messageBodyBean
      * @return
      */
-    public String getSavedFileNameWithoutSuffix(MessageBodyBean messageBodyBean){
+    public String getSavedFileNameWithoutSuffix(MessageBodyBean messageBodyBean) {
         String content = messageBodyBean.getContent();
         if (TextUtils.isEmpty(content)) {
             return null;
         }
         if (content.contains("/")) {
-            content = content.substring(content.lastIndexOf("/")+1,content.lastIndexOf("."));
+            content = content.substring(content.lastIndexOf("/") + 1, content.lastIndexOf("."));
         }
         return content;
     }
+
     /**
      * 获取文件名称  后缀
+     *
      * @return
      */
-    public String getSavedFileNameWithoutSuffix(String content){
+    public String getSavedFileNameWithoutSuffix(String content) {
         if (TextUtils.isEmpty(content)) {
             return null;
         }
         if (content.contains("/")) {
-            content = content.substring(content.lastIndexOf("/")+1,content.lastIndexOf("."));
+            content = content.substring(content.lastIndexOf("/") + 1, content.lastIndexOf("."));
         }
         return content;
     }
+
     /**
      * 获取文件名称  带后缀   图片的缓存需要
+     *
      * @param messageBodyBean
      * @return
      */
-    public String getSavedFileName(MessageBodyBean messageBodyBean){
+    public String getSavedFileName(MessageBodyBean messageBodyBean) {
         String content = messageBodyBean.getContent();
         if (TextUtils.isEmpty(content)) {
             return null;
         }
         if (content.contains("/")) {
-            content = content.substring(content.lastIndexOf("/")+1,content.length());
+            content = content.substring(content.lastIndexOf("/") + 1, content.length());
         }
         return content;
     }
+
     /**
      * 获取文件名称  带后缀   图片的缓存需要
+     *
      * @return
      */
-    public String getSavedFileName(String  content){
+    public String getSavedFileName(String content) {
         if (TextUtils.isEmpty(content)) {
             return null;
         }
         if (content.contains("/")) {
-            content = content.substring(content.lastIndexOf("/")+1,content.length());
+            content = content.substring(content.lastIndexOf("/") + 1, content.length());
         }
         return content;
     }
+
     @Override
     protected void lazyLoad() {
         NotificationTool.SHOW_NOTIFICATION = true;

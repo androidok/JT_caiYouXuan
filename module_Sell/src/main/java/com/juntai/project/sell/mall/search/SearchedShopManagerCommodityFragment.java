@@ -16,10 +16,11 @@ import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.ShopCommodityAdapter;
-import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.SellCommodityDetailActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.EditCommodityActivity;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.SellCommodityDetailActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -190,8 +191,9 @@ public class SearchedShopManagerCommodityFragment extends BaseRecyclerviewFragme
                 getBaseAppActivity().showAlertDialog("是否删除当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.deleteCommodity(getBaseAppActivity().getBaseBuilder().add("id", String.valueOf(item.getId())).build(), AppHttpPathMall.DELETE_COMMODITY
-                        );
+                        List<Integer> ids = new ArrayList<>();
+                        ids.add(item.getId());
+                        mPresenter.deleteCommodity(getBaseBuilder().build(),ids, AppHttpPathMall.DELETE_COMMODITY);
                     }
                 });
                 break;

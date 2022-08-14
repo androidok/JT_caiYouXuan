@@ -30,6 +30,8 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="订单状态"
+                android:textStyle="bold"
+
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -53,6 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="客户信息"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -85,6 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="交易信息"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 

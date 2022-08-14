@@ -99,7 +99,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     protected BaseQuickAdapter getBaseQuickAdapter() {
         if (isDetail()) {
             mSmartrefreshlayout.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-        }else {
+        } else {
             mSmartrefreshlayout.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         }
 
@@ -110,18 +110,21 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     @Override
     public void uploadPicVideo(ItemFragmentBean itemFragmentBean, List<String> icons) {
         if (icons.size() > 0) {
-            List<String> pics = new ArrayList<>();
+            List<String> localPics = new ArrayList<>();
+            List<String> olderPics = new ArrayList<>();
             for (String icon : icons) {
                 if (!icon.contains("www.juntaikeji")) {
-                    pics.add(icon);
+                    localPics.add(icon);
+                }else {
+                    olderPics.add(icon);
                 }
             }
-            if (pics.size() > 0) {
+            if (localPics.size() > 0) {
 
                 MultipartBody.Builder builder = new MultipartBody.Builder()
                         .setType(MultipartBody.FORM);
 
-                for (String filePath : pics) {
+                for (String filePath : localPics) {
 
                     try {
                         builder.addFormDataPart("file", URLEncoder.encode(filePath, "utf-8"), RequestBody.create(MediaType.parse("file"), new File(filePath)));
@@ -136,7 +139,8 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         .subscribe(new BaseObserver<UploadFileBean>(this) {
                             @Override
                             public void onSuccess(UploadFileBean o) {
-                                itemFragmentBean.setFragmentPics(o.getFilePaths());
+                                olderPics.addAll(o.getFilePaths());
+                                itemFragmentBean.setFragmentPics(olderPics);
                             }
 
                             @Override
@@ -385,6 +389,37 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                 commodityDetailBean.setCommodityImg(imagesBeans);
 
                                 break;
+                            case HomePageContract.SHOP_CARD:
+                                if (photos.size()!=3) {
+                                    ToastUtils.toast(mContext, "商家证件一共需要上传3张图片");
+
+                                    return null;
+                                }
+                                for (int i = 0; i < photos.size(); i++) {
+                                    String pic = photos.get(i);
+                                    switch (i) {
+                                        case 0:
+                                            sourceBean.setPhotoOne(pic);
+                                            break;
+                                        case 1:
+                                            sourceBean.setPhotoTwo(pic);
+                                            break;
+                                        case 2:
+                                            sourceBean.setPhotoThree(pic);
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                                break;
+                            case HomePageContract.Q_CARD:
+
+                                List<CommoditySourceDetailBean.DataBean.PhotoListBean> photoListBeans = new ArrayList<>();
+                                for (String photo : photos) {
+                                    photoListBeans.add(new CommoditySourceDetailBean.DataBean.PhotoListBean(photo));
+                                }
+                                sourceBean.setPhotoList(photoListBeans);
+                                break;
                             default:
                                 break;
                         }
@@ -499,7 +534,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                     TextKeyValueBean textValueSelectBean = (TextKeyValueBean) array.getObject();
                     String textSelectValue = textValueSelectBean.getIds();
 
-                    if (textValueSelectBean.isImportant() && !StringTools.isStringValueOk(textSelectValue)) {
+                    if (textValueSelectBean.isImportant() && !StringTools.isStringValueOk(textValueSelectBean.getValue())) {
                         ToastUtils.toast(mContext, "请选择" + textValueSelectBean.getKey());
                         return null;
                     }

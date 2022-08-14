@@ -2,9 +2,12 @@ package com.example.module_nongfa_manager.home.orderManager.orderDetail;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.appbase.base.customview.selectPics.SelectPicVideoBean;
+import com.example.appbase.base.customview.selectPics.SelectPicVideoRv;
 import com.example.appbase.bean.nong_fa_manager.SortDetailBean;
 import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.orderManager.NfOrderTextValueAdapter;
@@ -55,25 +58,32 @@ public class NFOrderDetailCommodityAdapter extends BaseQuickAdapter<SortDetailBe
         arraysSource.add(new TextKeyValueBean("进货时间：", item.getPurchaseTime()));
         arraysSource.add(new TextKeyValueBean("进货人\u3000：", item.getPurchaseName()));
         sourceAdapter.setNewData(arraysSource);
+        SelectPicVideoRv shopCardRv = helper.getView(R.id.source_shop_card_spr);
+        SelectPicVideoRv qCardRv = helper.getView(R.id.q_card_spr);
+        List<SelectPicVideoBean> shopCardPics = new ArrayList<>();
+        if (!TextUtils.isEmpty(item.getPhotoOne())) {
+            shopCardPics.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_IMAGE, item.getPhotoOne()));
 
-        RecyclerView sourcePicRv = helper.getView(R.id.source_info_pics_rv);
-        OrderCommoditySourceAdapter sourcePicAdapter = new OrderCommoditySourceAdapter(R.layout.nf_manager_source_pic_item);
-        LinearLayoutManager sourcePicmanager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
+        }
+        if (!TextUtils.isEmpty(item.getPhotoTwo())) {
+            shopCardPics.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_IMAGE, item.getPhotoTwo()));
+
+        }
+        if (!TextUtils.isEmpty(item.getPhotoThree())) {
+            shopCardPics.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_IMAGE, item.getPhotoThree()));
+
+        }
+        shopCardRv
+                .setDetail(true)
+                .setData(shopCardPics);
+        List<SelectPicVideoBean> qCardPics = new ArrayList<>();
+        List<SortDetailBean.DataBean.CommodityListBean.PhotoListBean> photoListBeans = item.getPhotoList();
+        if (photoListBeans != null && !photoListBeans.isEmpty()) {
+            for (SortDetailBean.DataBean.CommodityListBean.PhotoListBean photoListBean : photoListBeans) {
+                qCardPics.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_IMAGE, photoListBean.getFileUrl()));
             }
-
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        };
-        sourcePicRv.setLayoutManager(sourcePicmanager);
-        sourcePicRv.setAdapter(sourcePicAdapter);
-        List<SortDetailBean.DataBean.CommodityListBean.TraceabilityListBean> traceabilityListBeanList = item.getTraceabilityList();
-        sourcePicAdapter.setNewData(traceabilityListBeanList);
-
-
+        }
+        qCardRv.setDetail(true)
+                .setData(qCardPics);
     }
 }

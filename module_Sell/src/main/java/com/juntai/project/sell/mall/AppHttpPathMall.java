@@ -265,6 +265,10 @@ public class AppHttpPathMall {
      * 删除商品类目
      */
     public static final String DELETE_COMMODITY_CATEGORY = BASE + "/seller/deleteShopClassify";
+    /**
+     * 获取商品溯源信息
+     */
+    public static final String GET_COMMODITY_SOURCE_DETAIL = BASE + "/seller/selectCommodityTraceabilityInfo";
 
 
 

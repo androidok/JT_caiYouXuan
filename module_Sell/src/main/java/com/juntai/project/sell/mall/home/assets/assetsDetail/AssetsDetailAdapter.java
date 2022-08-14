@@ -24,7 +24,7 @@ public class AssetsDetailAdapter extends BaseQuickAdapter<BillListBean.DataBean.
     protected void convert(BaseViewHolder helper, BillListBean.DataBean.ListBean item) {
 
         helper.setText(R.id.buyer_name_tv, item.getNickname());
-        helper.setText(R.id.buy_amount_tv, String.valueOf(item.getPayPrice()));
+        helper.setText(R.id.buy_amount_tv, String.format("￥%s",item.getPayPrice()));
         helper.setText(R.id.paytype_tv,4==item.getPayType()?"公户":"商城");
         if (4==item.getPayType()) {
             //公户

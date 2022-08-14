@@ -68,18 +68,57 @@ public class ShopPresent extends BaseAppMallPresent {
      */
     public List<MultipleItem> getCommoditySourceData(CommoditySourceDetailBean.DataBean bean, boolean isDetail) {
         List<MultipleItem> arrays = new ArrayList<>();
+        arrays.add(new MultipleItem(MultipleItem.ITEM_NOTICE, "        根据《中华人民共和国食品安全法》及《食用农产品市场销售质量安全监督管理办法》(原国家食品药品监督管理总局令第20号)等法律法规的相关规定，“源本溯源检测系统”要求供应商在使用平台进行交易时，须对其生产、加工销售的食用农产品的来源等质量安全信息进行公开并在系统上填报。部分具备检测条件的供应商，还应对食用农产品的质量安全进行检测。具体注意事项告如下：\n" +
+                "  1.为保障食用农产品溯源信息的及时性，系统仅提供今日明日的来源填报功能，请供应商及时进行填报。\n" +
+                "  2.同一来源的食用农产品，若已经检测合格的，无需再次检测。同一来源的产品指产品名称、进货日期、供货商一致的"));
+
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PROVIDER, UserInfoManager.getShopName()
                 , true, 0, isDetail);
 
-        initTextSelectType(arrays, HomePageContract.COMMODITY_RESTOC_TIME, "0", bean == null ? "" : bean.getPurchaseTime(), true);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_RESTOC_PERSON,  ""
+        initTextSelectType(arrays, HomePageContract.COMMODITY_RESTOC_TIME, "", "", true);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_RESTOC_PERSON, bean==null?"":bean.getPurchaseName()
                 , true, 0, isDetail);
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
-                (HomePageContract.COMMODITY_BILL, false)));
+                (HomePageContract.SHOP_CARD, true)));
 
 
+        List<String> fragmentPics = new ArrayList<>();
+        if (bean != null) {
+            if (!TextUtils.isEmpty(bean.getPhotoOne())) {
+                fragmentPics.add(bean.getPhotoOne());
+            }
+            if (!TextUtils.isEmpty(bean.getPhotoTwo())) {
+                fragmentPics.add(bean.getPhotoTwo());
+            }
+            if (!TextUtils.isEmpty(bean.getPhotoThree())) {
+                fragmentPics.add(bean.getPhotoThree());
+            }
+        }
+        arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT, new ItemFragmentBean(HomePageContract.SHOP_CARD, 3, 3,
+                3,  false,
+                fragmentPics)));
 
+
+        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                (HomePageContract.Q_CARD, true)));
+        List<String> photoList = new ArrayList<>();
+        if (bean != null) {
+            List<CommoditySourceDetailBean.DataBean.PhotoListBean> listBeans = bean.getPhotoList();
+            if (listBeans != null && !listBeans.isEmpty()) {
+                for (CommoditySourceDetailBean.DataBean.PhotoListBean listBean : listBeans) {
+                    if (!TextUtils.isEmpty(listBean.getFileUrl())) {
+                        photoList.add(listBean.getFileUrl());
+                    }
+                }
+
+            }
+        }
+
+
+        arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT2, new ItemFragmentBean(HomePageContract.Q_CARD,3, 9,
+                1,  false,
+                photoList)));
 
 
         return arrays;
@@ -185,7 +224,7 @@ public class ShopPresent extends BaseAppMallPresent {
         String titleName = null;
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean(typeName,
                 isImportant)));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_RADIO, new MultiRadioBean(typeName, values,  defaultIndex)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_RADIO, new MultiRadioBean(typeName, values, defaultIndex)));
     }
 
     /**
@@ -447,9 +486,9 @@ public class ShopPresent extends BaseAppMallPresent {
                 });
     }
 
-    public void deleteCommodity(RequestBody requestBody, String tag) {
+    public void deleteCommodity(RequestBody requestBody, List<Integer> ids,String tag) {
         AppNetModuleMall.createrRetrofit()
-                .deleteCommodity(requestBody)
+                .deleteCommodity(requestBody,ids)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(null) {
                     @Override
@@ -512,7 +551,6 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
-
 
 
     public void createCommodityFormatList(RequestBody requestBody, String tag) {

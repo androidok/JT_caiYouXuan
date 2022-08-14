@@ -98,7 +98,7 @@ public class NFOrderManagerActivity extends BaseSearchAndListActivity<HomePresen
         FormBody.Builder builder = getBaseBuilder()
                 .add("page", String.valueOf(page))
                 .add("keyword", mSearchContentSv.getQuery().toString().trim())
-                .add("payType", "0")
+                .add("payType", "4")
                 .add("limit", String.valueOf(limit));
         mPresenter.getNfOrderList(builder
                 .build(), AppHttpPath.NF_ORDER_LIST

@@ -34,7 +34,7 @@ public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityManagerL
     protected void convert(BaseViewHolder helper, ShopCommodityManagerListBean.DataBean.ListBean item) {
         ImageLoadUtil.loadSquareImage(mContext, item.getCoverImg(), helper.getView(R.id.commodity_cover_iv));
         helper.setText(R.id.commodity_name_tv, item.getName());
-        helper.setText(R.id.commodity_resove_tv, String.format("库存量 %s", item.getStock()));
+        helper.setText(R.id.commodity_resove_tv, String.format("¥%s", item.getPrice()));
 
         RecyclerView recyclerView = helper.getView(R.id.edit_commodity_rv);
         ShopCommodityEditAdapter editAdapter = new ShopCommodityEditAdapter(R.layout.sell_edit_commodity_item);

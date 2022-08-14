@@ -342,13 +342,20 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
                     selectTextValue = selectTextValue.replace("\\n", "\n");
                 }
                 textViewTv.setText(selectTextValue);
+                if (isDetail) {
+                    textViewTv.setText(TextUtils.isEmpty(selectTextValue) ? "暂无" : selectTextValue);
+                    helper.setGone(R.id.select_arrow_right_iv, false);
+                } else {
+                    textViewTv.setText(selectTextValue);
+                    helper.setGone(R.id.select_arrow_right_iv, true);
+                }
                 break;
             case MultipleItem.ITEM_NORMAL_RECYCLEVIEW:
                 //recycleview
                 MultiNormalRecyclerviewBean baseNormalRecyclerviewBean = (MultiNormalRecyclerviewBean) item.getObject();
                 RecyclerView recyclerView = helper.getView(R.id.item_normal_rv);
                 LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL
-                        , false){
+                        , false) {
                     @Override
                     public boolean canScrollHorizontally() {
                         return false;

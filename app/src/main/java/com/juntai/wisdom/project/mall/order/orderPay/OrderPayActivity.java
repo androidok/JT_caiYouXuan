@@ -246,7 +246,7 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
                 }
             }
         }
-        mOrderTotalPriceTv.setText(String.format("¥ %s", payPrice));
+        mOrderTotalPriceTv.setText(String.format("¥%s", payPrice));
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

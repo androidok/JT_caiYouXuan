@@ -46,10 +46,8 @@ import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommod
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.SellCommodityDetailActivity;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
-import com.juntai.project.sell.mall.home.shopFurnish.ShopFurnishActivity;
 import com.juntai.project.sell.mall.news.ChatActivity;
 import com.juntai.project.sell.mall.order.allOrder.OrderManagerActivity;
-import com.juntai.project.sell.mall.order.orderDetail.OrderDetailActivity;
 import com.juntai.project.sell.mall.order.send.SendActivity;
 import com.juntai.project.sell.mall.utils.ObjectBoxMallUtil;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
@@ -365,15 +363,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
 
 
 
-    /**
-     * 跳转到店铺首页
-     *
-     * @param shopId
-     */
-    public void startToShop(int shopId) {
-        startActivityForResult(new Intent(mContext, ShopFurnishActivity.class).putExtra(BASE_ID, shopId), BASE_REQUEST_RESULT);
-
-    }
 
 
 
@@ -422,16 +411,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
         startActivity(new Intent(mContext, OrderManagerActivity.class)
                 .putExtra(BASE_ID2, tabPosition)
                 .putExtra(BASE_ID, enterType));
-    }
-
-    /**
-     * @param orderId
-     * @param orderStatus
-     */
-    public void startToOrderDetailActivity(int orderId, int orderStatus) {
-        startActivity(new Intent(mContext, OrderDetailActivity.class)
-                .putExtra(BASE_ID, orderId)
-                .putExtra(BASE_ID2, orderStatus));
     }
 
 

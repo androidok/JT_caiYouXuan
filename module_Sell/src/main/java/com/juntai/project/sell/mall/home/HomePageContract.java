@@ -107,7 +107,8 @@ public interface HomePageContract {
     String COMMODITY_PROVIDER = "供货商";
     String COMMODITY_RESTOC_TIME = "进货时间";
     String COMMODITY_RESTOC_PERSON = "进货人";
-    String COMMODITY_BILL = "上传票据";
+    String SHOP_CARD = "商家证件";
+    String Q_CARD = "产品检测检疫等合格证件";
 
 
 

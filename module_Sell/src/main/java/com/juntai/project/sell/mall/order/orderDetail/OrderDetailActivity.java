@@ -188,9 +188,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.order_shop_name_tv) {
-            startToShop(orderDetailBean.getShopId());
-        } else if (id == R.id.order_negative_tv) {
+       if (id == R.id.order_negative_tv) {
             switch (getTextViewValue(mOrderNegativeTv)) {
                 case HomePageContract.ORDER_CANCEL:
                     // : 2022/5/14 取消订单

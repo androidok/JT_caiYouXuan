@@ -137,11 +137,13 @@ public abstract class BaseAppModuleActivity<P extends BasePresenter> extends Bas
         FormBody.Builder builder = new FormBody.Builder()
                 .add("account", UserInfoManager.getAccount())
                 .add("token", UserInfoManager.getUserToken())
-                .add("typeEnd", UserInfoManager.getDevType())
-                .add("userId", String.valueOf(UserInfoManager.getUserId()))
-                .add("schoolId", String.valueOf(UserInfoManager.getSchoolId()));
-
-
+                .add("userId", String.valueOf(UserInfoManager.getUserId()));
+        if (!TextUtils.isEmpty(UserInfoManager.getDevType())) {
+            builder.add("typeEnd", UserInfoManager.getDevType());
+        }
+        if (UserInfoManager.getSchoolId() > 0) {
+            builder.add("schoolId", String.valueOf(UserInfoManager.getSchoolId()));
+        }
         return builder;
     }
 
