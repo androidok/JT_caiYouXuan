@@ -3,12 +3,15 @@ package com.example.module_nongfa_manager.home.orderManager.orderDetail;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.appbase.base.customview.selectPics.SelectPicVideoBean;
 import com.example.appbase.base.customview.selectPics.SelectPicVideoRv;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.example.appbase.bean.nong_fa_manager.SortDetailBean;
+import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.example.module_nongfa_manager.R;
 import com.example.module_nongfa_manager.home.orderManager.NfOrderTextValueAdapter;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
@@ -75,15 +78,61 @@ public class NFOrderDetailCommodityAdapter extends BaseQuickAdapter<SortDetailBe
         }
         shopCardRv
                 .setDetail(true)
+                .setOnPhotoItemClick(new SelectPicVideoRv.OnPhotoItemClick() {
+                    @Override
+                    public void onVedioPicClick(BaseQuickAdapter adapter, View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onPicClick(BaseQuickAdapter adapter, View view, int position) {
+                        List<BannerObject> bannerObjects = new ArrayList<>();
+                        List<SelectPicVideoBean> arrays = adapter.getData();
+                        for (SelectPicVideoBean array : arrays) {
+                            if (SelectPicVideoBean.TYPE_NULL!=array.getType()) {
+                                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE,array.getPath()));
+                            }
+                        }
+                        DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext, bannerObjects, position);
+                    }
+
+                    @Override
+                    public void onSelectPic(BaseQuickAdapter adapter, View view, int position) {
+
+                    }
+                })
                 .setData(shopCardPics);
         List<SelectPicVideoBean> qCardPics = new ArrayList<>();
-        List<SortDetailBean.DataBean.CommodityListBean.PhotoListBean> photoListBeans = item.getPhotoList();
+        List<SortDetailBean.DataBean.CommodityListBean.TraceabilityListBean> photoListBeans = item.getTraceabilityList();
         if (photoListBeans != null && !photoListBeans.isEmpty()) {
-            for (SortDetailBean.DataBean.CommodityListBean.PhotoListBean photoListBean : photoListBeans) {
+            for (SortDetailBean.DataBean.CommodityListBean.TraceabilityListBean photoListBean : photoListBeans) {
                 qCardPics.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_IMAGE, photoListBean.getFileUrl()));
             }
         }
         qCardRv.setDetail(true)
+                .setOnPhotoItemClick(new SelectPicVideoRv.OnPhotoItemClick() {
+                    @Override
+                    public void onVedioPicClick(BaseQuickAdapter adapter, View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onPicClick(BaseQuickAdapter adapter, View view, int position) {
+                        List<BannerObject> bannerObjects = new ArrayList<>();
+                        List<SelectPicVideoBean> arrays = adapter.getData();
+                        for (SelectPicVideoBean array : arrays) {
+                            if (SelectPicVideoBean.TYPE_NULL!=array.getType()) {
+                                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE,array.getPath()));
+                            }
+                        }
+                        DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext, bannerObjects, position);
+                    }
+
+                    @Override
+                    public void onSelectPic(BaseQuickAdapter adapter, View view, int position) {
+
+                    }
+                })
                 .setData(qCardPics);
     }
 }

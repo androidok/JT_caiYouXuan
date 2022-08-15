@@ -98,6 +98,12 @@ public class DisplayPhotoFragment extends BaseAppModuleFragment<DisplayPresent> 
                 return true;
             }
         });
+        mPhotoDisplayPv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
         loadNetImageFile();
     }
 

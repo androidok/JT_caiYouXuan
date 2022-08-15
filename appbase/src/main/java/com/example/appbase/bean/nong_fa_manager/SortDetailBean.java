@@ -214,7 +214,7 @@ public class SortDetailBean extends BaseResult {
             private String photoOne;
             private String photoTwo;
             private String photoThree;
-            private List<PhotoListBean> photoList;
+            private List<TraceabilityListBean> traceabilityList;
 
             public int getCommodityId() {
                 return commodityId;
@@ -268,15 +268,15 @@ public class SortDetailBean extends BaseResult {
                 this.photoThree = photoThree == null ? "" : photoThree;
             }
 
-            public List<PhotoListBean> getPhotoList() {
-                if (photoList == null) {
+            public List<TraceabilityListBean> getTraceabilityList() {
+                if (traceabilityList == null) {
                     return new ArrayList<>();
                 }
-                return photoList;
+                return traceabilityList;
             }
 
-            public void setPhotoList(List<PhotoListBean> photoList) {
-                this.photoList = photoList;
+            public void setTraceabilityList(List<TraceabilityListBean> traceabilityList) {
+                this.traceabilityList = traceabilityList;
             }
 
             public void setPrices(double prices) {
@@ -340,7 +340,7 @@ public class SortDetailBean extends BaseResult {
             }
 
 
-            public static class PhotoListBean {
+            public static class TraceabilityListBean {
                 /**
                  * commodityId : 11
                  * photoOne : https://www.juntaikeji.com:21900/2022-05-08/1651970794230.jpg

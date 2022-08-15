@@ -81,9 +81,9 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
                 break;
             case 1:
                 helper.setGone(R.id.order_left_tv,true);
-                helper.setGone(R.id.order_right_tv,true);
+                helper.setGone(R.id.order_right_tv,false);
                 helper.setText(R.id.order_left_tv, HomePageContract.ORDER_REFUND);
-                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_SEND);
+//                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_SEND);
                 break;
             case 2:
                 helper.setGone(R.id.order_left_tv,true);
@@ -103,7 +103,7 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
                 break;
             case 6:
                 helper.setGone(R.id.order_left_tv,false);
-                helper.setGone(R.id.order_right_tv,true);
+                helper.setGone(R.id.order_right_tv,false);
                 helper.setText(R.id.order_right_tv, HomePageContract.ORDER_DELETE);
                 break;
             case 7:
