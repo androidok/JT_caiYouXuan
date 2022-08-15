@@ -54,6 +54,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
     private OrderBaseInfoAdapter mOrderInfoAdapter;
     private TextView mOrderStatusTv;
     private TextView mOrderPositiveTv, mOrderNegativeTv;
+    private TextView mOrderRemarkTv;
 
     @Override
     protected OrderPresent createPresenter() {
@@ -73,6 +74,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
         orderStatus = getIntent().getIntExtra(BASE_ID2, 0);
         mOrderDetailTopFl = (FrameLayout) findViewById(R.id.order_detail_top_fl);
         mOrderShopNameTv = (TextView) findViewById(R.id.order_shop_name_tv);
+        mOrderRemarkTv = (TextView) findViewById(R.id.older_remark_tv);
         mOrderShopNameTv.setOnClickListener(this);
         mOrderDetailCommodityRv = (RecyclerView) findViewById(R.id.order_detail_commodity_rv);
         mFinalPaymentTv = (TextView) findViewById(R.id.final_payment_tv);
@@ -221,8 +223,13 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
 
                 case HomePageContract.ORDER_SEND:
                     // : 立即发货
-                    mPresenter.sendGoods(getBaseBuilder().add("orderId",String.valueOf(orderId)).build(), AppHttpPathMall.SEND_GOODS);
+                   showAlertDialog("确定现在发货吗?", "确定", "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mPresenter.sendGoods(getBaseBuilder().add("orderId",String.valueOf(orderId)).build(), AppHttpPathMall.SEND_GOODS);
 
+                        }
+                    });
                     break;
                 case HomePageContract.ORDER_AGREE:
                     // :   同意退货
@@ -273,6 +280,8 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                         List<OrderDetailItemBean> itemBeans = new ArrayList<>();
                         getBuyerInfo(itemBeans);
                         initAddrData();
+                        mOrderRemarkTv.setVisibility(TextUtils.isEmpty(orderDetailBean.getRemark())?View.GONE:View.VISIBLE);
+                        mOrderRemarkTv.setText(String.format("备注信息：%s",orderDetailBean.getRemark()));
                         List<TextKeyValueBean> arrays = new ArrayList<>();
 
                         switch (orderStatus) {

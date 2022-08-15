@@ -54,6 +54,7 @@ public class SortDetailBean extends BaseResult {
         private int schoolId;
         private String schoolNumber;
         private String schoolName;
+        private String remark;
         private String name;
         private String phone;
         private String address;
@@ -63,6 +64,14 @@ public class SortDetailBean extends BaseResult {
         private Integer state;
         private String qrCodeUrl;
         private List<CommodityListBean> commodityList;
+
+        public String getRemark() {
+            return remark == null ? "" : remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark == null ? "" : remark;
+        }
 
         public int getId() {
             return id;

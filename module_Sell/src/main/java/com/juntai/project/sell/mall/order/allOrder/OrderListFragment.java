@@ -121,7 +121,14 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                             break;
                         case HomePageContract.ORDER_SEND:
                             // : 立即发货
-                            mPresenter.sendGoods(getBaseBuilder().add("orderId",String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.SEND_GOODS);
+                            getBaseActivity().showAlertDialog("确定现在发货吗?", "确定", "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mPresenter.sendGoods(getBaseBuilder().add("orderId",String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.SEND_GOODS);
+
+                                }
+                            });
+
 
                             break;
                         case HomePageContract.ORDER_AGREE:

@@ -59,7 +59,17 @@
                     android:textStyle="bold"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></TextView>
-
+                <TextView
+                    android:id="@+id/older_remark_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/sp_filled_gray_lighter"
+                    android:gravity="left|top"
+                    android:hint="备注信息..."
+                    android:maxLength="200"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView

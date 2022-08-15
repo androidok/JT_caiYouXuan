@@ -49,12 +49,21 @@ public class LiveDetailBean extends BaseResult {
         private String title;
         private String headPortrait;
         private String coverImg;
+        private String rtmpUrl;
         private int viewNumber;
         private String shareLiveUrl;
         private int isCollect;
 
         public int getId() {
             return id;
+        }
+
+        public String getRtmpUrl() {
+            return rtmpUrl == null ? "" : rtmpUrl;
+        }
+
+        public void setRtmpUrl(String rtmpUrl) {
+            this.rtmpUrl = rtmpUrl == null ? "" : rtmpUrl;
         }
 
         public void setId(int id) {
@@ -141,6 +150,9 @@ public class LiveDetailBean extends BaseResult {
             this.isCollect = isCollect;
         }
 
+        public DataBean() {
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -156,12 +168,10 @@ public class LiveDetailBean extends BaseResult {
             dest.writeString(this.title);
             dest.writeString(this.headPortrait);
             dest.writeString(this.coverImg);
+            dest.writeString(this.rtmpUrl);
             dest.writeInt(this.viewNumber);
             dest.writeString(this.shareLiveUrl);
             dest.writeInt(this.isCollect);
-        }
-
-        public DataBean() {
         }
 
         protected DataBean(Parcel in) {
@@ -173,6 +183,7 @@ public class LiveDetailBean extends BaseResult {
             this.title = in.readString();
             this.headPortrait = in.readString();
             this.coverImg = in.readString();
+            this.rtmpUrl = in.readString();
             this.viewNumber = in.readInt();
             this.shareLiveUrl = in.readString();
             this.isCollect = in.readInt();

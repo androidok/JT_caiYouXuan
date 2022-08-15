@@ -107,8 +107,6 @@ public class LiveRoomActivity extends BaseSelectPicsActivity<LivePresent> implem
         mInfoFansCount = (TextView) findViewById(R.id.info_fans_count);
         mInfoGuanzhuBtn = (TextView) findViewById(R.id.info_guanzhu_btn);
         mInfoGuanzhuBtn.setOnClickListener(this);
-        initCollectTvStatus();
-
         mUserInfoLayout = (ConstraintLayout) findViewById(R.id.user_info_layout);
         mLiveCloseBtn = (ImageView) findViewById(R.id.live_close_btn);
         mLiveCloseBtn.setOnClickListener(this);
@@ -166,10 +164,7 @@ public class LiveRoomActivity extends BaseSelectPicsActivity<LivePresent> implem
         mVideoView.setDisplayAspectRatio(PLVideoTextureView.ASPECT_RATIO_PAVED_PARENT);
 //        mVideoView.setDisplayOrientation(90); // 旋转90度
         mVideoView.setBufferingIndicator(mLoadingView);
-        if (!TextUtils.isEmpty(livePath)) {
-            mVideoView.setVideoPath(livePath);
 
-        }
 
     }
 
@@ -178,7 +173,6 @@ public class LiveRoomActivity extends BaseSelectPicsActivity<LivePresent> implem
      */
     private void reStartLive() {
         if (!TextUtils.isEmpty(livePath)) {
-//            mVideoView.setVideoPath(livePath);
             mVideoView.start();
         }
     }
@@ -196,6 +190,13 @@ public class LiveRoomActivity extends BaseSelectPicsActivity<LivePresent> implem
                 if (liveDetailBean != null) {
                     dataBean = liveDetailBean.getData();
                     if (dataBean != null) {
+                        collectId = dataBean.getIsCollect();
+                        initCollectTvStatus();
+                        livePath = dataBean.getRtmpUrl();
+                        if (!TextUtils.isEmpty(livePath)) {
+                            mVideoView.setVideoPath(livePath);
+                            mVideoView.start();
+                        }
                         mInfoUserName.setText(dataBean.getShopName());
                         ImageLoadUtil.loadHeadCirclePic(mContext, dataBean.getHeadPortrait(), mInfoUserImage);
                         LiveListBean.DataBean.ListBean  liveListBean = new LiveListBean.DataBean.ListBean(dataBean.getLiveNumber(),dataBean.getTitle(),dataBean.getCoverImg(),"",dataBean.getShareLiveUrl());
@@ -282,27 +283,41 @@ public class LiveRoomActivity extends BaseSelectPicsActivity<LivePresent> implem
                         EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_LIVE_COMMODITY_LIST, ""));
                         SocketManager.getInstance().unConnect();
                     }
-                })
-                .setOkButton("关注并退出", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        SocketManager.getInstance().unConnect();
-                        if (collectId < 1) {
-                            if (dataBean != null) {
-                                mPresenter.collectShop(mPresenter.getBaseBuilder()
-                                        .add("isCollect", "0")
-                                        .add("shopId", String.valueOf(dataBean.getShopId())).build(), AppHttpPath.SHOP_COLLECT_FINISH
-                                );
-                            }
+                });
 
-                        } else {
-                            finish();
-                            EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_LIVE_COMMODITY_LIST, ""));
+        if (collectId<1) {
+            agreementDialog.setOkButton("关注并退出", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SocketManager.getInstance().unConnect();
+                    if (collectId < 1) {
+                        if (dataBean != null) {
+                            mPresenter.collectShop(mPresenter.getBaseBuilder()
+                                    .add("isCollect", "0")
+                                    .add("shopId", String.valueOf(dataBean.getShopId())).build(), AppHttpPath.SHOP_COLLECT_FINISH
+                            );
                         }
 
-
+                    } else {
+                        finish();
+                        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_LIVE_COMMODITY_LIST, ""));
                     }
-                }).show();
+
+
+                }
+            });
+        }else {
+            agreementDialog.setOkButton("同意", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_LIVE_COMMODITY_LIST, ""));
+                    SocketManager.getInstance().unConnect();
+                }
+            });
+        }
+        agreementDialog.show();
+
 
 
     }

@@ -27,6 +27,7 @@ import com.example.live_moudle.websocket.IEvent;
 import com.example.live_moudle.websocket.SocketManager;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 
@@ -60,7 +61,7 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
     private final Handler handler = new Handler(Looper.getMainLooper());
     private int shopId;
 
-  private   LiveListBean.DataBean.ListBean  bean ;
+    private LiveListBean.DataBean.ListBean bean;
 
     public static CommentFragment newInstance(LiveListBean.DataBean.ListBean dataBean) {
         Bundle args = new Bundle();
@@ -69,8 +70,6 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
         fragment.setArguments(args);
         return fragment;
     }
-
-
 
 
     @Override
@@ -127,7 +126,7 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
 
     @Override
     public void onSuccess(String tag, Object o) {
-        super.onSuccess(tag,o);
+        super.onSuccess(tag, o);
         switch (tag) {
             default:
                 break;
@@ -149,6 +148,7 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
     private void initInputTextMsgDialog() {
         dismissInputDialog();
         if (!SocketManager.getInstance().isConnect()) {
+            ToastUtils.toast(mContext, "socket连接异常 无法正常聊天");
             return;
         }
         if (inputTextMsgDialog == null) {
@@ -255,7 +255,7 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
             initInputTextMsgDialog();
         } else if (id == R.id.live_share_iv) {//分享
             // : 2022/7/5 分享
-            EventManager.getEventBus().post(new EventBusObject(EventBusObject.LIVE_SHARE,bean));
+            EventManager.getEventBus().post(new EventBusObject(EventBusObject.LIVE_SHARE, bean));
         } else if (id == R.id.live_commodities_iv) {
             // : 2022/7/5 商品
             FormBody.Builder builder = new FormBody.Builder().add("shopId", String.valueOf(shopId));

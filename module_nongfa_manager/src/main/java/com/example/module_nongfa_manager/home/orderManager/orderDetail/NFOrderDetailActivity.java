@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,6 +51,7 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
     private int orderId;
     private NfOrderTextValueAdapter clientAdapter;
     private NfOrderTextValueAdapter tradeAdapter;
+    private TextView mOrderRemarkTv;
 
     @Override
     protected HomePresent createPresenter() {
@@ -106,6 +108,7 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
     public void initView() {
         super.initView();
         mOrderStatusTv = (TextView) findViewById(R.id.order_status_tv);
+        mOrderRemarkTv = (TextView) findViewById(R.id.older_remark_tv);
         mOrderQrIv = (ImageView) findViewById(R.id.order_detail_qr_iv);
         mOrderQrIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +137,8 @@ public class NFOrderDetailActivity extends BaseRecyclerviewActivity<HomePresent>
                 SortDetailBean sortDetailBean = (SortDetailBean) o;
                 SortDetailBean.DataBean dataBean = sortDetailBean.getData();
                 if (dataBean != null) {
+                    mOrderRemarkTv.setVisibility(TextUtils.isEmpty(dataBean.getRemark())?View.GONE:View.VISIBLE);
+                    mOrderRemarkTv.setText(String.format("备注信息：%s",dataBean.getRemark()));
                     mOrderStatusTv.setText(String.format("订单状态:%s", getOrderStatus(dataBean.getState())));
                     Bitmap bitmap = CodeUtils.createQRCode(dataBean.getQrCodeUrl(), ScreenUtils.getInstance(mContext).getScreenWidth());
                     FileCacheUtils.saveBitmap(bitmap, qrCodeImg, true);
