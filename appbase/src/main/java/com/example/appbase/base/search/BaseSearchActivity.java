@@ -40,7 +40,7 @@ public abstract class BaseSearchActivity<P extends BasePresenter> extends BaseRe
         mBackTv = (TextView) findViewById(R.id.cancel_tv);
         mBackTv.setOnClickListener(this);
         SearchView.SearchAutoComplete textView = (SearchView.SearchAutoComplete) mSearchContentSv.findViewById(R.id.search_src_text);
-        textView.setTextSize(14);
+        textView.setTextSize(12);
         mSearchContentSv.requestFocus();
         mSearchContentSv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

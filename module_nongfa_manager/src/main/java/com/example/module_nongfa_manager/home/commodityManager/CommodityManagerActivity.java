@@ -39,6 +39,13 @@ public class CommodityManagerActivity extends BaseTabViewPageActivity<HomePresen
     }
 
     @Override
+    public void initData() {
+        super.initData();
+        mSearchContentSv.setQueryHint("请输入商品名称");
+
+    }
+
+    @Override
     protected String getTitleName() {
         return "商品管理";
     }

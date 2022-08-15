@@ -109,9 +109,9 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
 //        menuBeans.add(new MultipleItem(MultipleItem.ITEM_MENUS, new MyMenuBean(MyCenterContract.MENU_MODIFY_SUGGESTION, 0, R.mipmap.mycenter_suggestion, true)));
 //        menuBeans.add(new MultipleItem(MultipleItem.ITEM_MENUS, new MyMenuBean(MyCenterContract.MENU_MODIFY_BIND, 0, R.mipmap.mycenter_bind_third, true)));
 
-        if (showGuide) {
-            menuBeans.add(new MultipleItem(MultipleItem.ITEM_MENUS, new MyMenuBean(MyCenterContract.MENU_MODIFY_GUIDE, 0, R.mipmap.mycenter_newer_guide, true)));
-        }
+//        if (showGuide) {
+//            menuBeans.add(new MultipleItem(MultipleItem.ITEM_MENUS, new MyMenuBean(MyCenterContract.MENU_MODIFY_GUIDE, 0, R.mipmap.mycenter_newer_guide, true)));
+//        }
 
         return menuBeans;
     }

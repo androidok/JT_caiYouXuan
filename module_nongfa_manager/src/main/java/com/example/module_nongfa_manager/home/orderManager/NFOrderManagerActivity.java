@@ -61,7 +61,7 @@ public class NFOrderManagerActivity extends BaseSearchAndListActivity<HomePresen
     @Override
     public void initData() {
         super.initData();
-
+        mSearchContentSv.setQueryHint("请输入订单编号、商品名称或店铺名称");
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

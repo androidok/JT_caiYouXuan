@@ -41,7 +41,7 @@ public abstract class BaseSearchAndListActivity<P extends BasePresenter> extends
         setTitleName(getTitleName());
         mSearchContentSv = (SearchView) findViewById(R.id.search_content_sv);
         SearchView.SearchAutoComplete textView = (SearchView.SearchAutoComplete) mSearchContentSv.findViewById(com.juntai.disabled.basecomponent.R.id.search_src_text);
-        textView.setTextSize(14);
+        textView.setTextSize(12);
         mSearchContentSv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

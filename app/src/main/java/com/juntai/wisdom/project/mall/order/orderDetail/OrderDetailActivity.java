@@ -340,12 +340,13 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                                 arrays.add(new TextKeyValueBean("支付方式:", getPayTypeName(orderDetailBean.getPayType())));
                                 arrays.add(new TextKeyValueBean("付款时间:", orderDetailBean.getPaymentTime()));
                                 arrays.add(new TextKeyValueBean("发货时间:", orderDetailBean.getShipmentsTime()));
-                                arrays.add(new TextKeyValueBean("物流公司:", orderDetailBean.getLogisticsName()));
-                                arrays.add(new TextKeyValueBean("快递单号:", orderDetailBean.getLogisticsNumber()));
-                                arrays.add(new TextKeyValueBean("物流信息:", orderDetailBean.getLogisticsLink()));
+//                                arrays.add(new TextKeyValueBean("物流公司:", orderDetailBean.getLogisticsName()));
+//                                arrays.add(new TextKeyValueBean("快递单号:", orderDetailBean.getLogisticsNumber()));
+//                                arrays.add(new TextKeyValueBean("物流信息:", orderDetailBean.getLogisticsLink()));
 
                                 break;
                             case 3:
+                            case 5:
 //                                mOrderLeftTv.setText(HomePageContract.ORDER_REBUY);
                                 mOrderLeftTv.setVisibility(View.GONE);
                                 mOrderRightTv.setVisibility(View.GONE);
@@ -356,9 +357,6 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                                 arrays.add(new TextKeyValueBean("支付方式:", getPayTypeName(orderDetailBean.getPayType())));
                                 arrays.add(new TextKeyValueBean("付款时间:", orderDetailBean.getPaymentTime()));
                                 arrays.add(new TextKeyValueBean("发货时间:", orderDetailBean.getShipmentsTime()));
-                                arrays.add(new TextKeyValueBean("物流公司:", orderDetailBean.getLogisticsName()));
-                                arrays.add(new TextKeyValueBean("快递单号:", orderDetailBean.getLogisticsNumber()));
-                                arrays.add(new TextKeyValueBean("物流信息:", orderDetailBean.getLogisticsLink()));
                                 arrays.add(new TextKeyValueBean("成交时间:", orderDetailBean.getConfirmTime()));
                                 break;
                             case 4:
