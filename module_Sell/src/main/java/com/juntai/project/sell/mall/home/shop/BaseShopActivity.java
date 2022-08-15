@@ -148,10 +148,12 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                 ToastUtils.toast(mContext, msg);
                             }
                         });
-            } else {
-                // : 2022/6/10 删没了
-                itemFragmentBean.setFragmentPics(null);
+            }else {
+                itemFragmentBean.setFragmentPics(olderPics);
             }
+        }else {
+            // : 2022/6/10 删没了
+            itemFragmentBean.setFragmentPics(null);
         }
     }
 
@@ -413,7 +415,10 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                 }
                                 break;
                             case HomePageContract.Q_CARD:
-
+                                if (photos.size()<1) {
+                                    ToastUtils.toast(mContext, "请上传产品检测检疫等合格证件");
+                                    return null;
+                                }
                                 List<CommoditySourceDetailBean.DataBean.PhotoListBean> photoListBeans = new ArrayList<>();
                                 for (String photo : photos) {
                                     photoListBeans.add(new CommoditySourceDetailBean.DataBean.PhotoListBean(photo));

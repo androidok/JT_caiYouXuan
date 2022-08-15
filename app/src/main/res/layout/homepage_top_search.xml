@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="15dp"
-            android:hint="搜索你想要的商品" />
+            android:textSize="12sp"
+            android:hint="搜索你想要的商品或店铺" />
 
         <ImageView
             android:layout_width="30dp"

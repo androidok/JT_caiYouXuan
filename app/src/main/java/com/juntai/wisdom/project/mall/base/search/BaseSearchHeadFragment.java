@@ -101,6 +101,8 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
         initViewLeftDrawable(mBackTv,R.drawable.app_back);
         mBackTv.setOnClickListener(this);
         mSearchTopContentSv = (SearchView) view.findViewById(R.id.search_content_sv);
+        SearchView.SearchAutoComplete textView = (SearchView.SearchAutoComplete) mSearchTopContentSv.findViewById(R.id.search_src_text);
+        textView.setTextSize(12);
         mSearchTv = (TextView) view.findViewById(R.id.search_tv);
         mSearchTv.setOnClickListener(this);
         mDeleteHistoryIv = (ImageView) view.findViewById(R.id.delete_history_iv);

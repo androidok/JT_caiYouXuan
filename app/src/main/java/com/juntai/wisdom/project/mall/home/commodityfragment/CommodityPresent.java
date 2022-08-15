@@ -155,7 +155,7 @@ public class CommodityPresent extends BaseAppPresent<IModel, IView> {
 // : 2022/5/3 这个地方需要更换图片资源
         List<PicTextBean> arrays = new ArrayList<>();
         arrays.add(new PicTextBean(R.mipmap.shop_icon, HomePageContract.SHOP));
-        arrays.add(new PicTextBean(R.mipmap.contact_shop_icon, HomePageContract.CUSTOMER));
+//        arrays.add(new PicTextBean(R.mipmap.contact_shop_icon, HomePageContract.CUSTOMER));
         arrays.add(new PicTextBean(isCollect?R.mipmap.collected_icon:R.mipmap.un_collect_icon, HomePageContract.COLLECT));
         return arrays;
     }
