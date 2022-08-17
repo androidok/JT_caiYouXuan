@@ -230,7 +230,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                     ImageLoadUtil.loadImage(mContext, picPath, picIv);
 
                 } else {
-                    ImageLoadUtil.loadImage(mContext, 0, picIv);
+                    ImageLoadUtil.loadImage(mContext, R.mipmap.add_icon, picIv);
                 }
                 break;
             case MultipleItem.ITEM_FRAGMENT:

@@ -280,7 +280,11 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                         CommodityFormatListBean.DataBean dataBean = (CommodityFormatListBean.DataBean) formatPropertyAdapter.getItem(position);
                         dataBean.setPrice(price);
                         formatPropertyAdapter.notifyItemChanged(position);
-                        commit(AppHttpPathMall.MODIFY_COMMODITY_PRICE_STOCK);
+                        List<CommodityFormatListBean.DataBean> arrays = adapter.getData();
+                        mPresenter.updateCommodityPrice(getBaseBuilder()
+                                .add("commodityId", String.valueOf(commodityId))
+                                .add("json", GsonTools.createGsonString(arrays)).build(), AppHttpPathMall.MODIFY_COMMODITY_PRICE_STOCK
+                        );
                     }
                 });
             }

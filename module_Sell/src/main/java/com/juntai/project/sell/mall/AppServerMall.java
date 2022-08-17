@@ -78,8 +78,6 @@ public interface AppServerMall {
     /*====================================================    店铺详情   ==============================================================*/
 
 
-
-
     @POST(AppHttpPathMall.SHOP_APPLY)
     Observable<BaseResult> shopApply(@Body RequestBody requestBody);
 
@@ -97,8 +95,6 @@ public interface AppServerMall {
      */
     @POST(AppHttpPathMall.ALL_SHOP_CATEGORY)
     Observable<IdNameBean> getAllCategory(@Body RequestBody requestBody);
-
-
 
 
     /**
@@ -282,10 +278,13 @@ public interface AppServerMall {
     Observable<BaseResult> updateCommodityBaseInfo(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.DELETE_COMMODITY)
-    Observable<BaseResult> deleteCommodity(@Body RequestBody requestBody,@Query("ids")List<Integer> ids);
+    Observable<BaseResult> deleteCommodity(@Body RequestBody requestBody, @Query("ids") List<Integer> ids);
 
     @POST(AppHttpPathMall.EDIT_COMMODITY_FORMAT)
     Observable<BaseResult> editCommodityProperty(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.MODIFY_COMMODITY_PRICE)
+    Observable<BaseResult> updateCommodityPrice(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.COMMODITY_ON_SALE)
     Observable<BaseResult> onSaleCommodity(@Body RequestBody requestBody);
@@ -325,9 +324,6 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.ADD_COMMODITY_SOURCE)
     Observable<BaseResult> addCommoditySource(@Body RequestBody requestBody);
-
-
-
 
 
 }

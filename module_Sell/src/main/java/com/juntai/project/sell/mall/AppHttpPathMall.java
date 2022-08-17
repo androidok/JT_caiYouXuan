@@ -312,6 +312,10 @@ public class AppHttpPathMall {
      */
     public static final String MODIFY_COMMODITY_PRICE_STOCK= BASE + "/seller/updateCommodityAttrStockPrice";
     /**
+     * 修改商品价格
+     */
+    public static final String MODIFY_COMMODITY_PRICE= BASE + "/seller/updateCommodityPrice";
+    /**
      * 上架
      */
     public static final String COMMODITY_ON_SALE = BASE + "/seller/onSale";
