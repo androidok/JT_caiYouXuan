@@ -9,7 +9,7 @@ import com.example.appbase.R;
 import com.example.appbase.base.customview.selectPics.SelectPicVideoBean;
 import com.example.appbase.base.customview.selectPics.SelectPicVideoRv;
 import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
-import com.example.appbase.bean.nong_fa_manager.CommodityManagerDetailBean;
+import com.example.appbase.bean.nong_fa_manager.CommoditySourceBean;
 import com.example.appbase.util.bannerImageLoader.BannerObject;
 
 import java.util.ArrayList;
@@ -20,26 +20,22 @@ import java.util.List;
  * @Description: 作用描述
  * @UpdateUser: 更新者
  */
-public class CommodityManagerSourceDetailAdapter extends BaseQuickAdapter<CommodityManagerDetailBean.DataBean.TraceabilityBean.TraceabilityFileBean, BaseViewHolder> {
+public class CommodityManagerSourceDetailAdapter extends BaseQuickAdapter<CommoditySourceBean, BaseViewHolder> {
     public CommodityManagerSourceDetailAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CommodityManagerDetailBean.DataBean.TraceabilityBean.TraceabilityFileBean item) {
+    protected void convert(BaseViewHolder helper, CommoditySourceBean item) {
 
         SelectPicVideoRv selectPicVideoRv = helper.getView(R.id.source_spr);
         List<SelectPicVideoBean> pics = new ArrayList<>();
-        if (!TextUtils.isEmpty(item.getPhotoOne())) {
-            pics.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_IMAGE,item.getPhotoOne()));
-        }
-        if (!TextUtils.isEmpty(item.getPhotoTwo())) {
-            pics.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_IMAGE,item.getPhotoTwo()));
 
-        }
-        if (!TextUtils.isEmpty(item.getPhotoThree())) {
-            pics.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_IMAGE,item.getPhotoThree()));
-
+        List<String> photos = item.getPics();
+        if (photos != null&&!photos.isEmpty()) {
+            for (String pic : photos) {
+                pics.add(new SelectPicVideoBean(SelectPicVideoBean.TYPE_IMAGE,pic));
+            }
         }
         selectPicVideoRv.setDetail(true)
                 .setmMaxCount(pics.size())
@@ -68,8 +64,8 @@ public class CommodityManagerSourceDetailAdapter extends BaseQuickAdapter<Commod
         });
         selectPicVideoRv.setData(pics);
         helper.setGone(R.id.source_spr, !pics.isEmpty());
-        helper.setGone(R.id.source_des_tv, !TextUtils.isEmpty(item.getRemarks()));
-        helper.setText(R.id.source_des_tv, item.getRemarks());
+        helper.setGone(R.id.source_pic_title_tv, !TextUtils.isEmpty(item.getTitle()));
+        helper.setText(R.id.source_pic_title_tv, item.getTitle());
 
 
     }

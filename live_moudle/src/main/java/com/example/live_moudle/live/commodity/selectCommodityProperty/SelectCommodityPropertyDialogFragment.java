@@ -105,23 +105,23 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
         ImageLoadUtil.loadSquareImageHasCorner(getContext(), dataBean.getCoverImg(), mCommodityPicIv);
         mAllPriceTv.setText(String.valueOf(dataBean.getPrice()));
         mNumberButton.setCurrentNumber(1).setInventory(dataBean.getStock());
-//        mNumberButton.setOnWarnListener(new NumberButton.OnWarnListener() {
-//            @Override
-//            public void onWarningForInventory(int inventory) {
-//                ToastUtils.toast(getContext(), "库存不足");
-//            }
-//
-//            @Override
-//            public void onWarningForBuyMax(int max) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(int num) {
-//
-//            }
-//
-//        });
+        mNumberButton.setOnWarnListener(new NumberButton.OnWarnListener() {
+            @Override
+            public void onWarningForInventory(int inventory) {
+                ToastUtils.toast(getContext(), "库存不足");
+            }
+
+            @Override
+            public void onWarningForBuyMax(int max) {
+
+            }
+
+            @Override
+            public void onTextChanged(int num) {
+
+            }
+
+        });
     }
 
     /**

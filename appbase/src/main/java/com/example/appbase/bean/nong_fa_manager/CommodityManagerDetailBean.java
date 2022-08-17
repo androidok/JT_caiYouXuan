@@ -13,7 +13,7 @@ public class CommodityManagerDetailBean extends BaseResult {
 
 
     /**
-     * data : {"id":224,"shopName":"杂货店","classifyName":"日常","categoryName":"水果类","name":"西瓜","coverImg":"https://www.juntaikeji.com:21900/2022-07-27/1658913914550.png","videoUrl":"","description":"<p><img src=https://www.juntaikeji.com:21900/2022-07-27/u=388367301,179605807&fm=30&app=106&size=f242,162&n=0&g=0n&f=JPEG.jpg /><\/p>\n<p><img src=\"https://www.juntaikeji.com:21900/2022-07-27/u=1445362820,2874277112&fm=199&app=68&size=w256&n=0&f=JPEG&fmt=auto.webp\" /><\/p>\n<p><img src=\"https://www.juntaikeji.com:21900/2022-07-27/u=975916566,732522029&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto.webp\" /><\/p>","price":0.01,"state":1,"stateContent":null,"createTime":"2022-07-27 17:25:19","traceability":{"id":8,"commodityId":224,"supplier":21,"purchaseTime":"2022-07-28 00:00:00","purchaseName":"张三","createTime":"2022-07-28 14:54:13","traceabilityFile":[{"id":29,"traceabilityId":8,"photoOne":"https://www.juntaikeji.com:21900/2022-07-28/1658991254122.png","photoTwo":null,"photoThree":null,"remarks":"张三"}]}}
+     * data : {"id":345,"shopName":"白象2","classifyName":"水果","categoryName":"水果类","name":"橘子","coverImg":"https://www.juntaikeji.com:21900/2022-08-17/1660718908298850.jpeg","videoUrl":null,"description":"","price":2,"state":2,"stateContent":"","createTime":"2022-08-17 14:48:44","traceability":{"id":62,"commodityId":345,"supplier":27,"purchaseTime":"2022-08-17","purchaseName":"啦啦","photoOne":"https://www.juntaikeji.com:21900/2022-08-17/1660726300537556.jpeg","photoTwo":"https://www.juntaikeji.com:21900/2022-08-17/1660726315973199.jpeg","photoThree":"https://www.juntaikeji.com:21900/2022-08-17/1660726316213737.jpeg","createTime":"2022-08-17 16:52:00","traceabilityFile":[{"id":158,"traceabilityId":62,"fileUrl":"https://www.juntaikeji.com:21900/2022-08-17/1660726306607970.jpeg"},{"id":159,"traceabilityId":62,"fileUrl":"https://www.juntaikeji.com:21900/2022-08-17/1660726306636307.jpeg"}]}}
      */
 
     private DataBean data;
@@ -28,21 +28,19 @@ public class CommodityManagerDetailBean extends BaseResult {
 
     public static class DataBean {
         /**
-         * id : 224
-         * shopName : 杂货店
-         * classifyName : 日常
+         * id : 345
+         * shopName : 白象2
+         * classifyName : 水果
          * categoryName : 水果类
-         * name : 西瓜
-         * coverImg : https://www.juntaikeji.com:21900/2022-07-27/1658913914550.png
-         * videoUrl :
-         * description : <p><img src=https://www.juntaikeji.com:21900/2022-07-27/u=388367301,179605807&fm=30&app=106&size=f242,162&n=0&g=0n&f=JPEG.jpg /></p>
-         <p><img src="https://www.juntaikeji.com:21900/2022-07-27/u=1445362820,2874277112&fm=199&app=68&size=w256&n=0&f=JPEG&fmt=auto.webp" /></p>
-         <p><img src="https://www.juntaikeji.com:21900/2022-07-27/u=975916566,732522029&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto.webp" /></p>
-         * price : 0.01
-         * state : 1
-         * stateContent : null
-         * createTime : 2022-07-27 17:25:19
-         * traceability : {"id":8,"commodityId":224,"supplier":21,"purchaseTime":"2022-07-28 00:00:00","purchaseName":"张三","createTime":"2022-07-28 14:54:13","traceabilityFile":[{"id":29,"traceabilityId":8,"photoOne":"https://www.juntaikeji.com:21900/2022-07-28/1658991254122.png","photoTwo":null,"photoThree":null,"remarks":"张三"}]}
+         * name : 橘子
+         * coverImg : https://www.juntaikeji.com:21900/2022-08-17/1660718908298850.jpeg
+         * videoUrl : null
+         * description :
+         * price : 2.0
+         * state : 2
+         * stateContent :
+         * createTime : 2022-08-17 14:48:44
+         * traceability : {"id":62,"commodityId":345,"supplier":27,"purchaseTime":"2022-08-17","purchaseName":"啦啦","photoOne":"https://www.juntaikeji.com:21900/2022-08-17/1660726300537556.jpeg","photoTwo":"https://www.juntaikeji.com:21900/2022-08-17/1660726315973199.jpeg","photoThree":"https://www.juntaikeji.com:21900/2022-08-17/1660726316213737.jpeg","createTime":"2022-08-17 16:52:00","traceabilityFile":[{"id":158,"traceabilityId":62,"fileUrl":"https://www.juntaikeji.com:21900/2022-08-17/1660726306607970.jpeg"},{"id":159,"traceabilityId":62,"fileUrl":"https://www.juntaikeji.com:21900/2022-08-17/1660726306636307.jpeg"}]}
          */
 
         private int id;
@@ -108,11 +106,11 @@ public class CommodityManagerDetailBean extends BaseResult {
         }
 
         public String getVideoUrl() {
-            return videoUrl;
+            return videoUrl == null ? "" : videoUrl;
         }
 
         public void setVideoUrl(String videoUrl) {
-            this.videoUrl = videoUrl;
+            this.videoUrl = videoUrl == null ? "" : videoUrl;
         }
 
         public String getDescription() {
@@ -140,11 +138,11 @@ public class CommodityManagerDetailBean extends BaseResult {
         }
 
         public String getStateContent() {
-            return stateContent == null ? "" : stateContent;
+            return stateContent;
         }
 
         public void setStateContent(String stateContent) {
-            this.stateContent = stateContent == null ? "" : stateContent;
+            this.stateContent = stateContent;
         }
 
         public String getCreateTime() {
@@ -165,13 +163,16 @@ public class CommodityManagerDetailBean extends BaseResult {
 
         public static class TraceabilityBean {
             /**
-             * id : 8
-             * commodityId : 224
-             * supplier : 21
-             * purchaseTime : 2022-07-28 00:00:00
-             * purchaseName : 张三
-             * createTime : 2022-07-28 14:54:13
-             * traceabilityFile : [{"id":29,"traceabilityId":8,"photoOne":"https://www.juntaikeji.com:21900/2022-07-28/1658991254122.png","photoTwo":null,"photoThree":null,"remarks":"张三"}]
+             * id : 62
+             * commodityId : 345
+             * supplier : 27
+             * purchaseTime : 2022-08-17
+             * purchaseName : 啦啦
+             * photoOne : https://www.juntaikeji.com:21900/2022-08-17/1660726300537556.jpeg
+             * photoTwo : https://www.juntaikeji.com:21900/2022-08-17/1660726315973199.jpeg
+             * photoThree : https://www.juntaikeji.com:21900/2022-08-17/1660726316213737.jpeg
+             * createTime : 2022-08-17 16:52:00
+             * traceabilityFile : [{"id":158,"traceabilityId":62,"fileUrl":"https://www.juntaikeji.com:21900/2022-08-17/1660726306607970.jpeg"},{"id":159,"traceabilityId":62,"fileUrl":"https://www.juntaikeji.com:21900/2022-08-17/1660726306636307.jpeg"}]
              */
 
             private int id;
@@ -179,6 +180,9 @@ public class CommodityManagerDetailBean extends BaseResult {
             private int supplier;
             private String purchaseTime;
             private String purchaseName;
+            private String photoOne;
+            private String photoTwo;
+            private String photoThree;
             private String createTime;
             private List<TraceabilityFileBean> traceabilityFile;
 
@@ -222,6 +226,30 @@ public class CommodityManagerDetailBean extends BaseResult {
                 this.purchaseName = purchaseName;
             }
 
+            public String getPhotoOne() {
+                return photoOne;
+            }
+
+            public void setPhotoOne(String photoOne) {
+                this.photoOne = photoOne;
+            }
+
+            public String getPhotoTwo() {
+                return photoTwo;
+            }
+
+            public void setPhotoTwo(String photoTwo) {
+                this.photoTwo = photoTwo;
+            }
+
+            public String getPhotoThree() {
+                return photoThree;
+            }
+
+            public void setPhotoThree(String photoThree) {
+                this.photoThree = photoThree;
+            }
+
             public String getCreateTime() {
                 return createTime;
             }
@@ -240,20 +268,18 @@ public class CommodityManagerDetailBean extends BaseResult {
 
             public static class TraceabilityFileBean {
                 /**
-                 * id : 29
-                 * traceabilityId : 8
-                 * photoOne : https://www.juntaikeji.com:21900/2022-07-28/1658991254122.png
-                 * photoTwo : null
-                 * photoThree : null
-                 * remarks : 张三
+                 * id : 158
+                 * traceabilityId : 62
+                 * fileUrl : https://www.juntaikeji.com:21900/2022-08-17/1660726306607970.jpeg
                  */
 
                 private int id;
                 private int traceabilityId;
-                private String photoOne;
-                private String photoTwo;
-                private String photoThree;
-                private String remarks;
+                private String fileUrl;
+
+                public TraceabilityFileBean(String fileUrl) {
+                    this.fileUrl = fileUrl;
+                }
 
                 public int getId() {
                     return id;
@@ -271,36 +297,12 @@ public class CommodityManagerDetailBean extends BaseResult {
                     this.traceabilityId = traceabilityId;
                 }
 
-                public String getPhotoOne() {
-                    return photoOne;
+                public String getFileUrl() {
+                    return fileUrl;
                 }
 
-                public void setPhotoOne(String photoOne) {
-                    this.photoOne = photoOne;
-                }
-
-                public String getPhotoTwo() {
-                    return photoTwo == null ? "" : photoTwo;
-                }
-
-                public void setPhotoTwo(String photoTwo) {
-                    this.photoTwo = photoTwo == null ? "" : photoTwo;
-                }
-
-                public String getPhotoThree() {
-                    return photoThree == null ? "" : photoThree;
-                }
-
-                public void setPhotoThree(String photoThree) {
-                    this.photoThree = photoThree == null ? "" : photoThree;
-                }
-
-                public String getRemarks() {
-                    return remarks;
-                }
-
-                public void setRemarks(String remarks) {
-                    this.remarks = remarks;
+                public void setFileUrl(String fileUrl) {
+                    this.fileUrl = fileUrl;
                 }
             }
         }

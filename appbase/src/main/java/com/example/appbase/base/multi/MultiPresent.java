@@ -85,9 +85,10 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_RESTOC_PERSON, traceabilityBean == null ? "" : traceabilityBean.getPurchaseName()
                 , true, 0, true);
         if (traceabilityBean != null) {
-            arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
-                    (MultiContact.COMMODITY_BILL, false)));
-            arrays.add(new MultipleItem(MultipleItem.ITEM_NORMAL_RECYCLEVIEW,new MultiNormalRecyclerviewBean(MultiContact.COMMODITY_SOURCE,traceabilityBean.getTraceabilityFile(),new CommodityManagerSourceDetailAdapter(R.layout.commodity_source_detail_item))));
+            arrays.add(new MultipleItem(MultipleItem.ITEM_NORMAL_RECYCLEVIEW,new MultiNormalRecyclerviewBean(MultiContact.COMMODITY_SOURCE,traceabilityBean,new CommodityManagerSourceDetailAdapter(R.layout.commodity_source_detail_item))));
+        }else {
+            initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_SOURCE, "暂无"
+                    , true, 0, true);
         }
         if (showRb) {
             arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean

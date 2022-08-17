@@ -23,18 +23,20 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.appbase.R;
 import com.example.appbase.base.selectPics.SelectPhotosFragment;
 import com.example.appbase.base.web.BaseWebviewFragment;
-import com.example.appbase.bean.multiBean.MultiNormalRecyclerviewBean;
 import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.example.appbase.bean.multiBean.ItemFragmentBean;
 import com.example.appbase.bean.multiBean.LocationBean;
+import com.example.appbase.bean.multiBean.MultiNormalRecyclerviewBean;
 import com.example.appbase.bean.multiBean.MultiPicBean;
 import com.example.appbase.bean.multiBean.MultiRadioBean;
 import com.example.appbase.bean.nong_fa_manager.CommodityManagerDetailBean;
+import com.example.appbase.bean.nong_fa_manager.CommoditySourceBean;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -371,9 +373,35 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
                 recyclerView.setAdapter(adapter);
 
                 switch (baseNormalRecyclerviewBean.getKey()) {
-                    case MultiContact.COMMODITY_BILL:
                     case MultiContact.COMMODITY_SOURCE:
-                        List<CommodityManagerDetailBean.DataBean.TraceabilityBean.TraceabilityFileBean> arrays = (List<CommodityManagerDetailBean.DataBean.TraceabilityBean.TraceabilityFileBean>) baseNormalRecyclerviewBean.getObject();
+                        CommodityManagerDetailBean.DataBean.TraceabilityBean traceabilityBean = (CommodityManagerDetailBean.DataBean.TraceabilityBean) baseNormalRecyclerviewBean.getObject();
+
+
+                        List<CommoditySourceBean> arrays = new ArrayList<>();
+                        List<String> pics1 = new ArrayList<>();
+                        if (!TextUtils.isEmpty(traceabilityBean.getPhotoOne())) {
+                            pics1.add(traceabilityBean.getPhotoOne());
+                        }
+                        if (!TextUtils.isEmpty(traceabilityBean.getPhotoTwo())) {
+                            pics1.add(traceabilityBean.getPhotoTwo());
+
+                        }
+                        if (!TextUtils.isEmpty(traceabilityBean.getPhotoThree())) {
+                            pics1.add(traceabilityBean.getPhotoThree());
+
+                        }
+                        CommoditySourceBean sourceBean1 = new CommoditySourceBean("商家证件", pics1);
+                        arrays.add(sourceBean1);
+                        List<String> pics2 = new ArrayList<>();
+
+                        List<CommodityManagerDetailBean.DataBean.TraceabilityBean.TraceabilityFileBean> traceabilityFileBeans = traceabilityBean.getTraceabilityFile();
+                        if (traceabilityFileBeans != null && !traceabilityFileBeans.isEmpty()) {
+                            for (CommodityManagerDetailBean.DataBean.TraceabilityBean.TraceabilityFileBean traceabilityFileBean : traceabilityFileBeans) {
+                                pics2.add(traceabilityFileBean.getFileUrl());
+                            }
+                        }
+                        CommoditySourceBean sourceBean2 = new CommoditySourceBean("产品检测检疫等合格证件", pics2);
+                        arrays.add(sourceBean2);
                         adapter.setNewData(arrays);
                         break;
                     default:
