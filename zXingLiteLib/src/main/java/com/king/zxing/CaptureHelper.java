@@ -120,10 +120,10 @@ public class CaptureHelper implements CaptureLifecycle, CaptureTouchEvent, Captu
     /**
      * 是否支持全屏扫码识别
      */
-    private boolean isFullScreenScan;
+    private boolean isFullScreenScan = true;
 
     /**
-     * 识别区域比例，范围建议在0.625 ~ 1.0之间，默认0.9
+     * 识别区域比例，范围建议在0.625 ~ 1.0之间，默认0.7
      */
     private float framingRectRatio = 0.9f;
     /**

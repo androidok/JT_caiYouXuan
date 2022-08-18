@@ -110,7 +110,7 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
         int count = getNumber();
         if (id == R.id.button_sub) {
             mCountEt.requestFocus();
-            if (count > 1) {
+            if (count > 0) {
                 //正常减
                 mCountEt.setText("" + (count - 1));
             }
@@ -139,7 +139,7 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
         int count = getNumber();
         if (count <= 0) {
             //手动输入
-            mCountEt.setText("1");
+            mCountEt.setText("");
             return;
         }
 
@@ -154,7 +154,7 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
                 //超过最大购买数
                 warningForBuyMax();
             }
-        }else {
+        } else {
             if (mOnWarnListener != null) mOnWarnListener.onTextChanged(count);
         }
 
@@ -188,8 +188,8 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
     }
 
     public NumberButton setCurrentNumber(int currentNumber) {
-        if (currentNumber < 1) mCountEt.setText("1");
-        mCountEt.setText(""+Math.min(Math.min(mBuyMax, mInventory), currentNumber));
+        if (currentNumber < 1) mCountEt.setText("");
+        mCountEt.setText("" + Math.min(Math.min(mBuyMax, mInventory), currentNumber));
         return this;
     }
 

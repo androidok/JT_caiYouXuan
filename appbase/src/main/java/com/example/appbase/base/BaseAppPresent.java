@@ -123,7 +123,7 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
         AppNetModule.createrRetrofit()
                 .editCart(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                .subscribe(new BaseObserver<BaseResult>(null) {
                     @Override
                     public void onSuccess(BaseResult o) {
                         if (getView() != null) {

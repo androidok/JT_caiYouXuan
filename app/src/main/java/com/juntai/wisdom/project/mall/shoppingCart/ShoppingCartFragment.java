@@ -420,7 +420,6 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                 break;
             case AppHttpPath.DELETE_CART_COMMODITY:
             case AppHttpPath.EDIT_CART:
-                getRvAdapterData();
                 break;
             case AppHttpPath.CREAT_ORDER_CART:
 

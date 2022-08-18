@@ -72,7 +72,6 @@ public class CommodityDetailBean extends BaseResult {
         private int packingCharges;
         private double transportCharges;
         private int sales;
-        private int stock;
         private int isCollect;
         private int isPostage;
         private int browse;
@@ -200,13 +199,6 @@ public class CommodityDetailBean extends BaseResult {
             this.sales = sales;
         }
 
-        public int getStock() {
-            return stock;
-        }
-
-        public void setStock(int stock) {
-            this.stock = stock;
-        }
 
         public int getIsCollect() {
             return isCollect;

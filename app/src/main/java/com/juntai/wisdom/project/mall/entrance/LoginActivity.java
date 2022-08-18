@@ -268,6 +268,9 @@ public class LoginActivity extends SmsCheckCodeActivity implements
         mRegistTv = (TextView) findViewById(R.id.regist_tv);
         mRegistTv.setOnClickListener(this);
         mRegistPhoneEt = (EditText) findViewById(R.id.regist_phone_et);
+        if (!TextUtils.isEmpty(UserInfoManager.getAccount())) {
+            mRegistPhoneEt.setText(UserInfoManager.getAccount());
+        }
         mPasswordEt = (EditText) findViewById(R.id.password_et);
         mGetCodeTv = (TextView) findViewById(R.id.get_code_tv);
         mGetCodeTv.setOnClickListener(this);
