@@ -1,7 +1,5 @@
 package com.example.appbase.scan;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -21,8 +19,6 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.king.zxing.CaptureHelper;
 import com.king.zxing.OnCaptureCallback;
 import com.king.zxing.ViewfinderView;
-import com.king.zxing.util.CodeUtils;
-import com.zhihu.matisse.Matisse;
 
 import java.util.List;
 
@@ -100,14 +96,6 @@ public class QRScanActivity extends BaseAppModuleActivity implements View.OnClic
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SELECT_PIC_RESULT && resultCode == Activity.RESULT_OK) {
-            String content = CodeUtils.parseCode(Matisse.obtainPathResult(data).get(0));
-            resolveQrcode(content);
-        }
-    }
 
     @Override
     protected void onPicsAndEmpressed(List icons) {

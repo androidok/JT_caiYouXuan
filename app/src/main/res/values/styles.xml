@@ -91,7 +91,7 @@
         <item name="android:textCursorDrawable">@null</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">14dp</item>
     </style>
     <style name="shop_edit_tv_style">
         <item name="android:layout_width">match_parent</item>

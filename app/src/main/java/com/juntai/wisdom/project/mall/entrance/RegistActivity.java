@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
@@ -18,6 +17,7 @@ import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.wisdom.project.mall.utils.StringTools;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -29,6 +29,9 @@ import okhttp3.FormBody;
  */
 public class RegistActivity extends SmsCheckCodeActivity implements View.OnClickListener {
 
+
+    private static  String  ACCOUNT_TYPE_SCHOOL = "学校";
+    private static  String  ACCOUNT_TYPE_SHOP = "商户";
     /**
      * 输入手机号
      */
@@ -63,19 +66,11 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
     //是否同意协议
     private boolean isAgreeProtocal = false;
     /**
-     * 学校
-     */
-    private RadioButton mAccountSchoolRb;
-    /**
-     * 商户
-     */
-    private RadioButton mAccountSellerRb;
-    private RadioGroup mAccountRg;
-    /**
      * 所属学校
      */
     private TextView mBelongSchoolTv;
     private SchoolListBean.DataBean schoolBean;
+    private TextView mAccountTypeTv;
 
     @Override
     public int getLayoutView() {
@@ -98,30 +93,13 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
         mRegistProtocaUserTv = (TextView) findViewById(R.id.regist_protoca_user_tv);
         mRegistTv = (TextView) findViewById(R.id.regist_tv);
         mRegistProtocaUserTv.setOnClickListener(this);
+        mAccountTypeTv = (TextView) findViewById(R.id.account_type_tv);
+        mAccountTypeTv.setOnClickListener(this);
         mRegistTv.setOnClickListener(this);
         mLoginTv = (TextView) findViewById(R.id.login_tv);
         mLoginTv.setOnClickListener(this);
-        mAccountSchoolRb = (RadioButton) findViewById(R.id.account_school_rb);
-        mAccountSellerRb = (RadioButton) findViewById(R.id.account_seller_rb);
-        mAccountRg = (RadioGroup) findViewById(R.id.account_rb);
         mBelongSchoolTv = (TextView) findViewById(R.id.belong_school_tv);
         mBelongSchoolTv.setOnClickListener(this);
-        mAccountRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.account_school_rb:
-                        mBelongSchoolTv.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.account_seller_rb:
-                        mBelongSchoolTv.setVisibility(View.GONE);
-
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
     }
 
     @Override
@@ -153,14 +131,7 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
                 if (schoolListBean != null) {
                     List<SchoolListBean.DataBean> schoolListBeans = schoolListBean.getData();
                     if (schoolListBeans != null) {
-                        PickerManager.getInstance().showOptionPicker(mContext, schoolListBeans, new PickerManager.OnOptionPickerSelectedListener() {
-                            @Override
-                            public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                                schoolBean = schoolListBeans.get(options1);
-                                mBelongSchoolTv.setText(schoolBean.getPickerViewText());
 
-                            }
-                        });
                     }
                 }
                 break;
@@ -188,6 +159,25 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
             case R.id.get_code_tv:
                 sendCheckCode(getTextViewValue(mRegistPhoneEt));
                 break;
+            case R.id.account_type_tv:
+                // : 2022/8/18 账号类型
+                List<String> arrays = new ArrayList<>();
+                arrays.add(ACCOUNT_TYPE_SCHOOL);
+                arrays.add(ACCOUNT_TYPE_SHOP);
+                PickerManager.getInstance().showOptionPicker(mContext, arrays, new PickerManager.OnOptionPickerSelectedListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                        String type = arrays.get(options1);
+                        mAccountTypeTv.setText(type);
+                        if (0==options1) {
+                            mBelongSchoolTv.setVisibility(View.VISIBLE);
+                        }else {
+                            mBelongSchoolTv.setVisibility(View.GONE);
+
+                        }
+                    }
+                });
+                break;
             case R.id.regist_tv:
                 String account = getTextViewValue(mRegistPhoneEt);
                 if (!mPresenter.checkMobile(account)) {
@@ -213,12 +203,6 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
                         }
                     }
                 }
-                if (mAccountSchoolRb.isChecked()) {
-                    if (schoolBean == null) {
-                        ToastUtils.toast(mContext, "请选择所属学校");
-                        return;
-                    }
-                }
                 if (!isAgreeProtocal) {
                     ToastUtils.toast(mContext, "请阅读并同意相关协议");
                     return;
@@ -229,7 +213,7 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
                 builder.add("phoneNumber", account);
                 builder.add("password", MD5.md5(String.format("%s#%s", account, getTextViewValue(mPasswordEt))));
                 builder.add("code", getTextViewValue(mCodeEt));
-                if (mAccountSchoolRb.isChecked()) {
+                if (ACCOUNT_TYPE_SCHOOL.equals(getTextViewValue(mBelongSchoolTv))) {
                     builder.add("type", "1")
                             .add("schoolId",String.valueOf(schoolBean.getId()));
                 }else {

@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:orientation="vertical"
@@ -29,12 +29,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="42dp"
                 android:background="@drawable/sp_filled_gray_circle"
                 android:gravity="center">
 
@@ -44,7 +44,7 @@
                     android:paddingLeft="20dp"
                     android:text="+86"
                     android:textColor="@color/black"
-                    android:textSize="16sp"></TextView>
+                    android:textSize="14sp"></TextView>
 
                 <EditText
                     android:id="@+id/regist_phone_et"
@@ -61,7 +61,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="42dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/sp_filled_gray_circle"
                 android:gravity="center">
@@ -95,7 +95,7 @@
                 android:id="@+id/password_et"
                 style="@style/shop_login_edit_tv_style"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="42dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/sp_filled_gray_circle"
                 android:gravity="center_vertical"
@@ -107,7 +107,7 @@
                 android:id="@+id/re_password_et"
                 style="@style/shop_login_edit_tv_style"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="42dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/sp_filled_gray_circle"
                 android:gravity="center_vertical"
@@ -117,37 +117,24 @@
 
         </LinearLayout>
 
-        <RadioGroup
-            android:id="@+id/account_rb"
-
+        <TextView
+            android:id="@+id/account_type_tv"
+            style="@style/shop_login_edit_tv_style"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingLeft="20dp"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/account_school_rb"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/colorAccent"
-                android:checked="true"
-                android:text="学校" />
-
-            <RadioButton
-                android:id="@+id/account_seller_rb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:buttonTint="@color/colorAccent"
-                android:text="商户" />
-        </RadioGroup>
+            android:layout_height="42dp"
+            android:drawableRight="@mipmap/arrow_down_2"
+            android:paddingRight="25dp"
+            android:text="学校"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/sp_filled_gray_circle"
+            android:gravity="center_vertical"
+            android:hint="账号类型"
+            />
         <TextView
             android:id="@+id/belong_school_tv"
             style="@style/shop_login_edit_tv_style"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="42dp"
             android:drawableRight="@mipmap/arrow_down_2"
             android:paddingRight="25dp"
             android:layout_marginTop="5dp"
@@ -158,7 +145,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:gravity="center">
 
             <RadioButton
@@ -184,8 +171,8 @@
 
         <TextView
             android:id="@+id/regist_tv"
+            android:layout_marginTop="5dp"
             style="@style/bt_bg_style"
-            android:layout_marginTop="20dp"
             android:text="注册" />
 
         <TextView

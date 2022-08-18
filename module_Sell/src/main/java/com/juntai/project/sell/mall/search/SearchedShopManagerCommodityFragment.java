@@ -94,7 +94,7 @@ public class SearchedShopManagerCommodityFragment extends BaseRecyclerviewFragme
         if (mPresenter != null) {
             mPresenter.getAllCommodity(getBaseAppActivity().getBaseBuilder()
                     .add("page", String.valueOf(page))
-                    .add("putAwayStatus", "-1")
+                    .add("putAwayStatus", String.valueOf(status))
                     .add("keyword", key)
                     .add("limit", String.valueOf(limit)).build(), AppHttpPathMall.GET_ALL_COMMODITY);
         }

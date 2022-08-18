@@ -143,7 +143,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
 
 
     private void initTab() {
-        MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager(), getApplicationContext(),
+        MainPagerAdapter   adapter = new MainPagerAdapter(getSupportFragmentManager(), getApplicationContext(),
                 getTabTitles(),
                 getFragments());
         mViewpageVp.setAdapter(adapter);
@@ -185,5 +185,23 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     protected abstract SparseArray<Fragment> getFragments();
 
     protected abstract String[] getTabTitles();
+    /**
+     *
+     *
+     *配置小红点
+     * @param position
+     * @param amount
+     */
+    public void setRedPoint(int position, int amount) {
+        if (mTabTb != null) {
+            TabLayout.Tab tab = mTabTb.getTabAt(position);
+            View view = tab.getCustomView();
+            if (view != null) {
+                TextView msgUnReadCountTv = view.findViewById(R.id.tabitem_count);
+                msgUnReadCountTv.setVisibility(amount > 0 ? View.VISIBLE : View.GONE);
+                msgUnReadCountTv.setText(String.valueOf(amount));
+            }
+        }
 
+    }
 }

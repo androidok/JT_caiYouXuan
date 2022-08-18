@@ -41,7 +41,7 @@ public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> i
 
     @Override
     protected void commitSearch(String s) {
-        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_LIST,s));
+        EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_LIST, s));
 
     }
 
@@ -73,6 +73,10 @@ public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> i
     protected void onResume() {
         super.onResume();
         hideKeyboard(mBaseRootCol);
+        // TODO: 2022/8/18 配置小红点
+
+        setRedPoint(0,11);
+        setRedPoint(1,22);
     }
 
     @Override
@@ -93,4 +97,6 @@ public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> i
     public void onSuccess(String tag, Object o) {
 
     }
+
+
 }
