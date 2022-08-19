@@ -9,10 +9,14 @@ import android.util.SparseArray;
 import android.view.View;
 
 import com.example.appbase.base.BaseTabViewPageActivity;
+import com.example.appbase.bean.BaseTabBean;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.search.BaseSearchHeadFragment;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.HomePagePresent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -97,10 +101,10 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
     }
 
     @Override
-    protected String[] getTabTitles() {
-        return new String[]{""};
+    protected List<BaseTabBean> getTabTitles() {
+        List<BaseTabBean> arrays = new ArrayList<>();
+        return arrays;
     }
-
     @Override
     public void onSuccess(String tag, Object o) {
 

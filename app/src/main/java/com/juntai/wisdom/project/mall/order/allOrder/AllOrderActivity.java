@@ -6,11 +6,15 @@ import android.util.SparseArray;
 import android.view.View;
 
 import com.example.appbase.base.BaseTabViewPageActivity;
+import com.example.appbase.bean.BaseTabBean;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.MainActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @aouther tobato
@@ -107,13 +111,20 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
     }
 
     @Override
-    protected String[] getTabTitles() {
-        if (5== tabPosition) {
-            return new String[]{ORDER_TOTAL};
-        }
-        return new String[]{ORDER_TOTAL, ORDER_PAY, ORDER_SEND, ORDER_RECEIVE, ORDER_EVALUATE};
-    }
+    protected List<BaseTabBean> getTabTitles() {
+        List<BaseTabBean> arrays = new ArrayList<>();
 
+        if (5== tabPosition) {
+            arrays.add(new BaseTabBean(ORDER_TOTAL));
+        }else {
+            arrays.add(new BaseTabBean(ORDER_TOTAL));
+            arrays.add(new BaseTabBean(ORDER_PAY));
+            arrays.add(new BaseTabBean(ORDER_SEND));
+            arrays.add(new BaseTabBean(ORDER_RECEIVE));
+            arrays.add(new BaseTabBean(ORDER_EVALUATE));
+        }
+        return arrays;
+    }
     @Override
     public void onSuccess(String tag, Object o) {
 

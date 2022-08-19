@@ -8,12 +8,16 @@ import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 
-import com.juntai.wisdom.project.mall.R;
 import com.example.appbase.base.BaseTabViewPageActivity;
+import com.example.appbase.bean.BaseTabBean;
+import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchHeadFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.HomePagePresent;
 import com.juntai.wisdom.project.mall.live.LiveCommodityListFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @aouther tobato
@@ -149,14 +153,19 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
     }
 
     @Override
-    protected String[] getTabTitles() {
+    protected List<BaseTabBean> getTabTitles() {
+        List<BaseTabBean> arrays = new ArrayList<>();
         if (0==type) {
-            return new String[]{COMMODITY, SHOP,LIVE};
+            arrays.add(new BaseTabBean(COMMODITY));
+            arrays.add(new BaseTabBean(SHOP));
+            arrays.add(new BaseTabBean(LIVE));
+        }else {
+            arrays.add(new BaseTabBean(LIVE));
+            arrays.add(new BaseTabBean(COMMODITY));
+            arrays.add(new BaseTabBean(SHOP));
         }
-        return new String[]{LIVE, COMMODITY,SHOP};
-
+        return arrays;
     }
-
     @Override
     public void onSuccess(String tag, Object o) {
 

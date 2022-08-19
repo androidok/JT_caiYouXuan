@@ -5,10 +5,14 @@ import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 
 import com.example.appbase.base.BaseTabViewPageActivity;
+import com.example.appbase.bean.BaseTabBean;
 import com.example.module_nongfa_manager.home.HomePresent;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @aouther tobato
@@ -67,10 +71,13 @@ public class CommodityManagerActivity extends BaseTabViewPageActivity<HomePresen
     }
 
     @Override
-    protected String[] getTabTitles() {
-        return new String[]{"待审核", "已审核", "未通过"};
+    protected List<BaseTabBean> getTabTitles() {
+        List<BaseTabBean> arrays = new ArrayList<>();
+        arrays.add(new BaseTabBean("待审核"));
+        arrays.add(new BaseTabBean("已审核"));
+        arrays.add(new BaseTabBean("未通过"));
+        return arrays;
     }
-
     @Override
     protected HomePresent createPresenter() {
         return new HomePresent();

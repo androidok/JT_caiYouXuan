@@ -7,12 +7,16 @@ import android.util.SparseArray;
 import android.view.View;
 
 import com.example.appbase.base.BaseTabViewPageActivity;
+import com.example.appbase.bean.BaseTabBean;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.AddCommodityActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @aouther tobato
@@ -75,7 +79,22 @@ public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> i
        switch (eventBusObject.getEventKey()) {
            case EventBusObject.SET_RED_POINT:
                ShopCommodityManagerListBean.DataBean dataBean = (ShopCommodityManagerListBean.DataBean) eventBusObject.getEventObj();
-               setRedPoint(0,dataBean.getOnSale());
+              List<BaseTabBean> arrays = baseTabAdapter.getTitles();
+               for (int i = 0; i < arrays.size(); i++) {
+                   BaseTabBean baseTabBean = arrays.get(i);
+                   switch (i) {
+                       case 0:
+                           baseTabBean.setUnreadAmount(dataBean.getOnSale());
+                           break;
+                       case 1:
+                           baseTabBean.setUnreadAmount(dataBean.getNotSold());
+
+                           break;
+                       default:
+                           break;
+                   }
+               }
+              setRedPoint(arrays);
 
 
                break;
@@ -99,8 +118,11 @@ public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> i
     }
 
     @Override
-    protected String[] getTabTitles() {
-        return new String[]{"已上架商品", "待上架商品"};
+    protected List<BaseTabBean> getTabTitles() {
+        List<BaseTabBean> arrays = new ArrayList<>();
+        arrays.add(new BaseTabBean("已上架商品"));
+        arrays.add(new BaseTabBean("待上架商品"));
+        return arrays;
     }
 
 

@@ -13,9 +13,12 @@ import android.widget.TextView;
 
 import com.example.appbase.R;
 import com.example.appbase.base.customview.CustomViewPager;
-import com.example.appbase.base.customview.MainPagerAdapter;
+import com.example.appbase.base.customview.BaseTabPagerAdapter;
+import com.example.appbase.bean.BaseTabBean;
 import com.example.appbase.util.StringTools;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+
+import java.util.List;
 
 /**
  * @aouther tobato
@@ -45,6 +48,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     private FrameLayout mTabFootFl;
     protected LinearLayout mSearchLl;
     private TextView mFinishTv;
+    public BaseTabPagerAdapter baseTabAdapter;
 
 
     @Override
@@ -143,11 +147,11 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
 
 
     private void initTab() {
-        MainPagerAdapter   adapter = new MainPagerAdapter(getSupportFragmentManager(), getApplicationContext(),
+        baseTabAdapter = new BaseTabPagerAdapter(getSupportFragmentManager(), getApplicationContext(),
                 getTabTitles(),
                 getFragments());
-        mViewpageVp.setAdapter(adapter);
-        mViewpageVp.setOffscreenPageLimit(getTabTitles().length);
+        mViewpageVp.setAdapter(baseTabAdapter);
+        mViewpageVp.setOffscreenPageLimit(getTabTitles().size());
         /*viewpager切换监听，包含滑动点击两种*/
         mViewpageVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -172,7 +176,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
         for (int i = 0; i < mTabTb.getTabCount(); i++) {
             TabLayout.Tab tab = mTabTb.getTabAt(i);
             if (tab != null) {
-                tab.setCustomView(adapter.getCustomTabView(i));
+                tab.setCustomView(baseTabAdapter.getCustomTabView(i));
             }
         }
         /*viewpager切换默认第一个*/
@@ -184,23 +188,23 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
 
     protected abstract SparseArray<Fragment> getFragments();
 
-    protected abstract String[] getTabTitles();
+    protected abstract List<BaseTabBean> getTabTitles();
     /**
      *
      *
      *配置小红点
-     * @param position
-     * @param amount
      */
-    public void setRedPoint(int position, int amount) {
-        if (mTabTb != null) {
-            TabLayout.Tab tab = mTabTb.getTabAt(position);
-            assert tab != null;
-            View view = tab.getCustomView();
-            if (view != null) {
-                TextView msgUnReadCountTv = view.findViewById(R.id.tabitem_count);
-//                msgUnReadCountTv.setVisibility(amount > 0 ? View.VISIBLE : View.INVISIBLE);
-                msgUnReadCountTv.setText(String.valueOf(amount));
+    public void setRedPoint(List<BaseTabBean> titles) {
+        if (baseTabAdapter != null) {
+            baseTabAdapter.setTitles(titles);
+            /**
+             * 添加自定义tab布局
+             * */
+            for (int i = 0; i < mTabTb.getTabCount(); i++) {
+                TabLayout.Tab tab = mTabTb.getTabAt(i);
+                if (tab != null) {
+                    tab.setCustomView(baseTabAdapter.getCustomTabView(i));
+                }
             }
         }
 

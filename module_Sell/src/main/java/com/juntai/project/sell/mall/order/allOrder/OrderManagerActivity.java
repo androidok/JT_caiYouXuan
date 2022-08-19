@@ -8,11 +8,15 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.appbase.base.BaseTabViewPageActivity;
+import com.example.appbase.bean.BaseTabBean;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.SellMainActivity;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.order.OrderPresent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @aouther tobato
@@ -109,10 +113,17 @@ public class OrderManagerActivity extends BaseTabViewPageActivity<OrderPresent> 
     }
 
     @Override
-    protected String[] getTabTitles() {
-        return new String[]{ORDER_ALL,ORDER_PAY, ORDER_SEND, ORDER_REFUND, ORDER_IS_SEND, ORDER_EVALUATE,ORDER_FINISHED};
+    protected List<BaseTabBean> getTabTitles() {
+        List<BaseTabBean> arrays = new ArrayList<>();
+        arrays.add(new BaseTabBean(ORDER_ALL));
+        arrays.add(new BaseTabBean(ORDER_PAY));
+        arrays.add(new BaseTabBean(ORDER_SEND));
+        arrays.add(new BaseTabBean(ORDER_REFUND));
+        arrays.add(new BaseTabBean(ORDER_IS_SEND));
+        arrays.add(new BaseTabBean(ORDER_EVALUATE));
+        arrays.add(new BaseTabBean(ORDER_FINISHED));
+        return arrays;
     }
-
     @Override
     public void onSuccess(String tag, Object o) {
 
