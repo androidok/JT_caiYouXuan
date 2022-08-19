@@ -41,7 +41,25 @@ public class ShopCommodityManagerListBean extends BaseResult {
         private int pageSize;
         private int totalPage;
         private int currPage;
+        private int onSale;
+        private int notSold;
         private List<ListBean> list;
+
+        public int getOnSale() {
+            return onSale;
+        }
+
+        public void setOnSale(int onSale) {
+            this.onSale = onSale;
+        }
+
+        public int getNotSold() {
+            return notSold;
+        }
+
+        public void setNotSold(int notSold) {
+            this.notSold = notSold;
+        }
 
         public int getTotalCount() {
             return totalCount;

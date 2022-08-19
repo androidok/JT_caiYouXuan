@@ -551,7 +551,7 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
         AppNetModule.createrRetrofit()
                 .getSchoolList()
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<SchoolListBean>(null) {
+                .subscribe(new BaseObserver<SchoolListBean>(getView()) {
                     @Override
                     public void onSuccess(SchoolListBean o) {
                         if (getView() != null) {

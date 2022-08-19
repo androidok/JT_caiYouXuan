@@ -71,6 +71,7 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
     private TextView mBelongSchoolTv;
     private SchoolListBean.DataBean schoolBean;
     private TextView mAccountTypeTv;
+    SelectSchoolFragmentDialog selectSchoolFragmentDialog;
 
     @Override
     public int getLayoutView() {
@@ -130,8 +131,12 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
                 SchoolListBean schoolListBean = (SchoolListBean) o;
                 if (schoolListBean != null) {
                     List<SchoolListBean.DataBean> schoolListBeans = schoolListBean.getData();
-                    if (schoolListBeans != null) {
-
+                    if (schoolListBeans != null&&!schoolListBeans.isEmpty()) {
+                        if (selectSchoolFragmentDialog == null) {
+                            selectSchoolFragmentDialog = new SelectSchoolFragmentDialog();
+                        }
+                        selectSchoolFragmentDialog.show(getSupportFragmentManager(),"SelectSchoolFragmentDialog");
+                        selectSchoolFragmentDialog.setData(schoolListBeans);
                     }
                 }
                 break;
@@ -236,6 +241,7 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
                 break;
             case R.id.belong_school_tv:
                 mPresenter.getSchoolList(AppHttpPath.SCHOOL_LIST);
+
                 break;
         }
     }

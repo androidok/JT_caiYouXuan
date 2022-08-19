@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/alert_title_tv"
+        android:layout_width="match_parent"
+        android:drawableRight="@mipmap/close_black"
+        android:padding="15dp"
+        android:textSize="16sp"
+        android:text="选择学校"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
+
+    <include layout="@layout/activity_base_search_and_list" />
+</LinearLayout>

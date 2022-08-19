@@ -39,6 +39,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
 
     public void setTitles(String[] titles) {
         this.titles = titles;
+        notifyDataSetChanged();
     }
 
     @Override

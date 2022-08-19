@@ -195,10 +195,11 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     public void setRedPoint(int position, int amount) {
         if (mTabTb != null) {
             TabLayout.Tab tab = mTabTb.getTabAt(position);
+            assert tab != null;
             View view = tab.getCustomView();
             if (view != null) {
                 TextView msgUnReadCountTv = view.findViewById(R.id.tabitem_count);
-                msgUnReadCountTv.setVisibility(amount > 0 ? View.VISIBLE : View.GONE);
+//                msgUnReadCountTv.setVisibility(amount > 0 ? View.VISIBLE : View.INVISIBLE);
                 msgUnReadCountTv.setText(String.valueOf(amount));
             }
         }

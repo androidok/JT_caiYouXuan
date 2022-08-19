@@ -8,18 +8,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.PopupWindow;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.selectPics.BaseSelectPicsActivity;
 import com.example.appbase.bean.LiveListBean;
 import com.example.appbase.bean.ShopDetailSellBean;
@@ -33,7 +27,6 @@ import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
-import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
@@ -41,7 +34,6 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
-import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.SellCommodityDetailActivity;
@@ -52,7 +44,6 @@ import com.juntai.project.sell.mall.order.send.SendActivity;
 import com.juntai.project.sell.mall.utils.ObjectBoxMallUtil;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -455,29 +446,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
         // : 2022/6/8 进入到店铺认证界面
         startActivity(new Intent(mContext, ShopManagerActivity.class)
         .putExtra(BASE_PARCELABLE,dataBean));
-    }
-    private void showListPopwindow(View v) {
-        List<String> arrays = new ArrayList<>();
-        arrays.add("全部订单");
-        arrays.add("商城订单");
-        arrays.add("公户订单");
-        View popView = LayoutInflater.from(mContext).inflate(R.layout.sell_pop_recycler, null);
-        PopupWindow popupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 70), DisplayUtil.dp2px(mContext, 90),
-                false);
-        popupWindow.setOutsideTouchable(true);
-        SingleTextAdapter singleTextAdapter = new SingleTextAdapter(R.layout.single_text_layout);
-
-        RecyclerView mRecyclerview = (RecyclerView) popView.findViewById(R.id.pop_rv);
-        mRecyclerview.setAdapter(singleTextAdapter);
-        LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
-        mRecyclerview.setLayoutManager(manager);
-        singleTextAdapter.setNewData(arrays);
-        singleTextAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            }
-        });
-        popupWindow.showAsDropDown(v);
     }
 
 }

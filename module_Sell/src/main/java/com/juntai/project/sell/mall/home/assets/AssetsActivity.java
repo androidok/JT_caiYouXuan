@@ -15,7 +15,7 @@ import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-import com.juntai.project.sell.mall.base.SingleTextAdapter;
+import com.example.appbase.base.SingleTextAdapter;
 import com.juntai.project.sell.mall.beans.AssetsMenuBean;
 import com.juntai.project.sell.mall.beans.BillBaseInfoBean;
 import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
@@ -226,7 +226,7 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
                 popupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 120), WindowManager.LayoutParams.WRAP_CONTENT,
                         false);
                 popupWindow.setOutsideTouchable(true);
-                SingleTextAdapter singleTextAdapter = new SingleTextAdapter(R.layout.sell_pop_text_item);
+                SingleTextAdapter singleTextAdapter = new SingleTextAdapter(R.layout.single_text_item);
                 RecyclerView mRecyclerview = (RecyclerView) popView.findViewById(R.id.pop_rv);
                 mRecyclerview.setAdapter(singleTextAdapter);
                 LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);

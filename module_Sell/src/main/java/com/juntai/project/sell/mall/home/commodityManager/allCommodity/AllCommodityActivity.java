@@ -9,6 +9,7 @@ import android.view.View;
 import com.example.appbase.base.BaseTabViewPageActivity;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
+import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.AddCommodityActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
@@ -70,13 +71,23 @@ public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> i
     }
 
     @Override
+    public void onEvent(EventBusObject eventBusObject) {
+       switch (eventBusObject.getEventKey()) {
+           case EventBusObject.SET_RED_POINT:
+               ShopCommodityManagerListBean.DataBean dataBean = (ShopCommodityManagerListBean.DataBean) eventBusObject.getEventObj();
+               setRedPoint(0,dataBean.getOnSale());
+
+
+               break;
+           default:
+               break;
+       }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         hideKeyboard(mBaseRootCol);
-        // TODO: 2022/8/18 配置小红点
-
-        setRedPoint(0,11);
-        setRedPoint(1,22);
     }
 
     @Override

@@ -104,6 +104,7 @@ public class EventBusObject {
      * 刷新商品列表
      */
     public final static String REFRESH_COMMODITY_LIST = "REFRESH_COMMODITY_LIST";
+    public final static String SET_RED_POINT = "SET_RED_POINT";
 
     /**
      * 待处理订单  待发货或者售后

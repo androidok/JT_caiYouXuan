@@ -1,8 +1,8 @@
-package com.juntai.project.sell.mall.base;
+package com.example.appbase.base;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.project.sell.mall.R;
+import com.example.appbase.R;
 
 /**
  * 单个text的适配器

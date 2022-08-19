@@ -9,14 +9,15 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commoditySource.AddCommoditySourceActivity;
-import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.SellCommodityDetailActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.EditCommodityActivity;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.SellCommodityDetailActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
     public void onEvent(EventBusObject eventBusObject) {
         switch (eventBusObject.getEventKey()) {
             case EventBusObject.REFRESH_COMMODITY_LIST:
-                String  key = (String) eventBusObject.getEventObj();
+                String key = (String) eventBusObject.getEventObj();
                 getData(key);
                 break;
             default:
@@ -81,7 +82,7 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
 
     @Override
     protected void getRvAdapterData() {
-        getData(((AllCommodityActivity)getActivity()).mSearchContentSv.getQuery().toString().trim());
+        getData(((AllCommodityActivity) getActivity()).mSearchContentSv.getQuery().toString().trim());
     }
 
     private void getData(String keyword) {
@@ -124,6 +125,8 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
                     if (dataBean != null) {
                         List<ShopCommodityManagerListBean.DataBean.ListBean> arrays = dataBean.getList();
                         setData(arrays, dataBean.getTotalCount());
+                        EventManager.getEventBus().post(new EventBusObject(EventBusObject.SET_RED_POINT, dataBean));
+
                     }
                 }
                 break;
@@ -182,7 +185,7 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
                     public void onClick(DialogInterface dialog, int which) {
                         List<Integer> ids = new ArrayList<>();
                         ids.add(item.getId());
-                        mPresenter.deleteCommodity(getBaseBuilder().build(),ids, AppHttpPathMall.DELETE_COMMODITY
+                        mPresenter.deleteCommodity(getBaseBuilder().build(), ids, AppHttpPathMall.DELETE_COMMODITY
                         );
                     }
                 });
@@ -222,7 +225,7 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
 //                    //未上架 添加商品溯源详情
 //
 //                }
-                startActivity(new Intent(mContext, AddCommoditySourceActivity.class).putExtra(BASE_ID,item.getId()));
+                startActivity(new Intent(mContext, AddCommoditySourceActivity.class).putExtra(BASE_ID, item.getId()));
                 break;
             default:
                 break;
