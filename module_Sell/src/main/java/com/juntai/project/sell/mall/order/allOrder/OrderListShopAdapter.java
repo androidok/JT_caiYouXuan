@@ -44,7 +44,7 @@ public class OrderListShopAdapter extends BaseQuickAdapter<SellOrderDetailBean, 
         recyclerView.setAdapter(orderCommodityAdapter);
         recyclerView.setLayoutManager(manager);
         List<SellOrderDetailBean.CommodityListBean> arrays = item.getCommodityList();
-        if (!arrays.isEmpty()) {
+        if (arrays!=null&&!arrays.isEmpty()) {
             for (SellOrderDetailBean.CommodityListBean array : arrays) {
                 array.setOrderStatus(item.getState());
             }

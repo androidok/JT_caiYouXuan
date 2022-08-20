@@ -264,7 +264,9 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                     commodityList.add(child.getId());
                 }
             }
-            trolleyBeans.add(new ToCommitSelectedCommoditiesBean.TrolleyBean(dataBean.getId(), commodityList));
+            if (!commodityList.isEmpty()) {
+                trolleyBeans.add(new ToCommitSelectedCommoditiesBean.TrolleyBean(dataBean.getId(), commodityList));
+            }
         }
         toCommitSelectedCommoditiesBean.setTrolley(trolleyBeans);
         return GsonTools.createGsonString(toCommitSelectedCommoditiesBean);

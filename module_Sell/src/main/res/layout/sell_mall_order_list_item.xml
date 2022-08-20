@@ -84,7 +84,6 @@
             android:textColor="@color/text_gray"
             android:background="@drawable/app_bt_bg_white"
             android:layout_marginRight="10dp"
-            android:text="配送服务"
             app:layout_constraintRight_toLeftOf="@+id/order_right_tv"
             app:layout_constraintTop_toTopOf="@+id/order_right_tv" />
 
@@ -92,7 +91,6 @@
             android:id="@+id/order_right_tv"
             style="@style/app_normal_bt"
             android:layout_marginTop="10dp"
-            android:text="快递包邮"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/final_payment_tv" />
 

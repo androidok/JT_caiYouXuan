@@ -1,6 +1,7 @@
 package com.juntai.wisdom.project.mall.order.allOrder;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 import android.view.View;
@@ -66,7 +67,7 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
 
     @Override
     protected int getTabMode() {
-        return 0;
+        return TabLayout.MODE_SCROLLABLE;
     }
 
     @Override

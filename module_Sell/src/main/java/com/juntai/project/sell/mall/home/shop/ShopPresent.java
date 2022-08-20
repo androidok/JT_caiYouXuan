@@ -136,6 +136,9 @@ public class ShopPresent extends BaseAppMallPresent {
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_NAME, bean == null ? "" :
                         bean.getName()
                 , true, 0, isDetail);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PRICE, bean == null ? "" :
+                        String.valueOf(bean.getPrice())
+                , true, 0, isDetail);
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.COMMODITY_PRIMARY_PIC, true)));
         if (bean != null) {
@@ -204,14 +207,7 @@ public class ShopPresent extends BaseAppMallPresent {
             arrays.add(new MultipleItem(MultipleItem.ITEM_RICH_TEXT, bean.getDescription()));
         }
 
-        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PRICE, bean == null ? "" :
-                        String.valueOf(bean.getPrice())
-                , true, 0, isDetail);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_POSTAGE, bean == null ? "" :
-                        String.valueOf(bean.getTransportCharges())
-                , true, 0, isDetail);
-        initRadioType(arrays, HomePageContract.COMMODITY_POST_FREE, bean == null ? 0 : bean.getIsPostage(), new String[]{
-                "是", "否"}, false);
+
         return arrays;
     }
 

@@ -333,13 +333,13 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                 case MultipleItem.ITEM_RADIO:
                     //户口类别 家庭经济状况 项目级别 这几个上传的字段对应的是从1开始的 所以需要从默认的索引+1  相反的 获取到详情展示的时候 就需要-1了
                     MultiRadioBean radioBean = (MultiRadioBean) array.getObject();
-                    switch (radioBean.getKey()) {
-                        case HomePageContract.COMMODITY_POST_FREE:
-                            commodityDetailBean.setIsPostage(radioBean.getDefaultSelectedIndex());
-                            break;
-                        default:
-                            break;
-                    }
+//                    switch (radioBean.getKey()) {
+//                        case HomePageContract.COMMODITY_POST_FREE:
+//                            commodityDetailBean.setIsPostage(radioBean.getDefaultSelectedIndex());
+//                            break;
+//                        default:
+//                            break;
+//                    }
                     break;
                 case MultipleItem.ITEM_HEAD_PIC:
                     MultiPicBean headPicBean = (MultiPicBean) array.getObject();
@@ -528,9 +528,6 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                             break;
                         case HomePageContract.COMMODITY_PRICE:
                             commodityDetailBean.setPrice(Double.parseDouble(textValue));
-                            break;
-                        case HomePageContract.COMMODITY_POSTAGE:
-                            commodityDetailBean.setTransportCharges(Double.parseDouble(textValue));
                             break;
                     }
                     break;

@@ -50,13 +50,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
      */
     private TextView mFinalPaymentTv;
     private RecyclerView mOrderDetailInfoRv;
-    /**
-     * 配送服务
-     */
     private TextView mOrderLeftTv;
-    /**
-     * 快递包邮
-     */
     private TextView mOrderRightTv;
     private OrderDetailBean orderDetailBean;
     private OrderCommodityAdapter mOrderCommodityAdapter;

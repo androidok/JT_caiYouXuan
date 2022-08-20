@@ -22,34 +22,12 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="配送服务" />
-
-        <TextView
-            android:id="@+id/transport_price_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="快递包邮" />
-
-
-    </LinearLayout>
     <EditText
         android:id="@+id/older_remark_et"
         android:layout_width="match_parent"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
         android:layout_height="90dp"
         android:maxLength="200"
         android:background="@drawable/sp_filled_gray_lighter"

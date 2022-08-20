@@ -29,7 +29,6 @@ public class ConfirmOrderShopAdapter extends BaseQuickAdapter<CreatOrderBean.Dat
         helper.setText(R.id.order_shop_name_tv,item.getShopName());
         EditText remarkEt = helper.getView(R.id.older_remark_et);
         remarkEt.setTag(item);
-        helper.setText(R.id.transport_price_tv,item.getTransportCharges()>0?String.format("快递￥%s",item.getTransportCharges()):"快递(包邮)");
         RecyclerView recyclerView = helper.getView(R.id.order_shop_commodities_rv);
         ConfirmOrderCommodityAdapter orderCommodityAdapter = new ConfirmOrderCommodityAdapter(R.layout.comfirm_order_commodity_item);
         LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
