@@ -133,7 +133,7 @@ public class AppHttpPathMall {
     /**
      * 订单列表
      */
-    public static final String ORDER_LIST = BASE + "/seller/selectOrderFormList";
+    public static final String ORDER_LIST = BASE + "/seller/getOrderCommodityListByPage";
     /**
      * 订单详情
      */

@@ -59,8 +59,6 @@
         app:tabGravity="center"
         app:tabPaddingStart="0dp"
         app:tabPaddingEnd="0dp"
-        app:tabMinWidth="20dp"
-        app:tabMaxWidth="100dp"
         app:tabIndicatorColor="@color/colorAccent"
         app:tabIndicatorFullWidth="false"
         app:tabIndicatorHeight="1dp"
