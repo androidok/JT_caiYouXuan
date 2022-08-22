@@ -42,10 +42,12 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
     public List<PicTextBean> getMyCenterOrderMenus() {
 // : 2022/5/3 这个地方需要更换图片资源
         List<PicTextBean> arrays = new ArrayList<>();
-        arrays.add(new PicTextBean(R.mipmap.to_pay_icon, MyCenterContract.ORDER_TO_PAY));
+//        arrays.add(new PicTextBean(R.mipmap.to_pay_icon, MyCenterContract.ORDER_TO_PAY));
+        arrays.add(new PicTextBean(R.mipmap.to_receive_icon, MyCenterContract.ORDER_TO_ALL));
+
         arrays.add(new PicTextBean(R.mipmap.to_send_icon, MyCenterContract.ORDER_TO_SEND));
-        arrays.add(new PicTextBean(R.mipmap.to_receive_icon, MyCenterContract.ORDER_TO_RECEIVE));
-        arrays.add(new PicTextBean(R.mipmap.to_evaluate_icon, MyCenterContract.ORDER_TO_EVALUATE));
+//        arrays.add(new PicTextBean(R.mipmap.to_receive_icon, MyCenterContract.ORDER_TO_RECEIVE));
+//        arrays.add(new PicTextBean(R.mipmap.to_evaluate_icon, MyCenterContract.ORDER_TO_EVALUATE));
         arrays.add(new PicTextBean(R.mipmap.to_refund_icon, MyCenterContract.ORDER_TO_BACK));
         return arrays;
     }
@@ -116,6 +118,7 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
                     }
                 });
     }
+
     public void modifyUserInfo(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
                 .modifyUserInfo(requestBody)

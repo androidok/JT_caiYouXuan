@@ -277,11 +277,11 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startToAllOrderActivity(1, 0);
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        startToAllOrderActivity(1, 0);
+//    }
 
 
     @Override

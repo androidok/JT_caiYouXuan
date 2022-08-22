@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.appbase.bean.order.OrderDetailBean;
 import com.juntai.wisdom.project.mall.MainActivity;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
@@ -26,6 +27,8 @@ public class PaySuccessActivity extends BaseAppActivity<OrderPresent> implements
      */
     private TextView mOrderTv;
 
+   private OrderDetailBean orderDetailBean;
+
     @Override
     protected OrderPresent createPresenter() {
         return null;
@@ -38,7 +41,7 @@ public class PaySuccessActivity extends BaseAppActivity<OrderPresent> implements
 
     @Override
     public void initView() {
-
+        orderDetailBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
         mBackHomeTv = (TextView) findViewById(R.id.back_home_tv);
         mBackHomeTv.setOnClickListener(this);
         mOrderTv = (TextView) findViewById(R.id.order_tv);
@@ -67,7 +70,10 @@ public class PaySuccessActivity extends BaseAppActivity<OrderPresent> implements
                 break;
             case R.id.order_tv:
                 // : 2022/5/12 跳转到全部订单
-                startToAllOrderActivity(0,0);
+                if (orderDetailBean != null) {
+                    startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
+                }
+
                 finish();
                 break;
         }

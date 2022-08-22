@@ -91,7 +91,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         GridLayoutManager topManager = new GridLayoutManager(mContext, 3);
         mCollectRv.setLayoutManager(topManager);
         mCollectRv.setAdapter(topMenuAdapter);
-        GridLayoutManager orderManager = new GridLayoutManager(mContext, 4);
+        GridLayoutManager orderManager = new GridLayoutManager(mContext, 3);
         mOrderManagerRv.setLayoutManager(orderManager);
         mOrderManagerRv.setAdapter(orderMenuAdapter);
         topMenuAdapter.setNewData(mPresenter.getMyCenterTopMenus());
@@ -125,29 +125,34 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 PicTextBean picTextBean = (PicTextBean) adapter.getItem(position);
                 switch (picTextBean.getTextName()) {
-                    case MyCenterContract.ORDER_TO_PAY:
-                        // : 2022/5/6 待付款
-                        getBaseAppActivity().startToAllOrderActivity(1, 1);
+//                    case MyCenterContract.ORDER_TO_PAY:
+//                        // : 2022/5/6 待付款
+//                        getBaseAppActivity().startToAllOrderActivity(1, 1);
+//
+//                        break;
+                    case MyCenterContract.ORDER_TO_ALL:
+                        // : 2022/5/6 待发货
+                        getBaseAppActivity().startToAllOrderActivity(1, 0);
 
                         break;
                     case MyCenterContract.ORDER_TO_SEND:
                         // : 2022/5/6 待发货
-                        getBaseAppActivity().startToAllOrderActivity(1, 2);
+                        getBaseAppActivity().startToAllOrderActivity(1, 1);
 
                         break;
-                    case MyCenterContract.ORDER_TO_RECEIVE:
-                        // : 2022/5/6 待收货
-                        getBaseAppActivity().startToAllOrderActivity(1, 3);
-
-                        break;
-                    case MyCenterContract.ORDER_TO_EVALUATE:
-                        // : 2022/5/6 待评价
-                        getBaseAppActivity().startToAllOrderActivity(1, 4);
-
-                        break;
+//                    case MyCenterContract.ORDER_TO_RECEIVE:
+//                        // : 2022/5/6 待收货
+//                        getBaseAppActivity().startToAllOrderActivity(1, 2);
+//
+//                        break;
+//                    case MyCenterContract.ORDER_TO_EVALUATE:
+//                        // : 2022/5/6 待评价
+//                        getBaseAppActivity().startToAllOrderActivity(1, 4);
+//
+//                        break;
                     case MyCenterContract.ORDER_TO_BACK:
                         // : 2022/5/6 退货售后
-                        getBaseAppActivity().startToAllOrderActivity(1, 5);
+                        getBaseAppActivity().startToAllOrderActivity(1, 2);
                         break;
                     default:
                         break;
@@ -208,6 +213,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
                     }
                 }).show();
+
                 break;
             case R.id.set_iv:
                 startActivity(new Intent(mContext, MyInformationActivity.class));
@@ -215,7 +221,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                 break;
             case R.id.all_orders_tv:
                 // : 2022/5/12 所有订单
-                getBaseAppActivity().startToAllOrderActivity(1, 0);
+//                getBaseAppActivity().startToAllOrderActivity(1, 0);
                 break;
         }
     }

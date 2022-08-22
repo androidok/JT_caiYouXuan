@@ -10,7 +10,6 @@ import com.example.appbase.base.BaseTabViewPageActivity;
 import com.example.appbase.bean.BaseTabBean;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
-import com.juntai.wisdom.project.mall.MainActivity;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 
@@ -36,7 +35,7 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
 
     @Override
     protected void onNewIntent(Intent intent) {
-        enterType = intent.getIntExtra(BASE_ID, 0);
+        enterType = intent.getIntExtra(BASE_ID, 100);
         EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, mSearchContentSv.getQuery().toString().trim()));
 
     }
@@ -46,7 +45,7 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
         enterType = getIntent().getIntExtra(BASE_ID, 0);
         tabPosition = getIntent().getIntExtra(BASE_ID2, 0);
         super.initView();
-        if (5==tabPosition) {
+        if (2==tabPosition) {
             mTabTb.setVisibility(View.GONE);
         }else {
             mTabTb.setVisibility(View.VISIBLE);
@@ -67,7 +66,7 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
 
     @Override
     protected int getTabMode() {
-        return TabLayout.MODE_SCROLLABLE;
+        return TabLayout.MODE_FIXED;
     }
 
     @Override
@@ -88,7 +87,7 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
 
     @Override
     protected String getTitleName() {
-        if (5== tabPosition) {
+        if (2== tabPosition) {
             return "退款/售后";
         }
         return "全部订单";
@@ -98,14 +97,12 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
     @Override
     protected SparseArray<Fragment> getFragments() {
         SparseArray<Fragment> fragments = new SparseArray<>();
-        if (5== tabPosition) {
+        if (2== tabPosition) {
             fragments.append(0, OrderListFragment.newInstance(4));
         }else {
             fragments.append(0, OrderListFragment.newInstance(-1));
-            fragments.append(1, OrderListFragment.newInstance(0));
-            fragments.append(2, OrderListFragment.newInstance(1));
-            fragments.append(3, OrderListFragment.newInstance(2));
-            fragments.append(4, OrderListFragment.newInstance(3));
+            fragments.append(1, OrderListFragment.newInstance(1));
+            fragments.append(2, OrderListFragment.newInstance(4));
         }
 
         return fragments;
@@ -115,14 +112,13 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
     protected List<BaseTabBean> getTabTitles() {
         List<BaseTabBean> arrays = new ArrayList<>();
 
-        if (5== tabPosition) {
-            arrays.add(new BaseTabBean(ORDER_TOTAL));
+        if (2== tabPosition) {
+            arrays.add(new BaseTabBean(""));
         }else {
             arrays.add(new BaseTabBean(ORDER_TOTAL));
-            arrays.add(new BaseTabBean(ORDER_PAY));
             arrays.add(new BaseTabBean(ORDER_SEND));
-            arrays.add(new BaseTabBean(ORDER_RECEIVE));
-            arrays.add(new BaseTabBean(ORDER_EVALUATE));
+            arrays.add(new BaseTabBean(ORDER_BACK));
+
         }
         return arrays;
     }
@@ -131,13 +127,4 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
 
     }
 
-    @Override
-    public void onBackPressed() {
-        if (0 == enterType) {
-            // : 2022/5/12   跳到首页
-            startActivity(new Intent(mContext, MainActivity.class));
-        } else {
-            super.onBackPressed();
-        }
-    }
 }

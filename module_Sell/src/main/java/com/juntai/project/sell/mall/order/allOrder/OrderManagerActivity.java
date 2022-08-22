@@ -1,6 +1,7 @@
 package com.juntai.project.sell.mall.order.allOrder;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 import android.view.View;
@@ -73,7 +74,7 @@ public class OrderManagerActivity extends BaseTabViewPageActivity<OrderPresent> 
 
     @Override
     protected int getTabMode() {
-        return 0;
+        return TabLayout.MODE_FIXED;
     }
 
     @Override
@@ -102,12 +103,9 @@ public class OrderManagerActivity extends BaseTabViewPageActivity<OrderPresent> 
     protected SparseArray<Fragment> getFragments() {
         SparseArray<Fragment> fragments = new SparseArray<>();
         fragments.append(0, OrderListFragment.newInstance(-1));
-        fragments.append(1, OrderListFragment.newInstance(0));
-        fragments.append(2, OrderListFragment.newInstance(1));
-        fragments.append(3, OrderListFragment.newInstance(9));
-        fragments.append(4, OrderListFragment.newInstance(2));
-        fragments.append(5, OrderListFragment.newInstance(3));
-        fragments.append(6, OrderListFragment.newInstance(5));
+        fragments.append(1, OrderListFragment.newInstance(1));
+        fragments.append(2, OrderListFragment.newInstance(9));
+        fragments.append(3, OrderListFragment.newInstance(5));
 
         return fragments;
     }
@@ -116,11 +114,8 @@ public class OrderManagerActivity extends BaseTabViewPageActivity<OrderPresent> 
     protected List<BaseTabBean> getTabTitles() {
         List<BaseTabBean> arrays = new ArrayList<>();
         arrays.add(new BaseTabBean(ORDER_ALL));
-        arrays.add(new BaseTabBean(ORDER_PAY));
         arrays.add(new BaseTabBean(ORDER_SEND));
         arrays.add(new BaseTabBean(ORDER_REFUND));
-        arrays.add(new BaseTabBean(ORDER_IS_SEND));
-        arrays.add(new BaseTabBean(ORDER_EVALUATE));
         arrays.add(new BaseTabBean(ORDER_FINISHED));
         return arrays;
     }

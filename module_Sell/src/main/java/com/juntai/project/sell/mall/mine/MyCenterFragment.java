@@ -69,9 +69,14 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         return R.layout.sell_fragment_my_center;
     }
 
+    public void  hideTopTitle(){
+        mStatusTopTitle.setVisibility(View.GONE);
+    }
     @Override
     protected void initView() {
         mStatusTopTitle = getView(R.id.status_top_title);
+        mStatusTopTitle.setText("个人中心");
+
         mHeadImage = getView(R.id.headImage);
         mBaseInfoCl = getView(R.id.head_cl);
         mBaseInfoCl.setOnClickListener(this);
@@ -83,7 +88,6 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         mLoginOut.setOnClickListener(this);
         myMenuAdapter = new MyMenuAdapter(mPresenter.getMenuBeans( showGuide));
         getBaseActivity().initRecyclerview(mMenuRecycler, myMenuAdapter, LinearLayoutManager.VERTICAL);
-        mStatusTopTitle.setText("个人中心");
 
         myMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

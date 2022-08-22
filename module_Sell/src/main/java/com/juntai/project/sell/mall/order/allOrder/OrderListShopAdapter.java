@@ -36,7 +36,7 @@ public class OrderListShopAdapter extends BaseQuickAdapter<SellOrderDetailBean, 
         helper.setGone(R.id.order_status_tv,true);
         helper.setText(R.id.order_status_tv, getOrderStatus(item.getState()));
         helper.setGone(R.id.final_payment_tv, item.getPayType() != 4);
-        helper.setText(R.id.final_payment_tv, 0 == item.getState() ? String.format("金额:%s", item.getPayPrice()) : String.format("金额:%s", item.getPayPrice()));
+        helper.setText(R.id.final_payment_tv, 0 == item.getState() ? String.format("金额:%s", item.getPayPrice()) : String.format("金额:%s", item.getTotalPrices()));
         initBottomButton(helper,item);
         RecyclerView recyclerView = helper.getView(R.id.order_commodities_rv);
         OrderCommodityAdapter orderCommodityAdapter = new OrderCommodityAdapter(R.layout.sell_comfirm_order_commodity_item);

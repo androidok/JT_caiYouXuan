@@ -26,6 +26,7 @@ public interface MyCenterContract {
     String ORDER_TO_PAY ="待付款";
     String ORDER_TO_SEND ="待发货";
     String ORDER_TO_RECEIVE ="待收货";
+    String ORDER_TO_ALL ="全部";
     String ORDER_TO_EVALUATE ="待评价";
     String ORDER_TO_BACK ="退款/售后";
 

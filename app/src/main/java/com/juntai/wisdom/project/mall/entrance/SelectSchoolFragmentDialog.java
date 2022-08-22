@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.adapter.SelectTextAdapter;
 import com.example.appbase.bean.SelectTextBean;
 import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
@@ -37,6 +38,11 @@ public class SelectSchoolFragmentDialog extends DialogFragment implements View.O
     private SelectTextAdapter selectTextAdapter;
     private List<SchoolListBean.DataBean> schoolListBeans;
     private FragmentManager manager;
+    private OnSchoolClickCallBack onSchoolClickCallBack;
+
+    public void setOnSchoolClickCallBack(OnSchoolClickCallBack onSchoolClickCallBack) {
+        this.onSchoolClickCallBack = onSchoolClickCallBack;
+    }
 
     @Nullable
     @Override
@@ -142,6 +148,17 @@ public class SelectSchoolFragmentDialog extends DialogFragment implements View.O
                 return false;
             }
         });
+
+        selectTextAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                SelectTextBean dataBean = (SelectTextBean) adapter.getItem(position);
+                if (onSchoolClickCallBack != null) {
+                    dismiss();
+                    onSchoolClickCallBack.onSchoolClick((SchoolListBean.DataBean) dataBean.getObject());
+                }
+            }
+        });
     }
 
     private List<SelectTextBean> filterData(String filterData) {
@@ -172,4 +189,10 @@ public class SelectSchoolFragmentDialog extends DialogFragment implements View.O
         super.onDestroy();
         manager = null;
     }
+
+
+    public interface  OnSchoolClickCallBack{
+        void  onSchoolClick(SchoolListBean.DataBean dataBean);
+    }
+
 }

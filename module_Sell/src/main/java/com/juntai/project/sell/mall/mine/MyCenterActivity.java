@@ -23,7 +23,9 @@ public class MyCenterActivity extends BaseAppActivity {
 
     @Override
     public void initView() {
-        initToolbarAndStatusBar(false);
+        setTitleName("个人中心");
+        MyCenterFragment myCenterFragment = (MyCenterFragment) getSupportFragmentManager().findFragmentById(R.id.mycenter_fg);
+        myCenterFragment.hideTopTitle();
     }
 
     @Override

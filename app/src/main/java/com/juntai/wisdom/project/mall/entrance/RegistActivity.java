@@ -69,7 +69,7 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
      * 所属学校
      */
     private TextView mBelongSchoolTv;
-    private SchoolListBean.DataBean schoolBean;
+    private SchoolListBean.DataBean schoolBean = null;
     private TextView mAccountTypeTv;
     SelectSchoolFragmentDialog selectSchoolFragmentDialog;
 
@@ -137,6 +137,13 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
                         }
                         selectSchoolFragmentDialog.show(getSupportFragmentManager(),"SelectSchoolFragmentDialog");
                         selectSchoolFragmentDialog.setData(schoolListBeans);
+                        selectSchoolFragmentDialog.setOnSchoolClickCallBack(new SelectSchoolFragmentDialog.OnSchoolClickCallBack() {
+                            @Override
+                            public void onSchoolClick(SchoolListBean.DataBean dataBean) {
+                                schoolBean = dataBean;
+                                mBelongSchoolTv.setText(dataBean.getName());
+                            }
+                        });
                     }
                 }
                 break;
@@ -218,7 +225,11 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
                 builder.add("phoneNumber", account);
                 builder.add("password", MD5.md5(String.format("%s#%s", account, getTextViewValue(mPasswordEt))));
                 builder.add("code", getTextViewValue(mCodeEt));
-                if (ACCOUNT_TYPE_SCHOOL.equals(getTextViewValue(mBelongSchoolTv))) {
+                if (ACCOUNT_TYPE_SCHOOL.equals(getTextViewValue(mAccountTypeTv))) {
+                    if (schoolBean == null) {
+                        ToastUtils.toast(mContext, "请选择所属学校");
+                        return;
+                    }
                     builder.add("type", "1")
                             .add("schoolId",String.valueOf(schoolBean.getId()));
                 }else {

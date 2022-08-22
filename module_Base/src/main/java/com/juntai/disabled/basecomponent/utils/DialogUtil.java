@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.WindowManager;
 
 /**
  * 对话框辅助类,需要自己调用show方法
@@ -45,32 +46,56 @@ public class DialogUtil {
      * @param onClickListener
      * @return
      */
-    public static AlertDialog.Builder getMessageDialog(Context context, String message,
-                                                       DialogInterface.OnClickListener onClickListener) {
+    public static AlertDialog getMessageDialog(Context context, String message,
+                                               DialogInterface.OnClickListener onClickListener) {
         AlertDialog.Builder builder = getDialog(context);
         builder.setMessage(message);
         builder.setPositiveButton("确定", onClickListener);
-        return builder;
+        AlertDialog dialog = builder.create();
+        setAlertDialogHeightWidth(context, dialog, -1, 0);
+        return dialog;
     }
 
     /**
-     * 获取一个信息对话框,注意需要自己手动调用show方法
+     * 设置alertdialog的宽高
+     * 这个是为了类似锤子手机 对话框显示不全的问题
+     * 需要在dialog  show()方法调用之后 调用此方法
      *
-     * @param context
-     * @param message
-     * @return
+     * @param dialog
+     * @param width  -1代表屏幕宽度  0 代表 wrap_content  其他就是自定义值了
+     * @param height
      */
-    public static AlertDialog.Builder getMessageDialog(Context context, String message) {
-        return getMessageDialog(context, message, null);
+    public static void setAlertDialogHeightWidth(Context mContext, AlertDialog dialog, int width, int height) {
+
+        // 设置dialog的宽度
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        if (-1 == width) {
+            params.width = ScreenUtils.getInstance(mContext).getScreenWidth();
+        } else if (0 == width) {
+            params.width = params.width;
+        } else {
+            params.width = width;
+        }
+        if (-1 == height) {
+            params.height = ScreenUtils.getInstance(mContext).getScreenHeight();
+        } else if (0 == height) {
+            params.height = params.height;
+        } else {
+            params.height = height;
+        }
+        dialog.getWindow().setAttributes(params);
     }
 
-    public static AlertDialog.Builder getConfirmDialog(Context context, String message,
+    public static AlertDialog getConfirmDialog(Context context, String message,
                                                        DialogInterface.OnClickListener onClickListener) {
+        AlertDialog dialog = null;
         AlertDialog.Builder builder = getDialog(context);
         builder.setMessage(message);
         builder.setPositiveButton("确定", onClickListener);
         builder.setNegativeButton("取消", null);
-        return builder;
+        dialog = builder.create();
+        setAlertDialogHeightWidth(context,dialog,-1,0);
+        return dialog;
     }
 
     public static AlertDialog.Builder getConfirmDialog(Context context, String message,

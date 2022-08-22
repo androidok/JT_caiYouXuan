@@ -28,6 +28,7 @@ import java.util.List;
 public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends BaseAppModuleActivity<P> {
 
     public static final String ORDER_TOTAL = "全部";
+    public static final String ORDER_BACK = "退款/售后";
     public static final String ORDER_PAY = "待付款";
     public static final String ORDER_SEND = "待发货";
     public static final String ORDER_RECEIVE = "待收货";

@@ -1,6 +1,7 @@
 package com.juntai.wisdom.project.mall.shoppingCart;
 
 
+import android.content.DialogInterface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectComm
 import com.example.live_moudle.util.ObjectBoxUtil;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
+import com.juntai.disabled.basecomponent.utils.DialogUtil;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
@@ -155,6 +157,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
         return null;
     }
 
+
     @Override
     protected void getRvAdapterData() {
         if (mSelectAllCb != null && mAllPriceTv != null) {
@@ -188,6 +191,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
     @Override
     public void onResume() {
         super.onResume();
+        getRvAdapterData();
     }
 
 
@@ -230,7 +234,12 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                         ToastUtils.toast(mContext, "请选择要删除的商品");
                         return;
                     }
-                    mPresenter.deleteCartCommodity(ids, AppHttpPath.DELETE_CART_COMMODITY);
+                    DialogUtil.getConfirmDialog(getContext(), "确定从购物车列表删除吗?", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mPresenter.deleteCartCommodity(ids, AppHttpPath.DELETE_CART_COMMODITY);
+                        }
+                    }).show();
                 } else {
                     // 结算
                     List<Integer> ids = getSelectedCommodities(isEdit);
@@ -422,6 +431,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                 break;
             case AppHttpPath.DELETE_CART_COMMODITY:
             case AppHttpPath.EDIT_CART:
+                getRvAdapterData();
                 break;
             case AppHttpPath.CREAT_ORDER_CART:
 

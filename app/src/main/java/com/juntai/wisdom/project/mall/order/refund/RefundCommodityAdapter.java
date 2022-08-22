@@ -34,6 +34,6 @@ public class RefundCommodityAdapter extends BaseQuickAdapter<OrderDetailBean.Com
          helper.setText(R.id.commodity_property_tv, item.getCartInfo());
          helper.setTextColor(R.id.commodity_property_tv, ContextCompat.getColor(mContext,R.color.gray_deeper));
       }
-      helper.setText(R.id.all_price_tv, String.valueOf(item.getPrices()));
+      helper.setText(R.id.all_price_tv, String.valueOf(item.getPrice()));
    }
 }

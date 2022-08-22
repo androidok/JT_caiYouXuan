@@ -65,6 +65,7 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
     private ConstraintLayout mDefaultAddrCl;
     private CreatOrderBean.DataBean dataBean;
     private ConfirmOrderShopAdapter orderShopAdapter;
+    private OrderDetailBean orderDetailBe;
 
     @Override
     protected OrderPresent createPresenter() {
@@ -143,7 +144,7 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
                     orderListBean.setTotalCommodityNum(dataBean.getTotalCommodityNum());
                     List<OrderDetailBean> orderDetailBeans = orderListBean.getData();
                     if (orderDetailBeans != null && orderDetailBeans.size() > 0) {
-                        OrderDetailBean orderDetailBe = orderDetailBeans.get(0);
+                        orderDetailBe = orderDetailBeans.get(0);
                         mPresenter.payByPubAccount(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_PUB_ACCOUNT);
                     } else {
                         ToastUtils.toast(mContext, "订单提交异常");
@@ -153,7 +154,7 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
                 }
                 break;
             case AppHttpPath.ORDER_PAY_PUB_ACCOUNT:
-                startActivity(new Intent(mContext, PaySuccessActivity.class));
+                startActivity(new Intent(mContext, PaySuccessActivity.class).putExtra(BASE_PARCELABLE,orderDetailBe));
                 finish();
                 break;
             default:

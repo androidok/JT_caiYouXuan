@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.appbase.base.customview.flowlayout.FlowLayout;
 import com.example.appbase.base.customview.flowlayout.TagAdapter;
 import com.example.appbase.base.customview.flowlayout.TagFlowLayout;
+import com.juntai.disabled.basecomponent.utils.DialogUtil;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
@@ -220,7 +221,9 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
         builder.setMessage(dialogTitle);
         builder.setPositiveButton("确定", onClickListener);
         builder.setNegativeButton("取消", null);
-        builder.create().show();
+        AlertDialog alertDialog = builder.create();
+        DialogUtil.setAlertDialogHeightWidth(getContext().getApplicationContext(),alertDialog,-1,0);
+        alertDialog.show();
     }
 
     @Override
