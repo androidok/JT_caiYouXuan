@@ -110,7 +110,6 @@ public abstract class BaseAppModuleActivity<P extends BasePresenter> extends Bas
         } else {
             startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url", result));
         }
-        finish();
     }
 
     /**

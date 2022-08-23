@@ -162,6 +162,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         mSearchLl.setOnClickListener(this);
         view.findViewById(R.id.scan_iv).setOnClickListener(this);
         mShopOwnerHeadIv = (ImageView) view.findViewById(R.id.shop_owner_head_iv);
+        mShopOwnerHeadIv.setOnClickListener(this);
         mShopNameTv = (TextView) view.findViewById(R.id.shop_name_tv);
         mShopCreatTimeTv = (TextView) view.findViewById(R.id.shop_creat_time_tv);
         mShopScoreTv = (TextView) view.findViewById(R.id.shop_score_tv);
@@ -212,7 +213,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         arrays.add(new PicTextBean(R.mipmap.homemenu_assent, HomePageContract.SHOP_MANAGER_ASSENT));
         arrays.add(new PicTextBean(R.mipmap.homemenu_furnish, HomePageContract.SHOP_MANAGER_FURNISH));
         arrays.add(new PicTextBean(R.mipmap.homemenu_shop_manager, HomePageContract.SHOP_MANAGER_SHOP));
-        arrays.add(new PicTextBean(R.mipmap.homemenu_personal_center, HomePageContract.SHOP_MANAGER_CENTER));
+//        arrays.add(new PicTextBean(R.mipmap.homemenu_personal_center, HomePageContract.SHOP_MANAGER_CENTER));
         return arrays;
     }
 
@@ -326,6 +327,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         }
     }
 
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -341,6 +343,8 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
             startActivity(new Intent(mContext, SearchActivity.class));
         } else if (id == R.id.scan_iv) {// : 2022/5/31 扫码
             startActivity(new Intent(mContext, QRScanActivity.class));
+        } else if (id == R.id.shop_owner_head_iv) {// : 店铺logo
+            startActivity(new Intent(mContext, MyCenterActivity.class));
         }
     }
 }
