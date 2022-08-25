@@ -4,15 +4,14 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.support.v4.app.FragmentActivity;
 
+import com.example.appbase.bean.SellOrderListBean;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.video.record.VideoPreviewActivity;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.base.BaseAppMallPresent;
-import com.juntai.project.sell.mall.beans.order.ConfirmOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailDataBean;
-import com.example.appbase.bean.SellOrderListBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayWxBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayZfbBean;
 import com.juntai.project.sell.mall.beans.order.RefundReasonBean;
@@ -67,27 +66,6 @@ public class OrderPresent extends BaseAppMallPresent {
                 });
     }
 
-    public void commitOrder(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
-                .commitOrder(requestBody)
-                .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<ConfirmOrderBean>(getView()) {
-                    @Override
-                    public void onSuccess(ConfirmOrderBean o) {
-                        if (getView() != null) {
-                            getView().onSuccess(tag, o);
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (getView() != null) {
-                            getView().onError(tag, msg);
-                        }
-                    }
-                });
-    }
 
     public void cancelOrder(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()

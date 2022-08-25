@@ -61,6 +61,17 @@ public class CalendarUtil {
     }
     /**
      * 获取当前系统时间
+     *
+     * @param format "yyyy-MM-dd  HH:mm:ss"
+     * @return
+     */
+    public static String getCurrentTime(String format,Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault());
+        String currentTime = sdf.format(date);
+        return currentTime;
+    }
+    /**
+     * 获取当前系统时间
      * @param format "yyyy-MM-dd  HH:mm:ss"
      * @return
      */

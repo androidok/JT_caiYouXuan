@@ -107,10 +107,6 @@ public class AppHttpPathMall {
     /*====================================================    订单相关   ==============================================================*/
 
     /**
-     * 提交订单
-     */
-    public static final String COMMIT_ORDER = BASE + "/seller/submitOrderForm";
-    /**
      * 取消订单
      */
     public static final String CANCEL_ORDER = BASE + "/buyers/cancelOrderForm";

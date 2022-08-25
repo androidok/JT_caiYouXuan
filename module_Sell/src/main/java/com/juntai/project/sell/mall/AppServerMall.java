@@ -19,7 +19,6 @@ import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
 import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
 import com.juntai.project.sell.mall.beans.WithDrawListBean;
-import com.juntai.project.sell.mall.beans.order.ConfirmOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailDataBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayWxBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayZfbBean;
@@ -156,9 +155,6 @@ public interface AppServerMall {
 
 
     /*====================================================    订单部分   ==============================================================*/
-
-    @POST(AppHttpPathMall.COMMIT_ORDER)
-    Observable<ConfirmOrderBean> commitOrder(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.CANCEL_ORDER)
     Observable<BaseResult> cancelOrder(@Body RequestBody requestBody);
