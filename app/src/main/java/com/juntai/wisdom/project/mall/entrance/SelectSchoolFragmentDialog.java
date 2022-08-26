@@ -165,9 +165,12 @@ public class SelectSchoolFragmentDialog extends DialogFragment implements View.O
         List<SchoolListBean.DataBean> arrays = new ArrayList<>();
         if (schoolListBeans != null) {
             for (SchoolListBean.DataBean schoolListBean : schoolListBeans) {
-                if (schoolListBean.getName().contains(filterData)) {
-                    arrays.add(schoolListBean);
+                if (schoolListBean != null&&!TextUtils.isEmpty(schoolListBean.getName())) {
+                    if (schoolListBean.getName().contains(filterData)) {
+                        arrays.add(schoolListBean);
+                    }
                 }
+
             }
         }
         return getAdapterData(arrays);

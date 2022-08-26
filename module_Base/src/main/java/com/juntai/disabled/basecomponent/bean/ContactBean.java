@@ -35,7 +35,7 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
     private int shopState;
     private int type;
     private int schoolId;
-    private int schoolNumber;
+    private String schoolNumber;
     private String account;
     private String phoneNumber;
     private String nickname;
@@ -62,12 +62,12 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
         this.schoolId = schoolId;
     }
 
-    public int getSchoolNumber() {
-        return schoolNumber;
+    public String getSchoolNumber() {
+        return schoolNumber == null ? "" : schoolNumber;
     }
 
-    public void setSchoolNumber(int schoolNumber) {
-        this.schoolNumber = schoolNumber;
+    public void setSchoolNumber(String schoolNumber) {
+        this.schoolNumber = schoolNumber == null ? "" : schoolNumber;
     }
 
     private MessageBodyBean messageBodyBean;

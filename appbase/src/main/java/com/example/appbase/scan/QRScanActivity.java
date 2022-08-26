@@ -103,23 +103,26 @@ public class QRScanActivity extends BaseAppModuleActivity implements View.OnClic
 
         if (icons != null && icons.size() > 0) {
             String pic = (String) icons.get(0);
-            String result = null;
-            Bitmap bitmap = FileCacheUtils.getImageBitmap(pic);
-            //“QRCODE_SCAN_TYPE ”和“ DATAMATRIX_SCAN_TYPE表示只扫描QR和Data Matrix的码
-            HmsScanAnalyzerOptions options = new HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE, HmsScan.DATAMATRIX_SCAN_TYPE).setPhotoMode(true).create();
-            HmsScan[] hmsScans = ScanUtil.decodeWithBitmap(mContext, bitmap, options);
-            //处理扫码结果
-            if (hmsScans != null && hmsScans.length > 0) {
-                result = hmsScans[0].showResult;
-                resolveQrcode(result);
-            } else {
-                ToastUtils.toast(mContext, "没有检测到有效的二维码");
-            }
+            resolveQrcodeFromPic(pic);
 
         }
 
     }
 
+    private void resolveQrcodeFromPic(String pic) {
+        String result = null;
+        Bitmap bitmap = FileCacheUtils.getImageBitmap(pic);
+        //“QRCODE_SCAN_TYPE ”和“ DATAMATRIX_SCAN_TYPE表示只扫描QR和Data Matrix的码
+        HmsScanAnalyzerOptions options = new HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE, HmsScan.DATAMATRIX_SCAN_TYPE).setPhotoMode(true).create();
+        HmsScan[] hmsScans = ScanUtil.decodeWithBitmap(mContext, bitmap, options);
+        //处理扫码结果
+        if (hmsScans != null && hmsScans.length > 0) {
+            result = hmsScans[0].showResult;
+            resolveQrcode(result);
+        } else {
+            ToastUtils.toast(mContext, "没有检测到有效的二维码");
+        }
+    }
 
 
     @Override
