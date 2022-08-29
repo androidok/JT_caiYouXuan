@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="40dp"
                     android:orientation="vertical"
-                    app:layout_scrollFlags="scroll|enterAlways">
+                    app:layout_scrollFlags="scroll">
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/shop_owner_cl"

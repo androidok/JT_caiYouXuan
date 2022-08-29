@@ -89,15 +89,7 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
             @Override
             public void propertySelected(CommodityPropertyListBean.PropertyContentBean propertyContentBean) {
                 // : 2022/7/15 获取选中的属性
-                getSelectedProperties();
-                if (propertyMap.size()==propertyListBeans.size()) {
-                    // : 2022/5/5  获取对应的图片和价格
-                    commodityPropertyBean = ObjectBoxUtil.getCommodityProperty(dataBean, propertyMap);
-                    if (commodityPropertyBean != null) {
-                        ImageLoadUtil.loadSquareImageHasCorner(getContext(), commodityPropertyBean.getImage(), mCommodityPicIv);
-                        mAllPriceTv.setText(String.valueOf(commodityPropertyBean.getPrice()));
-                    }
-                }
+                initCommodityPrice();
 
 
             }
@@ -105,6 +97,20 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
         ImageLoadUtil.loadSquareImageHasCorner(getContext(), dataBean.getCoverImg(), mCommodityPicIv);
         mAllPriceTv.setText(String.valueOf(dataBean.getPrice()));
         mNumberButton.setCurrentNumber(1);
+
+        initCommodityPrice();
+    }
+
+    private void initCommodityPrice() {
+        getSelectedProperties();
+        if (propertyMap.size()==propertyListBeans.size()) {
+            // : 2022/5/5  获取对应的图片和价格
+            commodityPropertyBean = ObjectBoxUtil.getCommodityProperty(dataBean, propertyMap);
+            if (commodityPropertyBean != null) {
+                ImageLoadUtil.loadSquareImageHasCorner(getContext(), commodityPropertyBean.getImage(), mCommodityPicIv);
+                mAllPriceTv.setText(String.valueOf(commodityPropertyBean.getPrice()));
+            }
+        }
     }
 
     /**
@@ -151,8 +157,13 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
                     String propertyName = resultBean.getValue();
                     List<String> propertys = resultBean.getDetail();
                     List<CommodityPropertyListBean.PropertyContentBean> propertyContentBeans = new ArrayList<>();
-                    for (String property : propertys) {
-                        propertyContentBeans.add(new CommodityPropertyListBean.PropertyContentBean(propertyName, property));
+                    for (int i = 0; i < propertys.size(); i++) {
+                        String property = propertys.get(i);
+                        if (0==i) {
+                            propertyContentBeans.add(new CommodityPropertyListBean.PropertyContentBean(propertyName, property,true));
+                        }else {
+                            propertyContentBeans.add(new CommodityPropertyListBean.PropertyContentBean(propertyName, property,false));
+                        }
                     }
                     propertyListBeans.add(new CommodityPropertyListBean(propertyName, propertyContentBeans));
                 }

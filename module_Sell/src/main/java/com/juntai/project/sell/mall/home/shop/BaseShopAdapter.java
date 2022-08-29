@@ -324,7 +324,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
             case MultipleItem.ITEM_EDIT:
                 TextKeyValueBean textValueEditBean = (TextKeyValueBean) item.getObject();
                 EditText editText = helper.getView(R.id.edit_value_et);
-                if (isDetail) {
+                if (textValueEditBean.isDetail()) {
                     editText.setClickable(false);
                     editText.setFocusable(false);
                     helper.setBackgroundRes(R.id.edit_value_et, R.drawable.sp_filled_gray_lighter);

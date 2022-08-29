@@ -39,6 +39,7 @@ import okhttp3.RequestBody;
  * @UpdateDate: 2022/5/8 8:50
  */
 public class ShopPresent extends BaseAppMallPresent {
+
     public void getShopCommodityList(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .getShopCommodityList(requestBody)
@@ -76,7 +77,7 @@ public class ShopPresent extends BaseAppMallPresent {
                 , true, 0, isDetail);
 
         initTextSelectType(arrays, HomePageContract.COMMODITY_RESTOC_TIME, "", "", true);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_RESTOC_PERSON, bean==null?"":bean.getPurchaseName()
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_RESTOC_PERSON, bean == null ? "" : bean.getPurchaseName()
                 , true, 0, isDetail);
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
@@ -96,7 +97,7 @@ public class ShopPresent extends BaseAppMallPresent {
             }
         }
         arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT, new ItemFragmentBean(HomePageContract.SHOP_CARD, 3, 3,
-                3,  false,
+                3, false,
                 fragmentPics)));
 
 
@@ -116,8 +117,8 @@ public class ShopPresent extends BaseAppMallPresent {
         }
 
 
-        arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT2, new ItemFragmentBean(HomePageContract.Q_CARD,3, 9,
-                1,  false,
+        arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT2, new ItemFragmentBean(HomePageContract.Q_CARD, 3, 9,
+                1, false,
                 photoList)));
 
 
@@ -138,7 +139,7 @@ public class ShopPresent extends BaseAppMallPresent {
                 , true, 0, isDetail);
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PRICE, bean == null ? "" :
                         String.valueOf(bean.getPrice())
-                , true, 0, isDetail);
+                , true, 0, true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.COMMODITY_PRIMARY_PIC, true)));
         if (bean != null) {
@@ -482,9 +483,9 @@ public class ShopPresent extends BaseAppMallPresent {
                 });
     }
 
-    public void deleteCommodity(RequestBody requestBody, List<Integer> ids,String tag) {
+    public void deleteCommodity(RequestBody requestBody, List<Integer> ids, String tag) {
         AppNetModuleMall.createrRetrofit()
-                .deleteCommodity(requestBody,ids)
+                .deleteCommodity(requestBody, ids)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(null) {
                     @Override
@@ -525,6 +526,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void updateCommodityPrice(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .updateCommodityPrice(requestBody)

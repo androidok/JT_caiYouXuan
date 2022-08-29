@@ -44,6 +44,8 @@ public class SearchShopCommodityActivity extends BaseSearchActivity<ShopPresent>
     protected boolean commitSearch(String s) {
         mPresenter.getShopCommodityList(getBaseBuilderWithoutParama()
                 .add("shopId", String.valueOf(shopId))
+                .add("page",String.valueOf(page))
+                .add("limit",String.valueOf(limit))
                 .add("key", s).build(), AppHttpPath.SHOP_COMMODITY_LIST);
         return true;
     }
@@ -75,14 +77,18 @@ public class SearchShopCommodityActivity extends BaseSearchActivity<ShopPresent>
 
                 ShopCommodityListBean shopCommodityListBean = (ShopCommodityListBean) o;
                 if (shopCommodityListBean != null) {
-                    List<CommodityBean> arrays = shopCommodityListBean.getData();
-                    if (arrays != null) {
-                        List<MultipleItem> multipleItems = new ArrayList<>();
-                        for (CommodityBean array : arrays) {
-                            multipleItems.add(new MultipleItem(MultipleItem.ITEM_COMMODITY,array));
+                    ShopCommodityListBean.DataBean dataBean = shopCommodityListBean.getData();
+                    if (dataBean != null) {
+                        List<CommodityBean> arrays = dataBean.getList();
+                        if (arrays != null) {
+                            List<MultipleItem> multipleItems = new ArrayList<>();
+                            for (CommodityBean array : arrays) {
+                                multipleItems.add(new MultipleItem(MultipleItem.ITEM_COMMODITY,array));
+                            }
+                           setData(multipleItems,dataBean.getTotalCount());
                         }
-                        baseQuickAdapter.setNewData(multipleItems);
                     }
+
                 }
 
                 break;

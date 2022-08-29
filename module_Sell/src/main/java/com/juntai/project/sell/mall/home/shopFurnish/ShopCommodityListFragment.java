@@ -112,6 +112,8 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
 
         mPresenter.getShopCommodityList(getBaseAppActivity().getBaseBuilderWithoutParama()
                 .add("shopId", String.valueOf(UserInfoManagerMall.getShopId()))
+                .add("page",String.valueOf(page))
+                .add("limit",String.valueOf(limit))
                 .add("classifyId", String.valueOf(labelId)).build(), AppHttpPathMall.SHOP_COMMODITY_LIST);
 
     }
@@ -131,12 +133,15 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
 
                 ShopCommodityListBean shopCommodityListBean = (ShopCommodityListBean) o;
                 if (shopCommodityListBean != null) {
-                    List<CommodityBean> arrrays = shopCommodityListBean.getData();
-                    if (arrrays != null) {
-                        baseQuickAdapter.setNewData(arrrays);
+                    ShopCommodityListBean.DataBean dataBean = shopCommodityListBean.getData();
+                    if (dataBean != null) {
+                        List<CommodityBean> arrays = dataBean.getList();
+                        if (arrays != null) {
+                            setData(arrays,dataBean.getTotalCount());
+                        }
                     }
-                }
 
+                }
                 break;
             default:
                 break;

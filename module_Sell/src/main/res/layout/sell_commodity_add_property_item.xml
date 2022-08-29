@@ -16,7 +16,7 @@
         android:gravity="center"
         android:layout_marginLeft="10dp"
         android:background="@drawable/sp_filled_gray_lighter"
-        android:hint="属性名称"
+        android:hint="参数名称(例如:斤)"
         android:maxLength="10"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"

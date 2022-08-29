@@ -131,13 +131,19 @@ public class CommentFragment extends BaseLiveCommoditiesFragment implements View
             default:
                 break;
             case AppHttpPath.LIVE_ROOM_COMMODITIES:
+
                 ShopCommodityListBean shopCommodityListBean = (ShopCommodityListBean) o;
                 if (shopCommodityListBean != null) {
-                    List<CommodityBean> arrrays = shopCommodityListBean.getData();
-                    if (arrrays != null) {
-                        initBottomDialog(arrrays);
+                    ShopCommodityListBean.DataBean dataBean = shopCommodityListBean.getData();
+                    if (dataBean != null) {
+                        List<CommodityBean> arrays = dataBean.getList();
+                        if (arrays != null) {
+                            initBottomDialog(arrays);
+                        }
                     }
+
                 }
+
                 break;
         }
     }

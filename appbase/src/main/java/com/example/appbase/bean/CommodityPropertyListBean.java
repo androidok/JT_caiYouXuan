@@ -49,11 +49,11 @@ public class CommodityPropertyListBean {
         private  String  pic;
         private boolean selected;
 
-        public PropertyContentBean(String presentName, String content) {
+        public PropertyContentBean(String presentName, String content, boolean selected) {
             this.presentName = presentName;
             this.content = content;
+            this.selected = selected;
         }
-
 
         public String getContent() {
             return content == null ? "" : content;

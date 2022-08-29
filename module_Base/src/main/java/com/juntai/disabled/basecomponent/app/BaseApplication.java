@@ -16,6 +16,9 @@ import com.juntai.disabled.basecomponent.utils.CrashHandler;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.NavigationBarInfo;
 import com.juntai.disabled.basecomponent.utils.ObjectBox;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -49,6 +52,8 @@ public abstract class BaseApplication extends DefaultApplicationLike {
 
         if (BuildConfig.DEBUG) {
             //
+            Logger.addLogAdapter(new AndroidLogAdapter(PrettyFormatStrategy.newBuilder().
+                    tag(getApplication().getString(R.string.app_name)).build()));
             LogUtil.logInit(true);
         }
         initArouter();
@@ -107,6 +112,7 @@ public abstract class BaseApplication extends DefaultApplicationLike {
         Bugly.setIsDevelopmentDevice(getApplication(), false);
         // 调试时，将第三个参数改为true
         Bugly.init(getApplication(), "6d495ac5a2", true);
+
     }
 
 
