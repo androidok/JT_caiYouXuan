@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 //华为推送 必填
 apply plugin: 'com.huawei.agconnect'
 //// 依赖插件脚本
-//apply from: 'tinker-support.gradle'
+apply from: 'tinker-support.gradle'
 //mob sdk
 apply from: 'mob_share.gradle'
 
@@ -26,11 +26,6 @@ android {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
-        }
-    }
-    android.applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = "农发菜优选-" + variant.versionCode + "-" + variant.versionName + ".apk"
         }
     }
     signingConfigs {
@@ -122,6 +117,7 @@ dependencies {
 
     implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+
 }
 
 configurations.all {

@@ -1,5 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from:"config.gradle"
+apply from: "config.gradle"
 
 ext {
     var = 'key0'
@@ -14,8 +14,8 @@ buildscript {
         maven { url 'https://maven.aliyun.com/repository/public/' }
         maven { url 'http://jcenter.bintray.com/' }
         maven { url "https://jitpack.io" }
-        maven {url 'http://developer.huawei.com/repo/'}
-        maven {url 'http://maven.aliyun.com/nexus/content/repositories/releases/'}
+        maven { url 'http://developer.huawei.com/repo/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
 // 1.添加MobSDK Maven地址
         maven {
             url "https://mvn.mob.com/android"
@@ -36,9 +36,12 @@ buildscript {
         classpath 'com.aliyun.ams:emas-services:1.0.1'
         //知乎选择图片的控件需要
         classpath 'com.novoda:bintray-release:0.8.1'
+        //热修复
+        classpath "com.tencent.bugly:tinker-support:1.2.1"
+
     }
 }
-android.useDeprecatedNdk=true
+android.useDeprecatedNdk = true
 allprojects {
     repositories {
         google()
@@ -47,8 +50,8 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repository/public/' }
         maven { url 'http://jcenter.bintray.com/' }
         maven { url "https://jitpack.io" }
-        maven {url 'http://developer.huawei.com/repo/'}
-        maven {url 'http://maven.aliyun.com/nexus/content/repositories/releases/'}
+        maven { url 'http://developer.huawei.com/repo/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
         maven {
             url "https://mvn.mob.com/android"
         }
