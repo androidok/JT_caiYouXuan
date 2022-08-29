@@ -4,28 +4,29 @@ apply plugin: 'com.github.dcendents.android-maven'
 //发布到组织名称名字，必须填写
 group = "com.github.zylRookie"
 
+def configs = rootProject.ext.android
+def librarys = rootProject.ext.dependencies
+
 android {
-    compileSdkVersion 26
-
-
+    compileSdkVersion configs.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+        versionCode configs.versionCode
+        versionName configs.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+        debug {
+            consumerProguardFiles 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {

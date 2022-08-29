@@ -1,22 +1,29 @@
 apply plugin: 'com.android.library'
-version = "1.4.10"
+
+def configs = rootProject.ext.android
+def librarys = rootProject.ext.dependencies
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion configs.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 28
-        versionCode 41
-        versionName version
-    }
-    lintOptions {
-        abortOnError false
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+        versionCode configs.versionCode
+        versionName configs.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    //
+    buildTypes {
+        release {
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+        debug {
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+    }
 }
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly 'com.android.support:support-v4:+'

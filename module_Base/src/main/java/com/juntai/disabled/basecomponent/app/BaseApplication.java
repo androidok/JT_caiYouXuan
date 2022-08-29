@@ -26,7 +26,6 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.tinker.entry.DefaultApplicationLike;
 
 
@@ -52,7 +51,6 @@ public abstract class BaseApplication extends DefaultApplicationLike {
             //
             LogUtil.logInit(true);
         }
-        CrashReport.initCrashReport(getApplication(), "6d495ac5a2", false);
         initArouter();
         hotFix();
     }
@@ -121,7 +119,7 @@ public abstract class BaseApplication extends DefaultApplicationLike {
 
         // 安装tinker
         // TinkerManager.installTinker(this); 替换成下面Bugly提供的方法
-        Beta.installTinker(getApplication());
+        Beta.installTinker(this);
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -189,7 +187,11 @@ public abstract class BaseApplication extends DefaultApplicationLike {
         });
     }
 
-
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        Beta.unInit();
+    }
 
 
 }

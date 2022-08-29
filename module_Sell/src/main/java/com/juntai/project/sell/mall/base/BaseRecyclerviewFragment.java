@@ -29,7 +29,7 @@ public abstract class BaseRecyclerviewFragment<P extends IPresenter> extends Bas
 
     protected int page = 1; //当前页码
     //每次展示20条数据
-    protected int limit = 100;
+    protected int limit = 10;
 
     @Override
     protected int getLayoutRes() {

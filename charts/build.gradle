@@ -1,21 +1,25 @@
 apply plugin: 'com.android.library'
+def configs = rootProject.ext.android
+def librarys = rootProject.ext.dependencies
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '27.0.3'
-    lintOptions {
-        abortOnError false
-    }
+    compileSdkVersion configs.compileSdkVersion
+
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+        versionCode configs.versionCode
+        versionName configs.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+        debug {
+            consumerProguardFiles 'proguard-rules.pro'
         }
     }
 }

@@ -1,26 +1,26 @@
 apply plugin: 'com.android.library'
 //https://github.com/WangShuo1143368701/WSLiveDemo/issues/59
+def configs = rootProject.ext.android
+def librarys = rootProject.ext.dependencies
+
 android {
-    compileSdkVersion 28
-    buildToolsVersion "29.0.3"
+    compileSdkVersion configs.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0.0"
-    }
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+        versionCode configs.versionCode
+        versionName configs.versionName
 
-    lintOptions {
-        abortOnError false
-        checkReleaseBuilds false
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+        debug {
+            consumerProguardFiles 'proguard-rules.pro'
         }
     }
     sourceSets {
