@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:background="@drawable/sp_filled_gray"
-        android:hint="规格名称(例如:单位)"
+        android:hint="规格(例如:单位)"
         android:maxLength="15"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
@@ -22,6 +22,7 @@
         android:paddingBottom="5dp"
         android:textColor="@color/black"
         android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

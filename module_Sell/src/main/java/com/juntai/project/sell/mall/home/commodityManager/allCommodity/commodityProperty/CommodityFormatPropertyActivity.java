@@ -93,7 +93,7 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                     }
                     if (arrays.size() > 0) {
                         commodityFormatBean = new CommodityFormatBean();
-                        commodityFormatBean.setAttr(data);
+                        commodityFormatBean.setAttr(arrays);
                         mPresenter.createCommodityFormatList(getBaseBuilder().add("id", String.valueOf(commodityId)
                                 ).add("json", GsonTools.createGsonString(commodityFormatBean)).build()
                                 , AppHttpPathMall.CREATE_COMMODITY_FORMAT);

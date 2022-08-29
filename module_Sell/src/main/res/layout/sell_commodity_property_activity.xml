@@ -33,14 +33,13 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
-            android:text="(例:颜色、尺寸)" />
+            android:text="(例如:单位)" />
     </LinearLayout>
 
     <include
         layout="@layout/recycleview_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/commit_tv"
         app:layout_constraintTop_toBottomOf="@+id/top_ll"></include>
