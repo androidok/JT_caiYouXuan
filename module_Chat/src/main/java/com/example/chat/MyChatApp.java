@@ -1,9 +1,9 @@
 package com.example.chat;
 
 
-import android.annotation.TargetApi;
-import android.app.Activity;
+import android.app.Application;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
@@ -38,12 +38,6 @@ import java.util.HashMap;
  * @date 2019/3/12
  */
 public abstract class MyChatApp extends BaseMyApplication {
-    public static MyChatApp app;
-    public boolean isFinish = false;
-    public static long lastClickTime;//上次点击按钮时间
-    public static int timeLimit = 1000;
-
-
 
     /**
      * 推送注册回调
@@ -127,14 +121,17 @@ public abstract class MyChatApp extends BaseMyApplication {
         }
     };
 
+    public MyChatApp(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
+        super(application, tinkerFlags, tinkerLoadVerifyFlag, applicationStartElapsedTime, applicationStartMillisTime, tinkerResultIntent);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-        app = this;
-        Hawk.init(this).build();
+        Hawk.init(getApplication()).build();
 
         //百度地图初始化
-        SDKInitializer.initialize(this);
+        SDKInitializer.initialize(getApplication());
         //        //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
         //        //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
@@ -142,7 +139,7 @@ public abstract class MyChatApp extends BaseMyApplication {
         initPushRegist();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationTool.createNotificationChannel(getApplicationContext(), NotificationTool.MSG_CHANNEL_ID, NotificationTool.MSG_CHANNEL_NAME, importance);
+            NotificationTool.createNotificationChannel(getApplication(), NotificationTool.MSG_CHANNEL_ID, NotificationTool.MSG_CHANNEL_NAME, importance);
         }
 
         initDownload();
@@ -170,14 +167,14 @@ public abstract class MyChatApp extends BaseMyApplication {
         map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
         QbSdk.initTbsSettings(map);
         //x5内核初始化接口
-        QbSdk.initX5Environment(getApplicationContext(), cb);
+        QbSdk.initX5Environment(getApplication(), cb);
         QbSdk.setDownloadWithoutWifi(true);
 
     }
 
     private void initDownload() {
         // 1、创建Builder
-        FileDownloadConfiguration.Builder builder = new FileDownloadConfiguration.Builder(this);
+        FileDownloadConfiguration.Builder builder = new FileDownloadConfiguration.Builder(getApplication());
 
 // 2.配置Builder
 // 配置下载文件保存的文件夹
@@ -199,62 +196,31 @@ public abstract class MyChatApp extends BaseMyApplication {
     public void initPushRegist() {
         if (RomUtil.isEmui()) {
             //华为
-            HWPushRegister.getInstance(this).register();
+            HWPushRegister.getInstance(getApplication()).register();
         } else if (RomUtil.isVivo()) {
-            VivoPushRegister.getInstance(this).register();
+            VivoPushRegister.getInstance(getApplication()).register();
         } else if (RomUtil.isOppo()) {
-            OppoPushRegister.getInstance(this).register("a8aaa44a557b420f921aa4079ec1774b", "34eecd930b2849edbc5162305fee687e");
+            OppoPushRegister.getInstance(getApplication()).register("a8aaa44a557b420f921aa4079ec1774b", "34eecd930b2849edbc5162305fee687e");
         } else {
             //todo 这个需要更换 小米
-            MiPushRegister.getInstance(this).register("2882303761520161715", "5302016173715");
+            MiPushRegister.getInstance(getApplication()).register("2882303761520161715", "5302016173715");
         }
         if (RomUtil.isEmui()) {
             //华为
-            HWPushRegister.getInstance(this).setPushCallback(adapter);
+            HWPushRegister.getInstance(getApplication()).setPushCallback(adapter);
         } else if (RomUtil.isVivo()) {
-            VivoPushRegister.getInstance(this).setPushCallback(adapter);
+            VivoPushRegister.getInstance(getApplication()).setPushCallback(adapter);
         } else if (RomUtil.isOppo()) {
-            OppoPushRegister.getInstance(this).setPushCallback(adapter);
+            OppoPushRegister.getInstance(getApplication()).setPushCallback(adapter);
         } else {
             //小米
-            MiPushRegister.getInstance(this).setPushCallback(adapter);
+            MiPushRegister.getInstance(getApplication()).setPushCallback(adapter);
         }
 
     }
 
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 
-
-    @Override
-    public void appBackground(boolean isBackground, Activity activity) {
-        if (isBackground && !isFinish) {
-            //            NitoficationTool.sendNotif(activity,
-            //                    11,
-            //                    "挂起",
-            //                    BaseAppUtils.getAppName() + "服务正在运行",
-            //                    R.mipmap-xxhdpi.logo,
-            //                    true,
-            //                    new Intent(activity, ChatMainActivity.class));
-        } else {
-            //变为前台
-            //            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            //            manager.cancelAll();
-        }
-    }
-
-
-    /**
-     * 防止暴力点击
-     */
-    public synchronized static boolean isFastClick() {
-        long time = System.currentTimeMillis();
-        if (time - lastClickTime < timeLimit) {
-            return true;
-        }
-        lastClickTime = time;
-        return false;
-    }
 
 
 }

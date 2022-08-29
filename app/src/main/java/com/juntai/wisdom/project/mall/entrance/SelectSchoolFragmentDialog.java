@@ -18,8 +18,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.adapter.SelectTextAdapter;
 import com.example.appbase.bean.SelectTextBean;
 import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
+import com.juntai.disabled.basecomponent.app.BaseApplication;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
-import com.juntai.wisdom.project.mall.MyApp;
 import com.juntai.wisdom.project.mall.R;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -97,12 +97,12 @@ public class SelectSchoolFragmentDialog extends DialogFragment implements View.O
         setCancelable(false);
         mRecyclerview = (RecyclerView) view.findViewById(R.id.recyclerview);
         view.findViewById(R.id.alert_title_tv).setOnClickListener(this);
-        mRecyclerview.setMinimumHeight(DisplayUtil.dp2px(MyApp.app, 100));
+        mRecyclerview.setMinimumHeight(DisplayUtil.dp2px(BaseApplication.app, 100));
 
         selectTextAdapter = new SelectTextAdapter(R.layout.select_text_item);
         mRecyclerview.setAdapter(selectTextAdapter);
         selectTextAdapter.setNewData(getAdapterData(schoolListBeans));
-        LinearLayoutManager manager = new LinearLayoutManager(MyApp.app, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager manager = new LinearLayoutManager(BaseApplication.app, LinearLayoutManager.VERTICAL, false);
         mRecyclerview.setLayoutManager(manager);
 
 

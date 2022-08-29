@@ -169,7 +169,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         showAlertDialog("请选择退出方式", "退出", "挂起", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                MyApp.app.isFinish = true;
                 ActivityManagerTool.getInstance().finishApp();
             }
         }, new DialogInterface.OnClickListener() {

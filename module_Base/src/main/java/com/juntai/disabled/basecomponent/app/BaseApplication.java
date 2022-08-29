@@ -1,10 +1,11 @@
 package com.juntai.disabled.basecomponent.app;
 
-import android.app.Activity;
+import android.annotation.TargetApi;
+import android.app.Application;
 import android.content.Context;
-import android.os.Bundle;
+import android.content.Intent;
+import android.os.Build;
 import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
 import android.util.DisplayMetrics;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -15,9 +16,6 @@ import com.juntai.disabled.basecomponent.utils.CrashHandler;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.NavigationBarInfo;
 import com.juntai.disabled.basecomponent.utils.ObjectBox;
-import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.Logger;
-import com.orhanobut.logger.PrettyFormatStrategy;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -26,50 +24,111 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
-
-import java.lang.ref.SoftReference;
-import java.util.ArrayList;
+import com.tencent.tinker.entry.DefaultApplicationLike;
 
 
-public abstract class BaseApplication extends MultiDexApplication {
+public abstract class BaseApplication extends DefaultApplicationLike {
     public static int HEIGHT, width, statusBarH;
     public static int navigationBarH;
-    public static BaseApplication app;
-    ArrayList<Activity> activities = new ArrayList<>();
+    public static Application app;
     public static boolean isReLoadWarn = true;//登录被顶，是否提示
 
-    /*app处于后台true,前台false*/
-    public abstract void appBackground(boolean isBackground, Activity activity);
-
-//    public abstract String getTinkerId();
-
-    //活动的activity数量
-    int mActivityCount;
-    //应用处于前台运行中
-    public boolean isRun = true;
-    //
-    SoftReference<Activity> softReference;
+    public BaseApplication(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
+        super(application, tinkerFlags, tinkerLoadVerifyFlag, applicationStartElapsedTime, applicationStartMillisTime, tinkerResultIntent);
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        app = this;
-        getScreen(this);
-        ObjectBox.init(this);
-        CrashHandler.getInstance().init(getApplicationContext(), BaseAppUtils.getAppName());
+        app = getApplication();
+        getScreen(getApplication());
+        ObjectBox.init(getApplication());
+        CrashHandler.getInstance().init(getApplication(), BaseAppUtils.getAppName());
 
         if (BuildConfig.DEBUG) {
             //
-            Logger.addLogAdapter(new AndroidLogAdapter(PrettyFormatStrategy.newBuilder().
-                    tag(getString(R.string.app_name)).build()));
             LogUtil.logInit(true);
         }
-        registerActivityLifecycleCallbacks(mCallbacks);
-//是本人的QQ号申请的
-        CrashReport.initCrashReport(getApplicationContext(), "0263372a98", false);
+        CrashReport.initCrashReport(getApplication(), "6d495ac5a2", false);
         initArouter();
+        hotFix();
     }
+
+    private void hotFix() {
+        // 设置是否开启热更新能力，默认为true
+        Beta.enableHotfix = true;
+        // 设置是否自动下载补丁，默认为true
+        Beta.canAutoDownloadPatch = true;
+        // 设置是否自动合成补丁，默认为true
+        Beta.canAutoPatch = true;
+        // 设置是否提示用户重启，默认为false
+        Beta.canNotifyUserRestart = false;
+        // 补丁回调接口
+//        Beta.betaPatchListener = new BetaPatchListener() {
+//            @Override
+//            public void onPatchReceived(String patchFile) {
+//                Toast.makeText(getApplication(), "补丁下载地址" + patchFile, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onDownloadReceived(long savedLength, long totalLength) {
+//                Toast.makeText(getApplication(), String.format(Locale.getDefault(), "%s %d%%", Beta.strNotificationDownloading, (int) (totalLength == 0 ? 0 : savedLength * 100 / totalLength)), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onDownloadSuccess(String msg) {
+//                Toast.makeText(getApplication(), "补丁下载成功", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onDownloadFailure(String msg) {
+//                Toast.makeText(getApplication(), "补丁下载失败", Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//            @Override
+//            public void onApplySuccess(String msg) {
+//                Toast.makeText(getApplication(), "补丁应用成功", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onApplyFailure(String msg) {
+//                Toast.makeText(getApplication(), "补丁应用失败", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onPatchRollback() {
+//
+//            }
+//        };
+
+        // 设置开发设备，默认为false，上传补丁如果下发范围指定为“开发设备”，需要调用此接口来标识开发设备
+        Bugly.setIsDevelopmentDevice(getApplication(), false);
+        // 调试时，将第三个参数改为true
+        Bugly.init(getApplication(), "6d495ac5a2", true);
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @Override
+    public void onBaseContextAttached(Context base) {
+        super.onBaseContextAttached(base);
+        // you must install multiDex whatever tinker is installed!
+        MultiDex.install(base);
+
+        // 安装tinker
+        // TinkerManager.installTinker(this); 替换成下面Bugly提供的方法
+        Beta.installTinker(getApplication());
+    }
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    public void registerActivityLifecycleCallback(Application.ActivityLifecycleCallbacks callbacks) {
+        getApplication().registerActivityLifecycleCallbacks(callbacks);
+    }
+
     /**
      * 初始化路由
      */
@@ -81,27 +140,10 @@ public abstract class BaseApplication extends MultiDexApplication {
             // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
             ARouter.openDebug();
         }
-        ARouter.init(this);
+        ARouter.init(getApplication());
     }
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        // you must install multiDex whatever tinker is installed!
-        MultiDex.install(base);
-    }
 
-    /**
-     * 记录当前正在活动的activity
-     *
-     * @return
-     */
-    public Activity getNowActivity() {
-        if (softReference != null) {
-            return softReference.get();
-        }
-        return null;
-    }
 
 
     public void getScreen(Context aty) {
@@ -109,15 +151,15 @@ public abstract class BaseApplication extends MultiDexApplication {
         DisplayMetrics dm = aty.getResources().getDisplayMetrics();
         HEIGHT = dm.heightPixels;
         width = dm.widthPixels;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int resourceId = getApplication().getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
-            statusBarH = getResources().getDimensionPixelSize(resourceId);
+            statusBarH = getApplication().getResources().getDimensionPixelSize(resourceId);
         }
 
         if (NavigationBarInfo.hasNavBar(aty)) {
-            int navigationId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+            int navigationId =getApplication(). getResources().getIdentifier("navigation_bar_height", "dimen", "android");
             if (navigationId > 0) {
-                navigationBarH = getResources().getDimensionPixelSize(navigationId);
+                navigationBarH =getApplication(). getResources().getDimensionPixelSize(navigationId);
             }
         }
     }
@@ -147,52 +189,6 @@ public abstract class BaseApplication extends MultiDexApplication {
         });
     }
 
-    private ActivityLifecycleCallbacks mCallbacks = new ActivityLifecycleCallbacks() {
-
-        @Override
-        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-            //LogUtil.d("Activity-onActivityCreated = " + activity.getClass().getName());
-            activities.add(activity);
-        }
-
-        @Override
-        public void onActivityStarted(Activity activity) {
-            mActivityCount++;
-            if (mActivityCount == 1) {
-                appBackground(false, activity);
-                isRun = true;
-            }
-            softReference = null;
-            softReference = new SoftReference<>(activity);
-        }
-
-        @Override
-        public void onActivityResumed(Activity activity) {
-        }
-
-        @Override
-        public void onActivityPaused(Activity activity) {
-        }
-
-        @Override
-        public void onActivityStopped(Activity activity) {
-            mActivityCount--;
-            if (mActivityCount == 0) {
-                appBackground(true, activity);
-                isRun = false;
-            }
-        }
-
-        @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-        }
-
-        @Override
-        public void onActivityDestroyed(Activity activity) {
-            //LogUtil.d("Activity-onActivityDestroyed = " + activity.getClass().getName());
-            activities.remove(activity);
-        }
-    };
 
 
 

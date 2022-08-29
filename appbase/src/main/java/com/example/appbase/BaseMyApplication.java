@@ -1,6 +1,7 @@
 package com.example.appbase;
 
-import android.app.Activity;
+import android.app.Application;
+import android.content.Intent;
 
 import com.juntai.disabled.basecomponent.app.BaseApplication;
 
@@ -10,10 +11,10 @@ import com.juntai.disabled.basecomponent.app.BaseApplication;
  * @UpdateUser: 更新者
  */
 public class BaseMyApplication extends BaseApplication {
-    @Override
-    public void appBackground(boolean isBackground, Activity activity) {
-
+    public BaseMyApplication(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
+        super(application, tinkerFlags, tinkerLoadVerifyFlag, applicationStartElapsedTime, applicationStartMillisTime, tinkerResultIntent);
     }
+
 
     @Override
     public void onCreate() {

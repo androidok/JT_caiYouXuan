@@ -39,7 +39,7 @@ public class LabelPresenter extends BasePresenter<IModel, LabelContract.ILabelVi
         }
         IView finalViewCallBack = viewCallBack;
 //        AppNetModule.createrRetrofit()
-//                .getAllLabelList(MyApp.isLogin()? MyApp.getUid()+"" : null)
+//                .getAllLabelList(SampleApplicationLike.isLogin()? SampleApplicationLike.getUid()+"" : null)
 //                .compose(RxScheduler.ObsIoMain(viewCallBack))
 //                .subscribe(new BaseObserver<LabelListBean>(null) {
 //                    @Override
@@ -70,7 +70,7 @@ public class LabelPresenter extends BasePresenter<IModel, LabelContract.ILabelVi
         IView finalViewCallBack = viewCallBack;
 
 //        AppNetModule.createrRetrofit()
-//                .updateUserLabel(MyApp.getUid(), ids)
+//                .updateUserLabel(SampleApplicationLike.getUid(), ids)
 //                .compose(RxScheduler.ObsIoMain(viewCallBack))
 //                .subscribe(new BaseObserver<BaseResult>(viewCallBack) {
 //                    @Override
