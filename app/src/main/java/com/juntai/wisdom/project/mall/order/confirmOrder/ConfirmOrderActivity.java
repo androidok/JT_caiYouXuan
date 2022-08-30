@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.appbase.bean.order.ConfirmOrderBean;
 import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.appbase.bean.order.OrderDetailBean;
 import com.example.appbase.util.CalendarUtil;
@@ -146,22 +147,20 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
         switch (tag) {
             case AppHttpPath.COMMIT_ORDER:
                 // : 2022/5/11 跳转到选择支付方式的界面
-                startActivity(new Intent(mContext, PaySuccessActivity.class).putExtra(BASE_PARCELABLE, orderDetailBe));
-                finish();
-//                ConfirmOrderBean orderListBean = (ConfirmOrderBean) o;
-//                if (orderListBean != null) {
-//                    orderListBean.setTotalPrice(dataBean.getTotalPrice());
-//                    orderListBean.setTotalCommodityNum(dataBean.getTotalCommodityNum());
-//                    List<OrderDetailBean> orderDetailBeans = orderListBean.getData();
-//                    if (orderDetailBeans != null && orderDetailBeans.size() > 0) {
-//                        orderDetailBe = orderDetailBeans.get(0);
-//                        mPresenter.payByPubAccount(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_PUB_ACCOUNT);
-//                    } else {
-//                        ToastUtils.toast(mContext, "订单提交异常");
-//                    }
-//
-//
-//                }
+                ConfirmOrderBean orderListBean = (ConfirmOrderBean) o;
+                if (orderListBean != null) {
+                    orderListBean.setTotalPrice(dataBean.getTotalPrice());
+                    orderListBean.setTotalCommodityNum(dataBean.getTotalCommodityNum());
+                    List<OrderDetailBean> orderDetailBeans = orderListBean.getData();
+                    if (orderDetailBeans != null && orderDetailBeans.size() > 0) {
+                        orderDetailBe = orderDetailBeans.get(0);
+                        mPresenter.payByPubAccount(getBaseBuilder().add("orderNumber", orderDetailBe.getTotalOrderFormNumber()).build(), AppHttpPath.ORDER_PAY_PUB_ACCOUNT);
+                    } else {
+                        ToastUtils.toast(mContext, "订单提交异常");
+                    }
+
+
+                }
                 break;
             case AppHttpPath.ORDER_PAY_PUB_ACCOUNT:
                 startActivity(new Intent(mContext, PaySuccessActivity.class).putExtra(BASE_PARCELABLE, orderDetailBe));

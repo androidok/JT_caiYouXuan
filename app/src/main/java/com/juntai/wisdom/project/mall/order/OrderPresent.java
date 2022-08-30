@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.support.v4.app.FragmentActivity;
 
+import com.example.appbase.bean.order.ConfirmOrderBean;
 import com.example.appbase.bean.order.OrderDetailDataBean;
 import com.example.appbase.bean.order.OrderListBean;
 import com.example.appbase.bean.order.OrderPayWxBean;
@@ -70,9 +71,9 @@ public class OrderPresent extends BaseAppMallPresent {
         AppNetModule.createrRetrofit()
                 .commitOrder(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                .subscribe(new BaseObserver<ConfirmOrderBean>(getView()) {
                     @Override
-                    public void onSuccess(BaseResult o) {
+                    public void onSuccess(ConfirmOrderBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

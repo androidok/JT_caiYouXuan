@@ -25,6 +25,7 @@ import com.example.appbase.bean.nong_fa_manager.SchoolListBean;
 import com.example.appbase.bean.nong_fa_manager.ShopManagerDetailBean;
 import com.example.appbase.bean.nong_fa_manager.ShopManagerListBean;
 import com.example.appbase.bean.nong_fa_manager.SortDetailBean;
+import com.example.appbase.bean.order.ConfirmOrderBean;
 import com.example.appbase.bean.order.CreatOrderBean;
 import com.example.appbase.bean.order.OrderDetailDataBean;
 import com.example.appbase.bean.order.OrderListBean;
@@ -274,7 +275,7 @@ public interface AppServer {
     Observable<CreatOrderBean> creatOrderBuy(@Body RequestBody requestBody);
 
     @POST(AppHttpPath.COMMIT_ORDER)
-    Observable<BaseResult> commitOrder(@Body RequestBody requestBody);
+    Observable<ConfirmOrderBean> commitOrder(@Body RequestBody requestBody);
 
     @POST(AppHttpPath.CANCEL_ORDER)
     Observable<BaseResult> cancelOrder(@Body RequestBody requestBody);
