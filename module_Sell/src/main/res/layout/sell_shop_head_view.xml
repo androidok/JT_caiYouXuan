@@ -13,13 +13,25 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:src="@mipmap/homepage_mall_logo"
+            android:id="@+id/app_logo_iv"
+            android:layout_width="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/app_icon"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="放心食品供应平台"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/app_logo_iv"
+            app:layout_constraintLeft_toRightOf="@+id/app_logo_iv"
+            app:layout_constraintTop_toTopOf="@+id/app_logo_iv" />
 
         <ImageView
             android:id="@+id/share_shop_iv"

@@ -246,6 +246,10 @@ public class ShopPresent extends BaseAppMallPresent {
      */
     public List<MultipleItem> getShopManagerData(ShopDetailSellBean.DataBean bean, boolean isDetail) {
         List<MultipleItem> arrays = new ArrayList<>();
+
+        if (bean != null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_NOTICE, "注意:修改店铺简介、地址、联系方式、截单时间不需要提交申请,修改后即可生效。"));
+        }
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.SHOP_PIC, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_HEAD_PIC,
@@ -254,16 +258,32 @@ public class ShopPresent extends BaseAppMallPresent {
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SHOP_NAME, bean == null ? "" :
                         bean.getName()
                 , true, 0, isDetail);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SHOP_INTRODUCTION, bean == null ? "" :
-                bean.getIntroduction(), true, 1, isDetail);
+
+        if (bean == null) {
+            initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SHOP_INTRODUCTION, "", true, 1, isDetail);
+        } else {
+            initTextType(arrays, MultipleItem.ITEM_TEXT, HomePageContract.SHOP_INTRODUCTION,
+                    bean.getIntroduction(), true, 1, isDetail);
+        }
+
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_LOCATION, new LocationBean(bean == null ? null :
                 bean.getGpsAddress()
                 , bean == null ? null : bean.getLatitude(), bean == null ? null : bean.getLongitude())));
-        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SHOP_TEL, bean == null ? "" :
-                        bean.getPhoneNumber()
-                , true, 0, isDetail);
+        if (bean == null) {
+            initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SHOP_TEL, ""
+                    , true, 0, isDetail);
+        } else {
+            initTextType(arrays, MultipleItem.ITEM_TEXT, HomePageContract.SHOP_TEL,
+                    bean.getPhoneNumber()
+                    , true, 0, isDetail);
+        }
+
+
         initTextSelectType(arrays, HomePageContract.SHOP_CATEGORY, bean == null ? "" : TextUtils.join(",", bean.getCategoryList()), bean == null ? "" : bean.getCategory(), true);
+
+        initTextSelectType(arrays, HomePageContract.SHOP_ORDER_START_TIME, "", bean == null ? "" : bean.getStartTime(), true);
+        initTextSelectType(arrays, HomePageContract.SHOP_ORDER_END_TIME, "", bean == null ? "" : bean.getEndTime(), true);
 
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_REAL_NAME, bean == null ? "" :
                         bean.getRealName()

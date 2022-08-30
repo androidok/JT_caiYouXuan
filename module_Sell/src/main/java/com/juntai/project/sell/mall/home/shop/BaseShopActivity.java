@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.EditDialog;
 import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.example.appbase.bean.SellCommodityDetailBean;
@@ -115,7 +116,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
             for (String icon : icons) {
                 if (!icon.contains("www.juntaikeji")) {
                     localPics.add(icon);
-                }else {
+                } else {
                     olderPics.add(icon);
                 }
             }
@@ -148,10 +149,10 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                 ToastUtils.toast(mContext, msg);
                             }
                         });
-            }else {
+            } else {
                 itemFragmentBean.setFragmentPics(olderPics);
             }
-        }else {
+        } else {
             // : 2022/6/10 删没了
             itemFragmentBean.setFragmentPics(null);
         }
@@ -176,7 +177,31 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                 MultipleItem multipleItem = (MultipleItem) adapter.getData().get(position);
 
                 int id = view.getId();
-                if (id == R.id.form_pic_src_iv || id == R.id.form_head_pic_iv) {
+                if (id == R.id.edit_iv) {
+                    //编辑文本信息
+                    TextKeyValueBean textBean = (TextKeyValueBean) multipleItem.getObject();
+                    new EditDialog(mContext).builder()
+                            .setCanceledOnTouchOutside(false)
+                            .setTitle(textBean.getKey())
+                            .setContent(textBean.getValue())
+                            .setOnConfirmListener("", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    switch (textBean.getKey()) {
+                                        case HomePageContract.SHOP_INTRODUCTION:
+                                            // TODO: 2022/8/30 设置店铺简介
+                                            break;
+                                        case HomePageContract.SHOP_TEL:
+                                            // TODO: 2022/8/30 设置店铺联系方式
+
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            }).show();
+
+                } else if (id == R.id.form_pic_src_iv || id == R.id.form_head_pic_iv) {
                     choseImage(0, BaseShopActivity.this, 1);
                 } else if (id == R.id.action_img) {
                     choseImage(0, BaseShopActivity.this, 9);
@@ -392,7 +417,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
                                 break;
                             case HomePageContract.SHOP_CARD:
-                                if (photos.size()!=3) {
+                                if (photos.size() != 3) {
                                     ToastUtils.toast(mContext, "商家证件一共需要上传3张图片");
 
                                     return null;
@@ -415,7 +440,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                 }
                                 break;
                             case HomePageContract.Q_CARD:
-                                if (photos.size()<1) {
+                                if (photos.size() < 1) {
                                     ToastUtils.toast(mContext, "请上传产品检测检疫等合格证件");
                                     return null;
                                 }
@@ -527,7 +552,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                             commodityDetailBean.setName(textValue);
                             break;
                         case HomePageContract.COMMODITY_PRICE:
-                            commodityDetailBean.setPrice("暂无".equals(textValue)?Double.parseDouble("0.0"):Double.parseDouble(textValue));
+                            commodityDetailBean.setPrice("暂无".equals(textValue) ? Double.parseDouble("0.0") : Double.parseDouble(textValue));
                             break;
                     }
                     break;

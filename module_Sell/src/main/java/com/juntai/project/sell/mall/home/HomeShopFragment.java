@@ -156,6 +156,8 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         mSearchLl = (LinearLayout) view.findViewById(R.id.search_ll);
         mSystemNoticeLl = (LinearLayout) view.findViewById(R.id.system_notice_ll);
         mShareShopIv = (ImageView) view.findViewById(R.id.share_shop_iv);
+        ImageView mAppLogoIv = (ImageView) view.findViewById(R.id.app_logo_iv);
+        ImageLoadUtil.loadSquareImage(mContext,R.mipmap.app_icon,mAppLogoIv);
         mShareShopIv.setOnClickListener(this);
         // TODO: 2022/7/7 暂时将分享店铺隐藏
         mShareShopIv.setVisibility(View.GONE);

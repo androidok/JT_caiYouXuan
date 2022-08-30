@@ -1,4 +1,4 @@
-package com.juntai.disabled.basecomponent.base;
+package com.example.appbase.base;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,48 +12,50 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.juntai.disabled.basecomponent.R;
+import com.example.appbase.R;
 
 
 /**
- * @description 提示弹窗
- * @date 2020-7-27
+ * @aouther tobato
+ * @description 描述  编辑的弹窗
+ * @date 2022/8/30 14:27
  */
-public class WarnDialog {
+public class EditDialog {
     TextView titleTv;
     TextView contentTv;
-    TextView cancelBtn;
-    TextView okBtn;
+    TextView mConfirmTv;
 
     private Context context;
     private Dialog dialog;
     private LinearLayout lLayout_bg;
     private DisplayMetrics display;
 
-    public WarnDialog(Context context) {
+    public EditDialog(Context context) {
         this.context = context;
         WindowManager windowManager = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
         display = context.getResources().getDisplayMetrics();
     }
 
-    public WarnDialog builder() {
+    public EditDialog builder() {
         // 获取Dialog布局
         View view = LayoutInflater.from(context).inflate(
-                R.layout.view_agreement_dialog, null);
+                R.layout.base_edit_dialog, null);
 
         // 获取自定义Dialog布局中的控件
         lLayout_bg = (LinearLayout) view.findViewById(R.id.lLayout_bg);
-        contentTv = view.findViewById(R.id.content_tv);
-        cancelBtn = view.findViewById(R.id.cancel_btn);
-        okBtn = view.findViewById(R.id.ok_btn);
-        titleTv = view.findViewById(R.id.title_tv);
-
+        contentTv = view.findViewById(R.id.edit_dialog_content_et);
+        mConfirmTv = view.findViewById(R.id.edit_dialog_confirm_btn);
+        titleTv = view.findViewById(R.id.edit_dialog_title_tv);
+        titleTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         // 定义Dialog布局和参数
-//        dialog = new Dialog(context, R.style.AlertDialogStyle);
         dialog = new Dialog(context,R.style.shop_ActionSheetDialogStyle);
         dialog.setContentView(view);
-//        ScreenAdapterTools.getInstance().loadView(view);
         // 调整dialog背景大小
         lLayout_bg.setLayoutParams(new FrameLayout.LayoutParams((int)(display.widthPixels * 0.8f),
                 LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -65,10 +67,9 @@ public class WarnDialog {
      * 设置提示窗字体样式
      * @return
      */
-    public WarnDialog setTextStyle(){
+    public EditDialog setTextStyle(){
         titleTv.getPaint().setFakeBoldText(true);
-        cancelBtn.getPaint().setFakeBoldText(true);
-        okBtn.getPaint().setFakeBoldText(true);
+        mConfirmTv.getPaint().setFakeBoldText(true);
         contentTv.setTextSize(16);
         contentTv.setAlpha(0.5f);
         contentTv.setGravity(Gravity.CENTER);
@@ -80,7 +81,7 @@ public class WarnDialog {
      * @param title
      * @return
      */
-    public WarnDialog setTitle(String title){
+    public EditDialog setTitle(String title){
         if (TextUtils.isEmpty(title)){
             titleTv.setVisibility(View.GONE);
         }else {
@@ -95,13 +96,8 @@ public class WarnDialog {
      * @param content
      * @return
      */
-    public WarnDialog setContent(String content){
-        if (!TextUtils.isEmpty(content)){
-            contentTv.setVisibility(View.GONE);
-        }else {
-            contentTv.setVisibility(View.VISIBLE);
-            contentTv.setText(content);
-        }
+    public EditDialog setContent(String content){
+        contentTv.setText(content);
         return this;
     }
 
@@ -115,31 +111,11 @@ public class WarnDialog {
      * @param listener
      * @return
      */
-    public WarnDialog setOkButton(String text, final View.OnClickListener listener) {
+    public EditDialog setOnConfirmListener(String text, final View.OnClickListener listener) {
         if (text != null && !text.equals("")){
-            okBtn.setText(text);
+            mConfirmTv.setText(text);
         }
-        okBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                listener.onClick(v);
-            }
-        });
-        return this;
-    }
-
-    /**
-     * 设置取消监听
-     * @param text
-     * @param listener
-     * @return
-     */
-    public WarnDialog setCancelButton(String text, final View.OnClickListener listener) {
-        if (text != null && !text.equals("")){
-            cancelBtn.setText(text);
-        }
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
+        mConfirmTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -154,7 +130,7 @@ public class WarnDialog {
      * @param isCan
      * @return
      */
-    public WarnDialog setCanceledOnTouchOutside(boolean isCan) {
+    public EditDialog setCanceledOnTouchOutside(boolean isCan) {
         dialog.setCanceledOnTouchOutside(isCan);
         dialog.setCancelable(isCan);
         return this;

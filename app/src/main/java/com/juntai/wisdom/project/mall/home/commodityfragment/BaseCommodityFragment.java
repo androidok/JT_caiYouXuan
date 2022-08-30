@@ -144,6 +144,7 @@ public abstract class BaseCommodityFragment extends BaseAppFragment<CommodityPre
                 break;
             case 2:
                 //店铺
+                arrays.add(0, new IdNameBean.DataBean(0, "全部"));
                 ShopDetailBuyBean.DataBean shopBean = Hawk.get(HawkProperty.getShopKey(((ShopActivity) getActivity()).shopId));
                 if (shopBean != null) {
                     List<ShopDetailBuyBean.DataBean.ClassifyListBean> classifyListBeans = shopBean.getClassifyList();

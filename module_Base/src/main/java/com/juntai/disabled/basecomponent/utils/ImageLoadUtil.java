@@ -274,6 +274,10 @@ public class ImageLoadUtil {
     public static void loadSquareImage(Context mContext, String url, ImageView imageView) {
         loadPicToLocalCatch(mContext, url, imageView, R.drawable.empty_pic, false, false);
     }
+    public static void loadSquareImage(Context mContext, int res, ImageView imageView) {
+        Glide.with(mContext).load(res).apply(new RequestOptions()
+                .transform(new RoundedCorners(15)).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)).into(imageView);
+    }
 
     /**
      * 加载方形图片  有圆角

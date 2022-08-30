@@ -61,6 +61,14 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
                                 String.format("%s%s", "请输入", typeName), editHeightType, isImportant, isDetail)));
 
                 break;
+            case MultipleItem.ITEM_TEXT:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean(typeName,
+                        isImportant)));
+                arrays.add(new MultipleItem(MultipleItem.ITEM_TEXT,
+                        new TextKeyValueBean(typeName, value,
+                                String.format("%s%s", "请输入", typeName), editHeightType, isImportant, isDetail)));
+
+                break;
             case MultipleItem.ITEM_EDIT2:
                 arrays.add(new MultipleItem(MultipleItem.ITEM_EDIT2,
                         new TextKeyValueBean(typeName, value,

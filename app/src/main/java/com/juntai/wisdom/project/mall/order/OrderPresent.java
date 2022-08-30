@@ -4,18 +4,17 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.support.v4.app.FragmentActivity;
 
+import com.example.appbase.bean.order.OrderDetailDataBean;
+import com.example.appbase.bean.order.OrderListBean;
+import com.example.appbase.bean.order.OrderPayWxBean;
+import com.example.appbase.bean.order.OrderPayZfbBean;
+import com.example.appbase.bean.order.RefundReasonBean;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.video.record.VideoPreviewActivity;
 import com.juntai.wisdom.project.mall.base.BaseAppMallPresent;
-import com.example.appbase.bean.order.ConfirmOrderBean;
-import com.example.appbase.bean.order.OrderDetailDataBean;
-import com.example.appbase.bean.order.OrderListBean;
-import com.example.appbase.bean.order.OrderPayWxBean;
-import com.example.appbase.bean.order.OrderPayZfbBean;
-import com.example.appbase.bean.order.RefundReasonBean;
 import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
 import com.mabeijianxi.smallvideorecord2.model.MediaRecorderConfig;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -71,9 +70,9 @@ public class OrderPresent extends BaseAppMallPresent {
         AppNetModule.createrRetrofit()
                 .commitOrder(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<ConfirmOrderBean>(getView()) {
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override
-                    public void onSuccess(ConfirmOrderBean o) {
+                    public void onSuccess(BaseResult o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -248,7 +247,7 @@ public class OrderPresent extends BaseAppMallPresent {
         AppNetModule.createrRetrofit()
                 .getOrderList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<OrderListBean>(getView()) {
+                .subscribe(new BaseObserver<OrderListBean>(null) {
                     @Override
                     public void onSuccess(OrderListBean o) {
                         if (getView() != null) {

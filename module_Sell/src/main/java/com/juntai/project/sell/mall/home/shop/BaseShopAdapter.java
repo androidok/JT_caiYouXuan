@@ -285,11 +285,10 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 });
                 break;
             case MultipleItem.ITEM_TEXT:
-//                BaseStringBean baseStringBean = (BaseStringBean) item.getObject();
-////                String des = mContext.getString(R.string.test);
-//                TextView textView = helper.getView(R.id.single_text_tv);
-//                helper.setText(R.id.single_text_tv, baseStringBean.getContent());
-//                textView.setGravity(baseStringBean.getGrivityType());
+                TextKeyValueBean textValueBean = (TextKeyValueBean) item.getObject();
+                TextView textView = helper.getView(R.id.single_text_tv);
+                helper.addOnClickListener(R.id.edit_iv);
+                helper.setText(R.id.single_text_tv, textValueBean.getValue());
                 break;
             case MultipleItem.ITEM_HEAD_PIC:
                 helper.addOnClickListener(R.id.form_head_pic_iv);

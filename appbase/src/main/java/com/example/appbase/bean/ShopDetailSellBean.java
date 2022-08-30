@@ -78,6 +78,8 @@ public class ShopDetailSellBean extends BaseResult {
         private String gpsAddress;
         private String longitude;
         private String latitude;
+        private String startTime;
+        private String endTime;
         private String businessLicense;
         private String idPositive;
         private String idSide;
@@ -91,6 +93,22 @@ public class ShopDetailSellBean extends BaseResult {
         private List<String> shopImgList;
         private List<Integer> categoryList;
         private List<ClassifyListBean> classifyList;
+
+        public String getStartTime() {
+            return startTime == null ? "" : startTime;
+        }
+
+        public void setStartTime(String startTime) {
+            this.startTime = startTime == null ? "" : startTime;
+        }
+
+        public String getEndTime() {
+            return endTime == null ? "" : endTime;
+        }
+
+        public void setEndTime(String endTime) {
+            this.endTime = endTime == null ? "" : endTime;
+        }
 
         public int getCommodityCount() {
             return commodityCount;
@@ -464,6 +482,8 @@ public class ShopDetailSellBean extends BaseResult {
             dest.writeString(this.gpsAddress);
             dest.writeString(this.longitude);
             dest.writeString(this.latitude);
+            dest.writeString(this.startTime);
+            dest.writeString(this.endTime);
             dest.writeString(this.businessLicense);
             dest.writeString(this.idPositive);
             dest.writeString(this.idSide);
@@ -497,6 +517,8 @@ public class ShopDetailSellBean extends BaseResult {
             this.gpsAddress = in.readString();
             this.longitude = in.readString();
             this.latitude = in.readString();
+            this.startTime = in.readString();
+            this.endTime = in.readString();
             this.businessLicense = in.readString();
             this.idPositive = in.readString();
             this.idSide = in.readString();

@@ -20,6 +20,8 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import java.util.List;
 
+import okhttp3.FormBody;
+
 /**
  * @Author: tobato
  * @Description: 作用描述  店铺里面的商品列表
@@ -118,12 +120,15 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
     @Override
     protected void getRvAdapterData() {
         // : 2022/5/8 获取店铺内所有的商品信息
-
-        mPresenter.getShopCommodityList(getBaseAppActivity().getBaseBuilderWithoutParama()
+        FormBody.Builder builder = getBaseAppActivity().getBaseBuilderWithoutParama()
                 .add("shopId", String.valueOf(((ShopActivity) getActivity()).shopId))
                 .add("page",String.valueOf(page))
-                .add("limit",String.valueOf(limit))
-                .add("classifyId", String.valueOf(labelId)).build(), AppHttpPath.SHOP_COMMODITY_LIST);
+                .add("limit",String.valueOf(limit));
+        if (0==labelId) {
+            mPresenter.getShopCommodityList(builder.build(), AppHttpPath.SHOP_COMMODITY_LIST);
+        }else {
+            mPresenter.getShopCommodityList(builder.add("classifyId", String.valueOf(labelId)).build(), AppHttpPath.SHOP_COMMODITY_LIST);
+        }
 
     }
 

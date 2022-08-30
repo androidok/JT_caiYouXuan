@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.appbase.scan.QRScanActivity;
+import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
@@ -36,6 +37,8 @@ public class HomeCommodityFragment extends BaseAppFragment<HomePagePresent> impl
     protected void initView() {
         mSearchLl = (LinearLayout) getView(R.id.search_ll);
         mSwitchModeIv = (ImageView) getView(R.id.switch_mode_iv);
+        ImageView mAppLogoIv = (ImageView) getView(R.id.app_logo_iv);
+        ImageLoadUtil.loadSquareImage(mContext, R.mipmap.app_icon,mAppLogoIv);
         mSwitchModeIv.setOnClickListener(this);
         mSearchLl.setOnClickListener(this);
         getView(R.id.scan_iv).setOnClickListener(this);

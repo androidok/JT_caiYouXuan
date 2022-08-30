@@ -66,6 +66,8 @@ public interface HomePageContract {
     String SHOP_INTRODUCTION = "店铺简介";
     String SHOP_ADDR = "店铺定位及地址";
     String SHOP_TEL = "店铺联系方式";
+    String SHOP_ORDER_START_TIME = "截单开始时间";
+    String SHOP_ORDER_END_TIME = "截单结束时间";
     String SHOP_CATEGORY = "店铺主营类目";
     String SHOP_LICENSE = "营业执照";
     String ID_CARD_FRONT = "身份证正面";

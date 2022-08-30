@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.BaseRecyclerviewFragment;
@@ -13,6 +14,7 @@ import com.example.module_nongfa_manager.home.commodityManager.CommodityManagerA
 import com.example.module_nongfa_manager.home.orderManager.NFOrderManagerActivity;
 import com.example.module_nongfa_manager.home.shopManager.ShopesManagerActivity;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
+import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +91,10 @@ public class NFHomeFragment extends BaseRecyclerviewFragment {
     @Override
     protected View getAdapterHeadView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.nf_manager_home_head, null);
+
+        ImageView appIconTv = view.findViewById(R.id.app_logo_iv);
+        ImageLoadUtil.loadSquareImage(mContext,R.mipmap.app_icon,appIconTv);
+
         return view;
     }
 
