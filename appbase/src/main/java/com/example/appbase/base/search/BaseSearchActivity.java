@@ -49,7 +49,7 @@ public abstract class BaseSearchActivity<P extends BasePresenter> extends BaseRe
                     return true;
                 }
                 commitSearch(s);
-                getViewFocus(mRecyclerview);
+//                getViewFocus(mRecyclerview);
                 return false;
             }
 

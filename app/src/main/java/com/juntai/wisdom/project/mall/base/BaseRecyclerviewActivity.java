@@ -88,7 +88,7 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
         if (enableRefresh()) {
             mSmartrefreshlayout.finishRefresh();
         }
-        getViewFocus(mRecyclerview);
+//        getViewFocus(mRecyclerview);
     }
 
 
@@ -106,7 +106,7 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
     public void setData(List data, int totalAmount) {
         boolean isEnd = false;
         final int size = data == null ? 0 : data.size();
-        if (page == 0) {
+        if (page == 1) {
             baseQuickAdapter.setNewData(data);
             mRecyclerview.scrollToPosition(0);
         } else {

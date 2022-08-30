@@ -63,7 +63,7 @@ public class CommodityPresent extends BaseAppPresent<IModel, IView> {
         AppNetModule.createrRetrofit()
                 .getCommodityRecommendList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<CommodityDesListBean>(getView()) {
+                .subscribe(new BaseObserver<CommodityDesListBean>(null) {
                     @Override
                     public void onSuccess(CommodityDesListBean o) {
                         if (getView() != null) {

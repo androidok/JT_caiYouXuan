@@ -98,7 +98,7 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
         if (enableRefresh()) {
             mSmartrefreshlayout.finishRefresh();
         }
-        getViewFocus(mRecyclerview);
+//        getViewFocus(mRecyclerview);
     }
 
 

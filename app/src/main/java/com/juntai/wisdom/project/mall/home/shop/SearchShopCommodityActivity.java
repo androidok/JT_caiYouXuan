@@ -33,6 +33,7 @@ public class SearchShopCommodityActivity extends BaseSearchActivity<ShopPresent>
         super.onCreate(savedInstanceState);
 
         shopId = getIntent().getIntExtra(BASE_ID,0);
+        baseQuickAdapter.setEmptyView(getAdapterEmptyView("没有搜索到相关商品",-1));
     }
 
     @Override

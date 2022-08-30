@@ -109,7 +109,7 @@ public abstract class BaseRecyclerviewFragment<P extends IPresenter> extends Bas
         if (enableRefresh()) {
             mSmartrefreshlayout.finishRefresh();
         }
-        getBaseActivity().getViewFocus(mRecyclerview);
+//        getBaseActivity().getViewFocus(mRecyclerview);
     }
 
 

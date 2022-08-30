@@ -226,7 +226,7 @@ public class OrderPresent extends BaseAppMallPresent {
         AppNetModuleMall.createrRetrofit()
                 .getOrderList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<SellOrderListBean>(getView()) {
+                .subscribe(new BaseObserver<SellOrderListBean>(null) {
                     @Override
                     public void onSuccess(SellOrderListBean o) {
                         if (getView() != null) {

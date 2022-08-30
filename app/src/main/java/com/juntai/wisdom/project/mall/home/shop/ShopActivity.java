@@ -90,6 +90,8 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         mShopCollectIv.setOnClickListener(this);
         findViewById(R.id.scan_iv).setOnClickListener(this);
         findViewById(R.id.search_ll).setOnClickListener(this);
+        TextView searchTv = findViewById(R.id.search_content_tv);
+        searchTv.setHint("搜索你想要的商品");
         mShopShareIv = (ImageView) findViewById(R.id.shop_share_iv);
         mShopShareIv.setOnClickListener(this);
         mTopCl = (ConstraintLayout) findViewById(R.id.top_cl);

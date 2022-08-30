@@ -22,7 +22,7 @@ public class ShopPresent extends BaseAppMallPresent {
         AppNetModule.createrRetrofit()
                 .getShopCommodityList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<ShopCommodityListBean>(getView()) {
+                .subscribe(new BaseObserver<ShopCommodityListBean>(null) {
                     @Override
                     public void onSuccess(ShopCommodityListBean o) {
                         if (getView() != null) {

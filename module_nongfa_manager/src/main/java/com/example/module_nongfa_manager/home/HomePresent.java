@@ -27,7 +27,7 @@ public class HomePresent extends BaseAppPresent<IModel, IView> {
         AppNetModule.createrRetrofit()
                 .getNfOrderList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<SellOrderListBean>(getView()) {
+                .subscribe(new BaseObserver<SellOrderListBean>(null) {
                     @Override
                     public void onSuccess(SellOrderListBean o) {
                         if (getView() != null) {
@@ -48,7 +48,7 @@ public class HomePresent extends BaseAppPresent<IModel, IView> {
         AppNetModule.createrRetrofit()
                 .getManagerCommodityList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<CommodityManagerListBean>(getView()) {
+                .subscribe(new BaseObserver<CommodityManagerListBean>(null) {
                     @Override
                     public void onSuccess(CommodityManagerListBean o) {
                         if (getView() != null) {
@@ -69,7 +69,7 @@ public class HomePresent extends BaseAppPresent<IModel, IView> {
         AppNetModule.createrRetrofit()
                 .getManagerShopList(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<ShopManagerListBean>(getView()) {
+                .subscribe(new BaseObserver<ShopManagerListBean>(null) {
                     @Override
                     public void onSuccess(ShopManagerListBean o) {
                         if (getView() != null) {
