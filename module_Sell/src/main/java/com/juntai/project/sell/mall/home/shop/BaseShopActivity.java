@@ -527,7 +527,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                             commodityDetailBean.setName(textValue);
                             break;
                         case HomePageContract.COMMODITY_PRICE:
-                            commodityDetailBean.setPrice(Double.parseDouble(textValue));
+                            commodityDetailBean.setPrice("暂无".equals(textValue)?Double.parseDouble("0.0"):Double.parseDouble(textValue));
                             break;
                     }
                     break;
