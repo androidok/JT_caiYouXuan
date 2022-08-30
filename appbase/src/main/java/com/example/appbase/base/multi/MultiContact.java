@@ -20,7 +20,8 @@ public interface MultiContact {
 
 
 
-
+    String SHOP_ORDER_START_TIME = "截单开始时间";
+    String SHOP_ORDER_END_TIME = "截单结束时间";
 
     String COMMODITY_PROVIDER = "供货商";
     String COMMODITY_RESTOC_TIME = "进货时间";

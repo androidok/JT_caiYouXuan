@@ -6,12 +6,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.EditDialog;
 import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
+import com.example.appbase.base.sendcode.SendCodeModel;
 import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.example.appbase.bean.SellCommodityDetailBean;
 import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
@@ -45,7 +47,10 @@ import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -70,6 +75,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     private String address;
     private TextView mSelectTv;
     private TextKeyValueBean selectBean;
+    private EditDialog editDialog;
 
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {
@@ -180,20 +186,45 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                 if (id == R.id.edit_iv) {
                     //编辑文本信息
                     TextKeyValueBean textBean = (TextKeyValueBean) multipleItem.getObject();
-                    new EditDialog(mContext).builder()
-                            .setCanceledOnTouchOutside(false)
+                    if (editDialog == null) {
+                        editDialog = new EditDialog(mContext).builder();
+                    }
+                    editDialog.setCanceledOnTouchOutside(false)
                             .setTitle(textBean.getKey())
                             .setContent(textBean.getValue())
                             .setOnConfirmListener("", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    EditText editText = (EditText) v;
+                                    String content = editText.getText().toString().trim();
                                     switch (textBean.getKey()) {
                                         case HomePageContract.SHOP_INTRODUCTION:
-                                            // TODO: 2022/8/30 设置店铺简介
+                                            // : 2022/8/30 设置店铺简介
+                                            textBean.setValue(content);
+                                            adapter.notifyItemChanged(position);
+                                            mPresenter.updateShopInfo(getBaseBuilder()
+                                                    .add("userAccount", UserInfoManager.getAccount())
+                                                    .add("id", String.valueOf(UserInfoManagerMall.getShopId()))
+
+                                                    .add("introduction", content).build(), AppHttpPathMall.UPDATE_SHOP_INFO
+
+                                            );
                                             break;
                                         case HomePageContract.SHOP_TEL:
-                                            // TODO: 2022/8/30 设置店铺联系方式
+                                            // : 2022/8/30 设置店铺联系方式
+                                            if (!SendCodeModel.isMobileNO(content)) {
+                                                ToastUtils.toast(mContext, "手机号格式错误");
+                                                return;
+                                            }
+                                            textBean.setValue(content);
+                                            adapter.notifyItemChanged(position);
+                                            mPresenter.updateShopInfo(getBaseBuilder()
+                                                    .add("userAccount", UserInfoManager.getAccount())
+                                                    .add("id", String.valueOf(UserInfoManagerMall.getShopId()))
 
+                                                    .add("phoneNumber", content).build(), AppHttpPathMall.UPDATE_SHOP_INFO
+
+                                            );
                                             break;
                                         default:
                                             break;
@@ -224,6 +255,62 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                     String time = CalendarUtil.getCurrentTime("yyyy-MM-dd", date);
                                     mSelectTv.setText(time);
                                     selectBean.setValue(time);
+                                }
+                            });
+                            break;
+                        case HomePageContract.SHOP_ORDER_START_TIME:
+                            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                            Calendar startCalendar = Calendar.getInstance();
+                            try {
+                                startCalendar.setTime(sdf.parse("06:00:00"));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            PickerManager.getInstance().showTimePickerView(mContext, new boolean[]{false, false, false, true, true, true}, "截单开始时间", startCalendar, new PickerManager.OnTimePickerTimeSelectedListener() {
+                                @Override
+                                public void onTimeSelect(Date date, View v) {
+                                    String time = CalendarUtil.getCurrentTime("HH:mm:ss", date);
+                                    mSelectTv.setText(time);
+                                    selectBean.setValue(time);
+                                    String endTime = getStartEndTime(1);
+                                    if (!TextUtils.isEmpty(endTime)&&UserInfoManagerMall.getShopId()>0) {
+                                        mPresenter.updateShopInfo(getBaseBuilder()
+                                                .add("id", String.valueOf(UserInfoManagerMall.getShopId()))
+                                                .add("userAccount", UserInfoManager.getAccount())
+                                                .add("endTime", endTime)
+                                                .add("startTime", time).build(), AppHttpPathMall.UPDATE_SHOP_INFO
+
+                                        );
+                                    }
+
+                                }
+                            });
+                            break;
+                        case HomePageContract.SHOP_ORDER_END_TIME:
+                            SimpleDateFormat sdfEnd = new SimpleDateFormat("HH:mm:ss");
+                            Calendar endCalendar = Calendar.getInstance();
+                            try {
+                                endCalendar.setTime(sdfEnd.parse("20:00:00"));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            PickerManager.getInstance().showTimePickerView(mContext, new boolean[]{false, false, false, true, true, true}, "截单结束时间", endCalendar, new PickerManager.OnTimePickerTimeSelectedListener() {
+                                @Override
+                                public void onTimeSelect(Date date, View v) {
+                                    String time = CalendarUtil.getCurrentTime("HH:mm:ss", date);
+                                    mSelectTv.setText(time);
+                                    selectBean.setValue(time);
+                                    String startTime = getStartEndTime(0);
+                                    if (!TextUtils.isEmpty(startTime)&&UserInfoManagerMall.getShopId()>0) {
+                                        mPresenter.updateShopInfo(getBaseBuilder()
+                                                .add("id", String.valueOf(UserInfoManagerMall.getShopId()))
+                                                .add("userAccount", UserInfoManager.getAccount())
+                                                .add("startTime", startTime)
+                                                .add("endTime", time).build(), AppHttpPathMall.UPDATE_SHOP_INFO
+
+                                        );
+                                    }
+
                                 }
                             });
                             break;
@@ -286,13 +373,58 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
             if (MultipleItem.ITEM_LOCATION == array.getItemType()) {
                 //定位
                 LocationBean locationBean = (LocationBean) array.getObject();
+                if (!TextUtils.isEmpty(locationBean.getAddress())&&UserInfoManagerMall.getShopId()>0) {
+                    // : 2022/8/30  调用更改地址的接口
+                    mPresenter.updateShopInfo(getBaseBuilder()
+                            .add("id", String.valueOf(UserInfoManagerMall.getShopId()))
+                            .add("userAccount", UserInfoManager.getAccount())
+                            .add("longitude", String.valueOf(lng))
+                            .add("latitude", String.valueOf(lat))
+                            .add("gpsAddress", address).build(), AppHttpPathMall.UPDATE_SHOP_INFO
+
+                    );
+                }
                 locationBean.setAddress(address);
                 locationBean.setLatitude(String.valueOf(lat));
                 locationBean.setLongitude(String.valueOf(lng));
                 baseQuickAdapter.notifyItemChanged(i);
+
+
                 break;
             }
         }
+    }
+
+    /**
+     * 获取截单开始结束时间
+     * <p>
+     * 0 开始
+     *
+     * @return
+     */
+    private String getStartEndTime(int type) {
+        String time = null;
+        List<MultipleItem> arrays = baseQuickAdapter.getData();
+        for (int i = 0; i < arrays.size(); i++) {
+            MultipleItem array = arrays.get(i);
+            if (MultipleItem.ITEM_SELECT == array.getItemType()) {
+                TextKeyValueBean textKeyValueBean = (TextKeyValueBean) array.getObject();
+                String key = textKeyValueBean.getKey();
+                String value = textKeyValueBean.getValue();
+                if (0 == type) {
+                    if (HomePageContract.SHOP_ORDER_START_TIME.equals(key)) {
+                        time = value;
+                        break;
+                    }
+                }else {
+                    if (HomePageContract.SHOP_ORDER_END_TIME.equals(key)) {
+                        time = value;
+                        break;
+                    }
+                }
+            }
+        }
+        return time;
     }
 
     @Override
@@ -556,6 +688,24 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                             break;
                     }
                     break;
+                case MultipleItem.ITEM_TEXT:
+                    TextKeyValueBean textBean = (TextKeyValueBean) array
+                            .getObject();
+                    String value = textBean.getValue();
+                    if (textBean.isImportant() && TextUtils.isEmpty(value)) {
+                        String key = textBean.getKey();
+                        ToastUtils.toast(mContext, "请输入" + key);
+                        return null;
+                    }
+                    switch (textBean.getKey()) {
+                        case HomePageContract.SHOP_INTRODUCTION:
+                            builder.add("introduction", value);
+                            break;
+                        case HomePageContract.SHOP_TEL:
+                            builder.add("phoneNumber", value);
+                            break;
+                    }
+                    break;
 
                 case MultipleItem.ITEM_SELECT:
                     TextKeyValueBean textValueSelectBean = (TextKeyValueBean) array.getObject();
@@ -568,6 +718,12 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                     switch (textValueSelectBean.getKey()) {
                         case HomePageContract.SHOP_CATEGORY:
                             builder.add("category", textSelectValue);
+                            break;
+                        case HomePageContract.SHOP_ORDER_START_TIME:
+                            builder.add("startTime", textValueSelectBean.getValue());
+                            break;
+                        case HomePageContract.SHOP_ORDER_END_TIME:
+                            builder.add("endTime", textValueSelectBean.getValue());
                             break;
                         case HomePageContract.COMMODITY_RESTOC_TIME:
                             sourceBean.setPurchaseTime(textValueSelectBean.getValue());
@@ -631,6 +787,13 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
         super.onSuccess(tag, o);
 
         switch (tag) {
+            case AppHttpPathMall.UPDATE_SHOP_INFO:
+                ToastUtils.toast(mContext, "更改成功");
+                if (editDialog != null) {
+                    editDialog.releaseDialog();
+                    editDialog = null;
+                }
+                break;
             case AppHttpPathMall.UPLOAD_ONE_PIC:
                 List<String> paths = (List<String>) o;
                 if (paths != null && !paths.isEmpty()) {
@@ -672,5 +835,14 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (editDialog != null) {
+            editDialog.releaseDialog();
+        }
+    }
+
 
 }

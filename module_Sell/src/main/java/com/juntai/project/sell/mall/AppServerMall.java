@@ -86,6 +86,9 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.SHOP_COMMODITY_LIST)
     Observable<ShopCommodityListBean> getShopCommodityList(@Body RequestBody requestBody);
 
+    @POST(AppHttpPathMall.UPDATE_SHOP_INFO)
+    Observable<BaseResult> updateShopInfo(@Body RequestBody requestBody);
+
     /**
      * 获取所有的类目
      *

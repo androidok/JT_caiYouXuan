@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +23,7 @@ import com.example.appbase.R;
  */
 public class EditDialog {
     TextView titleTv;
-    TextView contentTv;
+    EditText contentEt;
     TextView mConfirmTv;
 
     private Context context;
@@ -44,7 +45,7 @@ public class EditDialog {
 
         // 获取自定义Dialog布局中的控件
         lLayout_bg = (LinearLayout) view.findViewById(R.id.lLayout_bg);
-        contentTv = view.findViewById(R.id.edit_dialog_content_et);
+        contentEt = view.findViewById(R.id.edit_dialog_content_et);
         mConfirmTv = view.findViewById(R.id.edit_dialog_confirm_btn);
         titleTv = view.findViewById(R.id.edit_dialog_title_tv);
         titleTv.setOnClickListener(new View.OnClickListener() {
@@ -70,9 +71,9 @@ public class EditDialog {
     public EditDialog setTextStyle(){
         titleTv.getPaint().setFakeBoldText(true);
         mConfirmTv.getPaint().setFakeBoldText(true);
-        contentTv.setTextSize(16);
-        contentTv.setAlpha(0.5f);
-        contentTv.setGravity(Gravity.CENTER);
+        contentEt.setTextSize(16);
+        contentEt.setAlpha(0.5f);
+        contentEt.setGravity(Gravity.CENTER);
         return this;
     }
 
@@ -97,12 +98,12 @@ public class EditDialog {
      * @return
      */
     public EditDialog setContent(String content){
-        contentTv.setText(content);
+        contentEt.setText(content);
         return this;
     }
 
     public TextView getContentTextView(){
-        return contentTv;
+        return contentEt;
     }
 
     /**
@@ -118,11 +119,17 @@ public class EditDialog {
         mConfirmTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
-                listener.onClick(v);
+                listener.onClick(contentEt);
             }
         });
         return this;
+    }
+    public  void  releaseDialog(){
+        if (dialog != null&&dialog.isShowing()) {
+            dialog.dismiss();
+            dialog=null;
+        }
+
     }
 
     /**
@@ -131,12 +138,18 @@ public class EditDialog {
      * @return
      */
     public EditDialog setCanceledOnTouchOutside(boolean isCan) {
-        dialog.setCanceledOnTouchOutside(isCan);
-        dialog.setCancelable(isCan);
+        if (dialog != null) {
+            dialog.setCanceledOnTouchOutside(isCan);
+            dialog.setCancelable(isCan);
+        }
+
         return this;
     }
 
     public void show() {
-        dialog.show();
+        if (dialog != null) {
+            dialog.show();
+
+        }
     }
 }

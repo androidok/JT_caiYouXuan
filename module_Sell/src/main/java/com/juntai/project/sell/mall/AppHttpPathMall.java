@@ -91,6 +91,9 @@ public class AppHttpPathMall {
     public static final String SHOP_COMMODITY_LIST = BASE + "/buyers/selectShopCommodityList";
 
 
+    public static final String UPDATE_SHOP_INFO = BASE + "/seller/updateShopInformation";
+
+
 
 
 

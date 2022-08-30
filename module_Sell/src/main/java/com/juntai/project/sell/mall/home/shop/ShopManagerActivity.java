@@ -10,8 +10,10 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
+import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
+import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
@@ -101,15 +103,24 @@ public class ShopManagerActivity extends BaseShopActivity {
                 ToastUtils.toast(mContext, "请同意开店协议之后再提交");
                 return;
             }
-            builder.add("isAgreement", "1");
-            if (dataBean != null) {
-                builder.add("id", String.valueOf(UserInfoManagerMall.getShopId()));
-                mPresenter.eidtShopApply(builder.build(), AppHttpPathMall.SHOP_APPLY);
+            showAlertDialog("是否确认提交审核？\n" +
+                    "提交后由农发后台审核，审核期间店铺暂时不能使用！", "确定", "取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    builder.add("isAgreement", "1");
+                    if (dataBean != null) {
+                        builder.add("id", String.valueOf(UserInfoManagerMall.getShopId()));
+                        mPresenter.eidtShopApply(builder.build(), AppHttpPathMall.SHOP_APPLY);
 
-            } else {
-                mPresenter.shopApply(builder.build(), AppHttpPathMall.SHOP_APPLY);
+                    } else {
+                        mPresenter.shopApply(builder.build(), AppHttpPathMall.SHOP_APPLY);
 
-            }
+                    }
+                }
+            });
+
+
+
         } else if (id == R.id.shop_protocal_rb) {// : 2022/6/9 协议
             if (isAgree) {
                 mShopProtocalRb.setChecked(false);
@@ -135,7 +146,8 @@ public class ShopManagerActivity extends BaseShopActivity {
                     showAlertDialog("店铺认证已提交审核,请耐心等待", "知道了", "", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            finish();
+                            ActivityManagerTool.getInstance().finishApp();
+                            reLogin(UserInfoManager.getPhoneNumber());
                         }
                     });
                 }

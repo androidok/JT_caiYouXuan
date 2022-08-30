@@ -146,6 +146,11 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
                 , true, 0, true);
 
 
+        initTextSelectType(arrays, MultiContact.SHOP_ORDER_START_TIME, "", bean == null ? "" : bean.getStartTime(), true,true);
+        initTextSelectType(arrays, MultiContact.SHOP_ORDER_END_TIME, "", bean == null ? "" : bean.getEndTime(), true,true);
+
+
+
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_BIG, "店铺资料"));
 
         List<String> fragmentPics = new ArrayList<>();

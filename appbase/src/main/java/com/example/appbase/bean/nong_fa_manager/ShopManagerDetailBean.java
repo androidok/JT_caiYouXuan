@@ -68,6 +68,8 @@ public class ShopManagerDetailBean extends BaseResult {
         private String introduction;
         private String phoneNumber;
         private String backImg;
+        private String startTime;
+        private String endTime;
         private String cameraUrl;
         private String shopImg;
         private int commodityStyle;
@@ -88,6 +90,22 @@ public class ShopManagerDetailBean extends BaseResult {
         private int status;
         private String createTime;
         private List<String> shopImgList;
+
+        public String getStartTime() {
+            return startTime == null ? "" : startTime;
+        }
+
+        public void setStartTime(String startTime) {
+            this.startTime = startTime == null ? "" : startTime;
+        }
+
+        public String getEndTime() {
+            return endTime == null ? "" : endTime;
+        }
+
+        public void setEndTime(String endTime) {
+            this.endTime = endTime == null ? "" : endTime;
+        }
 
         public int getId() {
             return id;

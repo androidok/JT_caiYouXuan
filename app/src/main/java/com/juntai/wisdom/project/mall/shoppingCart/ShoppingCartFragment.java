@@ -61,6 +61,8 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
     private boolean isEdit = false;
     private CartListBean.DataBean.CommodityListBean commodityListBean;
     private LinearLayout mBottomLl;
+    //有截单的商铺
+    private boolean hasShopEnd;
 
     @Override
     protected int getLayoutRes() {
@@ -70,7 +72,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
     @Override
     protected void initView() {
         super.initView();
-        baseQuickAdapter.setEmptyView(getBaseActivity().getAdapterEmptyView("购物车空空如也,快去选购吧~",-1));
+        baseQuickAdapter.setEmptyView(getBaseActivity().getAdapterEmptyView("购物车空空如也,快去选购吧~", -1));
         mStartEditTv = (TextView) getView(R.id.start_edit_tv);
         mStartEditTv.setOnClickListener(this);
         mSelectAllCb = (CheckBox) getView(R.id.select_all_cb);
@@ -81,6 +83,11 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
         mSelectAllCb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isEdit && hasShopEnd) {
+                    ToastUtils.toast(mContext, "有停止接单的商铺，不能全选");
+                    mSelectAllCb.setChecked(false);
+                    return;
+                }
                 if (mSelectAllCb.isChecked()) {
                     mSelectAllCb.setChecked(true);
                     // : 2022/5/7 将所有的店铺全选
@@ -98,6 +105,10 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                 CartListBean.DataBean dataBean = (CartListBean.DataBean) adapter.getItem(position);
                 switch (view.getId()) {
                     case R.id.shop_selected_iv:
+                        if (!isEdit && 1 == dataBean.getIsEnd()) {
+                            ToastUtils.toast(mContext, "该商家已停止接单");
+                            return;
+                        }
                         // : 2022/5/7 店铺全选
                         if (dataBean.isShopSelect()) {
                             dataBean.setShopSelect(false);
@@ -160,6 +171,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
 
     @Override
     protected void getRvAdapterData() {
+        hasShopEnd = false;
         if (mSelectAllCb != null && mAllPriceTv != null) {
             mSelectAllCb.setChecked(false);
             mAllPriceTv.setText("0.00");
@@ -224,6 +236,8 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
 
                 }
                 isEdit = !isEdit;
+                ((ShopCartAdapter) baseQuickAdapter).setEdit(isEdit);
+
                 break;
             case R.id.settle_tv:
                 // : 2022/5/6 结算或者删除
@@ -298,7 +312,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                         ids.add(child.getId());
                     }
                 } else {
-                    if (child.isSelected() && !TextUtils.isEmpty(child.getSku())&&null!=child.getPutAwayStatus()&&1!=child.getPutAwayStatus()) {
+                    if (child.isSelected() && !TextUtils.isEmpty(child.getSku()) && null != child.getPutAwayStatus() && 1 != child.getPutAwayStatus()) {
                         ids.add(child.getId());
                     }
                 }
@@ -394,11 +408,21 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                 CartListBean cartListBean = (CartListBean) o;
                 if (cartListBean != null) {
                     List<CartListBean.DataBean> dataBeans = cartListBean.getData();
-                    if (dataBeans!=null&&!dataBeans.isEmpty()) {
+                    if (dataBeans != null && !dataBeans.isEmpty()) {
                         mBottomLl.setVisibility(View.VISIBLE);
+                        for (CartListBean.DataBean dataBean : dataBeans) {
+                            List<CartListBean.DataBean.CommodityListBean> commodityListBeans = dataBean.getCommodityList();
+                            if (1 == dataBean.getIsEnd()) {
+                                hasShopEnd = true;
+                            }
+                            for (CartListBean.DataBean.CommodityListBean listBean : commodityListBeans) {
+                                listBean.setIsEnd(dataBean.getIsEnd());
+                            }
+                        }
                     } else {
                         mBottomLl.setVisibility(View.GONE);
                     }
+
                     baseQuickAdapter.setNewData(dataBeans);
                 }
                 break;

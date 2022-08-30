@@ -36,6 +36,7 @@ public class CartListBean  extends BaseResult {
         private int id;
         private int userId;
         private int shopId;
+        private int isEnd;
         private  boolean isShopSelect;
         private String shopName;
         private List<CommodityListBean> commodityList;
@@ -58,6 +59,14 @@ public class CartListBean  extends BaseResult {
 
         public boolean isShopSelect() {
             return isShopSelect;
+        }
+
+        public int getIsEnd() {
+            return isEnd;
+        }
+
+        public void setIsEnd(int isEnd) {
+            this.isEnd = isEnd;
         }
 
         public void setShopSelect(boolean shopSelect) {
@@ -105,6 +114,8 @@ public class CartListBean  extends BaseResult {
              */
 
             private int id;
+            private int isEnd;
+
             private int commodityId;
             private int shopId;
             private String commodityName;
@@ -124,6 +135,14 @@ public class CartListBean  extends BaseResult {
 
             public int getId() {
                 return id;
+            }
+
+            public int getIsEnd() {
+                return isEnd;
+            }
+
+            public void setIsEnd(int isEnd) {
+                this.isEnd = isEnd;
             }
 
             public void setId(int id) {

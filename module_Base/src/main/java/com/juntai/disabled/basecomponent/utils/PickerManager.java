@@ -67,6 +67,24 @@ public class PickerManager<T> {
         }
         getBuilder(context, type, title, selectedListener).build().show();
     }
+    /**
+     * @param context
+     * @param type             默认 new boolean[] {true,true,true,false,false,false}
+     * @param title
+     * @param selectedListener
+     */
+    public void showTimePickerView(Context context, boolean[] type, String title,Calendar currentData, final OnTimePickerTimeSelectedListener selectedListener) {
+        if (TextUtils.isEmpty(title)) {
+            title = "";
+        }
+        if (type == null) {
+            //默认年月日
+            type = new boolean[]{true, true, true, false, false, false};
+        }
+        getBuilder(context, type, title, selectedListener)
+                .setDate(currentData)
+                .build().show();
+    }
 
     /**
      * 展示条件选择器

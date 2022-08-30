@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.appbase.bean.CartListBean;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
@@ -24,6 +25,17 @@ import java.util.List;
  * @UpdateDate: 2022/5/5 9:49
  */
 public class ShopCartAdapter extends BaseQuickAdapter<CartListBean.DataBean, BaseViewHolder> {
+
+    private boolean isEdit;
+
+    public boolean isEdit() {
+        return isEdit;
+    }
+
+    public void setEdit(boolean edit) {
+        isEdit = edit;
+    }
+
     public ShopCartAdapter(int layoutResId) {
         super(layoutResId);
     }
@@ -34,13 +46,13 @@ public class ShopCartAdapter extends BaseQuickAdapter<CartListBean.DataBean, Bas
         helper.addOnClickListener(R.id.shop_selected_iv);
         if (item.isShopSelect()) {
             helper.setImageResource(R.id.shop_selected_iv, R.mipmap.select_icon);
-        }else {
+        } else {
             helper.setImageResource(R.id.shop_selected_iv, R.mipmap.unselect_icon);
         }
 
         helper.addOnClickListener(R.id.shop_name_tv);
-        helper.setText(R.id.shop_name_tv, item.getShopName());
-
+        helper.setGone(R.id.shop_name_notice_tv,1 == item.getIsEnd());
+        helper.setText(R.id.shop_name_tv,   item.getShopName());
 
         RecyclerView recyclerView = helper.getView(R.id.shop_cart_commodities_rv);
         ShopCartCommodityAdapter shopCartCommodityAdapter = new ShopCartCommodityAdapter(R.layout.shop_cart_commodity_item);
@@ -69,6 +81,10 @@ public class ShopCartAdapter extends BaseQuickAdapter<CartListBean.DataBean, Bas
                         EventManager.getEventBus().post(new EventBusObject(EventBusObject.GET_COMMODITY_DETAIL_INFO, commodityListBean));
                         break;
                     case R.id.commodity_selected_iv:
+                        if (!isEdit&&1 == commodityListBean.getIsEnd()) {
+                            ToastUtils.toast(mContext, "该商家已停止接单");
+                            return;
+                        }
                         // : 2022/5/7 选择商品
                         if (commodityListBean.isSelected()) {
                             commodityListBean.setSelected(false);

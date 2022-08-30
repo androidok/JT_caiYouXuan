@@ -11,11 +11,11 @@
         android:id="@+id/edit_dialog_title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableRight="@mipmap/close_icon"
         android:layout_centerInParent="true"
+        android:drawableRight="@mipmap/close_icon"
         android:gravity="center"
         android:paddingLeft="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="15dp"
         android:paddingRight="20dp"
         android:text="标题"
         android:textColor="@color/black"
@@ -28,30 +28,27 @@
         android:layout_margin="15dp"
         android:background="@drawable/stroke_gray_square_bg"
         android:gravity="left|top"
+        android:maxLines="30"
+        android:maxLength="200"
         android:minHeight="80dp"
         android:padding="10dp"
         android:text=""
         android:textColor="@color/black"
         android:textSize="14dp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/gray" />
 
     <TextView
         android:id="@+id/edit_dialog_confirm_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:paddingRight="20dp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/white"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/sp_filled_accent"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="5dp"
         android:text="确定"
+        android:textColor="@color/white"
         android:textSize="16dp" />
 </LinearLayout>
