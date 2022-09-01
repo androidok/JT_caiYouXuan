@@ -83,7 +83,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="输入密码"
-                    android:text=""
+                    android:text="admin"
                     android:inputType="textPassword"
                     android:maxLength="16"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -95,10 +95,11 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="获取验证码"
-                    android:textColor="@color/colorAccent"></TextView>
+                    android:textColor="@color/colorAccent" />
 
             </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.example.appbase.base.selectPics;
 
 
 import android.support.constraint.ConstraintLayout;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -24,11 +25,13 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
     public void setShowTag(boolean showTag) {
         isShowTag = showTag;
     }
+
     private boolean delateable = true;
 
     public void setWidthAndHeigh(int widthAndHeigh) {
         this.widthAndHeigh = widthAndHeigh;
     }
+
     public void setDelateable(boolean delateable) {
         this.delateable = delateable;
     }
@@ -47,34 +50,34 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
             ImageLoadUtil.loadImageNoCache(mContext, item, (ImageView) helper.getView(R.id.select_pic_icon_iv));
             if (delateable) {
                 helper.setGone(R.id.delete_pushed_news_iv, true);
-            }else{
+            } else {
                 helper.setGone(R.id.delete_pushed_news_iv, false);
             }
 
-            if (item.contains(".mp4")) {
+            if (!TextUtils.isEmpty(item) && item.contains(".mp4")) {
                 helper.setGone(R.id.item_video_tag, true);
             } else {
                 helper.setGone(R.id.item_video_tag, false);
             }
         }
-        if (isShowTag){
-            helper.setVisible(R.id.item_tag,true);
-            switch (helper.getLayoutPosition()){
+        if (isShowTag) {
+            helper.setVisible(R.id.item_tag, true);
+            switch (helper.getLayoutPosition()) {
                 case 0:
-                    helper.setText(R.id.item_tag,"店铺头像");
+                    helper.setText(R.id.item_tag, "店铺头像");
                     break;
                 case 1:
-                    helper.setText(R.id.item_tag,"营业执照");
+                    helper.setText(R.id.item_tag, "营业执照");
                     break;
                 case 2:
-                    helper.setText(R.id.item_tag,"店铺实景图");
+                    helper.setText(R.id.item_tag, "店铺实景图");
                     break;
                 default:
-                    helper.setVisible(R.id.item_tag,false);
+                    helper.setVisible(R.id.item_tag, false);
                     break;
             }
-        }else {
-            helper.setVisible(R.id.item_tag,false);
+        } else {
+            helper.setVisible(R.id.item_tag, false);
         }
         helper.addOnClickListener(R.id.select_pic_icon_iv);
         helper.addOnClickListener(R.id.delete_pushed_news_iv);

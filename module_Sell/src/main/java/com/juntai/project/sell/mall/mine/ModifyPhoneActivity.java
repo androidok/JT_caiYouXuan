@@ -2,6 +2,8 @@ package com.juntai.project.sell.mall.mine;
 
 import android.os.Bundle;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.base.BaseWithSmsActivity;
@@ -11,6 +13,10 @@ import com.juntai.project.sell.mall.base.BaseWithSmsActivity;
  * @description 描述 修改手机号
  * @date 2022/6/23 11:14
  */
+
+
+
+@Route(path = ARouterPath.sellModifyPhoneActivity)
 public class ModifyPhoneActivity extends BaseWithSmsActivity {
 
     @Override

@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginBottom="10dp"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="20dp"
         app:cardElevation="0dp">
 
         <android.support.constraint.ConstraintLayout
@@ -23,8 +23,8 @@
 
             <ImageView
                 android:id="@+id/shop_logo_iv"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@mipmap/default_user_head_icon"
                 app:layout_constraintLeft_toLeftOf="parent"
 
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:text="2022"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 app:layout_constraintLeft_toLeftOf="@+id/shop_create_time_key_tv"
                 app:layout_constraintRight_toRightOf="@+id/shop_create_time_key_tv"
                 app:layout_constraintTop_toBottomOf="@+id/shop_name_tv" />
@@ -66,7 +66,7 @@
                 android:layout_marginRight="10dp"
                 app:layout_constraintRight_toLeftOf="@+id/shop_item_divider_v"
                 android:text="开店时间"
-                android:textSize="14dp"
+                android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@+id/shop_create_time_value_tv" />
 
             <View
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="15"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 app:layout_constraintLeft_toLeftOf="@+id/shop_sell_commodity_amount_key_tv"
                 app:layout_constraintRight_toRightOf="@+id/shop_sell_commodity_amount_key_tv"
                 app:layout_constraintTop_toBottomOf="@+id/shop_name_tv" />
@@ -103,7 +103,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="在售商品"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@+id/shop_sell_commodity_amount_value_tv" />
 
         </android.support.constraint.ConstraintLayout>

@@ -95,7 +95,7 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
         }
         mPresenter.startSearchShop(getBaseBuilderWithoutParama()
                 .add("key", key)
-                .add("type", "2").build(), AppHttpPath.SEARCH_COMMODITY
+                .add("type", "2").build(), AppHttpPath.SEARCH_SHOP
         );
 
     }

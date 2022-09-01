@@ -66,6 +66,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
     private List<BannerObject> bannerPics;
     private GlideImageLoader imageLoader;
     private String liveNum;
+    private TextView mShopWorkTimeTv;
 
     @Override
     protected ShopPresent createPresenter() {
@@ -100,6 +101,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         mShopCreatTimeTv = (TextView) findViewById(R.id.shop_creat_time_tv);
         mScoreTv = (TextView) findViewById(R.id.shop_score_tv);
         mShopDesTv = (TextView) findViewById(R.id.shop_des_tv);
+        mShopWorkTimeTv = (TextView) findViewById(R.id.shop_work_time_tv);
         mShopBanner = (Banner) findViewById(R.id.shop_banner);
     }
 
@@ -196,7 +198,8 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         mShopNameTv.setText(shopBean.getName());
         mShopCreatTimeTv.setText("开店时间:" + shopBean.getCreateTime());
         mScoreTv.setText("在售商品:" + shopBean.getCommodityCount());
-        mShopDesTv.setText(shopBean.getIntroduction());
+        mShopDesTv.setText(String.format("店铺简介：\n%s", shopBean.getIntroduction()));
+        mShopWorkTimeTv.setText(String.format("营业时间： %s~%s", shopBean.getStartTime(),shopBean.getEndTime()));
         mShopCollectIv.setImageResource(shopBean.getIsCollect() > 0 ? R.mipmap.collected_icon : R.mipmap.un_collect_icon);
         initBanner(shopBean);
 
@@ -243,7 +246,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
             case R.id.search_ll:
                 // : 2022/5/31 店铺内部搜索商品
                 startActivity(new Intent(mContext, SearchShopCommodityActivity.class)
-                .putExtra(BASE_ID,shopBean.getId())
+                .putExtra(BASE_ID,shopId)
 
                 );
 

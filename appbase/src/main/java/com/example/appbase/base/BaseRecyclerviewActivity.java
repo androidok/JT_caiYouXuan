@@ -26,9 +26,8 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
     protected SmartRefreshLayout mSmartrefreshlayout;
     protected BaseQuickAdapter baseQuickAdapter;
     protected LinearLayoutManager linearLayoutManager;
-    protected int page = 1; //当前页码
-    //每次展示20条数据
-    protected int limit = 10;
+
+
 
     @Override
     public int getLayoutView() {

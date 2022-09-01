@@ -240,10 +240,6 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
             while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
                 os.write(buffer, 0, bytesRead);
             }
-//            if (!file.getAbsolutePath().contains(FileCacheUtils.STREAM_THUMBNAIL)) {
-//                String msg = String.format("%s%s%s", notice, "已下载至", file.getAbsolutePath());
-//                showAlertDialogOfKnown(msg);
-//            }
             if (fileDownLoadCallBack != null) {
                 fileDownLoadCallBack.onFileDownloaded(file.getAbsolutePath());
             }

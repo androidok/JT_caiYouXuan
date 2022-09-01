@@ -104,6 +104,9 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     public static String BASE_STRING3 = "baseString3";//
     public   final String TAG = getClass().getSimpleName();
 
+    protected int page = 1; //当前页码
+    //每次展示20条数据
+    protected int limit = 20;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

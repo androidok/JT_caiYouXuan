@@ -12,7 +12,6 @@ import com.siyee.oscvpush.base.PushAdapter;
 import com.siyee.oscvpush.model.Target;
 import com.siyee.oscvpush.model.Token;
 import com.siyee.oscvpush.util.LogUtils;
-import com.siyee.oscvpush.util.MetaDataUtils;
 import com.siyee.oscvpush.util.NullUtils;
 import com.siyee.oscvpush.util.RomUtils;
 import com.xiaomi.mipush.sdk.MiPushClient;
@@ -91,11 +90,14 @@ public class MiPushRegister implements IPushManager {
         List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
         String mainProcessName = mContext.getApplicationInfo().processName;
         int myPid = Process.myPid();
-        for (ActivityManager.RunningAppProcessInfo info : processInfos) {
-            if (info.pid == myPid && mainProcessName.equals(info.processName)) {
-                return true;
+        if (processInfos != null&&!processInfos.isEmpty()) {
+            for (ActivityManager.RunningAppProcessInfo info : processInfos) {
+                if (info.pid == myPid && mainProcessName.equals(info.processName)) {
+                    return true;
+                }
             }
         }
+
         return false;
     }
 

@@ -11,6 +11,7 @@ import com.allenliu.versionchecklib.v2.builder.DownloadBuilder;
 import com.allenliu.versionchecklib.v2.builder.UIData;
 import com.allenliu.versionchecklib.v2.callback.RequestVersionListener;
 import com.juntai.disabled.basecomponent.R;
+import com.juntai.disabled.basecomponent.app.BaseApplication;
 import com.juntai.disabled.basecomponent.base.BaseDownLoadActivity;
 import com.juntai.disabled.basecomponent.bean.UpdateBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
@@ -99,7 +100,7 @@ public abstract class UpdateActivity<P extends BasePresenter> extends BaseDownLo
                     }
                     cancle();
                 })
-                .executeMission(mContext.getApplicationContext());
+                .executeMission(BaseApplication.app);
     }
 
     /**

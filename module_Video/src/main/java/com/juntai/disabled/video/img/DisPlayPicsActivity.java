@@ -15,7 +15,6 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.video.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -50,7 +49,12 @@ public class DisPlayPicsActivity extends BaseDownLoadActivity {
         viewPager = findViewById(R.id.imagezoom_viewpager);
        LinearLayout mDisplayLl = findViewById(R.id.display_pic_ll);
         mDisplayLl.setBackgroundColor(ContextCompat.getColor(mContext,R.color.white));
-
+        setFileDownLoadCallBack(new OnFileDownloaded() {
+            @Override
+            public void onFileDownloaded(String fileName) {
+                ToastUtils.toast(mContext, "已保存");
+            }
+        });
     }
 
 
@@ -79,7 +83,7 @@ public class DisPlayPicsActivity extends BaseDownLoadActivity {
             photoView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    initBottomDialog(Arrays.asList("保存图片"),diaplayPath);
+                    initBottomDialog(getBaseBottomDialogMenus("保存图片"),diaplayPath);
                     return false;
                 }
             });

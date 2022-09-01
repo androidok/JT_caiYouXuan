@@ -27,7 +27,9 @@ public abstract class BaseFragment extends RxFragment {
     public static String BASE_ID2 = "baseId2";//请求的回执
     public static String BASE_STRING = "baseString";//
     protected View mRootView = null;
-
+    protected int page = 1; //当前页码
+    //每次展示20条数据
+    protected int limit = 20;
     protected Context mContext;
     protected Toast toast;
 

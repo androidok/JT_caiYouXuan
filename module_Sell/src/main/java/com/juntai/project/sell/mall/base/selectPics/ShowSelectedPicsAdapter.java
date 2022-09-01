@@ -1,6 +1,7 @@
 package com.juntai.project.sell.mall.base.selectPics;
 
 import android.support.constraint.ConstraintLayout;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -52,7 +53,7 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
                 helper.setGone(R.id.delete_pushed_news_iv, false);
             }
 
-            if (item.contains(".mp4")) {
+            if (!TextUtils.isEmpty(item) && item.contains(".mp4")) {
                 ImageLoadUtil.loadVideoScreenshot(mContext, item, helper.getView(R.id.select_pic_icon_iv),  new ImageLoadUtil.OnImageLoadSuccess() {
                     @Override
                     public void loadSuccess(int width, int height) {

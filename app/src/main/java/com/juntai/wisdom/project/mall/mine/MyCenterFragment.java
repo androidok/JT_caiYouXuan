@@ -73,13 +73,13 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         mHeadImage.setOnClickListener(this);
         ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManager.getHeadPic(), mHeadImage);
         mNickname = getView(R.id.nickname_tv);
-        mNickname.setText(UserInfoManager.getUserNickName());
+        mNickname.setText(UserInfoManager.getSchoolName());
         mLoginOut = getView(R.id.login_out_tv);
         mLoginOut.setOnClickListener(this);
         mSetIv = (ImageView) getView(R.id.set_iv);
         mSetIv.setOnClickListener(this);
         mDesTv = (TextView) getView(R.id.des_tv);
-        mDesTv.setText(String.format("账号:%s", UserInfoManager.getAccount()));
+        mDesTv.setText(String.format("学校编号:%s", UserInfoManager.getSchoolNumber()));
         mCollectRv = (RecyclerView) getView(R.id.collect_rv);
         mAllOrdersTv = (TextView) getView(R.id.all_orders_tv);
         mAllOrdersTv.setOnClickListener(this);
@@ -269,7 +269,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                 if (loginBean != null) {
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManager.getHeadPic(), mHeadImage);
-                    mNickname.setText(UserInfoManager.getUserNickName());
+                    mNickname.setText(UserInfoManager.getSchoolName());
                 }
                 break;
             default:

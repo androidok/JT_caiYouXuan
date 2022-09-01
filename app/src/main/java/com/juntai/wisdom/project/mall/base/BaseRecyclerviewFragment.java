@@ -26,9 +26,7 @@ public abstract class BaseRecyclerviewFragment<P extends IPresenter> extends Bas
     protected BaseQuickAdapter baseQuickAdapter;
     protected LinearLayoutManager linearLayoutManager;
 
-    protected int page = 1; //当前页码
-    //每次展示20条数据
-    protected int limit = 10;
+
 
     @Override
     protected int getLayoutRes() {

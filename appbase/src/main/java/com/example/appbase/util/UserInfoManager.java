@@ -153,6 +153,14 @@ public class UserInfoManager {
     public static String getAccount() {
         return getUser() != null && getUser() != null ? getUser().getAccount() : "";
     }
+    /**
+     * 获取用户信息
+     *
+     * @return
+     */
+    public static String getSchoolNumber() {
+        return getUser() != null && getUser() != null ? getUser().getSchoolNumber() : "";
+    }
 
     public static boolean canUsePubAccount() {
         return (getUser() != null && getUser() != null) && getUser().getType() == 1;

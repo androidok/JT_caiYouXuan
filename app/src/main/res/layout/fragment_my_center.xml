@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:alpha="0.3"
+                android:alpha="0.7"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="tobato"

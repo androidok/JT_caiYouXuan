@@ -29,7 +29,7 @@
         android:background="@drawable/stroke_gray_square_bg"
         android:gravity="left|top"
         android:maxLines="30"
-        android:maxLength="200"
+        android:maxLength="30"
         android:minHeight="80dp"
         android:padding="10dp"
         android:text=""

@@ -9,9 +9,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
@@ -126,10 +128,10 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
                     case MY_INFO_NICK_NAME:
                         startActivityForResult(new Intent(mContext, ModifyNickNameActivity.class).putExtra(BaseModifyActivity.DEFAULT_HINT, UserInfoManager.getUserNickName()), BASE_REQUEST_RESULT);
                         break;
-//                    case MY_INFO_ACCOUNT:
-//                        startActivityForResult(new Intent(mContext, ModifyAccountActivity.class)
-//                                .putExtra(BaseModifyActivity.DEFAULT_HINT, UserInfoManager.getPhoneNumber()), BASE_REQUEST_RESULT);
-//                        break;
+                    case MY_INFO_ACCOUNT:
+                        ARouter.getInstance().build(ARouterPath.sellModifyPhoneActivity)
+                                .navigation();
+                        break;
                     case MY_INFO_MODIFY_PWD:
                         // : 2022/5/6 修改密码
                         startActivity(new Intent(mContext, ModifyPwdActivity.class));

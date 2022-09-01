@@ -58,6 +58,8 @@ public class ShopDetailBuyBean extends BaseResult {
          */
         private String title;
         private String introduction;
+        private String startTime;
+        private String endTime;
         private double shopFraction;
         private String createTime;
         private String backImg;
@@ -78,6 +80,22 @@ public class ShopDetailBuyBean extends BaseResult {
 
         public String getCoverImg() {
             return coverImg == null ? "" : coverImg;
+        }
+
+        public String getStartTime() {
+            return startTime == null ? "" : startTime;
+        }
+
+        public void setStartTime(String startTime) {
+            this.startTime = startTime == null ? "" : startTime;
+        }
+
+        public String getEndTime() {
+            return endTime == null ? "" : endTime;
+        }
+
+        public void setEndTime(String endTime) {
+            this.endTime = endTime == null ? "" : endTime;
         }
 
         public void setCoverImg(String coverImg) {

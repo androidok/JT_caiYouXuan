@@ -1,6 +1,5 @@
 package com.juntai.wisdom.project.mall;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,11 +13,11 @@ import com.example.appbase.base.customview.MainPagerAdapter;
 import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.home.HomeFragment;
-import com.juntai.wisdom.project.mall.live.LiveFragment;
 import com.juntai.wisdom.project.mall.mine.MyCenterFragment;
 import com.juntai.wisdom.project.mall.shoppingCart.ShoppingCartFragment;
 
@@ -29,11 +28,12 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     private CustomViewPager mainViewpager;
 
     private TabLayout mainTablayout;
-    private String[] title = new String[]{"首页", "直播",  "购物车", "个人中心"};
-    private int[] tabDrawables = new int[]{R.drawable.home_index, R.drawable.live_index,  R.drawable.cart_index, R.drawable.mine_index};
+    private String[] title = new String[]{"首页", "购物车", "个人中心"};
+    private int[] tabDrawables = new int[]{R.drawable.home_index, R.drawable.cart_index, R.drawable.mine_index};
     private SparseArray<Fragment> mFragments = new SparseArray<>();
     //
 
+    private int clickTimes = 0;
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -61,10 +61,10 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         mainLayout = findViewById(R.id.main_layout);
         mainViewpager.setScanScroll(false);
         mFragments.append(0, new HomeFragment());//
-        mFragments.append(1, new LiveFragment());//
-        mFragments.append(2, new ShoppingCartFragment());//
-        mFragments.append(3, new MyCenterFragment());//
-        mainViewpager.setOffscreenPageLimit(4);
+//        mFragments.append(1, new LiveFragment());//
+        mFragments.append(1, new ShoppingCartFragment());//
+        mFragments.append(2, new MyCenterFragment());//
+        mainViewpager.setOffscreenPageLimit(3);
         initTab();
     }
 
@@ -162,26 +162,27 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     }
 
 
-
     @Override
     public void onBackPressed() {
-        showAlertDialog("请选择退出方式", "退出", "挂起", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ActivityManagerTool.getInstance().finishApp();
-            }
-        }, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //模拟home键,发送广播
-                //sendBroadcast(new Intent().setAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
-                // .putExtra("reason","homekey"));
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                startActivity(intent);
-            }
-        });
+        clickTimes++;
+        if (2 == clickTimes) {
+            ActivityManagerTool.getInstance().finishApp();
+        } else {
+            ToastUtils.toast(mContext, "再点一次退出菜优选");
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+                        Thread.sleep(2000);//休眠2秒
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    clickTimes = 0;
+                }
+            }.start();
+        }
+
 
     }
 

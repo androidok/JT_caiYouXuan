@@ -93,7 +93,8 @@ public class LiveFragment extends BaseAppFragment<CommodityPresent> implements H
             case R.id.scan_iv:
                 break;
             case R.id.search_ll:
-                getBaseAppActivity().startToSearchActivity(1);
+//                getBaseAppActivity().startToSearchActivity(1);
+                getBaseAppActivity().startToSearchActivity(0);
                 break;
         }
     }

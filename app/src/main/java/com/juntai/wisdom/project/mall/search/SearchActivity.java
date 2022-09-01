@@ -14,7 +14,6 @@ import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.search.BaseSearchHeadFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.HomePagePresent;
-import com.juntai.wisdom.project.mall.live.LiveCommodityListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
     private SearchCommodityFragment searchCommodityFragment;
     private HomeSearchHeadFragment searchHeadFragment;
     private SearchShopListFragment searchShopListFragment;
-    private LiveCommodityListFragment searchLiveListFragment;
+//    private LiveCommodityListFragment searchLiveListFragment;
     private int type;
 
     /**
@@ -80,32 +79,33 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
                     //刷新店铺列表
                     searchShopListFragment.startSearch(searchHeadFragment.getSearchContent());
                     break;
-                case 2:
-                    //刷新直播列表
-                    searchLiveListFragment.startSearch(searchHeadFragment.getSearchContent());
-                    break;
-                default:
-                    break;
-            }
-        }else {
-            switch (i) {
-                case 0:
-                    //刷新直播列表
-                    searchLiveListFragment.startSearch(searchHeadFragment.getSearchContent());
-                    break;
-                case 1:
-                    //刷新商品列表
-                    searchCommodityFragment.startSearch(searchHeadFragment.getSearchContent());
-                    break;
-                case 2:
-                    //刷新店铺列表
-                    searchShopListFragment.startSearch(searchHeadFragment.getSearchContent());
-                    break;
-
+//                case 2:
+//                    //刷新直播列表
+//                    searchLiveListFragment.startSearch(searchHeadFragment.getSearchContent());
+//                    break;
                 default:
                     break;
             }
         }
+//        else {
+//            switch (i) {
+//                case 0:
+//                    //刷新直播列表
+//                    searchLiveListFragment.startSearch(searchHeadFragment.getSearchContent());
+//                    break;
+//                case 1:
+//                    //刷新商品列表
+//                    searchCommodityFragment.startSearch(searchHeadFragment.getSearchContent());
+//                    break;
+//                case 2:
+//                    //刷新店铺列表
+//                    searchShopListFragment.startSearch(searchHeadFragment.getSearchContent());
+//                    break;
+//
+//                default:
+//                    break;
+//            }
+//        }
 
     }
 
@@ -138,16 +138,18 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
         SparseArray<Fragment> fragments = new SparseArray<>();
         searchCommodityFragment = SearchCommodityFragment.newInstance(0);
         searchShopListFragment = SearchShopListFragment.newInstance(1);
-        searchLiveListFragment = LiveCommodityListFragment.newInstance(2);
-        if (0==type) {
-            fragments.append(0, searchCommodityFragment);
-            fragments.append(1, searchShopListFragment);
-            fragments.append(2, searchLiveListFragment);
-        }else {
-            fragments.append(0, searchLiveListFragment);
-            fragments.append(1, searchCommodityFragment);
-            fragments.append(2, searchShopListFragment);
-        }
+//        searchLiveListFragment = LiveCommodityListFragment.newInstance(2);
+        fragments.append(0, searchCommodityFragment);
+        fragments.append(1, searchShopListFragment);
+//        if (0==type) {
+//            fragments.append(0, searchCommodityFragment);
+//            fragments.append(1, searchShopListFragment);
+//            fragments.append(2, searchLiveListFragment);
+//        }else {
+//            fragments.append(0, searchLiveListFragment);
+//            fragments.append(1, searchCommodityFragment);
+//            fragments.append(2, searchShopListFragment);
+//        }
 
         return fragments;
     }
@@ -178,9 +180,10 @@ public class SearchActivity extends BaseTabViewPageActivity<HomePagePresent> imp
             mViewpageVp.setVisibility(View.VISIBLE);
             if (0==type) {
                 searchCommodityFragment.startSearch(s);
-            }else {
-                searchLiveListFragment.startSearch(s);
             }
+//            else {
+//                searchLiveListFragment.startSearch(s);
+//            }
         } else {
             mTabTb.setVisibility(View.GONE);
             mViewpageVp.setVisibility(View.GONE);

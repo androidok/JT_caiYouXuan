@@ -2,7 +2,9 @@ package com.example.appbase.base;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.appbase.R;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 
 
 /**
@@ -46,6 +49,26 @@ public class EditDialog {
         // 获取自定义Dialog布局中的控件
         lLayout_bg = (LinearLayout) view.findViewById(R.id.lLayout_bg);
         contentEt = view.findViewById(R.id.edit_dialog_content_et);
+        contentEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (s.length() > 29) {
+                    ToastUtils.toast(context, "只能输入30个字");
+                }
+
+            }
+        });
         mConfirmTv = view.findViewById(R.id.edit_dialog_confirm_btn);
         titleTv = view.findViewById(R.id.edit_dialog_title_tv);
         titleTv.setOnClickListener(new View.OnClickListener() {
@@ -55,10 +78,10 @@ public class EditDialog {
             }
         });
         // 定义Dialog布局和参数
-        dialog = new Dialog(context,R.style.shop_ActionSheetDialogStyle);
+        dialog = new Dialog(context, R.style.shop_ActionSheetDialogStyle);
         dialog.setContentView(view);
         // 调整dialog背景大小
-        lLayout_bg.setLayoutParams(new FrameLayout.LayoutParams((int)(display.widthPixels * 0.8f),
+        lLayout_bg.setLayoutParams(new FrameLayout.LayoutParams((int) (display.widthPixels * 0.8f),
                 LinearLayout.LayoutParams.WRAP_CONTENT));
 
         return this;
@@ -66,9 +89,10 @@ public class EditDialog {
 
     /**
      * 设置提示窗字体样式
+     *
      * @return
      */
-    public EditDialog setTextStyle(){
+    public EditDialog setTextStyle() {
         titleTv.getPaint().setFakeBoldText(true);
         mConfirmTv.getPaint().setFakeBoldText(true);
         contentEt.setTextSize(16);
@@ -79,13 +103,14 @@ public class EditDialog {
 
     /**
      * 标题
+     *
      * @param title
      * @return
      */
-    public EditDialog setTitle(String title){
-        if (TextUtils.isEmpty(title)){
+    public EditDialog setTitle(String title) {
+        if (TextUtils.isEmpty(title)) {
             titleTv.setVisibility(View.GONE);
-        }else {
+        } else {
             titleTv.setVisibility(View.VISIBLE);
             titleTv.setText(title);
         }
@@ -94,26 +119,28 @@ public class EditDialog {
 
     /**
      * shezh 内容
+     *
      * @param content
      * @return
      */
-    public EditDialog setContent(String content){
+    public EditDialog setContent(String content) {
         contentEt.setText(content);
         return this;
     }
 
-    public TextView getContentTextView(){
+    public TextView getContentTextView() {
         return contentEt;
     }
 
     /**
      * 设置确认监听
+     *
      * @param text
      * @param listener
      * @return
      */
     public EditDialog setOnConfirmListener(String text, final View.OnClickListener listener) {
-        if (text != null && !text.equals("")){
+        if (text != null && !text.equals("")) {
             mConfirmTv.setText(text);
         }
         mConfirmTv.setOnClickListener(new View.OnClickListener() {
@@ -124,16 +151,18 @@ public class EditDialog {
         });
         return this;
     }
-    public  void  releaseDialog(){
-        if (dialog != null&&dialog.isShowing()) {
+
+    public void releaseDialog() {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
-            dialog=null;
+            dialog = null;
         }
 
     }
 
     /**
      * 是否点击外部消失
+     *
      * @param isCan
      * @return
      */
