@@ -407,6 +407,9 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
                 //                imageView = (ImageView) selectedPicsAdapter.getViewByPosition(mPublishNoticeRv,
                 //                position, R.id.mine_sugguest_icon_iv);
                 List<String> arrays = reSortIconList();
+                if (arrays.isEmpty()||arrays==null) {
+                    return;
+                }
                 String icon_path = arrays.get(position);
                 int id = view.getId();
                 if (id == R.id.select_pic_icon_iv) {

@@ -103,6 +103,9 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
                 List<Integer> ids = new ArrayList<>();
                 ids.add(dataBean.getId());
                 mPresenter.deleteAddr(ids, AppHttpPath.DELETE_ADDR);
+                if (1==dataBean.getDefaultAddress()) {
+                    Hawk.delete(HawkProperty.getDefaultAddrKey(UserInfoManager.getUserId()));
+                }
             }
         }, new DialogInterface.OnClickListener() {
             @Override
@@ -147,6 +150,12 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        AddressListBean.DataBean array = Hawk.get(HawkProperty.getDefaultAddrKey(UserInfoManager.getUserId()));
+        setResult(BASE_RSULT, new Intent(mContext, ConfirmOrderActivity.class).putExtra(BASE_PARCELABLE,array));
+        finish();
+    }
 
     @Override
     public void onClick(View v) {

@@ -56,6 +56,9 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         // : 2022/7/13 mob的隐私授权 不能删
         HawkProperty.clearRedPoint(mContext.getApplicationContext());
         initToolbarAndStatusBar(false);
+        mImmersionBar.reset().statusBarColor(R.color.transparent)
+                .statusBarDarkFont(true)
+                .init();
         mainViewpager = findViewById(R.id.main_viewpager);
         mainTablayout = findViewById(R.id.main_tablayout);
         mainLayout = findViewById(R.id.main_layout);

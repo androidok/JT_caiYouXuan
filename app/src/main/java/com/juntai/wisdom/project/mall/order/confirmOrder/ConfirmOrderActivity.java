@@ -123,9 +123,17 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
      * @param dataBean
      */
     private void initDefaultAddr(AddressListBean.DataBean dataBean) {
-        mReceiverNameTv.setText(dataBean.getName());
-        mReceiverPhoneTv.setText(dataBean.getPhone());
-        mAddrDesTv.setText(dataBean.getDetailedAddress());
+        if (dataBean == null) {
+            mDefaultAddrLl.setVisibility(View.GONE);
+            mSelectAddrTv.setVisibility(View.VISIBLE);
+        }else {
+            mDefaultAddrLl.setVisibility(View.VISIBLE);
+            mSelectAddrTv.setVisibility(View.GONE);
+            mReceiverNameTv.setText(dataBean.getName());
+            mReceiverPhoneTv.setText(dataBean.getPhone());
+            mAddrDesTv.setText(dataBean.getDetailedAddress());
+        }
+
 
     }
 
@@ -177,8 +185,6 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
         if (resultCode == BASE_RSULT) {
             if (data != null) {
                 AddressListBean.DataBean dataBean = data.getParcelableExtra(BASE_PARCELABLE);
-                mSelectAddrTv.setVisibility(View.GONE);
-                mDefaultAddrLl.setVisibility(View.VISIBLE);
                 initDefaultAddr(dataBean);
             }
 

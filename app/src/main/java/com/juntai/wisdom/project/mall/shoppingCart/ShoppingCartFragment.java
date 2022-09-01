@@ -228,6 +228,12 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                     mSettleTv.setText("结算");
                     mStartEditTv.setTextColor(ContextCompat.getColor(mContext, R.color.gray_deeper));
                     mSettleTv.setBackgroundResource(R.drawable.app_bt_bg_accent);
+                    //如果全选按钮选中了  取消全选
+                    if (mSelectAllCb.isChecked()) {
+                        mSelectAllCb.setChecked(false);
+                    }
+                    //如果有选中的商品 需要全部取消掉
+                    unSelectedCommodities();
                 } else {
                     mStartEditTv.setText("退出管理");
                     mSettleTv.setText("删除");
@@ -293,6 +299,23 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
         }
         toCommitSelectedCommoditiesBean.setTrolley(trolleyBeans);
         return GsonTools.createGsonString(toCommitSelectedCommoditiesBean);
+    }
+    /**
+     * 获取选中的商品
+     *
+     * @return
+     */
+    private void unSelectedCommodities() {
+        List<CartListBean.DataBean> dataBeans = baseQuickAdapter.getData();
+        for (CartListBean.DataBean dataBean : dataBeans) {
+            dataBean.setShopSelect(false);
+            List<CartListBean.DataBean.CommodityListBean> childs = dataBean.getCommodityList();
+            for (CartListBean.DataBean.CommodityListBean child : childs) {
+                child.setSelected(false);
+            }
+        }
+       baseQuickAdapter.notifyDataSetChanged();
+        return ;
     }
 
     /**

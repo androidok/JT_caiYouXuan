@@ -8,7 +8,6 @@ import com.baidu.location.BDLocation;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
-import com.juntai.wisdom.project.mall.MainActivity;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.home.map.MyMapFragment;
 
@@ -31,9 +30,9 @@ public class HomeFragment extends BaseMvpFragment<HomePagePresent> implements Ho
     @Override
     protected void initView() {
         initFragmentSelected(0);
-        ((MainActivity)getBaseActivity()).mImmersionBar.reset().statusBarColor(R.color.transparent)
-                .statusBarDarkFont(true)
-                .init();
+//        ((MainActivity)getBaseActivity()).mImmersionBar.reset().statusBarColor(R.color.transparent)
+//                .statusBarDarkFont(true)
+//                .init();
     }
 
     /**
