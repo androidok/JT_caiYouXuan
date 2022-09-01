@@ -83,6 +83,6 @@ tinkerPatch {
         keepDexApply = false
         //tinkerId = "1.0.1-patch"
         //applyMapping = "${bakPath}/${appName}/app-debug-mapping.txt" //  可选，设置mapping文件，建议保持旧apk的proguard混淆方式
-        //applyResourceMapping = "${bakPath}/${appName}/app-debug-R.txt" // 可选，设置R.txt文件，通过旧apk文件保持ResId的分配
+//        applyResourceMapping = "${bakPath}/${appName}/app-debug-R.txt" // 可选，设置R.txt文件，通过旧apk文件保持ResId的分配
     }
 }
