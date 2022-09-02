@@ -234,7 +234,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                 if (loginBean != null) {
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManager.getHeadPic(), mHeadImage);
-                    mNickname.setText(UserInfoManager.getShopName());
+                    mNickname.setText(UserInfoManager.getUserNickName());
                     mInfoDesTv.setText(UserInfoManager.getPhoneNumber());
                 }
                 break;
