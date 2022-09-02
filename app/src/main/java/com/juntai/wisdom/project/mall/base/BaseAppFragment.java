@@ -134,7 +134,7 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
      * 跳入 申请退款界面
      */
     public void startToOrderRefundRequestActivity(String shopTel) {
-        getBaseActivity().showAlertDialogOfKnown(String.format("请联系店铺负责人，电话：%s",shopTel));
+        getBaseActivity().showAlertDialogOfKnown(String.format("请联系店铺负责人\n电话：%s",shopTel));
     }
 
     /**

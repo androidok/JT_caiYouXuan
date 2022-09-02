@@ -32,7 +32,7 @@ public class OrderListShopAdapter extends BaseQuickAdapter<SellOrderDetailBean, 
 
         helper.setText(R.id.order_shop_name_tv, UserInfoManagerMall.getShopName());
         helper.addOnClickListener(R.id.shop_bottom_cl);
-        helper.setGone(R.id.order_paytype_tv, item.getPayType() == 4);
+        helper.setGone(R.id.order_paytype_tv, false);
         helper.setGone(R.id.order_status_tv,true);
         helper.setText(R.id.order_status_tv, getOrderStatus(item.getState()));
         helper.setGone(R.id.final_payment_tv, item.getPayType() != 4);

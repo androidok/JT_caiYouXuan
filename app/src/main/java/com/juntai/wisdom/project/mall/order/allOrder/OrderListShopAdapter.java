@@ -32,10 +32,9 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
         helper.setText(R.id.order_shop_name_tv, item.getShopName());
         helper.addOnClickListener(R.id.order_shop_name_tv);
         helper.addOnClickListener(R.id.shop_bottom_cl);
-        helper.setGone(R.id.order_paytype_tv, item.getPayType() == 4);
+        helper.setGone(R.id.order_paytype_tv, false);
         helper.setGone(R.id.order_status_tv,true);
         helper.setText(R.id.order_status_tv, getOrderStatus(item.getState()));
-        helper.setGone(R.id.final_payment_tv, item.getPayType() != 4);
         helper.setText(R.id.final_payment_tv, 0 == item.getState() ? String.format("需付款:%s", item.getPayPrice()) : String.format("实付款:%s", item.getPayPrice()));
         initBottomButton(helper,item);
         RecyclerView recyclerView = helper.getView(R.id.order_commodities_rv);

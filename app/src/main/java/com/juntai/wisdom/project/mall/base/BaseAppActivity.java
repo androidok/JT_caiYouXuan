@@ -451,7 +451,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseAppMo
      * 跳入 申请退款界面
      */
     public void startToOrderRefundRequestActivity(String shopTel) {
-        showAlertDialogOfKnown(String.format("请联系店铺负责人，电话：%s",shopTel));
+        showAlertDialogOfKnown(String.format("请联系店铺负责人\n电话：%s",shopTel));
     }
 
     @Override

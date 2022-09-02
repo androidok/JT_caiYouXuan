@@ -104,8 +104,7 @@ public class OrderManagerActivity extends BaseTabViewPageActivity<OrderPresent> 
         SparseArray<Fragment> fragments = new SparseArray<>();
         fragments.append(0, OrderListFragment.newInstance(-1));
         fragments.append(1, OrderListFragment.newInstance(1));
-        fragments.append(2, OrderListFragment.newInstance(9));
-        fragments.append(3, OrderListFragment.newInstance(5));
+        fragments.append(2, OrderListFragment.newInstance(5));
 
         return fragments;
     }
@@ -115,7 +114,6 @@ public class OrderManagerActivity extends BaseTabViewPageActivity<OrderPresent> 
         List<BaseTabBean> arrays = new ArrayList<>();
         arrays.add(new BaseTabBean(ORDER_ALL));
         arrays.add(new BaseTabBean(ORDER_SEND));
-        arrays.add(new BaseTabBean(ORDER_REFUND));
         arrays.add(new BaseTabBean(ORDER_FINISHED));
         return arrays;
     }
