@@ -48,7 +48,7 @@ public class MyCenterPresent extends BaseAppPresent<IModel, MyCenterContract.ICe
         arrays.add(new PicTextBean(R.mipmap.to_send_icon, MyCenterContract.ORDER_TO_SEND));
 //        arrays.add(new PicTextBean(R.mipmap.to_receive_icon, MyCenterContract.ORDER_TO_RECEIVE));
 //        arrays.add(new PicTextBean(R.mipmap.to_evaluate_icon, MyCenterContract.ORDER_TO_EVALUATE));
-        arrays.add(new PicTextBean(R.mipmap.to_refund_icon, MyCenterContract.ORDER_TO_BACK));
+//        arrays.add(new PicTextBean(R.mipmap.to_refund_icon, MyCenterContract.ORDER_TO_BACK));
         return arrays;
     }
 

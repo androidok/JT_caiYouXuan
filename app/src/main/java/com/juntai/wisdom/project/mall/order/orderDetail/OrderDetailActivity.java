@@ -150,7 +150,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
             @Override
             public void onClick(View v) {
                 // : 2022/5/15 重新提交退货申请
-                startToOrderRefundRequestActivity(orderDetailBean);
+                startToOrderRefundRequestActivity(orderDetailBean.getShopAccount());
             }
         });
         return view;
@@ -231,7 +231,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
 
                     case HomePageContract.ORDER_REFUND:
                         // : 2022/5/14 申请退款
-                        startToOrderRefundRequestActivity(orderDetailBean);
+                        startToOrderRefundRequestActivity(orderDetailBean.getShopAccount());
 
                         break;
                     case HomePageContract.ORDER_REBUY:

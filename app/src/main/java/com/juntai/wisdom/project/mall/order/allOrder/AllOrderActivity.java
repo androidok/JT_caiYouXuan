@@ -45,11 +45,7 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
         enterType = getIntent().getIntExtra(BASE_ID, 0);
         tabPosition = getIntent().getIntExtra(BASE_ID2, 0);
         super.initView();
-        if (2==tabPosition) {
-            mTabTb.setVisibility(View.GONE);
-        }else {
-            mTabTb.setVisibility(View.VISIBLE);
-        }
+        mTabTb.setVisibility(View.VISIBLE);
         mSearchContentSv.setQueryHint("搜索订单编号、商品名称或店铺名称");
     }
 
@@ -87,9 +83,6 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
 
     @Override
     protected String getTitleName() {
-        if (2== tabPosition) {
-            return "退款/售后";
-        }
         return "全部订单";
     }
 
@@ -97,14 +90,8 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
     @Override
     protected SparseArray<Fragment> getFragments() {
         SparseArray<Fragment> fragments = new SparseArray<>();
-        if (2== tabPosition) {
-            fragments.append(0, OrderListFragment.newInstance(4));
-        }else {
-            fragments.append(0, OrderListFragment.newInstance(-1));
-            fragments.append(1, OrderListFragment.newInstance(1));
-            fragments.append(2, OrderListFragment.newInstance(4));
-        }
-
+        fragments.append(0, OrderListFragment.newInstance(-1));
+        fragments.append(1, OrderListFragment.newInstance(1));
         return fragments;
     }
 
@@ -112,14 +99,8 @@ public class AllOrderActivity extends BaseTabViewPageActivity<OrderPresent> impl
     protected List<BaseTabBean> getTabTitles() {
         List<BaseTabBean> arrays = new ArrayList<>();
 
-        if (2== tabPosition) {
-            arrays.add(new BaseTabBean(""));
-        }else {
-            arrays.add(new BaseTabBean(ORDER_TOTAL));
-            arrays.add(new BaseTabBean(ORDER_SEND));
-            arrays.add(new BaseTabBean(ORDER_BACK));
-
-        }
+        arrays.add(new BaseTabBean(ORDER_TOTAL));
+        arrays.add(new BaseTabBean(ORDER_SEND));
         return arrays;
     }
     @Override

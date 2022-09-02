@@ -4,7 +4,6 @@ package com.juntai.wisdom.project.mall.base;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.example.appbase.bean.order.OrderDetailBean;
 import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
@@ -15,7 +14,6 @@ import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.wisdom.project.mall.home.shop.ShopActivity;
 import com.juntai.wisdom.project.mall.order.orderDetail.OrderDetailActivity;
 import com.juntai.wisdom.project.mall.order.orderPay.OrderPayActivity;
-import com.juntai.wisdom.project.mall.order.refund.RefundRequestActivity;
 
 import okhttp3.FormBody;
 
@@ -135,12 +133,10 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
     /**
      * 跳入 申请退款界面
      */
-    public void startToOrderRefundRequestActivity(OrderDetailBean orderDetailBean) {
-        startActivity(new Intent(mContext, RefundRequestActivity.class)
-                .putExtra(BaseActivity.BASE_PARCELABLE, orderDetailBean)
-        );
-
+    public void startToOrderRefundRequestActivity(String shopTel) {
+        getBaseActivity().showAlertDialogOfKnown(String.format("请联系店铺负责人，电话：%s",shopTel));
     }
+
     /**
      * 跳转到支付界面
      * enterType 0 代表直接购买的时候

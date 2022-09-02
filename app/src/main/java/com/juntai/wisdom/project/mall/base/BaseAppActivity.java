@@ -49,7 +49,6 @@ import com.juntai.wisdom.project.mall.order.evaluate.EvaluateActivity;
 import com.juntai.wisdom.project.mall.order.orderDetail.OrderDetailActivity;
 import com.juntai.wisdom.project.mall.order.orderPay.OrderPayActivity;
 import com.juntai.wisdom.project.mall.order.refund.RefundActivity;
-import com.juntai.wisdom.project.mall.order.refund.RefundRequestActivity;
 import com.juntai.wisdom.project.mall.search.SearchActivity;
 import com.juntai.wisdom.project.mall.share.ShareActivity;
 import com.juntai.wisdom.project.mall.utils.StringTools;
@@ -451,11 +450,8 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseAppMo
     /**
      * 跳入 申请退款界面
      */
-    public void startToOrderRefundRequestActivity(OrderDetailBean orderDetailBean) {
-        startActivity(new Intent(mContext, RefundRequestActivity.class)
-                .putExtra(BaseActivity.BASE_PARCELABLE, orderDetailBean)
-        );
-
+    public void startToOrderRefundRequestActivity(String shopTel) {
+        showAlertDialogOfKnown(String.format("请联系店铺负责人，电话：%s",shopTel));
     }
 
     @Override

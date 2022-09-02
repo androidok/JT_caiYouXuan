@@ -101,7 +101,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                                 break;
                             case HomePageContract.ORDER_REFUND:
                                 // : 2022/5/12 申请退款
-                                startToOrderRefundRequestActivity(orderDetailBean);
+                                startToOrderRefundRequestActivity(orderDetailBean.getShopAccount());
                                 break;
                             default:
                                 break;

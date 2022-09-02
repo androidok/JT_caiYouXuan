@@ -61,6 +61,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
     private String address;
     private int shopId;
     private String shopName;
+    private String shopAccount;
     private double totalPrices;
     private double transportCharges;
     private double sumPackingCharges;
@@ -97,6 +98,14 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
 
     public int getId() {
         return id;
+    }
+
+    public String getShopAccount() {
+        return shopAccount == null ? "" : shopAccount;
+    }
+
+    public void setShopAccount(String shopAccount) {
+        this.shopAccount = shopAccount == null ? "" : shopAccount;
     }
 
     public String getTotalOrderFormNumber() {
@@ -937,6 +946,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         dest.writeString(this.address);
         dest.writeInt(this.shopId);
         dest.writeString(this.shopName);
+        dest.writeString(this.shopAccount);
         dest.writeDouble(this.totalPrices);
         dest.writeDouble(this.transportCharges);
         dest.writeDouble(this.sumPackingCharges);
@@ -972,6 +982,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         this.address = in.readString();
         this.shopId = in.readInt();
         this.shopName = in.readString();
+        this.shopAccount = in.readString();
         this.totalPrices = in.readDouble();
         this.transportCharges = in.readDouble();
         this.sumPackingCharges = in.readDouble();
