@@ -59,9 +59,10 @@ public abstract class BaseCommodityListFragment extends BaseRecyclerviewFragment
     @Override
     protected void initView() {
         super.initView();
-        // TODO: 2022/9/1 这个地方涉及到主页的颜色配置
-        mRecyclerview.setBackgroundColor(ContextCompat.getColor(mContext, R.color.gray_lighter));
-//        mRecyclerview.setBackgroundResource(0);
+        // : 2022/9/1 这个地方涉及到主页的颜色配置
+//        mRecyclerview.setBackgroundColor(ContextCompat.getColor(mContext, R.color.gray_lighter));
+        mRecyclerview.setBackgroundResource(0);
+        mRecyclerview.setPadding(0,0,0,0);
         mSmartrefreshlayout.setPrimaryColors(ContextCompat.getColor(mContext, R.color.gray_lighter));
         ClassicsHeader classicsHeader = (ClassicsHeader) mSmartrefreshlayout.getRefreshHeader();
         if (classicsHeader != null) {

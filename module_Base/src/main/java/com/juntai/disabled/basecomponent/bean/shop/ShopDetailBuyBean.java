@@ -53,6 +53,7 @@ public class ShopDetailBuyBean extends BaseResult {
         private String coverImg;//直播封面
         private String name;
         private String headPortrait;
+        private String phoneNumber;
         /**
          * 直播标题
          */
@@ -80,6 +81,14 @@ public class ShopDetailBuyBean extends BaseResult {
 
         public String getCoverImg() {
             return coverImg == null ? "" : coverImg;
+        }
+
+        public String getPhoneNumber() {
+            return phoneNumber == null ? "" : phoneNumber;
+        }
+
+        public void setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber == null ? "" : phoneNumber;
         }
 
         public String getStartTime() {

@@ -67,6 +67,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
     private GlideImageLoader imageLoader;
     private String liveNum;
     private TextView mShopWorkTimeTv;
+    private TextView mShopTelTv;
 
     @Override
     protected ShopPresent createPresenter() {
@@ -102,6 +103,7 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         mScoreTv = (TextView) findViewById(R.id.shop_score_tv);
         mShopDesTv = (TextView) findViewById(R.id.shop_des_tv);
         mShopWorkTimeTv = (TextView) findViewById(R.id.shop_work_time_tv);
+        mShopTelTv = (TextView) findViewById(R.id.shop_tel_tv);
         mShopBanner = (Banner) findViewById(R.id.shop_banner);
     }
 
@@ -199,7 +201,8 @@ public class ShopActivity extends BaseAppActivity<ShopPresent> implements HomePa
         mShopCreatTimeTv.setText("开店时间:" + shopBean.getCreateTime());
         mScoreTv.setText("在售商品:" + shopBean.getCommodityCount());
         mShopDesTv.setText(String.format("店铺简介：\n%s", shopBean.getIntroduction()));
-        mShopWorkTimeTv.setText(String.format("营业时间： %s~%s", shopBean.getStartTime(),shopBean.getEndTime()));
+        mShopWorkTimeTv.setText(String.format("营业时间：%s ~ %s", shopBean.getStartTime(),shopBean.getEndTime()));
+        mShopTelTv.setText(String.format("联系电话：%s", shopBean.getPhoneNumber()));
         mShopCollectIv.setImageResource(shopBean.getIsCollect() > 0 ? R.mipmap.collected_icon : R.mipmap.un_collect_icon);
         initBanner(shopBean);
 
