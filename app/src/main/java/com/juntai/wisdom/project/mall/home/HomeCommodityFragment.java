@@ -41,7 +41,7 @@ public class HomeCommodityFragment extends BaseAppFragment<HomePagePresent> impl
         ImageLoadUtil.loadSquareImage(mContext, R.mipmap.app_icon,mAppLogoIv);
         mSwitchModeIv.setOnClickListener(this);
         mSearchLl.setOnClickListener(this);
-//        mSearchLl.setBackgroundResource(R.drawable.sp_filled_white_10dp);
+        mSearchLl.setBackgroundResource(R.drawable.sp_filled_white_circle);
         getView(R.id.scan_iv).setOnClickListener(this);
 
     }
