@@ -256,6 +256,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
     public void initView() {
 
         initToolbarAndStatusBar(false);
+        mBaseRootCol.setFitsSystemWindows(true);
         mImmersionBar.statusBarColor(R.color.transparent).statusBarDarkFont(true).init();
         mLoginTv = (TextView) findViewById(R.id.login_tv);
         mLoginTv.setOnClickListener(this);

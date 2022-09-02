@@ -35,8 +35,7 @@ public class AddCommodityActivity extends BaseShopActivity {
                 }
             });
         }else {
-            detailBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
-            baseQuickAdapter.setNewData(mPresenter.getCommodityBaseInfoData(detailBean, false,false));
+            baseQuickAdapter.setNewData(mPresenter.getCommodityBaseInfoData(null, false,false));
         }
 
 

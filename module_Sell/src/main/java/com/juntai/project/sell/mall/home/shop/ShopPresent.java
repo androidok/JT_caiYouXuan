@@ -139,7 +139,7 @@ public class ShopPresent extends BaseAppMallPresent {
                 , true, 0, isDetail);
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PRICE, bean == null ? "" :
                         String.valueOf(bean.getPrice())
-                , true, 0, true);
+                , true, 0, isDetail);
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.COMMODITY_PRIMARY_PIC, true)));
         if (bean != null) {
