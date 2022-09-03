@@ -75,7 +75,9 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
         mRecyclerview.setBackgroundColor(ContextCompat.getColor(mContext, R.color.gray_lighter));
         mSmartrefreshlayout.setPrimaryColors(ContextCompat.getColor(mContext,R.color.gray_lighter));
         ClassicsHeader classicsHeader = (ClassicsHeader) mSmartrefreshlayout.getRefreshHeader();
-        classicsHeader.setAccentColor(ContextCompat.getColor(mContext,R.color.black));
+        if (classicsHeader != null) {
+            classicsHeader.setAccentColor(ContextCompat.getColor(mContext,R.color.black));
+        }
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         mRecyclerview.setLayoutManager(staggeredGridLayoutManager);

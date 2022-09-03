@@ -106,7 +106,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
 
     protected int page = 1; //当前页码
     //每次展示20条数据
-    protected int limit = 20;
+    protected int limit = 10;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

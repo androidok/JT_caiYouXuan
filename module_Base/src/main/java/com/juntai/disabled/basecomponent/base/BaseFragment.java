@@ -29,7 +29,7 @@ public abstract class BaseFragment extends RxFragment {
     protected View mRootView = null;
     protected int page = 1; //当前页码
     //每次展示20条数据
-    protected int limit = 20;
+    protected int limit = 10;
     protected Context mContext;
     protected Toast toast;
 
