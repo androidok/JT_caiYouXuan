@@ -60,6 +60,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
     private String phone;
     private String address;
     private int shopId;
+    private int shopState;
     private String shopName;
     private String shopAccount;
     private double totalPrices;
@@ -94,6 +95,14 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
 
     public void setCommodityEvaluateVo(CommodityEvaluateVoBean commodityEvaluateVo) {
         this.commodityEvaluateVo = commodityEvaluateVo;
+    }
+
+    public int getShopState() {
+        return shopState;
+    }
+
+    public void setShopState(int shopState) {
+        this.shopState = shopState;
     }
 
     public int getId() {
@@ -945,6 +954,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         dest.writeString(this.phone);
         dest.writeString(this.address);
         dest.writeInt(this.shopId);
+        dest.writeInt(this.shopState);
         dest.writeString(this.shopName);
         dest.writeString(this.shopAccount);
         dest.writeDouble(this.totalPrices);
@@ -981,6 +991,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         this.phone = in.readString();
         this.address = in.readString();
         this.shopId = in.readInt();
+        this.shopState = in.readInt();
         this.shopName = in.readString();
         this.shopAccount = in.readString();
         this.totalPrices = in.readDouble();

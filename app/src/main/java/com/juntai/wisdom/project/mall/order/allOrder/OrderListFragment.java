@@ -68,7 +68,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
     @Override
     protected void initView() {
         super.initView();
-        baseQuickAdapter.setEmptyView(getBaseActivity().getAdapterEmptyView("一个订单也没有-_-",-1));
+        baseQuickAdapter.setEmptyView(getBaseActivity().getAdapterEmptyView("一个订单也没有-_-", -1));
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -83,6 +83,10 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                         startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
                         break;
                     case R.id.order_shop_name_tv:
+                        if (orderDetailBean.getShopState() != 2) {
+                            ToastUtils.toast(mContext, "店铺不存在");
+                            return;
+                        }
                         startToShop(orderDetailBean.getShopId());
                         break;
 
@@ -179,7 +183,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
             case EventBusObject.REFRESH_ORDER_LIST:
                 String key = (String) eventBusObject.getEventObj();
                 page = 1;
-               getList(key);
+                getList(key);
                 break;
             default:
                 break;
@@ -194,14 +198,14 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
     @Override
     protected void getRvAdapterData() {
         // : 2022/5/12 获取订单列表
-        getList(((AllOrderActivity)getActivity()).mSearchContentSv.getQuery().toString().trim());
+        getList(((AllOrderActivity) getActivity()).mSearchContentSv.getQuery().toString().trim());
 
     }
 
     private void getList(String key) {
         mPresenter.getOrderList(getBaseBuilder()
                 .add("page", String.valueOf(page))
-                .add("key", TextUtils.isEmpty(key)?"":key)
+                .add("key", TextUtils.isEmpty(key) ? "" : key)
                 .add("limit", String.valueOf(limit))
                 .add("type", String.valueOf(labelId)).build(), AppHttpPath.ORDER_LIST
         );
@@ -223,7 +227,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                     OrderListBean.DataBean dataBean = orderListBean.getData();
                     if (dataBean != null) {
                         List<OrderDetailBean> arrays = dataBean.getList();
-                        setData(arrays,dataBean.getTotalCount());
+                        setData(arrays, dataBean.getTotalCount());
                     }
                 }
 

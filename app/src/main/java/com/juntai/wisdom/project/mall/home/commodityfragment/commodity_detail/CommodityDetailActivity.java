@@ -60,6 +60,8 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
     private CommodityDetailBean.DataBean dataBean;
     private PicTextAdapter picTextAdapter;
     private int collectId = 0;
+    //店铺状态
+    private boolean shopStatusIsOk = true;
 
 
     @Override
@@ -87,7 +89,12 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                     ToastUtils.toast(mContext, "商品信息获取失败 无法分享");
                     return;
                 }
-                ShareActivity.startShareActivity(mContext, 1, dataBean.getCoverImg(), dataBean.getName(),dataBean.getShareUrl());
+                if (!shopStatusIsOk) {
+                    ToastUtils.toast(mContext, "店铺不存在");
+                    return;
+                }
+
+                ShareActivity.startShareActivity(mContext, 1, dataBean.getCoverImg(), dataBean.getName(), dataBean.getShareUrl());
             }
         });
         commodityId = getIntent().getIntExtra(BASE_ID, 0);
@@ -103,6 +110,11 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
         picTextAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!shopStatusIsOk) {
+                    ToastUtils.toast(mContext, "店铺不存在");
+                    return;
+                }
+
                 PicTextBean picTextBean = (PicTextBean) adapter.getItem(position);
                 switch (picTextBean.getTextName()) {
                     case HomePageContract.SHOP:
@@ -228,6 +240,11 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
 
     @Override
     public void onClick(View v) {
+        if (!shopStatusIsOk) {
+            ToastUtils.toast(mContext, "店铺不存在");
+            return;
+        }
+
         switch (v.getId()) {
             default:
                 break;
@@ -235,6 +252,8 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                 // : 2022/5/5 加入购物车
             case R.id.buy_now_tv:
                 // : 2022/5/5 立即购买
+
+
                 SelectCommodityPropertyDialogFragment selectCommodityPropertyFragment = new SelectCommodityPropertyDialogFragment();
                 selectCommodityPropertyFragment.show(getSupportFragmentManager(), "selectCommodityPropertyFragment");
                 selectCommodityPropertyFragment.setOnConfirmCallBack(new SelectCommodityPropertyDialogFragment.OnConfirmCallBack() {
@@ -306,6 +325,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                 CommodityDetailBean commodityDetailBean = (CommodityDetailBean) o;
                 if (commodityDetailBean != null) {
                     dataBean = commodityDetailBean.getData();
+                    shopStatusIsOk = dataBean.getShopState() == 2;
                     collectId = dataBean.getIsCollect();
                     picTextAdapter.setNewData(mPresenter.getCommodityBottomMenus(dataBean.getIsCollect() > 0));
                     commodityDetailFragment.initAdapterData(dataBean);

@@ -59,6 +59,8 @@ public class CommodityDetailBean extends BaseResult {
          * 店铺的userid
          */
         private int userId;
+        private int shopState;
+
         private int shopClassifyId;
         private int categoryId;
         private String name;
@@ -109,6 +111,14 @@ public class CommodityDetailBean extends BaseResult {
 
         public void setShareUrl(String shareUrl) {
             this.shareUrl = shareUrl == null ? "" : shareUrl;
+        }
+
+        public int getShopState() {
+            return shopState;
+        }
+
+        public void setShopState(int shopState) {
+            this.shopState = shopState;
         }
 
         public int getShopClassifyId() {

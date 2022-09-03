@@ -213,6 +213,10 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
             default:
                 break;
             case R.id.order_shop_name_tv:
+                if (orderDetailBean.getShopState() != 2) {
+                    ToastUtils.toast(mContext, "店铺不存在");
+                    return;
+                }
                 startToShop(orderDetailBean.getShopId());
                 break;
             case R.id.order_left_tv:
@@ -301,8 +305,8 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                         mOrderCommodityAdapter.setNewData(list);
                         mOrderShopNameTv.setText(orderDetailBean.getShopName());
                         mOrderStatusTv.setText(getOrderStatus(orderDetailBean.getState()));
-                        mOrderRemarkTv.setVisibility(TextUtils.isEmpty(orderDetailBean.getRemark())?View.GONE:View.VISIBLE);
-                        mOrderRemarkTv.setText(String.format("备注信息：%s",orderDetailBean.getRemark()));
+                        mOrderRemarkTv.setVisibility(TextUtils.isEmpty(orderDetailBean.getRemark()) ? View.GONE : View.VISIBLE);
+                        mOrderRemarkTv.setText(String.format("备注信息：%s", orderDetailBean.getRemark()));
                         mFinalPaymentTv.setText(0 == orderStatus ? String.format("需付款:%s", orderDetailBean.getPayPrice()) : String.format("实付款:%s", orderDetailBean.getPayPrice()));
                         List<TextKeyValueBean> arrays = new ArrayList<>();
                         List<OrderDetailItemBean> itemBeans = new ArrayList<>();
@@ -409,6 +413,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                 break;
         }
     }
+
     /**
      * 订单状态(0：待付款）（1：待发货）（2：待收货）（3：待评价）（4：退款中）（5：完成）（6:订单取消）（7：退款完成）
      *
@@ -447,6 +452,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
         }
         return status;
     }
+
     private void initEvaluate(List<OrderDetailItemBean> itemBeans) {
         OrderDetailBean.CommodityEvaluateVoBean commodityEvaluateBean = orderDetailBean.getCommodityEvaluateVo();
         if (commodityEvaluateBean != null) {
