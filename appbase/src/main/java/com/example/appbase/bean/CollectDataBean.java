@@ -28,6 +28,7 @@ public class CollectDataBean extends BaseResult {
         private int id;
         private int scId;
         private String name;
+        private String shopName;
         private String photo;
         private Object price;
 
@@ -45,6 +46,14 @@ public class CollectDataBean extends BaseResult {
 
         public void setScId(int scId) {
             this.scId = scId;
+        }
+
+        public String getShopName() {
+            return shopName == null ? "" : shopName;
+        }
+
+        public void setShopName(String shopName) {
+            this.shopName = shopName == null ? "" : shopName;
         }
 
         public String getName() {

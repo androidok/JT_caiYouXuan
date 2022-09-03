@@ -25,6 +25,8 @@ public class CollectCommoditiesAdapter extends BaseQuickAdapter<CollectDataBean.
         helper.setText(R.id.linearlayout_commodity_price_tv, String.format("￥%s",item.getPrice()));
         helper.addOnClickListener(R.id.collect_iv);
         helper.setGone(R.id.collect_iv,true);
+        helper.setGone(R.id.shop_name_tv,true);
+        helper.setText(R.id.shop_name_tv,item.getShopName());
         helper.setGone(R.id.linearlayout_commodity_sales_tv,false);
 
     }
