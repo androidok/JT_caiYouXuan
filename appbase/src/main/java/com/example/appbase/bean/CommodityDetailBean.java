@@ -1,5 +1,7 @@
 package com.example.appbase.bean;
 
+import android.os.Parcel;
+
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
 
@@ -30,7 +32,7 @@ public class CommodityDetailBean extends BaseResult {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements android.os.Parcelable {
         /**
          * id : 5
          * shopId : 1
@@ -60,6 +62,10 @@ public class CommodityDetailBean extends BaseResult {
          */
         private int userId;
         private int shopState;
+        /**
+         * 商品申请状态（1审核中；2审核通过；3审核失败）
+         */
+        private int state;
 
         private int shopClassifyId;
         private int categoryId;
@@ -91,6 +97,14 @@ public class CommodityDetailBean extends BaseResult {
 
         public int getShopId() {
             return shopId;
+        }
+
+        public int getState() {
+            return state;
+        }
+
+        public void setState(int state) {
+            this.state = state;
         }
 
         public void setShopId(int shopId) {
@@ -339,5 +353,81 @@ public class CommodityDetailBean extends BaseResult {
                 this.imgUrl = imgUrl;
             }
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(this.id);
+            dest.writeInt(this.shopId);
+            dest.writeInt(this.userId);
+            dest.writeInt(this.shopState);
+            dest.writeInt(this.state);
+            dest.writeInt(this.shopClassifyId);
+            dest.writeInt(this.categoryId);
+            dest.writeString(this.name);
+            dest.writeString(this.shareUrl);
+            dest.writeString(this.coverImg);
+            dest.writeString(this.videoUrl);
+            dest.writeString(this.synopsis);
+            dest.writeString(this.description);
+            dest.writeDouble(this.price);
+            dest.writeInt(this.packingCharges);
+            dest.writeDouble(this.transportCharges);
+            dest.writeInt(this.sales);
+            dest.writeInt(this.isCollect);
+            dest.writeInt(this.isPostage);
+            dest.writeInt(this.browse);
+            dest.writeList(this.result);
+            dest.writeList(this.value);
+            dest.writeList(this.images);
+        }
+
+        public DataBean() {
+        }
+
+        protected DataBean(Parcel in) {
+            this.id = in.readInt();
+            this.shopId = in.readInt();
+            this.userId = in.readInt();
+            this.shopState = in.readInt();
+            this.state = in.readInt();
+            this.shopClassifyId = in.readInt();
+            this.categoryId = in.readInt();
+            this.name = in.readString();
+            this.shareUrl = in.readString();
+            this.coverImg = in.readString();
+            this.videoUrl = in.readString();
+            this.synopsis = in.readString();
+            this.description = in.readString();
+            this.price = in.readDouble();
+            this.packingCharges = in.readInt();
+            this.transportCharges = in.readDouble();
+            this.sales = in.readInt();
+            this.isCollect = in.readInt();
+            this.isPostage = in.readInt();
+            this.browse = in.readInt();
+            this.result = new ArrayList<ResultBean>();
+            in.readList(this.result, ResultBean.class.getClassLoader());
+            this.value = new ArrayList<CommodityPropertyBean>();
+            in.readList(this.value, CommodityPropertyBean.class.getClassLoader());
+            this.images = new ArrayList<ImagesBean>();
+            in.readList(this.images, ImagesBean.class.getClassLoader());
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel source) {
+                return new DataBean(source);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
     }
 }

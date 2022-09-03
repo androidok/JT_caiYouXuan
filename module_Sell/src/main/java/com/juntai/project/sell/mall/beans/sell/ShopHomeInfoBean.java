@@ -52,6 +52,8 @@ public class ShopHomeInfoBean extends BaseResult {
 
         private int shopId;
         private String name;
+        private String startTime;
+        private String endTime;
         private String headPortrait;
         private String logo;
         private String introduction;
@@ -76,6 +78,22 @@ public class ShopHomeInfoBean extends BaseResult {
 
         public void setShareUrl(String shareUrl) {
             this.shareUrl = shareUrl == null ? "" : shareUrl;
+        }
+
+        public String getStartTime() {
+            return startTime == null ? "" : startTime;
+        }
+
+        public void setStartTime(String startTime) {
+            this.startTime = startTime == null ? "" : startTime;
+        }
+
+        public String getEndTime() {
+            return endTime == null ? "" : endTime;
+        }
+
+        public void setEndTime(String endTime) {
+            this.endTime = endTime == null ? "" : endTime;
         }
 
         public int getShopId() {

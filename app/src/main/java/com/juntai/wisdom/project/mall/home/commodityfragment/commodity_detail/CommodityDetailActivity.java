@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -62,6 +63,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
     private int collectId = 0;
     //店铺状态
     private boolean shopStatusIsOk = true;
+    private LinearLayout bottomLl;
 
 
     @Override
@@ -104,6 +106,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
         mCommodityBottomRv.setLayoutManager(manager);
         mCommodityBottomRv.setAdapter(picTextAdapter);
         mAddToCartTv = (TextView) findViewById(R.id.add_to_cart_tv);
+        bottomLl = (LinearLayout) findViewById(R.id.commodity_bottom_ll);
         mAddToCartTv.setOnClickListener(this);
         mBuyNowTv = (TextView) findViewById(R.id.buy_now_tv);
         mBuyNowTv.setOnClickListener(this);
@@ -307,10 +310,15 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
 
     @Override
     public void onError(String tag, Object o) {
-        super.onError(tag, o);
         switch (tag) {
             case AppHttpPath.COMMODIFY_DETAIL:
-                finish();
+                bottomLl.setVisibility(View.GONE);
+              showAlertDialogOfKnown((String)o, new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                      finish();
+                  }
+              });
                 break;
             default:
                 break;

@@ -162,7 +162,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         mSystemNoticeLl = (LinearLayout) view.findViewById(R.id.system_notice_ll);
         mShareShopIv = (ImageView) view.findViewById(R.id.share_shop_iv);
         ImageView mAppLogoIv = (ImageView) view.findViewById(R.id.app_logo_iv);
-        ImageLoadUtil.loadSquareImage(mContext,R.mipmap.app_icon,mAppLogoIv);
+        ImageLoadUtil.loadSquareImage(mContext, R.mipmap.app_icon, mAppLogoIv);
         mShareShopIv.setOnClickListener(this);
         // TODO: 2022/7/7 暂时将分享店铺隐藏
         mShareShopIv.setVisibility(View.GONE);
@@ -260,17 +260,15 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         int shipmentsOrder = dataBean.getShipmentsOrder();
                         int afterOrder = dataBean.getAfterOrder();
                         int orderAmount = shipmentsOrder + afterOrder;
-                        if (orderAmount > 0) {
-                            PicTextBean picTextBean = (PicTextBean) baseQuickAdapter.getItem(1);
-                            picTextBean.setUnReadAmount(orderAmount);
-                            baseQuickAdapter.notifyDataSetChanged();
-                        }
+                        PicTextBean picTextBean = (PicTextBean) baseQuickAdapter.getItem(1);
+                        picTextBean.setUnReadAmount(orderAmount);
+                        baseQuickAdapter.notifyDataSetChanged();
 
                         mShopNameTv.setText(dataBean.getName());
                         Hawk.put(HawkProperty.SHOP_NAME, dataBean.getName());
                         mShopCreatTimeTv.setText(String.format("开店时间：%s", dataBean.getCreateTime()));
                         mShopDesTv.setText(String.format("店铺简介：\n%s", dataBean.getIntroduction()));
-//                        mShopWorkTimeTv.setText(String.format("营业时间：\n%s", dataBean.gets()));
+                        mShopWorkTimeTv.setText(String.format("营业时间：%s ~ %s", dataBean.getStartTime(),dataBean.getEndTime()));
                         mShopScoreTv.setText(String.format("在售商品：%s", dataBean.getCommodityNum()));
                         ImageLoadUtil.loadHeadCirclePic(mContext, dataBean.getHeadPortrait(), mShopOwnerHeadIv);
                         List<ShopHomeInfoBean.DataBean.CategoryListBean> categoryListBeans = dataBean.getCategoryList();
@@ -342,10 +340,10 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         int id = v.getId();
         if (id == R.id.share_shop_iv) {// : 2022/6/7 分享店铺
             ARouter.getInstance().build(ARouterPath.appShare)
-                    .withInt(BASE_ID,0)
-                    .withString(BaseActivity.BASE_STRING,dataBean.getHeadPortrait())
-                    .withString(BaseActivity.BASE_STRING3,dataBean.getIntroduction())
-                    .withString(BaseActivity.BASE_STRING2,dataBean.getShareUrl())
+                    .withInt(BASE_ID, 0)
+                    .withString(BaseActivity.BASE_STRING, dataBean.getHeadPortrait())
+                    .withString(BaseActivity.BASE_STRING3, dataBean.getIntroduction())
+                    .withString(BaseActivity.BASE_STRING2, dataBean.getShareUrl())
                     .navigation();
 
         } else if (id == R.id.search_ll) {// : 2022/7/9 搜索
