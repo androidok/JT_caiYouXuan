@@ -4,7 +4,7 @@ ext {
     currentModule = 1
     android = [
             compileSdkVersion: 28,
-            minSdkVersion    : 21,
+            minSdkVersion    : 19,
             targetSdkVersion : 28,
             //添加场所上传
             versionCode      : 130,

@@ -53,7 +53,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
 
     @Override
     public void initView() {
-        // : 2022/7/13 mob的隐私授权 不能删
         HawkProperty.clearRedPoint(mContext.getApplicationContext());
         initToolbarAndStatusBar(false);
         mImmersionBar.reset().statusBarColor(R.color.transparent)

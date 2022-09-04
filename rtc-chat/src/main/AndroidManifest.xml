@@ -1,2 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dds.skywebrtc" />
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.dds.skywebrtc" >
+    <uses-sdk tools:overrideLibrary="org.webrtc"/>
+
+</manifest>
