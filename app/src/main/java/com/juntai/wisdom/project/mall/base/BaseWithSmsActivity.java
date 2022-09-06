@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
+import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.RuleTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
@@ -97,6 +98,10 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
             }
             if (TextUtils.isEmpty(getTextViewValue(mPasswordEt))) {
                 ToastUtils.warning(mContext, "请输入密码");
+                return;
+            }
+            if (!PubUtil.checkPwdMark(getTextViewValue(mPasswordEt))) {
+                ToastUtils.warning(mContext, "密码仅支持最少6位(字母数字下划线）");
                 return;
             }
             commit();

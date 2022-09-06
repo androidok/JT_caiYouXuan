@@ -28,7 +28,6 @@ import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppFragment;
 import com.juntai.project.sell.mall.mine.guide.NewHandGuideActivity;
-import com.juntai.project.sell.mall.mine.modifyPwd.ModifyPwdActivity;
 import com.orhanobut.hawk.Hawk;
 
 import okhttp3.FormBody;
@@ -104,7 +103,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
                                 break;
                             case MyCenterContract.MENU_MODIFY_PWD:
-                                startActivity(new Intent(mContext, ModifyPwdActivity.class));
+                                ActivityManagerTool.getInstance().startToModifyPwd();
                                 break;
 //                            case MyCenterContract.MENU_MODIFY_AUTH:
 //                                // : 2022/6/6 实名认证

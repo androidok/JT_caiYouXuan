@@ -1,7 +1,9 @@
 package com.juntai.wisdom.project.mall.mine.modifyPwd;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.base.BaseWithSmsActivity;
@@ -11,6 +13,7 @@ import com.juntai.wisdom.project.mall.base.BaseWithSmsActivity;
  * @description 描述  修改密码
  * @date 2021-10-13 15:09
  */
+@Route(path = ARouterPath.appModifyPwd)
 public class ModifyPwdActivity extends BaseWithSmsActivity {
 
     @Override

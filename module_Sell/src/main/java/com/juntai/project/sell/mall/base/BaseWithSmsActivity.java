@@ -162,7 +162,6 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag,o);
         switch (tag) {
-            case AppHttpPathMall.MODIFY_PWD:
             case AppHttpPathMall.MODIFY_PHONE:
                 ToastUtils.toast(mContext,"修改成功");
                 reLogin(getTextViewValue(mRegistPhoneEt));

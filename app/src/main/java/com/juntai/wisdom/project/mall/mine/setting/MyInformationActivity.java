@@ -17,13 +17,13 @@ import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
+import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
 import com.juntai.wisdom.project.mall.mine.MyCenterContract;
 import com.juntai.wisdom.project.mall.mine.MyCenterPresent;
-import com.juntai.wisdom.project.mall.mine.modifyPwd.ModifyPwdActivity;
 import com.juntai.wisdom.project.mall.mine.myinfo.BaseModifyActivity;
 import com.juntai.wisdom.project.mall.mine.myinfo.HeadCropActivity;
 import com.juntai.wisdom.project.mall.mine.myinfo.ModifyNickNameActivity;
@@ -134,7 +134,7 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
                         break;
                     case MY_INFO_MODIFY_PWD:
                         // : 2022/5/6 修改密码
-                        startActivity(new Intent(mContext, ModifyPwdActivity.class));
+                        ActivityManagerTool.getInstance().startToModifyPwd();
                         break;
 //                    default:
 //                        break;

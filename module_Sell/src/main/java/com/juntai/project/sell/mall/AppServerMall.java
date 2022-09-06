@@ -107,9 +107,6 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.UPLOAD_FILES)
     Observable<UploadFileBean> uploadFiles(@Body RequestBody requestBody);
 
-    @POST(AppHttpPathMall.MODIFY_PWD)
-    Observable<BaseResult> modifyPwd(@Body RequestBody requestBody);
-
     @POST(AppHttpPathMall.MODIFY_PHONE)
     Observable<BaseResult> modifyPhone(@Body RequestBody requestBody);
 

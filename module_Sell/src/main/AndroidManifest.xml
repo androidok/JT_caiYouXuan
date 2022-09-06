@@ -77,9 +77,6 @@
             android:name=".order.allOrder.OrderManagerActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".mine.modifyPwd.BackPwdActivity"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".mine.MyCenterActivity"
             android:launchMode="singleTop" />
         <activity

@@ -2,6 +2,9 @@ package com.juntai.disabled.basecomponent.utils;
 
 import android.app.Activity;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.juntai.disabled.basecomponent.ARouterPath;
+
 import java.util.LinkedList;
 
 /**
@@ -57,4 +60,16 @@ public class ActivityManagerTool {
     private static class ActivityManagerToolHolder {
         private static ActivityManagerTool activityManagerTool = new ActivityManagerTool();
     }
+
+    /**
+     * 修改密码
+     */
+    public void  startToModifyPwd(){
+        ARouter.getInstance().build(ARouterPath.appModifyPwd)
+                .navigation();
+    }
+
+
+
+
 }

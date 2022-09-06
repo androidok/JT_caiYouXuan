@@ -50,10 +50,6 @@ public class AppHttpPathMall {
     public static final String LOGOUT = BASE + "/member/logout";
 
     /**
-     * 修改密码
-     */
-    public static final String MODIFY_PWD = BASE + "/member/updateMemberPwd";
-    /**
      * 修改手机号
      */
     public static final String MODIFY_PHONE = BASE + "/member/updateMemberPhone";

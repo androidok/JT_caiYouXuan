@@ -5,13 +5,13 @@ def bakPath = file("/apks/")
 /**
  * 此处填写每次构建生成的基准包目录
  */
-def baseApkDir = "app-0904-16-35-29"
+def baseApkDir = "app-0902-17-22-15"
 
 
 /**
  * 每次生成patch包的时候  tinkerid都要修改为唯一值
  */
-def  customTinkerId = "1.3.0.130_0904-16-58-00"
+def  customTinkerId = "1.3.0.130_0906-11-47-00"
 
 /**
  * 对于插件各参数的详细解析请参考，如果没有特殊需求下面的参数都可以不用更改；如果apk需要加固等可以参考具体描述设置参数
