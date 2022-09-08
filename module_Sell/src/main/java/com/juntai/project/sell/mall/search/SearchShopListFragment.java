@@ -102,10 +102,13 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
         if (TextUtils.isEmpty(key)) {
             return;
         }
-        mPresenter.startSearchShop(getBaseAppActivity().getBaseBuilderWithoutParama()
-                .add("key", key)
-                .add("type", "2").build(), AppHttpPathMall.SEARCH_COMMODITY
-        );
+        if (mPresenter != null) {
+            mPresenter.startSearchShop(getBaseAppActivity().getBaseBuilderWithoutParama()
+                    .add("key", key)
+                    .add("type", "2").build(), AppHttpPathMall.SEARCH_COMMODITY
+            );
+        }
+
 
     }
 

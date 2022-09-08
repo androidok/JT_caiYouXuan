@@ -93,10 +93,13 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
             mSmartrefreshlayout.finishRefresh();
             return;
         }
-        mPresenter.startSearchShop(getBaseBuilderWithoutParama()
-                .add("key", key)
-                .add("type", "2").build(), AppHttpPath.SEARCH_SHOP
-        );
+        if (mPresenter != null) {
+            mPresenter.startSearchShop(getBaseBuilderWithoutParama()
+                    .add("key", key)
+                    .add("type", "2").build(), AppHttpPath.SEARCH_SHOP
+            );
+
+        }
 
     }
 
