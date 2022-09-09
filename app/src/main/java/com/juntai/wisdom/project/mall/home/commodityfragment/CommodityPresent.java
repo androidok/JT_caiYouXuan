@@ -59,27 +59,6 @@ public class CommodityPresent extends BaseAppPresent<IModel, IView> {
                 });
     }
 
-    public void getCommodityRecommendList(RequestBody requestBody, String tag) {
-        AppNetModule.createrRetrofit()
-                .getCommodityRecommendList(requestBody)
-                .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<CommodityDesListBean>(null) {
-                    @Override
-                    public void onSuccess(CommodityDesListBean o) {
-                        if (getView() != null) {
-                            getView().onSuccess(tag, o);
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (getView() != null) {
-                            getView().onError(tag, msg);
-                        }
-                    }
-                });
-    }
 
 
 

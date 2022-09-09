@@ -1,7 +1,7 @@
 package com.juntai.wisdom.project.mall.base.search;
 
 
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.View;
 
@@ -26,7 +26,7 @@ public abstract class BaseSearchAndListActivity<P extends BasePresenter> extends
         }
     }
     @Override
-    protected LinearLayoutManager getBaseAdapterManager() {
+    protected RecyclerView.LayoutManager getBaseAdapterManager() {
         return null;
     }
 
@@ -49,7 +49,6 @@ public abstract class BaseSearchAndListActivity<P extends BasePresenter> extends
     public void initView() {
         super.initView();
         setTitleName(getTitleName());
-        mSmartrefreshlayout.setEnableLoadMore(false);
         mSearchContentSv = (SearchView) findViewById(R.id.search_content_sv);
         SearchView.SearchAutoComplete textView = (SearchView.SearchAutoComplete) mSearchContentSv.findViewById(R.id.search_src_text);
         textView.setTextSize(12);

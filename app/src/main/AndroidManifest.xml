@@ -31,7 +31,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".entrance.TestActivity"></activity>
+        <activity android:name=".home.shop.ShopListActivity"></activity>
+        <activity android:name=".entrance.TestActivity" />
         <activity android:name=".home.shop.SearchShopCommodityActivity" />
         <activity
             android:name=".share.ShareActivity"

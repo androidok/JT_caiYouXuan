@@ -24,7 +24,7 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
     protected RecyclerView mRecyclerview;
     protected SmartRefreshLayout mSmartrefreshlayout;
     protected BaseQuickAdapter baseQuickAdapter;
-    protected LinearLayoutManager linearLayoutManager;
+    protected RecyclerView.LayoutManager linearLayoutManager;
 
     @Override
     public int getLayoutView() {
@@ -39,13 +39,14 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
         mSmartrefreshlayout.setEnableLoadMore(enableLoadMore());
         baseQuickAdapter = getBaseQuickAdapter();
         linearLayoutManager = getBaseAdapterManager() == null ? new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false) : getBaseAdapterManager();
+
         if (baseQuickAdapter != null) {
             mRecyclerview.setLayoutManager(linearLayoutManager);
             mRecyclerview.setAdapter(baseQuickAdapter);
             mSmartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
                 @Override
                 public void onRefresh(RefreshLayout refreshLayout) {
-                    page = 0;
+                    page = 1;
                     getRvAdapterData();
                 }
             });
@@ -66,7 +67,7 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
         getRvAdapterData();
     }
 
-    protected abstract LinearLayoutManager getBaseAdapterManager();
+    protected abstract RecyclerView.LayoutManager getBaseAdapterManager();
 
 
     protected abstract void getRvAdapterData();

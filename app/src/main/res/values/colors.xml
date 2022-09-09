@@ -26,5 +26,11 @@
     <color name="bg_focus">#DDDDDD</color>
 
     <color name="background">#55cccccc</color>
+    <color name="home_menu_text_green">#21BD7A</color>
+    <color name="home_menu_text_pink">#FF6BA6</color>
+    <color name="home_menu_text_orange">#F89911</color>
+    <color name="home_menu_text_orange_lighter">#F47F4D</color>
+    <color name="home_menu_text_blue">#5694FF</color>
+    <color name="home_menu_text_violet">#7A63EA</color>
 
 </resources>

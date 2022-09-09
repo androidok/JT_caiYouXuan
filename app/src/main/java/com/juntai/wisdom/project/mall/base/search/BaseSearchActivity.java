@@ -1,6 +1,6 @@
 package com.juntai.wisdom.project.mall.base.search;
 
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.View;
@@ -97,7 +97,7 @@ public abstract class BaseSearchActivity<P extends BasePresenter> extends BaseRe
     }
 
     @Override
-    protected LinearLayoutManager getBaseAdapterManager() {
+    protected RecyclerView.LayoutManager getBaseAdapterManager() {
         return null;
     }
 

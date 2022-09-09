@@ -1,13 +1,13 @@
 package com.juntai.wisdom.project.mall.order.refund;
 
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.bean.order.OrderDetailBean;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseRecyclerviewActivity;
-import com.example.appbase.bean.order.OrderDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 
@@ -37,7 +37,7 @@ public class RefundRequestActivity extends BaseRecyclerviewActivity<OrderPresent
     }
 
     @Override
-    protected LinearLayoutManager getBaseAdapterManager() {
+    protected RecyclerView.LayoutManager getBaseAdapterManager() {
         return null;
     }
 

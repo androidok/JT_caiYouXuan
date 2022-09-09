@@ -5,7 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -286,7 +286,7 @@ public class OrderPayActivity extends BaseRecyclerviewActivity<OrderPresent> imp
 
 
     @Override
-    protected LinearLayoutManager getBaseAdapterManager() {
+    protected RecyclerView.LayoutManager getBaseAdapterManager() {
         return null;
     }
 

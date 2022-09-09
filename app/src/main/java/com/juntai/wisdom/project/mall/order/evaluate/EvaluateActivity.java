@@ -1,6 +1,6 @@
 package com.juntai.wisdom.project.mall.order.evaluate;
 
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -8,13 +8,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.net.AppHttpPath;
+import com.example.appbase.bean.order.OrderDetailBean;
 import com.example.chat.MainContract;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.selectPics.BaseSelectPicsAndVedioActivity;
 import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
-import com.example.appbase.bean.order.OrderDetailBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 import com.juntai.wisdom.project.mall.order.refund.RefundCommodityAdapter;
@@ -53,7 +53,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
     }
 
     @Override
-    protected LinearLayoutManager getBaseAdapterManager() {
+    protected RecyclerView.LayoutManager getBaseAdapterManager() {
         return null;
     }
 

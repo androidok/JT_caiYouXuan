@@ -17,7 +17,7 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
-import com.juntai.wisdom.project.mall.home.HomeFragment;
+import com.juntai.wisdom.project.mall.home.HomePageFragment;
 import com.juntai.wisdom.project.mall.mine.MyCenterFragment;
 import com.juntai.wisdom.project.mall.shoppingCart.ShoppingCartFragment;
 
@@ -62,7 +62,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         mainTablayout = findViewById(R.id.main_tablayout);
         mainLayout = findViewById(R.id.main_layout);
         mainViewpager.setScanScroll(false);
-        mFragments.append(0, new HomeFragment());//
+        mFragments.append(0, new HomePageFragment());//
 //        mFragments.append(1, new LiveFragment());//
         mFragments.append(1, new ShoppingCartFragment());//
         mFragments.append(2, new MyCenterFragment());//

@@ -3,7 +3,7 @@ package com.juntai.wisdom.project.mall.mine.address;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -91,6 +91,11 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
         });
     }
 
+    @Override
+    protected RecyclerView.LayoutManager getBaseAdapterManager() {
+        return null;
+    }
+
     /**
      * 删除收货地址
      *
@@ -115,11 +120,6 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
         });
     }
 
-
-    @Override
-    protected LinearLayoutManager getBaseAdapterManager() {
-        return null;
-    }
 
     @Override
     protected void getRvAdapterData() {
