@@ -16,6 +16,7 @@ import com.juntai.project.sell.mall.beans.BillBaseInfoBean;
 import com.juntai.project.sell.mall.beans.BillListBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatDataBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
+import com.juntai.project.sell.mall.beans.CommodityUnitBean;
 import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
 import com.juntai.project.sell.mall.beans.WithDrawListBean;
@@ -263,6 +264,8 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.GET_ALL_COMMODITY)
     Observable<ShopCommodityManagerListBean> getAllCommodity(@Body RequestBody requestBody);
+    @POST(AppHttpPathMall.GET_ALL_COMMODITY_UNIT)
+    Observable<CommodityUnitBean> getAllCommodityUnit(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.GET_COMMODITY_DETAIL)
     Observable<CommodityDetailDataBean> getCommodityDetail(@Body RequestBody requestBody);

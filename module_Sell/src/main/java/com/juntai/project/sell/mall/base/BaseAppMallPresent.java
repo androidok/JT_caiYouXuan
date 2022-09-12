@@ -6,6 +6,7 @@ import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
+import com.juntai.project.sell.mall.beans.CommodityUnitBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 
 import okhttp3.RequestBody;
@@ -31,6 +32,27 @@ public abstract class BaseAppMallPresent extends BaseAppPresent<IModel, HomePage
                 .subscribe(new BaseObserver<BaseResult>(null) {
                     @Override
                     public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getAllCommodityUnit(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getAllCommodityUnit(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<CommodityUnitBean>(null) {
+                    @Override
+                    public void onSuccess(CommodityUnitBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

@@ -140,6 +140,14 @@ public class ShopPresent extends BaseAppMallPresent {
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PRICE, bean == null ? "" :
                         String.valueOf(bean.getPrice())
                 , true, 0, isDetail);
+        initTextSelectType(arrays, HomePageContract.COMMODITY_UNIT, "", bean == null ? "" : bean.getUnit(), true);
+
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_SEND_LEVEL, bean == null ? "" :
+                        String.valueOf(bean.getDelivery())
+                , true, 0, isDetail);
+
+
+
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.COMMODITY_PRIMARY_PIC, true)));
         if (bean != null) {

@@ -19,6 +19,9 @@ public interface MultiContact {
     String  COMMODITY_PIC_VIDEO= "上传资料";
 
 
+    String COMMODITY_UNIT = "商品单位";
+    String COMMODITY_SEND_LEVEL = "起送量";
+
 
     String SHOP_ORDER_START_TIME = "截单开始时间";
     String SHOP_ORDER_END_TIME = "截单结束时间";

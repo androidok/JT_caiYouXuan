@@ -275,6 +275,10 @@ public class AppHttpPathMall {
      */
     public static final String GET_ALL_COMMODITY = BASE + "/seller/selectCommodityList";
     /**
+     * 商品的单位
+     */
+    public static final String GET_ALL_COMMODITY_UNIT = BASE + "/seller/selectCommodityUnitList";
+    /**
      * 商品详情
      */
     public static final String GET_COMMODITY_DETAIL = BASE + "/seller/selectCommodityInfo";

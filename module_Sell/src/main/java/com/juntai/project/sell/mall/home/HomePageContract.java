@@ -102,6 +102,8 @@ public interface HomePageContract {
     String COMMODITY_VIDEO = "视频";
     String COMMODITY_DETAIL_INFO = "商品详情";
     String COMMODITY_PRICE = "商品价格";
+    String COMMODITY_UNIT = "商品单位";
+    String COMMODITY_SEND_LEVEL = "起送量";
 
 
     String COMMODITY_PROVIDER = "供货商";

@@ -193,7 +193,7 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
 
     public interface OnConfirmCallBack {
 
-        void confirm(CommodityPropertyBean commodityPropertyBean, int amount);
+        void confirm(CommodityPropertyBean commodityPropertyBean, double amount);
     }
 
 

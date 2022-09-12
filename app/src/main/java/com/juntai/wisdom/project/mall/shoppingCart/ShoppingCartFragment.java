@@ -428,6 +428,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
         super.onSuccess(tag, o);
         switch (tag) {
             case AppHttpPath.CART_LIST:
+                getBaseActivity().getViewFocus(mRecyclerview);
                 CartListBean cartListBean = (CartListBean) o;
                 if (cartListBean != null) {
                     List<CartListBean.DataBean> dataBeans = cartListBean.getData();
@@ -460,7 +461,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                     selectCommodityPropertyFragment.show(getFragmentManager(), "selectCommodityPropertyFragment");
                     selectCommodityPropertyFragment.setOnConfirmCallBack(new SelectCommodityPropertyDialogFragment.OnConfirmCallBack() {
                         @Override
-                        public void confirm(CommodityPropertyBean commodityPropertyBean, int amount) {
+                        public void confirm(CommodityPropertyBean commodityPropertyBean, double amount) {
                             mPresenter.editCart(getBaseAppActivity().getBaseBuilder().add("shopId", String.valueOf(dataBean.getShopId()))
                                     .add("commodityId", String.valueOf(dataBean.getId()))
                                     .add("attributeUnique", commodityPropertyBean.getUnique())

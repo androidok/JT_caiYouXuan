@@ -31,6 +31,8 @@ public class SellCommodityDetailBean implements Parcelable {
     private String synopsis;
     private String description;
     private double price;
+    //起送量
+    private double delivery;
     private int packingCharges;
     private double transportCharges;
     private int sales;
@@ -38,6 +40,7 @@ public class SellCommodityDetailBean implements Parcelable {
     private int isPostage;
     private int browse;
     private String isCollect;
+    private String unit;
     private String result;
     private String value;
     private List<ImagesBean> images;
@@ -48,6 +51,22 @@ public class SellCommodityDetailBean implements Parcelable {
             return new ArrayList<>();
         }
         return commodityImg;
+    }
+
+    public double getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(double delivery) {
+        this.delivery = delivery;
+    }
+
+    public String getUnit() {
+        return unit == null ? "" : unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit == null ? "" : unit;
     }
 
     public void setCommodityImg(List<ImagesBean> commodityImg) {
@@ -376,6 +395,7 @@ public class SellCommodityDetailBean implements Parcelable {
         dest.writeString(this.synopsis);
         dest.writeString(this.description);
         dest.writeDouble(this.price);
+        dest.writeDouble(this.delivery);
         dest.writeInt(this.packingCharges);
         dest.writeDouble(this.transportCharges);
         dest.writeInt(this.sales);
@@ -383,6 +403,7 @@ public class SellCommodityDetailBean implements Parcelable {
         dest.writeInt(this.isPostage);
         dest.writeInt(this.browse);
         dest.writeString(this.isCollect);
+        dest.writeString(this.unit);
         dest.writeString(this.result);
         dest.writeString(this.value);
         dest.writeTypedList(this.images);
@@ -406,6 +427,7 @@ public class SellCommodityDetailBean implements Parcelable {
         this.synopsis = in.readString();
         this.description = in.readString();
         this.price = in.readDouble();
+        this.delivery = in.readDouble();
         this.packingCharges = in.readInt();
         this.transportCharges = in.readDouble();
         this.sales = in.readInt();
@@ -413,6 +435,7 @@ public class SellCommodityDetailBean implements Parcelable {
         this.isPostage = in.readInt();
         this.browse = in.readInt();
         this.isCollect = in.readString();
+        this.unit = in.readString();
         this.result = in.readString();
         this.value = in.readString();
         this.images = in.createTypedArrayList(ImagesBean.CREATOR);

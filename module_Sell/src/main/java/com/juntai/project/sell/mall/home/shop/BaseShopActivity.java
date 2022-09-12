@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.appbase.base.EditDialog;
+import com.juntai.disabled.basecomponent.base.EditDialog;
 import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.example.appbase.base.sendcode.SendCodeModel;
 import com.example.appbase.bean.CommoditySourceDetailBean;
@@ -35,6 +35,7 @@ import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
+import com.juntai.project.sell.mall.beans.CommodityUnitBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.commodityManager.commodityCategory.CommodityCategoryActivity;
@@ -322,6 +323,10 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         case HomePageContract.COMMODITY_SORT:
                             // : 2022/6/10 选择商品类目
                             mPresenter.getCommodityCategorys(getBaseBuilder().build(), AppHttpPathMall.ALL_COMMODITY_CATEGORY);
+                            break;
+                        case HomePageContract.COMMODITY_UNIT:
+                            // : 2022/9/12   选择商品单位
+                            mPresenter.getAllCommodityUnit(getBaseBuilder().build(), AppHttpPathMall.GET_ALL_COMMODITY_UNIT);
                             break;
                     }
                 }
@@ -646,6 +651,10 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         case HomePageContract.SHOP_NAME:
                             builder.add("name", textValue);
                             break;
+                        case HomePageContract.COMMODITY_SEND_LEVEL:
+                            builder.add("delivery", textValue);
+                            commodityDetailBean.setDelivery(Double.parseDouble(textValue));
+                            break;
                         case HomePageContract.SEND_COMPANY:
                             builder.add("logisticsName", textValue);
                             break;
@@ -709,32 +718,37 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
                 case MultipleItem.ITEM_SELECT:
                     TextKeyValueBean textValueSelectBean = (TextKeyValueBean) array.getObject();
-                    String textSelectValue = textValueSelectBean.getIds();
+                    String textSelectIds = textValueSelectBean.getIds();
+                    String textSelectValue = textValueSelectBean.getValue();
 
-                    if (textValueSelectBean.isImportant() && !StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                    if (textValueSelectBean.isImportant() && !StringTools.isStringValueOk(textSelectValue)) {
                         ToastUtils.toast(mContext, "请选择" + textValueSelectBean.getKey());
                         return null;
                     }
                     switch (textValueSelectBean.getKey()) {
+                        case HomePageContract.COMMODITY_UNIT:
+                            builder.add("unit", textSelectValue);
+                            commodityDetailBean.setUnit(textSelectValue);
+                            break;
                         case HomePageContract.SHOP_CATEGORY:
-                            builder.add("category", textSelectValue);
+                            builder.add("category", textSelectIds);
                             break;
                         case HomePageContract.SHOP_ORDER_START_TIME:
-                            builder.add("startTime", textValueSelectBean.getValue());
+                            builder.add("startTime", textSelectValue);
                             break;
                         case HomePageContract.SHOP_ORDER_END_TIME:
-                            builder.add("endTime", textValueSelectBean.getValue());
+                            builder.add("endTime", textSelectValue);
                             break;
                         case HomePageContract.COMMODITY_RESTOC_TIME:
-                            sourceBean.setPurchaseTime(textValueSelectBean.getValue());
+                            sourceBean.setPurchaseTime(textSelectValue);
                             break;
                         case HomePageContract.COMMODITY_CATEGORY_NAME:
                             commodityDetailBean.setCategoryId(Integer.parseInt(textValueSelectBean.getIds()));
-                            commodityDetailBean.setCategoryName(textSelectValue);
+                            commodityDetailBean.setCategoryName(textSelectIds);
                             break;
                         case HomePageContract.COMMODITY_SORT:
                             commodityDetailBean.setShopClassifyId(Integer.parseInt(textValueSelectBean.getIds()));
-                            commodityDetailBean.setShopClassifyName(textSelectValue);
+                            commodityDetailBean.setShopClassifyName(textSelectIds);
                             break;
                     }
                     break;
@@ -815,6 +829,32 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                 String name = arrays.get(options1).getShopClassifyName();
                                 selectBean.setValue(name);
                                 selectBean.setIds(String.valueOf(arrays.get(options1).getId()));
+                                mSelectTv.setText(name);
+                            }
+                        });
+                    } else {
+                        showAlertDialogOfKnown("您还没有创建商品分类,请先添加商品分类", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(mContext, CommodityCategoryActivity.class));
+                            }
+                        });
+                    }
+
+
+                }
+
+                break;
+            case AppHttpPathMall.GET_ALL_COMMODITY_UNIT:
+                CommodityUnitBean unitBean = (CommodityUnitBean) o;
+                if (unitBean != null) {
+                    List<CommodityUnitBean.DataBean> arrays = unitBean.getData();
+                    if (arrays != null && !arrays.isEmpty()) {
+                        PickerManager.getInstance().showOptionPicker(mContext, arrays, new PickerManager.OnOptionPickerSelectedListener() {
+                            @Override
+                            public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                                String name = arrays.get(options1).getName();
+                                selectBean.setValue(name);
                                 mSelectTv.setText(name);
                             }
                         });

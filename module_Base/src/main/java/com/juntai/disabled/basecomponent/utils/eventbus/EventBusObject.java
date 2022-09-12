@@ -60,6 +60,7 @@ public class EventBusObject {
      * 刷新消息列表
      */
     public final static String REFRESH_NEWS_LIST = "REFRESH_NEWS_LIST";
+    public final static String HIDE_SOFT_KEY = "HIDE_SOFT_KEY";
 
     public final static String EVALUATE = "评价";
     /**

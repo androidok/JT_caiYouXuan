@@ -385,6 +385,11 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                         //联系方式
                         editText.setInputType(InputType.TYPE_CLASS_PHONE);
                         break;
+                    case HomePageContract.COMMODITY_PRICE:
+                    case HomePageContract.COMMODITY_SEND_LEVEL:
+                        //起送量 double类型
+                        editText.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                        break;
                     default:
                         //输入类型为普通文本
                         editText.setInputType(InputType.TYPE_CLASS_TEXT);

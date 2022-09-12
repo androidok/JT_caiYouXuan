@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.appbase.bean.CartListBean;
 import com.juntai.disabled.basecomponent.base.view.NumberButton;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
@@ -32,16 +33,18 @@ public class ShopCartCommodityAdapter extends BaseQuickAdapter<CartListBean.Data
         helper.addOnClickListener(R.id.commodity_selected_iv);
 
 
-        if (TextUtils.isEmpty(item.getSku())||null==item.getPutAwayStatus()||1==item.getPutAwayStatus()) {
+        if (TextUtils.isEmpty(item.getSku()) || null == item.getPutAwayStatus() || 1 == item.getPutAwayStatus()) {
             helper.setText(R.id.commodity_property_tv, "宝贝已失效");
-            helper.setTextColor(R.id.commodity_property_tv, ContextCompat.getColor(mContext,R.color.red));
-        }else {
+            helper.setTextColor(R.id.commodity_property_tv, ContextCompat.getColor(mContext, R.color.red));
+        } else {
             helper.setText(R.id.commodity_property_tv, item.getSku());
-            helper.setTextColor(R.id.commodity_property_tv, ContextCompat.getColor(mContext,R.color.gray_deeper));
+            helper.setTextColor(R.id.commodity_property_tv, ContextCompat.getColor(mContext, R.color.gray_deeper));
         }
         helper.setText(R.id.all_price_tv, String.valueOf(item.getPrice()));
         NumberButton numberButton = helper.getView(R.id.number_button);
-        numberButton.setCurrentNumber(item.getCommodityNum());
+        numberButton
+                .setBuyMin(item.getDelivery())
+                .setCurrentNumber(item.getCommodityNum());
         numberButton.setOnWarnListener(new NumberButton.OnWarnListener() {
             @Override
             public void onWarningForInventory(int inventory) {
@@ -54,16 +57,21 @@ public class ShopCartCommodityAdapter extends BaseQuickAdapter<CartListBean.Data
             }
 
             @Override
-            public void onTextChanged(int num) {
+            public void onTextChanged(double num) {
+                if (num < item.getDelivery()) {
+                    ToastUtils.toast(mContext, "该商品最小起送量为"+item.getDelivery());
+                    return;
+                }
                 item.setCommodityNum(num);
                 // : 2022/5/6 更改购物车商品属性
-                EventManager.getEventBus().post(new EventBusObject(EventBusObject.CHANGE_SHOP_CART_PROPERTY_AMOUNT,item));
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.CHANGE_SHOP_CART_PROPERTY_AMOUNT, item));
+
             }
         });
         if (item.isSelected()) {
-            helper.setImageResource(R.id.commodity_selected_iv,R.mipmap.select_icon);
-        }else {
-            helper.setImageResource(R.id.commodity_selected_iv,R.mipmap.unselect_icon);
+            helper.setImageResource(R.id.commodity_selected_iv, R.mipmap.select_icon);
+        } else {
+            helper.setImageResource(R.id.commodity_selected_iv, R.mipmap.unselect_icon);
 
         }
     }

@@ -50,12 +50,30 @@ public class CommodityManagerDetailBean extends BaseResult {
         private String name;
         private String coverImg;
         private String videoUrl;
+        private String unit;
         private String description;
         private double price;
+        private double delivery;
         private int state;
         private String stateContent;
         private String createTime;
         private TraceabilityBean traceability;
+
+        public String getUnit() {
+            return unit == null ? "" : unit;
+        }
+
+        public void setUnit(String unit) {
+            this.unit = unit == null ? "" : unit;
+        }
+
+        public double getDelivery() {
+            return delivery;
+        }
+
+        public void setDelivery(double delivery) {
+            this.delivery = delivery;
+        }
 
         public int getId() {
             return id;

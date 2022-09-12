@@ -197,9 +197,10 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                 account = mRegistPhoneEt.getText().toString();
                 password = mPasswordEt.getText().toString();
 
-//                if (!mPresenter.checkMobile(account)) {
-//                    return;
-//                }
+                if (TextUtils.isEmpty(account)) {
+                            ToastUtils.toast(mContext,"请输入账号");
+                    return;
+                }
                 if (password.isEmpty()) {
                     ToastUtils.toast(mContext, loginType % 2 == 0 ? "登录密码不能为空" : "验证码不能为空");
                     return;

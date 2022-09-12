@@ -121,11 +121,12 @@ public class CartListBean  extends BaseResult {
             private String commodityName;
             private String sku;
             private int stock;
+            private double delivery;
             private int sales;
             private String unique;
             private double price;
             private String image;
-            private int commodityNum;
+            private double commodityNum;
             /**
              * 0上架；1下架
              */
@@ -135,6 +136,14 @@ public class CartListBean  extends BaseResult {
 
             public int getId() {
                 return id;
+            }
+
+            public double getDelivery() {
+                return delivery;
+            }
+
+            public void setDelivery(double delivery) {
+                this.delivery = delivery;
             }
 
             public int getIsEnd() {
@@ -221,11 +230,11 @@ public class CartListBean  extends BaseResult {
                 this.image = image;
             }
 
-            public int getCommodityNum() {
+            public double getCommodityNum() {
                 return commodityNum;
             }
 
-            public void setCommodityNum(int commodityNum) {
+            public void setCommodityNum(double commodityNum) {
                 this.commodityNum = commodityNum;
             }
 

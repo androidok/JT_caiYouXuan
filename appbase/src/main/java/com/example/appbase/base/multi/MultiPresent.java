@@ -52,6 +52,14 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
                 , true, 0, true);
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_PRICE, bean == null ? "暂无" : String.valueOf(bean.getPrice())
                 , true, 0, true);
+
+        initTextSelectType(arrays, MultiContact.COMMODITY_UNIT, "", bean == null ? "" : bean.getUnit(), true,true);
+
+        initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.COMMODITY_SEND_LEVEL, bean == null ? "" :
+                        String.valueOf(bean.getDelivery())
+                , true, 0, true);
+
+
         initTextType(arrays, MultipleItem.ITEM_EDIT, MultiContact.CREAT_TIME, bean == null ? "暂无" : bean.getCreateTime()
                 , true, 0, true);
         if (bean!=null&& !TextUtils.isEmpty(bean.getDescription())) {
