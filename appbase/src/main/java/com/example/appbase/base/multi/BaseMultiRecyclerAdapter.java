@@ -244,6 +244,11 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
 //                        }
 
                     }
+
+                    @Override
+                    public void delete(BasePicVideoBean basePicVideoBean) {
+
+                    }
                 });
                 itemFragmentBean = (ItemFragmentBean) finalFragment.getObject();
                 List<BasePicVideoBean> pics = itemFragmentBean.getFragmentPics();

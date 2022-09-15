@@ -175,7 +175,7 @@ public class ShopPresent extends BaseAppMallPresent {
 
             List<BasePicVideoBean> pics = new ArrayList<>();
             for (SellCommodityDetailBean.ImagesBean imagesBean : imagesBeans) {
-                pics.add(new BasePicVideoBean(BasePicVideoBean.TYPE_IMAGE,imagesBean.getImgUrl()));
+                pics.add(new BasePicVideoBean(BasePicVideoBean.TYPE_IMAGE,imagesBean.getImgUrl(),imagesBean.getId()));
             }
             arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT2, new ItemFragmentBean(HomePageContract.COMMODITY_BANNER_PICS, 4, isDetail ? pics.size() : 4,
                     pics.size(), false,

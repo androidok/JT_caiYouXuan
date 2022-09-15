@@ -105,9 +105,17 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     }
 
 
+
     @Override
-    public void uploadPicVideo(ItemFragmentBean itemFragmentBean, List<BasePicVideoBean> icons) {
-        itemFragmentBean.setFragmentPics(icons);
+    public void deletePicVideo(BasePicVideoBean basePicVideoBean) {
+        // TODO: 2022/9/15 调用删除图片的接口
+        if (basePicVideoBean.getId()>0) {
+            ToastUtils.toast(mContext,"删除");
+
+        }
+
+
+
 //        if (icons.size() > 0) {
 //            List<String> localPics = new ArrayList<>();
 //            List<String> olderPics = new ArrayList<>();

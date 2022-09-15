@@ -28,7 +28,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/delete_pushed_news_iv"
+        android:id="@+id/delete_item_iv"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="10dp"

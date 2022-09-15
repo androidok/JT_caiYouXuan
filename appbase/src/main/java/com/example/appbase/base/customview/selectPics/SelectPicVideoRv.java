@@ -134,7 +134,7 @@ public class SelectPicVideoRv extends RecyclerView {
                             break;
                     }
 
-                } else if (id == R.id.delete_pushed_news_iv) {
+                } else if (id == R.id.delete_item_iv) {
                     adapter.remove(position);
                     addData(selectedPicsAdapter.getData());
                 }

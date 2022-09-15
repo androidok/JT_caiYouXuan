@@ -274,10 +274,16 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                     public void loadSuccess(List<BasePicVideoBean> icons) {
 
                         ItemFragmentBean itemFragmentBean = (ItemFragmentBean) finalFragment.getObject();
-                        if (onPicVideoLoadSuccessCallBack != null) {
-                            onPicVideoLoadSuccessCallBack.uploadPicVideo(itemFragmentBean, icons);
-                        }
+                        itemFragmentBean.setFragmentPics(icons);
 
+
+                    }
+
+                    @Override
+                    public void delete(BasePicVideoBean basePicVideoBean) {
+                        if (onPicVideoLoadSuccessCallBack != null) {
+                            onPicVideoLoadSuccessCallBack.deletePicVideo(basePicVideoBean);
+                        }
                     }
                 });
                 break;
@@ -502,7 +508,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
 
 
     public interface OnPicVideoLoadSuccessCallBack {
-        void uploadPicVideo(ItemFragmentBean itemFragmentBean, List<BasePicVideoBean> icons);
+        void deletePicVideo(BasePicVideoBean basePicVideoBean);
     }
 
 }

@@ -438,7 +438,8 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
                             }
                         }
                     }
-                } else if (id == R.id.delete_pushed_news_iv) {
+                } else if (id == R.id.delete_item_iv) {
+                    //  2022/9/15 删除
                     arrays.remove(position);
                     icons.clear();
                     if (arrays.size() < mMaxCount) {
@@ -451,6 +452,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
                     icons = arrays;
                     if (onPicLoadSuccessCallBack != null) {
                         onPicLoadSuccessCallBack.loadSuccess(getSelectedPics(icons));
+                        onPicLoadSuccessCallBack.delete(picVideoBean);
                     }
                     adapter.setNewData(arrays);
                 }
@@ -672,6 +674,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
      */
     public interface OnPicLoadSuccessCallBack {
         void loadSuccess(List<BasePicVideoBean> icons);
+        void delete(BasePicVideoBean basePicVideoBean);
 
     }
 

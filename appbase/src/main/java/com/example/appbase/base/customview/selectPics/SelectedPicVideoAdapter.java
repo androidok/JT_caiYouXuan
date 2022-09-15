@@ -32,13 +32,13 @@ public class SelectedPicVideoAdapter extends BaseQuickAdapter<SelectPicVideoBean
     protected void convert(BaseViewHolder helper, SelectPicVideoBean item) {
         if (SelectPicVideoBean.TYPE_NULL==item.getType()) {
             ImageLoadUtil.loadImage(mContext.getApplicationContext(), R.mipmap.add_icons, (ImageView) helper.getView(R.id.select_pic_icon_iv));
-            helper.setGone(R.id.delete_pushed_news_iv, false);
+            helper.setGone(R.id.delete_item_iv, false);
         } else {
             ImageLoadUtil.loadImageNoCache(mContext, item.getPath(), (ImageView) helper.getView(R.id.select_pic_icon_iv));
             if (!isDetail) {
-                helper.setGone(R.id.delete_pushed_news_iv, true);
+                helper.setGone(R.id.delete_item_iv, true);
             } else {
-                helper.setGone(R.id.delete_pushed_news_iv, false);
+                helper.setGone(R.id.delete_item_iv, false);
             }
 
             if (SelectPicVideoBean.TYPE_VIDEO==item.getType()) {
@@ -48,6 +48,6 @@ public class SelectedPicVideoAdapter extends BaseQuickAdapter<SelectPicVideoBean
             }
         }
         helper.addOnClickListener(R.id.select_pic_icon_iv);
-        helper.addOnClickListener(R.id.delete_pushed_news_iv);
+        helper.addOnClickListener(R.id.delete_item_iv);
     }
 }

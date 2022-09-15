@@ -10,13 +10,19 @@ public class BasePicVideoBean {
     public final static int TYPE_NULL = 0;
     public final static int TYPE_IMAGE = 1;
     public final static int TYPE_VIDEO = 2;
-    private int id;
     private int type;
     private String url;
     private String cover;
+    private int id;
 
     public BasePicVideoBean(int type) {
         this.type = type;
+    }
+
+    public BasePicVideoBean(int type, String url, int id) {
+        this.type = type;
+        this.url = url;
+        this.id = id;
     }
 
     public BasePicVideoBean(int type, String url) {

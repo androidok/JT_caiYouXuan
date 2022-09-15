@@ -51,14 +51,14 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<BasePicVideoBean, 
                     ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), R.mipmap.add_icons, (ImageView) helper.getView(R.id.select_pic_icon_iv));
 
                 }
-                helper.setGone(R.id.delete_pushed_news_iv, false);
+                helper.setGone(R.id.delete_item_iv, false);
                 break;
             case BasePicVideoBean.TYPE_IMAGE:
             case BasePicVideoBean.TYPE_VIDEO:
                 if (delateable) {
-                    helper.setGone(R.id.delete_pushed_news_iv, true);
+                    helper.setGone(R.id.delete_item_iv, true);
                 }else{
-                    helper.setGone(R.id.delete_pushed_news_iv, false);
+                    helper.setGone(R.id.delete_item_iv, false);
                 }
 
                 if (BasePicVideoBean.TYPE_VIDEO==item.getType()) {
@@ -98,7 +98,7 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<BasePicVideoBean, 
             helper.setVisible(R.id.item_tag, false);
         }
         helper.addOnClickListener(R.id.select_pic_icon_iv);
-        helper.addOnClickListener(R.id.delete_pushed_news_iv);
+        helper.addOnClickListener(R.id.delete_item_iv);
         if (!isBigPic) {
             ImageView imageView = helper.getView(R.id.select_pic_icon_iv);
             ConstraintLayout.LayoutParams linearParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
