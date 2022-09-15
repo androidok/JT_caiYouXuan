@@ -19,7 +19,6 @@ package com.juntai.disabled.basecomponent.base.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
@@ -30,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.R;
-import com.juntai.disabled.basecomponent.base.EditDialog;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 
 /**
@@ -42,11 +40,12 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
     private int mInventory = Integer.MAX_VALUE;
     //最大购买数，默认无限制
     private int mBuyMax = Integer.MAX_VALUE;
-    private double mBuyMin = 0;
-    private TextView mCountTv;
+    private EditText mCountEt;
     private OnWarnListener mOnWarnListener;
 
-    private Context mContext;
+    private int mBuyMin = 1;
+
+   private Context mContext;
 
     public NumberButton(Context context) {
         this(context, null);
@@ -70,9 +69,9 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
         TextView subButton = (TextView) findViewById(R.id.button_sub);
         subButton.setOnClickListener(this);
 
-        mCountTv = ((TextView) findViewById(R.id.text_count));
-        mCountTv.addTextChangedListener(this);
-        mCountTv.setOnClickListener(this);
+        mCountEt = ((EditText) findViewById(R.id.text_count));
+        mCountEt.addTextChangedListener(this);
+        mCountEt.setOnClickListener(this);
 
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.NumberButton);
@@ -84,12 +83,12 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
         typedArray.recycle();
 
         setEditable(editable);
-        mCountTv.setTextColor(textColor);
+        mCountEt.setTextColor(textColor);
         subButton.setTextColor(textColor);
         addButton.setTextColor(textColor);
 
         if (textSize > 0)
-            mCountTv.setTextSize(textSize);
+            mCountEt.setTextSize(textSize);
 
         if (buttonWidth > 0) {
             LayoutParams textParams = new LayoutParams(buttonWidth, LayoutParams.MATCH_PARENT);
@@ -98,41 +97,37 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
         }
         if (textWidth > 0) {
             LayoutParams textParams = new LayoutParams(textWidth, LayoutParams.MATCH_PARENT);
-            mCountTv.setLayoutParams(textParams);
+            mCountEt.setLayoutParams(textParams);
         }
     }
 
-    public double getNumber() {
+    public int getNumber() {
         try {
-            return Double.parseDouble(mCountTv.getText().toString());
+            return Integer.parseInt(mCountEt.getText().toString());
         } catch (NumberFormatException e) {
         }
-        mCountTv.setText("");
-        return 0.0;
+        mCountEt.setText("1");
+        return 1;
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        double count = getNumber();
+        int count = getNumber();
         if (id == R.id.button_sub) {
-            mCountTv.requestFocus();
-            if (count > mBuyMin||count==mBuyMin) {
+            mCountEt.requestFocus();
+            int amount = Integer.parseInt(mCountEt.getText().toString().trim());
+            if (count > 0) {
                 //正常减
-                mCountTv.setText("" + (count - 1.0));
-            }
-            if ((count-1.0) < mBuyMin) {
-                ToastUtils.toast(mContext, "该商品最小起送量为" + mBuyMin);
-                mCountTv.setText(String.valueOf(count));
-
+                mCountEt.setText("" + (count - 1));
             }
 
         } else if (id == R.id.button_add) {
-            mCountTv.requestFocus();
+            mCountEt.requestFocus();
 
             if (count < Math.min(mBuyMax, mInventory)) {
                 //正常添加
-                mCountTv.setText("" + (count + 1.0));
+                mCountEt.setText("" + (count + 1));
             } else if (mInventory < mBuyMax) {
                 //库存不足
                 warningForInventory();
@@ -142,47 +137,23 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
             }
 
         } else if (id == R.id.text_count) {
-//            mCountEt.setSelection(mCountEt.getText().toString().length());
-
-            EditDialog editDialog = new EditDialog(mContext).builder();
-            editDialog
-                    .setContentEtInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL)
-                    .setCanceledOnTouchOutside(false)
-                    .setTitle("输入数量")
-                    .setContent(String.valueOf(getNumber()))
-                    .setOnConfirmListener("", new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            EditText editText = (EditText) v;
-                            double amount = Double.parseDouble(editText.getText().toString().trim());
-                            if (amount < mBuyMin) {
-                                ToastUtils.toast(mContext, "该商品最小起送量为" + mBuyMin);
-                                return;
-                            }
-                            editDialog.releaseDialog();
-                            if (mOnWarnListener != null)
-                                mOnWarnListener.onTextChanged(amount);
-
-                        }
-                    }).show();
-
+            mCountEt.setSelection(mCountEt.getText().toString().length());
         }
     }
 
     private void onNumberInput() {
         //当前数量
-        double count = getNumber();
+        int count = getNumber();
         if (count <= 0) {
             //手动输入
-            mCountTv.setText("");
+            mCountEt.setText("");
             return;
         }
 
         int limit = Math.min(mBuyMax, mInventory);
         if (count > limit) {
             //超过了数量
-            mCountTv.setText(limit + "");
+            mCountEt.setText(limit + "");
             if (mInventory < mBuyMax) {
                 //库存不足
                 warningForInventory();
@@ -191,6 +162,11 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
                 warningForBuyMax();
             }
         } else {
+            if (count < mBuyMin) {
+                ToastUtils.toast(mContext, "该商品最小起送量为"+mBuyMin);
+//                mCountEt.setText(String.valueOf(mBuyMin));
+                return;
+            }
             if (mOnWarnListener != null) mOnWarnListener.onTextChanged(count);
         }
 
@@ -215,19 +191,17 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
 
     private void setEditable(boolean editable) {
         if (editable) {
-            mCountTv.setFocusable(true);
-            mCountTv.setKeyListener(new DigitsKeyListener());
+            mCountEt.setFocusable(true);
+            mCountEt.setKeyListener(new DigitsKeyListener());
         } else {
-            mCountTv.setFocusable(false);
-            mCountTv.setKeyListener(null);
+            mCountEt.setFocusable(false);
+            mCountEt.setKeyListener(null);
         }
     }
 
-    public NumberButton setCurrentNumber(double currentNumber) {
-        if (currentNumber < 1) {
-            mCountTv.setText("");
-        }
-        mCountTv.setText("" + Math.min(Math.min(mBuyMax, mInventory), currentNumber));
+    public NumberButton setCurrentNumber(int currentNumber) {
+        if (currentNumber < 1) mCountEt.setText("");
+        mCountEt.setText("" + Math.min(Math.min(mBuyMax, mInventory), currentNumber));
         return this;
     }
 
@@ -239,18 +213,16 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
         mInventory = inventory;
         return this;
     }
-
+    public NumberButton setmBuyMin(int mBuyMin) {
+        this.mBuyMin = mBuyMin;
+        return this;
+    }
     public int getBuyMax() {
         return mBuyMax;
     }
 
     public NumberButton setBuyMax(int buyMax) {
         mBuyMax = buyMax;
-        return this;
-    }
-
-    public NumberButton setBuyMin(double buyMin) {
-        mBuyMin = buyMin;
         return this;
     }
 
@@ -266,7 +238,7 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (mCountTv.hasFocus()) {
+        if (mCountEt.hasFocus()) {
             onNumberInput();
         }
 
@@ -283,6 +255,6 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
         void onWarningForBuyMax(int max);
 
 
-        void onTextChanged(double num);
+        void onTextChanged(int num);
     }
 }

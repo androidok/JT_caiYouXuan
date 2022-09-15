@@ -53,7 +53,7 @@ public class CommodityManagerDetailBean extends BaseResult {
         private String unit;
         private String description;
         private double price;
-        private double delivery;
+        private int delivery;
         private int state;
         private String stateContent;
         private String createTime;
@@ -67,11 +67,11 @@ public class CommodityManagerDetailBean extends BaseResult {
             this.unit = unit == null ? "" : unit;
         }
 
-        public double getDelivery() {
+        public int getDelivery() {
             return delivery;
         }
 
-        public void setDelivery(double delivery) {
+        public void setDelivery(int delivery) {
             this.delivery = delivery;
         }
 

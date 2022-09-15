@@ -67,6 +67,8 @@ public class CommodityDetailBean extends BaseResult {
          */
         private int state;
 
+        private int delivery;
+        private String unit;
         private int shopClassifyId;
         private int categoryId;
         private String name;
@@ -86,6 +88,22 @@ public class CommodityDetailBean extends BaseResult {
         private List<ResultBean> result;
         private List<CommodityPropertyBean> value;
         private List<ImagesBean> images;
+
+        public int getDelivery() {
+            return delivery;
+        }
+
+        public void setDelivery(int delivery) {
+            this.delivery = delivery;
+        }
+
+        public String getUnit() {
+            return unit == null ? "" : unit;
+        }
+
+        public void setUnit(String unit) {
+            this.unit = unit == null ? "" : unit;
+        }
 
         public int getId() {
             return id;
@@ -354,6 +372,9 @@ public class CommodityDetailBean extends BaseResult {
             }
         }
 
+        public DataBean() {
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -366,6 +387,8 @@ public class CommodityDetailBean extends BaseResult {
             dest.writeInt(this.userId);
             dest.writeInt(this.shopState);
             dest.writeInt(this.state);
+            dest.writeInt(this.delivery);
+            dest.writeString(this.unit);
             dest.writeInt(this.shopClassifyId);
             dest.writeInt(this.categoryId);
             dest.writeString(this.name);
@@ -386,15 +409,14 @@ public class CommodityDetailBean extends BaseResult {
             dest.writeList(this.images);
         }
 
-        public DataBean() {
-        }
-
         protected DataBean(Parcel in) {
             this.id = in.readInt();
             this.shopId = in.readInt();
             this.userId = in.readInt();
             this.shopState = in.readInt();
             this.state = in.readInt();
+            this.delivery = in.readInt();
+            this.unit = in.readString();
             this.shopClassifyId = in.readInt();
             this.categoryId = in.readInt();
             this.name = in.readString();

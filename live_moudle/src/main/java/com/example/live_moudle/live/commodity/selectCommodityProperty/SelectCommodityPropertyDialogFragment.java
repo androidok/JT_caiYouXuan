@@ -96,7 +96,9 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
         });
         ImageLoadUtil.loadSquareImageHasCorner(getContext(), dataBean.getCoverImg(), mCommodityPicIv);
         mAllPriceTv.setText(String.valueOf(dataBean.getPrice()));
-        mNumberButton.setCurrentNumber(1);
+        mNumberButton
+                .setmBuyMin(dataBean.getDelivery())
+                .setCurrentNumber(1);
 
         initCommodityPrice();
     }
@@ -180,6 +182,10 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
         if (id == R.id.close_dialog_iv) {
             dismiss();
         } else if (id == R.id.comfirm_tv) {// : 2022/5/5  加入购物车
+            if (mNumberButton.getNumber()<dataBean.getDelivery()) {
+                ToastUtils.toast(getContext(), "该商品最小起送量为"+dataBean.getDelivery());
+                return;
+            }
             if (onConfirmCallBack != null) {
                 if (commodityPropertyBean == null || propertyMap.size() != propertyListBeans.size()) {
                     ToastUtils.toast(getContext(), "请选择商品属性");
@@ -193,7 +199,7 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
 
     public interface OnConfirmCallBack {
 
-        void confirm(CommodityPropertyBean commodityPropertyBean, double amount);
+        void confirm(CommodityPropertyBean commodityPropertyBean, int amount);
     }
 
 

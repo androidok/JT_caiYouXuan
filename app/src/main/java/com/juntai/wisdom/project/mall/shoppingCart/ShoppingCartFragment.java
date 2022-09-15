@@ -460,7 +460,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                     selectCommodityPropertyFragment.show(getFragmentManager(), "selectCommodityPropertyFragment");
                     selectCommodityPropertyFragment.setOnConfirmCallBack(new SelectCommodityPropertyDialogFragment.OnConfirmCallBack() {
                         @Override
-                        public void confirm(CommodityPropertyBean commodityPropertyBean, double amount) {
+                        public void confirm(CommodityPropertyBean commodityPropertyBean, int amount) {
                             mPresenter.editCart(getBaseAppActivity().getBaseBuilder().add("shopId", String.valueOf(dataBean.getShopId()))
                                     .add("commodityId", String.valueOf(dataBean.getId()))
                                     .add("attributeUnique", commodityPropertyBean.getUnique())
@@ -477,7 +477,6 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
 
                 break;
             case AppHttpPath.DELETE_CART_COMMODITY:
-            case AppHttpPath.EDIT_CART:
                 getRvAdapterData();
                 break;
             case AppHttpPath.CREAT_ORDER_CART:

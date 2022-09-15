@@ -653,7 +653,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                             break;
                         case HomePageContract.COMMODITY_SEND_LEVEL:
                             builder.add("delivery", textValue);
-                            commodityDetailBean.setDelivery(Double.parseDouble(textValue));
+                            commodityDetailBean.setDelivery(Integer.parseInt(textValue));
                             break;
                         case HomePageContract.SEND_COMPANY:
                             builder.add("logisticsName", textValue);

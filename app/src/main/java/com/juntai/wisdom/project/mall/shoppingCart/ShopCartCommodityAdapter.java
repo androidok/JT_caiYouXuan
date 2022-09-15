@@ -8,7 +8,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.appbase.bean.CartListBean;
 import com.juntai.disabled.basecomponent.base.view.NumberButton;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
-import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.wisdom.project.mall.R;
@@ -43,7 +42,7 @@ public class ShopCartCommodityAdapter extends BaseQuickAdapter<CartListBean.Data
         helper.setText(R.id.all_price_tv, String.valueOf(item.getPrice()));
         NumberButton numberButton = helper.getView(R.id.number_button);
         numberButton
-                .setBuyMin(item.getDelivery())
+                .setmBuyMin(item.getDelivery())
                 .setCurrentNumber(item.getCommodityNum());
         numberButton.setOnWarnListener(new NumberButton.OnWarnListener() {
             @Override
@@ -57,11 +56,8 @@ public class ShopCartCommodityAdapter extends BaseQuickAdapter<CartListBean.Data
             }
 
             @Override
-            public void onTextChanged(double num) {
-                if (num < item.getDelivery()) {
-                    ToastUtils.toast(mContext, "该商品最小起送量为"+item.getDelivery());
-                    return;
-                }
+            public void onTextChanged(int num) {
+
                 item.setCommodityNum(num);
                 // : 2022/5/6 更改购物车商品属性
                 EventManager.getEventBus().post(new EventBusObject(EventBusObject.CHANGE_SHOP_CART_PROPERTY_AMOUNT, item));
