@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.basecomponent.base.EditDialog;
 import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.example.appbase.base.sendcode.SendCodeModel;
 import com.example.appbase.bean.CommoditySourceDetailBean;
@@ -23,15 +22,13 @@ import com.example.appbase.bean.multiBean.MultiPicBean;
 import com.example.appbase.bean.multiBean.MultiRadioBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.appbase.util.bannerImageLoader.BannerObject;
-import com.juntai.disabled.basecomponent.base.BaseObserver;
+import com.juntai.disabled.basecomponent.base.EditDialog;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
-import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
 import com.juntai.project.sell.mall.AppHttpPathMall;
-import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
@@ -45,9 +42,6 @@ import com.juntai.project.sell.mall.utils.CalendarUtil;
 import com.juntai.project.sell.mall.utils.StringTools;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,12 +49,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 /**
  * @Author: tobato
@@ -117,52 +106,53 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
     @Override
     public void uploadPicVideo(ItemFragmentBean itemFragmentBean, List<String> icons) {
-        if (icons.size() > 0) {
-            List<String> localPics = new ArrayList<>();
-            List<String> olderPics = new ArrayList<>();
-            for (String icon : icons) {
-                if (!icon.contains("www.juntaikeji")) {
-                    localPics.add(icon);
-                } else {
-                    olderPics.add(icon);
-                }
-            }
-            if (localPics.size() > 0) {
-
-                MultipartBody.Builder builder = new MultipartBody.Builder()
-                        .setType(MultipartBody.FORM);
-
-                for (String filePath : localPics) {
-
-                    try {
-                        builder.addFormDataPart("file", URLEncoder.encode(filePath, "utf-8"), RequestBody.create(MediaType.parse("file"), new File(filePath)));
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                AppNetModuleMall.createrRetrofit()
-                        .uploadFiles(builder.build())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new BaseObserver<UploadFileBean>(this) {
-                            @Override
-                            public void onSuccess(UploadFileBean o) {
-                                olderPics.addAll(o.getFilePaths());
-                                itemFragmentBean.setFragmentPics(olderPics);
-                            }
-
-                            @Override
-                            public void onError(String msg) {
-                                ToastUtils.toast(mContext, msg);
-                            }
-                        });
-            } else {
-                itemFragmentBean.setFragmentPics(olderPics);
-            }
-        } else {
-            // : 2022/6/10 删没了
-            itemFragmentBean.setFragmentPics(null);
-        }
+        itemFragmentBean.setFragmentPics(icons);
+//        if (icons.size() > 0) {
+//            List<String> localPics = new ArrayList<>();
+//            List<String> olderPics = new ArrayList<>();
+//            for (String icon : icons) {
+//                if (!icon.contains("www.juntaikeji")) {
+//                    localPics.add(icon);
+//                } else {
+//                    olderPics.add(icon);
+//                }
+//            }
+//            if (localPics.size() > 0) {
+//
+//                MultipartBody.Builder builder = new MultipartBody.Builder()
+//                        .setType(MultipartBody.FORM);
+//
+//                for (String filePath : localPics) {
+//
+//                    try {
+//                        builder.addFormDataPart("file", URLEncoder.encode(filePath, "utf-8"), RequestBody.create(MediaType.parse("file"), new File(filePath)));
+//                    } catch (UnsupportedEncodingException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                AppNetModuleMall.createrRetrofit()
+//                        .uploadFiles(builder.build())
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(new BaseObserver<UploadFileBean>(this) {
+//                            @Override
+//                            public void onSuccess(UploadFileBean o) {
+//                                olderPics.addAll(o.getFilePaths());
+//                                itemFragmentBean.setFragmentPics(olderPics);
+//                            }
+//
+//                            @Override
+//                            public void onError(String msg) {
+//                                ToastUtils.toast(mContext, msg);
+//                            }
+//                        });
+//            } else {
+//                itemFragmentBean.setFragmentPics(olderPics);
+//            }
+//        } else {
+//            // : 2022/6/10 删没了
+//            itemFragmentBean.setFragmentPics(null);
+//        }
     }
 
     @Override

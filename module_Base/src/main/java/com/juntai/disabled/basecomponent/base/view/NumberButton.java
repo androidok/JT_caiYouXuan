@@ -164,7 +164,7 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
         } else {
             if (count < mBuyMin) {
                 ToastUtils.toast(mContext, "该商品最小起送量为"+mBuyMin);
-//                mCountEt.setText(String.valueOf(mBuyMin));
+                mCountEt.setText(String.valueOf(mBuyMin));
                 return;
             }
             if (mOnWarnListener != null) mOnWarnListener.onTextChanged(count);

@@ -98,7 +98,7 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
         mAllPriceTv.setText(String.valueOf(dataBean.getPrice()));
         mNumberButton
                 .setmBuyMin(dataBean.getDelivery())
-                .setCurrentNumber(1);
+                .setCurrentNumber(dataBean.getDelivery());
 
         initCommodityPrice();
     }
