@@ -13,11 +13,11 @@ import android.widget.ImageView;
 import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.R;
+import com.example.appbase.base.BaseRecyclerviewActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
-import com.example.appbase.base.BaseAppModuleActivity;
 
 import java.util.List;
 
@@ -28,20 +28,20 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/7/3 14:36
  */
-public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> extends BaseAppModuleActivity<P> implements SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed, View.OnClickListener {
+public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> extends BaseRecyclerviewActivity<P> implements SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed, View.OnClickListener {
 
-    protected SelectPhotosFragment selectPhotosFragment;
+    protected BaseSelectPhotosFragment selectPhotosFragment;
     //视频回调广播
     IntentFilter intentFilter = new IntentFilter();
     private VideoBroadcastReceiver videoBroadcastReceiver = null;
     //视频
-    private String videoScreen;
+    protected String videoScreen;
     protected String videoPath = null;
     private ImageView mItemVideoPic, mDeleteVedio, mItemVideoTag;
 
 
     protected abstract void recordVedio();
-    protected abstract SelectPhotosFragment getFragment();
+    protected abstract BaseSelectPhotosFragment getFragment();
     @Override
     public void onLocationReceived(BDLocation bdLocation) {
 
@@ -57,6 +57,7 @@ public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> ex
     }
     @Override
     public void initView() {
+        super.initView();
         mItemVideoPic = (ImageView) findViewById(R.id.item_video_pic);
         mItemVideoTag = (ImageView) findViewById(R.id.item_video_tag);
         mDeleteVedio = (ImageView) findViewById(R.id.push_case_delete_vedio_iv);

@@ -8,10 +8,10 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
+import com.example.appbase.base.selectPics.ShowSelectedPicsAdapter;
 import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.juntai.project.sell.mall.R;
-import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
-import com.juntai.project.sell.mall.base.selectPics.ShowSelectedPicsAdapter;
 import com.juntai.project.sell.mall.beans.order.OrderDetailItemBean;
 
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class OrderBaseInfoAdapter extends BaseQuickAdapter<OrderDetailItemBean, 
             }
             helper.setGone(R.id.order_pics_rv,true);
             RecyclerView  refundPicRv = helper.getView(R.id.order_pics_rv);
-            ShowSelectedPicsAdapter refundPicAdapter = new ShowSelectedPicsAdapter(R.layout.sell_show_selected_pic_item,false);
+            ShowSelectedPicsAdapter refundPicAdapter = new ShowSelectedPicsAdapter(R.layout.show_selected_pic_item,false);
             refundPicAdapter.setDelateable(false);
             refundPicRv.setAdapter(refundPicAdapter);
             GridLayoutManager reFundLm = new GridLayoutManager(mContext,4);

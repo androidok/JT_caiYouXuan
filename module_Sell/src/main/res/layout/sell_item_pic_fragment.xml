@@ -10,7 +10,7 @@
     android:paddingBottom="3dp">
     <fragment
         android:id="@+id/photo_fg"
-        class="com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment"
+        class="com.example.appbase.base.selectPics.SelectPhotosFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

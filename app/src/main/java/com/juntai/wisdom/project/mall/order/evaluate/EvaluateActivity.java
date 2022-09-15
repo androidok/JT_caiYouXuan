@@ -1,6 +1,7 @@
 package com.juntai.wisdom.project.mall.order.evaluate;
 
-import android.support.v7.widget.RecyclerView;
+import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -8,15 +9,18 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.selectPics.BaseSelectPhotosFragment;
+import com.example.appbase.base.selectPics.BaseSelectPicsAndVedioActivity;
+import com.example.appbase.base.selectPics.SelectPhotosFragment;
 import com.example.appbase.bean.order.OrderDetailBean;
 import com.example.chat.MainContract;
 import com.example.net.AppHttpPath;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
-import com.juntai.wisdom.project.mall.base.selectPics.BaseSelectPicsAndVedioActivity;
-import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
+import com.juntai.wisdom.project.mall.order.allOrder.AllOrderActivity;
 import com.juntai.wisdom.project.mall.order.refund.RefundCommodityAdapter;
 
 import java.util.List;
@@ -53,7 +57,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
     }
 
     @Override
-    protected RecyclerView.LayoutManager getBaseAdapterManager() {
+    protected LinearLayoutManager getBaseAdapterManager() {
         return null;
     }
 
@@ -63,8 +67,8 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
     }
 
     @Override
-    protected SelectPhotosFragment getFragment() {
-        return SelectPhotosFragment.newInstance().setMaxCount(3);
+    protected BaseSelectPhotosFragment getFragment() {
+        return SelectPhotosFragment.newInstance("").setMaxCount(3);
     }
 
     public void initView() {
@@ -118,6 +122,21 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
         mCommodityEvaluateRatingBar = (RatingBar) findViewById(R.id.commodity_evaluate_ratingBar);
         mShopEvaluateRatingBar = (RatingBar) findViewById(R.id.shop_evaluate_ratingBar);
         mEvaluateContentEt = (EditText) findViewById(R.id.evaluate_content_et);
+    }
+
+    @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override
@@ -185,7 +204,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
             case MainContract.UPLOAD_IMAGES:
                 //发送图片
                 List<String> picPaths = (List<String>) o;
-                builder.add("imgUrl", listToString(picPaths));
+                builder.add("imgUrl", TextUtils.join(",",picPaths));
                 if (TextUtils.isEmpty(videoPath)) {
                     if (picPaths != null && picPaths.size() > 0) {
                         // 调用评价的接口
@@ -204,5 +223,15 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
             default:
                 break;
         }
+    }
+
+    /**
+     * 所有订单
+     * enterType  0代表支付成功之后  1代表个人中心进入
+     */
+    public void startToAllOrderActivity(int enterType, int tabPosition) {
+        startActivity(new Intent(mContext, AllOrderActivity.class)
+                .putExtra(BaseActivity.BASE_ID2, tabPosition)
+                .putExtra(BaseActivity.BASE_ID, enterType));
     }
 }

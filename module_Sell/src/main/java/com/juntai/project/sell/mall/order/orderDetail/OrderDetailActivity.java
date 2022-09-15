@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.base.selectPics.SelectPhotosFragment;
 import com.example.appbase.bean.SellOrderDetailBean;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -18,7 +19,6 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
-import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.project.sell.mall.beans.order.OrderDetailDataBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailItemBean;
 import com.juntai.project.sell.mall.home.HomePageContract;

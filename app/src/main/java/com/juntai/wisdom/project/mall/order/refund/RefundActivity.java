@@ -8,14 +8,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.net.AppHttpPath;
+import com.example.appbase.base.selectPics.SelectPhotosFragment;
+import com.example.appbase.bean.order.OrderDetailBean;
+import com.example.appbase.bean.order.RefundReasonBean;
 import com.example.chat.MainContract;
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppActivity;
-import com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment;
-import com.example.appbase.bean.order.OrderDetailBean;
-import com.example.appbase.bean.order.RefundReasonBean;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.order.OrderPresent;
 
