@@ -19,6 +19,7 @@ package com.juntai.disabled.basecomponent.base.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
@@ -144,7 +145,9 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
 //            mCountEt.setSelection(mCountEt.getText().toString().length());
 
             EditDialog editDialog = new EditDialog(mContext).builder();
-            editDialog.setCanceledOnTouchOutside(false)
+            editDialog
+                    .setContentEtInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL)
+                    .setCanceledOnTouchOutside(false)
                     .setTitle("输入数量")
                     .setContent(String.valueOf(getNumber()))
                     .setOnConfirmListener("", new OnClickListener() {

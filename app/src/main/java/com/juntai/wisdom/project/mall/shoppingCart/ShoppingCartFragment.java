@@ -428,7 +428,6 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
         super.onSuccess(tag, o);
         switch (tag) {
             case AppHttpPath.CART_LIST:
-                getBaseActivity().getViewFocus(mRecyclerview);
                 CartListBean cartListBean = (CartListBean) o;
                 if (cartListBean != null) {
                     List<CartListBean.DataBean> dataBeans = cartListBean.getData();

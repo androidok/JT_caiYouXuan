@@ -118,6 +118,18 @@ public class EditDialog {
         }
         return this;
     }
+    /**
+     * 标题
+     *
+     * @param inputType
+     * @return
+     */
+    public EditDialog setContentEtInputType(int inputType) {
+        if (contentEt != null) {
+            contentEt.setInputType(inputType);
+        }
+        return this;
+    }
 
     /**
      * shezh 内容
