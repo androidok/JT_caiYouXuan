@@ -10,6 +10,7 @@ import com.example.appbase.R;
 import com.example.appbase.base.BaseRecyclerviewActivity;
 import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.example.appbase.base.selectPics.SelectPhotosFragment;
+import com.example.appbase.bean.BasePicVideoBean;
 import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
 import com.example.appbase.bean.multiBean.ItemFragmentBean;
@@ -149,11 +150,11 @@ public abstract class BaseMultiRecyclerActivity extends BaseRecyclerviewActivity
                 case MultipleItem.ITEM_FRAGMENT_VIDEO:
                     //多选图片
                     ItemFragmentBean fragmentPicBean = (ItemFragmentBean) array.getObject();
-                    List<String> photos = fragmentPicBean.getFragmentPics();
+                    List<BasePicVideoBean> photos = fragmentPicBean.getFragmentPics();
                     String name = fragmentPicBean.getKey();
                     String msg = String.format("请选择%s", name);
                     if (photos != null && photos.size() > 0) {
-                        String path = photos.get(0);
+                        BasePicVideoBean path = photos.get(0);
                         switch (name) {
 //                            case HomePageContract.COMMODITY_PRIMARY_PIC:
 //                                commodityDetailBean.setCoverImg(path);

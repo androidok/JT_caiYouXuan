@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.example.appbase.base.selectPics.SelectPhotosFragment;
 import com.example.appbase.base.sendcode.SendCodeModel;
+import com.example.appbase.bean.BasePicVideoBean;
 import com.example.appbase.bean.CommoditySourceDetailBean;
 import com.example.appbase.bean.SellCommodityDetailBean;
 import com.example.appbase.bean.multiBean.BaseAdapterDataBean;
@@ -105,7 +106,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
 
     @Override
-    public void uploadPicVideo(ItemFragmentBean itemFragmentBean, List<String> icons) {
+    public void uploadPicVideo(ItemFragmentBean itemFragmentBean, List<BasePicVideoBean> icons) {
         itemFragmentBean.setFragmentPics(icons);
 //        if (icons.size() > 0) {
 //            List<String> localPics = new ArrayList<>();
@@ -514,7 +515,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                 case MultipleItem.ITEM_FRAGMENT_VIDEO:
                     //多选图片
                     ItemFragmentBean fragmentPicBean = (ItemFragmentBean) array.getObject();
-                    List<String> photos = fragmentPicBean.getFragmentPics();
+                    List<BasePicVideoBean> photos = fragmentPicBean.getFragmentPics();
                     String name = fragmentPicBean.getKey();
                     String msg = String.format("请选择%s", name);
                     if (!HomePageContract.COMMODITY_VIDEO.equals(name)) {
@@ -524,20 +525,20 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         }
                     }
                     if (photos != null && photos.size() > 0) {
-                        String path = photos.get(0);
+                        BasePicVideoBean bean = photos.get(0);
                         switch (name) {
                             case HomePageContract.COMMODITY_PRIMARY_PIC:
-                                commodityDetailBean.setCoverImg(path);
+                                commodityDetailBean.setCoverImg(bean.getUrl());
 
                                 break;
                             case HomePageContract.COMMODITY_VIDEO:
-                                commodityDetailBean.setVideoUrl(path);
+                                commodityDetailBean.setVideoUrl(bean.getUrl());
                                 break;
                             case HomePageContract.COMMODITY_BANNER_PICS:
                                 List<SellCommodityDetailBean.ImagesBean> imagesBeans = new ArrayList<>();
 
-                                for (String photo : photos) {
-                                    imagesBeans.add(new SellCommodityDetailBean.ImagesBean(photo));
+                                for (BasePicVideoBean photo : photos) {
+                                    imagesBeans.add(new SellCommodityDetailBean.ImagesBean(photo.getUrl()));
                                 }
                                 commodityDetailBean.setImages(imagesBeans);
                                 commodityDetailBean.setCommodityImg(imagesBeans);
@@ -550,16 +551,16 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                     return null;
                                 }
                                 for (int i = 0; i < photos.size(); i++) {
-                                    String pic = photos.get(i);
+                                    BasePicVideoBean pic = photos.get(i);
                                     switch (i) {
                                         case 0:
-                                            sourceBean.setPhotoOne(pic);
+                                            sourceBean.setPhotoOne(pic.getUrl());
                                             break;
                                         case 1:
-                                            sourceBean.setPhotoTwo(pic);
+                                            sourceBean.setPhotoTwo(pic.getUrl());
                                             break;
                                         case 2:
-                                            sourceBean.setPhotoThree(pic);
+                                            sourceBean.setPhotoThree(pic.getUrl());
                                             break;
                                         default:
                                             break;
@@ -572,8 +573,8 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                     return null;
                                 }
                                 List<CommoditySourceDetailBean.DataBean.PhotoListBean> photoListBeans = new ArrayList<>();
-                                for (String photo : photos) {
-                                    photoListBeans.add(new CommoditySourceDetailBean.DataBean.PhotoListBean(photo));
+                                for (BasePicVideoBean photo : photos) {
+                                    photoListBeans.add(new CommoditySourceDetailBean.DataBean.PhotoListBean(photo.getUrl()));
                                 }
                                 sourceBean.setPhotoList(photoListBeans);
                                 break;
@@ -775,12 +776,12 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
     private void showPicVideo(BaseQuickAdapter adapter, int position) {
         List<BannerObject> bannerObjects = new ArrayList<>();
-        List<String> arrays = adapter.getData();
-        for (String pic : arrays) {
-            if (pic.endsWith(".mp4")) {
-                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, new BannerObject.VideoBean(pic, "")));
+        List<BasePicVideoBean> arrays = adapter.getData();
+        for (BasePicVideoBean pic : arrays) {
+            if (pic.getType()==BasePicVideoBean.TYPE_VIDEO) {
+                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, new BannerObject.VideoBean(pic.getUrl(), "")));
             } else {
-                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
+                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic.getUrl()));
             }
         }
         DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext, bannerObjects, position);

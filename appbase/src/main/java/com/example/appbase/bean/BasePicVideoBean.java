@@ -7,30 +7,43 @@ package com.example.appbase.bean;
  */
 public class BasePicVideoBean {
 
-    public static int TYPE_NUM = 0;
-    public static int TYPE_IMAGE = 1;
-    public static int TYPE_VIDEO = 2;
-    private String type;
+    public final static int TYPE_NULL = 0;
+    public final static int TYPE_IMAGE = 1;
+    public final static int TYPE_VIDEO = 2;
+    private int id;
+    private int type;
     private String url;
     private String cover;
 
-    public BasePicVideoBean(String type, String url) {
+    public BasePicVideoBean(int type) {
+        this.type = type;
+    }
+
+    public BasePicVideoBean(int type, String url) {
         this.type = type;
         this.url = url;
     }
 
-    public BasePicVideoBean(String type, String url, String cover) {
+    public BasePicVideoBean(int type, String url, String cover) {
         this.type = type;
         this.url = url;
         this.cover = cover;
     }
 
-    public String getType() {
-        return type == null ? "" : type;
+    public int getType() {
+        return type;
     }
 
-    public void setType(String type) {
-        this.type = type == null ? "" : type;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getUrl() {

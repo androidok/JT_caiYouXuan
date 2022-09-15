@@ -24,6 +24,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.appbase.base.selectPics.SelectPhotosFragment;
 import com.example.appbase.base.web.BaseWebviewFragment;
+import com.example.appbase.bean.BasePicVideoBean;
 import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.example.appbase.bean.multiBean.ItemFragmentBean;
 import com.example.appbase.bean.multiBean.LocationBean;
@@ -257,24 +258,20 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                         break;
                 }
 
-                fragment.setMaxCount(itemFragmentBean.getmMaxCount()).setObject(itemFragmentBean);
-                List<String> pics = itemFragmentBean.getFragmentPics();
-                if (pics.size() > 0) {
-                    fragment.setIcons(pics);
-                }
+                fragment.setObject(itemFragmentBean);
+                List<BasePicVideoBean> pics = itemFragmentBean.getFragmentPics();
                 if (isDetail) {
-                    fragment.setPhotoDelateable(false).setMaxCount(itemFragmentBean.getFragmentPics().size());
-                    if (!itemFragmentBean.getFragmentPics().isEmpty()) {
-                        fragment.setIcons(itemFragmentBean.getFragmentPics());
-                    }
+                    fragment.setPhotoDelateable(false).setMaxCount(pics.size());
                 } else {
                     fragment.setPhotoDelateable(true).setMaxCount(itemFragmentBean.getmMaxCount());
                 }
-
+                if (pics.size() > 0) {
+                    fragment.setIcons(pics);
+                }
                 SelectPhotosFragment finalFragment = fragment;
                 fragment.setSpanCount(itemFragmentBean.getmSpanCount()).setOnPicLoadSuccessCallBack(new SelectPhotosFragment.OnPicLoadSuccessCallBack() {
                     @Override
-                    public void loadSuccess(List<String> icons) {
+                    public void loadSuccess(List<BasePicVideoBean> icons) {
 
                         ItemFragmentBean itemFragmentBean = (ItemFragmentBean) finalFragment.getObject();
                         if (onPicVideoLoadSuccessCallBack != null) {
@@ -505,7 +502,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
 
 
     public interface OnPicVideoLoadSuccessCallBack {
-        void uploadPicVideo(ItemFragmentBean itemFragmentBean, List<String> icons);
+        void uploadPicVideo(ItemFragmentBean itemFragmentBean, List<BasePicVideoBean> icons);
     }
 
 }

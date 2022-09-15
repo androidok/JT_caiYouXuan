@@ -2,6 +2,7 @@ package com.juntai.project.sell.mall.home.shop;
 
 import android.text.TextUtils;
 
+import com.example.appbase.bean.BasePicVideoBean;
 import com.example.appbase.bean.ShopCommodityListBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.util.UserInfoManager;
@@ -84,16 +85,16 @@ public class ShopPresent extends BaseAppMallPresent {
                 (HomePageContract.SHOP_CARD, true)));
 
 
-        List<String> fragmentPics = new ArrayList<>();
+        List<BasePicVideoBean> fragmentPics = new ArrayList<>();
         if (bean != null) {
             if (!TextUtils.isEmpty(bean.getPhotoOne())) {
-                fragmentPics.add(bean.getPhotoOne());
+                fragmentPics.add(new BasePicVideoBean(BasePicVideoBean.TYPE_IMAGE,bean.getPhotoOne()));
             }
             if (!TextUtils.isEmpty(bean.getPhotoTwo())) {
-                fragmentPics.add(bean.getPhotoTwo());
+                fragmentPics.add(new BasePicVideoBean(BasePicVideoBean.TYPE_IMAGE,bean.getPhotoTwo()));
             }
             if (!TextUtils.isEmpty(bean.getPhotoThree())) {
-                fragmentPics.add(bean.getPhotoThree());
+                fragmentPics.add(new BasePicVideoBean(BasePicVideoBean.TYPE_IMAGE,bean.getPhotoThree()));
             }
         }
         arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT, new ItemFragmentBean(HomePageContract.SHOP_CARD, 3, 3,
@@ -103,13 +104,13 @@ public class ShopPresent extends BaseAppMallPresent {
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.Q_CARD, true)));
-        List<String> photoList = new ArrayList<>();
+        List<BasePicVideoBean> photoList = new ArrayList<>();
         if (bean != null) {
             List<CommoditySourceDetailBean.DataBean.PhotoListBean> listBeans = bean.getPhotoList();
             if (listBeans != null && !listBeans.isEmpty()) {
                 for (CommoditySourceDetailBean.DataBean.PhotoListBean listBean : listBeans) {
                     if (!TextUtils.isEmpty(listBean.getFileUrl())) {
-                        photoList.add(listBean.getFileUrl());
+                        photoList.add(new BasePicVideoBean(BasePicVideoBean.TYPE_IMAGE,listBean.getFileUrl()));
                     }
                 }
 
@@ -152,8 +153,8 @@ public class ShopPresent extends BaseAppMallPresent {
                 (HomePageContract.COMMODITY_PRIMARY_PIC, true)));
         if (bean != null) {
             String coverPic = bean.getCoverImg();
-            List<String> pics = new ArrayList<>();
-            pics.add(coverPic);
+            List<BasePicVideoBean> pics = new ArrayList<>();
+            pics.add(new BasePicVideoBean(BasePicVideoBean.TYPE_IMAGE,coverPic));
             arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT, new ItemFragmentBean(HomePageContract.COMMODITY_PRIMARY_PIC, 4, 1,
                     1, false,
                     pics)));
@@ -172,9 +173,9 @@ public class ShopPresent extends BaseAppMallPresent {
                 imagesBeans = bean.getImages();
             }
 
-            List<String> pics = new ArrayList<>();
+            List<BasePicVideoBean> pics = new ArrayList<>();
             for (SellCommodityDetailBean.ImagesBean imagesBean : imagesBeans) {
-                pics.add(imagesBean.getImgUrl());
+                pics.add(new BasePicVideoBean(BasePicVideoBean.TYPE_IMAGE,imagesBean.getImgUrl()));
             }
             arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT2, new ItemFragmentBean(HomePageContract.COMMODITY_BANNER_PICS, 4, isDetail ? pics.size() : 4,
                     pics.size(), false,
@@ -185,11 +186,11 @@ public class ShopPresent extends BaseAppMallPresent {
                     new ArrayList<>())));
         }
         if (bean != null) {
-            List<String> videoPaht = new ArrayList<>();
+            List<BasePicVideoBean> videoPaht = new ArrayList<>();
             if (!TextUtils.isEmpty(bean.getVideoUrl())) {
                 arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                         (HomePageContract.COMMODITY_VIDEO, false)));
-                videoPaht.add(bean.getVideoUrl());
+                videoPaht.add(new BasePicVideoBean(BasePicVideoBean.TYPE_VIDEO,bean.getVideoUrl()));
                 arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT_VIDEO, new ItemFragmentBean(HomePageContract.COMMODITY_VIDEO, 4, 1,
                         1, false,
                         videoPaht)));

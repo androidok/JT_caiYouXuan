@@ -1,6 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">菜优选</string>
-    <string name="monitor_app_name">菜优选-抓包</string>
     <string name="agreement_user_xieyi">《用户协议》</string>
     <string name="agreement_secret_xieyi">《隐私协议》</string>
     <string name="secret_xieyi_url">https://www.kb167.com/yinsi/zhcl-yinsi.html</string>
@@ -15,14 +14,5 @@
     <string name="other_channel">其他频道</string>
     <string name="edit">编辑</string>
     <string name="finish">完成</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
 
 </resources>

@@ -2,30 +2,18 @@
 <resources>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#ffffff</color>
-    <color name="statusBarColor">#ffffff</color>
-    <color name="textColorPrimary">#286AE2</color>
     <color name="colorAccent">#00c750</color>
     <color name="colorTheme">#286AE2</color>
     <color name="colorThemeDark">#FB7D06</color>
-    <color name="color_bt_pressed">#AAFB7D06</color>
     <color name="gray_deeper">#8B8B8B</color>
-    <color name="green_lighter">#AA00b61e</color>
-    <color name="color_bg_dark_blue">#2851CF</color>
-    <color name="pop_light_blue">#DDE4F2</color>
 
     <color name="text_gray">#707070</color>
     <color name="warningColor">#707070</color>
     <color name="text_title">#000000</color>
-    <color name="text_content">#777777</color>
-    <color name="text_label">#AAABAB</color>
-    <color name="phone_bg">#D9DAEB</color>
 
-    <color name="transparent_black">#60000000</color>
-    <color name="text_default_color">#707070</color>
     <color name="grey">#666666</color>
     <color name="bg_focus">#DDDDDD</color>
 
-    <color name="background">#55cccccc</color>
     <color name="home_menu_text_green">#21BD7A</color>
     <color name="home_menu_text_pink">#FF6BA6</color>
     <color name="home_menu_text_orange">#F89911</color>

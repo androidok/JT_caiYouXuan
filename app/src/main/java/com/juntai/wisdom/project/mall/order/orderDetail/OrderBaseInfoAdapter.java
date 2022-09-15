@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.appbase.base.displayPicVideo.DisplayPicAndVideosActivity;
 import com.example.appbase.base.selectPics.ShowSelectedPicsAdapter;
+import com.example.appbase.bean.BasePicVideoBean;
 import com.example.appbase.util.bannerImageLoader.BannerObject;
 import com.juntai.wisdom.project.mall.R;
 
@@ -32,40 +33,46 @@ public class OrderBaseInfoAdapter extends BaseQuickAdapter<OrderDetailItemBean, 
     protected void convert(BaseViewHolder helper, OrderDetailItemBean orderDetailBean) {
         helper.setText(R.id.order_info_title_tv, orderDetailBean.getTitle());
 
-        RecyclerView  recyclerView = helper.getView(R.id.order_detail_info_rv);
+        RecyclerView recyclerView = helper.getView(R.id.order_detail_info_rv);
         OrderBaseInfoChildAdapter childAdapter = new OrderBaseInfoChildAdapter(R.layout.mall_order_baseinfo_child_item);
         recyclerView.setAdapter(childAdapter);
-        LinearLayoutManager manager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         childAdapter.setNewData(orderDetailBean.getArrays());
 
         List<String> pics = orderDetailBean.getImages();
-        if (pics != null&&pics.size()>0) {
+        List<BasePicVideoBean> arrays = new ArrayList<>();
+
+        if (pics != null && pics.size() > 0) {
             List<BannerObject> bannerObjects = new ArrayList<>();
             for (String pic : pics) {
                 if (pic.endsWith(".mp4")) {
                     bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, new BannerObject.VideoBean(pic, orderDetailBean.getVideoCover())));
-                }else {
+                    arrays.add(new BasePicVideoBean(BasePicVideoBean.TYPE_VIDEO, pic));
+
+                } else {
                     bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
+                    arrays.add(new BasePicVideoBean(BasePicVideoBean.TYPE_IMAGE, pic));
+
                 }
             }
-            helper.setGone(R.id.order_pics_rv,true);
+            helper.setGone(R.id.order_pics_rv, true);
             RecyclerView refundPicRv = helper.getView(R.id.order_pics_rv);
-            ShowSelectedPicsAdapter refundPicAdapter = new ShowSelectedPicsAdapter(R.layout.show_selected_pic_item,false);
+            ShowSelectedPicsAdapter refundPicAdapter = new ShowSelectedPicsAdapter(R.layout.show_selected_pic_item, false);
             refundPicAdapter.setDelateable(false);
             refundPicRv.setAdapter(refundPicAdapter);
-            GridLayoutManager reFundLm = new GridLayoutManager(mContext,4);
+            GridLayoutManager reFundLm = new GridLayoutManager(mContext, 4);
             refundPicRv.setLayoutManager(reFundLm);
-            refundPicAdapter.setNewData(pics);
+            refundPicAdapter.setNewData(arrays);
             refundPicAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
                 @Override
                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                    DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext,bannerObjects,position);
+                    DisplayPicAndVideosActivity.startPicVideoPlayActivity(mContext, bannerObjects, position);
 
                 }
             });
-        }else {
-            helper.setGone(R.id.order_pics_rv,false);
+        } else {
+            helper.setGone(R.id.order_pics_rv, false);
         }
 
     }

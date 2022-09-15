@@ -1,5 +1,7 @@
 package com.example.appbase.bean.multiBean;
 
+import com.example.appbase.bean.BasePicVideoBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +21,10 @@ public class ItemFragmentBean {
     private int type = 0;////0拍照照片，1拍照
     private boolean isShowTag = false;//是否显示底部标记
 
-    private List<String> fragmentPics;//选中的图片库
+    private List<BasePicVideoBean> fragmentPics;//选中的图片库
 
     public ItemFragmentBean(String key,int mSpanCount, int mMaxCount, int minCount, boolean isShowTag,
-                            List<String> fragmentPics) {
+                            List<BasePicVideoBean> fragmentPics) {
         this.key = key;
         this.mSpanCount = mSpanCount;
         this.mMaxCount = mMaxCount;
@@ -32,7 +34,7 @@ public class ItemFragmentBean {
     }
 
     public ItemFragmentBean(int mSpanCount, int mMaxCount, int minCount, int type, boolean isShowTag,
-                            List<String> fragmentPics) {
+                            List<BasePicVideoBean> fragmentPics) {
         this.mSpanCount = mSpanCount;
         this.mMaxCount = mMaxCount;
         this.minCount = minCount;
@@ -65,14 +67,14 @@ public class ItemFragmentBean {
         this.minCount = minCount;
     }
 
-    public List<String> getFragmentPics() {
+    public List<BasePicVideoBean> getFragmentPics() {
         if (fragmentPics == null) {
             return new ArrayList<>();
         }
         return fragmentPics;
     }
 
-    public void setFragmentPics(List<String> fragmentPics) {
+    public void setFragmentPics(List<BasePicVideoBean> fragmentPics) {
         this.fragmentPics = fragmentPics;
     }
 

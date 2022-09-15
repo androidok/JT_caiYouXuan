@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.appbase.R;
+import com.example.appbase.bean.BasePicVideoBean;
 import com.example.appbase.bean.multiBean.ItemFragmentBean;
 import com.example.appbase.util.StringTools;
 import com.juntai.disabled.basecomponent.app.BaseApplication;
@@ -73,7 +74,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
 
     private RecyclerView mSelectPhotosRv;
     private TextView mSelectPhotosTitleTv;
-    private List<String> icons = new ArrayList<>();
+    private List<BasePicVideoBean> icons = new ArrayList<>();
     private ShowSelectedPicsAdapter selectedPicsAdapter;
     private Context mContext;
     private int mSpanCount = 4;//一行的个数，默认4
@@ -95,7 +96,6 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
     public String cameraPath;
     private GridLayoutManager manager;
     private OnPicLoadSuccessCallBack onPicLoadSuccessCallBack;
-    private List<String> arrays;
     private boolean isShowTag = false;//是否显示底部标记
 
     private T object;
@@ -124,14 +124,6 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
         return this;
     }
 
-    /**
-     * @param ，
-     * @return
-     */
-    private BaseSelectPhotosFragment setAdapterData(List<String> arrays) {
-        this.arrays = arrays;
-        return this;
-    }
 
     /**
      * @param maxCount //最大个数，默认9个
@@ -192,8 +184,10 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
         this.type = type;
         return this;
     }
+
     /**
      * 是否显示底部标识
+     *
      * @param showTag
      * @return
      */
@@ -222,12 +216,9 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
      */
     public void initContentAndIcons() {
         icons.clear();
-        icons.add("-1");
+        icons.add(new BasePicVideoBean(BasePicVideoBean.TYPE_NULL));
         compressedSize = 0;
         selectedPicsAdapter.setNewData(icons);
-        if (arrays != null) {
-            selectedPicsAdapter.setNewData(arrays);
-        }
     }
 
     /**
@@ -235,7 +226,10 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
      *
      * @param arrays
      */
-    public BaseSelectPhotosFragment setIcons(List<String> arrays) {
+    public BaseSelectPhotosFragment setIcons(List<BasePicVideoBean> arrays) {
+        if (arrays == null || arrays.isEmpty()) {
+            return this;
+        }
         icons.clear();
         if (selectedPicsAdapter != null) {
             selectedPicsAdapter.setNewData(icons);
@@ -246,14 +240,12 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
                         icons.add(arrays.get(i));
                     }
                 } else {
-                    for (String array : arrays) {
-                        icons.add(array);
-                    }
-                    icons.add("-1");
+                    icons.addAll(arrays);
+                    icons.add(new BasePicVideoBean(BasePicVideoBean.TYPE_NULL));
                 }
                 selectedPicsAdapter.setNewData(icons);
             }
-        }else {
+        } else {
             icons.addAll(arrays);
         }
         return this;
@@ -266,9 +258,9 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
      */
     public List<String> getPhotosPath() {
         List<String> icons_new = new ArrayList<>();
-        for (String icon : icons) {
-            if (!"-1".equals(icon)) {
-                icons_new.add(icon);
+        for (BasePicVideoBean icon : icons) {
+            if (BasePicVideoBean.TYPE_NULL != icon.getType()) {
+                icons_new.add(icon.getUrl());
             }
         }
         return icons_new;
@@ -288,7 +280,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         if (requestCode == SELECT_PIC_RESULT && resultCode == RESULT_OK) {
             if ("视频".equals(itemFragmentBean.getKey())) {
-                icons.add(Matisse.obtainPathResult(data).get(0));
+                icons.add(new BasePicVideoBean(BasePicVideoBean.TYPE_VIDEO, Matisse.obtainPathResult(data).get(0)));
                 selectedPicsAdapter.setNewData(reSortIconList());
                 if (onPicLoadSuccessCallBack != null) {
                     onPicLoadSuccessCallBack.loadSuccess(getSelectedPics(icons));
@@ -324,7 +316,8 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
             public void onSuccess(File file) {
                 compressedSize++;
                 //  压缩成功后调用，返回压缩后的图片文件
-                icons.add(file.getPath());
+                icons.add(new BasePicVideoBean(BasePicVideoBean.TYPE_IMAGE, file.getPath()));
+
                 selectedPicsAdapter.setNewData(reSortIconList());
                 if (compressedSize == paths.size()) {
                     getBaseActivity().stopLoadingDialog();
@@ -368,7 +361,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
             @Override
             public void onSuccess(File file) {
                 //  压缩成功后调用，返回压缩后的图片文件
-                icons.add(file.getPath());
+                icons.add(new BasePicVideoBean(BasePicVideoBean.TYPE_IMAGE, file.getPath()));
                 selectedPicsAdapter.setNewData(reSortIconList());
                 getBaseActivity().stopLoadingDialog();
                 if (onPicLoadSuccessCallBack != null) {
@@ -418,14 +411,14 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 //                imageView = (ImageView) selectedPicsAdapter.getViewByPosition(mPublishNoticeRv,
                 //                position, R.id.mine_sugguest_icon_iv);
-                List<String> arrays = reSortIconList();
-                if (arrays.isEmpty()||arrays==null) {
+                List<BasePicVideoBean> arrays = reSortIconList();
+                if (arrays.isEmpty() || arrays == null) {
                     return;
                 }
-                String icon_path = arrays.get(position);
+                BasePicVideoBean picVideoBean = arrays.get(position);
                 int id = view.getId();
                 if (id == R.id.select_pic_icon_iv) {
-                    if ("-1".equals(icon_path)) {
+                    if (BasePicVideoBean.TYPE_NULL == picVideoBean.getType()) {
                         int count = mMaxCount - (icons.size() - 1);
                         if ("视频".equals(itemFragmentBean.getKey())) {
                             choseVideoFromFragment(BaseSelectPhotosFragment.this, count, SELECT_PIC_RESULT);
@@ -433,7 +426,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
                             choseImageFromFragment(type, BaseSelectPhotosFragment.this, count, SELECT_PIC_RESULT);
                         }
                     } else {
-                        if (icon_path.contains(".mp4")) {
+                        if (BasePicVideoBean.TYPE_VIDEO == picVideoBean.getType()) {
                             //视频路径
                             if (onPhotoItemClick != null) {
                                 onPhotoItemClick.onVedioPicClick(adapter, position);
@@ -449,8 +442,10 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
                     arrays.remove(position);
                     icons.clear();
                     if (arrays.size() < mMaxCount) {
-                        if (!arrays.contains("-1")) {
-                            arrays.add("-1");
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                            if (!arrays.stream().anyMatch(basePicVideoBean -> basePicVideoBean.getType() == BasePicVideoBean.TYPE_NULL)) {
+                                arrays.add(new BasePicVideoBean(BasePicVideoBean.TYPE_NULL));
+                            }
                         }
                     }
                     icons = arrays;
@@ -498,15 +493,15 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
      *
      * @return
      */
-    private List<String> reSortIconList() {
-        List<String> icons_new = new ArrayList<>();
-        for (String icon : icons) {
-            if (!"-1".equals(icon)) {
+    private List<BasePicVideoBean> reSortIconList() {
+        List<BasePicVideoBean> icons_new = new ArrayList<>();
+        for (BasePicVideoBean icon : icons) {
+            if (BasePicVideoBean.TYPE_NULL != icon.getType()) {
                 icons_new.add(icon);
             }
         }
         if (icons.size() <= mMaxCount) {
-            icons_new.add("-1");
+            icons_new.add(new BasePicVideoBean(BasePicVideoBean.TYPE_NULL));
         }
         return icons_new;
     }
@@ -516,10 +511,10 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
      *
      * @return
      */
-    private List<String> getSelectedPics(List<String> pics) {
-        List<String> icons_new = new ArrayList<>();
-        for (String icon : pics) {
-            if (!"-1".equals(icon)) {
+    private List<BasePicVideoBean> getSelectedPics(List<BasePicVideoBean> pics) {
+        List<BasePicVideoBean> icons_new = new ArrayList<>();
+        for (BasePicVideoBean icon : pics) {
+            if (BasePicVideoBean.TYPE_NULL != icon.getType()) {
                 icons_new.add(icon);
             }
         }
@@ -676,7 +671,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseMvpFragment implem
      * 图片加载完成
      */
     public interface OnPicLoadSuccessCallBack {
-        void loadSuccess(List<String> icons);
+        void loadSuccess(List<BasePicVideoBean> icons);
 
     }
 

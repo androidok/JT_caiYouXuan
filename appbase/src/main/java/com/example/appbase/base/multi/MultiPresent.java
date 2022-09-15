@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.example.appbase.R;
 import com.example.appbase.base.BaseAppPresent;
 import com.example.appbase.base.multi.adapters.CommodityManagerSourceDetailAdapter;
+import com.example.appbase.bean.BasePicVideoBean;
 import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.example.appbase.bean.multiBean.ItemFragmentBean;
 import com.example.appbase.bean.multiBean.MultiNormalRecyclerviewBean;
@@ -71,7 +72,7 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (MultiContact.COMMODITY_PIC_VIDEO, false)));
 
-        List<String> fragmentPics = new ArrayList<>();
+        List<BasePicVideoBean> fragmentPics = new ArrayList<>();
         if (bean != null) {
             if (!TextUtils.isEmpty(bean.getCoverImg())) {
                 addFragmentPics(bean.getCoverImg(), fragmentPics);
@@ -161,7 +162,7 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_BIG, "店铺资料"));
 
-        List<String> fragmentPics = new ArrayList<>();
+        List<BasePicVideoBean> fragmentPics = new ArrayList<>();
         if (bean != null) {
             addFragmentPics(bean.getHeadPortrait(), fragmentPics);
             addFragmentPics(bean.getBusinessLicense(), fragmentPics);
@@ -179,8 +180,8 @@ public class MultiPresent extends BaseAppPresent<IModel, IView> {
         return arrays;
     }
 
-    private void addFragmentPics(String picPath, List<String> fragmentPics) {
-        fragmentPics.add(picPath);
+    private void addFragmentPics(String picPath, List<BasePicVideoBean> fragmentPics) {
+        fragmentPics.add(new BasePicVideoBean(BasePicVideoBean.TYPE_IMAGE,picPath));
 //        if (!TextUtils.isEmpty(picPath)) {
 //            if (picPath.contains(BaseInspectionActivity.SDCARD_TAG)) {
 //                fragmentPics.add(picPath);

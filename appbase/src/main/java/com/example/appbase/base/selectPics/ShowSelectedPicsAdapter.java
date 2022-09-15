@@ -1,12 +1,12 @@
 package com.example.appbase.base.selectPics;
 
 import android.support.constraint.ConstraintLayout;
-import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.appbase.R;
+import com.example.appbase.bean.BasePicVideoBean;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 
@@ -15,7 +15,7 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
  * Time:2018/7/19 10:52
  * Description:This is ShowSelectedPicsAdapter
  */
-public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class ShowSelectedPicsAdapter extends BaseQuickAdapter<BasePicVideoBean, BaseViewHolder> {
 
     private boolean isShowTag = false;
 
@@ -40,36 +40,44 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
 
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        if ("-1".equals(item)) {
-            helper.setGone(R.id.item_video_tag, false);
-            if (isBigPic) {
-                ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), 0, (ImageView) helper.getView(R.id.select_pic_icon_iv));
-            }else {
-                ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), R.mipmap.add_icons, (ImageView) helper.getView(R.id.select_pic_icon_iv));
+    protected void convert(BaseViewHolder helper, BasePicVideoBean item) {
 
-            }
-            helper.setGone(R.id.delete_pushed_news_iv, false);
-        } else {
-            if (delateable) {
-                helper.setGone(R.id.delete_pushed_news_iv, true);
-            }else{
-                helper.setGone(R.id.delete_pushed_news_iv, false);
-            }
-
-            if (!TextUtils.isEmpty(item) && item.contains(".mp4")) {
-                ImageLoadUtil.loadVideoScreenshot(mContext, item, helper.getView(R.id.select_pic_icon_iv),  new ImageLoadUtil.OnImageLoadSuccess() {
-                    @Override
-                    public void loadSuccess(int width, int height) {
-                        //加载成功
-                    }
-                });
-                helper.setGone(R.id.item_video_tag, true);
-            } else {
-                ImageLoadUtil.loadImageNoCache(mContext, item, (ImageView) helper.getView(R.id.select_pic_icon_iv));
+        switch (item.getType()) {
+            case BasePicVideoBean.TYPE_NULL:
                 helper.setGone(R.id.item_video_tag, false);
-            }
+                if (isBigPic) {
+                    ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), 0, (ImageView) helper.getView(R.id.select_pic_icon_iv));
+                }else {
+                    ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), R.mipmap.add_icons, (ImageView) helper.getView(R.id.select_pic_icon_iv));
+
+                }
+                helper.setGone(R.id.delete_pushed_news_iv, false);
+                break;
+            case BasePicVideoBean.TYPE_IMAGE:
+            case BasePicVideoBean.TYPE_VIDEO:
+                if (delateable) {
+                    helper.setGone(R.id.delete_pushed_news_iv, true);
+                }else{
+                    helper.setGone(R.id.delete_pushed_news_iv, false);
+                }
+
+                if (BasePicVideoBean.TYPE_VIDEO==item.getType()) {
+                    ImageLoadUtil.loadVideoScreenshot(mContext, item.getUrl(), helper.getView(R.id.select_pic_icon_iv),  new ImageLoadUtil.OnImageLoadSuccess() {
+                        @Override
+                        public void loadSuccess(int width, int height) {
+                            //加载成功
+                        }
+                    });
+                    helper.setGone(R.id.item_video_tag, true);
+                } else {
+                    ImageLoadUtil.loadImageNoCache(mContext, item.getUrl(), (ImageView) helper.getView(R.id.select_pic_icon_iv));
+                    helper.setGone(R.id.item_video_tag, false);
+                }
+                break;
+            default:
+                break;
         }
+
         if (isShowTag) {
             helper.setVisible(R.id.item_tag, true);
             switch (helper.getLayoutPosition()) {

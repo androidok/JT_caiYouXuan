@@ -23,6 +23,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.appbase.R;
 import com.example.appbase.base.selectPics.SelectPhotosFragment;
 import com.example.appbase.base.web.BaseWebviewFragment;
+import com.example.appbase.bean.BasePicVideoBean;
 import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.example.appbase.bean.multiBean.ItemFragmentBean;
 import com.example.appbase.bean.multiBean.LocationBean;
@@ -235,7 +236,7 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
                 SelectPhotosFragment finalFragment = fragment;
                 fragment.setOnPicLoadSuccessCallBack(new SelectPhotosFragment.OnPicLoadSuccessCallBack() {
                     @Override
-                    public void loadSuccess(List<String> icons) {
+                    public void loadSuccess(List<BasePicVideoBean> icons) {
 
                         ItemFragmentBean itemFragmentBean = (ItemFragmentBean) finalFragment.getObject();
 //                        if (onPicVideoLoadSuccessCallBack != null) {
@@ -245,7 +246,7 @@ public class BaseMultiRecyclerAdapter extends BaseMultiItemQuickAdapter<Multiple
                     }
                 });
                 itemFragmentBean = (ItemFragmentBean) finalFragment.getObject();
-                List<String> pics = itemFragmentBean.getFragmentPics();
+                List<BasePicVideoBean> pics = itemFragmentBean.getFragmentPics();
                 if (pics.size() > 0) {
                     fragment.setIcons(pics);
                 }
