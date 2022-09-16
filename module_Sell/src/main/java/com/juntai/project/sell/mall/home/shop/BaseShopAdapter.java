@@ -276,7 +276,6 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                         ItemFragmentBean itemFragmentBean = (ItemFragmentBean) finalFragment.getObject();
                         itemFragmentBean.setFragmentPics(icons);
 
-
                     }
 
                     @Override

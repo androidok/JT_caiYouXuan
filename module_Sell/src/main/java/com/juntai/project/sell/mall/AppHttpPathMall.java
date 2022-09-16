@@ -253,6 +253,10 @@ public class AppHttpPathMall {
      */
     public static final String ADD_COMMODITY_CATEGORY = BASE + "/seller/addShopClassify";
     /**
+     * 删除图片
+     */
+    public static final String DELETE_IMAGE = BASE + "/seller/deleteCommodityImg";
+    /**
      * 修改商品类目
      */
     public static final String MODIFY_COMMODITY_CATEGORY = BASE + "/seller/updateShopClassify";

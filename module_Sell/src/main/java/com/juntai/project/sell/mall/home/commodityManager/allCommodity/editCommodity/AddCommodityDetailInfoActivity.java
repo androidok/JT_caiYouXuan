@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -25,6 +26,7 @@ import com.juntai.project.sell.mall.home.shop.ShopPresent;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.qzb.richeditor.RE;
@@ -56,7 +58,8 @@ public class AddCommodityDetailInfoActivity extends BaseAppActivity<ShopPresent>
     private RichEditor mEditor;//
     public RE re;
     private SellCommodityDetailBean commodityDetailBean;
-private boolean  isEdit = false;
+    private boolean isEdit = false;
+
     @Override
     protected ShopPresent createPresenter() {
         return new ShopPresent();
@@ -111,7 +114,7 @@ private boolean  isEdit = false;
         if (!TextUtils.isEmpty(commodityDetailBean.getDescription())) {
             isEdit = true;
             re.setHtml(commodityDetailBean.getDescription());
-        }else {
+        } else {
             isEdit = false;
         }
     }
@@ -134,13 +137,24 @@ private boolean  isEdit = false;
                     }
                 }
                 break;
+            case AppHttpPath.UPLOAD_FILES:
+                List<SellCommodityDetailBean.ImagesBean> commodityImg = new ArrayList<>();
+                List<String> pics = (List<String>) o;
+                if (pics != null && !pics.isEmpty()) {
+                    for (String image : pics) {
+                        commodityImg.add(new SellCommodityDetailBean.ImagesBean(image));
+                    }
+                }
+                commodityDetailBean.setCommodityImg(commodityImg);
+                modifyCommodity();
+                break;
 
             default:
                 break;
             case AppHttpPathMall.ADD_COMMODITY_BASE_INFO:
                 ToastUtils.toast(mContext, "添加成功");
                 startAllCommodityActivity();
-                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_LIST,""));
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_LIST, ""));
                 if (Hawk.contains(HawkProperty.COMMODITY_DETAIL)) {
                     Hawk.delete(HawkProperty.COMMODITY_DETAIL);
 
@@ -150,7 +164,7 @@ private boolean  isEdit = false;
             case AppHttpPathMall.UPDATE_COMMODITY_BASE_INFO:
                 ToastUtils.toast(mContext, "修改成功");
                 startAllCommodityActivity();
-                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_LIST,""));
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_LIST, ""));
 
                 break;
         }
@@ -223,13 +237,41 @@ private boolean  isEdit = false;
             commodityDetailBean.setToken(UserInfoManagerMall.getUserToken());
             commodityDetailBean.setShopId(UserInfoManagerMall.getShopId());
             commodityDetailBean.setTypeEnd("app_seller");
-            if (isEdit) {
-                mPresenter.updateCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.UPDATE_COMMODITY_BASE_INFO);
 
+
+            List<SellCommodityDetailBean.ImagesBean> pics = commodityDetailBean.getCommodityImg();
+            if (pics != null && !pics.isEmpty()) {
+                // : 2022/9/16 上传图片
+                List<String> arrays = new ArrayList<>();
+                for (SellCommodityDetailBean.ImagesBean pic : pics) {
+                    if (!pic.getImgUrl().contains("http")) {
+                        arrays.add(pic.getImgUrl());
+                    }
+                }
+                if (!arrays.isEmpty()) {
+                    mPresenter.uploadFile(arrays, AppHttpPath.UPLOAD_FILES);
+
+                } else {
+                    commodityDetailBean.setCommodityImg(new ArrayList<>());
+                    modifyCommodity();
+                }
             } else {
-                mPresenter.addCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.ADD_COMMODITY_BASE_INFO);
-
+                commodityDetailBean.setCommodityImg(new ArrayList<>());
+                modifyCommodity();
             }
+        }
+    }
+
+    /**
+     * 操作商品
+     */
+    private void modifyCommodity() {
+        if (isEdit) {
+            mPresenter.updateCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.UPDATE_COMMODITY_BASE_INFO);
+
+        } else {
+            mPresenter.addCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.ADD_COMMODITY_BASE_INFO);
+
         }
     }
 

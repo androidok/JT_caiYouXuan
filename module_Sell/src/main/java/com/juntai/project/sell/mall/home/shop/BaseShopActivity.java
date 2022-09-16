@@ -105,15 +105,12 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     }
 
 
-
     @Override
     public void deletePicVideo(BasePicVideoBean basePicVideoBean) {
-        // TODO: 2022/9/15 调用删除图片的接口
-        if (basePicVideoBean.getId()>0) {
-            ToastUtils.toast(mContext,"删除");
-
+        // : 2022/9/15 调用删除图片的接口
+        if (basePicVideoBean.getId() > 0) {
+            mPresenter.deleteImage(getBaseBuilder().add("id",String.valueOf(basePicVideoBean.getId())).build(), AppHttpPathMall.DELETE_IMAGE);
         }
-
 
 
 //        if (icons.size() > 0) {
@@ -273,7 +270,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                     mSelectTv.setText(time);
                                     selectBean.setValue(time);
                                     String endTime = getStartEndTime(1);
-                                    if (!TextUtils.isEmpty(endTime)&&UserInfoManagerMall.getShopId()>0) {
+                                    if (!TextUtils.isEmpty(endTime) && UserInfoManagerMall.getShopId() > 0) {
                                         mPresenter.updateShopInfo(getBaseBuilder()
                                                 .add("id", String.valueOf(UserInfoManagerMall.getShopId()))
                                                 .add("userAccount", UserInfoManager.getAccount())
@@ -301,7 +298,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                     mSelectTv.setText(time);
                                     selectBean.setValue(time);
                                     String startTime = getStartEndTime(0);
-                                    if (!TextUtils.isEmpty(startTime)&&UserInfoManagerMall.getShopId()>0) {
+                                    if (!TextUtils.isEmpty(startTime) && UserInfoManagerMall.getShopId() > 0) {
                                         mPresenter.updateShopInfo(getBaseBuilder()
                                                 .add("id", String.valueOf(UserInfoManagerMall.getShopId()))
                                                 .add("userAccount", UserInfoManager.getAccount())
@@ -377,7 +374,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
             if (MultipleItem.ITEM_LOCATION == array.getItemType()) {
                 //定位
                 LocationBean locationBean = (LocationBean) array.getObject();
-                if (!TextUtils.isEmpty(locationBean.getAddress())&&UserInfoManagerMall.getShopId()>0) {
+                if (!TextUtils.isEmpty(locationBean.getAddress()) && UserInfoManagerMall.getShopId() > 0) {
                     // : 2022/8/30  调用更改地址的接口
                     mPresenter.updateShopInfo(getBaseBuilder()
                             .add("id", String.valueOf(UserInfoManagerMall.getShopId()))
@@ -420,7 +417,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         time = value;
                         break;
                     }
-                }else {
+                } else {
                     if (HomePageContract.SHOP_ORDER_END_TIME.equals(key)) {
                         time = value;
                         break;
@@ -786,7 +783,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
         List<BannerObject> bannerObjects = new ArrayList<>();
         List<BasePicVideoBean> arrays = adapter.getData();
         for (BasePicVideoBean pic : arrays) {
-            if (pic.getType()==BasePicVideoBean.TYPE_VIDEO) {
+            if (pic.getType() == BasePicVideoBean.TYPE_VIDEO) {
                 bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, new BannerObject.VideoBean(pic.getUrl(), "")));
             } else {
                 bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic.getUrl()));

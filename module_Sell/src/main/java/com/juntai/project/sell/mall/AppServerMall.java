@@ -248,6 +248,8 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.ADD_COMMODITY_CATEGORY)
     Observable<BaseResult> addCommodityCategorys(@Body RequestBody requestBody);
+    @POST(AppHttpPathMall.DELETE_IMAGE)
+    Observable<BaseResult> deleteImage(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.MODIFY_COMMODITY_CATEGORY)
     Observable<BaseResult> modifyCommodityCategorys(@Body RequestBody requestBody);

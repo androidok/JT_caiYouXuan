@@ -357,6 +357,27 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+    public void deleteImage(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .deleteImage(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(null) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
 
     public void getCommodityCategorys(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
