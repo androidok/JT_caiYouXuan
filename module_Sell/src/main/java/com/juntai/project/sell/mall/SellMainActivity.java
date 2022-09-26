@@ -1,5 +1,6 @@
 package com.juntai.project.sell.mall;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,10 +16,13 @@ import com.example.appbase.util.UserInfoManager;
 import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
+import com.orhanobut.hawk.Hawk;
+
 @Route(path = ARouterPath.sellMain)
 public class SellMainActivity extends BaseAppActivity<MainPagePresent> implements
         View.OnClickListener, MainPageContract.IMainPageView {
@@ -61,6 +65,20 @@ public class SellMainActivity extends BaseAppActivity<MainPagePresent> implement
 //        mFragments.append(2, new MyCenterFragment());//
 //        mainViewpager.setOffscreenPageLimit(5);
 //        initTab();
+        //检测密码是否为弱口令
+        if (!PubUtil.checkPwdMark(Hawk.get(HawkProperty.SP_KEY_PWD))) {
+            showAlertDialog("检测到当前账号的密码过于简单,需要重新设置复杂密码", "前往更改", "下次再说", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ActivityManagerTool.getInstance().startToModifyPwd(UserInfoManager.getPhoneNumber());
+                }
+            }, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }
     }
 
 

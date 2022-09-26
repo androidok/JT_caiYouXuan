@@ -17,6 +17,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
 public class HawkProperty {
     public final static String SP_KEY_USER = "SP_KEY_USER";
     public final static String SP_KEY_TOKEN = "token";
+    public final static String SP_KEY_PWD = "user_pwd";
     public final static String SHOP_NAME = "SHOP_NAME";
     public final static String LOCAL_LABEL = "localLabel";
     public final static String LOCAL_LIVE_LABEL = "LOCAL_LIVE_LABEL";

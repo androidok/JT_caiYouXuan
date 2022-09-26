@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.example.appbase.util.UserInfoManager;
+import com.juntai.disabled.basecomponent.bean.ContactBean;
+import com.juntai.wisdom.project.mall.MainActivity;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -26,6 +29,7 @@ public class SplashActivity extends RxAppCompatActivity {
             Manifest.permission.CAMERA,
             Manifest.permission.ACCESS_FINE_LOCATION};
 
+
     @SuppressLint("CheckResult")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,13 +46,26 @@ public class SplashActivity extends RxAppCompatActivity {
                         } else {
                             //有一个权限没通过
                         }
-//                        if (UserInfoManager.isLogin()) {
-//                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-//                        }else {
-//                            startActivity(new Intent(SplashActivity.this, SellLoginActivity.class));
-//                        }
-                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                        finish();
+                        if (UserInfoManager.isLogin()) {
+                            //账号类型（1学校人员；2商户人员；3农发人员）
+                            ContactBean contactBean = UserInfoManager.getUser();
+                            int type = contactBean.getType();
+                            switch (type) {
+                                case 1:
+                                    //买家
+                                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                                    finish();
+                                    break;
+                                default:
+                                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                                    finish();
+                                    break;
+                            }
+                        }else {
+                            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                            finish();
+                        }
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override

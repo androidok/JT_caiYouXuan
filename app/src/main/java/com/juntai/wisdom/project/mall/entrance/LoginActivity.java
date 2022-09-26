@@ -18,10 +18,8 @@ import com.example.module_nongfa_manager.MainNFManagerActivity;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
-import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.MD5;
-import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.MainActivity;
 import com.juntai.wisdom.project.mall.R;
@@ -108,17 +106,8 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     MyChatApp.isReLoadWarn = true;
                     Hawk.put(HawkProperty.SP_KEY_USER, contactBean);
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, contactBean.getToken());
+                    Hawk.put(HawkProperty.SP_KEY_PWD, getTextViewValue(mPasswordEt));
 
-                    //首先检测密码是否为弱口令
-                    if (!PubUtil.checkPwdMark(getTextViewValue(mPasswordEt))) {
-                        showAlertDialogOfOneBt("提醒", "检测到当前账号的密码过于简单,需要重新设置复杂密码", "前往更改", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ActivityManagerTool.getInstance().startToModifyPwd(getTextViewValue(mRegistPhoneEt));
-                            }
-                        });
-                        return;
-                    }
                     //账号类型（1学校人员；2商户人员；3农发人员）
                     int type = contactBean.getType();
                     switch (type) {

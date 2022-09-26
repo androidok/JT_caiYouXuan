@@ -111,6 +111,7 @@ public class UserInfoManager {
     public static void clearUserData() {
         Hawk.delete(HawkProperty.SP_KEY_USER);
         Hawk.delete(HawkProperty.SP_KEY_TOKEN);
+        Hawk.delete(HawkProperty.SP_KEY_PWD);
 //        Hawk.delete(HawkPropertyChat.SP_KEY_UNREAD_COUNT);
 
 //        AliPushManager.getInstance().unbindAccount(UserInfoManager.getUserUUID());

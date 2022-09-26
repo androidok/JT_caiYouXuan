@@ -1,5 +1,6 @@
 package com.example.module_nongfa_manager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -12,12 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.appbase.scan.QRScanActivity;
+import com.example.appbase.util.UserInfoManager;
 import com.example.module_nongfa_manager.base.BaseNFActivity;
 import com.example.module_nongfa_manager.home.NFHomeFragment;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.mine.MyCenterFragment;
+import com.orhanobut.hawk.Hawk;
 
 /**
  * @aouther tobato
@@ -79,6 +84,20 @@ public class MainNFManagerActivity extends BaseNFActivity implements View.OnClic
         mNavigationMineLl = (LinearLayout) findViewById(R.id.navigation_mine_ll);
         mNavigationMineLl.setOnClickListener(this);
         initBottomViewStatus(0);
+        //检测密码是否为弱口令
+        if (!PubUtil.checkPwdMark(Hawk.get(HawkProperty.SP_KEY_PWD))) {
+            showAlertDialog("检测到当前账号的密码过于简单,需要重新设置复杂密码", "前往更改", "下次再说", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ActivityManagerTool.getInstance().startToModifyPwd(UserInfoManager.getPhoneNumber());
+                }
+            }, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }
     }
 
     @Override
