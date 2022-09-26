@@ -56,7 +56,11 @@ public abstract class BaseObserver<T> extends DisposableObserver<T> {
             BaseResult model = (BaseResult) bean;
             if (0 == model.code||model instanceof BaseAddrBean||model instanceof BaseStreamBean) {
                 onSuccess(bean);
-            } else if (30003 == model.code||30004 == model.code||10003==model.code) {
+                /**
+                 * 10003 被顶
+                 * 10002 token过期
+                 */
+            } else if (30003 == model.code||30004 == model.code||10003==model.code||10002==model.code) {
                 //单点登录   被顶后 服务端的success值为false status没有赋值
                 if (BaseApplication.isReLoadWarn) {
                     BaseApplication.isReLoadWarn = false;

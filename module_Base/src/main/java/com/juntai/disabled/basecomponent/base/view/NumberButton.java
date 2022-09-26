@@ -45,7 +45,7 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
 
     private int mBuyMin = 1;
 
-   private Context mContext;
+    private Context mContext;
 
     public NumberButton(Context context) {
         this(context, null);
@@ -136,9 +136,9 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
                 warningForBuyMax();
             }
 
-        } else if (id == R.id.text_count) {
-            mCountEt.setSelection(mCountEt.getText().toString().length());
         }
+        mCountEt.setSelection(mCountEt.getText().toString().length());
+
     }
 
     private void onNumberInput() {
@@ -163,7 +163,7 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
             }
         } else {
             if (count < mBuyMin) {
-                ToastUtils.toast(mContext, "该商品最小起送量为"+mBuyMin);
+                ToastUtils.toast(mContext, "该商品最小起送量为" + mBuyMin);
                 mCountEt.setText(String.valueOf(mBuyMin));
                 return;
             }
@@ -213,10 +213,12 @@ public class NumberButton extends LinearLayout implements View.OnClickListener, 
         mInventory = inventory;
         return this;
     }
+
     public NumberButton setmBuyMin(int mBuyMin) {
         this.mBuyMin = mBuyMin;
         return this;
     }
+
     public int getBuyMax() {
         return mBuyMax;
     }

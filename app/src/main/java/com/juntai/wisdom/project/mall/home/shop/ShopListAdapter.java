@@ -21,10 +21,10 @@ public class ShopListAdapter extends BaseQuickAdapter<CommodityBean, BaseViewHol
 
     @Override
     protected void convert(BaseViewHolder helper, CommodityBean item) {
-        ImageLoadUtil.loadHeadCirclePic(mContext,item.getHeadPortrait(),helper.getView(R.id.shop_logo_iv));
+        ImageLoadUtil.loadHeadCirclePic(mContext, item.getHeadPortrait(), helper.getView(R.id.shop_logo_iv));
         helper.setText(R.id.shop_name_tv, item.getName());
-        helper.setText(R.id.shop_create_time_value_tv,String.valueOf(item.getCreateTime()));
-        helper.setText(R.id.shop_sell_commodity_amount_value_tv,String.valueOf(item.getCommodityCount()));
+        helper.setText(R.id.shop_create_time_value_tv, String.valueOf(item.getCreateTime()));
+        helper.setText(R.id.shop_sell_commodity_amount_value_tv, String.valueOf(item.getCommodityCount()));
     }
 
 }

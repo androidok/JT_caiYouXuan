@@ -89,7 +89,7 @@ public class SellOrderDetailBean extends BaseResult implements Parcelable {
     private List<CommodityListBean> commodityList;
     private int sorting;//分拣状态（1未分拣；2分拣完成）
 
-    private int delivery;//配送状态（1为配送；2已配送）
+    private double delivery;//配送状态（1为配送；2已配送）
     public CommodityEvaluateBean getCommodityEvaluateVo() {
         return commodityEvaluateVo;
     }
@@ -106,11 +106,11 @@ public class SellOrderDetailBean extends BaseResult implements Parcelable {
         this.sorting = sorting;
     }
 
-    public int getDelivery() {
+    public double getDelivery() {
         return delivery;
     }
 
-    public void setDelivery(int delivery) {
+    public void setDelivery(double delivery) {
         this.delivery = delivery;
     }
 

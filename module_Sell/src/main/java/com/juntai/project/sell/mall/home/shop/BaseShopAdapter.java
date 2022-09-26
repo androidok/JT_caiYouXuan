@@ -328,7 +328,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 if (textValueEditBean.isDetail()) {
                     editText.setClickable(false);
                     editText.setFocusable(false);
-                    helper.setBackgroundRes(R.id.edit_value_et, R.drawable.sp_filled_gray_lighter);
+                    helper.setBackgroundRes(R.id.edit_value_et, R.drawable.stroke_gray_square_bg);
                 } else {
                     editText.setClickable(true);
                     editText.setFocusable(true);
@@ -390,7 +390,8 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                     case HomePageContract.COMMODITY_PRICE:
                     case HomePageContract.COMMODITY_SEND_LEVEL:
                         //起送量 double类型
-                        editText.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+//                        editText.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                         break;
                     default:
                         //输入类型为普通文本

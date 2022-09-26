@@ -1,6 +1,7 @@
 package com.example.module_nongfa_manager;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -43,6 +44,16 @@ public class MainNFManagerActivity extends BaseNFActivity implements View.OnClic
     private MyCenterFragment mineFragment;
     private int clickTimes = 0;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            nfHomeFragment = (NFHomeFragment) getSupportFragmentManager().findFragmentByTag("home");
+            mineFragment = (MyCenterFragment) getSupportFragmentManager().findFragmentByTag("mine");
+        } else {
+            initFragments();
+        }
+    }
     @Override
     protected BasePresenter createPresenter() {
         return null;

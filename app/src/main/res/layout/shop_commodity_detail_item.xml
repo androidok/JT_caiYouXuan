@@ -8,20 +8,22 @@
         android:id="@+id/evaluation_title_tv"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:paddingLeft="15dp"
         android:gravity="center_vertical"
         android:paddingRight="5dp"
         android:text="宝贝详情"
         android:textColor="@color/black"
-        android:textSize="16sp"></TextView>
+        android:textSize="16sp" />
 
     <fragment
         android:id="@+id/base_webview_fg"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         class="com.example.appbase.base.web.BaseWebviewFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp">
+       >
 
     </fragment>
 </LinearLayout>

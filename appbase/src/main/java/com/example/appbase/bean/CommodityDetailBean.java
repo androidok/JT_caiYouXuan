@@ -67,7 +67,7 @@ public class CommodityDetailBean extends BaseResult {
          */
         private int state;
 
-        private int delivery;
+        private double delivery;
         private String unit;
         private int shopClassifyId;
         private int categoryId;
@@ -89,11 +89,11 @@ public class CommodityDetailBean extends BaseResult {
         private List<CommodityPropertyBean> value;
         private List<ImagesBean> images;
 
-        public int getDelivery() {
+        public double getDelivery() {
             return delivery;
         }
 
-        public void setDelivery(int delivery) {
+        public void setDelivery(double delivery) {
             this.delivery = delivery;
         }
 
@@ -387,7 +387,7 @@ public class CommodityDetailBean extends BaseResult {
             dest.writeInt(this.userId);
             dest.writeInt(this.shopState);
             dest.writeInt(this.state);
-            dest.writeInt(this.delivery);
+            dest.writeDouble(this.delivery);
             dest.writeString(this.unit);
             dest.writeInt(this.shopClassifyId);
             dest.writeInt(this.categoryId);
@@ -415,7 +415,7 @@ public class CommodityDetailBean extends BaseResult {
             this.userId = in.readInt();
             this.shopState = in.readInt();
             this.state = in.readInt();
-            this.delivery = in.readInt();
+            this.delivery = in.readDouble();
             this.unit = in.readString();
             this.shopClassifyId = in.readInt();
             this.categoryId = in.readInt();

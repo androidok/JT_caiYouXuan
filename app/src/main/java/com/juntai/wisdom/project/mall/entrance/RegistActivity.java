@@ -92,10 +92,10 @@ public class RegistActivity extends SmsCheckCodeActivity implements View.OnClick
         mRegistProtocalSecrecyTv = (TextView) findViewById(R.id.regist_protocal_secrecy_tv);
         mRegistProtocalSecrecyTv.setOnClickListener(this);
         mRegistProtocaUserTv = (TextView) findViewById(R.id.regist_protoca_user_tv);
-        mRegistTv = (TextView) findViewById(R.id.regist_tv);
         mRegistProtocaUserTv.setOnClickListener(this);
         mAccountTypeTv = (TextView) findViewById(R.id.account_type_tv);
         mAccountTypeTv.setOnClickListener(this);
+        mRegistTv = (TextView) findViewById(R.id.regist_tv);
         mRegistTv.setOnClickListener(this);
         mLoginTv = (TextView) findViewById(R.id.login_tv);
         mLoginTv.setOnClickListener(this);

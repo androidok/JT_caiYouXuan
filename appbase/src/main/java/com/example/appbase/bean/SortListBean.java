@@ -99,7 +99,7 @@ public class SortListBean extends BaseResult {
             private int totalNum;
             private double totalPrices;
             private int sorting;
-            private int delivery;
+            private double delivery;
             private String establishTime;
 
             public int getId() {
@@ -150,11 +150,11 @@ public class SortListBean extends BaseResult {
                 this.sorting = sorting;
             }
 
-            public int getDelivery() {
+            public double getDelivery() {
                 return delivery;
             }
 
-            public void setDelivery(int delivery) {
+            public void setDelivery(double delivery) {
                 this.delivery = delivery;
             }
 

@@ -32,7 +32,7 @@ public class SellCommodityDetailBean implements Parcelable {
     private String description;
     private double price;
     //起送量
-    private int delivery;
+    private double delivery;
     private int packingCharges;
     private double transportCharges;
     private int sales;
@@ -53,11 +53,11 @@ public class SellCommodityDetailBean implements Parcelable {
         return commodityImg;
     }
 
-    public int getDelivery() {
+    public double getDelivery() {
         return delivery;
     }
 
-    public void setDelivery(int delivery) {
+    public void setDelivery(double delivery) {
         this.delivery = delivery;
     }
 
@@ -395,7 +395,7 @@ public class SellCommodityDetailBean implements Parcelable {
         dest.writeString(this.synopsis);
         dest.writeString(this.description);
         dest.writeDouble(this.price);
-        dest.writeInt(this.delivery);
+        dest.writeDouble(this.delivery);
         dest.writeInt(this.packingCharges);
         dest.writeDouble(this.transportCharges);
         dest.writeInt(this.sales);
@@ -427,7 +427,7 @@ public class SellCommodityDetailBean implements Parcelable {
         this.synopsis = in.readString();
         this.description = in.readString();
         this.price = in.readDouble();
-        this.delivery = in.readInt();
+        this.delivery = in.readDouble();
         this.packingCharges = in.readInt();
         this.transportCharges = in.readDouble();
         this.sales = in.readInt();

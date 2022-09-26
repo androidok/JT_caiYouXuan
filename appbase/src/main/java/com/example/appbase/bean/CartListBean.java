@@ -121,7 +121,7 @@ public class CartListBean  extends BaseResult {
             private String commodityName;
             private String sku;
             private int stock;
-            private int delivery;
+            private double delivery;
             private int sales;
             private String unique;
             private double price;
@@ -138,11 +138,11 @@ public class CartListBean  extends BaseResult {
                 return id;
             }
 
-            public int getDelivery() {
+            public double getDelivery() {
                 return delivery;
             }
 
-            public void setDelivery(int delivery) {
+            public void setDelivery(double delivery) {
                 this.delivery = delivery;
             }
 

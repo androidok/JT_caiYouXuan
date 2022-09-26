@@ -140,7 +140,7 @@ public class ShopPresent extends BaseAppMallPresent {
                 , true, 0, isDetail);
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PRICE, bean == null ? "" :
                         String.valueOf(bean.getPrice())
-                , true, 0, isDetail);
+                , true, 0, true);
         initTextSelectType(arrays, HomePageContract.COMMODITY_UNIT, "", bean == null ? "" : bean.getUnit(), true);
 
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_SEND_LEVEL, bean == null ? "" :

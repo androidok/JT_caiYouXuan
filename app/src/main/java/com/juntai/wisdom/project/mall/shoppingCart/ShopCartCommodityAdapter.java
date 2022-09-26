@@ -42,7 +42,7 @@ public class ShopCartCommodityAdapter extends BaseQuickAdapter<CartListBean.Data
         helper.setText(R.id.all_price_tv, String.valueOf(item.getPrice()));
         NumberButton numberButton = helper.getView(R.id.number_button);
         numberButton
-                .setmBuyMin(item.getDelivery())
+                .setmBuyMin(Double.valueOf(item.getDelivery()).intValue())
                 .setCurrentNumber(item.getCommodityNum());
         numberButton.setOnWarnListener(new NumberButton.OnWarnListener() {
             @Override

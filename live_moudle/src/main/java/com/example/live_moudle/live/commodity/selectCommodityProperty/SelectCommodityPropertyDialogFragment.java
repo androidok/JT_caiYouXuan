@@ -97,8 +97,8 @@ public class SelectCommodityPropertyDialogFragment extends BaseBottomSheetFragme
         ImageLoadUtil.loadSquareImageHasCorner(getContext(), dataBean.getCoverImg(), mCommodityPicIv);
         mAllPriceTv.setText(String.valueOf(dataBean.getPrice()));
         mNumberButton
-                .setmBuyMin(dataBean.getDelivery())
-                .setCurrentNumber(dataBean.getDelivery());
+                .setmBuyMin(Double.valueOf(dataBean.getDelivery()).intValue())
+                .setCurrentNumber(Double.valueOf(dataBean.getDelivery()).intValue());
 
         initCommodityPrice();
     }
