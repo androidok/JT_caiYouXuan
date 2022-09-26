@@ -138,6 +138,9 @@ public class ShopPresent extends BaseAppMallPresent {
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_NAME, bean == null ? "" :
                         bean.getName()
                 , true, 0, isDetail);
+        /**
+         * 商品价格 只可查看 不可更改
+         */
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PRICE, bean == null ? "" :
                         String.valueOf(bean.getPrice())
                 , true, 0, true);
