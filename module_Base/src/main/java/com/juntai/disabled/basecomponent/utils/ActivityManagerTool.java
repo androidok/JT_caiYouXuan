@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.juntai.disabled.basecomponent.ARouterPath;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
 
 import java.util.LinkedList;
 
@@ -64,8 +65,9 @@ public class ActivityManagerTool {
     /**
      * 修改密码
      */
-    public void  startToModifyPwd(){
+    public void  startToModifyPwd(String phone){
         ARouter.getInstance().build(ARouterPath.appModifyPwd)
+                .withString(BaseActivity.BASE_STRING,phone)
                 .navigation();
     }
 

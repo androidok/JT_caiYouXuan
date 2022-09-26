@@ -31,6 +31,7 @@ public class ModifyPwdActivity extends BaseWithSmsActivity {
         return "修改密码";
     }
 
+
     @Override
     protected void commit() {
         if (!UserInfoManager.getPhoneNumber().equals(getTextViewValue(mRegistPhoneEt))) {

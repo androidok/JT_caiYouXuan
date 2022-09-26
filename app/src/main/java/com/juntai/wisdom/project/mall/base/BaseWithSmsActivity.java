@@ -72,6 +72,10 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
         mPasswordEt.setHint(getPwdHint());
         mHideShowIv = (ImageView) findViewById(R.id.hide_show_iv);
         mHideShowIv.setOnClickListener(this);
+        String phone = getIntent().getStringExtra(BASE_STRING);
+        if (!TextUtils.isEmpty(phone)) {
+            mRegistPhoneEt.setText(phone);
+        }
     }
 
     protected abstract String getPwdHint();

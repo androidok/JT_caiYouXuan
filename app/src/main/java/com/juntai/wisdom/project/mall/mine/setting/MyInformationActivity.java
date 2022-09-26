@@ -134,7 +134,7 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
                         break;
                     case MY_INFO_MODIFY_PWD:
                         // : 2022/5/6 修改密码
-                        ActivityManagerTool.getInstance().startToModifyPwd();
+                        ActivityManagerTool.getInstance().startToModifyPwd(UserInfoManager.getPhoneNumber());
                         break;
 //                    default:
 //                        break;

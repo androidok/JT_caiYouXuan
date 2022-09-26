@@ -103,7 +103,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
                                 break;
                             case MyCenterContract.MENU_MODIFY_PWD:
-                                ActivityManagerTool.getInstance().startToModifyPwd();
+                                ActivityManagerTool.getInstance().startToModifyPwd(UserInfoManager.getPhoneNumber());
                                 break;
 //                            case MyCenterContract.MENU_MODIFY_AUTH:
 //                                // : 2022/6/6 实名认证
