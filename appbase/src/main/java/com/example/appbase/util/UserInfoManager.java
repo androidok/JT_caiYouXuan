@@ -134,7 +134,7 @@ public class UserInfoManager {
      * @return
      */
     public static boolean isLogin() {
-        return Hawk.contains(HawkProperty.SP_KEY_USER) && Hawk.contains(HawkProperty.SP_KEY_TOKEN);
+        return Hawk.contains(HawkProperty.SP_KEY_USER) && Hawk.contains(HawkProperty.SP_KEY_TOKEN)&& Hawk.contains(HawkProperty.SP_KEY_PWD);
     }
 
     /**

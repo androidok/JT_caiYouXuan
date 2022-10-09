@@ -66,7 +66,7 @@ public class SellMainActivity extends BaseAppActivity<MainPagePresent> implement
 //        mainViewpager.setOffscreenPageLimit(5);
 //        initTab();
         //检测密码是否为弱口令
-        if (!PubUtil.checkPwdMark(Hawk.get(HawkProperty.SP_KEY_PWD))) {
+        if (Hawk.get(HawkProperty.SP_KEY_PWD)!=null&&!PubUtil.checkPwdMark(Hawk.get(HawkProperty.SP_KEY_PWD))) {
             showAlertDialog("检测到当前账号的密码过于简单,需要重新设置复杂密码", "前往更改", "下次再说", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
