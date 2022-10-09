@@ -2,6 +2,7 @@ package com.juntai.project.sell.mall;
 
 
 import com.example.appbase.bean.CommoditySourceDetailBean;
+import com.example.appbase.bean.IdNameBean;
 import com.example.appbase.bean.NewsListBean;
 import com.example.appbase.bean.PlayUrlBean;
 import com.example.appbase.bean.SellOrderListBean;
@@ -17,7 +18,6 @@ import com.juntai.project.sell.mall.beans.BillListBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatDataBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
 import com.juntai.project.sell.mall.beans.CommodityUnitBean;
-import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
 import com.juntai.project.sell.mall.beans.WithDrawListBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailDataBean;

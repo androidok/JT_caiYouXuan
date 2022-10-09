@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.juntai.project.sell.mall.beans.IdNameBean;
+import com.example.appbase.bean.IdNameBean;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.home.shop.ShopCommodityListFragment;
 import com.juntai.wisdom.project.mall.live.LiveCommodityListFragment;

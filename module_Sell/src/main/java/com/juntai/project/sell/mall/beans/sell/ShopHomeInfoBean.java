@@ -64,7 +64,7 @@ public class ShopHomeInfoBean extends BaseResult {
         private String todayMoney;
         private int todayVisitor;
         private int commodityCount;
-        private int commodityNum;
+        private double commodityNum;
         private int totalOrder;
         private int waitOrder;
         private int shipmentsOrder;
@@ -184,11 +184,11 @@ public class ShopHomeInfoBean extends BaseResult {
             this.todayVisitor = todayVisitor;
         }
 
-        public int getCommodityNum() {
+        public double getCommodityNum() {
             return commodityNum;
         }
 
-        public void setCommodityNum(int commodityNum) {
+        public void setCommodityNum(double commodityNum) {
             this.commodityNum = commodityNum;
         }
 

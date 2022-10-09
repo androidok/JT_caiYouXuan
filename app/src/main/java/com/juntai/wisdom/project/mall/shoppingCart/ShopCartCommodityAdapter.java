@@ -46,17 +46,17 @@ public class ShopCartCommodityAdapter extends BaseQuickAdapter<CartListBean.Data
                 .setCurrentNumber(item.getCommodityNum());
         numberButton.setOnWarnListener(new NumberButton.OnWarnListener() {
             @Override
-            public void onWarningForInventory(int inventory) {
+            public void onWarningForInventory(double inventory) {
 
             }
 
             @Override
-            public void onWarningForBuyMax(int max) {
+            public void onWarningForBuyMax(double max) {
 
             }
 
             @Override
-            public void onTextChanged(int num) {
+            public void onTextChanged(double num) {
 
                 item.setCommodityNum(num);
                 // : 2022/5/6 更改购物车商品属性

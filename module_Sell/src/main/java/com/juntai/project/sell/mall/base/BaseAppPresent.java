@@ -1,8 +1,10 @@
 package com.juntai.project.sell.mall.base;
 
+import com.example.appbase.bean.IdNameBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.bean.ShopListDataBean;
 import com.example.appbase.bean.UserBean;
+import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.example.net.AppNetModule;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
@@ -14,8 +16,6 @@ import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
-import com.juntai.project.sell.mall.beans.IdNameBean;
-import com.example.appbase.bean.multiBean.ImportantTagBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 
 import java.io.File;

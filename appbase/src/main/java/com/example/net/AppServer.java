@@ -8,6 +8,7 @@ import com.example.appbase.bean.CollectDataBean;
 import com.example.appbase.bean.CommodityDesListBean;
 import com.example.appbase.bean.CommodityDetailBean;
 import com.example.appbase.bean.CommodityEvaluationBean;
+import com.example.appbase.bean.IdNameBean;
 import com.example.appbase.bean.LiveDetailBean;
 import com.example.appbase.bean.LiveListBean;
 import com.example.appbase.bean.LiveResultBean;
@@ -42,7 +43,6 @@ import com.juntai.disabled.basecomponent.bean.shop.ShopDetailBuyBean;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
-import com.juntai.project.sell.mall.beans.IdNameBean;
 
 import java.util.List;
 

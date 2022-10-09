@@ -18,23 +18,24 @@ import java.util.List;
 public class OrderListBean extends BaseResult implements Parcelable {
 
     private double totalPrice;
-    private int totalCommodityNum;
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
+    private double totalCommodityNum;
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public int getTotalCommodityNum() {
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public double getTotalCommodityNum() {
         return totalCommodityNum;
     }
 
-    public void setTotalCommodityNum(int totalCommodityNum) {
+    public void setTotalCommodityNum(double totalCommodityNum) {
         this.totalCommodityNum = totalCommodityNum;
     }
+
 
     /**
      * data : {"totalCount":1,"pageSize":10,"totalPage":1,"currPage":1,"list":[{"id":368,"shopId":1,"shopName":"测试小店","payType":4,"state":1,"totalPrices":123,"transportCharges":10,"payPrice":133,"payPostage":10,"expireTime":"2022-05-16 14:12:16","commodityList":[{"id":89,"orderFormNumber":"7084104558239564","commodityId":15,"commodityName":"运动鞋","coverImg":"https://www.juntaikeji.com:21900/2022-05-13/1652406679479.png","prices":123,"commodityNum":1,"cartInfo":"红色;m","unique":"184fb43ae77d437f9c63d310b96b1aed"}]}]}
@@ -153,14 +154,16 @@ public class OrderListBean extends BaseResult implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeDouble(this.totalPrice);
-        dest.writeInt(this.totalCommodityNum);
+        dest.writeDouble(this.totalCommodityNum);
         dest.writeParcelable(this.data, flags);
     }
 
     protected OrderListBean(Parcel in) {
+        super(in);
         this.totalPrice = in.readDouble();
-        this.totalCommodityNum = in.readInt();
+        this.totalCommodityNum = in.readDouble();
         this.data = in.readParcelable(DataBean.class.getClassLoader());
     }
 

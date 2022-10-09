@@ -761,7 +761,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         private String shopName;
         private double prices;
         private double price;
-        private int commodityNum;
+        private double commodityNum;
         private String cartInfo;
         private String unique;
 
@@ -855,11 +855,12 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         public void setPrice(double price) {
             this.price = price;
         }
-        public int getCommodityNum() {
+
+        public double getCommodityNum() {
             return commodityNum;
         }
 
-        public void setCommodityNum(int commodityNum) {
+        public void setCommodityNum(double commodityNum) {
             this.commodityNum = commodityNum;
         }
 
@@ -899,7 +900,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
             dest.writeString(this.shopName);
             dest.writeDouble(this.prices);
             dest.writeDouble(this.price);
-            dest.writeInt(this.commodityNum);
+            dest.writeDouble(this.commodityNum);
             dest.writeString(this.cartInfo);
             dest.writeString(this.unique);
             dest.writeInt(this.orderStatus);
@@ -916,7 +917,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
             this.shopName = in.readString();
             this.prices = in.readDouble();
             this.price = in.readDouble();
-            this.commodityNum = in.readInt();
+            this.commodityNum = in.readDouble();
             this.cartInfo = in.readString();
             this.unique = in.readString();
             this.orderStatus = in.readInt();

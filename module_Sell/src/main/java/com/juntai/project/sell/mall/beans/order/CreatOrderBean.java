@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +47,7 @@ public class CreatOrderBean extends BaseResult {
         private String phone;
         private String detailedAddress;
         private double totalPrice;
-        private int totalCommodityNum;
+        private double totalCommodityNum;
         private List<ShopListBean> shopList;
 
         public int getAddressId() {
@@ -91,11 +90,11 @@ public class CreatOrderBean extends BaseResult {
             this.totalPrice = totalPrice;
         }
 
-        public int getTotalCommodityNum() {
+        public double getTotalCommodityNum() {
             return totalCommodityNum;
         }
 
-        public void setTotalCommodityNum(int totalCommodityNum) {
+        public void setTotalCommodityNum(double totalCommodityNum) {
             this.totalCommodityNum = totalCommodityNum;
         }
 
@@ -178,7 +177,7 @@ public class CreatOrderBean extends BaseResult {
                 private String unique;
                 private double price;
                 private String image;
-                private int commodityNum;
+                private double commodityNum;
                 private int id;
 
                 public int getId() {
@@ -237,11 +236,11 @@ public class CreatOrderBean extends BaseResult {
                     this.image = image;
                 }
 
-                public int getCommodityNum() {
+                public double getCommodityNum() {
                     return commodityNum;
                 }
 
-                public void setCommodityNum(int commodityNum) {
+                public void setCommodityNum(double commodityNum) {
                     this.commodityNum = commodityNum;
                 }
 
@@ -261,7 +260,7 @@ public class CreatOrderBean extends BaseResult {
                     dest.writeString(this.unique);
                     dest.writeDouble(this.price);
                     dest.writeString(this.image);
-                    dest.writeInt(this.commodityNum);
+                    dest.writeDouble(this.commodityNum);
                     dest.writeInt(this.id);
                 }
 
@@ -272,7 +271,7 @@ public class CreatOrderBean extends BaseResult {
                     this.unique = in.readString();
                     this.price = in.readDouble();
                     this.image = in.readString();
-                    this.commodityNum = in.readInt();
+                    this.commodityNum = in.readDouble();
                     this.id = in.readInt();
                 }
 
@@ -327,6 +326,9 @@ public class CreatOrderBean extends BaseResult {
             };
         }
 
+        public DataBean() {
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -339,11 +341,8 @@ public class CreatOrderBean extends BaseResult {
             dest.writeString(this.phone);
             dest.writeString(this.detailedAddress);
             dest.writeDouble(this.totalPrice);
-            dest.writeInt(this.totalCommodityNum);
-            dest.writeList(this.shopList);
-        }
-
-        public DataBean() {
+            dest.writeDouble(this.totalCommodityNum);
+            dest.writeTypedList(this.shopList);
         }
 
         protected DataBean(Parcel in) {
@@ -352,12 +351,11 @@ public class CreatOrderBean extends BaseResult {
             this.phone = in.readString();
             this.detailedAddress = in.readString();
             this.totalPrice = in.readDouble();
-            this.totalCommodityNum = in.readInt();
-            this.shopList = new ArrayList<ShopListBean>();
-            in.readList(this.shopList, ShopListBean.class.getClassLoader());
+            this.totalCommodityNum = in.readDouble();
+            this.shopList = in.createTypedArrayList(ShopListBean.CREATOR);
         }
 
-        public static final Parcelable.Creator<DataBean> CREATOR = new Parcelable.Creator<DataBean>() {
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
             @Override
             public DataBean createFromParcel(Parcel source) {
                 return new DataBean(source);

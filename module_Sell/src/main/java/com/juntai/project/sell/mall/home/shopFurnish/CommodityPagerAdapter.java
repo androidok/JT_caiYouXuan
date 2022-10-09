@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.appbase.bean.IdNameBean;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.IdNameBean;
 
 import java.util.List;
 

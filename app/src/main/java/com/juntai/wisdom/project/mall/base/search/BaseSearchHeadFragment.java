@@ -3,17 +3,11 @@ package com.juntai.wisdom.project.mall.base.search;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,7 +16,7 @@ import android.widget.TextView;
 import com.example.appbase.base.customview.flowlayout.FlowLayout;
 import com.example.appbase.base.customview.flowlayout.TagAdapter;
 import com.example.appbase.base.customview.flowlayout.TagFlowLayout;
-import com.juntai.disabled.basecomponent.utils.DialogUtil;
+import com.juntai.disabled.basecomponent.base.BaseFragment;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
@@ -39,7 +33,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/3/15 9:18
  */
-public abstract class BaseSearchHeadFragment extends Fragment implements View.OnClickListener {
+public abstract class BaseSearchHeadFragment extends BaseFragment implements View.OnClickListener {
 
     private View view;
     /**
@@ -60,7 +54,7 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
     private OnSearchCallBack searchCallBack;
     private LinearLayout mHisLl;
 
-    private String  searchContent;
+    private String searchContent;
 
     public String getSearchContent() {
         return mSearchTopContentSv.getQuery().toString().trim();
@@ -73,19 +67,18 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
         super.onAttach(context);
     }
 
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        Hawk.delete(getHiskey());
+    protected int getLayoutRes() {
+        return R.layout.fragment_search_head_layout;
     }
 
-    @Nullable
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search_head_layout, null);
-        initView(view);
-        return view;
+    protected void initData() {
+
     }
+
     /**
      * 设置图标
      *
@@ -97,21 +90,23 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
         drawable.setBounds(0, 0, DisplayUtil.dp2px(getContext(), 23), DisplayUtil.dp2px(getContext(), 23));//第一个 0 是距左边距离，第二个 0 是距上边距离，40 分别是长宽
         textView.setCompoundDrawables(drawable, null, null, null);//只放左边
     }
-    private void initView(View view) {
-        mBackTv = (TextView) view.findViewById(R.id.back_tv);
-        initViewLeftDrawable(mBackTv,R.drawable.app_back);
+
+    protected void initView() {
+
+        mBackTv = (TextView) getView(R.id.back_tv);
+        initViewLeftDrawable(mBackTv, R.drawable.app_back);
         mBackTv.setOnClickListener(this);
-        mSearchTopContentSv = (SearchView) view.findViewById(R.id.search_content_sv);
+        mSearchTopContentSv = (SearchView) getView(R.id.search_content_sv);
         SearchView.SearchAutoComplete textView = (SearchView.SearchAutoComplete) mSearchTopContentSv.findViewById(R.id.search_src_text);
         textView.setTextSize(12);
-        mSearchTv = (TextView) view.findViewById(R.id.search_tv);
+        mSearchTv = (TextView) getView(R.id.search_tv);
         mSearchTv.setOnClickListener(this);
-        mDeleteHistoryIv = (ImageView) view.findViewById(R.id.delete_history_iv);
+        mDeleteHistoryIv = (ImageView) getView(R.id.delete_history_iv);
         mDeleteHistoryIv.setOnClickListener(this);
-        tagFlowLayout = (TagFlowLayout) view.findViewById(R.id.history_item_tfl);
-        mShowMoreArrowIv = (ImageView) view.findViewById(R.id.show_more_arrow_iv);
-        mHisRecordCl = (ConstraintLayout) view.findViewById(R.id.his_record_cl);
-        mHisLl = (LinearLayout) view.findViewById(R.id.his_ll);
+        tagFlowLayout = (TagFlowLayout) getView(R.id.history_item_tfl);
+        mShowMoreArrowIv = (ImageView) getView(R.id.show_more_arrow_iv);
+        mHisRecordCl = (ConstraintLayout) getView(R.id.his_record_cl);
+        mHisLl = (LinearLayout) getView(R.id.his_ll);
         initFlowLayoutData();
         mSearchTopContentSv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -173,13 +168,15 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
         tagFlowLayout.setOnLongClickListener(new TagFlowLayout.OnLongClickListener() {
             @Override
             public void onLongClick(View view, final int position) {
-                showDialog("确定要删除该条历史记录？", new DialogInterface.OnClickListener() {
+
+                getBaseActivity().showAlertDialog("确定要删除该条历史记录？", "确定", "取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //删除某一条记录
                         deletHisItem(position);
                     }
                 });
+
             }
         });
 
@@ -210,22 +207,6 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
 
     protected abstract String getHiskey();
 
-    /**
-     * 删除条目的对话框
-     *
-     * @param dialogTitle
-     * @param onClickListener
-     */
-    private void showDialog(String dialogTitle, @NonNull DialogInterface.OnClickListener onClickListener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage(dialogTitle);
-        builder.setPositiveButton("确定", onClickListener);
-        builder.setNegativeButton("取消", null);
-        AlertDialog alertDialog = builder.create();
-        DialogUtil.setAlertDialogHeightWidth(getContext().getApplicationContext(),alertDialog,-1,0);
-        alertDialog.show();
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -246,7 +227,8 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
                 break;
             case R.id.delete_history_iv:
                 //删除所有的记录
-                showDialog("确定要删除所有历史记录？", new DialogInterface.OnClickListener() {
+
+                getBaseActivity().showAlertDialog("确定要删除所有历史记录?", "确定", "取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //删除所有记录
@@ -267,7 +249,7 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
         } else {
             his_data = new ArrayList<>();
         }
-        if (!TextUtils.isEmpty(content)&&!his_data.contains(content)) {
+        if (!TextUtils.isEmpty(content) && !his_data.contains(content)) {
             his_data.add(0, content);
             Hawk.put(getHiskey(), his_data);
             initFlowLayoutData();
@@ -280,7 +262,7 @@ public abstract class BaseSearchHeadFragment extends Fragment implements View.On
             // : 2022/5/28 隐藏历史记录
             if (TextUtils.isEmpty(content)) {
                 mHisLl.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 mHisLl.setVisibility(View.GONE);
 
             }

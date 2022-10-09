@@ -16,4 +16,6 @@ public class HomeSearchHeadFragment extends BaseSearchHeadFragment {
     protected String getHiskey() {
         return HawkProperty.getHomeSearchHisKey(UserInfoManager.getUserId());
     }
+
+
 }

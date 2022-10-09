@@ -261,7 +261,7 @@ public class CommodityDetailActivity extends BaseAppActivity<CommodityPresent> i
                 selectCommodityPropertyFragment.show(getSupportFragmentManager(), "selectCommodityPropertyFragment");
                 selectCommodityPropertyFragment.setOnConfirmCallBack(new SelectCommodityPropertyDialogFragment.OnConfirmCallBack() {
                     @Override
-                    public void confirm(CommodityPropertyBean commodityPropertyBean, int amount) {
+                    public void confirm(CommodityPropertyBean commodityPropertyBean, double amount) {
                         if (v.getId() == R.id.add_to_cart_tv) {
                             mPresenter.editCart(getBaseBuilder().add("shopId", String.valueOf(dataBean.getShopId()))
                                     .add("commodityId", String.valueOf(commodityId))

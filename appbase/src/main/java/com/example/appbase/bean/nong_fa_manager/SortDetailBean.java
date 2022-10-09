@@ -214,7 +214,7 @@ public class SortDetailBean extends BaseResult {
             private String coverImg;
             private double prices;
             private double price;
-            private int commodityNum;
+            private double commodityNum;
             private String cartInfo;
             private String unique;
             private int supplier;
@@ -301,11 +301,11 @@ public class SortDetailBean extends BaseResult {
                 this.prices = prices;
             }
 
-            public int getCommodityNum() {
+            public double getCommodityNum() {
                 return commodityNum;
             }
 
-            public void setCommodityNum(int commodityNum) {
+            public void setCommodityNum(double commodityNum) {
                 this.commodityNum = commodityNum;
             }
 

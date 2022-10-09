@@ -216,7 +216,7 @@ public class ConfirmOrderActivity extends BaseAppActivity<OrderPresent> implemen
                 break;
             case R.id.commit_order_tv:
                 // : 2022/5/11 提交订单
-                if (!Hawk.contains(HawkProperty.getDefaultAddrKey(UserInfoManager.getUserId()))) {
+                if (mDefaultAddrLl.getVisibility()!=View.VISIBLE) {
                     ToastUtils.toast(mContext, "请选择收货地址");
                     return;
                 }

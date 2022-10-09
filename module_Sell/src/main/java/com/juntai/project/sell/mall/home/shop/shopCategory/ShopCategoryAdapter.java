@@ -2,8 +2,8 @@ package com.juntai.project.sell.mall.home.shop.shopCategory;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.appbase.bean.IdNameBean;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.beans.IdNameBean;
 
 /**
  * @Author: tobato

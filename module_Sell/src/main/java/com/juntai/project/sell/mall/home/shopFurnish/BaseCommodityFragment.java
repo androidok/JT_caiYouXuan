@@ -7,13 +7,13 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.appbase.base.customview.CustomViewPager;
+import com.example.appbase.bean.IdNameBean;
 import com.example.appbase.bean.ShopDetailSellBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppFragment;
-import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;

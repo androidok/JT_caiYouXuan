@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ConfirmOrderBean extends BaseResult {
     private double totalPrice;
-    private int totalCommodityNum;
+    private double totalCommodityNum;
     private List<OrderDetailBean> data;
 
     public List<OrderDetailBean> getData() {
@@ -30,16 +30,19 @@ public class ConfirmOrderBean extends BaseResult {
         this.totalPrice = totalPrice;
     }
 
-    public int getTotalCommodityNum() {
+    public double getTotalCommodityNum() {
         return totalCommodityNum;
     }
 
-    public void setTotalCommodityNum(int totalCommodityNum) {
+    public void setTotalCommodityNum(double totalCommodityNum) {
         this.totalCommodityNum = totalCommodityNum;
     }
 
     public void setData(List<OrderDetailBean> data) {
         this.data = data;
+    }
+
+    public ConfirmOrderBean() {
     }
 
     @Override
@@ -51,17 +54,14 @@ public class ConfirmOrderBean extends BaseResult {
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeDouble(this.totalPrice);
-        dest.writeInt(this.totalCommodityNum);
+        dest.writeDouble(this.totalCommodityNum);
         dest.writeTypedList(this.data);
-    }
-
-    public ConfirmOrderBean() {
     }
 
     protected ConfirmOrderBean(Parcel in) {
         super(in);
         this.totalPrice = in.readDouble();
-        this.totalCommodityNum = in.readInt();
+        this.totalCommodityNum = in.readDouble();
         this.data = in.createTypedArrayList(OrderDetailBean.CREATOR);
     }
 

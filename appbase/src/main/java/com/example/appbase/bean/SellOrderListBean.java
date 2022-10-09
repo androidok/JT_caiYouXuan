@@ -18,7 +18,7 @@ import java.util.List;
 public class SellOrderListBean extends BaseResult implements Parcelable {
 
     private double totalPrice;
-    private int totalCommodityNum;
+    private double totalCommodityNum;
 
     public double getTotalPrice() {
         return totalPrice;
@@ -28,11 +28,11 @@ public class SellOrderListBean extends BaseResult implements Parcelable {
         this.totalPrice = totalPrice;
     }
 
-    public int getTotalCommodityNum() {
+    public double getTotalCommodityNum() {
         return totalCommodityNum;
     }
 
-    public void setTotalCommodityNum(int totalCommodityNum) {
+    public void setTotalCommodityNum(double totalCommodityNum) {
         this.totalCommodityNum = totalCommodityNum;
     }
 
@@ -153,14 +153,16 @@ public class SellOrderListBean extends BaseResult implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeDouble(this.totalPrice);
-        dest.writeInt(this.totalCommodityNum);
+        dest.writeDouble(this.totalCommodityNum);
         dest.writeParcelable(this.data, flags);
     }
 
     protected SellOrderListBean(Parcel in) {
+        super(in);
         this.totalPrice = in.readDouble();
-        this.totalCommodityNum = in.readInt();
+        this.totalCommodityNum = in.readDouble();
         this.data = in.readParcelable(DataBean.class.getClassLoader());
     }
 

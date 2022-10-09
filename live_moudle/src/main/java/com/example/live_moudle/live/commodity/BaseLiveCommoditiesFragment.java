@@ -73,7 +73,7 @@ public abstract class BaseLiveCommoditiesFragment extends BaseMvpFragment<LivePr
                     selectCommodityPropertyFragment.show(getFragmentManager(), "selectCommodityPropertyFragment");
                     selectCommodityPropertyFragment.setOnConfirmCallBack(new SelectCommodityPropertyDialogFragment.OnConfirmCallBack() {
                         @Override
-                        public void confirm(CommodityPropertyBean commodityPropertyBean, int amount) {
+                        public void confirm(CommodityPropertyBean commodityPropertyBean, double amount) {
                             if (childViewId == R.id.live_add_to_cart_iv) {
                                 mPresenter.editCart(mPresenter.getBaseBuilder().add("shopId", String.valueOf(dataBean.getShopId()))
                                         .add("commodityId", String.valueOf(dataBean.getId()))

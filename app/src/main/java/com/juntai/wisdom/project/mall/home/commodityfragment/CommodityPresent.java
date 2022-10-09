@@ -2,8 +2,8 @@ package com.juntai.wisdom.project.mall.home.commodityfragment;
 
 import com.example.appbase.base.BaseAppPresent;
 import com.example.appbase.bean.CartListBean;
-import com.example.appbase.bean.CommodityDesListBean;
 import com.example.appbase.bean.CommodityEvaluationBean;
+import com.example.appbase.bean.IdNameBean;
 import com.example.appbase.bean.PicTextBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppNetModule;
@@ -13,7 +13,6 @@ import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.orhanobut.hawk.Hawk;

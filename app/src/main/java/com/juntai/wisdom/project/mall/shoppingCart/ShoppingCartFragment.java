@@ -19,7 +19,6 @@ import com.example.live_moudle.live.commodity.selectCommodityProperty.SelectComm
 import com.example.live_moudle.util.ObjectBoxUtil;
 import com.example.net.AppHttpPath;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
-import com.juntai.disabled.basecomponent.utils.DialogUtil;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
@@ -29,7 +28,7 @@ import com.juntai.wisdom.project.mall.base.BaseRecyclerviewFragment;
 import com.juntai.wisdom.project.mall.home.HomePageContract;
 import com.juntai.wisdom.project.mall.home.commodityfragment.CommodityPresent;
 
-import java.text.DecimalFormat;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -254,12 +253,14 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                         ToastUtils.toast(mContext, "请选择要删除的商品");
                         return;
                     }
-                    DialogUtil.getConfirmDialog(getContext(), "确定从购物车列表删除吗?", new DialogInterface.OnClickListener() {
+
+                    getBaseActivity().showAlertDialog("确定从购物车列表删除吗", "确定", "取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mPresenter.deleteCartCommodity(ids, AppHttpPath.DELETE_CART_COMMODITY);
                         }
-                    }).show();
+                    });
+
                 } else {
                     // 结算
                     List<Integer> ids = getSelectedCommodities(isEdit);
@@ -300,6 +301,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
         toCommitSelectedCommoditiesBean.setTrolley(trolleyBeans);
         return GsonTools.createGsonString(toCommitSelectedCommoditiesBean);
     }
+
     /**
      * 获取选中的商品
      *
@@ -314,8 +316,8 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                 child.setSelected(false);
             }
         }
-       baseQuickAdapter.notifyDataSetChanged();
-        return ;
+        baseQuickAdapter.notifyDataSetChanged();
+        return;
     }
 
     /**
@@ -394,20 +396,22 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
      */
     private void setSelectedCommoditiesPrice() {
         List<CartListBean.DataBean> dataBeans = baseQuickAdapter.getData();
-        DecimalFormat dFormat = new DecimalFormat("0.00");
-        double price = 0.00;
+        double totalPrice = 0.00;
         for (CartListBean.DataBean dataBean : dataBeans) {
             List<CartListBean.DataBean.CommodityListBean> commodityListBeans = dataBean.getCommodityList();
             if (commodityListBeans != null && !commodityListBeans.isEmpty()) {
                 for (CartListBean.DataBean.CommodityListBean listBean : commodityListBeans) {
                     if (listBean.isSelected()) {
-                        price += listBean.getPrice() * listBean.getCommodityNum();
+                        totalPrice += listBean.getPrice() * listBean.getCommodityNum();
                     }
 
                 }
             }
         }
-        mAllPriceTv.setText(String.valueOf(dFormat.format(price)));
+        BigDecimal bigDecimal = new BigDecimal(totalPrice);
+//保留2位小数
+        double price = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        mAllPriceTv.setText(String.valueOf(price));
     }
 
     /**
@@ -460,7 +464,7 @@ public class ShoppingCartFragment extends BaseRecyclerviewFragment<CommodityPres
                     selectCommodityPropertyFragment.show(getFragmentManager(), "selectCommodityPropertyFragment");
                     selectCommodityPropertyFragment.setOnConfirmCallBack(new SelectCommodityPropertyDialogFragment.OnConfirmCallBack() {
                         @Override
-                        public void confirm(CommodityPropertyBean commodityPropertyBean, int amount) {
+                        public void confirm(CommodityPropertyBean commodityPropertyBean, double amount) {
                             mPresenter.editCart(getBaseAppActivity().getBaseBuilder().add("shopId", String.valueOf(dataBean.getShopId()))
                                     .add("commodityId", String.valueOf(dataBean.getId()))
                                     .add("attributeUnique", commodityPropertyBean.getUnique())

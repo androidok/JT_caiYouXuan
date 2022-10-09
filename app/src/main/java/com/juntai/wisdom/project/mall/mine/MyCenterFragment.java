@@ -10,18 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.appbase.PicTextAdapter;
 import com.example.appbase.bean.PicTextBean;
 import com.example.appbase.bean.UserBean;
 import com.example.appbase.bean.order.OrderStatusAmountBean;
 import com.example.appbase.util.UserInfoManager;
 import com.example.net.AppHttpPath;
-import com.juntai.disabled.basecomponent.utils.DialogUtil;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.mall.R;
 import com.juntai.wisdom.project.mall.base.BaseAppFragment;
-import com.example.appbase.PicTextAdapter;
 import com.juntai.wisdom.project.mall.mine.collect.CollectCommoditiesActivity;
 import com.juntai.wisdom.project.mall.mine.collect.CollectShopesActivity;
 import com.juntai.wisdom.project.mall.mine.setting.MyInformationActivity;
@@ -204,15 +203,14 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         switch (v.getId()) {
             case R.id.login_out_tv:
                 //退出登录
-                DialogUtil.getMessageDialog(mContext, "是否退出登录", new DialogInterface.OnClickListener() {
+                getBaseActivity().showAlertDialogOfOneBt("", "是否退出登录", "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
                         // : 2022/5/16 调用退出登录的接口
                         mPresenter.logout(getBaseAppActivity().getBaseBuilder().build(), AppHttpPath.LOGOUT);
-
                     }
-                }).show();
+                });
+
 
                 break;
             case R.id.set_iv:

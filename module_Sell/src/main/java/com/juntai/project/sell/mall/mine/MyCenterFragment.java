@@ -19,7 +19,6 @@ import com.juntai.disabled.basecomponent.ARouterPath;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
-import com.juntai.disabled.basecomponent.utils.DialogUtil;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
@@ -191,15 +190,17 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         }
         int id = v.getId();
         if (id == R.id.login_out) {//退出登录
-            DialogUtil.getMessageDialog(mContext, "是否退出登录", new DialogInterface.OnClickListener() {
+
+            getBaseActivity().showAlertDialogOfOneBt("", "是否退出登录", "确定", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
                     // : 2022/5/16 调用退出登录的接口
                     mPresenter.logout(getBuilder().build(), AppHttpPathMall.LOGOUT);
 
                 }
-            }).show();
+            });
+
+
         } else if (id == R.id.head_cl) {//基本信息
         }
     }
