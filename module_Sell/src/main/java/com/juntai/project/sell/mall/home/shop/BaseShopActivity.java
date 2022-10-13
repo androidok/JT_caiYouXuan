@@ -43,10 +43,7 @@ import com.juntai.project.sell.mall.utils.CalendarUtil;
 import com.juntai.project.sell.mall.utils.StringTools;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -256,17 +253,10 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                             });
                             break;
                         case HomePageContract.SHOP_ORDER_START_TIME:
-                            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                            Calendar startCalendar = Calendar.getInstance();
-                            try {
-                                startCalendar.setTime(sdf.parse("06:00:00"));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            PickerManager.getInstance().showTimePickerView(mContext, new boolean[]{false, false, false, true, true, true}, "截单开始时间", startCalendar, new PickerManager.OnTimePickerTimeSelectedListener() {
+                            PickerManager.getInstance().showTimePickerView(mContext, new boolean[]{true, true, true, true, true, true}, "截单开始时间", new PickerManager.OnTimePickerTimeSelectedListener() {
                                 @Override
                                 public void onTimeSelect(Date date, View v) {
-                                    String time = CalendarUtil.getCurrentTime("HH:mm:ss", date);
+                                    String time = CalendarUtil.getCurrentTime("yyyy-MM-dd HH:mm:ss", date);
                                     mSelectTv.setText(time);
                                     selectBean.setValue(time);
                                     String endTime = getStartEndTime(1);
@@ -284,17 +274,10 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                             });
                             break;
                         case HomePageContract.SHOP_ORDER_END_TIME:
-                            SimpleDateFormat sdfEnd = new SimpleDateFormat("HH:mm:ss");
-                            Calendar endCalendar = Calendar.getInstance();
-                            try {
-                                endCalendar.setTime(sdfEnd.parse("20:00:00"));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            PickerManager.getInstance().showTimePickerView(mContext, new boolean[]{false, false, false, true, true, true}, "截单结束时间", endCalendar, new PickerManager.OnTimePickerTimeSelectedListener() {
+                            PickerManager.getInstance().showTimePickerView(mContext, new boolean[]{true, true, true, true, true, true}, "截单结束时间", new PickerManager.OnTimePickerTimeSelectedListener() {
                                 @Override
                                 public void onTimeSelect(Date date, View v) {
-                                    String time = CalendarUtil.getCurrentTime("HH:mm:ss", date);
+                                    String time = CalendarUtil.getCurrentTime("yyyy-MM-dd HH:mm:ss", date);
                                     mSelectTv.setText(time);
                                     selectBean.setValue(time);
                                     String startTime = getStartEndTime(0);

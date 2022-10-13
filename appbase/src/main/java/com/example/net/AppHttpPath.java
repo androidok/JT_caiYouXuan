@@ -3,8 +3,8 @@ package com.example.net;
 public class AppHttpPath {
 
 
-    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
-//        public static final String BASE = "https://www.juntaikeji.com:21965/jt-mall";
+//    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
+        public static final String BASE = "https://www.juntaikeji.com:21965/jt-mall";
 public static final String BASE_LIVE_URL = "ws://www.juntaikeji.com:21970/jt-mall/liveSocket";
 //public static final String BASE_LIVE_URL = "ws://192.168.124.148:8080/jt-mall/liveSocket";
 
